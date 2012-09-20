@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Blues]]></title>
+  <link href="http://blueshen.github.com/atom.xml" rel="self"/>
+  <link href="http://blueshen.github.com/"/>
+  <updated>2012-09-20T17:49:05+08:00</updated>
+  <id>http://blueshen.github.com/</id>
+  <author>
+    <name><![CDATA[shenyanchao]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[windwos post blog]]></title>
+    <link href="http://blueshen.github.com/blog/2012/09/20/windwos-post-blog/"/>
+    <updated>2012-09-20T17:45:00+08:00</updated>
+    <id>http://blueshen.github.com/blog/2012/09/20/windwos-post-blog</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[我的第一篇中文博客]]></title>
+    <link href="http://blueshen.github.com/blog/2012/09/20/wo-de-di--pian-zhong-wen-bo-ke/"/>
+    <updated>2012-09-20T16:57:00+08:00</updated>
+    <id>http://blueshen.github.com/blog/2012/09/20/wo-de-di&#8211;pian-zhong-wen-bo-ke</id>
+    <content type="html"><![CDATA[<center>这个OCTOPRESS真是难搞啊，最主要是_config.xml里面的格式校验也太严格了</center>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[octopress finally run]]></title>
+    <link href="http://blueshen.github.com/blog/2012/09/20/octopress-finally-run/"/>
+    <updated>2012-09-20T16:51:00+08:00</updated>
+    <id>http://blueshen.github.com/blog/2012/09/20/octopress-finally-run</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+</feed>
