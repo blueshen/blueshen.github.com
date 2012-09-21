@@ -4,7 +4,7 @@
   <title><![CDATA[Blues 小站]]></title>
   <link href="http://blueshen.github.com/atom.xml" rel="self"/>
   <link href="http://blueshen.github.com/"/>
-  <updated>2012-09-21T18:36:16+08:00</updated>
+  <updated>2012-09-21T18:39:38+08:00</updated>
   <id>http://blueshen.github.com/</id>
   <author>
     <name><![CDATA[shenyanchao]]></name>
@@ -12,6 +12,21 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[markpad tools]]></title>
+    <link href="http://blueshen.github.com/blog/2012/09/21/markpad-tools/"/>
+    <updated>2012-09-21T18:37:00+08:00</updated>
+    <id>http://blueshen.github.com/blog/2012/09/21/markpad-tools</id>
+    <content type="html"><![CDATA[<hr />
+
+<p>这个工具不错！</p>
+
+<p>@<a href="http://blueshen.github.com" title="blueshen">GitHub</a></p>
+
+<hr />
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[markdown Syntax]]></title>
