@@ -4,7 +4,7 @@
   <title><![CDATA[Category: MD | Blues 小站]]></title>
   <link href="http://blueshen.github.com/blog/categories/md/atom.xml" rel="self"/>
   <link href="http://blueshen.github.com/"/>
-  <updated>2012-09-21T14:06:39+08:00</updated>
+  <updated>2012-09-21T18:29:30+08:00</updated>
   <id>http://blueshen.github.com/</id>
   <author>
     <name><![CDATA[shenyanchao]]></name>
@@ -18,7 +18,16 @@
     <link href="http://blueshen.github.com/blog/2012/09/21/markdown-syntax/"/>
     <updated>2012-09-21T13:37:00+08:00</updated>
     <id>http://blueshen.github.com/blog/2012/09/21/markdown-syntax</id>
-    <content type="html"><![CDATA[
+    <content type="html"><![CDATA[<h1>MarkDown干嘛用的</h1>
+
+<blockquote><p>用起来很快啊</p></blockquote>
+
+<pre><code>public static final String main(){
+    //to do something
+}
+</code></pre>
+
+<hr />
 ]]></content>
   </entry>
   
