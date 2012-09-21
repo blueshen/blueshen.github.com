@@ -4,7 +4,7 @@
   <title><![CDATA[Blues 小站]]></title>
   <link href="http://blueshen.github.com/atom.xml" rel="self"/>
   <link href="http://blueshen.github.com/"/>
-  <updated>2012-09-21T11:45:58+08:00</updated>
+  <updated>2012-09-21T13:31:17+08:00</updated>
   <id>http://blueshen.github.com/</id>
   <author>
     <name><![CDATA[shenyanchao]]></name>
@@ -32,12 +32,25 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[我的第一篇中文博客]]></title>
+    <title type="html"><![CDATA[我的中文博客]]></title>
     <link href="http://blueshen.github.com/blog/2012/09/20/wo-de-di--pian-zhong-wen-bo-ke/"/>
     <updated>2012-09-20T16:57:00+08:00</updated>
     <id>http://blueshen.github.com/blog/2012/09/20/wo-de-di&#8211;pian-zhong-wen-bo-ke</id>
-    <content type="html"><![CDATA[<center>这个OCTOPRESS真是难搞啊，最主要是_config.xml里面的格式校验也太严格了</center>
+    <content type="html"><![CDATA[<h1>吐槽</h1>
 
+<p>这个OCTOPRESS真是难搞啊，最主要是_config.xml里面的格式校验也太严格了</center></p>
+
+<h1>正文</h1>
+
+<p>在这里写一些内容。
+链接<a href="http://www.baidu.com">http://www.baidu.com</a></p>
+
+<hr />
+
+<p>代码段</p>
+
+<pre><code>    System.out.println("ok!")
+</code></pre>
 ]]></content>
   </entry>
   
