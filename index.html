@@ -141,6 +141,16 @@
 <p>@<a href="http://blueshen.github.com" title="blueshen">GitHub</a></p>
 
 <hr />
+
+<p>点击空白区域：</p>
+
+<pre><code>public static void click_blankArea(WebDriver driver) {
+    Actions actions = new Actions(driver);
+    actions.moveByOffset(0, 0).click().build().perform();
+}
+</code></pre>
+
+<hr />
 </div>
   
   

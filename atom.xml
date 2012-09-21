@@ -4,7 +4,7 @@
   <title><![CDATA[Blues 小站]]></title>
   <link href="http://blueshen.github.com/atom.xml" rel="self"/>
   <link href="http://blueshen.github.com/"/>
-  <updated>2012-09-21T18:41:13+08:00</updated>
+  <updated>2012-09-21T18:51:42+08:00</updated>
   <id>http://blueshen.github.com/</id>
   <author>
     <name><![CDATA[shenyanchao]]></name>
@@ -23,6 +23,16 @@
 <p>这个工具不错！</p>
 
 <p>@<a href="http://blueshen.github.com" title="blueshen">GitHub</a></p>
+
+<hr />
+
+<p>点击空白区域：</p>
+
+<pre><code>public static void click_blankArea(WebDriver driver) {
+    Actions actions = new Actions(driver);
+    actions.moveByOffset(0, 0).click().build().perform();
+}
+</code></pre>
 
 <hr />
 ]]></content>
