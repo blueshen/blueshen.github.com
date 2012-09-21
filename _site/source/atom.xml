@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[]]></title>
+  <link href="/atom.xml" rel="self"/>
+  <link href="/"/>
+  <updated>2012-09-20T19:56:50+08:00</updated>
+  <id>/</id>
+  <author>
+    <name><![CDATA[]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[weibo]]></title>
+    <link href="/source/2012/09/20/weibo.html"/>
+    <updated>2012-09-20T19:50:00+08:00</updated>
+    <id>/source/2012/09/20/weibo</id>
+    <content type="html"><![CDATA[]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[windwos post blog]]></title>
+    <link href="/source/2012/09/20/windwos-post-blog.html"/>
+    <updated>2012-09-20T17:45:00+08:00</updated>
+    <id>/source/2012/09/20/windwos-post-blog</id>
+    <content type="html"><![CDATA[]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[我的第一篇中文博客]]></title>
+    <link href="/source/2012/09/20/wo-de-di--pian-zhong-wen-bo-ke.html"/>
+    <updated>2012-09-20T16:57:00+08:00</updated>
+    <id>/source/2012/09/20/wo-de-di--pian-zhong-wen-bo-ke</id>
+    <content type="html"><![CDATA[<center>这个OCTOPRESS真是难搞啊，最主要是_config.xml里面的格式校验也太严格了</center>]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[octopress finally run]]></title>
+    <link href="/source/2012/09/20/octopress-finally-run.html"/>
+    <updated>2012-09-20T16:51:00+08:00</updated>
+    <id>/source/2012/09/20/octopress-finally-run</id>
+    <content type="html"><![CDATA[]]></content>
+  </entry>
+  
+</feed>

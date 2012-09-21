@@ -1,10 +1,11 @@
+﻿# coding: utf-8
 # ----------------------- #
 #      Main Configs       #
 # ----------------------- #
 
 url: http://blueshen.github.com
-title: Blues 
-subtitle: my blog .
+title: Blues 小站
+subtitle: 记录生活轨迹
 author: shenyanchao
 simple_search: http://google.com/search
 description:
@@ -13,7 +14,7 @@ description:
 # You can customize the format as defined in
 # http://www.ruby-doc.org/core-1.9.2/Time.html#method-i-strftime
 # Additionally, %o will give you the ordinal representation of the day
-date_format: "ordinal"
+date_format: "%Y-%m-%d %H:%m:%S"
 
 # RSS / Email (optional) subscription links (change if using something like Feedburner)
 subscribe_rss: /atom.xml
@@ -45,7 +46,7 @@ titlecase: true       # Converts page and post titles to titlecase
 
 # list each of the sidebar modules you want to include, in the order you want them to appear.
 # To add custom asides, create files in /source/_includes/custom/asides/ and add them to the list like 'custom/asides/custom_aside_name.html'
-default_asides: [asides/recent_posts.html, asides/github.html, asides/twitter.html, asides/delicious.html, asides/pinboard.html, asides/googleplus.html]
+default_asides: [asides/recent_posts.html, asides/weibo.html, asides/github.html, asides/googleplus.html]
 
 # Each layout uses the default asides, but they can have their own asides instead. Simply uncomment the lines below
 # and add an array with the asides you want to use.
@@ -56,12 +57,20 @@ default_asides: [asides/recent_posts.html, asides/github.html, asides/twitter.ht
 # ----------------------- #
 #   3rd Party Settings    #
 # ----------------------- #
+# Weibo  
+# Please refer to http://weibo.com/tool/weiboshow to get your uid and verifier.   
+weibo_uid: 2441133651                 
+weibo_verifier: 88889be4            
+weibo_fansline: 2        
+weibo_show: true       
+weibo_pic: true         
+weibo_skin: 9         
 
 # Github repositories
-#github_user:
-#github_repo_count: 0
-#github_show_profile_link: true
-#github_skip_forks: true
+github_user: blueshen
+github_repo_count: 0
+github_show_profile_link: true
+github_skip_forks: false
 
 # Twitter
 #twitter_user:
@@ -89,7 +98,7 @@ default_asides: [asides/recent_posts.html, asides/github.html, asides/twitter.ht
 #delicious_count: 3
 
 # Disqus Comments
-disqus_short_name:
+disqus_short_name: blueshen
 disqus_show_comment_count: false
 
 # Google Analytics
