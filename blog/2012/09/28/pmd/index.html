@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: 吐槽 - Blues 小站</title>
+  <title>PMD静态代码检查 - Blues 小站</title>
   <meta name="author" content="shenyanchao">
 
   
-  <meta name="description" content="Category: 吐槽">
+  <meta name="description" content="">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://blueshen.github.comblog/categories/吐槽">
+  <link rel="canonical" href="http://blueshen.github.com/blog/2012/09/28/pmd">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/bootstrap/bootstrap.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/stylesheets/bootstrap/responsive.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -102,38 +102,163 @@
   <div class="container">
     <div class="row-fluid">
       
-<article role="article" class="span9">
+<article class="hentry span9" role="article">
 
   
   <header class="page-header">
-    <h1 class="entry-title">Category: 吐槽</h1>
+    
+      <h1 class="entry-title">PMD静态代码检查</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-28T20:10:00+08:00" pubdate data-updated="true">2012-09-28 20:09:00</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+<div class="entry-content"><h1>PMD静态代码检查</h1>
 
-  
-  <h1>2012</h1>
+<h2>maven插件：maven-pmd-plugin</h2>
 
-<article>
-  <div class="well">
+<blockquote><p>pom.xml添加如下：</p></blockquote>
 
-<h2><a href="/blog/2012/09/20/wo-de-di--pian-zhong-wen-bo-ke/">我的中文博客</a></h2>
-<time datetime="2012-09-20T16:57:00+08:00" pubdate><span class='month'>Sep</span> <span class='day'>20</span> <span class='year'>2012</span></time>
+<pre><code>    &lt;plugin&gt;
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;maven-pmd-plugin&lt;/artifactId&gt;
+            &lt;version&gt;2.7.1&lt;/version&gt;
+            &lt;executions&gt;
+                &lt;execution&gt;
+                    &lt;phase&gt;package&lt;/phase&gt;
+                    &lt;goals&gt;
+                        &lt;goal&gt;check&lt;/goal&gt;
+                    &lt;/goals&gt;
+                &lt;/execution&gt;
+            &lt;/executions&gt;
+            &lt;configuration&gt;
+                &lt;failurePriority&gt;2&lt;/failurePriority&gt;
+                &lt;targetJdk&gt;1.6&lt;/targetJdk&gt;
+                &lt;rulesets&gt;
+                    &lt;ruleset&gt;/pmd-rulesets.xml&lt;/ruleset&gt;
+                &lt;/rulesets&gt;
+            &lt;/configuration&gt;
+        &lt;/plugin&gt;
+</code></pre>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/吐槽/'>吐槽</a></span>
-</footer>
+<blockquote><p>其中<strong>pmd-rulesets.xml</strong>是规则文件</p></blockquote>
 
+<h3>如何使用</h3>
+
+<pre><code>mvn pmd:pmd
+mvn pmd:check   
+</code></pre>
+
+<hr />
+
+<h2>pmd在eclipse中的使用</h2>
+
+<blockquote><p>1.安装</p>
+
+<blockquote><p>Help -> Install New Software -> Add&#8230;<br/>
+update site:<a href="http://pmd.sourceforge.net/eclipse">http://pmd.sourceforge.net/eclipse</a></p></blockquote></blockquote>
+
+<p><img src="images/glyphicons-halflings.png" alt="keyboard" /></p>
 </div>
 
-</article>
 
-</div>
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">shenyanchao</span></span>
+
+      
+
+
+
+
+
+
+
 
   
+
+
+<time datetime="2012-09-28T20:10:00+08:00" pubdate data-updated="true">2012-09-28 20:09:00</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/maven/'>maven</a>
+  
+</span>
+
+
+    </p>
+    
+      ﻿<div class="sharing">
+  
+ <script type="text/javascript" charset="utf-8">
+(function(){
+  var _w = 106 , _h = 58;
+  var param = {
+    url:location.href,
+    type:'5',
+    count:'1', /**是否显示分享数，1显示(可选)*/
+    appkey:'', /**您申请的应用appkey,显示分享来源(可选)*/
+    title:'', /**分享的文字内容(可选，默认为所在页面的title)*/
+    pic:'', /**分享图片的路径(可选)*/
+    ralateUid:'2441133651', /**关联用户的UID，分享微博会@该用户(可选)*/
+	language:'zh_cn', /**设置语言，zh_cn|zh_tw(可选)*/
+    rnd:new Date().valueOf()
+  }
+  var temp = [];
+  for( var p in param ){
+    temp.push(p + '=' + encodeURIComponent( param[p] || '' ) )
+  }
+  document.write('<iframe allowTransparency="true" frameborder="0" scrolling="no" src="http://hits.sinajs.cn/A1/weiboshare.html?' + temp.join('&') + '" width="'+ _w+'" height="'+_h+'"></iframe>')
+})()
+</script>
+  
+  
+  
+  
+</div>
+
+    
+    
+    <section>
+      <h1>Comments</h1>
+      <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+    </section>
+    
+    <ul class="pager">
+      
+      <li class="previous"><a class="basic-alignment left"
+        href="/blog/2012/09/21/markpad-tools/" title="Previous Post:
+        markpad 工具">&laquo; markpad 工具</a></li>
+      
+      <li><a href="/blog/archives">Blog Archives</a></li>
+      
+    </ul>
+  </footer>
 </article>
 
 <aside class="sidebar-nav span3">
@@ -217,7 +342,10 @@
       var disqus_shortname = 'blueshen';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blueshen.github.com/blog/2012/09/28/pmd/';
+        var disqus_url = 'http://blueshen.github.com/blog/2012/09/28/pmd/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
