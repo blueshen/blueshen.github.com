@@ -4,7 +4,7 @@
   <title><![CDATA[Category: maven | Blues 小站]]></title>
   <link href="http://blueshen.github.com/blog/categories/maven/atom.xml" rel="self"/>
   <link href="http://blueshen.github.com/"/>
-  <updated>2012-09-28T20:20:21+08:00</updated>
+  <updated>2012-09-28T20:27:02+08:00</updated>
   <id>http://blueshen.github.com/</id>
   <author>
     <name><![CDATA[shenyanchao]]></name>
@@ -63,7 +63,7 @@ mvn pmd:check
 <blockquote><p>Help -> Install New Software -> Add...<br/>
 update site:<a href="http://pmd.sourceforge.net/eclipse">http://pmd.sourceforge.net/eclipse</a></p></blockquote></blockquote>
 
-<p><img src="/images/fancybox/fancybox_sprite.png.png" alt="keyboard" /></p>
+<p><img src="/images/fancybox/fancybox_sprite.png" alt="keyboard" /></p>
 
 <hr />
 ]]></content>
