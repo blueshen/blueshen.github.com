@@ -4,7 +4,7 @@
   <title><![CDATA[Blues 小站]]></title>
   <link href="http://blueshen.github.com/atom.xml" rel="self"/>
   <link href="http://blueshen.github.com/"/>
-  <updated>2012-10-11T11:27:52+08:00</updated>
+  <updated>2012-10-11T11:40:36+08:00</updated>
   <id>http://blueshen.github.com/</id>
   <author>
     <name><![CDATA[shenyanchao]]></name>
@@ -91,27 +91,18 @@ mvn pmd:check
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[markpad 工具]]></title>
+    <title type="html"><![CDATA[markdown 工具]]></title>
     <link href="http://blueshen.github.com/blog/2012/09/21/markpad-tools/"/>
     <updated>2012-09-21T18:37:00+08:00</updated>
     <id>http://blueshen.github.com/blog/2012/09/21/markpad-tools</id>
     <content type="html"><![CDATA[<hr />
 
-<p>这个工具不错！</p>
+<p>这个工具不错！可以很好的用来快速的对博客进行排版。<br/>
+编辑器推荐: <a href="http://markdownpad.com/">MarkDownPad</a></p>
 
-<p>@<a href="http://blueshen.github.com" title="blueshen">GitHub</a></p>
+<p>@<a href="http://blueshen.github.com" title="blueshen">Blueshen</a>就是使用这种工具进行排版的</p>
 
 <hr />
-
-<p>点击空白区域：</p>
-
-<pre><code>public static void click_blankArea(WebDriver driver) {
-    Actions actions = new Actions(driver);
-    actions.moveByOffset(0, 0).click().build().perform();
-}
-</code></pre>
-
-<h2>6:54 下午 星期五, 九月 21, 2012</h2>
 ]]></content>
   </entry>
   
@@ -120,21 +111,15 @@ mvn pmd:check
     <link href="http://blueshen.github.com/blog/2012/09/21/markdown-syntax/"/>
     <updated>2012-09-21T13:37:00+08:00</updated>
     <id>http://blueshen.github.com/blog/2012/09/21/markdown-syntax</id>
-    <content type="html"><![CDATA[<h1>MarkDown干嘛用的</h1>
-
-<blockquote><p>用起来很快啊</p></blockquote>
-
-<pre><code>public static final String main(){
-    //to do something
-}
-</code></pre>
+    <content type="html"><![CDATA[<blockquote><p>用起来很爽 <br/>
+语法具体可以参考：<a href="http://wowubuntu.com/markdown/">markdown Syntax</a></p></blockquote>
 
 <hr />
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[我的中文博客]]></title>
+    <title type="html"><![CDATA[我的第一篇中文博客]]></title>
     <link href="http://blueshen.github.com/blog/2012/09/20/wo-de-di--pian-zhong-wen-bo-ke/"/>
     <updated>2012-09-20T16:57:00+08:00</updated>
     <id>http://blueshen.github.com/blog/2012/09/20/wo-de-di&#8211;pian-zhong-wen-bo-ke</id>
