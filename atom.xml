@@ -4,7 +4,7 @@
   <title><![CDATA[Blues 小站]]></title>
   <link href="http://blueshen.github.com/atom.xml" rel="self"/>
   <link href="http://blueshen.github.com/"/>
-  <updated>2012-10-11T16:02:41+08:00</updated>
+  <updated>2012-10-11T16:05:35+08:00</updated>
   <id>http://blueshen.github.com/</id>
   <author>
     <name><![CDATA[shenyanchao]]></name>
@@ -93,9 +93,12 @@ ignoring(NotFoundException.class);
 
 <h3>总结</h3>
 
-<blockquote><p>WebDriver提供了很多等待机制来增加selenium自动化的稳定性，只要合理利用是可以达到理想的效果的。无疑第一种方法sleep是最不可取的，是万不得已才用的一份方法，因为元素的加载与网络速度等客观因素直接相关。这个sleep的值是很难取的，值小了不行，值大了会造成case的运行速度缓慢。
-第二种方法是从全局的角度来解决元素查找问题的，在解决通用性的问题上有一定的优势，可以考虑使用。
+<blockquote><p>WebDriver提供了很多等待机制来增加selenium自动化的稳定性，只要合理利用是可以达到理想的效果的。 <br/>
+无疑第一种方法sleep是最不可取的，是万不得已才用的一份方法，因为元素的加载与网络速度等客观因素直接相关。这个sleep的值是很难取的，值小了不行，值大了会造成case的运行速度缓慢。 <br/>
+第二种方法是从全局的角度来解决元素查找问题的，在解决通用性的问题上有一定的优势，可以考虑使用。 <br/>
 第三种方法是最好的，也是<strong>推荐</strong>的一种等待方式，很好的解决了动态元素的查找问题。</p></blockquote>
+
+<hr />
 ]]></content>
   </entry>
   
