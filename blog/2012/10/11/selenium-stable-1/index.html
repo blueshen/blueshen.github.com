@@ -136,7 +136,7 @@
 
 <blockquote><p>1.在同一个页面内做操作，比如点击某个按钮后，弹出一个框，再点击另外一个按钮，又弹出一个框 <br/>
 2.此时如果第一个click操作后，第二个click再点击时，由于前一个弹出的框仍旧在前端显示，就会出错 <br/>
-3.在实际人工操作中，点击出第一个框后，点击一下空白区域，在点击出现第二个框。因此，可以考虑一个点击空白区域的方法</p>
+3.在实际人工操作中，点击出第一个框后，点击一下空白区域，在点击出现第二个框。因此，可以考虑一个点击空白区域的方法</p></blockquote>
 
 <h2>实现方法如下</h2>
 
@@ -147,7 +147,7 @@ public static void clickBlankArea(WebDriver driver) {
     Actions actions = new Actions(driver);
     actions.moveByOffset(0, 0).click().build().perform();
 }
-</code></pre></blockquote>
+</code></pre>
 
 <p>让driver先移动到一个空白位置（此处设为(0,0)坐标点），做一下点击操作即可</p>
 </div>
@@ -229,6 +229,10 @@ public static void clickBlankArea(WebDriver driver) {
       
       <li><a href="/blog/archives">Blog Archives</a></li>
       
+      <li class="next"><a class="basic-alignment right" href="/blog/2012/10/11/selenium-stable-2/"
+        title="Next Post: 提高selenium自动化的稳定性2-等待">提高selenium自动化的稳定性2-等待
+        &raquo;</a></li>
+      
     </ul>
   </footer>
 </article>
@@ -246,6 +250,10 @@ public static void clickBlankArea(WebDriver driver) {
     <li class="nav-header">最近更新</li>
     
       <li class="post">
+        <a href="/blog/2012/10/11/selenium-stable-2/">提高selenium自动化的稳定性2-等待</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/10/11/selenium-stable-1/">提高selenium自动化的稳定性1</a>
       </li>
     
@@ -259,10 +267,6 @@ public static void clickBlankArea(WebDriver driver) {
     
       <li class="post">
         <a href="/blog/2012/09/21/markdown-syntax/">markdown Syntax</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/09/20/wo-de-di--pian-zhong-wen-bo-ke/">我的第一篇中文博客</a>
       </li>
     
   </ul>
