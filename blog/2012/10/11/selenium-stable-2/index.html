@@ -158,7 +158,7 @@
 隐式等待是指当要查找元素（<code>driver.findElement()</code>），而这个元素没有马上出现时，告诉WebDriver查询Dom一定时间。默认值是0,但是设置之后，这个时间将在WebDriver对象实例整个生命周期都起作用。 <br/>
 比如使用：<code>driver.findElement(By.id("element"));</code>来查找id=&#8221;element&#8221;的元素。如果没有设置隐式等待，那么执行到这一步的时候就会直接报错<code>NoSuchElementException</code>。而设置后，则会在10秒内不断就查询元素是否存在，如果存在则返回。超过10秒仍没找到，才报错。</p>
 
-<h3>3.使用WebDriver提供的Wait<T>接口</h3>
+<h3>3.使用WebDriver提供的<code>Wait&lt;T&gt;</code>接口</h3>
 
 <pre><code>FluentWait&lt;T&gt; implements Wait&lt;T&gt;  
 
@@ -182,7 +182,7 @@ FluentWait的源码中这样写到:</p>
 private Duration interval = FIVE_HUNDRED_MILLIS;   
 </code></pre>
 
-<p>因此，如果不设置withTimeout、pollingEvery则相当于等待了500ms,并且请求了一次，要使用FluentWait应该依据实际需要进行设置。那有没有更好的方法呢，有的，请往下看。</p>
+<p>因此，如果不设置<code>withTimeout</code>、<code>pollingEvery</code>则相当于等待了500ms,并且请求了一次，要使用<code>FluentWait</code>应该依据实际需要进行设置。那有没有更好的方法呢，有的，请往下看。</p>
 
 <pre><code>WebDriverWait extends FluentWait&lt;WebDriver&gt;
 
@@ -196,14 +196,14 @@ WebElement element = waiter.until(new Function&lt;WebDriver, WebElement&gt;() {
 element.click();//something to do
 </code></pre>
 
-<p>WebDriverWait是继承于FluentWait的，并且实现了对功能进行了增强。从源码看出WebDriverWait的构造函数进行了如下的设置：</p>
+<p><code>WebDriverWait</code>是继承于<code>FluentWait</code>的，并且实现了对功能进行了增强。从源码看出<code>WebDriverWait</code>的构造函数进行了如下的设置：</p>
 
 <pre><code>withTimeout(timeOutInSeconds, TimeUnit.SECONDS);
 pollingEvery(sleepTimeOut, TimeUnit.MILLISECONDS);
 ignoring(NotFoundException.class);
 </code></pre>
 
-<p>设置了超时时间、每次请求的间隔为sleepTimeOut（默认500ms）、忽略了NotFoundException。因此直接使用WebDriverWait更加的省事。</p>
+<p>设置了超时时间、每次请求的间隔为<code>sleepTimeOut</code>（默认500ms）、忽略了<code>NotFoundException</code>。因此直接使用<code>WebDriverWait</code>更加的省事。</p>
 
 <h3>总结</h3>
 
