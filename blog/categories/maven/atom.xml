@@ -4,7 +4,7 @@
   <title><![CDATA[Category: maven | Blues 小站]]></title>
   <link href="http://blueshen.github.com/blog/categories/maven/atom.xml" rel="self"/>
   <link href="http://blueshen.github.com/"/>
-  <updated>2012-10-11T11:40:36+08:00</updated>
+  <updated>2012-10-11T13:56:15+08:00</updated>
   <id>http://blueshen.github.com/</id>
   <author>
     <name><![CDATA[shenyanchao]]></name>
@@ -18,11 +18,9 @@
     <link href="http://blueshen.github.com/blog/2012/10/11/pmd/"/>
     <updated>2012-10-11T11:20:00+08:00</updated>
     <id>http://blueshen.github.com/blog/2012/10/11/pmd</id>
-    <content type="html"><![CDATA[<h1>PMD静态代码检查</h1>
+    <content type="html"><![CDATA[<h2>一 maven插件：maven-pmd-plugin</h2>
 
-<h2>一、maven插件：maven-pmd-plugin</h2>
-
-<blockquote><p>pom.xml添加如下：</p></blockquote>
+<blockquote><p>pom.xml添加如下内容：</p></blockquote>
 
 <pre><code>    &lt;plugin&gt;
             &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
@@ -68,7 +66,7 @@ mvn pmd:check
 
 <hr />
 
-<h2>二、pmd在eclipse中的使用</h2>
+<h2>二 pmd在eclipse中的使用</h2>
 
 <blockquote><p>1.安装</p>
 
