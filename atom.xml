@@ -4,7 +4,7 @@
   <title><![CDATA[Blues 小站]]></title>
   <link href="http://blueshen.github.com/atom.xml" rel="self"/>
   <link href="http://blueshen.github.com/"/>
-  <updated>2012-09-28T20:27:02+08:00</updated>
+  <updated>2012-10-11T11:20:09+08:00</updated>
   <id>http://blueshen.github.com/</id>
   <author>
     <name><![CDATA[shenyanchao]]></name>
@@ -15,12 +15,12 @@
   
   <entry>
     <title type="html"><![CDATA[PMD静态代码检查]]></title>
-    <link href="http://blueshen.github.com/blog/2012/09/28/pmd/"/>
-    <updated>2012-09-28T20:10:00+08:00</updated>
-    <id>http://blueshen.github.com/blog/2012/09/28/pmd</id>
+    <link href="http://blueshen.github.com/blog/2012/10/11/pmd/"/>
+    <updated>2012-10-11T11:20:00+08:00</updated>
+    <id>http://blueshen.github.com/blog/2012/10/11/pmd</id>
     <content type="html"><![CDATA[<h1>PMD静态代码检查</h1>
 
-<h2>maven插件：maven-pmd-plugin</h2>
+<h2>一、maven插件：maven-pmd-plugin</h2>
 
 <blockquote><p>pom.xml添加如下：</p></blockquote>
 
@@ -46,7 +46,19 @@
         &lt;/plugin&gt;
 </code></pre>
 
-<blockquote><p>其中<strong>pmd-rulesets.xml</strong>是规则文件</p></blockquote>
+<blockquote><p>failurePriority用于指定在什么错误级别会failure，级别0~5不等。0为最高，5为最低。此处设为2,意为0、1、2级别的错误都会导致报错。级别可以根据项目的要求进行配置 <br/>
+其中<strong>pmd-rulesets.xml</strong>是规则文件,由pmd制定的一些规则，这些规则可以在pmd-*.jar里找到。 <strong>pmd-rulesets.xml</strong>类似于以下：</p></blockquote>
+
+<pre><code>&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+&lt;ruleset xmlns="http://pmd.sf.net/ruleset/1.0.0" name="pmd-rulsets" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd" xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"&gt;
+    &lt;description&gt;PMD Plugin preferences rule set&lt;/description&gt;
+    &lt;rule ref="rulesets/typeresolution.xml/LooseCoupling"/&gt;
+    &lt;rule ref="rulesets/typeresolution.xml/CloneMethodMustImplementCloneable"/&gt;
+    &lt;rule ref="rulesets/typeresolution.xml/SignatureDeclareThrowsException"/&gt;
+    &lt;rule ref="rulesets/braces.xml/IfStmtsMustUseBraces"/&gt;
+    &lt;rule ref="rulesets/braces.xml/WhileLoopsMustUseBraces"/&gt;
+&lt;/ruleset&gt;
+</code></pre>
 
 <h3>如何使用</h3>
 
@@ -56,14 +68,23 @@ mvn pmd:check
 
 <hr />
 
-<h2>pmd在eclipse中的使用</h2>
+<h2>二、pmd在eclipse中的使用</h2>
 
 <blockquote><p>1.安装</p>
 
 <blockquote><p>Help -> Install New Software -> Add&#8230;<br/>
-update site:<a href="http://pmd.sourceforge.net/eclipse">http://pmd.sourceforge.net/eclipse</a></p></blockquote></blockquote>
+设置update site:<a href="http://pmd.sourceforge.net/eclipse">http://pmd.sourceforge.net/eclipse</a><br/>
+一路next安装成功即可</p></blockquote>
 
-<p><img src="http://blueshen.github.com/images/fancybox/fancybox_sprite.png" alt="keyboard" /></p>
+<p>2.eclipse中的设置</p>
+
+<blockquote><p>Window -> Prefrences -> PMD -> Rules Configuration<br/>
+在其中可以设置相关Rules，这里面的Rules对应maven-pmd-plugins中的pmd-rulesets.xml，可以根据自己的需求进行定制</p></blockquote>
+
+<p>3.eclipse中的使用</p>
+
+<blockquote><p>右键选中project -> PMD -> Check Code with PMD<br/>
+执行结束后，会打开PMD视图，会依据不同的Priority级别显示不同的颜色。其中红色标注的X是级别为错误级别的。</p></blockquote></blockquote>
 
 <hr />
 ]]></content>
