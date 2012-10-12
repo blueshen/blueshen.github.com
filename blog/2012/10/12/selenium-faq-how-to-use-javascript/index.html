@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>PMD静态代码检查 - Blues 小站</title>
+  <title>selenium FAQ:怎么样调用Javascript？ - Blues 小站</title>
   <meta name="author" content="shenyanchao">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://blueshen.github.com/blog/2012/10/11/pmd">
+  <link rel="canonical" href="http://blueshen.github.com/blog/2012/10/12/selenium-faq-how-to-use-javascript">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/bootstrap/bootstrap.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/stylesheets/bootstrap/responsive.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -107,7 +107,7 @@
   
   <header class="page-header">
     
-      <h1 class="entry-title">PMD静态代码检查</h1>
+      <h1 class="entry-title">Selenium FAQ:怎么样调用Javascript？</h1>
     
     
       <p class="meta">
@@ -123,7 +123,7 @@
   
 
 
-<time datetime="2012-10-11T11:20:00+08:00" pubdate data-updated="true">2012-10-11 11:10:00</time>
+<time datetime="2012-10-12T14:30:00+08:00" pubdate data-updated="true">2012-10-12 14:10:00</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -132,73 +132,14 @@
   </header>
 
 
-<div class="entry-content"><h2>一 maven插件：maven-pmd-plugin</h2>
+<div class="entry-content"><h2>selenium自动化开发中，难免需要用到直接调用javascript，怎么用呢？</h2>
 
-<blockquote><p>pom.xml添加如下内容：</p></blockquote>
-
-<pre><code>    &lt;plugin&gt;
-            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
-            &lt;artifactId&gt;maven-pmd-plugin&lt;/artifactId&gt;
-            &lt;version&gt;2.7.1&lt;/version&gt;
-            &lt;executions&gt;
-                &lt;execution&gt;
-                    &lt;phase&gt;package&lt;/phase&gt;
-                    &lt;goals&gt;
-                        &lt;goal&gt;check&lt;/goal&gt;
-                    &lt;/goals&gt;
-                &lt;/execution&gt;
-            &lt;/executions&gt;
-            &lt;configuration&gt;
-                &lt;failurePriority&gt;2&lt;/failurePriority&gt;
-                &lt;targetJdk&gt;1.6&lt;/targetJdk&gt;
-                &lt;rulesets&gt;
-                    &lt;ruleset&gt;/pmd-rulesets.xml&lt;/ruleset&gt;
-                &lt;/rulesets&gt;
-            &lt;/configuration&gt;
-        &lt;/plugin&gt;
+<pre><code>WebDriver driver; // Assigned elsewhere
+JavascriptExecutor js = (JavascriptExecutor) driver;
+js.executeScript("return document.title");
 </code></pre>
 
-<blockquote><p>failurePriority用于指定在什么错误级别会failure，级别0~5不等。0为最高，5为最低。此处设为2,意为0、1、2级别的错误都会导致报错。级别可以根据项目的要求进行配置 <br/>
-其中<strong>pmd-rulesets.xml</strong>是规则文件,由pmd制定的一些规则，这些规则可以在pmd-*.jar里找到。 <strong>pmd-rulesets.xml</strong>类似于以下：</p></blockquote>
-
-<pre><code>&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
-&lt;ruleset xmlns="http://pmd.sf.net/ruleset/1.0.0" name="pmd-rulsets" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd" xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"&gt;
-    &lt;description&gt;PMD Plugin preferences rule set&lt;/description&gt;
-    &lt;rule ref="rulesets/typeresolution.xml/LooseCoupling"/&gt;
-    &lt;rule ref="rulesets/typeresolution.xml/CloneMethodMustImplementCloneable"/&gt;
-    &lt;rule ref="rulesets/typeresolution.xml/SignatureDeclareThrowsException"/&gt;
-    &lt;rule ref="rulesets/braces.xml/IfStmtsMustUseBraces"/&gt;
-    &lt;rule ref="rulesets/braces.xml/WhileLoopsMustUseBraces"/&gt;
-&lt;/ruleset&gt;
-</code></pre>
-
-<h3>如何使用</h3>
-
-<pre><code>mvn pmd:pmd
-mvn pmd:check   
-</code></pre>
-
-<hr />
-
-<h2>二 pmd在eclipse中的使用</h2>
-
-<blockquote><p>1.安装</p>
-
-<blockquote><p>Help -> Install New Software -> Add&#8230;<br/>
-设置update site:<a href="http://pmd.sourceforge.net/eclipse">http://pmd.sourceforge.net/eclipse</a><br/>
-一路next安装成功即可</p></blockquote>
-
-<p>2.eclipse中的设置</p>
-
-<blockquote><p>Window -> Prefrences -> PMD -> Rules Configuration<br/>
-在其中可以设置相关Rules，这里面的Rules对应maven-pmd-plugins中的pmd-rulesets.xml，可以根据自己的需求进行定制</p></blockquote>
-
-<p>3.eclipse中的使用</p>
-
-<blockquote><p>右键选中project -> PMD -> Check Code with PMD<br/>
-执行结束后，会打开PMD视图，会依据不同的Priority级别显示不同的颜色。其中红色标注的X是级别为错误级别的。</p></blockquote></blockquote>
-
-<hr />
+<p>直接将driver强制转化为JavascriptExecutor,然后执行javascript即可。</p>
 </div>
 
 
@@ -221,12 +162,12 @@ mvn pmd:check
   
 
 
-<time datetime="2012-10-11T11:20:00+08:00" pubdate data-updated="true">2012-10-11 11:10:00</time>
+<time datetime="2012-10-12T14:30:00+08:00" pubdate data-updated="true">2012-10-12 14:10:00</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/maven/'>maven</a>
+    <a class='category' href='/blog/categories/selenium/'>selenium</a>
   
 </span>
 
@@ -273,13 +214,13 @@ mvn pmd:check
     <ul class="pager">
       
       <li class="previous"><a class="basic-alignment left"
-        href="/blog/2012/09/21/markpad-tools/" title="Previous Post:
-        markdown 工具">&laquo; markdown 工具</a></li>
+        href="/blog/2012/10/12/apache-mpm/" title="Previous Post:
+        apache mpm介绍[转]">&laquo; apache mpm介绍[转]</a></li>
       
       <li><a href="/blog/archives">Blog Archives</a></li>
       
-      <li class="next"><a class="basic-alignment right" href="/blog/2012/10/11/selenium-stable-1/"
-        title="Next Post: 提高selenium自动化的稳定性1">提高selenium自动化的稳定性1
+      <li class="next"><a class="basic-alignment right" href="/blog/2012/10/12/selenium-faq-alerts-and-prompts/"
+        title="Next Post: selenium FAQ:如何处理JavaScript弹出的alert、prompt窗口">selenium FAQ:如何处理JavaScript弹出的alert、prompt窗口
         &raquo;</a></li>
       
     </ul>
@@ -369,8 +310,8 @@ mvn pmd:check
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://blueshen.github.com/blog/2012/10/11/pmd/';
-        var disqus_url = 'http://blueshen.github.com/blog/2012/10/11/pmd/';
+        var disqus_identifier = 'http://blueshen.github.com/blog/2012/10/12/selenium-faq-how-to-use-javascript/';
+        var disqus_url = 'http://blueshen.github.com/blog/2012/10/12/selenium-faq-how-to-use-javascript/';
         var disqus_script = 'embed.js';
       
     (function () {
