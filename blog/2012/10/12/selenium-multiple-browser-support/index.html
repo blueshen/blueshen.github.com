@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>提高selenium自动化的稳定性2-等待 - Blues 小站</title>
+  <title>Selenium WebDriver的多浏览器支持 - Blues 小站</title>
   <meta name="author" content="shenyanchao">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://blueshen.github.com/blog/2012/10/11/selenium-stable-2">
+  <link rel="canonical" href="http://blueshen.github.com/blog/2012/10/12/selenium-multiple-browser-support">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/bootstrap/bootstrap.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/stylesheets/bootstrap/responsive.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -107,7 +107,7 @@
   
   <header class="page-header">
     
-      <h1 class="entry-title">提高selenium自动化的稳定性2-等待</h1>
+      <h1 class="entry-title">Selenium WebDriver的多浏览器支持</h1>
     
     
       <p class="meta">
@@ -123,7 +123,7 @@
   
 
 
-<time datetime="2012-10-11T14:32:00+08:00" pubdate data-updated="true">2012-10-11 14:10:00</time>
+<time datetime="2012-10-12T14:56:00+08:00" pubdate data-updated="true">2012-10-12 14:10:00</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -132,87 +132,105 @@
   </header>
 
 
-<div class="entry-content"><h2>很多页面元素都是ajax动态生成的，这就要求进行适当的等待</h2>
+<div class="entry-content"><h2>Selenium WebDriver支持哪儿些浏览器？</h2>
 
-<h2>如何进行等待呢？</h2>
+<p>按照官方文档的说法，现阶段有以下的drivers:</p>
 
-<h3>1.直接sleep</h3>
+<blockquote><ul>
+<li>ChromeDriver</li>
+<li>InternetExplorerDriver</li>
+<li>FirefoxDriver</li>
+<li>OperaDriver</li>
+<li>HtmlUnitDriver</li>
+<li>AndroidDriver(mobile testing)</li>
+<li>OperaMobileDriver(mobile testing)</li>
+<li>IPhoneDriver(mobile testing)</li>
+</ul>
+</blockquote>
 
-<pre><code>public static void sleep(int seconds) {
-    try {
-        TimeUnit.SECONDS.sleep(seconds);
-    } catch (InterruptedException e) {
-        e.printStackTrace();
-    }
-}
+<h2>为什么selenium自动化case在一个浏览器运行的很好，换为另外一个浏览器则不行？</h2>
+
+<h3>一个Driver可以打开浏览器，另外一个Driver却不行？</h3>
+
+<p>WebDriver是通过调用native浏览器来操作的，浏览器之间的差异注定会出现一些问题。下面以InternetExplorer,Firefox,Chrome为例进行说明：</p>
+
+<h4>InternetExplorer：</h4>
+
+<blockquote><p>1.它分不同的版本，版本之间差异很大。InternetExplorerDriver支持IE6、7、8、9。操作系统支持XP、Vista、Windows 7。 <br/>
+2.InternetExplorerDriver同时支持32/64bit的浏览器，这个取决于你用的是什么版本的<a href="http://code.google.com/p/selenium/downloads/list">IEDriverServer.exe</a>。 <br/>
+3.要求条件如下：</p>
+
+<blockquote><ul>
+<li><a href="http://code.google.com/p/selenium/downloads/list">IEDriverServer</a>在系统环境的PATH内（selenium2.26.0+版本推荐方式）。</li>
+<li>在windows vista、windows7操作系统中，如果使用IE7+的浏览器，应该保证浏览器的<strong>保护模式</strong>都处于<strong>同一状态</strong>[开启或者关闭]。如果不一致，那么报错信息类似于<code>Caused by: org.openqa.selenium.WebDriverException: Unexpected error launching Internet Explorer. Protected Mode settings are not the same for all zones. Enable Protected Mode must be set to the same value (enabled or disabled) for all zones. (WARNING: The server did not provide any stacktrace information)</code> <br/>
+不会设置吗？ <br/>
+操作如下：打开浏览器->Internet选项 ->安全->启用保护模式。保证Internet、本地Intranet、受信任的站点、受限制的站点4个zone保护模式一致就OK</li>
+<li>为了确保能获得正确的坐标点，要把浏览器的缩放设为100%。 <br/>
+设置方法：打开浏览器->页面->缩放(Z)->100%</li>
+</ul>
+</blockquote></blockquote>
+
+<p>参考<a href="http://code.google.com/p/selenium/wiki/InternetExplorerDriver">http://code.google.com/p/selenium/wiki/InternetExplorerDriver</a></p>
+
+<h4>Firefox:</h4>
+
+<blockquote><p>1.Firefox不像InternetExplorer一样，用户可以自定义安装路径。因此使用时，需要制定firefox.exe的安装路径。<br/>
+怎么指定?</p>
+
+<blockquote><ul>
+<li>java code: <code>System.setProperty()</code></li>
+<li>命令行：<code>-DpropertyName='value'</code></li>
+</ul>
+</blockquote>
+
+<p>2.系统变量的值为：<code>webdriver.firefox.bin</code>，以及其他的key值，详见参考页面。webdriver.firefox.bin用来指定Firefox的安装路径。如不设置，默认从%PROGRAMFILES%\Mozilla Firefox\firefox.exe加载。<strong>个人强烈建议，即使安装在默认路径也进行指定</strong>。 <br/>
+3.Java代码如下：</p>
+
+<pre><code>System.setProperty("webdriver.firefox.bin", "C://Mozila/firefox.exe");  
+WebDriver driver = new FirefoxDriver();  
 </code></pre>
 
-<p>这种方法，用于直接的让thread进行等待指定的seconds。</p>
+<p>其中firefox的安装路径，按情况自行替换。</p></blockquote>
 
-<h3>2.使用selenium webdriver提供的等待方法</h3>
+<p>参考<a href="http://code.google.com/p/selenium/wiki/FirefoxDriver">http://code.google.com/p/selenium/wiki/FirefoxDriver</a></p>
 
-<pre><code>driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+<h4>Chrome:</h4>
+
+<p>chrome要求条件如下：</p>
+
+<blockquote><p>1.Chrome应当安装在默认路径下（如果是从官方下载的，安装后直接都是默认路径）。</p></blockquote>
+
+<table border=”1px">
+<tbody>
+<tr><td>OS</td><td>默认位置</td></tr>
+<tr><td>Linux</td><td>/usr/bin/google-chrome</td></tr>
+<tr><td>Mac</td><td>/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome</td></tr>
+<tr><td>Windwos XP</td><td>%HOMEPATH%\Local Settings\Application Data\Google\Chrome\Application\chrome.exe</td></tr>
+<tr><td>Windwos Vista</td><td>C:\Users\%USERNAME%\AppData\Local\Google\Chrome\Application\chrome.exe</td></tr>
+</tbody>
+</table>
+
+
+<p></p>
+
+<blockquote><p>2.需要下载相应版本的<a href="http://code.google.com/p/chromedriver/downloads/list">chromedriver</a>，用来架起chrome浏览器与webdriver之间的桥梁。 <br/>
+3.与FirefoxDriver差不多，需要设置chromedriver的路径。key值为：webdriver.chrome.driver. <br/>
+4.Java代码如下：</p>
+
+<pre><code>System.setProperty("webdriver.chrome.driver", "C://drivers/chromedriver.exe");  
+WebDriver driver = new ChromeDriver();    
 </code></pre>
 
-<p>这种方法是webdriver提供的一种隐式等待。<br/>
-隐式等待是指当要查找元素（<code>driver.findElement()</code>），而这个元素没有马上出现时，告诉WebDriver查询Dom一定时间。默认值是0,但是设置之后，这个时间将在WebDriver对象实例整个生命周期都起作用。 <br/>
-比如使用：<code>driver.findElement(By.id("element"));</code>来查找id=&#8221;element&#8221;的元素。如果没有设置隐式等待，那么执行到这一步的时候就会直接报错<code>NoSuchElementException</code>。而设置后，则会在10秒内不断就查询元素是否存在，如果存在则返回。超过10秒仍没找到，才报错。</p>
+<p>需要注意的是，chrome浏览器会自动更新，而<a href="http://code.google.com/p/chromedriver/downloads/list">chromedriver</a>也是不断更新的。如果chrome版本太新，而chromedriver没有相应的更换，会造成只是打开chrome浏览器，而不进行任何操作的问题。另外，ChromeDriver只适用于chrome 12.0.712.0+,如果需要使用更老的版本，见参考页面的详细描述。</p></blockquote>
 
-<h3>3.使用WebDriver提供的<code>Wait&lt;T&gt;</code>接口</h3>
+<p>参考<a href="http://code.google.com/p/selenium/wiki/ChromeDriver">http://code.google.com/p/selenium/wiki/ChromeDriver</a></p>
 
-<pre><code>FluentWait&lt;T&gt; implements Wait&lt;T&gt;  
+<h3>在一个浏览器里，元素可以找到或者可以操作，而在另外一个浏览器内则不行，为什么？</h3>
 
-Wait&lt;WebDriver&gt; wait = new FluentWait&lt;WebDriver&gt;(driver)
-   .withTimeout(30, SECONDS)
-   .pollingEvery(5, SECONDS)
-   .ignoring(NoSuchElementException.class);
+<p>不同浏览器之间解析DOM以及响应事件的机制不同，难免会有一些不兼容性。解决方法：</p>
 
-WebElement element = wait.until(new Function&lt;WebDriver, WebElement&gt;() {
- public WebElement apply(WebDriver driver) {
-   return driver.findElement(By.id("element"));
- }
-});
-element.click();//something to do
-</code></pre>
-
-<p>此方法用于等待一个元素在页面上出现，超时时间为30S，每隔5S去请求一次，并且忽略掉until中抛出的<code>NoSuchElementException</code>。 <br/>
-FluentWait的源码中这样写到:</p>
-
-<pre><code>private Duration timeout = FIVE_HUNDRED_MILLIS;  
-private Duration interval = FIVE_HUNDRED_MILLIS;   
-</code></pre>
-
-<p>因此，如果不设置<code>withTimeout</code>、<code>pollingEvery</code>则相当于等待了500ms,并且请求了一次，要使用<code>FluentWait</code>应该依据实际需要进行设置。那有没有更好的方法呢，有的，请往下看。</p>
-
-<pre><code>WebDriverWait extends FluentWait&lt;WebDriver&gt;
-
-Wait&lt;WebDriver&gt; waiter = new WebDriverWait(driver, 10);
-WebElement element = waiter.until(new Function&lt;WebDriver, WebElement&gt;() {
-        public WebElement apply(WebDriver driver) {
-            return driver.findElement(By.id("element"));
-        }
-
-    });
-element.click();//something to do
-</code></pre>
-
-<p><code>WebDriverWait</code>是继承于<code>FluentWait</code>的，并且实现了对功能进行了增强。从源码看出<code>WebDriverWait</code>的构造函数进行了如下的设置：</p>
-
-<pre><code>withTimeout(timeOutInSeconds, TimeUnit.SECONDS);
-pollingEvery(sleepTimeOut, TimeUnit.MILLISECONDS);
-ignoring(NotFoundException.class);
-</code></pre>
-
-<p>设置了超时时间、每次请求的间隔为<code>sleepTimeOut</code>（默认500ms）、忽略了<code>NotFoundException</code>。因此直接使用<code>WebDriverWait</code>更加的省事。</p>
-
-<h3>总结</h3>
-
-<p>WebDriver提供了很多等待机制来增加selenium自动化的稳定性，只要合理利用是可以达到理想的效果的。 <br/>
-无疑第一种方法sleep是最不可取的，是万不得已才用的一份方法，因为元素的加载与网络速度等客观因素直接相关。这个sleep的值是很难取的，值小了不行，值大了会造成case的运行速度缓慢。 <br/>
-第二种方法是从全局的角度来解决元素查找问题的，在解决通用性的问题上有一定的优势，可以考虑使用。 <br/>
-第三种方法是最好的，也是<strong>推荐</strong>的一种等待方式，很好的解决了动态元素的查找问题。</p>
-
-<hr />
+<blockquote><p>1.元素定位，通常是由于DOM解析不同造成的，可以使用不同的findElement方法进行实验，如id,class,xpath等。这个没有统一的结论，大多数情况下id是最靠谱的。<strong>推荐！</strong> <br/>
+2.事件的响应，这个如果存在问题，一般比较难解决。通常是由于浏览器之间的差异造成的。可以通过使用selenium更高的版本，或者更换浏览器的版本来解决。或者想一下，有没有其他的方式，换个事件来绕过去，总有办法的。如果实在解决不了，那也只能暂时是这样了。</p></blockquote>
 </div>
 
 
@@ -235,7 +253,7 @@ ignoring(NotFoundException.class);
   
 
 
-<time datetime="2012-10-11T14:32:00+08:00" pubdate data-updated="true">2012-10-11 14:10:00</time>
+<time datetime="2012-10-12T14:56:00+08:00" pubdate data-updated="true">2012-10-12 14:10:00</time>
       
 
 <span class="categories">
@@ -287,14 +305,10 @@ ignoring(NotFoundException.class);
     <ul class="pager">
       
       <li class="previous"><a class="basic-alignment left"
-        href="/blog/2012/10/11/selenium-stable-1/" title="Previous Post:
-        提高selenium自动化的稳定性1">&laquo; 提高selenium自动化的稳定性1</a></li>
+        href="/blog/2012/10/12/selenium-faq-alerts-and-prompts/" title="Previous Post:
+        selenium FAQ:如何处理JavaScript弹出的alert、prompt窗口">&laquo; selenium FAQ:如何处理JavaScript弹出的alert、prompt窗口</a></li>
       
       <li><a href="/blog/archives">Blog Archives</a></li>
-      
-      <li class="next"><a class="basic-alignment right" href="/blog/2012/10/12/apache-mpm/"
-        title="Next Post: apache mpm介绍[转]">apache mpm介绍[转]
-        &raquo;</a></li>
       
     </ul>
   </footer>
@@ -383,8 +397,8 @@ ignoring(NotFoundException.class);
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://blueshen.github.com/blog/2012/10/11/selenium-stable-2/';
-        var disqus_url = 'http://blueshen.github.com/blog/2012/10/11/selenium-stable-2/';
+        var disqus_identifier = 'http://blueshen.github.com/blog/2012/10/12/selenium-multiple-browser-support/';
+        var disqus_url = 'http://blueshen.github.com/blog/2012/10/12/selenium-multiple-browser-support/';
         var disqus_script = 'embed.js';
       
     (function () {
