@@ -4,7 +4,7 @@
   <title><![CDATA[Blues 小站]]></title>
   <link href="http://blueshen.github.com/atom.xml" rel="self"/>
   <link href="http://blueshen.github.com/"/>
-  <updated>2012-10-12T12:56:34+08:00</updated>
+  <updated>2012-10-12T13:03:16+08:00</updated>
   <id>http://blueshen.github.com/</id>
   <author>
     <name><![CDATA[shenyanchao]]></name>
@@ -34,7 +34,7 @@
 <p>Linux代码
 <code>./configure --help|grep mpm </code></p>
 
-<p>显示显示内容如下：</p>
+<p>显示内容如下：</p>
 
 <p>Linux代码</p>
 
@@ -43,20 +43,20 @@ Choose the process model for Apache to use.
 MPM={beos|worker|prefork|mpmt_os2| perchild|leader|threadpool}  
 </code></pre>
 
-<p>*1、Beos、mpmt_os2分别是BeOS和OS/2上缺省的MPM。</p>
+<ul>
+<li><p>1、Beos、mpmt_os2分别是BeOS和OS/2上缺省的MPM。</p></li>
+<li><p>2、perchild主要设计目的是以不同的用户和组的身份来运行不同的子进程，这在运行多个需要CGI的虚拟主机时特别有用，会比1.3版中的SuExec 机制做得更好。</p></li>
+<li><p>3、leader和threadpool都是基于worker的变体，还处于实验性阶段，某些情况下并不会按照预期设想的那样工作，所以 Apache官方也并不推荐使用。</p></li>
+<li><p>4、prefork如果不用“–with-mpm ”显式指定某种MPM，prefork就是LInux/Unix平台上缺省的MPM.它所采用的预派生子进程方式也是 Apache 1.3中采用的模式.prefork本身并没有使用到线程，2.0版使用它是为了与1.3版保持兼容性；另一方面，prefork用单独的子进程来处理不同的请求，进程之间是彼此独立的，这也使其成为最稳定的MPM之一。<br/>
+prefork的工作原理是，控制进程在最初建立“StartServers”个子进程后,为了满足MinSpareServers设置的需要创建一个进程,等待一秒钟，继续创建两个，再等待一秒钟，继续创建四个……如此按指数级增加创建的进程数,最多达到每秒32个，直到满足MinSpareServers设置的值为止。这就是预派生（prefork）的由来.这种模式可以不必在请求到来时再产生新的进程，从而减小了系统开销以增加性能。</p></li>
+<li><p>5、worker相对于prefork,worker是2.x版中全新的支持多线程和多进程混合模型的MPM。由于使用线程来处理,所以可以处理相对海量的请求，而系统资源的开销要小于基于进程的服务器.但是，worker也使用了多进程，每个进程又生成多个线程，以获得基于进程服务器的稳定性.这种MPM的工作方式将是Apache 2.x的发展趋势。  <br/>
+worker的工作原理是，由主控制进程生成“StartServers”个子进程，每个子进程中包含固定的ThreadsPerChild 线程数，各个线程独立地处理请求。同样，为了不在请求到来时再生成线程，MinSpareThreads和MaxSpareThreads设置了最少和最多的空闲线程数；而MaxClients设置了所有子进程中的线程总数.如果现有子进程中的线程总数不能满足负载，控制进程将派生新的子进程。</p></li>
+</ul>
 
-<p>*2、perchild主要设计目的是以不同的用户和组的身份来运行不同的子进程，这在运行多个需要CGI的虚拟主机时特别有用，会比1.3版中的SuExec 机制做得更好。</p>
 
-<p>*3、leader和threadpool都是基于worker的变体，还处于实验性阶段，某些情况下并不会按照预期设想的那样工作，所以 Apache官方也并不推荐使用。</p>
+<h2>如何判断当前的服务器使用那种MPM 模块?</h2>
 
-<p>*4、prefork如果不用“–with-mpm ”显式指定某种MPM，prefork就是LInux/Unix平台上缺省的MPM.它所采用的预派生子进程方式也是 Apache 1.3中采用的模式.prefork本身并没有使用到线程，2.0版使用它是为了与1.3版保持兼容性；另一方面，prefork用单独的子进程来处理不同的请求，进程之间是彼此独立的，这也使其成为最稳定的MPM之一。<br/>
-prefork的工作原理是，控制进程在最初建立“StartServers”个子进程后,为了满足MinSpareServers设置的需要创建一个进程,等待一秒钟，继续创建两个，再等待一秒钟，继续创建四个……如此按指数级增加创建的进程数,最多达到每秒32个，直到满足MinSpareServers设置的值为止。这就是预派生（prefork）的由来.这种模式可以不必在请求到来时再产生新的进程，从而减小了系统开销以增加性能。</p>
-
-<p>*5、worker相对于prefork,worker是2.x版中全新的支持多线程和多进程混合模型的MPM。由于使用线程来处理,所以可以处理相对海量的请求，而系统资源的开销要小于基于进程的服务器.但是，worker也使用了多进程，每个进程又生成多个线程，以获得基于进程服务器的稳定性.这种MPM的工作方式将是Apache 2.x的发展趋势。  <br/>
-worker的工作原理是，由主控制进程生成“StartServers”个子进程，每个子进程中包含固定的ThreadsPerChild 线程数，各个线程独立地处理请求。同样，为了不在请求到来时再生成线程，MinSpareThreads和MaxSpareThreads设置了最少和最多的空闲线程数；而MaxClients设置了所有子进程中的线程总数.如果现有子进程中的线程总数不能满足负载，控制进程将派生新的子进程。</p>
-
-<p>如何判断当前的服务器使用那种MPM 模块?
-若使用prefork，在make编译和make install安装后，使用“httpd -l”来确定当前使用的MPM，
+<p>若使用prefork，在make编译和make install安装后，使用“httpd -l”来确定当前使用的MPM，
 如下示:</p>
 
 <pre><code>[aaron@webslave1 extra]$ /usr/local/apache2/bin/httpd -l 
