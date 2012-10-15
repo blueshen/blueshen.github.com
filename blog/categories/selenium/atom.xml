@@ -4,7 +4,7 @@
   <title><![CDATA[Category: selenium | Blues 小站]]></title>
   <link href="http://blueshen.github.com/blog/categories/selenium/atom.xml" rel="self"/>
   <link href="http://blueshen.github.com/"/>
-  <updated>2012-10-12T16:50:10+08:00</updated>
+  <updated>2012-10-15T10:15:57+08:00</updated>
   <id>http://blueshen.github.com/</id>
   <author>
     <name><![CDATA[shenyanchao]]></name>
@@ -33,6 +33,11 @@
 <li>IPhoneDriver(mobile testing)</li>
 </ul>
 </blockquote>
+
+<!--more-->
+
+
+<p></p>
 
 <h2>为什么selenium自动化case在一个浏览器运行的很好，换为另外一个浏览器则不行？</h2>
 
