@@ -4,7 +4,7 @@
   <title><![CDATA[Category: selenium | Blues 小站]]></title>
   <link href="http://blueshen.github.com/blog/categories/selenium/atom.xml" rel="self"/>
   <link href="http://blueshen.github.com/"/>
-  <updated>2012-10-15T10:15:57+08:00</updated>
+  <updated>2012-10-15T10:23:50+08:00</updated>
   <id>http://blueshen.github.com/</id>
   <author>
     <name><![CDATA[shenyanchao]]></name>
@@ -176,6 +176,9 @@ js.executeScript("return document.title");
 </code></pre>
 
 <p>这种方法，用于直接的让thread进行等待指定的seconds。</p>
+
+<!--more-->
+
 
 <h3>2.使用selenium webdriver提供的等待方法</h3>
 

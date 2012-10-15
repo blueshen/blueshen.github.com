@@ -4,7 +4,7 @@
   <title><![CDATA[Blues 小站]]></title>
   <link href="http://blueshen.github.com/atom.xml" rel="self"/>
   <link href="http://blueshen.github.com/"/>
-  <updated>2012-10-15T10:15:57+08:00</updated>
+  <updated>2012-10-15T10:23:50+08:00</updated>
   <id>http://blueshen.github.com/</id>
   <author>
     <name><![CDATA[shenyanchao]]></name>
@@ -176,6 +176,9 @@ js.executeScript("return document.title");
 <p>Linux代码
 <code>./configure --help|grep mpm </code></p>
 
+<!--more-->
+
+
 <p>显示内容如下：</p>
 
 <p>Linux代码</p>
@@ -317,6 +320,9 @@ MaxRequestsPerChild 0
 
 <p>这种方法，用于直接的让thread进行等待指定的seconds。</p>
 
+<!--more-->
+
+
 <h3>2.使用selenium webdriver提供的等待方法</h3>
 
 <pre><code>driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -441,8 +447,12 @@ public static void clickBlankArea(WebDriver driver) {
         &lt;/plugin&gt;
 </code></pre>
 
-<blockquote><p>failurePriority用于指定在什么错误级别会failure，级别0~5不等。0为最高，5为最低。此处设为2,意为0、1、2级别的错误都会导致报错。级别可以根据项目的要求进行配置 <br/>
-其中<strong>pmd-rulesets.xml</strong>是规则文件,由pmd制定的一些规则，这些规则可以在pmd-*.jar里找到。 <strong>pmd-rulesets.xml</strong>类似于以下：</p></blockquote>
+<blockquote><p>failurePriority用于指定在什么错误级别会failure，级别0~5不等。0为最高，5为最低。此处设为2,意为0、1、2级别的错误都会导致报错。级别可以根据项目的要求进行配置</p></blockquote>
+
+<!--more-->
+
+
+<blockquote><p>其中<strong>pmd-rulesets.xml</strong>是规则文件,由pmd制定的一些规则，这些规则可以在pmd-*.jar里找到。 <strong>pmd-rulesets.xml</strong>类似于以下：</p></blockquote>
 
 <pre><code>&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
 &lt;ruleset xmlns="http://pmd.sf.net/ruleset/1.0.0" name="pmd-rulsets" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd" xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"&gt;
