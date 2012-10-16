@@ -4,7 +4,7 @@
   <title><![CDATA[Category: selenium | Blues 小站]]></title>
   <link href="http://blueshen.github.com/blog/categories/selenium/atom.xml" rel="self"/>
   <link href="http://blueshen.github.com/"/>
-  <updated>2012-10-16T19:57:23+08:00</updated>
+  <updated>2012-10-16T20:01:46+08:00</updated>
   <id>http://blueshen.github.com/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -85,7 +85,7 @@ Java Code可能类似如下：</p>
 </ul>
 
 
-<h2>样例##</h2>
+<h2>样例</h2>
 
 <pre><code>public class LoginPage {
     private final WebDriver driver;
@@ -164,12 +164,9 @@ after search url is:http://www.baidu.com/s?wd=blueshen&amp;rsv_bp=0&amp;rsv_spt=
 <p>可见，搜索后，已经转向了正确的搜索结果页面。然而WebElement是如何初始化的呢？玄机就在<code>BaiduSearchPage baiduPage = PageFactory.initElements(driver,BaiduSearchPage.class);</code>这行代码。PageFactory负责初始化了Page里的元素，amazing，用起来就是这么的优雅。 <br/>
 那么下来，我就要问了：PageFactory是怎么定位元素的呢？</p>
 
-<blockquote><p>原来PageFactory初始化元素有一个惯例，样例中将WebElement的名称定为wd,那么PageFactory将按类似以下的形式对其进行初始化：</p>
-
-<pre><code> `driver.findElement(By.id("wd")); `  
-</code></pre>
-
-<p>PageFactory认为wd是HTML元素的id或者name字段的值,并且优先从id开始查找。至此，我们终于知道怎么回事了。</p></blockquote>
+<blockquote><p>原来PageFactory初始化元素有一个惯例，样例中将WebElement的名称定为wd,那么PageFactory将按类似以下的形式对其进行初始化：  <br/>
+<code>driver.findElement(By.id("wd"));</code><br/>
+PageFactory认为wd是HTML元素的id或者name字段的值,并且优先从id开始查找。至此，我们终于知道怎么回事了。</p></blockquote>
 
 <p>随着项目的变大，以及使用的更加深入，HTML元素的id，name字段并不一定唯一，并且Java Class的属性看起来都是一堆无意义的名称。这些要求我们必须要进行改进。幸好PageFactory已经提前考虑到了这一切，它支持annotations来显式定位元素。那么上述的百度搜索样例，可以修改为如下形式：</p>
 
