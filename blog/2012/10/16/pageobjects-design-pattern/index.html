@@ -1,0 +1,513 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>PageObjects 设计模式 - Blues 小站</title>
+  <meta name="author" content="ShenYanchao">
+
+  
+  <meta name="description" content="">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blueshen.github.com/blog/2012/10/16/pageobjects-design-pattern">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/bootstrap/bootstrap.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/bootstrap/responsive.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/syntax/syntax.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <style type="text/css">
+    body {
+      padding-bottom: 40px;
+    }
+    h1 {
+      margin-bottom: 15px;
+    }
+    img {
+      max-width: 100%;
+    }
+    .sharing, .meta, .pager {
+      margin: 20px 0px 20px 0px;
+    }
+    .page-footer p {
+      text-align: center;
+    }
+  </style>
+  <script src="/javascripts/libs/jquery.js"></script>
+  <script src="/javascripts/libs/modernizr-2.0.js"></script>
+  <script src="/javascripts/libs/bootstrap.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Blues 小站" type="application/atom+xml">
+  
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-34971023-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <nav role="navigation"><div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+
+      <a class="brand" href="/">Blues 小站</a>
+
+      <div class="nav-collapse">
+        ﻿<ul class="nav">
+  <li><a href="/">博客</a></li>
+  <li><a href="/blog/archives">列表</a></li>
+</ul>
+
+
+        <ul class="nav pull-right" data-subscription="rss">
+          <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+          
+        </ul>
+
+        
+          <form class="pull-right navbar-search" action="http://google.com/search" method="get">
+            <fieldset role="search">
+              <input type="hidden" name="q" value="site:blueshen.github.com" />
+              <input class="search-query" type="text" name="q" results="0" placeholder="Search"/>
+            </fieldset>
+          </form>
+        
+      </div>
+    </div>
+  </div>
+</div>
+</nav>
+  <div class="container">
+    <div class="row-fluid">
+      
+<article class="hentry span9" role="article">
+
+  ﻿
+  <header class="page-header">
+    
+      <h1 class="entry-title">PageObjects 设计模式</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-16T16:40:00+08:00" pubdate data-updated="true">2012年10月16日 16:10:00</time>
+        
+         | <a href="#disqus_thread">我要评论</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>什么是Page Objects(翻译为：页面对象？)&#8230;</h2>
+
+<p>简单的说，Page Objects是指UI界面上用于与用户进行交互的对象。它可以指整个页面，也可以指Page上的某个区域。Page Objects是你的test code的交互对象，是对实际UI的一种抽象模型化。通过Page Objects可以减少重复代码的编写，例如，很多页面都有同样的header，footer，navigator等部分，如果对这些进行抽象，只写一次就可以在其他地方通用了。</p>
+
+<p><strong>注意PageObjects与Page Objects是不一样的</strong>，PageObjects用于特指采用Page Objects进行封装的一种设计模式（Design Pattern）,而不仅仅是多一个空格的区别。哈。</p>
+
+<h2>如何实现PageObjects设计模式？</h2>
+
+<p>一般情况下，对于一个Page Objects对象，它有两个方面的特征：</p>
+
+<ul>
+<li>自身元素(WebElement)</li>
+<li>实现功能 (Services)</li>
+</ul>
+
+
+<!--more-->
+
+
+<p></p>
+
+<p>自身元素很好理解，就是实实在在的页面元素。而Page Object通常也都是实现一定的功能的。就Test的开发人员来说，更关心的是Page Objects它们实现了什么交互功能，而不是其内部的实现，因此，这里的功能与开发人员理解的功能是<strong>不一样的</strong>。</p>
+
+<p>以用户登录为例：在登录界面，点击登录后要么成功，转向首页。要么失败，出现提示出错信息。 <br/>
+相信这是一个很容易理解的场景吧！<br/>
+Java Code可能类似如下：</p>
+
+<pre><code>public class LoginPage {
+    //用户名录入框
+    private WebElement usernameBox;
+    //密码录入框
+    private WebElement passwordBox;
+    //提交按钮
+    private WebElement submitButton;
+
+    public HomePage loginAs(String username, String password) {
+        usernameBox.sendKeys(username);
+        passwordBox.sendKeys(password);
+        submitButton.submit();
+        return new HomePage(...)
+    }
+
+    public LoginPage loginAsExpectingError(String username, String password) {
+         //  出错的username,password 仍留在LoginPage
+     }
+
+    public String getErrorMessage() {
+    // 获取错误信息
+    }
+}   
+</code></pre>
+
+<p>从上面可以看出，同时封装了元素以及功能。此处样例，元素是没有初始化的。可以通过类似于<code>driver.findElement()</code>的函数来直接进行初始化，另外WebDriver提供了一个PageFactory用于对PageObjects设计模式进行支持，下面将会讲到。<br/>
+通过上面的这段代码，也展现出了一个重要的问题，那就是assertion不应该在Page Objects内部，而应该由tests进行处理。Page Objects只是返回需要验证的信息即可。</p>
+
+<h2>总结</h2>
+
+<ul>
+<li>public方法代表Page提供的功能</li>
+<li>尽量不要暴露Page的内部细节</li>
+<li>不要assertion</li>
+<li>方法可以返回其他Page Objects</li>
+<li>Page Objects不用代表整个页面，可以是任意一个部分</li>
+<li>一样的操作，不同的结果应该分开（正确登录，错误登录）</li>
+</ul>
+
+
+<h2>样例##</h2>
+
+<pre><code>public class LoginPage {
+    private final WebDriver driver;
+    // 用户名录入框
+    private WebElement usernameBox;
+    // 密码录入框
+    private WebElement passwordBox;
+    // 提交按钮
+    private WebElement submitButton;
+
+    public LoginPage(WebDriver driver) {
+        this.driver = driver;
+        if (!"Login".equals(driver.getTitle())) {
+            throw new IllegalStateException("This is not the login page");
+        }
+        this.usernameBox = driver.findElement(By.id("username"));
+        this.passwordBox = driver.findElement(By.id("passwd"));
+        this.submitButton = driver.findElement(By.id("login"));
+    }
+
+    public HomePage loginAs(String username, String password) {
+        usernameBox.sendKeys(username);
+        passwordBox.sendKeys(password);
+        submitButton.submit();
+        return new HomePage(driver);
+    }
+}
+</code></pre>
+
+<h2>PageFactory</h2>
+
+<p>从上面的样例中，有没有发现每个元素都要进行<code>driver.findElement()</code>这样的操作，写起来好累啊，一堆重复性的代码。有没有更好的，更优雅的处理方法呢？<strong><code>org.openqa.selenium.support.PageFactory</code></strong>就是用来负责处理这个的，真Happy! <br/>
+下面以<a href="http://www.baidu.com">百度搜索</a>作为样例场景，搜索一个关键字：</p>
+
+<pre><code>import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import org.openqa.selenium.support.PageFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+* @author shenyanchao
+* 
+ */
+public class BaiduSearchPage {
+    public static final Logger LOG = LoggerFactory
+        .getLogger(BaiduSearchPage.class);
+    private WebElement wd;
+
+    public void searchFor(String keyword) {
+        wd.sendKeys(keyword);
+        wd.submit();
+    }
+
+    public static void main(String[] args) {
+        WebDriver driver = new HtmlUnitDriver();
+        driver.get("http://www.baidu.com");
+        BaiduSearchPage baiduPage = PageFactory.initElements(driver,
+            BaiduSearchPage.class);
+        LOG.info("before search url is:{}",driver.getCurrentUrl());
+        baiduPage.searchFor("blueshen");
+        LOG.info("after search url is:{}",driver.getCurrentUrl());
+    }
+}
+</code></pre>
+
+<p>运行以上代码，发现已经可以正常运行，结果如下：</p>
+
+<pre><code>......
+before search url is:http://www.baidu.com/
+......
+after search url is:http://www.baidu.com/s?wd=blueshen&amp;rsv_bp=0&amp;rsv_spt=3
+</code></pre>
+
+<p>可见，搜索后，已经转向了正确的搜索结果页面。然而WebElement是如何初始化的呢？玄机就在<code>BaiduSearchPage baiduPage = PageFactory.initElements(driver,BaiduSearchPage.class);</code>这行代码。PageFactory负责初始化了Page里的元素，amazing，用起来就是这么的优雅。 <br/>
+那么下来，我就要问了：PageFactory是怎么定位元素的呢？</p>
+
+<blockquote><p>原来PageFactory初始化元素有一个惯例，样例中将WebElement的名称定为wd,那么PageFactory将按类似以下的形式对其进行初始化：</p>
+
+<pre><code> `driver.findElement(By.id("wd")); `  
+</code></pre>
+
+<p>PageFactory认为wd是HTML元素的id或者name字段的值,并且优先从id开始查找。至此，我们终于知道怎么回事了。</p></blockquote>
+
+<p>随着项目的变大，以及使用的更加深入，HTML元素的id，name字段并不一定唯一，并且Java Class的属性看起来都是一堆无意义的名称。这些要求我们必须要进行改进。幸好PageFactory已经提前考虑到了这一切，它支持annotations来显式定位元素。那么上述的百度搜索样例，可以修改为如下形式：</p>
+
+<pre><code>public class BaiduSearchPage {
+    public static final Logger LOG = LoggerFactory
+        .getLogger(BaiduSearchPage.class);
+    @FindBy(how = How.NAME, using = "wd")
+    @CacheLookup
+    private WebElement serachBox;
+
+    public void searchFor(String keyword) {
+        serachBox.sendKeys(keyword);
+        serachBox.submit();
+    }
+......
+}
+</code></pre>
+
+<p>明确的指定HOW.NAME,using=&#8221;wd&#8221;,意为查找name=&#8221;wd&#8221;的元素，并将其初始化赋值给searchBox这一有意义的属性名。其中@CacheLookup用于标识其只初始化一次，然后缓存起来备用。</p>
+
+<p>感觉还不够简洁吗？继续修改：</p>
+
+<pre><code>@FindBy(name = "wd")
+private WebElement searchBox;
+</code></pre>
+
+<p>这是其简略模式，还支持各种定位方式。</p>
+
+<pre><code>    @FindBy(id="...")
+    @FindBy(className="...")
+    @FindBy(name="...")
+    @FindBy(xpath="...")
+    @FindBy(linkText="...")
+    @FindBy(partialLinkText="...")
+    @FindBy(tagName="...")
+    @FindBy(css="...")
+</code></pre>
+
+<p>同时支持<code>@FindBys</code>用于支持列表元素查找定位，返回<code>List&lt;WebElement&gt;</code>类型。</p>
+
+<p><strong>总之，利用PageObjects设计模式并且配合PageFactory使用，将使你的自动化测试优雅、易度、易维护。</strong></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      ﻿
+  
+
+<span class="byline author vcard"> <span class="fn">ShenYanchao</span> 发布于</span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-16T16:40:00+08:00" pubdate data-updated="true">2012年10月16日 16:10:00</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/selenium/'>selenium</a>
+  
+</span>
+
+
+    </p>
+    
+      ﻿<div class="sharing">
+  
+ <script type="text/javascript" charset="utf-8">
+(function(){
+  var _w = 106 , _h = 58;
+  var param = {
+    url:location.href,
+    type:'5',
+    count:'1', /**是否显示分享数，1显示(可选)*/
+    appkey:'', /**您申请的应用appkey,显示分享来源(可选)*/
+    title:'', /**分享的文字内容(可选，默认为所在页面的title)*/
+    pic:'', /**分享图片的路径(可选)*/
+    ralateUid:'2441133651', /**关联用户的UID，分享微博会@该用户(可选)*/
+	language:'zh_cn', /**设置语言，zh_cn|zh_tw(可选)*/
+    rnd:new Date().valueOf()
+  }
+  var temp = [];
+  for( var p in param ){
+    temp.push(p + '=' + encodeURIComponent( param[p] || '' ) )
+  }
+  document.write('<iframe allowTransparency="true" frameborder="0" scrolling="no" src="http://hits.sinajs.cn/A1/weiboshare.html?' + temp.join('&') + '" width="'+ _w+'" height="'+_h+'"></iframe>')
+})()
+</script>
+  
+  
+  
+  
+</div>
+
+    
+    
+    <section>
+      <h1>Comments</h1>
+      <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+    </section>
+    
+    <ul class="pager">
+      
+      <li class="previous"><a class="basic-alignment left"
+        href="/blog/2012/10/12/selenium-multiple-browser-support/" title="Previous Post:
+        Selenium WebDriver的多浏览器支持">&laquo; Selenium WebDriver的多浏览器支持</a></li>
+      
+      <li><a href="/blog/archives">Blog Archives</a></li>
+      
+    </ul>
+  </footer>
+</article>
+
+<aside class="sidebar-nav span3">
+  
+    ﻿<section class="well">
+  <ul id="recent_posts" class="nav nav-list">
+    <li class="nav-header">最近更新</li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/16/pageobjects-design-pattern/">PageObjects 设计模式</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/12/selenium-multiple-browser-support/">Selenium WebDriver的多浏览器支持</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/12/selenium-faq-alerts-and-prompts/">selenium FAQ:如何处理JavaScript弹出的alert、prompt窗口</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/12/selenium-faq-how-to-use-javascript/">selenium FAQ:怎么样调用Javascript？</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/12/apache-mpm/">apache mpm介绍[转]</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section> 
+	<iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=2441133651&verifier=88889be4&dpc=1"></iframe>
+</section>
+﻿<section class="well">
+<ul class="nav nav-list">
+  <li class="nav-header">最新评论</li>
+  <script type="text/javascript" src="http://blueshen.disqus.com/recent_comments_widget.js?num_items=5&hide_avatars=0&avatar_size=32&excerpt_length=200"></script>
+</ul>
+  </section>
+<section class="well">
+  <ul id="gh_repos" class="nav">
+    <li class="nav-header">GitHub Repos</li>
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/blueshen">@blueshen</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        github.showRepos({
+            user: 'blueshen',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/asides/github.js" type="text/javascript"> </script>
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo" class="page-footer">﻿<hr>
+<p>
+  版权所有 &copy; 2012 - ShenYanchao -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'blueshen';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blueshen.github.com/blog/2012/10/16/pageobjects-design-pattern/';
+        var disqus_url = 'http://blueshen.github.com/blog/2012/10/16/pageobjects-design-pattern/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

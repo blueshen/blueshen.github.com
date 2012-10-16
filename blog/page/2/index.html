@@ -109,6 +109,64 @@
       ﻿
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2012/10/11/selenium-stable-2/">提高selenium自动化的稳定性2-等待</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-11T14:32:00+08:00" pubdate data-updated="true">2012年10月11日 14:10:00</time>
+        
+         | <a href="/blog/2012/10/11/selenium-stable-2/#disqus_thread">我要评论</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>很多页面元素都是ajax动态生成的，这就要求进行适当的等待</h2>
+
+<h2>如何进行等待呢？</h2>
+
+<h3>1.直接sleep</h3>
+
+<pre><code>public static void sleep(int seconds) {
+    try {
+        TimeUnit.SECONDS.sleep(seconds);
+    } catch (InterruptedException e) {
+        e.printStackTrace();
+    }
+}
+</code></pre>
+
+<p>这种方法，用于直接的让thread进行等待指定的seconds。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/10/11/selenium-stable-2/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2012/10/11/selenium-stable-1/">提高selenium自动化的稳定性1-点击空白区域</a></h1>
     
     
@@ -314,59 +372,9 @@ public static void clickBlankArea(WebDriver driver) {
 
     </article>
   
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/09/20/wo-de-di--pian-zhong-wen-bo-ke/">我的第一篇中文博客</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-09-20T16:57:00+08:00" pubdate data-updated="true">2012年09月20日 16:09:00</time>
-        
-         | <a href="/blog/2012/09/20/wo-de-di--pian-zhong-wen-bo-ke/#disqus_thread">我要评论</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1>吐槽</h1>
-
-<p>这个OCTOPRESS真是难搞啊，最主要是_config.xml里面的格式校验也太严格了</center></p>
-
-<h1>正文</h1>
-
-<p>在这里写一些内容。
-链接<a href="http://www.baidu.com">http://www.baidu.com</a></p>
-
-<hr />
-
-<p>代码段</p>
-
-<pre><code>    System.out.println("ok!")
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <ul class="pager">
+    
+    <li class="previous"><a href="/blog/page/3/">&larr; 前一篇</a></li>
     
     <li><a href="/blog/archives">文章列表</a></li>
     
@@ -389,6 +397,10 @@ public static void clickBlankArea(WebDriver driver) {
     <li class="nav-header">最近更新</li>
     
       <li class="post">
+        <a href="/blog/2012/10/16/pageobjects-design-pattern/">PageObjects 设计模式</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/10/12/selenium-multiple-browser-support/">Selenium WebDriver的多浏览器支持</a>
       </li>
     
@@ -402,10 +414,6 @@ public static void clickBlankArea(WebDriver driver) {
     
       <li class="post">
         <a href="/blog/2012/10/12/apache-mpm/">apache mpm介绍[转]</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/10/11/selenium-stable-2/">提高selenium自动化的稳定性2-等待</a>
       </li>
     
   </ul>
