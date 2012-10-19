@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Selenium WebDriver的多浏览器支持 - Blues 小站</title>
+  <title>Java内存溢出详解 - Blues 小站</title>
   <meta name="author" content="ShenYanchao">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://blueshen.github.com/blog/2012/10/12/selenium-multiple-browser-support">
+  <link rel="canonical" href="http://blueshen.github.com/blog/2012/10/19/jvm-out-of-memory">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/bootstrap/bootstrap.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/stylesheets/bootstrap/responsive.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -107,7 +107,7 @@
   ﻿
   <header class="page-header">
     
-      <h1 class="entry-title">Selenium WebDriver的多浏览器支持</h1>
+      <h1 class="entry-title">Java内存溢出详解</h1>
     
     
       <p class="meta">
@@ -123,7 +123,7 @@
   
 
 
-<time datetime="2012-10-12T14:56:00+08:00" pubdate data-updated="true">2012年10月12日 14:10:00</time>
+<time datetime="2012-10-19T23:12:00+08:00" pubdate data-updated="true">2012年10月19日 23:10:00</time>
         
          | <a href="#disqus_thread">我要评论</a>
         
@@ -132,105 +132,76 @@
   </header>
 
 
-<div class="entry-content"><h2>Selenium WebDriver支持哪儿些浏览器？</h2>
+<div class="entry-content"><p>一、常见的Java内存溢出有以下三种：</p>
 
-<p>按照官方文档的说法，现阶段有以下的drivers:</p>
+<ol>
+<li><p><code>java.lang.OutOfMemoryError: Java heap space</code> &#8212;-JVM Heap（堆）溢出
+JVM在启动的时候会自动设置JVM Heap的值，其初始空间(即-Xms)是物理内存的1/64，最大空间(-Xmx)不可超过物理内存。
+可以利用JVM提供的-Xmn -Xms -Xmx等选项可进行设置。Heap的大小是Young Generation 和Tenured Generaion 之和。
+在JVM中如果98％的时间是用于GC，且可用的Heap size 不足2％的时候将抛出此异常信息。
+解决方法：手动设置JVM Heap（堆）的大小。</p></li>
+<li><p><code>java.lang.OutOfMemoryError: PermGen space</code>  &#8212;- PermGen space溢出。
+PermGen space的全称是Permanent Generation space，是指内存的永久保存区域。
+为什么会内存溢出，这是由于这块内存主要是被JVM存放Class和Meta信 息的，Class在被Load的时候被放入PermGen space区域，它和存放Instance的Heap区域不同,sun的 GC不会在主程序运行期对PermGen space进行清理，所以如果你的APP会载入很多CLASS的话，就很可能出现PermGen space溢出。
+解决方法： 手动设置MaxPermSize大小</p></li>
+<li><p><code>java.lang.StackOverflowError</code>  &#8212;- 栈溢出
+栈溢出了，JVM依然是采用栈式的虚拟机，这个和C和Pascal都是一样的。函数的调用过程都体现在堆栈和退栈上了。
+调用构造函数的 “层”太多了，以致于把栈区溢出了。
+通常来讲，一般栈区远远小于堆区的，因为函数调用过程往往不会多于上千层，而即便每个函数调用需要 1K的空间(这个大约相当于在一个C函数内声明了256个int类型的变量)，那么栈区也不过是需要1MB的空间。通常栈的大小是1－2MB的。
+通常递归也不要递归的层次过多，很容易溢出。
+解决方法：修改程序。</p></li>
+</ol>
 
-<blockquote><ul>
-<li>ChromeDriver</li>
-<li>InternetExplorerDriver</li>
-<li>FirefoxDriver</li>
-<li>OperaDriver</li>
-<li>HtmlUnitDriver</li>
-<li>AndroidDriver(mobile testing)</li>
-<li>OperaMobileDriver(mobile testing)</li>
-<li>IPhoneDriver(mobile testing)</li>
-</ul>
-</blockquote>
 
-<!--more-->
+<p>二、解决方法</p>
 
+<p>在生产环境中tomcat内存设置不好很容易出现jvm内存溢出。</p>
 
-<p></p>
+<p>1、 linux下的tomcat：<br/>
+修改TOMCAT_HOME/bin/catalina.sh
+在“echo &#8220;Using CATALINA_BASE: $CATALINA_BASE&#8221;”上面加入以下行：
+<code>JAVA_OPTS="-server -Xms256m -Xmx512m -XX:PermSize=64M -XX:MaxPermSize=128m</code>&#8221;</p>
 
-<h2>为什么selenium自动化case在一个浏览器运行的很好，换为另外一个浏览器则不行？</h2>
+<p>2、 如果tomcat 5 注册成了windows服务，以services方式启动的，则需要修改注册表中的相应键值。
+修改注册表HKEY_LOCAL_MACHINE\SOFTWARE\Apache Software Foundation\Tomcat Service Manager\Tomcat5\Parameters\Java，右侧的Options
+原值为</p>
 
-<h3>一个Driver可以打开浏览器，另外一个Driver却不行？</h3>
-
-<p>WebDriver是通过调用native浏览器来操作的，浏览器之间的差异注定会出现一些问题。下面以InternetExplorer,Firefox,Chrome为例进行说明：</p>
-
-<h4>InternetExplorer：</h4>
-
-<blockquote><p>1.它分不同的版本，版本之间差异很大。InternetExplorerDriver支持IE6、7、8、9。操作系统支持XP、Vista、Windows 7。 <br/>
-2.InternetExplorerDriver同时支持32/64bit的浏览器，这个取决于你用的是什么版本的<a href="http://code.google.com/p/selenium/downloads/list">IEDriverServer.exe</a>。 <br/>
-3.要求条件如下：</p>
-
-<blockquote><ul>
-<li><a href="http://code.google.com/p/selenium/downloads/list">IEDriverServer</a>在系统环境的PATH内（selenium2.26.0+版本推荐方式）。</li>
-<li>在windows vista、windows7操作系统中，如果使用IE7+的浏览器，应该保证浏览器的<strong>保护模式</strong>都处于<strong>同一状态</strong>[开启或者关闭]。如果不一致，那么报错信息类似于<code>Caused by: org.openqa.selenium.WebDriverException: Unexpected error launching Internet Explorer. Protected Mode settings are not the same for all zones. Enable Protected Mode must be set to the same value (enabled or disabled) for all zones. (WARNING: The server did not provide any stacktrace information)</code> <br/>
-不会设置吗？ <br/>
-操作如下：打开浏览器->Internet选项 ->安全->启用保护模式。保证Internet、本地Intranet、受信任的站点、受限制的站点4个zone保护模式一致就OK</li>
-<li>为了确保能获得正确的坐标点，要把浏览器的缩放设为100%。 <br/>
-设置方法：打开浏览器->页面->缩放(Z)->100%</li>
-</ul>
-</blockquote></blockquote>
-
-<p>参考<a href="http://code.google.com/p/selenium/wiki/InternetExplorerDriver">http://code.google.com/p/selenium/wiki/InternetExplorerDriver</a></p>
-
-<h4>Firefox:</h4>
-
-<blockquote><p>1.Firefox不像InternetExplorer一样，用户可以自定义安装路径。因此使用时，需要制定firefox.exe的安装路径。<br/>
-怎么指定?</p>
-
-<blockquote><ul>
-<li>java code: <code>System.setProperty()</code></li>
-<li>命令行：<code>-DpropertyName='value'</code></li>
-</ul>
-</blockquote>
-
-<p>2.系统变量的值为：<code>webdriver.firefox.bin</code>，以及其他的key值，详见参考页面。webdriver.firefox.bin用来指定Firefox的安装路径。如不设置，默认从%PROGRAMFILES%\Mozilla Firefox\firefox.exe加载。<strong>个人强烈建议，即使安装在默认路径也进行指定</strong>。 <br/>
-3.Java代码如下：</p>
-
-<pre><code>System.setProperty("webdriver.firefox.bin", "C://Mozila/firefox.exe");  
-WebDriver driver = new FirefoxDriver();  
+<pre><code>-Dcatalina.home="C:\ApacheGroup\Tomcat 5.0"
+-Djava.endorsed.dirs="C:\ApacheGroup\Tomcat 5.0\common\endorsed"
 </code></pre>
 
-<p>其中firefox的安装路径，按情况自行替换。</p></blockquote>
+<p>-Xrs
+加入 -Xms256m -Xmx512m
+重起tomcat服务,设置生效</p>
 
-<p>参考<a href="http://code.google.com/p/selenium/wiki/FirefoxDriver">http://code.google.com/p/selenium/wiki/FirefoxDriver</a></p>
+<p>3、 如果tomcat 6 注册成了windows服务，或者windows2003下用tomcat的安装版，
+在/bin/tomcat6w.exe里修改就可以了 。</p>
 
-<h4>Chrome:</h4>
+<p>4、 如果要在myeclipse中启动tomcat，上述的修改就不起作用了，可如下设置：
+Myeclipse->preferences->myeclipse->servers->tomcat->tomcat×.×->JDK面板中的
+Optional Java VM arguments中添加：<code>-Xms256m -Xmx512m -XX:PermSize=64M -XX:MaxPermSize=128m</code></p>
 
-<p>chrome要求条件如下：</p>
+<p>三、jvm参数说明：</p>
 
-<blockquote><p>1.Chrome应当安装在默认路径下（如果是从官方下载的，安装后直接都是默认路径）。
-<table border=”1px">
-<tbody>
-<tr><td>OS</td><td>默认位置</td></tr>
-<tr><td>Linux</td><td>/usr/bin/google-chrome</td></tr>
-<tr><td>Mac</td><td>/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome</td></tr>
-<tr><td>Windwos XP</td><td>%HOMEPATH%\Local Settings\Application Data\Google\Chrome\Application\chrome.exe</td></tr>
-<tr><td>Windwos Vista</td><td>C:\Users\%USERNAME%\AppData\Local\Google\Chrome\Application\chrome.exe</td></tr>
-</tbody>
-</table>  <br/>
-2.需要下载相应版本的<a href="http://code.google.com/p/chromedriver/downloads/list">chromedriver</a>，用来架起chrome浏览器与webdriver之间的桥梁。 <br/>
-3.与FirefoxDriver差不多，需要设置chromedriver的路径。key值为：webdriver.chrome.driver. <br/>
-4.Java代码如下：</p>
-
-<pre><code>System.setProperty("webdriver.chrome.driver", "C://drivers/chromedriver.exe");  
-WebDriver driver = new ChromeDriver();    
-</code></pre>
-
-<p>需要注意的是，chrome浏览器会自动更新，而<a href="http://code.google.com/p/chromedriver/downloads/list">chromedriver</a>也是不断更新的。如果chrome版本太新，而chromedriver没有相应的更换，会造成只是打开chrome浏览器，而不进行任何操作的问题。另外，ChromeDriver只适用于chrome 12.0.712.0+,如果需要使用更老的版本，见参考页面的详细描述。</p></blockquote>
-
-<p>参考<a href="http://code.google.com/p/selenium/wiki/ChromeDriver">http://code.google.com/p/selenium/wiki/ChromeDriver</a></p>
-
-<h3>在一个浏览器里，元素可以找到或者可以操作，而在另外一个浏览器内则不行，为什么？</h3>
-
-<p>不同浏览器之间解析DOM以及响应事件的机制不同，难免会有一些不兼容性。解决方法：</p>
-
-<blockquote><p>1.元素定位，通常是由于DOM解析不同造成的，可以使用不同的findElement方法进行实验，如id,class,xpath等。这个没有统一的结论，大多数情况下id是最靠谱的。<strong>推荐！</strong> <br/>
-2.事件的响应，这个如果存在问题，一般比较难解决。通常是由于浏览器之间的差异造成的。可以通过使用selenium更高的版本，或者更换浏览器的版本来解决。或者想一下，有没有其他的方式，换个事件来绕过去，总有办法的。如果实在解决不了，那也只能暂时是这样了。</p></blockquote>
+<p>-server:一定要作为第一个参数，在多个CPU时性能佳  <br/>
+-Xms：java Heap初始大小。 默认是物理内存的1/64。 <br/>
+-Xmx：java heap最大值。建议均设为物理内存的一半。不可超过物理内存。<br/>
+-XX:PermSize:设定内存的永久保存区初始大小，缺省值为64M。（我用visualvm.exe查看的） <br/>
+-XX:MaxPermSize:设定内存的永久保存区最大 大小，缺省值为64M。（我用visualvm.exe查看的） <br/>
+-XX:SurvivorRatio=2  :生还者池的大小,默认是2，如果垃圾回收变成了瓶颈，您可以尝试定制生成池设置  <br/>
+-XX:NewSize: 新生成的池的初始大小。 缺省值为2M。<br/>
+-XX:MaxNewSize: 新生成的池的最大大小。   缺省值为32M。 <br/>
+如果 JVM 的堆大小大于 1GB，则应该使用值：-XX:newSize=640m -XX:MaxNewSize=640m -XX:SurvivorRatio=16，或者将堆的总大小的 50% 到 60% 分配给新生成的池。调大新对象区，减少Full GC次数。<br/>
++XX:AggressiveHeap 会使得 Xms没有意义。这个参数让jvm忽略Xmx参数,疯狂地吃完一个G物理内存,再吃尽一个G的swap。 <br/>
+-Xss：每个线程的Stack大小，“-Xss 15120” 这使得JBoss每增加一个线程（thread)就会立即消耗15M内存，而最佳值应该是128K,默认值好像是512k.  <br/>
+-verbose:gc 现实垃圾收集信息  <br/>
+-Xloggc:gc.log 指定垃圾收集日志文件<br/>
+-Xmn：young generation的heap大小，一般设置为Xmx的3、4分之一  <br/>
+-XX:+UseParNewGC ：缩短minor收集的时间  <br/>
+-XX:+UseConcMarkSweepGC ：缩短major收集的时间 此选项在Heap Size 比较大而且Major收集时间较长的情况下使用更合适。 <br/>
+-XX:userParNewGC 可用来设置并行收集【多CPU】 <br/>
+-XX:ParallelGCThreads 可用来增加并行度【多CPU】 <br/>
+-XX:UseParallelGC 设置后可以使用并行清除收集器【多CPU】</p>
 </div>
 
 
@@ -253,12 +224,12 @@ WebDriver driver = new ChromeDriver();
   
 
 
-<time datetime="2012-10-12T14:56:00+08:00" pubdate data-updated="true">2012年10月12日 14:10:00</time>
+<time datetime="2012-10-19T23:12:00+08:00" pubdate data-updated="true">2012年10月19日 23:10:00</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/selenium/'>selenium</a>
+    <a class='category' href='/blog/categories/jvm/'>jvm</a>
   
 </span>
 
@@ -305,14 +276,10 @@ WebDriver driver = new ChromeDriver();
     <ul class="pager">
       
       <li class="previous"><a class="basic-alignment left"
-        href="/blog/2012/10/12/selenium-faq-alerts-and-prompts/" title="Previous Post:
-        selenium FAQ:如何处理JavaScript弹出的alert、prompt窗口">&laquo; selenium FAQ:如何处理JavaScript弹出的alert、prompt窗口</a></li>
+        href="/blog/2012/10/19/java6-jvm-params/" title="Previous Post:
+        JVM参数选项">&laquo; JVM参数选项</a></li>
       
       <li><a href="/blog/archives">Blog Archives</a></li>
-      
-      <li class="next"><a class="basic-alignment right" href="/blog/2012/10/16/pageobjects-design-pattern/"
-        title="Next Post: PageObjects 设计模式">PageObjects 设计模式
-        &raquo;</a></li>
       
     </ul>
   </footer>
@@ -407,8 +374,8 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://blueshen.github.com/blog/2012/10/12/selenium-multiple-browser-support/';
-        var disqus_url = 'http://blueshen.github.com/blog/2012/10/12/selenium-multiple-browser-support/';
+        var disqus_identifier = 'http://blueshen.github.com/blog/2012/10/19/jvm-out-of-memory/';
+        var disqus_url = 'http://blueshen.github.com/blog/2012/10/19/jvm-out-of-memory/';
         var disqus_script = 'embed.js';
       
     (function () {
