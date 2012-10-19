@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Blues 小站</title>
+  <title>安装配置Maven - Blues 小站</title>
   <meta name="author" content="ShenYanchao">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://blueshen.github.com/blog/page/2">
+  <link rel="canonical" href="http://blueshen.github.com/blog/2012/10/19/install-maven">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/bootstrap/bootstrap.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/stylesheets/bootstrap/responsive.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -101,15 +101,13 @@
 </nav>
   <div class="container">
     <div class="row-fluid">
-      <div class="span9">
-  
-  
-  
-    <article>
-      ﻿
+      
+<article class="hentry span9" role="article">
+
+  ﻿
   <header class="page-header">
     
-      <h1 class="entry-title"><a href="/blog/2012/10/12/selenium-multiple-browser-support/">Selenium WebDriver的多浏览器支持</a></h1>
+      <h1 class="entry-title">安装配置Maven</h1>
     
     
       <p class="meta">
@@ -125,52 +123,41 @@
   
 
 
-<time datetime="2012-10-12T14:56:00+08:00" pubdate data-updated="true">2012年10月12日 14:10:00</time>
+<time datetime="2012-10-19T23:40:00+08:00" pubdate data-updated="true">2012年10月19日 23:10:00</time>
         
-         | <a href="/blog/2012/10/12/selenium-multiple-browser-support/#disqus_thread">我要评论</a>
+         | <a href="#disqus_thread">我要评论</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><h2>Selenium WebDriver支持哪儿些浏览器？</h2>
+<div class="entry-content"><h2>Maven安装</h2>
 
-<p>按照官方文档的说法，现阶段有以下的drivers:</p>
+<p>1.下载Maven：从<a href="http://maven.apache.org/download.html">Maven官方</a>下载,并解压。比如解压到：D:\apache-maven-3.0.4   <br/>
+2.配置环境变量：</p>
 
-<blockquote><ul>
-<li>ChromeDriver</li>
-<li>InternetExplorerDriver</li>
-<li>FirefoxDriver</li>
-<li>OperaDriver</li>
-<li>HtmlUnitDriver</li>
-<li>AndroidDriver(mobile testing)</li>
-<li>OperaMobileDriver(mobile testing)</li>
-<li>IPhoneDriver(mobile testing)</li>
+<ul>
+<li>M2_HOME：D:\apache-maven-3.0.4</li>
+<li>path：%M2_HOME%\bin;</li>
 </ul>
-</blockquote>
 
+
+<p>打开cmd命令窗口,验证配置是否成功：<code>mvn -v</code>。成功后会显示正确的版本信息。<br/>
+3.修改默认的repository <br/>
+maven默认放在C:\Users\user.m2\repository目录下（不同系统可能不一样）。Window下一般不建议放在C盘。可以通过如下方式修改： <br/>
+进入%M2_HOME%\conf\settings.xml中，添加<code>&lt;localRepository&gt;e:/repo&lt;/localRepository&gt;</code>这样一行。默认的路径就指向新的目录了。</p>
 </div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/10/12/selenium-multiple-browser-support/">继续阅读 &rarr;</a>
-    </footer>
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/10/12/selenium-faq-alerts-and-prompts/">Selenium FAQ:如何处理JavaScript弹出的alert、prompt窗口</a></h1>
-    
-    
-      <p class="meta">
-        
+  
+
+<span class="byline author vcard"> <span class="fn">ShenYanchao</span> 发布于</span>
+
+      
 
 
 
@@ -182,214 +169,70 @@
   
 
 
-<time datetime="2012-10-12T14:39:00+08:00" pubdate data-updated="true">2012年10月12日 14:10:00</time>
-        
-         | <a href="/blog/2012/10/12/selenium-faq-alerts-and-prompts/#disqus_thread">我要评论</a>
-        
-      </p>
+<time datetime="2012-10-19T23:40:00+08:00" pubdate data-updated="true">2012年10月19日 23:10:00</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/maven/'>maven</a>
+  
+</span>
+
+
+    </p>
     
-  </header>
-
-
-  <div class="entry-content"><h2>经常会碰到，页面操作后，出现一个alert窗口或者prompt确认窗口的情况，这时需要获得窗口的提示信息以及点击确定或取消的情况。</h2>
-
-<pre><code>// Get a handle to the open alert, prompt or confirmation
-Alert alert = driver.switchTo().alert();
-// Get the text of the alert or prompt
-alert.getText();  
-// And acknowledge the alert (equivalent to clicking "OK")
-alert.accept();
-</code></pre>
-
-<p>这是通用的处理方法。但是如果弹出的窗口不是<code>alert()</code>或者<code>prompt()</code>弹出来的则不适用。请注意。</p>
+      ﻿<div class="sharing">
+  
+ <script type="text/javascript" charset="utf-8">
+(function(){
+  var _w = 106 , _h = 58;
+  var param = {
+    url:location.href,
+    type:'5',
+    count:'1', /**是否显示分享数，1显示(可选)*/
+    appkey:'', /**您申请的应用appkey,显示分享来源(可选)*/
+    title:'', /**分享的文字内容(可选，默认为所在页面的title)*/
+    pic:'', /**分享图片的路径(可选)*/
+    ralateUid:'2441133651', /**关联用户的UID，分享微博会@该用户(可选)*/
+	language:'zh_cn', /**设置语言，zh_cn|zh_tw(可选)*/
+    rnd:new Date().valueOf()
+  }
+  var temp = [];
+  for( var p in param ){
+    temp.push(p + '=' + encodeURIComponent( param[p] || '' ) )
+  }
+  document.write('<iframe allowTransparency="true" frameborder="0" scrolling="no" src="http://hits.sinajs.cn/A1/weiboshare.html?' + temp.join('&') + '" width="'+ _w+'" height="'+_h+'"></iframe>')
+})()
+</script>
+  
+  
+  
+  
 </div>
-  
-  
 
-
-    </article>
-  
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/10/12/selenium-faq-how-to-use-javascript/">Selenium FAQ:怎么样调用Javascript？</a></h1>
     
     
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-12T14:30:00+08:00" pubdate data-updated="true">2012年10月12日 14:10:00</time>
-        
-         | <a href="/blog/2012/10/12/selenium-faq-how-to-use-javascript/#disqus_thread">我要评论</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>selenium自动化开发中，难免需要用到直接调用javascript，怎么用呢？</h2>
-
-<pre><code>WebDriver driver; // Assigned elsewhere
-JavascriptExecutor js = (JavascriptExecutor) driver;
-js.executeScript("return document.title");
-</code></pre>
-
-<p>直接将driver强制转化为JavascriptExecutor,然后执行javascript即可。</p>
+    <section>
+      <h1>Comments</h1>
+      <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      ﻿
-  <header class="page-header">
+    </section>
     
-      <h1 class="entry-title"><a href="/blog/2012/10/12/apache-mpm/">Apache Mpm介绍[转]</a></h1>
-    
-    
-      <p class="meta">
-        
+    <ul class="pager">
+      
+      <li class="previous"><a class="basic-alignment left"
+        href="/blog/2012/10/19/jvm-out-of-memory/" title="Previous Post:
+        Java内存溢出详解">&laquo; Java内存溢出详解</a></li>
+      
+      <li><a href="/blog/archives">Blog Archives</a></li>
+      
+    </ul>
+  </footer>
+</article>
 
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-12T12:45:00+08:00" pubdate data-updated="true">2012年10月12日 12:10:00</time>
-        
-         | <a href="/blog/2012/10/12/apache-mpm/#disqus_thread">我要评论</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>什么是MPM？</h2>
-
-<p>MPM（Multi -Processing Modules，多路处理模块）是Apache2.x中影响性能的最核心特性。</p>
-
-<p>是Apache 2.x才支持的一个可插入的并发模型，在编译的时候，我们只可以选择一个并发模型。</p>
-
-<p>配置文件：/usr/local/apache2/conf/extra/httpd-mpm.conf</p>
-
-<p>如果apache是默认安装的可能配置在httpd.conf文件中。根据实际情况查找配置。</p>
-
-<p>使用格式：
-进入apache的目录，对apache进行如下编译：</p>
-
-<p>Linux代码
-<code>./configure --help|grep mpm </code></p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/10/12/apache-mpm/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/10/11/selenium-stable-2/">提高selenium自动化的稳定性2-等待</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-11T14:32:00+08:00" pubdate data-updated="true">2012年10月11日 14:10:00</time>
-        
-         | <a href="/blog/2012/10/11/selenium-stable-2/#disqus_thread">我要评论</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>很多页面元素都是ajax动态生成的，这就要求进行适当的等待</h2>
-
-<h2>如何进行等待呢？</h2>
-
-<h3>1.直接sleep</h3>
-
-<pre><code>public static void sleep(int seconds) {
-    try {
-        TimeUnit.SECONDS.sleep(seconds);
-    } catch (InterruptedException e) {
-        e.printStackTrace();
-    }
-}
-</code></pre>
-
-<p>这种方法，用于直接的让thread进行等待指定的seconds。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/10/11/selenium-stable-2/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  <ul class="pager">
-    
-    <li class="previous"><a href="/blog/page/3/">&larr; 前一篇</a></li>
-    
-    <li><a href="/blog/archives">文章列表</a></li>
-    
-    <li class="next"><a href="/">下一篇 &rarr;</a></li>
-    
-  </ul>
-</div>
 <aside class="sidebar-nav span3">
   
     ﻿<section class="well">
-	<ul id="about" class="nav nav-list">
-		<li class="nav-header">关于我</li>
-		<p>GitHub</p>
-		<p>Blues Shen</p>
-		<p><a href="mailto:zhiyi.shen@gmail.com">zhiyi.shen@gmail.com</a></p>
-	</ul>
-</section>
-﻿<section class="well">
   <ul id="recent_posts" class="nav nav-list">
     <li class="nav-header">最近更新</li>
     
@@ -434,7 +277,7 @@ js.executeScript("return document.title");
 <section class="well">
   <ul id="gh_repos" class="nav">
     <li class="nav-header">GitHub Repos</li>
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   
   <a href="https://github.com/blueshen">@blueshen</a> on GitHub
@@ -456,6 +299,7 @@ js.executeScript("return document.title");
   
 </aside>
 
+
     </div>
   </div>
   <footer role="contentinfo" class="page-footer">﻿<hr>
@@ -474,7 +318,10 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
       var disqus_shortname = 'blueshen';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blueshen.github.com/blog/2012/10/19/install-maven/';
+        var disqus_url = 'http://blueshen.github.com/blog/2012/10/19/install-maven/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
