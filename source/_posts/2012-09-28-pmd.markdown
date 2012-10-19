@@ -30,6 +30,7 @@ categories: maven
 				</configuration>
 			</plugin>
 >failurePriority用于指定在什么错误级别会failure，级别0~5不等。0为最高，5为最低。此处设为2,意为0、1、2级别的错误都会导致报错。级别可以根据项目的要求进行配置   
+<!--more-->
 >其中**pmd-rulesets.xml**是规则文件,由pmd制定的一些规则，这些规则可以在pmd-*.jar里找到。 **pmd-rulesets.xml**类似于以下：
 
     <?xml version="1.0" encoding="UTF-8" standalone="no"?>

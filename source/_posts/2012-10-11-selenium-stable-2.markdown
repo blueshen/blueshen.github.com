@@ -15,7 +15,8 @@ categories: selenium
 			e.printStackTrace();
 		}
 	}
-这种方法，用于直接的让thread进行等待指定的seconds。
+这种方法，用于直接的让thread进行等待指定的seconds。  
+<!--more-->
 ###2.使用selenium webdriver提供的等待方法
 	driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 这种方法是webdriver提供的一种隐式等待。  

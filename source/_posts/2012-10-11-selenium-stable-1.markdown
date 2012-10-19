@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "提高selenium自动化的稳定性1"
+title: "提高selenium自动化的稳定性1-点击空白区域"
 date: 2012-10-11 14:12
 comments: true
 categories: selenium

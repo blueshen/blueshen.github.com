@@ -20,6 +20,7 @@ MPM（Multi -Processing Modules，多路处理模块）是Apache2.x中影响性�
 
 Linux代码 
 `./configure --help|grep mpm  `
+<!--more-->
 
 显示内容如下： 
 

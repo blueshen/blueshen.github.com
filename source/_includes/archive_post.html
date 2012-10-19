@@ -1,10 +1,10 @@
-<div class="well">
+﻿<div class="well">
 {% capture category %}{{ post.categories | size }}{% endcapture %}
 <h2><a href="{{ root_url }}{{ post.url }}">{{post.title}}</a></h2>
-<time datetime="{{ post.date | datetime | date_to_xmlschema }}" pubdate>{{ post.date | date: "<span class='month'>%b</span> <span class='day'>%d</span> <span class='year'>%Y</span>"}}</time>
+<time datetime="{{ post.date | datetime | date_to_xmlschema }}" pubdate>{{ post.date | date: "<span class='year'>%Y</span>年<span class='month'>%m</span>月<span class='day'>%d</span>日"}}</time>
 {% if category != '0' %}
 <footer>
-  <span class="categories">posted in {{ post.categories | category_links }}</span>
+  <span class="categories">发布到分类：{{ post.categories | category_links }}</span>
 </footer>
 {% endif %}
 </div>

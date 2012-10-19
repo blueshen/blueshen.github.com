@@ -15,6 +15,7 @@ categories: selenium
 >* AndroidDriver(mobile testing)  
 >* OperaMobileDriver(mobile testing)  
 >* IPhoneDriver(mobile testing)   
+<!--more-->   
 
 ##为什么selenium自动化case在一个浏览器运行的很好，换为另外一个浏览器则不行？   
 ###一个Driver可以打开浏览器，另外一个Driver却不行？   
