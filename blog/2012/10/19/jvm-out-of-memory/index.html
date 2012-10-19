@@ -135,11 +135,12 @@
 <div class="entry-content"><p>一、常见的Java内存溢出有以下三种：</p>
 
 <ol>
-<li><p><code>java.lang.OutOfMemoryError: Java heap space</code> &#8212;-JVM Heap（堆）溢出
+<li><code>java.lang.OutOfMemoryError: Java heap space</code> &#8212;-JVM Heap（堆）溢出
 JVM在启动的时候会自动设置JVM Heap的值，其初始空间(即-Xms)是物理内存的1/64，最大空间(-Xmx)不可超过物理内存。
 可以利用JVM提供的-Xmn -Xms -Xmx等选项可进行设置。Heap的大小是Young Generation 和Tenured Generaion 之和。
 在JVM中如果98％的时间是用于GC，且可用的Heap size 不足2％的时候将抛出此异常信息。
-解决方法：手动设置JVM Heap（堆）的大小。</p></li>
+解决方法：手动设置JVM Heap（堆）的大小。  <br/>
+<!--more--></li>
 <li><p><code>java.lang.OutOfMemoryError: PermGen space</code>  &#8212;- PermGen space溢出。
 PermGen space的全称是Permanent Generation space，是指内存的永久保存区域。
 为什么会内存溢出，这是由于这块内存主要是被JVM存放Class和Meta信 息的，Class在被Load的时候被放入PermGen space区域，它和存放Instance的Heap区域不同,sun的 GC不会在主程序运行期对PermGen space进行清理，所以如果你的APP会载入很多CLASS的话，就很可能出现PermGen space溢出。
