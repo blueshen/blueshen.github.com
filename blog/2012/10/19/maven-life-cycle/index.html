@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>提高selenium自动化的稳定性2-等待 - Blues 小站</title>
+  <title>maven生命周期详解 - Blues 小站</title>
   <meta name="author" content="ShenYanchao">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://blueshen.github.com/blog/2012/10/11/selenium-stable-2">
+  <link rel="canonical" href="http://blueshen.github.com/blog/2012/10/19/maven-life-cycle">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/bootstrap/bootstrap.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/stylesheets/bootstrap/responsive.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -107,7 +107,7 @@
   ﻿
   <header class="page-header">
     
-      <h1 class="entry-title">提高selenium自动化的稳定性2-等待</h1>
+      <h1 class="entry-title">Maven生命周期详解</h1>
     
     
       <p class="meta">
@@ -123,7 +123,7 @@
   
 
 
-<time datetime="2012-10-11T14:32:00+08:00" pubdate data-updated="true">2012年10月11日 14:10:00</time>
+<time datetime="2012-10-19T22:21:00+08:00" pubdate data-updated="true">2012年10月19日 22:10:00</time>
         
          | <a href="#disqus_thread">我要评论</a>
         
@@ -132,90 +132,79 @@
   </header>
 
 
-<div class="entry-content"><h2>很多页面元素都是ajax动态生成的，这就要求进行适当的等待</h2>
+<div class="entry-content"><p>Maven强大的一个重要的原因是它有一个十分完善的生命周期模型(lifecycle)，这个生命周期可以从两方面来理解，第一，顾名思义，运行Maven的每个步骤都由它来定义的，这种预定义的默认行为使得我们使用Maven变得简单，相比而言，Ant的每个步骤都要你手工去定义。第二，这个模型是一种标准，在不同的项目中，使用Maven的接口是一样的，这样就不用去仔细理解每个项目的构建了，一般情况下，mvn clean install 这样的命令是通用的。我想，一定是吸收了许多项目的经验，Maven才能定义出如此完善的模型。</p>
 
-<h2>如何进行等待呢？</h2>
+<p>Maven有三套相互独立的生命周期，请注意这里说的是“三套”，而且“相互独立”，初学者容易将Maven的生命周期看成一个整体，其实不然。这三套生命周期分别是：</p>
 
-<h3>1.直接sleep</h3>
-
-<pre><code>public static void sleep(int seconds) {
-    try {
-        TimeUnit.SECONDS.sleep(seconds);
-    } catch (InterruptedException e) {
-        e.printStackTrace();
-    }
-}
-</code></pre>
-
-<p>这种方法，用于直接的让thread进行等待指定的seconds。</p>
-
-<!--more-->
+<ul>
+<li>Clean Lifecycle 在进行真正的构建之前进行一些清理工作。</li>
+<li>Default Lifecycle 构建的核心部分，编译，测试，打包，部署等等。</li>
+<li>Site Lifecycle 生成项目报告，站点，发布站点。</li>
+</ul>
 
 
-<h3>2.使用selenium webdriver提供的等待方法</h3>
+<p>我再次强调一下它们是相互独立的，你可以仅仅调用clean来清理工作目录，仅仅调用site来生成站点。当然你也可以直接运行 mvn clean install site 运行所有这三套生命周期。</p>
 
-<pre><code>driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-</code></pre>
+<p>知道了每套生命周期的大概用途和相互关系以后，来逐个详细看一下每套生命周期，Clean和Site相对比较简单，先解释一下。</p>
 
-<p>这种方法是webdriver提供的一种隐式等待。<br/>
-隐式等待是指当要查找元素（<code>driver.findElement()</code>），而这个元素没有马上出现时，告诉WebDriver查询Dom一定时间。默认值是0,但是设置之后，这个时间将在WebDriver对象实例整个生命周期都起作用。 <br/>
-比如使用：<code>driver.findElement(By.id("element"));</code>来查找id=&#8221;element&#8221;的元素。如果没有设置隐式等待，那么执行到这一步的时候就会直接报错<code>NoSuchElementException</code>。而设置后，则会在10秒内不断就查询元素是否存在，如果存在则返回。超过10秒仍没找到，才报错。</p>
+<p>每套生命周期都由一组阶段(Phase)组成，我们平时在命令行输入的命令总会对应于一个特定的阶段。比如，运行mvn clean ，这个的clean是Clean生命周期的一个阶段。有点绕？要知道有Clean生命周期，也有clean阶段。Clean生命周期一共包含了三个阶段：</p>
 
-<h3>3.使用WebDriver提供的<code>Wait&lt;T&gt;</code>接口</h3>
+<ul>
+<li>pre-clean  执行一些需要在clean之前完成的工作</li>
+<li>clean  移除所有上一次构建生成的文件</li>
+<li>post-clean  执行一些需要在clean之后立刻完成的工作</li>
+</ul>
 
-<pre><code>FluentWait&lt;T&gt; implements Wait&lt;T&gt;  
 
-Wait&lt;WebDriver&gt; wait = new FluentWait&lt;WebDriver&gt;(driver)
-   .withTimeout(30, SECONDS)
-   .pollingEvery(5, SECONDS)
-   .ignoring(NoSuchElementException.class);
+<p>mvn clean 中的clean就是上面的clean，在一个生命周期中，运行某个阶段的时候，它之前的所有阶段都会被运行，也就是说，mvn clean 等同于 mvn pre-clean clean ，如果我们运行 mvn post-clean ，那么 pre-clean，clean 都会被运行。这是Maven很重要的一个规则，可以大大简化命令行的输入。</p>
 
-WebElement element = wait.until(new Function&lt;WebDriver, WebElement&gt;() {
- public WebElement apply(WebDriver driver) {
-   return driver.findElement(By.id("element"));
- }
-});
-element.click();//something to do
-</code></pre>
+<p>下面看一下Site生命周期的各个阶段：</p>
 
-<p>此方法用于等待一个元素在页面上出现，超时时间为30S，每隔5S去请求一次，并且忽略掉until中抛出的<code>NoSuchElementException</code>。 <br/>
-FluentWait的源码中这样写到:</p>
+<ul>
+<li>pre-site     执行一些需要在生成站点文档之前完成的工作</li>
+<li>site    生成项目的站点文档</li>
+<li>post-site     执行一些需要在生成站点文档之后完成的工作，并且为部署做准备</li>
+<li>site-deploy     将生成的站点文档部署到特定的服务器上</li>
+</ul>
 
-<pre><code>private Duration timeout = FIVE_HUNDRED_MILLIS;  
-private Duration interval = FIVE_HUNDRED_MILLIS;   
-</code></pre>
 
-<p>因此，如果不设置<code>withTimeout</code>、<code>pollingEvery</code>则相当于等待了500ms,并且请求了一次，要使用<code>FluentWait</code>应该依据实际需要进行设置。那有没有更好的方法呢，有的，请往下看。</p>
+<p>这里经常用到的是site阶段和site-deploy阶段，用以生成和发布Maven站点，这可是Maven相当强大的功能，Manager比较喜欢，文档及统计数据自动生成，很好看。</p>
 
-<pre><code>WebDriverWait extends FluentWait&lt;WebDriver&gt;
+<p>最后，来看一下Maven的最重要的Default生命周期，绝大部分工作都发生在这个生命周期中，这里，我只解释一些比较重要和常用的阶段：</p>
 
-Wait&lt;WebDriver&gt; waiter = new WebDriverWait(driver, 10);
-WebElement element = waiter.until(new Function&lt;WebDriver, WebElement&gt;() {
-        public WebElement apply(WebDriver driver) {
-            return driver.findElement(By.id("element"));
-        }
+<ul>
+<li>validate</li>
+<li>generate-sources</li>
+<li>process-sources</li>
+<li>generate-resources</li>
+<li>process-resources     复制并处理资源文件，至目标目录，准备打包。</li>
+<li>compile     编译项目的源代码。</li>
+<li>process-classes</li>
+<li>generate-test-sources</li>
+<li>process-test-sources</li>
+<li>generate-test-resources</li>
+<li>process-test-resources     复制并处理资源文件，至目标测试目录。</li>
+<li>test-compile     编译测试源代码。</li>
+<li>process-test-classes</li>
+<li>test     使用合适的单元测试框架运行测试。这些测试代码不会被打包或部署。</li>
+<li>prepare-package</li>
+<li>package     接受编译好的代码，打包成可发布的格式，如 JAR 。</li>
+<li>pre-integration-test</li>
+<li>integration-test</li>
+<li>post-integration-test</li>
+<li>verify</li>
+<li>install     将包安装至本地仓库，以让其它项目依赖。</li>
+<li>deploy     将最终的包复制到远程的仓库，以让其它开发人员与项目共享。</li>
+</ul>
 
-    });
-element.click();//something to do
-</code></pre>
 
-<p><code>WebDriverWait</code>是继承于<code>FluentWait</code>的，并且实现了对功能进行了增强。从源码看出<code>WebDriverWait</code>的构造函数进行了如下的设置：</p>
+<p>基本上，根据名称我们就能猜出每个阶段的用途，关于其它阶段的解释，请参考 <a href="http://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html">http://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html</a></p>
 
-<pre><code>withTimeout(timeOutInSeconds, TimeUnit.SECONDS);
-pollingEvery(sleepTimeOut, TimeUnit.MILLISECONDS);
-ignoring(NotFoundException.class);
-</code></pre>
+<p>记住，运行任何一个阶段的时候，它前面的所有阶段都会被运行，这也就是为什么我们运行mvn install 的时候，代码会被编译，测试，打包。</p>
 
-<p>设置了超时时间、每次请求的间隔为<code>sleepTimeOut</code>（默认500ms）、忽略了<code>NotFoundException</code>。因此直接使用<code>WebDriverWait</code>更加的省事。</p>
+<p>此外，Maven的插件机制是完全依赖Maven的生命周期的，因此理解生命周期至关重要，在之后的文章里，我将会进一步解释Maven的插件机制。</p>
 
-<h3>总结</h3>
-
-<p>WebDriver提供了很多等待机制来增加selenium自动化的稳定性，只要合理利用是可以达到理想的效果的。 <br/>
-无疑第一种方法sleep是最不可取的，是万不得已才用的一份方法，因为元素的加载与网络速度等客观因素直接相关。这个sleep的值是很难取的，值小了不行，值大了会造成case的运行速度缓慢。 <br/>
-第二种方法是从全局的角度来解决元素查找问题的，在解决通用性的问题上有一定的优势，可以考虑使用。 <br/>
-第三种方法是最好的，也是<strong>推荐</strong>的一种等待方式，很好的解决了动态元素的查找问题。</p>
-
-<hr />
+<p>转摘自：<a href="http://juvenshun.iteye.com/blog/213959">http://juvenshun.iteye.com/blog/213959</a></p>
 </div>
 
 
@@ -238,12 +227,12 @@ ignoring(NotFoundException.class);
   
 
 
-<time datetime="2012-10-11T14:32:00+08:00" pubdate data-updated="true">2012年10月11日 14:10:00</time>
+<time datetime="2012-10-19T22:21:00+08:00" pubdate data-updated="true">2012年10月19日 22:10:00</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/selenium/'>selenium</a>
+    <a class='category' href='/blog/categories/maven/'>maven</a>
   
 </span>
 
@@ -290,14 +279,10 @@ ignoring(NotFoundException.class);
     <ul class="pager">
       
       <li class="previous"><a class="basic-alignment left"
-        href="/blog/2012/10/11/selenium-stable-1/" title="Previous Post:
-        提高selenium自动化的稳定性1-点击空白区域">&laquo; 提高selenium自动化的稳定性1-点击空白区域</a></li>
+        href="/blog/2012/10/16/pageobjects-design-pattern/" title="Previous Post:
+        PageObjects 设计模式">&laquo; PageObjects 设计模式</a></li>
       
       <li><a href="/blog/archives">Blog Archives</a></li>
-      
-      <li class="next"><a class="basic-alignment right" href="/blog/2012/10/12/apache-mpm/"
-        title="Next Post: apache mpm介绍[转]">apache mpm介绍[转]
-        &raquo;</a></li>
       
     </ul>
   </footer>
@@ -392,8 +377,8 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://blueshen.github.com/blog/2012/10/11/selenium-stable-2/';
-        var disqus_url = 'http://blueshen.github.com/blog/2012/10/11/selenium-stable-2/';
+        var disqus_identifier = 'http://blueshen.github.com/blog/2012/10/19/maven-life-cycle/';
+        var disqus_url = 'http://blueshen.github.com/blog/2012/10/19/maven-life-cycle/';
         var disqus_script = 'embed.js';
       
     (function () {
