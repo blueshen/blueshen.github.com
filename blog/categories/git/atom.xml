@@ -4,7 +4,7 @@
   <title><![CDATA[Category: git | Blues 小站]]></title>
   <link href="http://blueshen.github.com/blog/categories/git/atom.xml" rel="self"/>
   <link href="http://blueshen.github.com/"/>
-  <updated>2012-10-20T11:01:13+08:00</updated>
+  <updated>2012-10-20T16:33:01+08:00</updated>
   <id>http://blueshen.github.com/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -19,6 +19,9 @@
     <updated>2012-10-20T10:56:00+08:00</updated>
     <id>http://blueshen.github.com/blog/2012/10/20/git-command</id>
     <content type="html"><![CDATA[<h2>Git 命令结构图：</h2>
+
+<!--more-->
+
 
 <p><img src="images/blog/git-command.png" alt="git command" /></p>
 ]]></content>
