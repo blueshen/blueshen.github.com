@@ -4,7 +4,7 @@
   <title><![CDATA[Blues 小站]]></title>
   <link href="http://blueshen.github.com/atom.xml" rel="self"/>
   <link href="http://blueshen.github.com/"/>
-  <updated>2012-10-20T10:49:13+08:00</updated>
+  <updated>2012-10-20T11:01:13+08:00</updated>
   <id>http://blueshen.github.com/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -12,6 +12,17 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Git 命令]]></title>
+    <link href="http://blueshen.github.com/blog/2012/10/20/git-command/"/>
+    <updated>2012-10-20T10:56:00+08:00</updated>
+    <id>http://blueshen.github.com/blog/2012/10/20/git-command</id>
+    <content type="html"><![CDATA[<h2>Git 命令结构图：</h2>
+
+<p><img src="images/blog/git-command.png" alt="git command" /></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[xpath 详解]]></title>
