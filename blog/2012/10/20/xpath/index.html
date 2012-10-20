@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Java内存溢出详解 - Blues 小站</title>
+  <title>xpath 详解 - Blues 小站</title>
   <meta name="author" content="ShenYanchao">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://blueshen.github.com/blog/2012/10/19/jvm-out-of-memory">
+  <link rel="canonical" href="http://blueshen.github.com/blog/2012/10/20/xpath">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/bootstrap/bootstrap.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/stylesheets/bootstrap/responsive.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -107,7 +107,7 @@
   ﻿
   <header class="page-header">
     
-      <h1 class="entry-title">Java内存溢出详解</h1>
+      <h1 class="entry-title">Xpath 详解</h1>
     
     
       <p class="meta">
@@ -123,7 +123,7 @@
   
 
 
-<time datetime="2012-10-19T23:12:00+08:00" pubdate data-updated="true">2012年10月19日 23:10:00</time>
+<time datetime="2012-10-20T10:43:00+08:00" pubdate data-updated="true">2012年10月20日 10:10:00</time>
         
          | <a href="#disqus_thread">我要评论</a>
         
@@ -132,77 +132,280 @@
   </header>
 
 
-<div class="entry-content"><p>一、常见的Java内存溢出有以下三种：</p>
-
-<ol>
-<li><code>java.lang.OutOfMemoryError: Java heap space</code> &#8212;-JVM Heap（堆）溢出
-JVM在启动的时候会自动设置JVM Heap的值，其初始空间(即-Xms)是物理内存的1/64，最大空间(-Xmx)不可超过物理内存。
-可以利用JVM提供的-Xmn -Xms -Xmx等选项可进行设置。Heap的大小是Young Generation 和Tenured Generaion 之和。
-在JVM中如果98％的时间是用于GC，且可用的Heap size 不足2％的时候将抛出此异常信息。
-解决方法：手动设置JVM Heap（堆）的大小。  <br/>
-<!--more--></li>
-<li><p><code>java.lang.OutOfMemoryError: PermGen space</code>  &#8212;- PermGen space溢出。
-PermGen space的全称是Permanent Generation space，是指内存的永久保存区域。
-为什么会内存溢出，这是由于这块内存主要是被JVM存放Class和Meta信 息的，Class在被Load的时候被放入PermGen space区域，它和存放Instance的Heap区域不同,sun的 GC不会在主程序运行期对PermGen space进行清理，所以如果你的APP会载入很多CLASS的话，就很可能出现PermGen space溢出。
-解决方法： 手动设置MaxPermSize大小</p></li>
-<li><p><code>java.lang.StackOverflowError</code>  &#8212;- 栈溢出
-栈溢出了，JVM依然是采用栈式的虚拟机，这个和C和Pascal都是一样的。函数的调用过程都体现在堆栈和退栈上了。
-调用构造函数的 “层”太多了，以致于把栈区溢出了。
-通常来讲，一般栈区远远小于堆区的，因为函数调用过程往往不会多于上千层，而即便每个函数调用需要 1K的空间(这个大约相当于在一个C函数内声明了256个int类型的变量)，那么栈区也不过是需要1MB的空间。通常栈的大小是1－2MB的。
-通常递归也不要递归的层次过多，很容易溢出。
-解决方法：修改程序。</p></li>
-</ol>
+<div class="entry-content"><div id="intro">
+<p><strong>XPath 使用路径表达式来选取 XML 文档中的节点或节点集。节点是通过沿着路径 (path) 或者步 (steps) 来选取的。</strong></p>
+</div>
 
 
-<p>二、解决方法</p>
 
-<p>在生产环境中tomcat内存设置不好很容易出现jvm内存溢出。</p>
 
-<p>1、 linux下的tomcat：<br/>
-修改TOMCAT_HOME/bin/catalina.sh
-在“echo &#8220;Using CATALINA_BASE: $CATALINA_BASE&#8221;”上面加入以下行：
-<code>JAVA_OPTS="-server -Xms256m -Xmx512m -XX:PermSize=64M -XX:MaxPermSize=128m</code>&#8221;</p>
+<div>
+<h2>XML 实例文档</h2>
+<p>我们将在下面的例子中使用这个 XML 文档。</p>
+<pre>&lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot;?&gt;
 
-<p>2、 如果tomcat 5 注册成了windows服务，以services方式启动的，则需要修改注册表中的相应键值。
-修改注册表HKEY_LOCAL_MACHINE\SOFTWARE\Apache Software Foundation\Tomcat Service Manager\Tomcat5\Parameters\Java，右侧的Options
-原值为</p>
+&lt;bookstore&gt;
 
-<pre><code>-Dcatalina.home="C:\ApacheGroup\Tomcat 5.0"
--Djava.endorsed.dirs="C:\ApacheGroup\Tomcat 5.0\common\endorsed"
-</code></pre>
+&lt;book&gt;
+  &lt;title lang=&quot;eng&quot;&gt;Harry Potter&lt;/title&gt;
+  &lt;price&gt;29.99&lt;/price&gt;
+&lt;/book&gt;
 
-<p>-Xrs
-加入 -Xms256m -Xmx512m
-重起tomcat服务,设置生效</p>
+&lt;book&gt;
+  &lt;title lang=&quot;eng&quot;&gt;Learning XML&lt;/title&gt;
+  &lt;price&gt;39.95&lt;/price&gt;
+&lt;/book&gt;
 
-<p>3、 如果tomcat 6 注册成了windows服务，或者windows2003下用tomcat的安装版，
-在/bin/tomcat6w.exe里修改就可以了 。</p>
+&lt;/bookstore&gt;</pre>
+</div>
 
-<p>4、 如果要在myeclipse中启动tomcat，上述的修改就不起作用了，可如下设置：
-Myeclipse->preferences->myeclipse->servers->tomcat->tomcat×.×->JDK面板中的
-Optional Java VM arguments中添加：<code>-Xms256m -Xmx512m -XX:PermSize=64M -XX:MaxPermSize=128m</code></p>
 
-<p>三、jvm参数说明：</p>
 
-<p>-server:一定要作为第一个参数，在多个CPU时性能佳  <br/>
--Xms：java Heap初始大小。 默认是物理内存的1/64。 <br/>
--Xmx：java heap最大值。建议均设为物理内存的一半。不可超过物理内存。<br/>
--XX:PermSize:设定内存的永久保存区初始大小，缺省值为64M。（我用visualvm.exe查看的） <br/>
--XX:MaxPermSize:设定内存的永久保存区最大 大小，缺省值为64M。（我用visualvm.exe查看的） <br/>
--XX:SurvivorRatio=2  :生还者池的大小,默认是2，如果垃圾回收变成了瓶颈，您可以尝试定制生成池设置  <br/>
--XX:NewSize: 新生成的池的初始大小。 缺省值为2M。<br/>
--XX:MaxNewSize: 新生成的池的最大大小。   缺省值为32M。 <br/>
-如果 JVM 的堆大小大于 1GB，则应该使用值：-XX:newSize=640m -XX:MaxNewSize=640m -XX:SurvivorRatio=16，或者将堆的总大小的 50% 到 60% 分配给新生成的池。调大新对象区，减少Full GC次数。<br/>
-+XX:AggressiveHeap 会使得 Xms没有意义。这个参数让jvm忽略Xmx参数,疯狂地吃完一个G物理内存,再吃尽一个G的swap。 <br/>
--Xss：每个线程的Stack大小，“-Xss 15120” 这使得JBoss每增加一个线程（thread)就会立即消耗15M内存，而最佳值应该是128K,默认值好像是512k.  <br/>
--verbose:gc 现实垃圾收集信息  <br/>
--Xloggc:gc.log 指定垃圾收集日志文件<br/>
--Xmn：young generation的heap大小，一般设置为Xmx的3、4分之一  <br/>
--XX:+UseParNewGC ：缩短minor收集的时间  <br/>
--XX:+UseConcMarkSweepGC ：缩短major收集的时间 此选项在Heap Size 比较大而且Major收集时间较长的情况下使用更合适。 <br/>
--XX:userParNewGC 可用来设置并行收集【多CPU】 <br/>
--XX:ParallelGCThreads 可用来增加并行度【多CPU】 <br/>
--XX:UseParallelGC 设置后可以使用并行清除收集器【多CPU】</p>
+
+<div>
+<h2>选取节点</h2>
+
+<p>XPath 使用路径表达式在 XML 文档中选取节点。节点是通过沿着路径或者 step 来选取的。</p>
+
+<h3>下面列出了最有用的路径表达式：</h3>
+
+<table class="dataintable">
+<tr>
+<th style="width:25%;">表达式</th>
+<th>描述</th>
+</tr>
+
+<tr>
+<td>nodename</td>
+<td>选取此节点的所有子节点。</td>
+</tr>
+
+<tr>
+<td>/</td>
+<td>从根节点选取。</td>
+</tr>
+
+<tr>
+<td>//</td>
+<td>从匹配选择的当前节点选择文档中的节点，而不考虑它们的位置。</td>
+</tr>
+
+<tr>
+<td>.</td>
+<td>选取当前节点。</td>
+</tr>
+
+<tr>
+<td>..</td>
+<td>选取当前节点的父节点。</td>
+</tr>
+
+<tr>
+<td>@</td>
+<td>选取属性。</td>
+</tr>
+</table>
+
+<h3>实例</h3>
+
+<p>在下面的表格中，我们已列出了一些路径表达式以及表达式的结果：</p>
+
+<table class="dataintable">
+<tr>
+<th style="width:25%;">路径表达式</th>
+<th>结果</th>
+</tr>
+
+<tr>
+<td>bookstore</td>
+<td>选取 bookstore 元素的所有子节点。</td>
+</tr>
+
+<tr>
+<td>/bookstore</td>
+<td>
+<p>选取根元素 bookstore。</p>
+<p>注释：假如路径起始于正斜杠( / )，则此路径始终代表到某元素的绝对路径！</p>
+</td>
+</tr>
+
+<tr>
+<td>bookstore/book</td>
+<td>选取属于 bookstore 的子元素的所有 book 元素。</td>
+</tr>
+
+<tr>
+<td>//book</td>
+<td>选取所有 book 子元素，而不管它们在文档中的位置。</td>
+</tr>
+
+<tr>
+<td>bookstore//book</td>
+<td>选择属于 bookstore 元素的后代的所有 book 元素，而不管它们位于 bookstore 之下的什么位置。</td>
+</tr>
+
+<tr>
+<td>//@lang</td>
+<td>选取名为 lang 的所有属性。</td>
+</tr>
+</table>
+</div>
+
+
+
+
+<div>
+<h2>谓语（Predicates）</h2>
+
+<p>谓语用来查找某个特定的节点或者包含某个指定的值的节点。</p>
+<p>谓语被嵌在方括号中。</p>
+
+<h3>实例</h3>
+
+<p>在下面的表格中，我们列出了带有谓语的一些路径表达式，以及表达式的结果：</p>
+
+<table class="dataintable">
+<tr>
+<th style="width:35%;">路径表达式</th>
+<th>结果</th>
+</tr>
+
+<tr>
+<td>/bookstore/book[1]</td>
+<td>选取属于 bookstore 子元素的第一个 book 元素。</td>
+</tr>
+
+<tr>
+<td>/bookstore/book[last()]</td>
+<td>选取属于 bookstore 子元素的最后一个 book 元素。</td>
+</tr>
+
+<tr>
+<td>/bookstore/book[last()-1]</td>
+<td>选取属于 bookstore 子元素的倒数第二个 book 元素。</td>
+</tr>
+
+<tr>
+<td>/bookstore/book[position()&lt;3]</td>
+<td>选取最前面的两个属于 bookstore 元素的子元素的 book 元素。</td>
+</tr>
+
+<tr>
+<td>//title[@lang]</td>
+<td>选取所有拥有名为 lang 的属性的 title 元素。</td>
+</tr>
+
+<tr>
+<td>//title[@lang=&#8217;eng&#8217;]</td>
+<td>选取所有 title 元素，且这些元素拥有值为 eng 的 lang 属性。</td>
+</tr>
+
+<tr>
+<td>/bookstore/book[price&gt;35.00]</td>
+<td>选取 bookstore 元素的所有 book 元素，且其中的 price 元素的值须大于 35.00。</td>
+</tr>
+
+<tr>
+<td>/bookstore/book[price&gt;35.00]/title</td>
+<td>选取 bookstore 元素中的 book 元素的所有 title 元素，且其中的 price 元素的值须大于 35.00。</td>
+</tr>
+</table>
+</div>
+
+
+
+
+<div>
+<h2>选取未知节点</h2>
+
+<p>XPath 通配符可用来选取未知的 XML 元素。</p>
+
+<table class="dataintable">
+<tr>
+<th style="width:25%;">通配符</th>
+<th>描述</th>
+</tr>
+
+<tr>
+<td>*</td>
+<td>匹配任何元素节点。</td>
+</tr>
+
+<tr>
+<td>@*</td>
+<td>匹配任何属性节点。</td>
+</tr>
+
+<tr>
+<td>node()</td>
+<td>匹配任何类型的节点。</td>
+</tr>
+</table>
+
+<h3>实例</h3>
+
+<p>在下面的表格中，我们列出了一些路径表达式，以及这些表达式的结果：</p>
+
+<table class="dataintable">
+<tr>
+<th style="width:25%;">路径表达式</th>
+<th>结果</th>
+</tr>
+
+<tr>
+<td>/bookstore/*</td>
+<td>选取 bookstore 元素的所有子元素。</td>
+</tr>
+
+<tr>
+<td>//*</td>
+<td>选取文档中的所有元素。</td>
+</tr>
+
+<tr>
+<td>//title[@*]</td>
+<td>选取所有带有属性的 title 元素。</td>
+</tr>
+</table>
+</div>
+
+
+
+
+<div>
+<h2>选取若干路径</h2>
+
+<p>通过在路径表达式中使用“|”运算符，您可以选取若干个路径。</p>
+
+<h3>实例</h3>
+
+<p>在下面的表格中，我们列出了一些路径表达式，以及这些表达式的结果：</p>
+
+<table class="dataintable">
+<tr>
+<th style="width:35%;">路径表达式</th>
+<th>结果</th>
+</tr>
+
+<tr>
+<td>//book/title | //book/price</td>
+<td>选取 book 元素的所有 title 和 price 元素。</td>
+</tr>
+
+<tr>
+<td>//title | //price</td>
+<td>选取文档中的所有 title 和 price 元素。</td>
+</tr>
+
+<tr>
+<td>/bookstore/book/title | //price</td>
+<td>选取属于 bookstore 元素的 book 元素的所有 title 元素，以及文档中所有的 price 元素。</td>
+</tr>
+</table>
+</div>
+
+
+
 </div>
 
 
@@ -225,12 +428,12 @@ Optional Java VM arguments中添加：<code>-Xms256m -Xmx512m -XX:PermSize=64M -
   
 
 
-<time datetime="2012-10-19T23:12:00+08:00" pubdate data-updated="true">2012年10月19日 23:10:00</time>
+<time datetime="2012-10-20T10:43:00+08:00" pubdate data-updated="true">2012年10月20日 10:10:00</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/jvm/'>jvm</a>
+    <a class='category' href='/blog/categories/selenium/'>selenium</a>
   
 </span>
 
@@ -277,14 +480,10 @@ Optional Java VM arguments中添加：<code>-Xms256m -Xmx512m -XX:PermSize=64M -
     <ul class="pager">
       
       <li class="previous"><a class="basic-alignment left"
-        href="/blog/2012/10/19/java6-jvm-params/" title="Previous Post:
-        JVM参数选项">&laquo; JVM参数选项</a></li>
+        href="/blog/2012/10/19/install-maven/" title="Previous Post:
+        安装配置Maven">&laquo; 安装配置Maven</a></li>
       
       <li><a href="/blog/archives">Blog Archives</a></li>
-      
-      <li class="next"><a class="basic-alignment right" href="/blog/2012/10/19/install-maven/"
-        title="Next Post: 安装配置Maven">安装配置Maven
-        &raquo;</a></li>
       
     </ul>
   </footer>
@@ -379,8 +578,8 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://blueshen.github.com/blog/2012/10/19/jvm-out-of-memory/';
-        var disqus_url = 'http://blueshen.github.com/blog/2012/10/19/jvm-out-of-memory/';
+        var disqus_identifier = 'http://blueshen.github.com/blog/2012/10/20/xpath/';
+        var disqus_url = 'http://blueshen.github.com/blog/2012/10/20/xpath/';
         var disqus_script = 'embed.js';
       
     (function () {
