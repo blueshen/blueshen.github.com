@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Java内存溢出详解 - Blues 小站</title>
+  <title>23个经典JDK设计模式 - Blues 小站</title>
   <meta name="author" content="ShenYanchao">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://blueshen.github.com/blog/2012/10/19/jvm-out-of-memory">
+  <link rel="canonical" href="http://blueshen.github.com/blog/2012/10/22/design-pattern-in-jdk-index">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/bootstrap/bootstrap.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/stylesheets/bootstrap/responsive.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -107,7 +107,7 @@
   ﻿
   <header class="page-header">
     
-      <h1 class="entry-title">Java内存溢出详解</h1>
+      <h1 class="entry-title">23个经典JDK设计模式</h1>
     
     
       <p class="meta">
@@ -123,7 +123,7 @@
   
 
 
-<time datetime="2012-10-19T23:12:00+08:00" pubdate data-updated="true">2012年10月19日 23:10:00</time>
+<time datetime="2012-10-22T20:49:00+08:00" pubdate data-updated="true">2012年10月22日 20:10:00</time>
         
          | <a href="#disqus_thread">我要评论</a>
         
@@ -132,77 +132,222 @@
   </header>
 
 
-<div class="entry-content"><p>一、常见的Java内存溢出有以下三种：</p>
+<div class="entry-content"><p>下面是JDK中有关23个经典设计模式的示例：</p>
 
-<ol>
-<li><code>java.lang.OutOfMemoryError: Java heap space</code> &#8212;-JVM Heap（堆）溢出
-JVM在启动的时候会自动设置JVM Heap的值，其初始空间(即-Xms)是物理内存的1/64，最大空间(-Xmx)不可超过物理内存。
-可以利用JVM提供的-Xmn -Xms -Xmx等选项可进行设置。Heap的大小是Young Generation 和Tenured Generaion 之和。
-在JVM中如果98％的时间是用于GC，且可用的Heap size 不足2％的时候将抛出此异常信息。
-解决方法：手动设置JVM Heap（堆）的大小。  <br/>
-<!--more--></li>
-<li><p><code>java.lang.OutOfMemoryError: PermGen space</code>  &#8212;- PermGen space溢出。
-PermGen space的全称是Permanent Generation space，是指内存的永久保存区域。
-为什么会内存溢出，这是由于这块内存主要是被JVM存放Class和Meta信 息的，Class在被Load的时候被放入PermGen space区域，它和存放Instance的Heap区域不同,sun的 GC不会在主程序运行期对PermGen space进行清理，所以如果你的APP会载入很多CLASS的话，就很可能出现PermGen space溢出。
-解决方法： 手动设置MaxPermSize大小</p></li>
-<li><p><code>java.lang.StackOverflowError</code>  &#8212;- 栈溢出
-栈溢出了，JVM依然是采用栈式的虚拟机，这个和C和Pascal都是一样的。函数的调用过程都体现在堆栈和退栈上了。
-调用构造函数的 “层”太多了，以致于把栈区溢出了。
-通常来讲，一般栈区远远小于堆区的，因为函数调用过程往往不会多于上千层，而即便每个函数调用需要 1K的空间(这个大约相当于在一个C函数内声明了256个int类型的变量)，那么栈区也不过是需要1MB的空间。通常栈的大小是1－2MB的。
-通常递归也不要递归的层次过多，很容易溢出。
-解决方法：修改程序。</p></li>
-</ol>
+<p>Structural（结构模式）</p>
 
+<p>Adapter:</p>
 
-<p>二、解决方法</p>
+<p>把一个接口或是类变成另外一种。</p>
 
-<p>在生产环境中tomcat内存设置不好很容易出现jvm内存溢出。</p>
+<p>● java.util.Arrays#asList()<br/>
+● javax.swing.JTable(TableModel)<br/>
+● java.io.InputStreamReader(InputStream) <br/>
+● java.io.OutputStreamWriter(OutputStream) <br/>
+● javax.xml.bind.annotation.adapters.XmlAdapter#marshal()<br/>
+● javax.xml.bind.annotation.adapters.XmlAdapter#unmarshal() <br/>
+Bridge:</p>
 
-<p>1、 linux下的tomcat：<br/>
-修改TOMCAT_HOME/bin/catalina.sh
-在“echo &#8220;Using CATALINA_BASE: $CATALINA_BASE&#8221;”上面加入以下行：
-<code>JAVA_OPTS="-server -Xms256m -Xmx512m -XX:PermSize=64M -XX:MaxPermSize=128m</code>&#8221;</p>
+<p>把抽象和实现解藕，于是接口和实现可在完全独立开来。</p>
 
-<p>2、 如果tomcat 5 注册成了windows服务，以services方式启动的，则需要修改注册表中的相应键值。
-修改注册表HKEY_LOCAL_MACHINE\SOFTWARE\Apache Software Foundation\Tomcat Service Manager\Tomcat5\Parameters\Java，右侧的Options
-原值为</p>
+<p>● AWT (提供了抽象层映射于实际的操作系统)<br/>
+● JDBC</p>
 
-<pre><code>-Dcatalina.home="C:\ApacheGroup\Tomcat 5.0"
--Djava.endorsed.dirs="C:\ApacheGroup\Tomcat 5.0\common\endorsed"
-</code></pre>
+<p>Composite:</p>
 
-<p>-Xrs
-加入 -Xms256m -Xmx512m
-重起tomcat服务,设置生效</p>
+<p>让使用者把单独的对象和组合对象混用。</p>
 
-<p>3、 如果tomcat 6 注册成了windows服务，或者windows2003下用tomcat的安装版，
-在/bin/tomcat6w.exe里修改就可以了 。</p>
+<p>● javax.swing.JComponent#add(Component) <br/>
+● java.awt.Container#add(Component) <br/>
+● java.util.Map#putAll(Map) <br/>
+● java.util.List#addAll(Collection) <br/>
+● java.util.Set#addAll(Collection)</p>
 
-<p>4、 如果要在myeclipse中启动tomcat，上述的修改就不起作用了，可如下设置：
-Myeclipse->preferences->myeclipse->servers->tomcat->tomcat×.×->JDK面板中的
-Optional Java VM arguments中添加：<code>-Xms256m -Xmx512m -XX:PermSize=64M -XX:MaxPermSize=128m</code></p>
+<p>Decorator:</p>
 
-<p>三、jvm参数说明：</p>
+<p>为一个对象动态的加上一系列的动作，而不需要因为这些动作的不同而产生大量的继承类。这个模式在JDK中几乎无处不在，所以，下面的列表只是一些典型的。</p>
 
-<p>-server:一定要作为第一个参数，在多个CPU时性能佳  <br/>
--Xms：java Heap初始大小。 默认是物理内存的1/64。 <br/>
--Xmx：java heap最大值。建议均设为物理内存的一半。不可超过物理内存。<br/>
--XX:PermSize:设定内存的永久保存区初始大小，缺省值为64M。（我用visualvm.exe查看的） <br/>
--XX:MaxPermSize:设定内存的永久保存区最大 大小，缺省值为64M。（我用visualvm.exe查看的） <br/>
--XX:SurvivorRatio=2  :生还者池的大小,默认是2，如果垃圾回收变成了瓶颈，您可以尝试定制生成池设置  <br/>
--XX:NewSize: 新生成的池的初始大小。 缺省值为2M。<br/>
--XX:MaxNewSize: 新生成的池的最大大小。   缺省值为32M。 <br/>
-如果 JVM 的堆大小大于 1GB，则应该使用值：-XX:newSize=640m -XX:MaxNewSize=640m -XX:SurvivorRatio=16，或者将堆的总大小的 50% 到 60% 分配给新生成的池。调大新对象区，减少Full GC次数。<br/>
-+XX:AggressiveHeap 会使得 Xms没有意义。这个参数让jvm忽略Xmx参数,疯狂地吃完一个G物理内存,再吃尽一个G的swap。 <br/>
--Xss：每个线程的Stack大小，“-Xss 15120” 这使得JBoss每增加一个线程（thread)就会立即消耗15M内存，而最佳值应该是128K,默认值好像是512k.  <br/>
--verbose:gc 现实垃圾收集信息  <br/>
--Xloggc:gc.log 指定垃圾收集日志文件<br/>
--Xmn：young generation的heap大小，一般设置为Xmx的3、4分之一  <br/>
--XX:+UseParNewGC ：缩短minor收集的时间  <br/>
--XX:+UseConcMarkSweepGC ：缩短major收集的时间 此选项在Heap Size 比较大而且Major收集时间较长的情况下使用更合适。 <br/>
--XX:userParNewGC 可用来设置并行收集【多CPU】 <br/>
--XX:ParallelGCThreads 可用来增加并行度【多CPU】 <br/>
--XX:UseParallelGC 设置后可以使用并行清除收集器【多CPU】</p>
+<p>● java.io.BufferedInputStream(InputStream) <br/>
+● java.io.DataInputStream(InputStream) <br/>
+● java.io.BufferedOutputStream(OutputStream) <br/>
+● java.util.zip.ZipOutputStream(OutputStream) <br/>
+● java.util.Collections#checked<a href="">List|Map|Set|SortedSet|SortedMap</a></p>
+
+<p>Facade:</p>
+
+<p>用一个简单的接口包状一组组件，接口，抽象或是子系统。</p>
+
+<p>● java.lang.Class <br/>
+● javax.faces.webapp.FacesServlet</p>
+
+<p>Flyweight:</p>
+
+<p>有效率地存储大量的小的对象。</p>
+
+<p>● java.lang.Integer#valueOf(int) <br/>
+● java.lang.Boolean#valueOf(boolean) <br/>
+● java.lang.Byte#valueOf(byte) <br/>
+● java.lang.Character#valueOf(char)</p>
+
+<p>Proxy:</p>
+
+<p>用一个简单的对象来代替一个复杂的对象。</p>
+
+<p>● java.lang.reflect.Proxy <br/>
+● RMI</p>
+
+<p>Creational（创建模式）</p>
+
+<p>Abstract factory:</p>
+
+<p>创建一组有关联的对象实例。这个模式在JDK中也是相当的常见，还有很多的framework例如Spring。我们很容易找到这样的实例。</p>
+
+<p>● java.util.Calendar#getInstance()  <br/>
+● java.util.Arrays#asList() <br/>
+● java.util.ResourceBundle#getBundle() <br/>
+● java.sql.DriverManager#getConnection() <br/>
+● java.sql.Connection#createStatement() <br/>
+● java.sql.Statement#executeQuery() <br/>
+● java.text.NumberFormat#getInstance() <br/>
+● javax.xml.transform.TransformerFactory#newInstance()</p>
+
+<p>Builder:</p>
+
+<p>主要用来简化一个复杂的对象的创建。这个模式也可以用来实现一个 Fluent Interface。</p>
+
+<p>● java.lang.StringBuilder#append() <br/>
+● java.lang.StringBuffer#append() <br/>
+● java.sql.PreparedStatement <br/>
+● javax.swing.GroupLayout.Group#addComponent()</p>
+
+<p>Factory:</p>
+
+<p>简单来说，按照需求返回一个类型的实例。</p>
+
+<p>● java.lang.Proxy#newProxyInstance() <br/>
+● java.lang.Object#toString() <br/>
+● java.lang.Class#newInstance() <br/>
+● java.lang.reflect.Array#newInstance() <br/>
+● java.lang.reflect.Constructor#newInstance() <br/>
+● java.lang.Boolean#valueOf(String) <br/>
+● java.lang.Class#forName()</p>
+
+<p>Prototype:</p>
+
+<p>使用自己的实例创建另一个实例。有时候，创建一个实例然后再把已有实例的值拷贝过去，是一个很复杂的动作。所以，使用这个模式可以避免这样的复杂性。</p>
+
+<p>● java.lang.Object#clone() <br/>
+● java.lang.Cloneable</p>
+
+<p>Singleton:</p>
+
+<p>只允许一个实例。在 Effective Java中建议使用Emun.</p>
+
+<p>● java.lang.Runtime#getRuntime() <br/>
+● java.awt.Toolkit#getDefaultToolkit() <br/>
+● java.awt.GraphicsEnvironment#getLocalGraphicsEnvironment() <br/>
+● java.awt.Desktop#getDesktop()</p>
+
+<p>Behavioral(行为模式)</p>
+
+<p>Chain of responsibility:</p>
+
+<p>把一个对象在一个链接传递直到被处理。在这个链上的所有的对象有相同的接口（抽象类）但却有不同的实现。</p>
+
+<p>● java.util.logging.Logger#log() <br/>
+● javax.servlet.Filter#doFilter()</p>
+
+<p>Command:</p>
+
+<p>把一个或一些命令封装到一个对象中。</p>
+
+<p>● java.lang.Runnable <br/>
+● javax.swing.Action</p>
+
+<p>Interpreter:</p>
+
+<p>一个语法解释器的模式。</p>
+
+<p>● java.util.Pattern  <br/>
+● java.text.Normalizer <br/>
+● java.text.Format</p>
+
+<p>Iterator:</p>
+
+<p>提供一种一致的方法来顺序遍历一个容器中的所有元素。</p>
+
+<p>● java.util.Iterator <br/>
+● java.util.Enumeration</p>
+
+<p>Mediator:</p>
+
+<p>用来减少对象单的直接通讯的依赖关系。使用一个中间类来管理消息的方向。</p>
+
+<p>● java.util.Timer <br/>
+● java.util.concurrent.Executor#execute() <br/>
+● java.util.concurrent.ExecutorService#submit() <br/>
+● java.lang.reflect.Method#invoke()</p>
+
+<p>Memento:</p>
+
+<p>给一个对象的状态做一个快照。Date类在内部使用了一个long型来做这个快照。</p>
+
+<p>● java.util.Date <br/>
+● java.io.Serializable</p>
+
+<p>Null Object:</p>
+
+<p>这个模式用来解决如果一个Collection中没有元素的情况。</p>
+
+<p>● java.util.Collections#emptyList() <br/>
+● java.util.Collections#emptyMap() <br/>
+● java.util.Collections#emptySet()</p>
+
+<p>Observer:</p>
+
+<p>允许一个对象向所有的侦听的对象广播自己的消息或事件。</p>
+
+<p>● java.util.EventListener <br/>
+● javax.servlet.http.HttpSessionBindingListener <br/>
+● javax.servlet.http.HttpSessionAttributeListener <br/>
+● javax.faces.event.PhaseListener</p>
+
+<p>State:</p>
+
+<p>这个模式允许你可以在运行时很容易地根据自身内部的状态改变对象的行为。</p>
+
+<p>● java.util.Iterator <br/>
+● javax.faces.lifecycle.LifeCycle#execute()</p>
+
+<p>Strategy:</p>
+
+<p>定义一组算法，并把其封装到一个对象中。然后在运行时，可以灵活的使用其中的一个算法。</p>
+
+<p>● java.util.Comparator#compare() <br/>
+● javax.servlet.http.HttpServlet <br/>
+● javax.servlet.Filter#doFilter()</p>
+
+<p>Template method:</p>
+
+<p>允许子类重载部分父类而不需要完全重写。</p>
+
+<p>● java.util.Collections#sort() <br/>
+● java.io.InputStream#skip() <br/>
+● java.io.InputStream#read() <br/>
+● java.util.AbstractList#indexOf()</p>
+
+<p>Visitor:</p>
+
+<p>作用于某个对象群中各个对象的操作. 它可以使你在不改变这些对象本身的情况下,定义作用于这些对象的新操作.</p>
+
+<p>● javax.lang.model.element.Element 和javax.lang.model.element.ElementVisitor <br/>
+● javax.lang.model.type.TypeMirror 和javax.lang.model.type.TypeVisitor</p>
+
+<p>在stakeoverflow也有相应的讨论：</p>
+
+<p>http://stackoverflow.com/questions/1673841/examples-of-gof-design-patterns</p>
+
+<p>摘自：<a href="http://www.csdn.net/article/2010-11-29/282644">http://www.csdn.net/article/2010-11-29/282644</a></p>
 </div>
 
 
@@ -225,12 +370,12 @@ Optional Java VM arguments中添加：<code>-Xms256m -Xmx512m -XX:PermSize=64M -
   
 
 
-<time datetime="2012-10-19T23:12:00+08:00" pubdate data-updated="true">2012年10月19日 23:10:00</time>
+<time datetime="2012-10-22T20:49:00+08:00" pubdate data-updated="true">2012年10月22日 20:10:00</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/jvm/'>jvm</a>
+    <a class='category' href='/blog/categories/design/'>design</a>, <a class='category' href='/blog/categories/pattern/'>pattern</a>
   
 </span>
 
@@ -277,14 +422,10 @@ Optional Java VM arguments中添加：<code>-Xms256m -Xmx512m -XX:PermSize=64M -
     <ul class="pager">
       
       <li class="previous"><a class="basic-alignment left"
-        href="/blog/2012/10/19/java6-jvm-params/" title="Previous Post:
-        JVM参数选项">&laquo; JVM参数选项</a></li>
+        href="/blog/2012/10/22/http-header/" title="Previous Post:
+        HTTP Header">&laquo; HTTP Header</a></li>
       
       <li><a href="/blog/archives">Blog Archives</a></li>
-      
-      <li class="next"><a class="basic-alignment right" href="/blog/2012/10/19/install-maven/"
-        title="Next Post: 安装配置Maven">安装配置Maven
-        &raquo;</a></li>
       
     </ul>
   </footer>
@@ -379,8 +520,8 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://blueshen.github.com/blog/2012/10/19/jvm-out-of-memory/';
-        var disqus_url = 'http://blueshen.github.com/blog/2012/10/19/jvm-out-of-memory/';
+        var disqus_identifier = 'http://blueshen.github.com/blog/2012/10/22/design-pattern-in-jdk-index/';
+        var disqus_url = 'http://blueshen.github.com/blog/2012/10/22/design-pattern-in-jdk-index/';
         var disqus_script = 'embed.js';
       
     (function () {

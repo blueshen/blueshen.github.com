@@ -109,6 +109,259 @@
       ﻿
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2012/10/22/design-pattern-in-jdk-index/">23个经典JDK设计模式</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-22T20:49:00+08:00" pubdate data-updated="true">2012年10月22日 20:10:00</time>
+        
+         | <a href="/blog/2012/10/22/design-pattern-in-jdk-index/#disqus_thread">我要评论</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>下面是JDK中有关23个经典设计模式的示例：</p>
+
+<p>Structural（结构模式）</p>
+
+<p>Adapter:</p>
+
+<p>把一个接口或是类变成另外一种。</p>
+
+<p>● java.util.Arrays#asList()<br/>
+● javax.swing.JTable(TableModel)<br/>
+● java.io.InputStreamReader(InputStream) <br/>
+● java.io.OutputStreamWriter(OutputStream) <br/>
+● javax.xml.bind.annotation.adapters.XmlAdapter#marshal()<br/>
+● javax.xml.bind.annotation.adapters.XmlAdapter#unmarshal() <br/>
+Bridge:</p>
+
+<p>把抽象和实现解藕，于是接口和实现可在完全独立开来。</p>
+
+<p>● AWT (提供了抽象层映射于实际的操作系统)<br/>
+● JDBC</p>
+
+<p>Composite:</p>
+
+<p>让使用者把单独的对象和组合对象混用。</p>
+
+<p>● javax.swing.JComponent#add(Component) <br/>
+● java.awt.Container#add(Component) <br/>
+● java.util.Map#putAll(Map) <br/>
+● java.util.List#addAll(Collection) <br/>
+● java.util.Set#addAll(Collection)</p>
+
+<p>Decorator:</p>
+
+<p>为一个对象动态的加上一系列的动作，而不需要因为这些动作的不同而产生大量的继承类。这个模式在JDK中几乎无处不在，所以，下面的列表只是一些典型的。</p>
+
+<p>● java.io.BufferedInputStream(InputStream) <br/>
+● java.io.DataInputStream(InputStream) <br/>
+● java.io.BufferedOutputStream(OutputStream) <br/>
+● java.util.zip.ZipOutputStream(OutputStream) <br/>
+● java.util.Collections#checked<a href="">List|Map|Set|SortedSet|SortedMap</a></p>
+
+<p>Facade:</p>
+
+<p>用一个简单的接口包状一组组件，接口，抽象或是子系统。</p>
+
+<p>● java.lang.Class <br/>
+● javax.faces.webapp.FacesServlet</p>
+
+<p>Flyweight:</p>
+
+<p>有效率地存储大量的小的对象。</p>
+
+<p>● java.lang.Integer#valueOf(int) <br/>
+● java.lang.Boolean#valueOf(boolean) <br/>
+● java.lang.Byte#valueOf(byte) <br/>
+● java.lang.Character#valueOf(char)</p>
+
+<p>Proxy:</p>
+
+<p>用一个简单的对象来代替一个复杂的对象。</p>
+
+<p>● java.lang.reflect.Proxy <br/>
+● RMI</p>
+
+<p>Creational（创建模式）</p>
+
+<p>Abstract factory:</p>
+
+<p>创建一组有关联的对象实例。这个模式在JDK中也是相当的常见，还有很多的framework例如Spring。我们很容易找到这样的实例。</p>
+
+<p>● java.util.Calendar#getInstance()  <br/>
+● java.util.Arrays#asList() <br/>
+● java.util.ResourceBundle#getBundle() <br/>
+● java.sql.DriverManager#getConnection() <br/>
+● java.sql.Connection#createStatement() <br/>
+● java.sql.Statement#executeQuery() <br/>
+● java.text.NumberFormat#getInstance() <br/>
+● javax.xml.transform.TransformerFactory#newInstance()</p>
+
+<p>Builder:</p>
+
+<p>主要用来简化一个复杂的对象的创建。这个模式也可以用来实现一个 Fluent Interface。</p>
+
+<p>● java.lang.StringBuilder#append() <br/>
+● java.lang.StringBuffer#append() <br/>
+● java.sql.PreparedStatement <br/>
+● javax.swing.GroupLayout.Group#addComponent()</p>
+
+<p>Factory:</p>
+
+<p>简单来说，按照需求返回一个类型的实例。</p>
+
+<p>● java.lang.Proxy#newProxyInstance() <br/>
+● java.lang.Object#toString() <br/>
+● java.lang.Class#newInstance() <br/>
+● java.lang.reflect.Array#newInstance() <br/>
+● java.lang.reflect.Constructor#newInstance() <br/>
+● java.lang.Boolean#valueOf(String) <br/>
+● java.lang.Class#forName()</p>
+
+<p>Prototype:</p>
+
+<p>使用自己的实例创建另一个实例。有时候，创建一个实例然后再把已有实例的值拷贝过去，是一个很复杂的动作。所以，使用这个模式可以避免这样的复杂性。</p>
+
+<p>● java.lang.Object#clone() <br/>
+● java.lang.Cloneable</p>
+
+<p>Singleton:</p>
+
+<p>只允许一个实例。在 Effective Java中建议使用Emun.</p>
+
+<p>● java.lang.Runtime#getRuntime() <br/>
+● java.awt.Toolkit#getDefaultToolkit() <br/>
+● java.awt.GraphicsEnvironment#getLocalGraphicsEnvironment() <br/>
+● java.awt.Desktop#getDesktop()</p>
+
+<p>Behavioral(行为模式)</p>
+
+<p>Chain of responsibility:</p>
+
+<p>把一个对象在一个链接传递直到被处理。在这个链上的所有的对象有相同的接口（抽象类）但却有不同的实现。</p>
+
+<p>● java.util.logging.Logger#log() <br/>
+● javax.servlet.Filter#doFilter()</p>
+
+<p>Command:</p>
+
+<p>把一个或一些命令封装到一个对象中。</p>
+
+<p>● java.lang.Runnable <br/>
+● javax.swing.Action</p>
+
+<p>Interpreter:</p>
+
+<p>一个语法解释器的模式。</p>
+
+<p>● java.util.Pattern  <br/>
+● java.text.Normalizer <br/>
+● java.text.Format</p>
+
+<p>Iterator:</p>
+
+<p>提供一种一致的方法来顺序遍历一个容器中的所有元素。</p>
+
+<p>● java.util.Iterator <br/>
+● java.util.Enumeration</p>
+
+<p>Mediator:</p>
+
+<p>用来减少对象单的直接通讯的依赖关系。使用一个中间类来管理消息的方向。</p>
+
+<p>● java.util.Timer <br/>
+● java.util.concurrent.Executor#execute() <br/>
+● java.util.concurrent.ExecutorService#submit() <br/>
+● java.lang.reflect.Method#invoke()</p>
+
+<p>Memento:</p>
+
+<p>给一个对象的状态做一个快照。Date类在内部使用了一个long型来做这个快照。</p>
+
+<p>● java.util.Date <br/>
+● java.io.Serializable</p>
+
+<p>Null Object:</p>
+
+<p>这个模式用来解决如果一个Collection中没有元素的情况。</p>
+
+<p>● java.util.Collections#emptyList() <br/>
+● java.util.Collections#emptyMap() <br/>
+● java.util.Collections#emptySet()</p>
+
+<p>Observer:</p>
+
+<p>允许一个对象向所有的侦听的对象广播自己的消息或事件。</p>
+
+<p>● java.util.EventListener <br/>
+● javax.servlet.http.HttpSessionBindingListener <br/>
+● javax.servlet.http.HttpSessionAttributeListener <br/>
+● javax.faces.event.PhaseListener</p>
+
+<p>State:</p>
+
+<p>这个模式允许你可以在运行时很容易地根据自身内部的状态改变对象的行为。</p>
+
+<p>● java.util.Iterator <br/>
+● javax.faces.lifecycle.LifeCycle#execute()</p>
+
+<p>Strategy:</p>
+
+<p>定义一组算法，并把其封装到一个对象中。然后在运行时，可以灵活的使用其中的一个算法。</p>
+
+<p>● java.util.Comparator#compare() <br/>
+● javax.servlet.http.HttpServlet <br/>
+● javax.servlet.Filter#doFilter()</p>
+
+<p>Template method:</p>
+
+<p>允许子类重载部分父类而不需要完全重写。</p>
+
+<p>● java.util.Collections#sort() <br/>
+● java.io.InputStream#skip() <br/>
+● java.io.InputStream#read() <br/>
+● java.util.AbstractList#indexOf()</p>
+
+<p>Visitor:</p>
+
+<p>作用于某个对象群中各个对象的操作. 它可以使你在不改变这些对象本身的情况下,定义作用于这些对象的新操作.</p>
+
+<p>● javax.lang.model.element.Element 和javax.lang.model.element.ElementVisitor <br/>
+● javax.lang.model.type.TypeMirror 和javax.lang.model.type.TypeVisitor</p>
+
+<p>在stakeoverflow也有相应的讨论：</p>
+
+<p>http://stackoverflow.com/questions/1673841/examples-of-gof-design-patterns</p>
+
+<p>摘自：<a href="http://www.csdn.net/article/2010-11-29/282644">http://www.csdn.net/article/2010-11-29/282644</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2012/10/22/http-header/">HTTP Header</a></h1>
     
     
@@ -276,75 +529,6 @@
 
     </article>
   
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/10/20/xpath/">Xpath 详解</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-20T10:43:00+08:00" pubdate data-updated="true">2012年10月20日 10:10:00</time>
-        
-         | <a href="/blog/2012/10/20/xpath/#disqus_thread">我要评论</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div id="intro">
-<p><strong>XPath 使用路径表达式来选取 XML 文档中的节点或节点集。节点是通过沿着路径 (path) 或者步 (steps) 来选取的。</strong></p>
-</div>
-
-
-
-
-<div>
-<h2>XML 实例文档</h2>
-<p>我们将在下面的例子中使用这个 XML 文档。</p>
-<pre>&lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot;?&gt;
-
-&lt;bookstore&gt;
-
-&lt;book&gt;
-  &lt;title lang=&quot;eng&quot;&gt;Harry Potter&lt;/title&gt;
-  &lt;price&gt;29.99&lt;/price&gt;
-&lt;/book&gt;
-
-&lt;book&gt;
-  &lt;title lang=&quot;eng&quot;&gt;Learning XML&lt;/title&gt;
-  &lt;price&gt;39.95&lt;/price&gt;
-&lt;/book&gt;
-
-&lt;/bookstore&gt;</pre>
-</div>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/10/20/xpath/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <ul class="pager">
     
     <li class="previous"><a href="/blog/page/2/">&larr; 前一篇</a></li>
@@ -368,6 +552,10 @@
     <li class="nav-header">最近更新</li>
     
       <li class="post">
+        <a href="/blog/2012/10/22/design-pattern-in-jdk-index/">23个经典JDK设计模式</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/10/22/http-header/">HTTP Header</a>
       </li>
     
@@ -381,10 +569,6 @@
     
       <li class="post">
         <a href="/blog/2012/10/20/git-command/">Git 命令</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/10/20/xpath/">xpath 详解</a>
       </li>
     
   </ul>
