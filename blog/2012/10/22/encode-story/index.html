@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Blues 小站</title>
+  <title>字符集与编码的故事 - Blues 小站</title>
   <meta name="author" content="ShenYanchao">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://blueshen.github.com">
+  <link rel="canonical" href="http://blueshen.github.com/blog/2012/10/22/encode-story">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/bootstrap/bootstrap.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/stylesheets/bootstrap/responsive.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -101,15 +101,13 @@
 </nav>
   <div class="container">
     <div class="row-fluid">
-      <div class="span9">
-  
-  
-  
-    <article>
-      ﻿
+      
+<article class="hentry span9" role="article">
+
+  ﻿
   <header class="page-header">
     
-      <h1 class="entry-title"><a href="/blog/2012/10/22/encode-story/">字符集与编码的故事</a></h1>
+      <h1 class="entry-title">字符集与编码的故事</h1>
     
     
       <p class="meta">
@@ -127,14 +125,14 @@
 
 <time datetime="2012-10-22T20:13:00+08:00" pubdate data-updated="true">2012年10月22日 20:10:00</time>
         
-         | <a href="/blog/2012/10/22/encode-story/#disqus_thread">我要评论</a>
+         | <a href="#disqus_thread">我要评论</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>很久很久以前，有一群人，他们决定用8个可以开合的晶体管来组合成不同的状态，以表示世界上的万物。他们看到8个开关状态是好的，于是他们把这称为&#8221;字节&#8221;。 再后来，他们又做了一些可以处理这些字节的机器，机器开动了，可以用字节来组合出很多状态，状态开始变来变去。他们看到这样是好的，于是它们就这机器称为&#8221;计算机&#8221;。</p>
+<div class="entry-content"><p>很久很久以前，有一群人，他们决定用8个可以开合的晶体管来组合成不同的状态，以表示世界上的万物。他们看到8个开关状态是好的，于是他们把这称为&#8221;字节&#8221;。 再后来，他们又做了一些可以处理这些字节的机器，机器开动了，可以用字节来组合出很多状态，状态开始变来变去。他们看到这样是好的，于是它们就这机器称为&#8221;计算机&#8221;。</p>
 
 <p>开始计算机只在美国用。八位的字节一共可以组合出256(2的8次方)种不同的状态。 他们把其中的编号从0开始的32种状态分别规定了特殊的用途，一但终端、打印机遇上约定好的这些字节被传过来时，就要做一些约定的动作。遇上00x10, 终端就换行，遇上0x07, 终端就向人们嘟嘟叫，例好遇上0x1b, 打印机就打印反白的字，或者终端就用彩色显示字母。他们看到这样很好，于是就把这些0x20以下的字节状态称为&#8221;控制码&#8221;。</p>
 
@@ -168,22 +166,16 @@
 
 <p>原文：<a href="http://turandot.iteye.com/blog/1703258">http://turandot.iteye.com/blog/1703258</a></p>
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/10/20/git-command/">Git 命令</a></h1>
-    
-    
-      <p class="meta">
-        
+  
+
+<span class="byline author vcard"> <span class="fn">ShenYanchao</span> 发布于</span>
+
+      
 
 
 
@@ -195,217 +187,70 @@
   
 
 
-<time datetime="2012-10-20T10:56:00+08:00" pubdate data-updated="true">2012年10月20日 10:10:00</time>
-        
-         | <a href="/blog/2012/10/20/git-command/#disqus_thread">我要评论</a>
-        
-      </p>
+<time datetime="2012-10-22T20:13:00+08:00" pubdate data-updated="true">2012年10月22日 20:10:00</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/encode/'>encode</a>
+  
+</span>
+
+
+    </p>
     
-  </header>
-
-
-  <div class="entry-content"><h2>Git 命令结构图：</h2>
-
-</div>
+      ﻿<div class="sharing">
+  
+ <script type="text/javascript" charset="utf-8">
+(function(){
+  var _w = 106 , _h = 58;
+  var param = {
+    url:location.href,
+    type:'5',
+    count:'1', /**是否显示分享数，1显示(可选)*/
+    appkey:'', /**您申请的应用appkey,显示分享来源(可选)*/
+    title:'', /**分享的文字内容(可选，默认为所在页面的title)*/
+    pic:'', /**分享图片的路径(可选)*/
+    ralateUid:'2441133651', /**关联用户的UID，分享微博会@该用户(可选)*/
+	language:'zh_cn', /**设置语言，zh_cn|zh_tw(可选)*/
+    rnd:new Date().valueOf()
+  }
+  var temp = [];
+  for( var p in param ){
+    temp.push(p + '=' + encodeURIComponent( param[p] || '' ) )
+  }
+  document.write('<iframe allowTransparency="true" frameborder="0" scrolling="no" src="http://hits.sinajs.cn/A1/weiboshare.html?' + temp.join('&') + '" width="'+ _w+'" height="'+_h+'"></iframe>')
+})()
+</script>
   
   
-    <footer>
-      <a rel="full-article" href="/blog/2012/10/20/git-command/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
   
   
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/10/20/xpath/">Xpath 详解</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-20T10:43:00+08:00" pubdate data-updated="true">2012年10月20日 10:10:00</time>
-        
-         | <a href="/blog/2012/10/20/xpath/#disqus_thread">我要评论</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div id="intro">
-<p><strong>XPath 使用路径表达式来选取 XML 文档中的节点或节点集。节点是通过沿着路径 (path) 或者步 (steps) 来选取的。</strong></p>
 </div>
 
-
-
-
-<div>
-<h2>XML 实例文档</h2>
-<p>我们将在下面的例子中使用这个 XML 文档。</p>
-<pre>&lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot;?&gt;
-
-&lt;bookstore&gt;
-
-&lt;book&gt;
-  &lt;title lang=&quot;eng&quot;&gt;Harry Potter&lt;/title&gt;
-  &lt;price&gt;29.99&lt;/price&gt;
-&lt;/book&gt;
-
-&lt;book&gt;
-  &lt;title lang=&quot;eng&quot;&gt;Learning XML&lt;/title&gt;
-  &lt;price&gt;39.95&lt;/price&gt;
-&lt;/book&gt;
-
-&lt;/bookstore&gt;</pre>
+    
+    
+    <section>
+      <h1>Comments</h1>
+      <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/10/20/xpath/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      ﻿
-  <header class="page-header">
+    </section>
     
-      <h1 class="entry-title"><a href="/blog/2012/10/19/install-maven/">安装配置Maven</a></h1>
-    
-    
-      <p class="meta">
-        
+    <ul class="pager">
+      
+      <li class="previous"><a class="basic-alignment left"
+        href="/blog/2012/10/20/git-command/" title="Previous Post:
+        Git 命令">&laquo; Git 命令</a></li>
+      
+      <li><a href="/blog/archives">Blog Archives</a></li>
+      
+    </ul>
+  </footer>
+</article>
 
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-19T23:40:00+08:00" pubdate data-updated="true">2012年10月19日 23:10:00</time>
-        
-         | <a href="/blog/2012/10/19/install-maven/#disqus_thread">我要评论</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>Maven安装</h2>
-
-<p>1.下载Maven：从<a href="http://maven.apache.org/download.html">Maven官方</a>下载,并解压。比如解压到：D:\apache-maven-3.0.4   <br/>
-2.配置环境变量：</p>
-
-<ul>
-<li>M2_HOME：D:\apache-maven-3.0.4</li>
-<li>path：%M2_HOME%\bin;</li>
-</ul>
-
-
-<p>打开cmd命令窗口,验证配置是否成功：<code>mvn -v</code>。成功后会显示正确的版本信息。<br/>
-3.修改默认的repository <br/>
-maven默认放在C:\Users\user.m2\repository目录下（不同系统可能不一样）。Window下一般不建议放在C盘。可以通过如下方式修改： <br/>
-进入%M2_HOME%\conf\settings.xml中，添加<code>&lt;localRepository&gt;e:/repo&lt;/localRepository&gt;</code>这样一行。默认的路径就指向新的目录了。</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/10/19/jvm-out-of-memory/">Java内存溢出详解</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-19T23:12:00+08:00" pubdate data-updated="true">2012年10月19日 23:10:00</time>
-        
-         | <a href="/blog/2012/10/19/jvm-out-of-memory/#disqus_thread">我要评论</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>一、常见的Java内存溢出有以下三种：</p>
-
-<ol>
-<li><code>java.lang.OutOfMemoryError: Java heap space</code> &#8212;-JVM Heap（堆）溢出
-JVM在启动的时候会自动设置JVM Heap的值，其初始空间(即-Xms)是物理内存的1/64，最大空间(-Xmx)不可超过物理内存。
-可以利用JVM提供的-Xmn -Xms -Xmx等选项可进行设置。Heap的大小是Young Generation 和Tenured Generaion 之和。
-在JVM中如果98％的时间是用于GC，且可用的Heap size 不足2％的时候将抛出此异常信息。
-解决方法：手动设置JVM Heap（堆）的大小。  <br/>
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/10/19/jvm-out-of-memory/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  <ul class="pager">
-    
-    <li class="previous"><a href="/blog/page/2/">&larr; 前一篇</a></li>
-    
-    <li><a href="/blog/archives">文章列表</a></li>
-    
-  </ul>
-</div>
 <aside class="sidebar-nav span3">
   
     ﻿<section class="well">
-	<ul id="about" class="nav nav-list">
-		<li class="nav-header">关于我</li>
-		<p>GitHub</p>
-		<p>Blues Shen</p>
-		<p><a href="mailto:zhiyi.shen@gmail.com">zhiyi.shen@gmail.com</a></p>
-	</ul>
-</section>
-﻿<section class="well">
   <ul id="recent_posts" class="nav nav-list">
     <li class="nav-header">最近更新</li>
     
@@ -450,7 +295,7 @@ JVM在启动的时候会自动设置JVM Heap的值，其初始空间(即-Xms)是
 <section class="well">
   <ul id="gh_repos" class="nav">
     <li class="nav-header">GitHub Repos</li>
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   
   <a href="https://github.com/blueshen">@blueshen</a> on GitHub
@@ -472,6 +317,7 @@ JVM在启动的时候会自动设置JVM Heap的值，其初始空间(即-Xms)是
   
 </aside>
 
+
     </div>
   </div>
   <footer role="contentinfo" class="page-footer">﻿<hr>
@@ -490,7 +336,10 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
       var disqus_shortname = 'blueshen';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blueshen.github.com/blog/2012/10/22/encode-story/';
+        var disqus_url = 'http://blueshen.github.com/blog/2012/10/22/encode-story/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
