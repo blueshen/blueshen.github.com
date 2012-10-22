@@ -4,7 +4,7 @@
   <title><![CDATA[Category: encode | Blues 小站]]></title>
   <link href="http://blueshen.github.com/blog/categories/encode/atom.xml" rel="self"/>
   <link href="http://blueshen.github.com/"/>
-  <updated>2012-10-22T20:17:43+08:00</updated>
+  <updated>2012-10-22T20:20:58+08:00</updated>
   <id>http://blueshen.github.com/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -19,6 +19,9 @@
     <updated>2012-10-22T20:13:00+08:00</updated>
     <id>http://blueshen.github.com/blog/2012/10/22/encode-story</id>
     <content type="html"><![CDATA[<p>很久很久以前，有一群人，他们决定用8个可以开合的晶体管来组合成不同的状态，以表示世界上的万物。他们看到8个开关状态是好的，于是他们把这称为"字节"。 再后来，他们又做了一些可以处理这些字节的机器，机器开动了，可以用字节来组合出很多状态，状态开始变来变去。他们看到这样是好的，于是它们就这机器称为"计算机"。</p>
+
+<!--more-->
+
 
 <p>开始计算机只在美国用。八位的字节一共可以组合出256(2的8次方)种不同的状态。 他们把其中的编号从0开始的32种状态分别规定了特殊的用途，一但终端、打印机遇上约定好的这些字节被传过来时，就要做一些约定的动作。遇上00x10, 终端就换行，遇上0x07, 终端就向人们嘟嘟叫，例好遇上0x1b, 打印机就打印反白的字，或者终端就用彩色显示字母。他们看到这样很好，于是就把这些0x20以下的字节状态称为"控制码"。</p>
 
