@@ -4,7 +4,7 @@
   <title><![CDATA[Category: pattern | Blues 小站]]></title>
   <link href="http://blueshen.github.com/blog/categories/pattern/atom.xml" rel="self"/>
   <link href="http://blueshen.github.com/"/>
-  <updated>2012-10-22T20:58:04+08:00</updated>
+  <updated>2012-10-22T21:00:04+08:00</updated>
   <id>http://blueshen.github.com/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -19,6 +19,9 @@
     <updated>2012-10-22T20:49:00+08:00</updated>
     <id>http://blueshen.github.com/blog/2012/10/22/design-pattern-in-jdk-index</id>
     <content type="html"><![CDATA[<p>下面是JDK中有关23个经典设计模式的示例：</p>
+
+<!--more-->
+
 
 <p>Structural（结构模式）</p>
 
