@@ -109,6 +109,58 @@
       ﻿
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2012/10/19/install-maven/">安装配置Maven</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-19T23:40:00+08:00" pubdate data-updated="true">2012年10月19日 23:10:00</time>
+        
+         | <a href="/blog/2012/10/19/install-maven/#disqus_thread">我要评论</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>Maven安装</h2>
+
+<p>1.下载Maven：从<a href="http://maven.apache.org/download.html">Maven官方</a>下载,并解压。比如解压到：D:\apache-maven-3.0.4   <br/>
+2.配置环境变量：</p>
+
+<ul>
+<li>M2_HOME：D:\apache-maven-3.0.4</li>
+<li>path：%M2_HOME%\bin;</li>
+</ul>
+
+
+<p>打开cmd命令窗口,验证配置是否成功：<code>mvn -v</code>。成功后会显示正确的版本信息。<br/>
+3.修改默认的repository <br/>
+maven默认放在C:\Users\user.m2\repository目录下（不同系统可能不一样）。Window下一般不建议放在C盘。可以通过如下方式修改： <br/>
+进入%M2_HOME%\conf\settings.xml中，添加<code>&lt;localRepository&gt;e:/repo&lt;/localRepository&gt;</code>这样一行。默认的路径就指向新的目录了。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2012/10/19/jvm-out-of-memory/">Java内存溢出详解</a></h1>
     
     
@@ -291,63 +343,6 @@ JVM在启动的时候会自动设置JVM Heap的值，其初始空间(即-Xms)是
 
     </article>
   
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/10/12/selenium-multiple-browser-support/">Selenium WebDriver的多浏览器支持</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-12T14:56:00+08:00" pubdate data-updated="true">2012年10月12日 14:10:00</time>
-        
-         | <a href="/blog/2012/10/12/selenium-multiple-browser-support/#disqus_thread">我要评论</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>Selenium WebDriver支持哪儿些浏览器？</h2>
-
-<p>按照官方文档的说法，现阶段有以下的drivers:</p>
-
-<blockquote><ul>
-<li>ChromeDriver</li>
-<li>InternetExplorerDriver</li>
-<li>FirefoxDriver</li>
-<li>OperaDriver</li>
-<li>HtmlUnitDriver</li>
-<li>AndroidDriver(mobile testing)</li>
-<li>OperaMobileDriver(mobile testing)</li>
-<li>IPhoneDriver(mobile testing)</li>
-</ul>
-</blockquote>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/10/12/selenium-multiple-browser-support/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <ul class="pager">
     
     <li class="previous"><a href="/blog/page/3/">&larr; 前一篇</a></li>
@@ -373,6 +368,10 @@ JVM在启动的时候会自动设置JVM Heap的值，其初始空间(即-Xms)是
     <li class="nav-header">最近更新</li>
     
       <li class="post">
+        <a href="/blog/2012/10/22/http-header/">HTTP Header</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/10/22/word-charset/">字符集编码</a>
       </li>
     
@@ -386,10 +385,6 @@ JVM在启动的时候会自动设置JVM Heap的值，其初始空间(即-Xms)是
     
       <li class="post">
         <a href="/blog/2012/10/20/xpath/">xpath 详解</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/10/19/install-maven/">安装配置Maven</a>
       </li>
     
   </ul>
