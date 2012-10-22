@@ -4,7 +4,7 @@
   <title><![CDATA[Blues 小站]]></title>
   <link href="http://blueshen.github.com/atom.xml" rel="self"/>
   <link href="http://blueshen.github.com/"/>
-  <updated>2012-10-22T20:23:47+08:00</updated>
+  <updated>2012-10-22T20:25:49+08:00</updated>
   <id>http://blueshen.github.com/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -67,7 +67,7 @@
 <!--more-->
 
 
-<p><img src="images\blog\git-command.png" alt="git command" /></p>
+<p><img src="http://blueshen.github.com/images/blog/git-command.png" alt="git command" /></p>
 ]]></content>
   </entry>
   
