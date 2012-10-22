@@ -4,7 +4,7 @@
   <title><![CDATA[Category: pattern | Blues 小站]]></title>
   <link href="http://blueshen.github.com/blog/categories/pattern/atom.xml" rel="self"/>
   <link href="http://blueshen.github.com/"/>
-  <updated>2012-10-22T21:00:04+08:00</updated>
+  <updated>2012-10-22T21:10:50+08:00</updated>
   <id>http://blueshen.github.com/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -34,8 +34,9 @@
 ● java.io.InputStreamReader(InputStream) <br/>
 ● java.io.OutputStreamWriter(OutputStream) <br/>
 ● javax.xml.bind.annotation.adapters.XmlAdapter#marshal()<br/>
-● javax.xml.bind.annotation.adapters.XmlAdapter#unmarshal() <br/>
-Bridge:</p>
+● javax.xml.bind.annotation.adapters.XmlAdapter#unmarshal()</p>
+
+<p>Bridge:</p>
 
 <p>把抽象和实现解藕，于是接口和实现可在完全独立开来。</p>
 
@@ -60,7 +61,7 @@ Bridge:</p>
 ● java.io.DataInputStream(InputStream) <br/>
 ● java.io.BufferedOutputStream(OutputStream) <br/>
 ● java.util.zip.ZipOutputStream(OutputStream) <br/>
-● java.util.Collections#checked<a href="">List|Map|Set|SortedSet|SortedMap</a></p>
+● java.util.Collections#checked[List|Map|Set|SortedSet|SortedMap]()</p>
 
 <p>Facade:</p>
 
@@ -234,7 +235,7 @@ Bridge:</p>
 
 <p>在stakeoverflow也有相应的讨论：</p>
 
-<p>http://stackoverflow.com/questions/1673841/examples-of-gof-design-patterns</p>
+<p><a href="http://stackoverflow.com/questions/1673841/examples-of-gof-design-patterns">http://stackoverflow.com/questions/1673841/examples-of-gof-design-patterns</a></p>
 
 <p>摘自：<a href="http://www.csdn.net/article/2010-11-29/282644">http://www.csdn.net/article/2010-11-29/282644</a></p>
 ]]></content>
