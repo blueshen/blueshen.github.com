@@ -4,7 +4,7 @@
   <title><![CDATA[Blues 小站]]></title>
   <link href="http://blueshen.github.com/atom.xml" rel="self"/>
   <link href="http://blueshen.github.com/"/>
-  <updated>2012-10-22T21:10:50+08:00</updated>
+  <updated>2012-10-23T14:46:08+08:00</updated>
   <id>http://blueshen.github.com/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -23,9 +23,9 @@
 <!--more-->
 
 
-<p>Structural（结构模式）</p>
+<h2>Structural（结构模式）</h2>
 
-<p>Adapter:</p>
+<p><strong>Adapter:</strong></p>
 
 <p>把一个接口或是类变成另外一种。</p>
 
@@ -36,14 +36,14 @@
 ● javax.xml.bind.annotation.adapters.XmlAdapter#marshal()<br/>
 ● javax.xml.bind.annotation.adapters.XmlAdapter#unmarshal()</p>
 
-<p>Bridge:</p>
+<p><strong>Bridge:</strong></p>
 
 <p>把抽象和实现解藕，于是接口和实现可在完全独立开来。</p>
 
 <p>● AWT (提供了抽象层映射于实际的操作系统)<br/>
 ● JDBC</p>
 
-<p>Composite:</p>
+<p><strong>Composite:</strong></p>
 
 <p>让使用者把单独的对象和组合对象混用。</p>
 
@@ -53,7 +53,7 @@
 ● java.util.List#addAll(Collection) <br/>
 ● java.util.Set#addAll(Collection)</p>
 
-<p>Decorator:</p>
+<p><strong>Decorator:</strong></p>
 
 <p>为一个对象动态的加上一系列的动作，而不需要因为这些动作的不同而产生大量的继承类。这个模式在JDK中几乎无处不在，所以，下面的列表只是一些典型的。</p>
 
@@ -63,14 +63,14 @@
 ● java.util.zip.ZipOutputStream(OutputStream) <br/>
 ● java.util.Collections#checked[List|Map|Set|SortedSet|SortedMap]()</p>
 
-<p>Facade:</p>
+<p><strong>Facade:</strong></p>
 
 <p>用一个简单的接口包状一组组件，接口，抽象或是子系统。</p>
 
 <p>● java.lang.Class <br/>
 ● javax.faces.webapp.FacesServlet</p>
 
-<p>Flyweight:</p>
+<p><strong>Flyweight:</strong></p>
 
 <p>有效率地存储大量的小的对象。</p>
 
@@ -79,16 +79,16 @@
 ● java.lang.Byte#valueOf(byte) <br/>
 ● java.lang.Character#valueOf(char)</p>
 
-<p>Proxy:</p>
+<p><strong>Proxy:</strong></p>
 
 <p>用一个简单的对象来代替一个复杂的对象。</p>
 
 <p>● java.lang.reflect.Proxy <br/>
 ● RMI</p>
 
-<p>Creational（创建模式）</p>
+<h2>Creational（创建模式）</h2>
 
-<p>Abstract factory:</p>
+<p><strong>Abstract factory:</strong></p>
 
 <p>创建一组有关联的对象实例。这个模式在JDK中也是相当的常见，还有很多的framework例如Spring。我们很容易找到这样的实例。</p>
 
@@ -101,7 +101,7 @@
 ● java.text.NumberFormat#getInstance() <br/>
 ● javax.xml.transform.TransformerFactory#newInstance()</p>
 
-<p>Builder:</p>
+<p><strong>Builder:</strong></p>
 
 <p>主要用来简化一个复杂的对象的创建。这个模式也可以用来实现一个 Fluent Interface。</p>
 
@@ -110,7 +110,7 @@
 ● java.sql.PreparedStatement <br/>
 ● javax.swing.GroupLayout.Group#addComponent()</p>
 
-<p>Factory:</p>
+<p><strong>Factory:</strong></p>
 
 <p>简单来说，按照需求返回一个类型的实例。</p>
 
@@ -122,14 +122,14 @@
 ● java.lang.Boolean#valueOf(String) <br/>
 ● java.lang.Class#forName()</p>
 
-<p>Prototype:</p>
+<p><strong>Prototype:</strong></p>
 
 <p>使用自己的实例创建另一个实例。有时候，创建一个实例然后再把已有实例的值拷贝过去，是一个很复杂的动作。所以，使用这个模式可以避免这样的复杂性。</p>
 
 <p>● java.lang.Object#clone() <br/>
 ● java.lang.Cloneable</p>
 
-<p>Singleton:</p>
+<p><strong>Singleton:</strong></p>
 
 <p>只允许一个实例。在 Effective Java中建议使用Emun.</p>
 
@@ -138,23 +138,23 @@
 ● java.awt.GraphicsEnvironment#getLocalGraphicsEnvironment() <br/>
 ● java.awt.Desktop#getDesktop()</p>
 
-<p>Behavioral(行为模式)</p>
+<h2>Behavioral(行为模式)</h2>
 
-<p>Chain of responsibility:</p>
+<p><strong>Chain of responsibility:</strong></p>
 
 <p>把一个对象在一个链接传递直到被处理。在这个链上的所有的对象有相同的接口（抽象类）但却有不同的实现。</p>
 
 <p>● java.util.logging.Logger#log() <br/>
 ● javax.servlet.Filter#doFilter()</p>
 
-<p>Command:</p>
+<p><strong>Command:</strong></p>
 
 <p>把一个或一些命令封装到一个对象中。</p>
 
 <p>● java.lang.Runnable <br/>
 ● javax.swing.Action</p>
 
-<p>Interpreter:</p>
+<p><strong>Interpreter:</strong></p>
 
 <p>一个语法解释器的模式。</p>
 
@@ -162,14 +162,14 @@
 ● java.text.Normalizer <br/>
 ● java.text.Format</p>
 
-<p>Iterator:</p>
+<p><strong>Iterator:</strong></p>
 
 <p>提供一种一致的方法来顺序遍历一个容器中的所有元素。</p>
 
 <p>● java.util.Iterator <br/>
 ● java.util.Enumeration</p>
 
-<p>Mediator:</p>
+<p><strong>Mediator:</strong></p>
 
 <p>用来减少对象单的直接通讯的依赖关系。使用一个中间类来管理消息的方向。</p>
 
@@ -178,14 +178,14 @@
 ● java.util.concurrent.ExecutorService#submit() <br/>
 ● java.lang.reflect.Method#invoke()</p>
 
-<p>Memento:</p>
+<p><strong>Memento:</strong></p>
 
 <p>给一个对象的状态做一个快照。Date类在内部使用了一个long型来做这个快照。</p>
 
 <p>● java.util.Date <br/>
 ● java.io.Serializable</p>
 
-<p>Null Object:</p>
+<p><strong>Null Object:</strong></p>
 
 <p>这个模式用来解决如果一个Collection中没有元素的情况。</p>
 
@@ -193,7 +193,7 @@
 ● java.util.Collections#emptyMap() <br/>
 ● java.util.Collections#emptySet()</p>
 
-<p>Observer:</p>
+<p><strong>Observer:</strong></p>
 
 <p>允许一个对象向所有的侦听的对象广播自己的消息或事件。</p>
 
@@ -202,14 +202,14 @@
 ● javax.servlet.http.HttpSessionAttributeListener <br/>
 ● javax.faces.event.PhaseListener</p>
 
-<p>State:</p>
+<p><strong>State:</strong></p>
 
 <p>这个模式允许你可以在运行时很容易地根据自身内部的状态改变对象的行为。</p>
 
 <p>● java.util.Iterator <br/>
 ● javax.faces.lifecycle.LifeCycle#execute()</p>
 
-<p>Strategy:</p>
+<p><strong>Strategy:</strong></p>
 
 <p>定义一组算法，并把其封装到一个对象中。然后在运行时，可以灵活的使用其中的一个算法。</p>
 
@@ -217,7 +217,7 @@
 ● javax.servlet.http.HttpServlet <br/>
 ● javax.servlet.Filter#doFilter()</p>
 
-<p>Template method:</p>
+<p><strong>Template method:</strong></p>
 
 <p>允许子类重载部分父类而不需要完全重写。</p>
 
@@ -226,7 +226,7 @@
 ● java.io.InputStream#read() <br/>
 ● java.util.AbstractList#indexOf()</p>
 
-<p>Visitor:</p>
+<p><strong>Visitor:</strong></p>
 
 <p>作用于某个对象群中各个对象的操作. 它可以使你在不改变这些对象本身的情况下,定义作用于这些对象的新操作.</p>
 
@@ -246,12 +246,16 @@
     <link href="http://blueshen.github.com/blog/2012/10/22/http-header/"/>
     <updated>2012-10-22T20:34:00+08:00</updated>
     <id>http://blueshen.github.com/blog/2012/10/22/http-header</id>
-    <content type="html"><![CDATA[<div style="padding: 4px 0px;" class="inherit_c wrap_text"><p>
-    HTTP（HyperTextTransferProtocol） 即超文本传输协议，目前网页传输的的通用协议。HTTP协议采用了请求/响应模型，浏览器或其他客户端发出请求，服务器给与响应。就整个网络资源传输而 言，包括message-header和message-body两部分。首先传递message-&nbsp;header，即<strong>http</strong>&nbsp;<strong>header</strong>消息<strong>。</strong>http header 消息通常被分为4个部分：general&nbsp; header, request header, response header, entity header。但是这种分法就理解而言，感觉界限不太明确。根据维基百科对http header内容的组织形式，大体分为Request和Response两部分。</p>   
-<!--more-->   
-<p>
-    Responses 部分&nbsp;</p>
-<table border="1" cellpadding="0" style="line-height:normal;" width="100%">
+    <content type="html"><![CDATA[<p>HTTP（HyperTextTransferProtocol） 即超文本传输协议，目前网页传输的的通用协议。HTTP协议采用了请求/响应模型，浏览器或其他客户端发出请求，服务器给与响应。就整个网络资源传输而 言，包括message-header和message-body两部分。首先传递message-header，即httpheader消息。http header 消息通常被分为4个部分：general; header, request header, response header, entity header。但是这种分法就理解而言，感觉界限不太明确。根据维基百科对http header内容的组织形式，大体分为Request和Response两部分.</p>
+
+<!--more-->
+
+
+<p></p>
+
+<p><strong>Response部分</strong></p>
+
+<table border="1" >
     <tbody>
         <tr>
             <th>
@@ -495,9 +499,11 @@
         </tr>
     </tbody>
 </table>
-<p style="margin-left:auto;">
-    更多参见 w3c官网<a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html" target="_blank" hidefocus="hidefocus">Header Field Definitions</a></p>
-<table border="1" cellpadding="0" style="line-height:normal;" width="100%">
+
+
+<p>更多参见 <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html">w3c官网</a></p>
+
+<table border="1" >
     <tbody>
         <tr>
             <td style="line-height:25px;">
@@ -662,9 +668,11 @@
         </tr>
     </tbody>
 </table>
-<h2>
-    Requests部分</h2>
-<table border="1" cellpadding="0" style="line-height:normal;" width="100%">
+
+
+<p><strong>Requests部分</strong></p>
+
+<table border="1" >
     <tbody>
         <tr>
             <th>
@@ -756,10 +764,9 @@
         </tr>
     </tbody>
 </table>
-<p>
-    &nbsp;</p>
-</div>
 
+
+<p></div></p>
 
 <p>参考文档：<a href="http://www.itniwo.net/blog/v/26466.html">http://www.itniwo.net/blog/v/26466.html</a></p>
 ]]></content>
@@ -770,7 +777,9 @@
     <link href="http://blueshen.github.com/blog/2012/10/22/word-charset/"/>
     <updated>2012-10-22T20:29:00+08:00</updated>
     <id>http://blueshen.github.com/blog/2012/10/22/word-charset</id>
-    <content type="html"><![CDATA[<p>GB2312又称为GB2312-80字符集，全称为《信息交换用汉字编码字符集·基本集》，由原中国国家标准总局发布，1981年5月1日实施，是中国国家标准的简体中文字符集。它所收录的汉字已经覆盖99.75%的使用频率，基本满足了汉字的计算机处理需要。在中国大陆和新加坡获广泛使用。</p>
+    <content type="html"><![CDATA[<h2>GB2312字符集</h2>
+
+<p>GB2312又称为GB2312-80字符集，全称为《信息交换用汉字编码字符集·基本集》，由原中国国家标准总局发布，1981年5月1日实施，是中国国家标准的简体中文字符集。它所收录的汉字已经覆盖99.75%的使用频率，基本满足了汉字的计算机处理需要。在中国大陆和新加坡获广泛使用。</p>
 
 <!--more-->
 
@@ -783,10 +792,11 @@
 
 <p>以GB2312字符集的第一个汉字“啊”字为例，它的区号16，位号01，则区位码是1601，在大多数计算机程序中，高字节和低字节分别加0xA0得到程序的汉字处理编码0xB0A1。计算公式是：0xB0=0xA0+16, 0xA1=0xA0+1。</p>
 
-<p>GBK字符集
-GBK字符集是GB2312的扩展(K)，GBK1.0收录了21886个符号，它分为汉字区和图形符号区，汉字区包括21003个字符。GBK字符集主要扩展了繁体中文字的支持。</p>
+<h2>GBK字符集##</h2>
 
-<p>BIG5 字符集</p>
+<p>GBK字符集是GB2312的扩展(K)，GBK1.0收录了21886个符号，它分为汉字区和图形符号区，汉字区包括21003个字符。GBK字符集主要扩展了繁体中文字的支持。</p>
+
+<h2>BIG5 字符集##</h2>
 
 <p>BIG5又称大五码或五大码，1984年由台湾财团法人信息工业策进会和五间软件公司宏碁 (Acer)、神通 (MiTAC)、佳佳、零壹 (Zero One)、大众 (FIC)创立，故称大五码。Big5码的产生，是因为当时台湾不同厂商各自推出不同的编码，如倚天码、IBM PS55、王安码等，彼此不能兼容；另一方面，台湾政府当时尚未推出官方的汉字编码，而中国大陆的GB2312编码亦未有收录繁体中文字。</p>
 
@@ -798,7 +808,7 @@ GBK字符集是GB2312的扩展(K)，GBK1.0收录了21886个符号，它分为汉
 
 <p>例如台湾视“着”为“著”的异体字，故没有收录“着”字。康熙字典中的一些部首用字(如“亠”、“疒”、“辵”、“癶”等)、常见的人名用字(如“堃”、“煊”、“栢”、“喆”等) 也没有收录到Big5之中。</p>
 
-<p>GB18030 字符集</p>
+<h2>GB18030 字符集##</h2>
 
 <p>GB18030的全称是GB18030-2000《信息交换用汉字编码字符集基本集的扩充》，是我国政府于2000年3月17日发布的新的汉字编码国家标准，2001年8月31日后在中国市场上发布的软件必须符合本标准。GB 18030字符集标准的出台经过广泛参与和论证，来自国内外知名信息技术行业的公司，信息产业部和原国家质量技术监督局联合实施。</p>
 
@@ -811,7 +821,7 @@ GB 18030标准采用单字节、双字节和四字节三种方式对字符编码
 
 <p>接着是国际通用的unicode字符集</p>
 
-<p>Unicode字符集（简称为UCS）</p>
+<h2>Unicode字符集（简称为UCS）##</h2>
 
 <p>1．名称的由来</p>
 
@@ -833,27 +843,27 @@ UTF-32、UTF-16 和 UTF-8 是 Unicode 标准的编码字符集的字符编码方
 
 <p>通过一个问题了解unicode编码</p>
 
-<p>问题：使用Windows记事本的“另存为”，可以在ANSI、GBK、Unicode、Unicode big endian和UTF-8这几种编码方式间相互转换。同样是txt文件，Windows怎样识别编码方式的呢？
+<p><strong>问题：</strong>使用Windows记事本的“另存为”，可以在ANSI、GBK、Unicode、Unicode big endian和UTF-8这几种编码方式间相互转换。同样是txt文件，Windows怎样识别编码方式的呢？
 我很早前就发现Unicode、Unicode big endian和UTF-8编码的txt文件的开头会多出几个字节，分别是FF、FE（Unicode）,FE、FF（Unicode big endian）,EF、BB、BF（UTF-8）。但这些标记是基于什么标准呢？</p>
 
-<p>答案：</p>
+<p><strong>答案：</strong></p>
 
 <p>ANSI字符集定义：ASCII字符集，以及由此派生并兼容的字符集，如：GB2312，正式的名称为MBCS(Multi-Byte Chactacter System，多字节字符系统)，通常也称为ANSI字符集。</p>
 
-<p>UNICODE 与 UTF8、UTF16</p>
+<h2>UNICODE 与 UTF8、UTF16</h2>
 
 <p>由于每种语言都制定了自己的字符集，导致最后存在的各种字符集实在太多，在国际交流中要经常转换字符集非常不便。因此，产生了Unicode字符集，它固定使用16 bits(两个字节)来表示一个字符，共可以表示65536个字符
-标准的 Unicode 称为UTF-16(UTF:UCS Transformation Format )。后来为了双字节的Unicode能够在现存的处理单字节的系统上正确传输，出现了UTF-8，使用类似MBCS的方式对Unicode进行编码。(Unicode字符集有多种编码形式)
-例如&#8221;连通&#8221;两个字的Unicode标准编码UTF-16 (big endian)为：DE 8F 1A 90
+标准的 Unicode 称为UTF-16(UTF:UCS Transformation Format )。后来为了双字节的Unicode能够在现存的处理单字节的系统上正确传输，出现了UTF-8，使用类似MBCS的方式对Unicode进行编码。(Unicode字符集有多种编码形式)<br/>
+例如&#8221;连通&#8221;两个字的Unicode标准编码UTF-16 (big endian)为：DE 8F 1A 90 <br/>
 而其UTF-8编码为：E8 BF 9E E9 80 9A</p>
 
 <p>当一个软件打开一个文本时，它要做的第一件事是决定这个文本究竟是使用哪种字符集的哪种编码保存的。软件一般采用三种方式来决定文本的字符集和编码：
 检测文件头标识，提示用户选择，根据一定的规则猜测
 最标准的途径是检测文本最开头的几个字节，开头字节 Charset/encoding,如下表：
-EF BB BF UTF-8
-FE FF UTF-16/UCS-2, little endian
-FF FE UTF-16/UCS-2, big endian
-FF FE 00 00 UTF-32/UCS-4, little endian.
+EF BB BF UTF-8<br/>
+FE FF UTF-16/UCS-2, little endian  <br/>
+FF FE UTF-16/UCS-2, big endian  <br/>
+FF FE 00 00 UTF-32/UCS-4, little endian. <br/>
 00 00 FE FF UTF-32/UCS-4, big-endian.</p>
 
 <p>1、big endian和little endian
@@ -921,11 +931,11 @@ Windows就是使用BOM来标记文本文件的编码方式的。</p>
 
 <p>哦，漏了一个加密的base64编码。</p>
 
-<p>什么是Base64？</p>
+<h2>什么是Base64？##</h2>
 
 <p>按照RFC2045的定义，Base64被定义为：Base64内容传送编码被设计用来把任意序列的8位字节描述为一种不易被人直接识别的形式。（The Base64 Content-Transfer-Encoding is designed to represent arbitrary sequences of octets in a form that need not be humanly readable.）</p>
 
-<p>为什么要使用Base64？</p>
+<p><strong>为什么要使用Base64？</strong></p>
 
 <p>在设计这个编码的时候，我想设计人员最主要考虑了3个问题：
 1.是否加密？
@@ -952,13 +962,13 @@ Windows就是使用BOM来标记文本文件的编码方式的。</p>
 <!--more-->
 
 
-<p>开始计算机只在美国用。八位的字节一共可以组合出256(2的8次方)种不同的状态。 他们把其中的编号从0开始的32种状态分别规定了特殊的用途，一但终端、打印机遇上约定好的这些字节被传过来时，就要做一些约定的动作。遇上00x10, 终端就换行，遇上0x07, 终端就向人们嘟嘟叫，例好遇上0x1b, 打印机就打印反白的字，或者终端就用彩色显示字母。他们看到这样很好，于是就把这些0x20以下的字节状态称为&#8221;控制码&#8221;。</p>
+<p>开始计算机只在美国用。八位的字节一共可以组合出256(2的8次方)种不同的状态。 他们把其中的编号从0开始的32种状态分别规定了特殊的用途，一但终端、打印机遇上约定好的这些字节被传过来时，就要做一些约定的动作。遇上0x10, 终端就换行，遇上0x07, 终端就向人们嘟嘟叫，例好遇上0x1b, 打印机就打印反白的字，或者终端就用彩色显示字母。他们看到这样很好，于是就把这些0x20以下的字节状态称为&#8221;控制码&#8221;。</p>
 
-<p>他们又把所有的空格、标点符号、数字、大小写字母分别用连续的字节状态表示，一直编到了第127号，这样计算机就可以用不同字节来存储英语的文字了。大家看到这样，都感觉很好，于是大家都把这个方案叫做 ANSI 的&#8221;Ascii&#8221;编码（American Standard Code for Information Interchange，美国信息互换标准代码）。当时世界上所有的计算机都用同样的ASCII方案来保存英文文字。</p>
+<p>他们又把所有的空格、标点符号、数字、大小写字母分别用连续的字节状态表示，一直编到了第127号，这样计算机就可以用不同字节来存储英语的文字了。大家看到这样，都感觉很好，于是大家都把这个方案叫做 ANSI 的&#8221;ASCII&#8221;编码（American Standard Code for Information Interchange，美国信息互换标准代码）。当时世界上所有的计算机都用同样的ASCII方案来保存英文文字。</p>
 
 <p>后来，就像建造巴比伦塔一样，世界各地的都开始使用计算机，但是很多国家用的不是英文，他们的字母里有许多是ASCII里没有的，为了可以在计算机保存他们的文字，他们决定采用127号之后的空位来表示这些新的字母、符号，还加入了很多画表格时需要用下到的横线、竖线、交叉等形状，一直把序号编到了最后一个状态255。从128到255这一页的字符集被称&#8221;扩展字符集&#8221;。从此之后，贪婪的人类再没有新的状态可以用了，美帝国主义可能没有想到还有第三世界国家的人们也希望可以用到计算机吧！</p>
 
-<p>等中国人们得到计算机时，已经没有可以利用的字节状态来表示汉字，况且有6000多个常用汉字需要保存呢。但是这难不倒智慧的中国人民，我们不客气地把那些127号之后的奇异符号们直接取消掉, 规定：一个小于127的字符的意义与原来相同，但两个大于127的字符连在一起时，就表示一个汉字，前面的一个字节（他称之为高字节）从0xA1用到0xF7，后面一个字节（低字节）从0xA1到0xFE，这样我们就可以组合出大约7000多个简体汉字了。在这些编码里，我们还把数学符号、罗马希腊的字母、日文的假名们都编进去了，连在 ASCII 里本来就有的数字、标点、字母都统统重新编了两个字节长的编码，这就是常说的&#8221;全角&#8221;字符，而原来在127号以下的那些就叫&#8221;半角&#8221;字符了。  中国人民看到这样很不错，于是就把这种汉字方案叫做 &#8220;GB2312&#8221;。GB2312 是对 ASCII 的中文扩展。</p>
+<p>等中国人得到计算机时，已经没有可以利用的字节状态来表示汉字，况且有6000多个常用汉字需要保存呢。但是这难不倒智慧的中国人民，我们不客气地把那些127号之后的奇异符号们直接取消掉, 规定：一个小于127的字符的意义与原来相同，但两个大于127的字符连在一起时，就表示一个汉字，前面的一个字节（他称之为高字节）从0xA1用到0xF7，后面一个字节（低字节）从0xA1到0xFE，这样我们就可以组合出大约7000多个简体汉字了。在这些编码里，我们还把数学符号、罗马希腊的字母、日文的假名们都编进去了，连在 ASCII 里本来就有的数字、标点、字母都统统重新编了两个字节长的编码，这就是常说的&#8221;全角&#8221;字符，而原来在127号以下的那些就叫&#8221;半角&#8221;字符了。  中国人民看到这样很不错，于是就把这种汉字方案叫做 &#8220;GB2312&#8221;。GB2312 是对 ASCII 的中文扩展。</p>
 
 <p>但是中国的汉字太多了，我们很快就就发现有许多人的人名没有办法在这里打出来，特别是某些很会麻烦别人的国家领导人。于是我们不得不继续把 GB2312 没有用到的码位找出来老实不客气地用上。 后来还是不够用，于是干脆不再要求低字节一定是127号之后的内码，只要第一个字节是大于127就固定表示这是一个汉字的开始，不管后面跟的是不是扩展字符集里的内容。结果扩展之后的编码方案被称为 GBK 标准，GBK 包括了 GB2312 的所有内容，同时又增加了近20000个新的汉字（包括繁体字）和符号。  后来少数民族也要用电脑了，于是我们再扩展，又加了几千个新的少数民族的字，GBK 扩成了 GB18030。从此之后，中华民族的文化就可以在计算机时代中传承了。</p>
 

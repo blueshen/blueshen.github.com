@@ -132,7 +132,9 @@
   </header>
 
 
-<div class="entry-content"><p>GB2312又称为GB2312-80字符集，全称为《信息交换用汉字编码字符集·基本集》，由原中国国家标准总局发布，1981年5月1日实施，是中国国家标准的简体中文字符集。它所收录的汉字已经覆盖99.75%的使用频率，基本满足了汉字的计算机处理需要。在中国大陆和新加坡获广泛使用。</p>
+<div class="entry-content"><h2>GB2312字符集</h2>
+
+<p>GB2312又称为GB2312-80字符集，全称为《信息交换用汉字编码字符集·基本集》，由原中国国家标准总局发布，1981年5月1日实施，是中国国家标准的简体中文字符集。它所收录的汉字已经覆盖99.75%的使用频率，基本满足了汉字的计算机处理需要。在中国大陆和新加坡获广泛使用。</p>
 
 <!--more-->
 
@@ -145,10 +147,11 @@
 
 <p>以GB2312字符集的第一个汉字“啊”字为例，它的区号16，位号01，则区位码是1601，在大多数计算机程序中，高字节和低字节分别加0xA0得到程序的汉字处理编码0xB0A1。计算公式是：0xB0=0xA0+16, 0xA1=0xA0+1。</p>
 
-<p>GBK字符集
-GBK字符集是GB2312的扩展(K)，GBK1.0收录了21886个符号，它分为汉字区和图形符号区，汉字区包括21003个字符。GBK字符集主要扩展了繁体中文字的支持。</p>
+<h2>GBK字符集##</h2>
 
-<p>BIG5 字符集</p>
+<p>GBK字符集是GB2312的扩展(K)，GBK1.0收录了21886个符号，它分为汉字区和图形符号区，汉字区包括21003个字符。GBK字符集主要扩展了繁体中文字的支持。</p>
+
+<h2>BIG5 字符集##</h2>
 
 <p>BIG5又称大五码或五大码，1984年由台湾财团法人信息工业策进会和五间软件公司宏碁 (Acer)、神通 (MiTAC)、佳佳、零壹 (Zero One)、大众 (FIC)创立，故称大五码。Big5码的产生，是因为当时台湾不同厂商各自推出不同的编码，如倚天码、IBM PS55、王安码等，彼此不能兼容；另一方面，台湾政府当时尚未推出官方的汉字编码，而中国大陆的GB2312编码亦未有收录繁体中文字。</p>
 
@@ -160,7 +163,7 @@ GBK字符集是GB2312的扩展(K)，GBK1.0收录了21886个符号，它分为汉
 
 <p>例如台湾视“着”为“著”的异体字，故没有收录“着”字。康熙字典中的一些部首用字(如“亠”、“疒”、“辵”、“癶”等)、常见的人名用字(如“堃”、“煊”、“栢”、“喆”等) 也没有收录到Big5之中。</p>
 
-<p>GB18030 字符集</p>
+<h2>GB18030 字符集##</h2>
 
 <p>GB18030的全称是GB18030-2000《信息交换用汉字编码字符集基本集的扩充》，是我国政府于2000年3月17日发布的新的汉字编码国家标准，2001年8月31日后在中国市场上发布的软件必须符合本标准。GB 18030字符集标准的出台经过广泛参与和论证，来自国内外知名信息技术行业的公司，信息产业部和原国家质量技术监督局联合实施。</p>
 
@@ -173,7 +176,7 @@ GB 18030标准采用单字节、双字节和四字节三种方式对字符编码
 
 <p>接着是国际通用的unicode字符集</p>
 
-<p>Unicode字符集（简称为UCS）</p>
+<h2>Unicode字符集（简称为UCS）##</h2>
 
 <p>1．名称的由来</p>
 
@@ -195,27 +198,27 @@ UTF-32、UTF-16 和 UTF-8 是 Unicode 标准的编码字符集的字符编码方
 
 <p>通过一个问题了解unicode编码</p>
 
-<p>问题：使用Windows记事本的“另存为”，可以在ANSI、GBK、Unicode、Unicode big endian和UTF-8这几种编码方式间相互转换。同样是txt文件，Windows怎样识别编码方式的呢？
+<p><strong>问题：</strong>使用Windows记事本的“另存为”，可以在ANSI、GBK、Unicode、Unicode big endian和UTF-8这几种编码方式间相互转换。同样是txt文件，Windows怎样识别编码方式的呢？
 我很早前就发现Unicode、Unicode big endian和UTF-8编码的txt文件的开头会多出几个字节，分别是FF、FE（Unicode）,FE、FF（Unicode big endian）,EF、BB、BF（UTF-8）。但这些标记是基于什么标准呢？</p>
 
-<p>答案：</p>
+<p><strong>答案：</strong></p>
 
 <p>ANSI字符集定义：ASCII字符集，以及由此派生并兼容的字符集，如：GB2312，正式的名称为MBCS(Multi-Byte Chactacter System，多字节字符系统)，通常也称为ANSI字符集。</p>
 
-<p>UNICODE 与 UTF8、UTF16</p>
+<h2>UNICODE 与 UTF8、UTF16</h2>
 
 <p>由于每种语言都制定了自己的字符集，导致最后存在的各种字符集实在太多，在国际交流中要经常转换字符集非常不便。因此，产生了Unicode字符集，它固定使用16 bits(两个字节)来表示一个字符，共可以表示65536个字符
-标准的 Unicode 称为UTF-16(UTF:UCS Transformation Format )。后来为了双字节的Unicode能够在现存的处理单字节的系统上正确传输，出现了UTF-8，使用类似MBCS的方式对Unicode进行编码。(Unicode字符集有多种编码形式)
-例如&#8221;连通&#8221;两个字的Unicode标准编码UTF-16 (big endian)为：DE 8F 1A 90
+标准的 Unicode 称为UTF-16(UTF:UCS Transformation Format )。后来为了双字节的Unicode能够在现存的处理单字节的系统上正确传输，出现了UTF-8，使用类似MBCS的方式对Unicode进行编码。(Unicode字符集有多种编码形式)<br/>
+例如&#8221;连通&#8221;两个字的Unicode标准编码UTF-16 (big endian)为：DE 8F 1A 90 <br/>
 而其UTF-8编码为：E8 BF 9E E9 80 9A</p>
 
 <p>当一个软件打开一个文本时，它要做的第一件事是决定这个文本究竟是使用哪种字符集的哪种编码保存的。软件一般采用三种方式来决定文本的字符集和编码：
 检测文件头标识，提示用户选择，根据一定的规则猜测
 最标准的途径是检测文本最开头的几个字节，开头字节 Charset/encoding,如下表：
-EF BB BF UTF-8
-FE FF UTF-16/UCS-2, little endian
-FF FE UTF-16/UCS-2, big endian
-FF FE 00 00 UTF-32/UCS-4, little endian.
+EF BB BF UTF-8<br/>
+FE FF UTF-16/UCS-2, little endian  <br/>
+FF FE UTF-16/UCS-2, big endian  <br/>
+FF FE 00 00 UTF-32/UCS-4, little endian. <br/>
 00 00 FE FF UTF-32/UCS-4, big-endian.</p>
 
 <p>1、big endian和little endian
@@ -283,11 +286,11 @@ Windows就是使用BOM来标记文本文件的编码方式的。</p>
 
 <p>哦，漏了一个加密的base64编码。</p>
 
-<p>什么是Base64？</p>
+<h2>什么是Base64？##</h2>
 
 <p>按照RFC2045的定义，Base64被定义为：Base64内容传送编码被设计用来把任意序列的8位字节描述为一种不易被人直接识别的形式。（The Base64 Content-Transfer-Encoding is designed to represent arbitrary sequences of octets in a form that need not be humanly readable.）</p>
 
-<p>为什么要使用Base64？</p>
+<p><strong>为什么要使用Base64？</strong></p>
 
 <p>在设计这个编码的时候，我想设计人员最主要考虑了3个问题：
 1.是否加密？
