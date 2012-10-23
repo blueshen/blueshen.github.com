@@ -4,7 +4,7 @@
   <title><![CDATA[Blues 小站]]></title>
   <link href="http://blueshen.github.com/atom.xml" rel="self"/>
   <link href="http://blueshen.github.com/"/>
-  <updated>2012-10-23T17:22:30+08:00</updated>
+  <updated>2012-10-23T18:44:33+08:00</updated>
   <id>http://blueshen.github.com/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -18,14 +18,40 @@
     <link href="http://blueshen.github.com/blog/2012/10/23/bom-in-utf8-text/"/>
     <updated>2012-10-23T17:05:00+08:00</updated>
     <id>http://blueshen.github.com/blog/2012/10/23/bom-in-utf8-text</id>
-    <content type="html"><![CDATA[<p>在UCS 编码中有一个叫做&#8221;ZERO WIDTH NO-BREAK SPACE&#8221;的字符，它的编码是FEFF。而FFFE在UCS中是不存在的字符，所以不应该出现在实际传输中。UCS规范建议我们在传输字节流前，先传输字符&#8221;ZERO WIDTH NO-BREAK SPACE&#8221;。这样如果接收者收到FEFF，就表明这个字节流是Big-Endian的；如果收到FFFE，就表明这个字节流是Little-Endian的。因此字符&#8221;ZERO WIDTH NO-BREAK SPACE&#8221;又被称作BOM。</p>
+    <content type="html"><![CDATA[<h3>引子</h3>
+
+<p>在使用诸如UltraEditor,NotePad++等编辑工具时，经常会遇到encode进行转换的情况。以NotePad++为例，一篇ASCII编码的文本，通过菜单栏Encoding->convert to **进行编码格式的转换。我却发现一个奇怪的问题，下拉框里有这样两个选项：</p>
+
+<ul>
+<li>Convert to UTF-8</li>
+<li>Convert to UTF-8 without BOM</li>
+</ul>
+
+
+<p>同样的是转化为UTF-8编码，为什么还牵涉的BOM呢。</p>
+
+<h3>原因</h3>
+
+<p>1、big endian和little endian</p>
+
+<p>big endian和little endian是CPU处理多字节数的不同方式。例如“汉”字的Unicode编码是6C49。那么写到文件里时，究竟是将6C写在前面，还是将49写在前面？如果将6C写在前面，就是big endian。还是将49写在前面，就是little endian。 “endian”这个词出自《格列佛游记》。小人国的内战就源于吃鸡蛋时是究竟从大头(Big-Endian)敲开还是从小头(Little-Endian)敲开，由此曾发生过六次叛乱，其中一个皇帝送了命，另一个丢了王位。
+我们一般将endian翻译成“字节序”，将big endian和little endian称作“大尾”和“小尾”。<br/>
+2.如何解决以上问题？</p>
+
+<p>在UCS 编码中有一个叫做&#8221;ZERO WIDTH NO-BREAK SPACE&#8221;的字符，它的编码是FEFF。而FFFE在UCS中是不存在的字符，所以不应该出现在实际传输中。UCS规范建议我们在传输字节流前，先传输字符&#8221;ZERO WIDTH NO-BREAK SPACE&#8221;。这样如果接收者收到FEFF，就表明这个字节流是Big-Endian的；如果收到FFFE，就表明这个字节流是Little-Endian的。因此字符&#8221;ZERO WIDTH NO-BREAK SPACE&#8221;又被称作BOM。</p>
 
 <p>UTF-8不需要BOM来表明字节顺序，但可以用BOM来表明编码方式。字符&#8221;ZERO WIDTH NO-BREAK SPACE&#8221;的UTF-8编码是EF BB BF。所以如果接收者收到以EF BB BF开头的字节流，就知道这是UTF-8编码了。</p>
 
-<p> W3C定义了三条XML解析器如何正确读取XML文件的编码的规则： <br/>
- 1，如果文挡有BOM(字节顺序标记，一般来说，如果保存为unicode格式，则包含BOM，ANSI则无)，就定义了文件编码 <br/>
- 2，如果没有BOM，就查看XML声明的编码属性 <br/>
- 3，如果上述两个都没有，就假定XML文挡采用UTF-8编码</p>
+<p>3.BOM在XML中的使用</p>
+
+<p> W3C定义了三条XML解析器如何正确读取XML文件的编码的规则：</p>
+
+<ul>
+<li>如果文档有BOM(字节顺序标记，一般来说，如果保存为unicode格式，则包含BOM，ANSI则无)，就定义了文件编码</li>
+<li>如果没有BOM，就查看XML声明的编码属性</li>
+<li>如果上述两个都没有，就假定XML文挡采用UTF-8编码</li>
+</ul>
+
 ]]></content>
   </entry>
   
@@ -847,14 +873,14 @@ GB 18030标准采用单字节、双字节和四字节三种方式对字符编码
 
 <p>Unicode 标准始终使用十六进制数字，而且在书写时在前面加上前缀“U+”，例如字母“A”的编码为 004116 。所以“A”的编码书写为“U+0041”。</p>
 
-<p>3．UTF-8 编码
+<p>3．UTF-8 编码 <br/>
 UTF-8是Unicode的其中一个使用方式。 UTF是 Unicode Translation Format，即把Unicode转做某种格式的意思。</p>
 
 <p>UTF-8便于不同的计算机之间使用网络传输不同语言和编码的文字，使得双字节的Unicode能够在现存的处理单字节的系统上正确传输。</p>
 
 <p>UTF-8使用可变长度字节来储存 Unicode字符，例如ASCII字母继续使用1字节储存，重音文字、希腊字母或西里尔字母等使用2字节来储存，而常用的汉字就要使用3字节。辅助平面字符则使用4字节。</p>
 
-<p>4．UTF-16 和 UTF-32 编码
+<p>4．UTF-16 和 UTF-32 编码  <br/>
 UTF-32、UTF-16 和 UTF-8 是 Unicode 标准的编码字符集的字符编码方案，UTF-16 使用一个或两个未分配的 16 位代码单元的序列对 Unicode 代码点进行编码；UTF-32 即将每一个 Unicode 代码点表示为相同值的 32 位整数</p>
 
 <p>通过一个问题了解unicode编码</p>
@@ -875,7 +901,7 @@ UTF-32、UTF-16 和 UTF-8 是 Unicode 标准的编码字符集的字符编码方
 
 <p>当一个软件打开一个文本时，它要做的第一件事是决定这个文本究竟是使用哪种字符集的哪种编码保存的。软件一般采用三种方式来决定文本的字符集和编码：
 检测文件头标识，提示用户选择，根据一定的规则猜测
-最标准的途径是检测文本最开头的几个字节，开头字节 Charset/encoding,如下表：
+最标准的途径是检测文本最开头的几个字节，开头字节 Charset/encoding,如下表：<br/>
 EF BB BF UTF-8<br/>
 FE FF UTF-16/UCS-2, little endian  <br/>
 FF FE UTF-16/UCS-2, big endian  <br/>
