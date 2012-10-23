@@ -109,6 +109,55 @@
       ﻿
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2012/10/23/encode-in-java/">Java字符编码及其使用详解</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-23T18:58:00+08:00" pubdate data-updated="true">2012年10月23日 18:10:00</time>
+        
+         | <a href="/blog/2012/10/23/encode-in-java/#disqus_thread">我要评论</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>Java的编译存储</h2>
+
+<p>Java是跨平台的一种语言，这一概念想必已经深入人心。Java是如何实现跨平台的呢?其中起到重大作用的便是Unicode编码。在使用IDE进行开发时，比如ECLIPSE,IDEA等，可以指定源文件（.java）的编码格式，此处的编码格式是指Java文件自身的编码。Java文件可以用各种编码进行存储，考虑到兼容中文字符，大多采用GBK,UTF-8,GB18030等编码格式。但是经过javac命令编译后，生成的.class文件毫无疑问都是Unicode编码。这样在class被加载进JVM后，所有的对象都是Unicode进行编码的，这确保了Java的跨平台特性。<br/>
+<strong>简言之</strong></p>
+
+<p>.java(任意编码) &#8212;> .class(Unicode) &#8212;> JVM内（Unicode）</p>
+
+<h2>是什么导致了乱码的出现？</h2>
+
+<p>在JVM内，从class文件加载的源码全部以UNICODE编码。即使如<code>String str = "中国";</code>这样的语句，在JVM内存中仍然是unicode编码的。可是，程序本身难免牵涉到外部文件的读写、与数据库的交互等。这样就会造成很多非unicode编码的字符存在于JVM中，这也就是乱码出现的根本原因所在。</p>
+
+<p>未完待续，期待吧。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2012/10/23/bom-in-utf8-text/">什么是BOM(Byte Order Mark)?</a></h1>
     
     
@@ -288,49 +337,6 @@
 
     </article>
   
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/10/22/encode-story/">字符集与编码的故事</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-22T20:13:00+08:00" pubdate data-updated="true">2012年10月22日 20:10:00</time>
-        
-         | <a href="/blog/2012/10/22/encode-story/#disqus_thread">我要评论</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>很久很久以前，有一群人，他们决定用8个可以开合的晶体管来组合成不同的状态，以表示世界上的万物。他们看到8个开关状态是好的，于是他们把这称为&#8221;字节&#8221;。 再后来，他们又做了一些可以处理这些字节的机器，机器开动了，可以用字节来组合出很多状态，状态开始变来变去。他们看到这样是好的，于是它们就这机器称为&#8221;计算机&#8221;。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/10/22/encode-story/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <ul class="pager">
     
     <li class="previous"><a href="/blog/page/2/">&larr; 前一篇</a></li>
@@ -354,6 +360,10 @@
     <li class="nav-header">最近更新</li>
     
       <li class="post">
+        <a href="/blog/2012/10/23/encode-in-java/">Java字符编码及其使用详解</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/10/23/bom-in-utf8-text/">什么是BOM(Byte Order Mark)?</a>
       </li>
     
@@ -367,10 +377,6 @@
     
       <li class="post">
         <a href="/blog/2012/10/22/word-charset/">字符集编码</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/10/22/encode-story/">字符集与编码的故事</a>
       </li>
     
   </ul>

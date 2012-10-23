@@ -109,6 +109,51 @@
       ﻿
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2012/10/12/selenium-faq-how-to-use-javascript/">Selenium FAQ:怎么样调用Javascript？</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-12T14:30:00+08:00" pubdate data-updated="true">2012年10月12日 14:10:00</time>
+        
+         | <a href="/blog/2012/10/12/selenium-faq-how-to-use-javascript/#disqus_thread">我要评论</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>selenium自动化开发中，难免需要用到直接调用javascript，怎么用呢？</h2>
+
+<pre><code>WebDriver driver; // Assigned elsewhere
+JavascriptExecutor js = (JavascriptExecutor) driver;
+js.executeScript("return document.title");
+</code></pre>
+
+<p>直接将driver强制转化为JavascriptExecutor,然后执行javascript即可。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2012/10/12/apache-mpm/">Apache Mpm介绍[转]</a></h1>
     
     
@@ -343,51 +388,6 @@ public static void clickBlankArea(WebDriver driver) {
 
     </article>
   
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/09/21/markpad-tools/">Markdown 工具</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-09-21T18:37:00+08:00" pubdate data-updated="true">2012年09月21日 18:09:00</time>
-        
-         | <a href="/blog/2012/09/21/markpad-tools/#disqus_thread">我要评论</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><hr />
-
-<p>这个工具不错！可以很好的用来快速的对博客进行排版。<br/>
-编辑器推荐: <a href="http://markdownpad.com/">MarkDownPad</a></p>
-
-<p>@<a href="http://blueshen.github.com" title="blueshen">Blueshen</a>就是使用这种工具进行排版的</p>
-
-<hr />
-</div>
-  
-  
-
-
-    </article>
-  
   <ul class="pager">
     
     <li class="previous"><a href="/blog/page/5/">&larr; 前一篇</a></li>
@@ -413,6 +413,10 @@ public static void clickBlankArea(WebDriver driver) {
     <li class="nav-header">最近更新</li>
     
       <li class="post">
+        <a href="/blog/2012/10/23/encode-in-java/">Java字符编码及其使用详解</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/10/23/bom-in-utf8-text/">什么是BOM(Byte Order Mark)?</a>
       </li>
     
@@ -426,10 +430,6 @@ public static void clickBlankArea(WebDriver driver) {
     
       <li class="post">
         <a href="/blog/2012/10/22/word-charset/">字符集编码</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/10/22/encode-story/">字符集与编码的故事</a>
       </li>
     
   </ul>

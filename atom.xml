@@ -4,7 +4,7 @@
   <title><![CDATA[Blues 小站]]></title>
   <link href="http://blueshen.github.com/atom.xml" rel="self"/>
   <link href="http://blueshen.github.com/"/>
-  <updated>2012-10-23T18:53:37+08:00</updated>
+  <updated>2012-10-23T20:28:50+08:00</updated>
   <id>http://blueshen.github.com/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -12,6 +12,26 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Java字符编码及其使用详解]]></title>
+    <link href="http://blueshen.github.com/blog/2012/10/23/encode-in-java/"/>
+    <updated>2012-10-23T18:58:00+08:00</updated>
+    <id>http://blueshen.github.com/blog/2012/10/23/encode-in-java</id>
+    <content type="html"><![CDATA[<h2>Java的编译存储</h2>
+
+<p>Java是跨平台的一种语言，这一概念想必已经深入人心。Java是如何实现跨平台的呢?其中起到重大作用的便是Unicode编码。在使用IDE进行开发时，比如ECLIPSE,IDEA等，可以指定源文件（.java）的编码格式，此处的编码格式是指Java文件自身的编码。Java文件可以用各种编码进行存储，考虑到兼容中文字符，大多采用GBK,UTF-8,GB18030等编码格式。但是经过javac命令编译后，生成的.class文件毫无疑问都是Unicode编码。这样在class被加载进JVM后，所有的对象都是Unicode进行编码的，这确保了Java的跨平台特性。<br/>
+<strong>简言之</strong></p>
+
+<p>.java(任意编码) &#8212;> .class(Unicode) &#8212;> JVM内（Unicode）</p>
+
+<h2>是什么导致了乱码的出现？</h2>
+
+<p>在JVM内，从class文件加载的源码全部以UNICODE编码。即使如<code>String str = "中国";</code>这样的语句，在JVM内存中仍然是unicode编码的。可是，程序本身难免牵涉到外部文件的读写、与数据库的交互等。这样就会造成很多非unicode编码的字符存在于JVM中，这也就是乱码出现的根本原因所在。</p>
+
+<p>未完待续，期待吧。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[什么是BOM(Byte Order Mark)?]]></title>
@@ -2213,22 +2233,6 @@ mvn pmd:check
 
 <blockquote><p>右键选中project -> PMD -> Check Code with PMD<br/>
 执行结束后，会打开PMD视图，会依据不同的Priority级别显示不同的颜色。其中红色标注的X是级别为错误级别的。</p></blockquote></blockquote>
-
-<hr />
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[markdown 工具]]></title>
-    <link href="http://blueshen.github.com/blog/2012/09/21/markpad-tools/"/>
-    <updated>2012-09-21T18:37:00+08:00</updated>
-    <id>http://blueshen.github.com/blog/2012/09/21/markpad-tools</id>
-    <content type="html"><![CDATA[<hr />
-
-<p>这个工具不错！可以很好的用来快速的对博客进行排版。<br/>
-编辑器推荐: <a href="http://markdownpad.com/">MarkDownPad</a></p>
-
-<p>@<a href="http://blueshen.github.com" title="blueshen">Blueshen</a>就是使用这种工具进行排版的</p>
 
 <hr />
 ]]></content>
