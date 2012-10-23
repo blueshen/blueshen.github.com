@@ -4,7 +4,7 @@
   <title><![CDATA[Category: encoding | Blues 小站]]></title>
   <link href="http://blueshen.github.com/blog/categories/encoding/atom.xml" rel="self"/>
   <link href="http://blueshen.github.com/"/>
-  <updated>2012-10-23T18:47:20+08:00</updated>
+  <updated>2012-10-23T18:48:44+08:00</updated>
   <id>http://blueshen.github.com/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -28,7 +28,10 @@
 </ul>
 
 
-<p>同样的是转化为UTF-8编码，为什么还牵涉的BOM呢。</p>
+<p>同样的是转化为UTF-8编码，为什么还牵涉到BOM呢。</p>
+
+<!--more-->
+
 
 <h3>原因</h3>
 
