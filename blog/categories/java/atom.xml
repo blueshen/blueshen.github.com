@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: encode，Java | Blues 小站]]></title>
-  <link href="http://blueshen.github.com/blog/categories/encode-java/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Java | Blues 小站]]></title>
+  <link href="http://blueshen.github.com/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://blueshen.github.com/"/>
-  <updated>2012-10-23T20:28:50+08:00</updated>
+  <updated>2012-10-23T20:31:51+08:00</updated>
   <id>http://blueshen.github.com/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
