@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: encoding | Blues 小站]]></title>
+  <link href="http://blueshen.github.com/blog/categories/encoding/atom.xml" rel="self"/>
+  <link href="http://blueshen.github.com/"/>
+  <updated>2012-10-23T17:22:30+08:00</updated>
+  <id>http://blueshen.github.com/</id>
+  <author>
+    <name><![CDATA[ShenYanchao]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[什么是BOM(Byte Order Mark)?]]></title>
+    <link href="http://blueshen.github.com/blog/2012/10/23/bom-in-utf8-text/"/>
+    <updated>2012-10-23T17:05:00+08:00</updated>
+    <id>http://blueshen.github.com/blog/2012/10/23/bom-in-utf8-text</id>
+    <content type="html"><![CDATA[<p>在UCS 编码中有一个叫做"ZERO WIDTH NO-BREAK SPACE"的字符，它的编码是FEFF。而FFFE在UCS中是不存在的字符，所以不应该出现在实际传输中。UCS规范建议我们在传输字节流前，先传输字符"ZERO WIDTH NO-BREAK SPACE"。这样如果接收者收到FEFF，就表明这个字节流是Big-Endian的；如果收到FFFE，就表明这个字节流是Little-Endian的。因此字符"ZERO WIDTH NO-BREAK SPACE"又被称作BOM。</p>
+
+<p>UTF-8不需要BOM来表明字节顺序，但可以用BOM来表明编码方式。字符"ZERO WIDTH NO-BREAK SPACE"的UTF-8编码是EF BB BF。所以如果接收者收到以EF BB BF开头的字节流，就知道这是UTF-8编码了。</p>
+
+<p> W3C定义了三条XML解析器如何正确读取XML文件的编码的规则： <br/>
+ 1，如果文挡有BOM(字节顺序标记，一般来说，如果保存为unicode格式，则包含BOM，ANSI则无)，就定义了文件编码 <br/>
+ 2，如果没有BOM，就查看XML声明的编码属性 <br/>
+ 3，如果上述两个都没有，就假定XML文挡采用UTF-8编码</p>
+]]></content>
+  </entry>
+  
+</feed>

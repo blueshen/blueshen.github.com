@@ -109,6 +109,63 @@
       ﻿
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2012/10/12/apache-mpm/">Apache Mpm介绍[转]</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-12T12:45:00+08:00" pubdate data-updated="true">2012年10月12日 12:10:00</time>
+        
+         | <a href="/blog/2012/10/12/apache-mpm/#disqus_thread">我要评论</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>什么是MPM？</h2>
+
+<p>MPM（Multi -Processing Modules，多路处理模块）是Apache2.x中影响性能的最核心特性。</p>
+
+<p>是Apache 2.x才支持的一个可插入的并发模型，在编译的时候，我们只可以选择一个并发模型。</p>
+
+<p>配置文件：/usr/local/apache2/conf/extra/httpd-mpm.conf</p>
+
+<p>如果apache是默认安装的可能配置在httpd.conf文件中。根据实际情况查找配置。</p>
+
+<p>使用格式：
+进入apache的目录，对apache进行如下编译：</p>
+
+<p>Linux代码
+<code>./configure --help|grep mpm </code></p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/10/12/apache-mpm/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2012/10/11/selenium-stable-2/">提高selenium自动化的稳定性2-等待</a></h1>
     
     
@@ -331,47 +388,6 @@ public static void clickBlankArea(WebDriver driver) {
 
     </article>
   
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/09/21/markdown-syntax/">Markdown Syntax</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-09-21T13:37:00+08:00" pubdate data-updated="true">2012年09月21日 13:09:00</time>
-        
-         | <a href="/blog/2012/09/21/markdown-syntax/#disqus_thread">我要评论</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><blockquote><p>用起来很爽 <br/>
-语法具体可以参考：<a href="http://wowubuntu.com/markdown/">markdown Syntax</a></p></blockquote>
-
-<hr />
-</div>
-  
-  
-
-
-    </article>
-  
   <ul class="pager">
     
     <li class="previous"><a href="/blog/page/5/">&larr; 前一篇</a></li>
@@ -397,6 +413,10 @@ public static void clickBlankArea(WebDriver driver) {
     <li class="nav-header">最近更新</li>
     
       <li class="post">
+        <a href="/blog/2012/10/23/bom-in-utf8-text/">什么是BOM(Byte Order Mark)?</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/10/22/design-pattern-in-jdk-index/">23个经典JDK设计模式</a>
       </li>
     
@@ -410,10 +430,6 @@ public static void clickBlankArea(WebDriver driver) {
     
       <li class="post">
         <a href="/blog/2012/10/22/encode-story/">字符集与编码的故事</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/10/20/git-command/">Git 命令</a>
       </li>
     
   </ul>

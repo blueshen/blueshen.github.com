@@ -109,6 +109,51 @@
       ﻿
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2012/10/23/bom-in-utf8-text/">什么是BOM(Byte Order Mark)?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-23T17:05:00+08:00" pubdate data-updated="true">2012年10月23日 17:10:00</time>
+        
+         | <a href="/blog/2012/10/23/bom-in-utf8-text/#disqus_thread">我要评论</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>在UCS 编码中有一个叫做&#8221;ZERO WIDTH NO-BREAK SPACE&#8221;的字符，它的编码是FEFF。而FFFE在UCS中是不存在的字符，所以不应该出现在实际传输中。UCS规范建议我们在传输字节流前，先传输字符&#8221;ZERO WIDTH NO-BREAK SPACE&#8221;。这样如果接收者收到FEFF，就表明这个字节流是Big-Endian的；如果收到FFFE，就表明这个字节流是Little-Endian的。因此字符&#8221;ZERO WIDTH NO-BREAK SPACE&#8221;又被称作BOM。</p>
+
+<p>UTF-8不需要BOM来表明字节顺序，但可以用BOM来表明编码方式。字符&#8221;ZERO WIDTH NO-BREAK SPACE&#8221;的UTF-8编码是EF BB BF。所以如果接收者收到以EF BB BF开头的字节流，就知道这是UTF-8编码了。</p>
+
+<p> W3C定义了三条XML解析器如何正确读取XML文件的编码的规则： <br/>
+ 1，如果文挡有BOM(字节顺序标记，一般来说，如果保存为unicode格式，则包含BOM，ANSI则无)，就定义了文件编码 <br/>
+ 2，如果没有BOM，就查看XML声明的编码属性 <br/>
+ 3，如果上述两个都没有，就假定XML文挡采用UTF-8编码</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2012/10/22/design-pattern-in-jdk-index/">23个经典JDK设计模式</a></h1>
     
     
@@ -278,49 +323,6 @@
 
     </article>
   
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/10/20/git-command/">Git 命令</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-20T10:56:00+08:00" pubdate data-updated="true">2012年10月20日 10:10:00</time>
-        
-         | <a href="/blog/2012/10/20/git-command/#disqus_thread">我要评论</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>Git 命令结构图：</h2>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/10/20/git-command/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <ul class="pager">
     
     <li class="previous"><a href="/blog/page/2/">&larr; 前一篇</a></li>
@@ -344,6 +346,10 @@
     <li class="nav-header">最近更新</li>
     
       <li class="post">
+        <a href="/blog/2012/10/23/bom-in-utf8-text/">什么是BOM(Byte Order Mark)?</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/10/22/design-pattern-in-jdk-index/">23个经典JDK设计模式</a>
       </li>
     
@@ -357,10 +363,6 @@
     
       <li class="post">
         <a href="/blog/2012/10/22/encode-story/">字符集与编码的故事</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/10/20/git-command/">Git 命令</a>
       </li>
     
   </ul>
