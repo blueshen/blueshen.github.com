@@ -139,6 +139,9 @@
 
 <p>.java(任意编码) &#8212;> .class(Unicode) &#8212;> JVM内（Unicode）</p>
 
+<!--more-->
+
+
 <h2>是什么导致了乱码的出现？</h2>
 
 <p>在JVM内，从class文件加载的源码全部以UNICODE编码。即使如<code>String str = "中国";</code>这样的语句，在JVM内存中仍然是unicode编码的。可是，程序本身难免牵涉到外部文件的读写、与数据库的交互等。这样就会造成很多非unicode编码的字符存在于JVM中，这也就是乱码出现的根本原因所在。</p>

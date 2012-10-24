@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Java | Blues 小站]]></title>
   <link href="http://blueshen.github.com/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://blueshen.github.com/"/>
-  <updated>2012-10-24T12:12:27+08:00</updated>
+  <updated>2012-10-24T12:13:26+08:00</updated>
   <id>http://blueshen.github.com/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -24,6 +24,9 @@
 <strong>简言之</strong></p>
 
 <p>.java(任意编码) ---> .class(Unicode) ---> JVM内（Unicode）</p>
+
+<!--more-->
+
 
 <h2>是什么导致了乱码的出现？</h2>
 
