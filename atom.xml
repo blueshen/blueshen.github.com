@@ -4,7 +4,7 @@
   <title><![CDATA[Blues 小站]]></title>
   <link href="http://blueshen.github.com/atom.xml" rel="self"/>
   <link href="http://blueshen.github.com/"/>
-  <updated>2012-10-25T16:35:35+08:00</updated>
+  <updated>2012-10-25T16:36:59+08:00</updated>
   <id>http://blueshen.github.com/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -431,6 +431,7 @@ UTF-8以字节为编码单元，没有字节序的问题。UTF-16以两个字节
 <p> <br/>
 <strong>Response部分</strong></p>
 
+<div>
 <table border="1" width="90%" >
     <tbody>
         <tr>
@@ -676,9 +677,7 @@ UTF-8以字节为编码单元，没有字节序的问题。UTF-16以两个字节
     </tbody>
 </table>
 
-
-<p>更多参见 <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html">w3c官网</a></p>
-
+更多参见 [w3c官网](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html)
 <table border="1" width="90%" >
     <tbody>
         <tr>
@@ -845,9 +844,7 @@ UTF-8以字节为编码单元，没有字节序的问题。UTF-16以两个字节
     </tbody>
 </table>
 
-
-<p><strong>Requests部分</strong></p>
-
+**Requests部分**
 <table border="1"  width="90%">
     <tbody>
         <tr>
@@ -941,8 +938,8 @@ UTF-8以字节为编码单元，没有字节序的问题。UTF-16以两个字节
     </tbody>
 </table>
 
+</div>
 
-<p></div></p>
 
 <p>参考文档：<a href="http://www.itniwo.net/blog/v/26466.html">http://www.itniwo.net/blog/v/26466.html</a></p>
 ]]></content>
