@@ -4,7 +4,7 @@
   <title><![CDATA[Blues 小站]]></title>
   <link href="http://blueshen.github.com/atom.xml" rel="self"/>
   <link href="http://blueshen.github.com/"/>
-  <updated>2012-10-25T16:02:19+08:00</updated>
+  <updated>2012-10-25T16:04:15+08:00</updated>
   <id>http://blueshen.github.com/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -680,7 +680,7 @@ UTF-8以字节为编码单元，没有字节序的问题。UTF-16以两个字节
 
 <p>更多参见 <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html">w3c官网</a></p>
 
-<table border="1" >
+<table border="1" width="90%" >
     <tbody>
         <tr>
             <td style="line-height:25px;">
@@ -849,7 +849,7 @@ UTF-8以字节为编码单元，没有字节序的问题。UTF-16以两个字节
 
 <p><strong>Requests部分</strong></p>
 
-<table border="1" >
+<table border="1"  width="90%">
     <tbody>
         <tr>
             <th>
