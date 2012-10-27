@@ -24,7 +24,9 @@ WebDriver是通过调用native浏览器来操作的，浏览器之间的差异�
 > 1.它分不同的版本，版本之间差异很大。InternetExplorerDriver支持IE6、7、8、9。操作系统支持XP、Vista、Windows 7。   
 >2.InternetExplorerDriver同时支持32/64bit的浏览器，这个取决于你用的是什么版本的[IEDriverServer.exe](http://code.google.com/p/selenium/downloads/list)。   
 >3.要求条件如下：
->>* [IEDriverServer](http://code.google.com/p/selenium/downloads/list)在系统环境的PATH内（selenium2.26.0+版本推荐方式）。
+>>* [IEDriverServer](http://code.google.com/p/selenium/downloads/list)在系统环境的PATH内（selenium2.26.0+版本推荐方式）。或者设置`webdriver.ie.driver`系统属性。   
+	 `System.setProperty("webdriver.ie.driver", "D:\\IEDriverServer.exe");`  
+	` WebDriver driver = new InternetExplorerDriver();`
 >>* 在windows vista、windows7操作系统中，如果使用IE7+的浏览器，应该保证浏览器的**保护模式**都处于**同一状态**[开启或者关闭]。如果不一致，那么报错信息类似于`Caused by: org.openqa.selenium.WebDriverException: Unexpected error launching Internet Explorer. Protected Mode settings are not the same for all zones. Enable Protected Mode must be set to the same value (enabled or disabled) for all zones. (WARNING: The server did not provide any stacktrace information)`   
 不会设置吗？   
 操作如下：打开浏览器->Internet选项 ->安全->启用保护模式。保证Internet、本地Intranet、受信任的站点、受限制的站点4个zone保护模式一致就OK   
