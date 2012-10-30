@@ -4,7 +4,7 @@
   <title><![CDATA[Blues 小站]]></title>
   <link href="http://blueshen.github.com/atom.xml" rel="self"/>
   <link href="http://blueshen.github.com/"/>
-  <updated>2012-10-30T17:59:58+08:00</updated>
+  <updated>2012-10-30T22:25:20+08:00</updated>
   <id>http://blueshen.github.com/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -12,6 +12,331 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[设计模式：装饰器（Decorator）in Java]]></title>
+    <link href="http://blueshen.github.com/blog/2012/10/30/decorator-in-java/"/>
+    <updated>2012-10-30T21:25:00+08:00</updated>
+    <id>http://blueshen.github.com/blog/2012/10/30/decorator-in-java</id>
+    <content type="html"><![CDATA[<p>1.认识装饰器模式</p>
+
+<p>装饰模式能够实现动态的为对象添加功能，是从一个对象外部来给对象添加功能。通常给对象添加功能，要么直接修改对象添加相应的功能，要么派生对应的子类来扩展，抑或是使用对象组合的方式。显然，直接修改对应的类这种方式并不可取。在面向对象的设计中，而我们也应该尽量使用对象组合，而不是对象继承来扩展和复用功能。装饰器模式就是基于对象组合的方式，可以很灵活的给对象添加所需要的功能。装饰器模式的本质就是动态组合。动态是手段，组合才是目的。总之，装饰模式是通过把复杂的功能简单化，分散化，然后再运行期间，根据需要来动态组合的这样一个模式。</p>
+
+<!--more-->
+
+
+<p>2.模式结构和说明</p>
+
+<p>装饰模式的结构如下图所示。</p>
+
+<p>Component：组件对象的接口，可以给这些对象动态的添加职责；</p>
+
+<p>ConcreteComponent：具体的组件对象，实现了组件接口。该对象通常就是被装饰器装饰的原始对象，可以给这个对象添加职责；</p>
+
+<p>Decorator：所有装饰器的父类，需要定义一个与组件接口一致的接口(主要是为了实现装饰器功能的复用，即具体的装饰器A可以装饰另外一个具体的装饰器B，因为装饰器类也是一个Component)，并持有一个Component对象，该对象其实就是被装饰的对象。如果不继承组件接口类，则只能为某个组件添加单一的功能，即装饰器对象不能在装饰其他的装饰器对象。</p>
+
+<p>ConcreteDecorator：具体的装饰器类，实现具体要向被装饰对象添加的功能。用来装饰具体的组件对象或者另外一个具体的装饰器对象。</p>
+
+<p>装饰器模式的示例代码如下(Java语言描述)：</p>
+
+<p>   (1)组件对象的接口，可以给这些对象动态的添加职责</p>
+
+<pre><code>public abstract class Component {  
+    public abstract void operation();  
+}  
+</code></pre>
+
+<p>(2)具体实现组件对象接口的对象</p>
+
+<pre><code>public class ConcreteComponent extends Component {  
+
+    public void operation() {  
+        //相应的功能处理  
+    }  
+}  
+</code></pre>
+
+<p>(3)装饰器接口，维持一个指向组件对象的接口对象， 并定义一个与组件接口一致的接口</p>
+
+<pre><code>public abstract class Decorator extends Component {  
+    /** 
+    * 持有组件对象 
+    */  
+    protected Component component;  
+
+    /** 
+    * 构造方法，传入组件对象 
+    * @param component 组件对象 
+    */  
+    public Decorator(Component component) {  
+        this.component = component;  
+    }  
+
+    public void operation() {  
+        //转发请求给组件对象，可以在转发前后执行一些附加动作  
+        component.operation();  
+    }   
+}  
+</code></pre>
+
+<p>(4)装饰器的具体实现对象，向组件对象添加职责，operationFirst()，operationLast()为前后需要添加的功能。具体的装饰器类ConcreteDecoratorB代码相似，不在给出。</p>
+
+<pre><code>public class ConcreteDecoratorA extends Decorator {  
+    public ConcreteDecoratorA(Component component) {  
+        super(component);  
+    }  
+   private void operationFirst(){ } //在调用父类的operation方法之前需要执行的操作  
+   private void operationLast(){ } //在调用父类的operation方法之后需要执行的操作  
+   public void operation() {  
+       //调用父类的方法，可以在调用前后执行一些附加动作  
+       operationFirst(); //添加的功能  
+       super.operation();  //这里可以选择性的调用父类的方法，如果不调用则相当于完全改写了方法，实现了新的功能  
+       operationLast(); //添加的功能  
+    }  
+}  
+</code></pre>
+
+<p>(5) 客户端使用装饰器的代码</p>
+
+<pre><code>public class Client{  
+    public static void main(String[] args){  
+    Component c1 = new ConcreteComponent (); //首先创建需要被装饰的原始对象(即要被装饰的对象)  
+    Decorator decoratorA = new ConcreteDecoratorA(c1); //给对象透明的增加功能A并调用  
+    decoratorA .operation();  
+    Decorator decoratorB = new ConcreteDecoratorB(c1); //给对象透明的增加功能B并调用  
+    decoratorB .operation();  
+    Decorator decoratorBandA = new ConcreteDecoratorB(decoratorA);//装饰器也可以装饰具体的装饰对象，此时相当于给对象在增加A的功能基础上在添加功能B  
+    decoratorBandA.operation();  
+    }  
+}  
+</code></pre>
+
+<p>3.小结</p>
+
+<p>Java中的IO是明显的装饰器模式的运用。FilterInputStream，FilterOutputStream，FilterRead，FilterWriter分别为具体装饰器的父类，相当于Decorator类，它们分别实现了InputStream，OutputStream，Reader，Writer类(这些类相当于Component，是其他组件类的父类，也是Decorator类的父类)。继承自InputStream，OutputStream，Reader，Writer这四个类的其他类是具体的组件类，每个都有相应的功能，相当于ConcreteComponent类。而继承自FilterInputStream，FilterOutputStream，FilterRead，FilterWriter这四个类的其他类就是具体的装饰器对象类，即ConcreteDecorator类。通过这些装饰器类，可以给我们提供更加具体的有用的功能。如FileInputStream是InputStream的一个子类，从文件中读取数据流，BufferedInputStream是继承自FilterInputStream的具体的装饰器类，该类提供一个内存的缓冲区类保存输入流中的数据。我们使用如下的代码来使用BufferedInputStream装饰FileInputStream，就可以提供一个内存缓冲区来保存从文件中读取的输入流。</p>
+
+<p>BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file)); //其中file为某个具体文件的File或者FileDescription对象</p>
+
+<pre><code>在以下两种情况下可以考虑使用装饰器模式：
+
+(1)需要在不影响其他对象的情况下，以动态、透明的方式给对象添加职责。
+
+(2)如果不适合使用子类来进行扩展的时候，可以考虑使用装饰器模式。
+</code></pre>
+
+<p>参考文档：<a href="http://www.cnblogs.com/chenying99/archive/2012/10/05/2712524.html">http://www.cnblogs.com/chenying99/archive/2012/10/05/2712524.html</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[设计模式：适配器（Adapter）in Java]]></title>
+    <link href="http://blueshen.github.com/blog/2012/10/30/adapter-in-java/"/>
+    <updated>2012-10-30T21:24:00+08:00</updated>
+    <id>http://blueshen.github.com/blog/2012/10/30/adapter-in-java</id>
+    <content type="html"><![CDATA[<p><strong>类适配器</strong>:客户的开发人员定义了一个接口，期望用这个接口来完成整数的求和操作，接口定义如下：   <br/>
+Java代码</p>
+
+<pre><code>public interface Operation{  
+    public int add(int a,int b);  
+}  
+</code></pre>
+
+<p>开发人员在了解这个接口的定义后，发现一个第三方类，里面有一个方法能实现他们期望的功能，其代码如下：  <br/>
+Java代码</p>
+
+<pre><code>public class OtherOperation{  
+    public int otherAdd(int a,int b){  
+        return a + b;  
+    }  
+}  
+</code></pre>
+
+<!--more-->
+
+
+<p>以上第三方类OtherOperation的方法public int otherAdd(int a,int b)所提供的功能，完全能符合客户的期望，所以只需要想办法把OtherOperation的otherAdd(int a,int b)和客户的Operation接口联系起来，让这个第三方类来为客户提供他们期望的服务就行了，这样就避免了开发人员再度去研究类似OtherOperation的otherAdd(int a,int b)方法的实现（利用已有的轮子，避免重复发明），这方法之一，就是用适配器模式： <br/>
+Java代码</p>
+
+<pre><code>public class AdapterOperation extends OtherOperation implements Operation{  
+    public int add(int a,int b){  
+       return otherAdd(a,b);  
+     }  
+}  
+</code></pre>
+
+<p>以上就是适配器的实现方法之一，<strong>类适配器</strong>，在以上实现中存在着三中角色分别是：  <br/>
+1：适配目标角色：Operation。<br/>
+2：适配类（原）角色：OtherOperation。<br/>
+3：适配器角色：AdapterOperation。<br/>
+其中适配器角色是适配器模式的核心。
+适配器的主要工作就是通过封装现有的功能，使他满足需要的接口。</p>
+
+<p><strong>对象适配器</strong><br/>
+我们再来看看另一种情况：
+假如客户接口期望的功能不止一个，而是多个： <br/>
+Java代码</p>
+
+<pre><code>public interface Operation{  
+    public int add(int a,int b);  
+    public int minus(int a,int b);  
+    public int multiplied(int a,int b);  
+}  
+</code></pre>
+
+<p>而能提供这些实现的原可能不止一个： <br/>
+Java代码</p>
+
+<pre><code>public class OtherAdd{  
+    public int otherAdd(int a,int b){  
+         return a + b;  
+    }  
+}  
+
+public class OtherMinus{  
+    public int minus(int a,int b){  
+       return a - b;  
+    }  
+}  
+
+public class OtherMultiplied{  
+    public int multiplied(int a,int b){  
+       return a * b;  
+    }  
+}  
+</code></pre>
+
+<p>由于java是不能实现多继承的，所以我们不能通过构建一个适配器，让他来继承所有原以完成我们的期望，这时候怎么办呢?只能用适配器的另一种实现&#8211;对象适配器：<br/>
+Java代码</p>
+
+<pre><code>public class AdapterOperation implements Operation{  
+    private OtherAdd add;  
+    private OtherMinus minus;  
+    private OtherMultiplied multiplied;  
+
+    public void setAdd(OtherAdd add){  
+        this.add = add;  
+    }  
+
+    public void setMinus(OtherMinus minus){  
+        this.minus = minus;  
+    }  
+
+    public void setMultiplied(OtherMultiplied multiplied){  
+        this.multiplied = multiplied;  
+    }  
+
+    //适配加法运算  
+    public int add(int a,int b){  
+       return add.otherAdd(a,b);  
+    }  
+
+    //适配减法运算  
+    public int minus(int a,int b){  
+      return minus.minus(a,b);  
+    }  
+
+    //适配乘法运算  
+    public int multiplied(int a,int b){  
+     return multiplied.multiplied(a,b);  
+    }  
+}  
+</code></pre>
+
+<p>上面代码很明显，适配器并不是通过继承来获取适配类（原）的功能的，而是通过适配类的对象来获取的，这就解决了java不能多继承所带来的不便了。这也是java提倡的编程思想之一，即尽量使用聚合不要使用继承。<br/>
+还有一种情况是需要使用对象适配器的。我们来看看，
+单我们的客户提供的需求并不是一个明确的接口，而是一个类，并没有定义期望的方法，如下 <br/>
+Java代码</p>
+
+<pre><code>public class A{  
+    public int add(int a,int b){  
+        return a + b;  
+    }  
+}  
+</code></pre>
+
+<p>现在客户要一个新类B，要求能在保留类A功能的情况下增加一个运算减法的功能，并要求B能随时替换掉A但不能对已有系统造成影响。这样我们只能新建一个类B，并让B继承A。 <br/>
+Java代码</p>
+
+<pre><code>public class B extends A{  
+    B(){  
+        super();  
+        }  
+
+    public int minus(int a,int b){  
+       //待实现的减法运算函数..  
+    }  
+}  
+</code></pre>
+
+<p>这时候，我们发现类C已经提供了实现减法的函数，    <br/>
+Java代码</p>
+
+<pre><code>public class C{  
+    public int minus(int a,int b){  
+       return a - b;  
+    }  
+}  
+</code></pre>
+
+<p>为了避免重复去设计该函数，我们决定引入C类，通过适配C类来达到我们的期望，但问题是A和C都是一个具体类，我们无法让B同时继承这个两个类，而B继承A又是必须的，所以我们只能考虑把C给内聚到B内部，对象适配器又得派上用场了。<br/>
+Java代码</p>
+
+<pre><code>public class B extends A{  
+    private C c;  
+
+    B(){  
+        super();  
+        }  
+
+    public void setMinus(C c){  
+        this.c= c;  
+    }  
+
+    public int minus(int a,int b){  
+       return c.minus(a,b);  
+    }  
+}  
+</code></pre>
+
+<p>这样，在需要A类的地方都能用B类来代替，同时又保证了新的功能的引入。</p>
+
+<p>更灵活的实现&#8211;<strong>隐藏目标接口的抽象适配器</strong></p>
+
+<p>做java 桌面应用的都知道WindowListener接口， <br/>
+Java代码</p>
+
+<pre><code>public interface WindowListener extends EventListener{  
+     public void windowActivated(WindowEvent e)；  
+     public void windowClosed(WindowEvent e)；  
+     public void windowClosing(WindowEvent e)；  
+     public void windowDeactivated(WindowEvent e)；  
+     public void windowDeiconified(WindowEvent e)；  
+     public void windowIconified(WindowEvent e)；  
+     public void windowOpened(WindowEvent e)；  
+}  
+</code></pre>
+
+<p>要实现这个接口，我们就必须实现它所定义的所有方法，但是实际上，我们很少需要同时用到所有的方法，我们要的只是其中的两三个。为了不使我们实现多余的方法，     <br/>
+jdk WindowListener提供了一个WindowListener的默认实现类WindowAdapter类，这是一个抽象类， <br/>
+Java代码</p>
+
+<pre><code>public abstract class WindowAdapter implements WindowListener{  
+    public void windowActivated(WindowEvent e){}  
+    public void windowClosed(WindowEvent e){}  
+    public void windowClosing(WindowEvent e){}  
+    public void windowDeactivated(WindowEvent e){}  
+    public void windowDeiconified(WindowEvent e){}  
+    public void windowIconified(WindowEvent e){}  
+    public void windowOpened(WindowEvent e){}  
+}  
+</code></pre>
+
+<p>WindowAdapter类对WindowListener接口的所有有方法都提供了空实现，
+有了WindowAdapter类，我们只需要去继承WindowAdapter，然后选择我们所关心的方法来实现就行了，这样就避免了直接去实现WindowListener接口。</p>
+
+<p>参考文献：<a href="http://chjl2020.iteye.com/blog/262370">http://chjl2020.iteye.com/blog/262370</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[云南之行]]></title>
@@ -2161,124 +2486,6 @@ MaxRequestsPerChild 0
 </code></pre>
 
 <p>通过上面的叙述，可以了解到Apache 2.0中prefork和worker这两个重要MPM的工作原理，并可根据实际情况来配置Apache相关的核心参数，以获得最大的性能和稳定性。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[提高selenium自动化的稳定性2-等待]]></title>
-    <link href="http://blueshen.github.com/blog/2012/10/11/selenium-stable-2/"/>
-    <updated>2012-10-11T14:32:00+08:00</updated>
-    <id>http://blueshen.github.com/blog/2012/10/11/selenium-stable-2</id>
-    <content type="html"><![CDATA[<h2>很多页面元素都是ajax动态生成的，这就要求进行适当的等待</h2>
-
-<h2>如何进行等待呢？</h2>
-
-<h3>1.直接sleep</h3>
-
-<pre><code>public static void sleep(int seconds) {
-    try {
-        TimeUnit.SECONDS.sleep(seconds);
-    } catch (InterruptedException e) {
-        e.printStackTrace();
-    }
-}
-</code></pre>
-
-<p>这种方法，用于直接的让thread进行等待指定的seconds。</p>
-
-<!--more-->
-
-
-<h3>2.使用selenium webdriver提供的等待方法</h3>
-
-<pre><code>driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-</code></pre>
-
-<p>这种方法是webdriver提供的一种隐式等待。<br/>
-隐式等待是指当要查找元素（<code>driver.findElement()</code>），而这个元素没有马上出现时，告诉WebDriver查询Dom一定时间。默认值是0,但是设置之后，这个时间将在WebDriver对象实例整个生命周期都起作用。 <br/>
-比如使用：<code>driver.findElement(By.id("element"));</code>来查找id=&#8221;element&#8221;的元素。如果没有设置隐式等待，那么执行到这一步的时候就会直接报错<code>NoSuchElementException</code>。而设置后，则会在10秒内不断就查询元素是否存在，如果存在则返回。超过10秒仍没找到，才报错。</p>
-
-<h3>3.使用WebDriver提供的<code>Wait&lt;T&gt;</code>接口</h3>
-
-<pre><code>FluentWait&lt;T&gt; implements Wait&lt;T&gt;  
-
-Wait&lt;WebDriver&gt; wait = new FluentWait&lt;WebDriver&gt;(driver)
-   .withTimeout(30, SECONDS)
-   .pollingEvery(5, SECONDS)
-   .ignoring(NoSuchElementException.class);
-
-WebElement element = wait.until(new Function&lt;WebDriver, WebElement&gt;() {
- public WebElement apply(WebDriver driver) {
-   return driver.findElement(By.id("element"));
- }
-});
-element.click();//something to do
-</code></pre>
-
-<p>此方法用于等待一个元素在页面上出现，超时时间为30S，每隔5S去请求一次，并且忽略掉until中抛出的<code>NoSuchElementException</code>。 <br/>
-FluentWait的源码中这样写到:</p>
-
-<pre><code>private Duration timeout = FIVE_HUNDRED_MILLIS;  
-private Duration interval = FIVE_HUNDRED_MILLIS;   
-</code></pre>
-
-<p>因此，如果不设置<code>withTimeout</code>、<code>pollingEvery</code>则相当于等待了500ms,并且请求了一次，要使用<code>FluentWait</code>应该依据实际需要进行设置。那有没有更好的方法呢，有的，请往下看。</p>
-
-<pre><code>WebDriverWait extends FluentWait&lt;WebDriver&gt;
-
-Wait&lt;WebDriver&gt; waiter = new WebDriverWait(driver, 10);
-WebElement element = waiter.until(new Function&lt;WebDriver, WebElement&gt;() {
-        public WebElement apply(WebDriver driver) {
-            return driver.findElement(By.id("element"));
-        }
-
-    });
-element.click();//something to do
-</code></pre>
-
-<p><code>WebDriverWait</code>是继承于<code>FluentWait</code>的，并且实现了对功能进行了增强。从源码看出<code>WebDriverWait</code>的构造函数进行了如下的设置：</p>
-
-<pre><code>withTimeout(timeOutInSeconds, TimeUnit.SECONDS);
-pollingEvery(sleepTimeOut, TimeUnit.MILLISECONDS);
-ignoring(NotFoundException.class);
-</code></pre>
-
-<p>设置了超时时间、每次请求的间隔为<code>sleepTimeOut</code>（默认500ms）、忽略了<code>NotFoundException</code>。因此直接使用<code>WebDriverWait</code>更加的省事。</p>
-
-<h3>总结</h3>
-
-<p>WebDriver提供了很多等待机制来增加selenium自动化的稳定性，只要合理利用是可以达到理想的效果的。 <br/>
-无疑第一种方法sleep是最不可取的，是万不得已才用的一份方法，因为元素的加载与网络速度等客观因素直接相关。这个sleep的值是很难取的，值小了不行，值大了会造成case的运行速度缓慢。 <br/>
-第二种方法是从全局的角度来解决元素查找问题的，在解决通用性的问题上有一定的优势，可以考虑使用。 <br/>
-第三种方法是最好的，也是<strong>推荐</strong>的一种等待方式，很好的解决了动态元素的查找问题。</p>
-
-<hr />
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[提高selenium自动化的稳定性1-点击空白区域]]></title>
-    <link href="http://blueshen.github.com/blog/2012/10/11/selenium-stable-1/"/>
-    <updated>2012-10-11T14:12:00+08:00</updated>
-    <id>http://blueshen.github.com/blog/2012/10/11/selenium-stable-1</id>
-    <content type="html"><![CDATA[<p>在写selenium自动化的过程中，经常会遇到这样的问题：</p>
-
-<blockquote><p>1.在同一个页面内做操作，比如点击某个按钮后，弹出一个框，再点击另外一个按钮，又弹出一个框 <br/>
-2.此时如果第一个click操作后，第二个click再点击时，由于前一个弹出的框仍旧在前端显示，就会出错 <br/>
-3.在实际人工操作中，点击出第一个框后，点击一下空白区域，在点击出现第二个框。因此，可以考虑一个点击空白区域的方法</p></blockquote>
-
-<h2>实现方法如下</h2>
-
-<pre><code>/**
- * 点击空白区域：坐标（0，0）
- */
-public static void clickBlankArea(WebDriver driver) {
-    Actions actions = new Actions(driver);
-    actions.moveByOffset(0, 0).click().build().perform();
-}
-</code></pre>
-
-<p>让driver先移动到一个空白位置（此处设为(0,0)坐标点），做一下点击操作即可</p>
 ]]></content>
   </entry>
   

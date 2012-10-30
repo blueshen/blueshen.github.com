@@ -109,6 +109,119 @@
       ﻿
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2012/10/11/selenium-stable-2/">提高selenium自动化的稳定性2-等待</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-11T14:32:00+08:00" pubdate data-updated="true">2012年10月11日 14:10:00</time>
+        
+         | <a href="/blog/2012/10/11/selenium-stable-2/#disqus_thread">我要评论</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>很多页面元素都是ajax动态生成的，这就要求进行适当的等待</h2>
+
+<h2>如何进行等待呢？</h2>
+
+<h3>1.直接sleep</h3>
+
+<pre><code>public static void sleep(int seconds) {
+    try {
+        TimeUnit.SECONDS.sleep(seconds);
+    } catch (InterruptedException e) {
+        e.printStackTrace();
+    }
+}
+</code></pre>
+
+<p>这种方法，用于直接的让thread进行等待指定的seconds。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/10/11/selenium-stable-2/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
+      <h1 class="entry-title"><a href="/blog/2012/10/11/selenium-stable-1/">提高selenium自动化的稳定性1-点击空白区域</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-11T14:12:00+08:00" pubdate data-updated="true">2012年10月11日 14:10:00</time>
+        
+         | <a href="/blog/2012/10/11/selenium-stable-1/#disqus_thread">我要评论</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>在写selenium自动化的过程中，经常会遇到这样的问题：</p>
+
+<blockquote><p>1.在同一个页面内做操作，比如点击某个按钮后，弹出一个框，再点击另外一个按钮，又弹出一个框 <br/>
+2.此时如果第一个click操作后，第二个click再点击时，由于前一个弹出的框仍旧在前端显示，就会出错 <br/>
+3.在实际人工操作中，点击出第一个框后，点击一下空白区域，在点击出现第二个框。因此，可以考虑一个点击空白区域的方法</p></blockquote>
+
+<h2>实现方法如下</h2>
+
+<pre><code>/**
+ * 点击空白区域：坐标（0，0）
+ */
+public static void clickBlankArea(WebDriver driver) {
+    Actions actions = new Actions(driver);
+    actions.moveByOffset(0, 0).click().build().perform();
+}
+</code></pre>
+
+<p>让driver先移动到一个空白位置（此处设为(0,0)坐标点），做一下点击操作即可</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2012/10/11/pmd/">PMD静态代码检查</a></h1>
     
     
@@ -259,59 +372,9 @@
 
     </article>
   
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/09/20/wo-de-di--pian-zhong-wen-bo-ke/">我的第一篇中文博客</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-09-20T16:57:00+08:00" pubdate data-updated="true">2012年09月20日 16:09:00</time>
-        
-         | <a href="/blog/2012/09/20/wo-de-di--pian-zhong-wen-bo-ke/#disqus_thread">我要评论</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1>吐槽</h1>
-
-<p>这个OCTOPRESS真是难搞啊，最主要是_config.xml里面的格式校验也太严格了</center></p>
-
-<h1>正文</h1>
-
-<p>在这里写一些内容。
-链接<a href="http://www.baidu.com">http://www.baidu.com</a></p>
-
-<hr />
-
-<p>代码段</p>
-
-<pre><code>    System.out.println("ok!")
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <ul class="pager">
+    
+    <li class="previous"><a href="/blog/page/6/">&larr; 前一篇</a></li>
     
     <li><a href="/blog/archives">文章列表</a></li>
     
@@ -334,6 +397,14 @@
     <li class="nav-header">最近更新</li>
     
       <li class="post">
+        <a href="/blog/2012/10/30/decorator-in-java/">设计模式：装饰器（Decorator）in Java</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/30/adapter-in-java/">设计模式：适配器（Adapter）in Java</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/10/30/travel-in-yunnan/">云南之行</a>
       </li>
     
@@ -343,14 +414,6 @@
     
       <li class="post">
         <a href="/blog/2012/10/23/bom-in-utf8-text/">什么是BOM(Byte Order Mark)?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/10/22/design-pattern-in-jdk-index/">23个经典JDK设计模式</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/10/22/http-header/">HTTP Header</a>
       </li>
     
   </ul>
