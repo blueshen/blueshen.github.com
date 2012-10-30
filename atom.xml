@@ -4,7 +4,7 @@
   <title><![CDATA[Blues 小站]]></title>
   <link href="http://blueshen.github.com/atom.xml" rel="self"/>
   <link href="http://blueshen.github.com/"/>
-  <updated>2012-10-30T16:16:15+08:00</updated>
+  <updated>2012-10-30T17:50:55+08:00</updated>
   <id>http://blueshen.github.com/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -12,6 +12,21 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[云南之行]]></title>
+    <link href="http://blueshen.github.com/blog/2012/10/30/travel-in-yunnan/"/>
+    <updated>2012-10-30T17:47:00+08:00</updated>
+    <id>http://blueshen.github.com/blog/2012/10/30/travel-in-yunnan</id>
+    <content type="html"><![CDATA[<h2>拉市海</h2>
+
+<p>我是有多胖，真得减肥了！</p>
+
+<p><img src="http://b108.photo.store.qq.com/psb?/V13u7BQj3hVXAU/AOoQyzo0kOc1zgZbKxccJic7b7*yGjpubbAZTpLfRyY!/b/dGEaZEA0LgAA&amp;bo=WAIgAwAAAAABAF4!" alt="" /></p>
+
+<hr />
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Java字符编码及其使用详解]]></title>
@@ -2264,85 +2279,6 @@ public static void clickBlankArea(WebDriver driver) {
 </code></pre>
 
 <p>让driver先移动到一个空白位置（此处设为(0,0)坐标点），做一下点击操作即可</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[PMD静态代码检查]]></title>
-    <link href="http://blueshen.github.com/blog/2012/10/11/pmd/"/>
-    <updated>2012-10-11T11:20:00+08:00</updated>
-    <id>http://blueshen.github.com/blog/2012/10/11/pmd</id>
-    <content type="html"><![CDATA[<h2>一 maven插件：maven-pmd-plugin</h2>
-
-<blockquote><p>pom.xml添加如下内容：</p></blockquote>
-
-<pre><code>    &lt;plugin&gt;
-            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
-            &lt;artifactId&gt;maven-pmd-plugin&lt;/artifactId&gt;
-            &lt;version&gt;2.7.1&lt;/version&gt;
-            &lt;executions&gt;
-                &lt;execution&gt;
-                    &lt;phase&gt;package&lt;/phase&gt;
-                    &lt;goals&gt;
-                        &lt;goal&gt;check&lt;/goal&gt;
-                    &lt;/goals&gt;
-                &lt;/execution&gt;
-            &lt;/executions&gt;
-            &lt;configuration&gt;
-                &lt;failurePriority&gt;2&lt;/failurePriority&gt;
-                &lt;targetJdk&gt;1.6&lt;/targetJdk&gt;
-                &lt;rulesets&gt;
-                    &lt;ruleset&gt;/pmd-rulesets.xml&lt;/ruleset&gt;
-                &lt;/rulesets&gt;
-            &lt;/configuration&gt;
-        &lt;/plugin&gt;
-</code></pre>
-
-<blockquote><p>failurePriority用于指定在什么错误级别会failure，级别0~5不等。0为最高，5为最低。此处设为2,意为0、1、2级别的错误都会导致报错。级别可以根据项目的要求进行配置</p></blockquote>
-
-<!--more-->
-
-
-<blockquote><p>其中<strong>pmd-rulesets.xml</strong>是规则文件,由pmd制定的一些规则，这些规则可以在pmd-*.jar里找到。 <strong>pmd-rulesets.xml</strong>类似于以下：</p></blockquote>
-
-<pre><code>&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
-&lt;ruleset xmlns="http://pmd.sf.net/ruleset/1.0.0" name="pmd-rulsets" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd" xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"&gt;
-    &lt;description&gt;PMD Plugin preferences rule set&lt;/description&gt;
-    &lt;rule ref="rulesets/typeresolution.xml/LooseCoupling"/&gt;
-    &lt;rule ref="rulesets/typeresolution.xml/CloneMethodMustImplementCloneable"/&gt;
-    &lt;rule ref="rulesets/typeresolution.xml/SignatureDeclareThrowsException"/&gt;
-    &lt;rule ref="rulesets/braces.xml/IfStmtsMustUseBraces"/&gt;
-    &lt;rule ref="rulesets/braces.xml/WhileLoopsMustUseBraces"/&gt;
-&lt;/ruleset&gt;
-</code></pre>
-
-<h3>如何使用</h3>
-
-<pre><code>mvn pmd:pmd
-mvn pmd:check   
-</code></pre>
-
-<hr />
-
-<h2>二 pmd在eclipse中的使用</h2>
-
-<blockquote><p>1.安装</p>
-
-<blockquote><p>Help -> Install New Software -> Add&#8230;<br/>
-设置update site:<a href="http://pmd.sourceforge.net/eclipse">http://pmd.sourceforge.net/eclipse</a><br/>
-一路next安装成功即可</p></blockquote>
-
-<p>2.eclipse中的设置</p>
-
-<blockquote><p>Window -> Prefrences -> PMD -> Rules Configuration<br/>
-在其中可以设置相关Rules，这里面的Rules对应maven-pmd-plugins中的pmd-rulesets.xml，可以根据自己的需求进行定制</p></blockquote>
-
-<p>3.eclipse中的使用</p>
-
-<blockquote><p>右键选中project -> PMD -> Check Code with PMD<br/>
-执行结束后，会打开PMD视图，会依据不同的Priority级别显示不同的颜色。其中红色标注的X是级别为错误级别的。</p></blockquote></blockquote>
-
-<hr />
 ]]></content>
   </entry>
   

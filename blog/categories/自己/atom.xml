@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: 自己 | Blues 小站]]></title>
+  <link href="http://blueshen.github.com/blog/categories/自己/atom.xml" rel="self"/>
+  <link href="http://blueshen.github.com/"/>
+  <updated>2012-10-30T17:50:55+08:00</updated>
+  <id>http://blueshen.github.com/</id>
+  <author>
+    <name><![CDATA[ShenYanchao]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[云南之行]]></title>
+    <link href="http://blueshen.github.com/blog/2012/10/30/travel-in-yunnan/"/>
+    <updated>2012-10-30T17:47:00+08:00</updated>
+    <id>http://blueshen.github.com/blog/2012/10/30/travel-in-yunnan</id>
+    <content type="html"><![CDATA[<h2>拉市海</h2>
+
+<p>我是有多胖，真得减肥了！</p>
+
+<p><img src="http://b108.photo.store.qq.com/psb?/V13u7BQj3hVXAU/AOoQyzo0kOc1zgZbKxccJic7b7*yGjpubbAZTpLfRyY!/b/dGEaZEA0LgAA&amp;bo=WAIgAwAAAAABAF4!" alt="" /></p>
+
+<hr />
+]]></content>
+  </entry>
+  
+</feed>
