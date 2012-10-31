@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: maven | Blues 小站]]></title>
-  <link href="http://blueshen.github.com/blog/categories/maven/atom.xml" rel="self"/>
-  <link href="http://blueshen.github.com/"/>
-  <updated>2012-10-31T10:43:56+08:00</updated>
-  <id>http://blueshen.github.com/</id>
+  <link href="http://www.shenyanchao.cn/blog/categories/maven/atom.xml" rel="self"/>
+  <link href="http://www.shenyanchao.cn/"/>
+  <updated>2012-10-31T10:51:22+08:00</updated>
+  <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[安装配置Maven]]></title>
-    <link href="http://blueshen.github.com/blog/2012/10/19/install-maven/"/>
+    <link href="http://www.shenyanchao.cn/blog/2012/10/19/install-maven/"/>
     <updated>2012-10-19T23:40:00+08:00</updated>
-    <id>http://blueshen.github.com/blog/2012/10/19/install-maven</id>
+    <id>http://www.shenyanchao.cn/blog/2012/10/19/install-maven</id>
     <content type="html"><![CDATA[<h2>Maven安装</h2>
 
 <p>1.下载Maven：从<a href="http://maven.apache.org/download.html">Maven官方</a>下载,并解压。比如解压到：D:\apache-maven-3.0.4   <br/>
@@ -38,9 +38,9 @@ maven默认放在C:\Users\user.m2\repository目录下（不同系统可能不一
   
   <entry>
     <title type="html"><![CDATA[maven生命周期详解]]></title>
-    <link href="http://blueshen.github.com/blog/2012/10/19/maven-life-cycle/"/>
+    <link href="http://www.shenyanchao.cn/blog/2012/10/19/maven-life-cycle/"/>
     <updated>2012-10-19T22:21:00+08:00</updated>
-    <id>http://blueshen.github.com/blog/2012/10/19/maven-life-cycle</id>
+    <id>http://www.shenyanchao.cn/blog/2012/10/19/maven-life-cycle</id>
     <content type="html"><![CDATA[<p>Maven强大的一个重要的原因是它有一个十分完善的生命周期模型(lifecycle)，这个生命周期可以从两方面来理解，第一，顾名思义，运行Maven的每个步骤都由它来定义的，这种预定义的默认行为使得我们使用Maven变得简单，相比而言，Ant的每个步骤都要你手工去定义。第二，这个模型是一种标准，在不同的项目中，使用Maven的接口是一样的，这样就不用去仔细理解每个项目的构建了，一般情况下，mvn clean install 这样的命令是通用的。我想，一定是吸收了许多项目的经验，Maven才能定义出如此完善的模型。</p>
 
 <!--more-->
@@ -123,9 +123,9 @@ Maven有三套相互独立的生命周期，请注意这里说的是“三套”
   
   <entry>
     <title type="html"><![CDATA[PMD静态代码检查]]></title>
-    <link href="http://blueshen.github.com/blog/2012/10/11/pmd/"/>
+    <link href="http://www.shenyanchao.cn/blog/2012/10/11/pmd/"/>
     <updated>2012-10-11T11:20:00+08:00</updated>
-    <id>http://blueshen.github.com/blog/2012/10/11/pmd</id>
+    <id>http://www.shenyanchao.cn/blog/2012/10/11/pmd</id>
     <content type="html"><![CDATA[<h2>一 maven插件：maven-pmd-plugin</h2>
 
 <blockquote><p>pom.xml添加如下内容：</p></blockquote>

@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Blues 小站]]></title>
-  <link href="http://blueshen.github.com/atom.xml" rel="self"/>
-  <link href="http://blueshen.github.com/"/>
-  <updated>2012-10-31T10:43:56+08:00</updated>
-  <id>http://blueshen.github.com/</id>
+  <link href="http://www.shenyanchao.cn/atom.xml" rel="self"/>
+  <link href="http://www.shenyanchao.cn/"/>
+  <updated>2012-10-31T10:51:22+08:00</updated>
+  <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[设计模式：装饰器（Decorator）in Java]]></title>
-    <link href="http://blueshen.github.com/blog/2012/10/30/decorator-in-java/"/>
+    <link href="http://www.shenyanchao.cn/blog/2012/10/30/decorator-in-java/"/>
     <updated>2012-10-30T21:25:00+08:00</updated>
-    <id>http://blueshen.github.com/blog/2012/10/30/decorator-in-java</id>
+    <id>http://www.shenyanchao.cn/blog/2012/10/30/decorator-in-java</id>
     <content type="html"><![CDATA[<p>1.认识装饰器模式</p>
 
 <p>装饰模式能够实现动态的为对象添加功能，是从一个对象外部来给对象添加功能。通常给对象添加功能，要么直接修改对象添加相应的功能，要么派生对应的子类来扩展，抑或是使用对象组合的方式。显然，直接修改对应的类这种方式并不可取。在面向对象的设计中，而我们也应该尽量使用对象组合，而不是对象继承来扩展和复用功能。装饰器模式就是基于对象组合的方式，可以很灵活的给对象添加所需要的功能。装饰器模式的本质就是动态组合。动态是手段，组合才是目的。总之，装饰模式是通过把复杂的功能简单化，分散化，然后再运行期间，根据需要来动态组合的这样一个模式。</p>
@@ -130,9 +130,9 @@
   
   <entry>
     <title type="html"><![CDATA[设计模式：适配器（Adapter）in Java]]></title>
-    <link href="http://blueshen.github.com/blog/2012/10/30/adapter-in-java/"/>
+    <link href="http://www.shenyanchao.cn/blog/2012/10/30/adapter-in-java/"/>
     <updated>2012-10-30T21:24:00+08:00</updated>
-    <id>http://blueshen.github.com/blog/2012/10/30/adapter-in-java</id>
+    <id>http://www.shenyanchao.cn/blog/2012/10/30/adapter-in-java</id>
     <content type="html"><![CDATA[<p><strong>类适配器</strong>:客户的开发人员定义了一个接口，期望用这个接口来完成整数的求和操作，接口定义如下：   <br/>
 Java代码</p>
 
@@ -340,14 +340,14 @@ Java代码</p>
   
   <entry>
     <title type="html"><![CDATA[云南之行]]></title>
-    <link href="http://blueshen.github.com/blog/2012/10/30/travel-in-yunnan/"/>
+    <link href="http://www.shenyanchao.cn/blog/2012/10/30/travel-in-yunnan/"/>
     <updated>2012-10-30T17:47:00+08:00</updated>
-    <id>http://blueshen.github.com/blog/2012/10/30/travel-in-yunnan</id>
+    <id>http://www.shenyanchao.cn/blog/2012/10/30/travel-in-yunnan</id>
     <content type="html"><![CDATA[<h2>拉市海</h2>
 
 <p>我是有多胖，真得减肥了！</p>
 
-<p><img src="http://blueshen.github.com/images/blog/psb.jpg" alt="" /></p>
+<p><img src="http://www.shenyanchao.cn/images/blog/psb.jpg" alt="" /></p>
 
 <hr />
 ]]></content>
@@ -355,9 +355,9 @@ Java代码</p>
   
   <entry>
     <title type="html"><![CDATA[Java字符编码及其使用详解]]></title>
-    <link href="http://blueshen.github.com/blog/2012/10/23/encode-in-java/"/>
+    <link href="http://www.shenyanchao.cn/blog/2012/10/23/encode-in-java/"/>
     <updated>2012-10-23T18:58:00+08:00</updated>
-    <id>http://blueshen.github.com/blog/2012/10/23/encode-in-java</id>
+    <id>http://www.shenyanchao.cn/blog/2012/10/23/encode-in-java</id>
     <content type="html"><![CDATA[<h2>Java的编译存储</h2>
 
 <p>Java是跨平台的一种语言，这一概念想必已经深入人心。Java是如何实现跨平台的呢?其中起到重大作用的便是Unicode编码。在使用IDE进行开发时，比如ECLIPSE,IDEA等，可以指定源文件（.java）的编码格式，此处的编码格式是指Java文件自身的编码。Java文件可以用各种编码进行存储，考虑到兼容中文字符，大多采用GBK,UTF-8,GB18030等编码格式。但是经过javac命令编译后，生成的.class文件毫无疑问都是Unicode编码。这样在class被加载进JVM后，所有的对象都是Unicode进行编码的，这确保了Java的跨平台特性。<br/>
@@ -485,9 +485,9 @@ writer.close();
   
   <entry>
     <title type="html"><![CDATA[什么是BOM(Byte Order Mark)?]]></title>
-    <link href="http://blueshen.github.com/blog/2012/10/23/bom-in-utf8-text/"/>
+    <link href="http://www.shenyanchao.cn/blog/2012/10/23/bom-in-utf8-text/"/>
     <updated>2012-10-23T17:05:00+08:00</updated>
-    <id>http://blueshen.github.com/blog/2012/10/23/bom-in-utf8-text</id>
+    <id>http://www.shenyanchao.cn/blog/2012/10/23/bom-in-utf8-text</id>
     <content type="html"><![CDATA[<h3>引子</h3>
 
 <p>在使用诸如UltraEditor,NotePad++等编辑工具时，经常会遇到encode进行转换的情况。以NotePad++为例，一篇ASCII编码的文本，通过菜单栏Encoding->convert to **进行编码格式的转换。我却发现一个奇怪的问题，下拉框里有这样两个选项：</p>
@@ -532,9 +532,9 @@ UTF-8以字节为编码单元，没有字节序的问题。UTF-16以两个字节
   
   <entry>
     <title type="html"><![CDATA[23个经典JDK设计模式]]></title>
-    <link href="http://blueshen.github.com/blog/2012/10/22/design-pattern-in-jdk-index/"/>
+    <link href="http://www.shenyanchao.cn/blog/2012/10/22/design-pattern-in-jdk-index/"/>
     <updated>2012-10-22T20:49:00+08:00</updated>
-    <id>http://blueshen.github.com/blog/2012/10/22/design-pattern-in-jdk-index</id>
+    <id>http://www.shenyanchao.cn/blog/2012/10/22/design-pattern-in-jdk-index</id>
     <content type="html"><![CDATA[<p>下面是JDK中有关23个经典设计模式的示例：</p>
 
 <!--more-->
@@ -760,9 +760,9 @@ UTF-8以字节为编码单元，没有字节序的问题。UTF-16以两个字节
   
   <entry>
     <title type="html"><![CDATA[HTTP Header]]></title>
-    <link href="http://blueshen.github.com/blog/2012/10/22/http-header/"/>
+    <link href="http://www.shenyanchao.cn/blog/2012/10/22/http-header/"/>
     <updated>2012-10-22T20:34:00+08:00</updated>
-    <id>http://blueshen.github.com/blog/2012/10/22/http-header</id>
+    <id>http://www.shenyanchao.cn/blog/2012/10/22/http-header</id>
     <content type="html"><![CDATA[<p>HTTP（HyperTextTransferProtocol） 即超文本传输协议，目前网页传输的的通用协议。HTTP协议采用了请求/响应模型，浏览器或其他客户端发出请求，服务器给与响应。就整个网络资源传输而 言，包括message-header和message-body两部分。首先传递message-header，即http header消息。http header 消息通常被分为4个部分：general; header, request header, response header, entity header。但是这种分法就理解而言，感觉界限不太明确。根据维基百科对http header内容的组织形式，大体分为Request和Response两部分.</p>
 
 <!--more-->
@@ -1287,9 +1287,9 @@ UTF-8以字节为编码单元，没有字节序的问题。UTF-16以两个字节
   
   <entry>
     <title type="html"><![CDATA[字符集编码]]></title>
-    <link href="http://blueshen.github.com/blog/2012/10/22/word-charset/"/>
+    <link href="http://www.shenyanchao.cn/blog/2012/10/22/word-charset/"/>
     <updated>2012-10-22T20:29:00+08:00</updated>
-    <id>http://blueshen.github.com/blog/2012/10/22/word-charset</id>
+    <id>http://www.shenyanchao.cn/blog/2012/10/22/word-charset</id>
     <content type="html"><![CDATA[<h2>GB2312字符集</h2>
 
 <p>GB2312又称为GB2312-80字符集，全称为《信息交换用汉字编码字符集·基本集》，由原中国国家标准总局发布，1981年5月1日实施，是中国国家标准的简体中文字符集。它所收录的汉字已经覆盖99.75%的使用频率，基本满足了汉字的计算机处理需要。在中国大陆和新加坡获广泛使用。</p>
@@ -1467,9 +1467,9 @@ Windows就是使用BOM来标记文本文件的编码方式的。</p>
   
   <entry>
     <title type="html"><![CDATA[字符集与编码的故事]]></title>
-    <link href="http://blueshen.github.com/blog/2012/10/22/encode-story/"/>
+    <link href="http://www.shenyanchao.cn/blog/2012/10/22/encode-story/"/>
     <updated>2012-10-22T20:13:00+08:00</updated>
-    <id>http://blueshen.github.com/blog/2012/10/22/encode-story</id>
+    <id>http://www.shenyanchao.cn/blog/2012/10/22/encode-story</id>
     <content type="html"><![CDATA[<p>很久很久以前，有一群人，他们决定用8个可以开合的晶体管来组合成不同的状态，以表示世界上的万物。他们看到8个开关状态是好的，于是他们把这称为&#8221;字节&#8221;。 再后来，他们又做了一些可以处理这些字节的机器，机器开动了，可以用字节来组合出很多状态，状态开始变来变去。他们看到这样是好的，于是它们就这机器称为&#8221;计算机&#8221;。</p>
 
 <!--more-->
@@ -1511,23 +1511,23 @@ Windows就是使用BOM来标记文本文件的编码方式的。</p>
   
   <entry>
     <title type="html"><![CDATA[Git 命令]]></title>
-    <link href="http://blueshen.github.com/blog/2012/10/20/git-command/"/>
+    <link href="http://www.shenyanchao.cn/blog/2012/10/20/git-command/"/>
     <updated>2012-10-20T10:56:00+08:00</updated>
-    <id>http://blueshen.github.com/blog/2012/10/20/git-command</id>
+    <id>http://www.shenyanchao.cn/blog/2012/10/20/git-command</id>
     <content type="html"><![CDATA[<h2>Git 命令结构图：</h2>
 
 <!--more-->
 
 
-<p><img src="http://blueshen.github.com/images/blog/git-command.png" alt="git command" /></p>
+<p><img src="http://www.shenyanchao.cn/images/blog/git-command.png" alt="git command" /></p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[xpath 详解]]></title>
-    <link href="http://blueshen.github.com/blog/2012/10/20/xpath/"/>
+    <link href="http://www.shenyanchao.cn/blog/2012/10/20/xpath/"/>
     <updated>2012-10-20T10:43:00+08:00</updated>
-    <id>http://blueshen.github.com/blog/2012/10/20/xpath</id>
+    <id>http://www.shenyanchao.cn/blog/2012/10/20/xpath</id>
     <content type="html"><![CDATA[<div id="intro">
 <p><strong>XPath 使用路径表达式来选取 XML 文档中的节点或节点集。节点是通过沿着路径 (path) 或者步 (steps) 来选取的。</strong></p>
 </div>
@@ -1810,9 +1810,9 @@ Windows就是使用BOM来标记文本文件的编码方式的。</p>
   
   <entry>
     <title type="html"><![CDATA[安装配置Maven]]></title>
-    <link href="http://blueshen.github.com/blog/2012/10/19/install-maven/"/>
+    <link href="http://www.shenyanchao.cn/blog/2012/10/19/install-maven/"/>
     <updated>2012-10-19T23:40:00+08:00</updated>
-    <id>http://blueshen.github.com/blog/2012/10/19/install-maven</id>
+    <id>http://www.shenyanchao.cn/blog/2012/10/19/install-maven</id>
     <content type="html"><![CDATA[<h2>Maven安装</h2>
 
 <p>1.下载Maven：从<a href="http://maven.apache.org/download.html">Maven官方</a>下载,并解压。比如解压到：D:\apache-maven-3.0.4   <br/>
@@ -1833,9 +1833,9 @@ maven默认放在C:\Users\user.m2\repository目录下（不同系统可能不一
   
   <entry>
     <title type="html"><![CDATA[Java内存溢出详解]]></title>
-    <link href="http://blueshen.github.com/blog/2012/10/19/jvm-out-of-memory/"/>
+    <link href="http://www.shenyanchao.cn/blog/2012/10/19/jvm-out-of-memory/"/>
     <updated>2012-10-19T23:12:00+08:00</updated>
-    <id>http://blueshen.github.com/blog/2012/10/19/jvm-out-of-memory</id>
+    <id>http://www.shenyanchao.cn/blog/2012/10/19/jvm-out-of-memory</id>
     <content type="html"><![CDATA[<p>一、常见的Java内存溢出有以下三种：</p>
 
 <ol>
@@ -1912,18 +1912,18 @@ Optional Java VM arguments中添加：<code>-Xms256m -Xmx512m -XX:PermSize=64M -
   
   <entry>
     <title type="html"><![CDATA[JVM参数选项]]></title>
-    <link href="http://blueshen.github.com/blog/2012/10/19/java6-jvm-params/"/>
+    <link href="http://www.shenyanchao.cn/blog/2012/10/19/java6-jvm-params/"/>
     <updated>2012-10-19T23:01:00+08:00</updated>
-    <id>http://blueshen.github.com/blog/2012/10/19/java6-jvm-params</id>
+    <id>http://www.shenyanchao.cn/blog/2012/10/19/java6-jvm-params</id>
     <content type="html"><![CDATA[<p>详情请看：<a href="http://kenwublog.com/docs/java6-jvm-options-chinese-edition.htm">http://kenwublog.com/docs/java6-jvm-options-chinese-edition.htm</a></p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[maven生命周期详解]]></title>
-    <link href="http://blueshen.github.com/blog/2012/10/19/maven-life-cycle/"/>
+    <link href="http://www.shenyanchao.cn/blog/2012/10/19/maven-life-cycle/"/>
     <updated>2012-10-19T22:21:00+08:00</updated>
-    <id>http://blueshen.github.com/blog/2012/10/19/maven-life-cycle</id>
+    <id>http://www.shenyanchao.cn/blog/2012/10/19/maven-life-cycle</id>
     <content type="html"><![CDATA[<p>Maven强大的一个重要的原因是它有一个十分完善的生命周期模型(lifecycle)，这个生命周期可以从两方面来理解，第一，顾名思义，运行Maven的每个步骤都由它来定义的，这种预定义的默认行为使得我们使用Maven变得简单，相比而言，Ant的每个步骤都要你手工去定义。第二，这个模型是一种标准，在不同的项目中，使用Maven的接口是一样的，这样就不用去仔细理解每个项目的构建了，一般情况下，mvn clean install 这样的命令是通用的。我想，一定是吸收了许多项目的经验，Maven才能定义出如此完善的模型。</p>
 
 <!--more-->
@@ -2006,9 +2006,9 @@ Maven有三套相互独立的生命周期，请注意这里说的是“三套”
   
   <entry>
     <title type="html"><![CDATA[PageObjects 设计模式]]></title>
-    <link href="http://blueshen.github.com/blog/2012/10/16/pageobjects-design-pattern/"/>
+    <link href="http://www.shenyanchao.cn/blog/2012/10/16/pageobjects-design-pattern/"/>
     <updated>2012-10-16T16:40:00+08:00</updated>
-    <id>http://blueshen.github.com/blog/2012/10/16/pageobjects-design-pattern</id>
+    <id>http://www.shenyanchao.cn/blog/2012/10/16/pageobjects-design-pattern</id>
     <content type="html"><![CDATA[<h2>什么是Page Objects(翻译为：页面对象？)&#8230;</h2>
 
 <p>简单的说，Page Objects是指UI界面上用于与用户进行交互的对象。它可以指整个页面，也可以指Page上的某个区域。Page Objects是你的test code的交互对象，是对实际UI的一种抽象模型化。通过Page Objects可以减少重复代码的编写，例如，很多页面都有同样的header，footer，navigator等部分，如果对这些进行抽象，只写一次就可以在其他地方通用了。</p>
@@ -2204,9 +2204,9 @@ private WebElement searchBox;
   
   <entry>
     <title type="html"><![CDATA[Selenium WebDriver的多浏览器支持]]></title>
-    <link href="http://blueshen.github.com/blog/2012/10/12/selenium-multiple-browser-support/"/>
+    <link href="http://www.shenyanchao.cn/blog/2012/10/12/selenium-multiple-browser-support/"/>
     <updated>2012-10-12T14:56:00+08:00</updated>
-    <id>http://blueshen.github.com/blog/2012/10/12/selenium-multiple-browser-support</id>
+    <id>http://www.shenyanchao.cn/blog/2012/10/12/selenium-multiple-browser-support</id>
     <content type="html"><![CDATA[<h2>Selenium WebDriver支持哪儿些浏览器？</h2>
 
 <p>按照官方文档的说法，现阶段有以下的drivers:</p>
@@ -2313,9 +2313,9 @@ WebDriver driver = new ChromeDriver();
   
   <entry>
     <title type="html"><![CDATA[selenium FAQ:如何处理JavaScript弹出的alert、prompt窗口]]></title>
-    <link href="http://blueshen.github.com/blog/2012/10/12/selenium-faq-alerts-and-prompts/"/>
+    <link href="http://www.shenyanchao.cn/blog/2012/10/12/selenium-faq-alerts-and-prompts/"/>
     <updated>2012-10-12T14:39:00+08:00</updated>
-    <id>http://blueshen.github.com/blog/2012/10/12/selenium-faq-alerts-and-prompts</id>
+    <id>http://www.shenyanchao.cn/blog/2012/10/12/selenium-faq-alerts-and-prompts</id>
     <content type="html"><![CDATA[<h2>经常会碰到，页面操作后，出现一个alert窗口或者prompt确认窗口的情况，这时需要获得窗口的提示信息以及点击确定或取消的情况。</h2>
 
 <pre><code>// Get a handle to the open alert, prompt or confirmation
@@ -2332,9 +2332,9 @@ alert.accept();
   
   <entry>
     <title type="html"><![CDATA[selenium FAQ:怎么样调用Javascript？]]></title>
-    <link href="http://blueshen.github.com/blog/2012/10/12/selenium-faq-how-to-use-javascript/"/>
+    <link href="http://www.shenyanchao.cn/blog/2012/10/12/selenium-faq-how-to-use-javascript/"/>
     <updated>2012-10-12T14:30:00+08:00</updated>
-    <id>http://blueshen.github.com/blog/2012/10/12/selenium-faq-how-to-use-javascript</id>
+    <id>http://www.shenyanchao.cn/blog/2012/10/12/selenium-faq-how-to-use-javascript</id>
     <content type="html"><![CDATA[<h2>selenium自动化开发中，难免需要用到直接调用javascript，怎么用呢？</h2>
 
 <pre><code>WebDriver driver; // Assigned elsewhere
@@ -2348,9 +2348,9 @@ js.executeScript("return document.title");
   
   <entry>
     <title type="html"><![CDATA[apache mpm介绍[转]]]></title>
-    <link href="http://blueshen.github.com/blog/2012/10/12/apache-mpm/"/>
+    <link href="http://www.shenyanchao.cn/blog/2012/10/12/apache-mpm/"/>
     <updated>2012-10-12T12:45:00+08:00</updated>
-    <id>http://blueshen.github.com/blog/2012/10/12/apache-mpm</id>
+    <id>http://www.shenyanchao.cn/blog/2012/10/12/apache-mpm</id>
     <content type="html"><![CDATA[<h2>什么是MPM？</h2>
 
 <p>MPM（Multi -Processing Modules，多路处理模块）是Apache2.x中影响性能的最核心特性。</p>

@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: jvm | Blues 小站]]></title>
-  <link href="http://blueshen.github.com/blog/categories/jvm/atom.xml" rel="self"/>
-  <link href="http://blueshen.github.com/"/>
-  <updated>2012-10-31T10:43:56+08:00</updated>
-  <id>http://blueshen.github.com/</id>
+  <link href="http://www.shenyanchao.cn/blog/categories/jvm/atom.xml" rel="self"/>
+  <link href="http://www.shenyanchao.cn/"/>
+  <updated>2012-10-31T10:51:22+08:00</updated>
+  <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Java内存溢出详解]]></title>
-    <link href="http://blueshen.github.com/blog/2012/10/19/jvm-out-of-memory/"/>
+    <link href="http://www.shenyanchao.cn/blog/2012/10/19/jvm-out-of-memory/"/>
     <updated>2012-10-19T23:12:00+08:00</updated>
-    <id>http://blueshen.github.com/blog/2012/10/19/jvm-out-of-memory</id>
+    <id>http://www.shenyanchao.cn/blog/2012/10/19/jvm-out-of-memory</id>
     <content type="html"><![CDATA[<p>一、常见的Java内存溢出有以下三种：</p>
 
 <ol>
@@ -94,9 +94,9 @@ Optional Java VM arguments中添加：<code>-Xms256m -Xmx512m -XX:PermSize=64M -
   
   <entry>
     <title type="html"><![CDATA[JVM参数选项]]></title>
-    <link href="http://blueshen.github.com/blog/2012/10/19/java6-jvm-params/"/>
+    <link href="http://www.shenyanchao.cn/blog/2012/10/19/java6-jvm-params/"/>
     <updated>2012-10-19T23:01:00+08:00</updated>
-    <id>http://blueshen.github.com/blog/2012/10/19/java6-jvm-params</id>
+    <id>http://www.shenyanchao.cn/blog/2012/10/19/java6-jvm-params</id>
     <content type="html"><![CDATA[<p>详情请看：<a href="http://kenwublog.com/docs/java6-jvm-options-chinese-edition.htm">http://kenwublog.com/docs/java6-jvm-options-chinese-edition.htm</a></p>
 ]]></content>
   </entry>

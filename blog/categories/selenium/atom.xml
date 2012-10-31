@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: selenium | Blues 小站]]></title>
-  <link href="http://blueshen.github.com/blog/categories/selenium/atom.xml" rel="self"/>
-  <link href="http://blueshen.github.com/"/>
-  <updated>2012-10-31T10:43:56+08:00</updated>
-  <id>http://blueshen.github.com/</id>
+  <link href="http://www.shenyanchao.cn/blog/categories/selenium/atom.xml" rel="self"/>
+  <link href="http://www.shenyanchao.cn/"/>
+  <updated>2012-10-31T10:51:22+08:00</updated>
+  <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[xpath 详解]]></title>
-    <link href="http://blueshen.github.com/blog/2012/10/20/xpath/"/>
+    <link href="http://www.shenyanchao.cn/blog/2012/10/20/xpath/"/>
     <updated>2012-10-20T10:43:00+08:00</updated>
-    <id>http://blueshen.github.com/blog/2012/10/20/xpath</id>
+    <id>http://www.shenyanchao.cn/blog/2012/10/20/xpath</id>
     <content type="html"><![CDATA[<div id="intro">
 <p><strong>XPath 使用路径表达式来选取 XML 文档中的节点或节点集。节点是通过沿着路径 (path) 或者步 (steps) 来选取的。</strong></p>
 </div>
@@ -300,9 +300,9 @@
   
   <entry>
     <title type="html"><![CDATA[PageObjects 设计模式]]></title>
-    <link href="http://blueshen.github.com/blog/2012/10/16/pageobjects-design-pattern/"/>
+    <link href="http://www.shenyanchao.cn/blog/2012/10/16/pageobjects-design-pattern/"/>
     <updated>2012-10-16T16:40:00+08:00</updated>
-    <id>http://blueshen.github.com/blog/2012/10/16/pageobjects-design-pattern</id>
+    <id>http://www.shenyanchao.cn/blog/2012/10/16/pageobjects-design-pattern</id>
     <content type="html"><![CDATA[<h2>什么是Page Objects(翻译为：页面对象？)...</h2>
 
 <p>简单的说，Page Objects是指UI界面上用于与用户进行交互的对象。它可以指整个页面，也可以指Page上的某个区域。Page Objects是你的test code的交互对象，是对实际UI的一种抽象模型化。通过Page Objects可以减少重复代码的编写，例如，很多页面都有同样的header，footer，navigator等部分，如果对这些进行抽象，只写一次就可以在其他地方通用了。</p>
@@ -498,9 +498,9 @@ private WebElement searchBox;
   
   <entry>
     <title type="html"><![CDATA[Selenium WebDriver的多浏览器支持]]></title>
-    <link href="http://blueshen.github.com/blog/2012/10/12/selenium-multiple-browser-support/"/>
+    <link href="http://www.shenyanchao.cn/blog/2012/10/12/selenium-multiple-browser-support/"/>
     <updated>2012-10-12T14:56:00+08:00</updated>
-    <id>http://blueshen.github.com/blog/2012/10/12/selenium-multiple-browser-support</id>
+    <id>http://www.shenyanchao.cn/blog/2012/10/12/selenium-multiple-browser-support</id>
     <content type="html"><![CDATA[<h2>Selenium WebDriver支持哪儿些浏览器？</h2>
 
 <p>按照官方文档的说法，现阶段有以下的drivers:</p>
@@ -607,9 +607,9 @@ WebDriver driver = new ChromeDriver();
   
   <entry>
     <title type="html"><![CDATA[selenium FAQ:如何处理JavaScript弹出的alert、prompt窗口]]></title>
-    <link href="http://blueshen.github.com/blog/2012/10/12/selenium-faq-alerts-and-prompts/"/>
+    <link href="http://www.shenyanchao.cn/blog/2012/10/12/selenium-faq-alerts-and-prompts/"/>
     <updated>2012-10-12T14:39:00+08:00</updated>
-    <id>http://blueshen.github.com/blog/2012/10/12/selenium-faq-alerts-and-prompts</id>
+    <id>http://www.shenyanchao.cn/blog/2012/10/12/selenium-faq-alerts-and-prompts</id>
     <content type="html"><![CDATA[<h2>经常会碰到，页面操作后，出现一个alert窗口或者prompt确认窗口的情况，这时需要获得窗口的提示信息以及点击确定或取消的情况。</h2>
 
 <pre><code>// Get a handle to the open alert, prompt or confirmation
@@ -626,9 +626,9 @@ alert.accept();
   
   <entry>
     <title type="html"><![CDATA[selenium FAQ:怎么样调用Javascript？]]></title>
-    <link href="http://blueshen.github.com/blog/2012/10/12/selenium-faq-how-to-use-javascript/"/>
+    <link href="http://www.shenyanchao.cn/blog/2012/10/12/selenium-faq-how-to-use-javascript/"/>
     <updated>2012-10-12T14:30:00+08:00</updated>
-    <id>http://blueshen.github.com/blog/2012/10/12/selenium-faq-how-to-use-javascript</id>
+    <id>http://www.shenyanchao.cn/blog/2012/10/12/selenium-faq-how-to-use-javascript</id>
     <content type="html"><![CDATA[<h2>selenium自动化开发中，难免需要用到直接调用javascript，怎么用呢？</h2>
 
 <pre><code>WebDriver driver; // Assigned elsewhere

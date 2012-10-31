@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: encode | Blues 小站]]></title>
-  <link href="http://blueshen.github.com/blog/categories/encode/atom.xml" rel="self"/>
-  <link href="http://blueshen.github.com/"/>
-  <updated>2012-10-31T10:43:56+08:00</updated>
-  <id>http://blueshen.github.com/</id>
+  <link href="http://www.shenyanchao.cn/blog/categories/encode/atom.xml" rel="self"/>
+  <link href="http://www.shenyanchao.cn/"/>
+  <updated>2012-10-31T10:51:22+08:00</updated>
+  <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Java字符编码及其使用详解]]></title>
-    <link href="http://blueshen.github.com/blog/2012/10/23/encode-in-java/"/>
+    <link href="http://www.shenyanchao.cn/blog/2012/10/23/encode-in-java/"/>
     <updated>2012-10-23T18:58:00+08:00</updated>
-    <id>http://blueshen.github.com/blog/2012/10/23/encode-in-java</id>
+    <id>http://www.shenyanchao.cn/blog/2012/10/23/encode-in-java</id>
     <content type="html"><![CDATA[<h2>Java的编译存储</h2>
 
 <p>Java是跨平台的一种语言，这一概念想必已经深入人心。Java是如何实现跨平台的呢?其中起到重大作用的便是Unicode编码。在使用IDE进行开发时，比如ECLIPSE,IDEA等，可以指定源文件（.java）的编码格式，此处的编码格式是指Java文件自身的编码。Java文件可以用各种编码进行存储，考虑到兼容中文字符，大多采用GBK,UTF-8,GB18030等编码格式。但是经过javac命令编译后，生成的.class文件毫无疑问都是Unicode编码。这样在class被加载进JVM后，所有的对象都是Unicode进行编码的，这确保了Java的跨平台特性。<br/>
@@ -145,9 +145,9 @@ writer.close();
   
   <entry>
     <title type="html"><![CDATA[什么是BOM(Byte Order Mark)?]]></title>
-    <link href="http://blueshen.github.com/blog/2012/10/23/bom-in-utf8-text/"/>
+    <link href="http://www.shenyanchao.cn/blog/2012/10/23/bom-in-utf8-text/"/>
     <updated>2012-10-23T17:05:00+08:00</updated>
-    <id>http://blueshen.github.com/blog/2012/10/23/bom-in-utf8-text</id>
+    <id>http://www.shenyanchao.cn/blog/2012/10/23/bom-in-utf8-text</id>
     <content type="html"><![CDATA[<h3>引子</h3>
 
 <p>在使用诸如UltraEditor,NotePad++等编辑工具时，经常会遇到encode进行转换的情况。以NotePad++为例，一篇ASCII编码的文本，通过菜单栏Encoding->convert to **进行编码格式的转换。我却发现一个奇怪的问题，下拉框里有这样两个选项：</p>
@@ -192,9 +192,9 @@ UTF-8以字节为编码单元，没有字节序的问题。UTF-16以两个字节
   
   <entry>
     <title type="html"><![CDATA[字符集编码]]></title>
-    <link href="http://blueshen.github.com/blog/2012/10/22/word-charset/"/>
+    <link href="http://www.shenyanchao.cn/blog/2012/10/22/word-charset/"/>
     <updated>2012-10-22T20:29:00+08:00</updated>
-    <id>http://blueshen.github.com/blog/2012/10/22/word-charset</id>
+    <id>http://www.shenyanchao.cn/blog/2012/10/22/word-charset</id>
     <content type="html"><![CDATA[<h2>GB2312字符集</h2>
 
 <p>GB2312又称为GB2312-80字符集，全称为《信息交换用汉字编码字符集·基本集》，由原中国国家标准总局发布，1981年5月1日实施，是中国国家标准的简体中文字符集。它所收录的汉字已经覆盖99.75%的使用频率，基本满足了汉字的计算机处理需要。在中国大陆和新加坡获广泛使用。</p>
@@ -372,9 +372,9 @@ Windows就是使用BOM来标记文本文件的编码方式的。</p>
   
   <entry>
     <title type="html"><![CDATA[字符集与编码的故事]]></title>
-    <link href="http://blueshen.github.com/blog/2012/10/22/encode-story/"/>
+    <link href="http://www.shenyanchao.cn/blog/2012/10/22/encode-story/"/>
     <updated>2012-10-22T20:13:00+08:00</updated>
-    <id>http://blueshen.github.com/blog/2012/10/22/encode-story</id>
+    <id>http://www.shenyanchao.cn/blog/2012/10/22/encode-story</id>
     <content type="html"><![CDATA[<p>很久很久以前，有一群人，他们决定用8个可以开合的晶体管来组合成不同的状态，以表示世界上的万物。他们看到8个开关状态是好的，于是他们把这称为"字节"。 再后来，他们又做了一些可以处理这些字节的机器，机器开动了，可以用字节来组合出很多状态，状态开始变来变去。他们看到这样是好的，于是它们就这机器称为"计算机"。</p>
 
 <!--more-->
