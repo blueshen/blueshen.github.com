@@ -109,7 +109,7 @@
       ﻿
   <header class="page-header">
     
-      <h1 class="entry-title"><a href="/blog/2012/10/12/selenium-faq-alerts-and-prompts/">Selenium FAQ:如何处理JavaScript弹出的alert、prompt窗口</a></h1>
+      <h1 class="entry-title"><a href="/blog/2012/11/02/proxy-in-java/">设计模式：代理（Proxy） in Java</a></h1>
     
 	<p class="meta">
     
@@ -126,131 +126,31 @@
   
 
 
-<time datetime="2012-10-12T14:39:00+08:00" pubdate data-updated="true">2012年10月12日 14:10:00</time>
+<time datetime="2012-11-02T16:21:00+08:00" pubdate data-updated="true">2012年11月02日 16:11:00</time>
         
-         | <a href="/blog/2012/10/12/selenium-faq-alerts-and-prompts/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content"><h2>经常会碰到，页面操作后，出现一个alert窗口或者prompt确认窗口的情况，这时需要获得窗口的提示信息以及点击确定或取消的情况。</h2>
-
-<pre><code>// Get a handle to the open alert, prompt or confirmation
-Alert alert = driver.switchTo().alert();
-// Get the text of the alert or prompt
-alert.getText();  
-// And acknowledge the alert (equivalent to clicking "OK")
-alert.accept();
-</code></pre>
-
-<p>这是通用的处理方法。但是如果弹出的窗口不是<code>alert()</code>或者<code>prompt()</code>弹出来的则不适用。请注意。</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/10/12/selenium-faq-how-to-use-javascript/">Selenium FAQ:怎么样调用Javascript？</a></h1>
-    
-	<p class="meta">
-    
-
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-12T14:30:00+08:00" pubdate data-updated="true">2012年10月12日 14:10:00</time>
-        
-         | <a href="/blog/2012/10/12/selenium-faq-how-to-use-javascript/#disqus_thread">我要评论</a>
+         | <a href="/blog/2012/11/02/proxy-in-java/#disqus_thread">我要评论</a>
         
     
  </p>
   </header>
 
 
-  <div class="entry-content"><h2>selenium自动化开发中，难免需要用到直接调用javascript，怎么用呢？</h2>
+  <div class="entry-content"><h2>什么是代理？</h2>
 
-<pre><code>WebDriver driver; // Assigned elsewhere
-JavascriptExecutor js = (JavascriptExecutor) driver;
-js.executeScript("return document.title");
-</code></pre>
+<p>代理是指，本该有A做的工作，现在找一个代理人B，然后由B来进行实际的工作。<br/>
+代理，简单来分，可以分为以下两类：</p>
 
-<p>直接将driver强制转化为JavascriptExecutor,然后执行javascript即可。</p>
-</div>
-  
-  
+<ul>
+<li>静态代理</li>
+<li>动态代理</li>
+</ul>
 
-
-    </article>
-  
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/10/12/apache-mpm/">Apache Mpm介绍[转]</a></h1>
-    
-	<p class="meta">
-    
-
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-12T12:45:00+08:00" pubdate data-updated="true">2012年10月12日 12:10:00</time>
-        
-         | <a href="/blog/2012/10/12/apache-mpm/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content"><h2>什么是MPM？</h2>
-
-<p>MPM（Multi -Processing Modules，多路处理模块）是Apache2.x中影响性能的最核心特性。</p>
-
-<p>是Apache 2.x才支持的一个可插入的并发模型，在编译的时候，我们只可以选择一个并发模型。</p>
-
-<p>配置文件：/usr/local/apache2/conf/extra/httpd-mpm.conf</p>
-
-<p>如果apache是默认安装的可能配置在httpd.conf文件中。根据实际情况查找配置。</p>
-
-<p>使用格式：
-进入apache的目录，对apache进行如下编译：</p>
-
-<p>Linux代码
-<code>./configure --help|grep mpm </code></p>
 
 </div>
   
   
     <footer>
-      <a rel="full-article" href="/blog/2012/10/12/apache-mpm/">继续阅读 &rarr;</a>
+      <a rel="full-article" href="/blog/2012/11/02/proxy-in-java/">继续阅读 &rarr;</a>
     </footer>
   
 
@@ -262,7 +162,7 @@ js.executeScript("return document.title");
       ﻿
   <header class="page-header">
     
-      <h1 class="entry-title"><a href="/blog/2012/10/11/selenium-stable-2/">提高selenium自动化的稳定性2-等待</a></h1>
+      <h1 class="entry-title"><a href="/blog/2012/10/30/decorator-in-java/">设计模式：装饰器（Decorator）in Java</a></h1>
     
 	<p class="meta">
     
@@ -279,37 +179,24 @@ js.executeScript("return document.title");
   
 
 
-<time datetime="2012-10-11T14:32:00+08:00" pubdate data-updated="true">2012年10月11日 14:10:00</time>
+<time datetime="2012-10-30T21:25:00+08:00" pubdate data-updated="true">2012年10月30日 21:10:00</time>
         
-         | <a href="/blog/2012/10/11/selenium-stable-2/#disqus_thread">我要评论</a>
+         | <a href="/blog/2012/10/30/decorator-in-java/#disqus_thread">我要评论</a>
         
     
  </p>
   </header>
 
 
-  <div class="entry-content"><h2>很多页面元素都是ajax动态生成的，这就要求进行适当的等待</h2>
+  <div class="entry-content"><p>1.认识装饰器模式</p>
 
-<h2>如何进行等待呢？</h2>
-
-<h3>1.直接sleep</h3>
-
-<pre><code>public static void sleep(int seconds) {
-    try {
-        TimeUnit.SECONDS.sleep(seconds);
-    } catch (InterruptedException e) {
-        e.printStackTrace();
-    }
-}
-</code></pre>
-
-<p>这种方法，用于直接的让thread进行等待指定的seconds。</p>
+<p>装饰模式能够实现动态的为对象添加功能，是从一个对象外部来给对象添加功能。通常给对象添加功能，要么直接修改对象添加相应的功能，要么派生对应的子类来扩展，抑或是使用对象组合的方式。显然，直接修改对应的类这种方式并不可取。在面向对象的设计中，而我们也应该尽量使用对象组合，而不是对象继承来扩展和复用功能。装饰器模式就是基于对象组合的方式，可以很灵活的给对象添加所需要的功能。装饰器模式的本质就是动态组合。动态是手段，组合才是目的。总之，装饰模式是通过把复杂的功能简单化，分散化，然后再运行期间，根据需要来动态组合的这样一个模式。</p>
 
 </div>
   
   
     <footer>
-      <a rel="full-article" href="/blog/2012/10/11/selenium-stable-2/">继续阅读 &rarr;</a>
+      <a rel="full-article" href="/blog/2012/10/30/decorator-in-java/">继续阅读 &rarr;</a>
     </footer>
   
 
@@ -321,7 +208,7 @@ js.executeScript("return document.title");
       ﻿
   <header class="page-header">
     
-      <h1 class="entry-title"><a href="/blog/2012/10/11/selenium-stable-1/">提高selenium自动化的稳定性1-点击空白区域</a></h1>
+      <h1 class="entry-title"><a href="/blog/2012/10/30/adapter-in-java/">设计模式：适配器（Adapter）in Java</a></h1>
     
 	<p class="meta">
     
@@ -338,35 +225,133 @@ js.executeScript("return document.title");
   
 
 
-<time datetime="2012-10-11T14:12:00+08:00" pubdate data-updated="true">2012年10月11日 14:10:00</time>
+<time datetime="2012-10-30T21:24:00+08:00" pubdate data-updated="true">2012年10月30日 21:10:00</time>
         
-         | <a href="/blog/2012/10/11/selenium-stable-1/#disqus_thread">我要评论</a>
+         | <a href="/blog/2012/10/30/adapter-in-java/#disqus_thread">我要评论</a>
         
     
  </p>
   </header>
 
 
-  <div class="entry-content"><p>在写selenium自动化的过程中，经常会遇到这样的问题：</p>
+  <div class="entry-content"><p><strong>类适配器</strong>:客户的开发人员定义了一个接口，期望用这个接口来完成整数的求和操作，接口定义如下：   <br/>
+Java代码</p>
 
-<blockquote><p>1.在同一个页面内做操作，比如点击某个按钮后，弹出一个框，再点击另外一个按钮，又弹出一个框 <br/>
-2.此时如果第一个click操作后，第二个click再点击时，由于前一个弹出的框仍旧在前端显示，就会出错 <br/>
-3.在实际人工操作中，点击出第一个框后，点击一下空白区域，在点击出现第二个框。因此，可以考虑一个点击空白区域的方法</p></blockquote>
-
-<h2>实现方法如下</h2>
-
-<pre><code>/**
- * 点击空白区域：坐标（0，0）
- */
-public static void clickBlankArea(WebDriver driver) {
-    Actions actions = new Actions(driver);
-    actions.moveByOffset(0, 0).click().build().perform();
-}
+<pre><code>public interface Operation{  
+    public int add(int a,int b);  
+}  
 </code></pre>
 
-<p>让driver先移动到一个空白位置（此处设为(0,0)坐标点），做一下点击操作即可</p>
+<p>开发人员在了解这个接口的定义后，发现一个第三方类，里面有一个方法能实现他们期望的功能，其代码如下：  <br/>
+Java代码</p>
+
+<pre><code>public class OtherOperation{  
+    public int otherAdd(int a,int b){  
+        return a + b;  
+    }  
+}  
+</code></pre>
+
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/10/30/adapter-in-java/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
+      <h1 class="entry-title"><a href="/blog/2012/10/30/travel-in-yunnan/">云南之行</a></h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-30T17:47:00+08:00" pubdate data-updated="true">2012年10月30日 17:10:00</time>
+        
+         | <a href="/blog/2012/10/30/travel-in-yunnan/#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+  <div class="entry-content"><h2>拉市海</h2>
+
+<p>我是有多胖，真得减肥了！</p>
+
+<p><img src="/images/blog/psb.jpg" alt="" /></p>
+
+<hr />
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
+      <h1 class="entry-title"><a href="/blog/2012/10/23/encode-in-java/">Java字符编码及其使用详解</a></h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-23T18:58:00+08:00" pubdate data-updated="true">2012年10月23日 18:10:00</time>
+        
+         | <a href="/blog/2012/10/23/encode-in-java/#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+  <div class="entry-content"><h2>Java的编译存储</h2>
+
+<p>Java是跨平台的一种语言，这一概念想必已经深入人心。Java是如何实现跨平台的呢?其中起到重大作用的便是Unicode编码。在使用IDE进行开发时，比如ECLIPSE,IDEA等，可以指定源文件（.java）的编码格式，此处的编码格式是指Java文件自身的编码。Java文件可以用各种编码进行存储，考虑到兼容中文字符，大多采用GBK,UTF-8,GB18030等编码格式。但是经过javac命令编译后，生成的.class文件毫无疑问都是Unicode编码。这样在class被加载进JVM后，所有的对象都是Unicode进行编码的，这确保了Java的跨平台特性。<br/>
+<strong>简言之</strong></p>
+
+<p>.java(任意编码) &#8212;> .class(Unicode) &#8212;> JVM内（Unicode）</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/10/23/encode-in-java/">继续阅读 &rarr;</a>
+    </footer>
   
 
 
@@ -397,23 +382,23 @@ public static void clickBlankArea(WebDriver driver) {
     <li class="nav-header">最近更新</li>
     
       <li class="post">
-        <a href="/blog/2012/11/02/singleton-in-java/">设计模式：单例（singleton） in java</a>
+        <a href="/blog/2012/11/02/visitor-in-java/">visitor in java</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2012/11/02/how-webdriver-works/">Selenium WebDriver 工作原理</a>
+        <a href="/blog/2012/11/02/template-method-in-java/">template method in java</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2012/11/02/proxy-in-java/">设计模式：代理（Proxy） in java</a>
+        <a href="/blog/2012/11/02/strategy-in-java/">strategy in java</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2012/10/30/decorator-in-java/">设计模式：装饰器（Decorator）in Java</a>
+        <a href="/blog/2012/11/02/state-in-java/">state in java</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2012/10/30/adapter-in-java/">设计模式：适配器（Adapter）in Java</a>
+        <a href="/blog/2012/11/02/observer-in-java/">observer in java</a>
       </li>
     
   </ul>

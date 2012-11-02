@@ -109,7 +109,7 @@
       ﻿
   <header class="page-header">
     
-      <h1 class="entry-title"><a href="/blog/2012/10/11/pmd/">PMD静态代码检查</a></h1>
+      <h1 class="entry-title"><a href="/blog/2012/10/23/bom-in-utf8-text/">什么是BOM(Byte Order Mark)?</a></h1>
     
 	<p class="meta">
     
@@ -126,48 +126,32 @@
   
 
 
-<time datetime="2012-10-11T11:20:00+08:00" pubdate data-updated="true">2012年10月11日 11:10:00</time>
+<time datetime="2012-10-23T17:05:00+08:00" pubdate data-updated="true">2012年10月23日 17:10:00</time>
         
-         | <a href="/blog/2012/10/11/pmd/#disqus_thread">我要评论</a>
+         | <a href="/blog/2012/10/23/bom-in-utf8-text/#disqus_thread">我要评论</a>
         
     
  </p>
   </header>
 
 
-  <div class="entry-content"><h2>一 maven插件：maven-pmd-plugin</h2>
+  <div class="entry-content"><h3>引子</h3>
 
-<blockquote><p>pom.xml添加如下内容：</p></blockquote>
+<p>在使用诸如UltraEditor,NotePad++等编辑工具时，经常会遇到encode进行转换的情况。以NotePad++为例，一篇ASCII编码的文本，通过菜单栏Encoding->convert to **进行编码格式的转换。我却发现一个奇怪的问题，下拉框里有这样两个选项：</p>
 
-<pre><code>    &lt;plugin&gt;
-            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
-            &lt;artifactId&gt;maven-pmd-plugin&lt;/artifactId&gt;
-            &lt;version&gt;2.7.1&lt;/version&gt;
-            &lt;executions&gt;
-                &lt;execution&gt;
-                    &lt;phase&gt;package&lt;/phase&gt;
-                    &lt;goals&gt;
-                        &lt;goal&gt;check&lt;/goal&gt;
-                    &lt;/goals&gt;
-                &lt;/execution&gt;
-            &lt;/executions&gt;
-            &lt;configuration&gt;
-                &lt;failurePriority&gt;2&lt;/failurePriority&gt;
-                &lt;targetJdk&gt;1.6&lt;/targetJdk&gt;
-                &lt;rulesets&gt;
-                    &lt;ruleset&gt;/pmd-rulesets.xml&lt;/ruleset&gt;
-                &lt;/rulesets&gt;
-            &lt;/configuration&gt;
-        &lt;/plugin&gt;
-</code></pre>
+<ul>
+<li>Convert to UTF-8</li>
+<li>Convert to UTF-8 without BOM</li>
+</ul>
 
-<blockquote><p>failurePriority用于指定在什么错误级别会failure，级别0~5不等。0为最高，5为最低。此处设为2,意为0、1、2级别的错误都会导致报错。级别可以根据项目的要求进行配置</p></blockquote>
+
+<p>同样的是转化为UTF-8编码，为什么还牵涉到BOM呢。</p>
 
 </div>
   
   
     <footer>
-      <a rel="full-article" href="/blog/2012/10/11/pmd/">继续阅读 &rarr;</a>
+      <a rel="full-article" href="/blog/2012/10/23/bom-in-utf8-text/">继续阅读 &rarr;</a>
     </footer>
   
 
@@ -179,7 +163,7 @@
       ﻿
   <header class="page-header">
     
-      <h1 class="entry-title"><a href="/blog/2012/09/21/markpad-tools/">Markdown 工具</a></h1>
+      <h1 class="entry-title"><a href="/blog/2012/10/22/design-pattern-in-jdk-index/">23个经典JDK设计模式</a></h1>
     
 	<p class="meta">
     
@@ -196,25 +180,23 @@
   
 
 
-<time datetime="2012-09-21T18:37:00+08:00" pubdate data-updated="true">2012年09月21日 18:09:00</time>
+<time datetime="2012-10-22T20:49:00+08:00" pubdate data-updated="true">2012年10月22日 20:10:00</time>
         
-         | <a href="/blog/2012/09/21/markpad-tools/#disqus_thread">我要评论</a>
+         | <a href="/blog/2012/10/22/design-pattern-in-jdk-index/#disqus_thread">我要评论</a>
         
     
  </p>
   </header>
 
 
-  <div class="entry-content"><hr />
+  <div class="entry-content"><p>下面是JDK中有关23个经典设计模式的示例：</p>
 
-<p>这个工具不错！可以很好的用来快速的对博客进行排版。<br/>
-编辑器推荐: <a href="http://markdownpad.com/">MarkDownPad</a></p>
-
-<p>@<a href="http://blueshen.github.com" title="blueshen">Blueshen</a>就是使用这种工具进行排版的</p>
-
-<hr />
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/10/22/design-pattern-in-jdk-index/">继续阅读 &rarr;</a>
+    </footer>
   
 
 
@@ -225,7 +207,7 @@
       ﻿
   <header class="page-header">
     
-      <h1 class="entry-title"><a href="/blog/2012/09/21/markdown-syntax/">Markdown Syntax</a></h1>
+      <h1 class="entry-title"><a href="/blog/2012/10/22/http-header/">HTTP Header</a></h1>
     
 	<p class="meta">
     
@@ -242,21 +224,23 @@
   
 
 
-<time datetime="2012-09-21T13:37:00+08:00" pubdate data-updated="true">2012年09月21日 13:09:00</time>
+<time datetime="2012-10-22T20:34:00+08:00" pubdate data-updated="true">2012年10月22日 20:10:00</time>
         
-         | <a href="/blog/2012/09/21/markdown-syntax/#disqus_thread">我要评论</a>
+         | <a href="/blog/2012/10/22/http-header/#disqus_thread">我要评论</a>
         
     
  </p>
   </header>
 
 
-  <div class="entry-content"><blockquote><p>用起来很爽 <br/>
-语法具体可以参考：<a href="http://wowubuntu.com/markdown/">markdown Syntax</a></p></blockquote>
+  <div class="entry-content"><p>HTTP（HyperTextTransferProtocol） 即超文本传输协议，目前网页传输的的通用协议。HTTP协议采用了请求/响应模型，浏览器或其他客户端发出请求，服务器给与响应。就整个网络资源传输而 言，包括message-header和message-body两部分。首先传递message-header，即http header消息。http header 消息通常被分为4个部分：general; header, request header, response header, entity header。但是这种分法就理解而言，感觉界限不太明确。根据维基百科对http header内容的组织形式，大体分为Request和Response两部分.</p>
 
-<hr />
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/10/22/http-header/">继续阅读 &rarr;</a>
+    </footer>
   
 
 
@@ -267,7 +251,7 @@
       ﻿
   <header class="page-header">
     
-      <h1 class="entry-title"><a href="/blog/2012/09/20/wo-de-di--pian-zhong-wen-bo-ke/">我的第一篇中文博客</a></h1>
+      <h1 class="entry-title"><a href="/blog/2012/10/22/word-charset/">字符集编码</a></h1>
     
 	<p class="meta">
     
@@ -284,38 +268,77 @@
   
 
 
-<time datetime="2012-09-20T16:57:00+08:00" pubdate data-updated="true">2012年09月20日 16:09:00</time>
+<time datetime="2012-10-22T20:29:00+08:00" pubdate data-updated="true">2012年10月22日 20:10:00</time>
         
-         | <a href="/blog/2012/09/20/wo-de-di--pian-zhong-wen-bo-ke/#disqus_thread">我要评论</a>
+         | <a href="/blog/2012/10/22/word-charset/#disqus_thread">我要评论</a>
         
     
  </p>
   </header>
 
 
-  <div class="entry-content"><h1>吐槽</h1>
+  <div class="entry-content"><h2>GB2312字符集</h2>
 
-<p>这个OCTOPRESS真是难搞啊，最主要是_config.xml里面的格式校验也太严格了</center></p>
+<p>GB2312又称为GB2312-80字符集，全称为《信息交换用汉字编码字符集·基本集》，由原中国国家标准总局发布，1981年5月1日实施，是中国国家标准的简体中文字符集。它所收录的汉字已经覆盖99.75%的使用频率，基本满足了汉字的计算机处理需要。在中国大陆和新加坡获广泛使用。</p>
 
-<h1>正文</h1>
-
-<p>在这里写一些内容。
-链接<a href="http://www.baidu.com">http://www.baidu.com</a></p>
-
-<hr />
-
-<p>代码段</p>
-
-<pre><code>    System.out.println("ok!")
-</code></pre>
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/10/22/word-charset/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
+      <h1 class="entry-title"><a href="/blog/2012/10/22/encode-story/">字符集与编码的故事</a></h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-22T20:13:00+08:00" pubdate data-updated="true">2012年10月22日 20:10:00</time>
+        
+         | <a href="/blog/2012/10/22/encode-story/#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+  <div class="entry-content"><p>很久很久以前，有一群人，他们决定用8个可以开合的晶体管来组合成不同的状态，以表示世界上的万物。他们看到8个开关状态是好的，于是他们把这称为&#8221;字节&#8221;。 再后来，他们又做了一些可以处理这些字节的机器，机器开动了，可以用字节来组合出很多状态，状态开始变来变去。他们看到这样是好的，于是它们就这机器称为&#8221;计算机&#8221;。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/10/22/encode-story/">继续阅读 &rarr;</a>
+    </footer>
   
 
 
     </article>
   
   <ul class="pager">
+    
+    <li class="previous"><a href="/blog/page/7/">&larr; 前一篇</a></li>
     
     <li><a href="/blog/archives">文章列表</a></li>
     
@@ -338,23 +361,23 @@
     <li class="nav-header">最近更新</li>
     
       <li class="post">
-        <a href="/blog/2012/11/02/singleton-in-java/">设计模式：单例（singleton） in java</a>
+        <a href="/blog/2012/11/02/visitor-in-java/">visitor in java</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2012/11/02/how-webdriver-works/">Selenium WebDriver 工作原理</a>
+        <a href="/blog/2012/11/02/template-method-in-java/">template method in java</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2012/11/02/proxy-in-java/">设计模式：代理（Proxy） in java</a>
+        <a href="/blog/2012/11/02/strategy-in-java/">strategy in java</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2012/10/30/decorator-in-java/">设计模式：装饰器（Decorator）in Java</a>
+        <a href="/blog/2012/11/02/state-in-java/">state in java</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2012/10/30/adapter-in-java/">设计模式：适配器（Adapter）in Java</a>
+        <a href="/blog/2012/11/02/observer-in-java/">observer in java</a>
       </li>
     
   </ul>

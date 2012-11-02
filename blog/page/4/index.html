@@ -109,7 +109,7 @@
       ﻿
   <header class="page-header">
     
-      <h1 class="entry-title"><a href="/blog/2012/10/19/jvm-out-of-memory/">Java内存溢出详解</a></h1>
+      <h1 class="entry-title"><a href="/blog/2012/11/02/facade-in-java/">Facade in Java</a></h1>
     
 	<p class="meta">
     
@@ -126,28 +126,143 @@
   
 
 
-<time datetime="2012-10-19T23:12:00+08:00" pubdate data-updated="true">2012年10月19日 23:10:00</time>
+<time datetime="2012-11-02T20:07:00+08:00" pubdate data-updated="true">2012年11月02日 20:11:00</time>
         
-         | <a href="/blog/2012/10/19/jvm-out-of-memory/#disqus_thread">我要评论</a>
+         | <a href="/blog/2012/11/02/facade-in-java/#disqus_thread">我要评论</a>
         
     
  </p>
   </header>
 
 
-  <div class="entry-content"><p>一、常见的Java内存溢出有以下三种：</p>
+  <div class="entry-content">
+</div>
+  
+  
 
-<ol>
-<li><code>java.lang.OutOfMemoryError: Java heap space</code> &#8212;-JVM Heap（堆）溢出
-JVM在启动的时候会自动设置JVM Heap的值，其初始空间(即-Xms)是物理内存的1/64，最大空间(-Xmx)不可超过物理内存。
-可以利用JVM提供的-Xmn -Xms -Xmx等选项可进行设置。Heap的大小是Young Generation 和Tenured Generaion 之和。
-在JVM中如果98％的时间是用于GC，且可用的Heap size 不足2％的时候将抛出此异常信息。
-解决方法：手动设置JVM Heap（堆）的大小。  <br/>
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
+      <h1 class="entry-title"><a href="/blog/2012/11/02/composite-in-java/">Composite in Java</a></h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-02T20:07:00+08:00" pubdate data-updated="true">2012年11月02日 20:11:00</time>
+        
+         | <a href="/blog/2012/11/02/composite-in-java/#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+  <div class="entry-content">
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
+      <h1 class="entry-title"><a href="/blog/2012/11/02/bridge-in-java/">Bridge in Java</a></h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-02T20:06:00+08:00" pubdate data-updated="true">2012年11月02日 20:11:00</time>
+        
+         | <a href="/blog/2012/11/02/bridge-in-java/#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+  <div class="entry-content">
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
+      <h1 class="entry-title"><a href="/blog/2012/11/02/singleton-in-java/">设计模式：单例（singleton） in Java</a></h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-02T18:47:00+08:00" pubdate data-updated="true">2012年11月02日 18:11:00</time>
+        
+         | <a href="/blog/2012/11/02/singleton-in-java/#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+  <div class="entry-content"><h3>概要</h3>
+
+<p>单例模式是最简单的设计模式之一，但是对于Java的开发者来说，它却有很多缺陷。在本月的专栏中，David Geary探讨了单例模式以及在面对多线程（multithreading)、类装载器（classloaders）和序列化(serialization)时如何处理这些缺陷。</p>
+
+<p>单例模式适合于一个类只有一个实例的情况，比如窗口管理器，打印缓冲池和文件系统，它们都是原型的例子。典型的情况是，那些对象的类型被遍及一个软件系统的不同对象访问，因此需要一个全局的访问指针，这便是众所周知的单例模式的应用。当然这只有在你确信你不再需要任何多于一个的实例的情况下。</p>
+
 </div>
   
   
     <footer>
-      <a rel="full-article" href="/blog/2012/10/19/jvm-out-of-memory/">继续阅读 &rarr;</a>
+      <a rel="full-article" href="/blog/2012/11/02/singleton-in-java/">继续阅读 &rarr;</a>
     </footer>
   
 
@@ -159,7 +274,7 @@ JVM在启动的时候会自动设置JVM Heap的值，其初始空间(即-Xms)是
       ﻿
   <header class="page-header">
     
-      <h1 class="entry-title"><a href="/blog/2012/10/19/java6-jvm-params/">JVM参数选项</a></h1>
+      <h1 class="entry-title"><a href="/blog/2012/11/02/how-webdriver-works/">Selenium WebDriver 工作原理</a></h1>
     
 	<p class="meta">
     
@@ -176,177 +291,22 @@ JVM在启动的时候会自动设置JVM Heap的值，其初始空间(即-Xms)是
   
 
 
-<time datetime="2012-10-19T23:01:00+08:00" pubdate data-updated="true">2012年10月19日 23:10:00</time>
+<time datetime="2012-11-02T18:26:00+08:00" pubdate data-updated="true">2012年11月02日 18:11:00</time>
         
-         | <a href="/blog/2012/10/19/java6-jvm-params/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content"><p>详情请看：<a href="http://kenwublog.com/docs/java6-jvm-options-chinese-edition.htm">http://kenwublog.com/docs/java6-jvm-options-chinese-edition.htm</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/10/19/maven-life-cycle/">Maven生命周期详解</a></h1>
-    
-	<p class="meta">
-    
-
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-19T22:21:00+08:00" pubdate data-updated="true">2012年10月19日 22:10:00</time>
-        
-         | <a href="/blog/2012/10/19/maven-life-cycle/#disqus_thread">我要评论</a>
+         | <a href="/blog/2012/11/02/how-webdriver-works/#disqus_thread">我要评论</a>
         
     
  </p>
   </header>
 
 
-  <div class="entry-content"><p>Maven强大的一个重要的原因是它有一个十分完善的生命周期模型(lifecycle)，这个生命周期可以从两方面来理解，第一，顾名思义，运行Maven的每个步骤都由它来定义的，这种预定义的默认行为使得我们使用Maven变得简单，相比而言，Ant的每个步骤都要你手工去定义。第二，这个模型是一种标准，在不同的项目中，使用Maven的接口是一样的，这样就不用去仔细理解每个项目的构建了，一般情况下，mvn clean install 这样的命令是通用的。我想，一定是吸收了许多项目的经验，Maven才能定义出如此完善的模型。</p>
+  <div class="entry-content"><p>WebDriver与之前Selenium的JS注入实现不同，直接利用了浏览器native support来操作浏览器。所以对于不同平台，不同的浏览器，必须依赖一个特定的浏览器的native component来实现把WebDriver API的调用转化为浏览器的native invoke。</p>
 
 </div>
   
   
     <footer>
-      <a rel="full-article" href="/blog/2012/10/19/maven-life-cycle/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/10/16/pageobjects-design-pattern/">PageObjects 设计模式</a></h1>
-    
-	<p class="meta">
-    
-
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-16T16:40:00+08:00" pubdate data-updated="true">2012年10月16日 16:10:00</time>
-        
-         | <a href="/blog/2012/10/16/pageobjects-design-pattern/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content"><h2>什么是Page Objects(翻译为：页面对象？)&#8230;</h2>
-
-<p>简单的说，Page Objects是指UI界面上用于与用户进行交互的对象。它可以指整个页面，也可以指Page上的某个区域。Page Objects是你的test code的交互对象，是对实际UI的一种抽象模型化。通过Page Objects可以减少重复代码的编写，例如，很多页面都有同样的header，footer，navigator等部分，如果对这些进行抽象，只写一次就可以在其他地方通用了。</p>
-
-<p><strong>注意PageObjects与Page Objects是不一样的</strong>，PageObjects用于特指采用Page Objects进行封装的一种设计模式（Design Pattern）,而不仅仅是多一个空格的区别。哈。</p>
-
-<h2>如何实现PageObjects设计模式？</h2>
-
-<p>一般情况下，对于一个Page Objects对象，它有两个方面的特征：</p>
-
-<ul>
-<li>自身元素(WebElement)</li>
-<li>实现功能 (Services)</li>
-</ul>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/10/16/pageobjects-design-pattern/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/10/12/selenium-multiple-browser-support/">Selenium WebDriver的多浏览器支持</a></h1>
-    
-	<p class="meta">
-    
-
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-12T14:56:00+08:00" pubdate data-updated="true">2012年10月12日 14:10:00</time>
-        
-         | <a href="/blog/2012/10/12/selenium-multiple-browser-support/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content"><h2>Selenium WebDriver支持哪儿些浏览器？</h2>
-
-<p>按照官方文档的说法，现阶段有以下的drivers:</p>
-
-<blockquote><ul>
-<li>ChromeDriver</li>
-<li>InternetExplorerDriver</li>
-<li>FirefoxDriver</li>
-<li>OperaDriver</li>
-<li>HtmlUnitDriver</li>
-<li>AndroidDriver(mobile testing)</li>
-<li>OperaMobileDriver(mobile testing)</li>
-<li>IPhoneDriver(mobile testing)</li>
-</ul>
-</blockquote>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/10/12/selenium-multiple-browser-support/">继续阅读 &rarr;</a>
+      <a rel="full-article" href="/blog/2012/11/02/how-webdriver-works/">继续阅读 &rarr;</a>
     </footer>
   
 
@@ -378,23 +338,23 @@ JVM在启动的时候会自动设置JVM Heap的值，其初始空间(即-Xms)是
     <li class="nav-header">最近更新</li>
     
       <li class="post">
-        <a href="/blog/2012/11/02/singleton-in-java/">设计模式：单例（singleton） in java</a>
+        <a href="/blog/2012/11/02/visitor-in-java/">visitor in java</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2012/11/02/how-webdriver-works/">Selenium WebDriver 工作原理</a>
+        <a href="/blog/2012/11/02/template-method-in-java/">template method in java</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2012/11/02/proxy-in-java/">设计模式：代理（Proxy） in java</a>
+        <a href="/blog/2012/11/02/strategy-in-java/">strategy in java</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2012/10/30/decorator-in-java/">设计模式：装饰器（Decorator）in Java</a>
+        <a href="/blog/2012/11/02/state-in-java/">state in java</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2012/10/30/adapter-in-java/">设计模式：适配器（Adapter）in Java</a>
+        <a href="/blog/2012/11/02/observer-in-java/">observer in java</a>
       </li>
     
   </ul>
