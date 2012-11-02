@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>PMD静态代码检查 - Blues 小站</title>
+  <title>Selenium WebDriver 工作原理 - Blues 小站</title>
   <meta name="author" content="ShenYanchao">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.shenyanchao.cn/blog/2012/10/11/pmd">
+  <link rel="canonical" href="http://www.shenyanchao.cn/blog/2012/11/02/how-webdriver-works">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/bootstrap/bootstrap.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/stylesheets/bootstrap/responsive.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -107,7 +107,7 @@
   ﻿
   <header class="page-header">
     
-      <h1 class="entry-title">PMD静态代码检查</h1>
+      <h1 class="entry-title">Selenium WebDriver 工作原理</h1>
     
 	<p class="meta">
     
@@ -124,7 +124,7 @@
   
 
 
-<time datetime="2012-10-11T11:20:00+08:00" pubdate data-updated="true">2012年10月11日 11:10:00</time>
+<time datetime="2012-11-02T18:26:00+08:00" pubdate data-updated="true">2012年11月02日 18:11:00</time>
         
          | <a href="#disqus_thread">我要评论</a>
         
@@ -133,77 +133,56 @@
   </header>
 
 
-<div class="entry-content"><h2>一 maven插件：maven-pmd-plugin</h2>
-
-<blockquote><p>pom.xml添加如下内容：</p></blockquote>
-
-<pre><code>    &lt;plugin&gt;
-            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
-            &lt;artifactId&gt;maven-pmd-plugin&lt;/artifactId&gt;
-            &lt;version&gt;2.7.1&lt;/version&gt;
-            &lt;executions&gt;
-                &lt;execution&gt;
-                    &lt;phase&gt;package&lt;/phase&gt;
-                    &lt;goals&gt;
-                        &lt;goal&gt;check&lt;/goal&gt;
-                    &lt;/goals&gt;
-                &lt;/execution&gt;
-            &lt;/executions&gt;
-            &lt;configuration&gt;
-                &lt;failurePriority&gt;2&lt;/failurePriority&gt;
-                &lt;targetJdk&gt;1.6&lt;/targetJdk&gt;
-                &lt;rulesets&gt;
-                    &lt;ruleset&gt;/pmd-rulesets.xml&lt;/ruleset&gt;
-                &lt;/rulesets&gt;
-            &lt;/configuration&gt;
-        &lt;/plugin&gt;
-</code></pre>
-
-<blockquote><p>failurePriority用于指定在什么错误级别会failure，级别0~5不等。0为最高，5为最低。此处设为2,意为0、1、2级别的错误都会导致报错。级别可以根据项目的要求进行配置</p></blockquote>
+<div class="entry-content"><p>WebDriver与之前Selenium的JS注入实现不同，直接利用了浏览器native support来操作浏览器。所以对于不同平台，不同的浏览器，必须依赖一个特定的浏览器的native component来实现把WebDriver API的调用转化为浏览器的native invoke。</p>
 
 <!--more-->
 
 
-<blockquote><p>其中<strong>pmd-rulesets.xml</strong>是规则文件,由pmd制定的一些规则，这些规则可以在pmd-*.jar里找到。 <strong>pmd-rulesets.xml</strong>类似于以下：</p></blockquote>
+<p>在我们new一个WebDriver的过程中，Selenium首先会确认浏览器的native component是否存在可用而且版本匹配。接着就在目标浏览器里启动一整套Web Service，这套Web Service使用了Selenium自己设计定义的协议，名字叫做The WebDriver Wire Protocol。这套协议非常之强大，几乎可以操作浏览器做任何事情，包括打开、关闭、最大化、最小化、元素定位、元素点击、上传文件等等等等。</p>
 
-<pre><code>&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
-&lt;ruleset xmlns="http://pmd.sf.net/ruleset/1.0.0" name="pmd-rulsets" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd" xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"&gt;
-    &lt;description&gt;PMD Plugin preferences rule set&lt;/description&gt;
-    &lt;rule ref="rulesets/typeresolution.xml/LooseCoupling"/&gt;
-    &lt;rule ref="rulesets/typeresolution.xml/CloneMethodMustImplementCloneable"/&gt;
-    &lt;rule ref="rulesets/typeresolution.xml/SignatureDeclareThrowsException"/&gt;
-    &lt;rule ref="rulesets/braces.xml/IfStmtsMustUseBraces"/&gt;
-    &lt;rule ref="rulesets/braces.xml/WhileLoopsMustUseBraces"/&gt;
-&lt;/ruleset&gt;
+<p>WebDriver Wire协议是通用的，也就是说不管是FirefoxDriver还是ChromeDriver，启动之后都会在某一个端口启动基于这套协议的Web Service。例如FirefoxDriver初始化成功之后，默认会从http://localhost:7055开始，而ChromeDriver则大概是http://localhost:46350之类的。接下来，我们调用WebDriver的任何API，都需要借助一个ComandExecutor发送一个命令，实际上是一个HTTP request给监听端口上的Web Service。在我们的HTTP request的body中，会以WebDriver Wire协议规定的JSON格式的字符串来告诉Selenium我们希望浏览器接下来做社么事情。</p>
+
+<p>WebDriver的工作原理图：</p>
+
+<p><img src="/images/blog/webdriver-works.png" alt="WebDriver工作原理图" /></p>
+
+<p>从上图中我们可以看出，不同浏览器的WebDriver子类，都需要依赖特定的浏览器原生组件，例如Firefox就需要一个add-on名字叫webdriver.xpi。而IE的话就需要用到一个dll文件来转化Web Service的命令为浏览器native的调用。另外，图中还标明了WebDriver Wire协议是一套基于RESTful的web service。</p>
+
+<p>关于WebDriver Wire协议的细节，比如希望了解这套Web Service能够做哪些事情，可以阅读Selenium官方的协议文档， 在Selenium的源码中，我们可以找到一个HttpCommandExecutor这个类，里面维护了一个Map&lt;String, CommandInfo>，它负责将一个个代表命令的简单字符串key，转化为相应的URL，因为REST的理念是将所有的操作视作一个个状态，每一个状态对应一个URI。所以当我们以特定的URL发送HTTP request给这个RESTful web service之后，它就能解析出需要执行的操作。截取一段源码如下：</p>
+
+<pre><code>nameToUrl = ImmutableMap.&lt;String, CommandInfo&gt;builder()  
+    .put(NEW_SESSION, post("/session"))  
+    .put(QUIT, delete("/session/:sessionId"))  
+    .put(GET_CURRENT_WINDOW_HANDLE, get("/session/:sessionId/window_handle"))  
+    .put(GET_WINDOW_HANDLES, get("/session/:sessionId/window_handles"))  
+    .put(GET, post("/session/:sessionId/url"))  
+        // The Alert API is still experimental and should not be used.  
+    .put(GET_ALERT, get("/session/:sessionId/alert"))  
+    .put(DISMISS_ALERT, post("/session/:sessionId/dismiss_alert"))  
+    .put(ACCEPT_ALERT, post("/session/:sessionId/accept_alert"))  
+    .put(GET_ALERT_TEXT, get("/session/:sessionId/alert_text"))  
+    .put(SET_ALERT_VALUE, post("/session/:sessionId/alert_text"))  
 </code></pre>
 
-<h3>如何使用</h3>
+<p>可以看到实际发送的URL都是相对路径，后缀多以/session/:sessionId开头，这也意味着WebDriver每次启动浏览器都会分配一个独立的sessionId，多线程并行的时候彼此之间不会有冲突和干扰。例如我们最常用的一个WebDriver的API，getWebElement在这里就会转化为/session/:sessionId/element这个URL，然后在发出的HTTP request body内再附上具体的参数比如by ID还是CSS还是Xpath，各自的值又是什么。收到并执行了这个操作之后，也会回复一个HTTP response。内容也是JSON，会返回找到的WebElement的各种细节，比如text、CSS selector、tag name、class name等等。以下是解析我们说的HTTP response的代码片段：</p>
 
-<pre><code>mvn pmd:pmd
-mvn pmd:check   
+<pre><code>try {  
+    response = new JsonToBeanConverter().convert(Response.class, responseAsText);  
+  } catch (ClassCastException e) {  
+    if (responseAsText != null &amp;&amp; "".equals(responseAsText)) {  
+      // The remote server has died, but has already set some headers.  
+      // Normally this occurs when the final window of the firefox driver  
+      // is closed on OS X. Return null, as the return value _should_ be  
+      // being ignored. This is not an elegant solution.  
+      return null;  
+    }  
+    throw new WebDriverException("Cannot convert text to response: " + responseAsText, e);  
+  } //...  
 </code></pre>
 
-<hr />
+<p>相信总结道这里，应该对WebDriver的运行原理应该清楚了！其实挺佩服这一套RESTful web service的设计。</p>
 
-<h2>二 pmd在eclipse中的使用</h2>
-
-<blockquote><p>1.安装</p>
-
-<blockquote><p>Help -> Install New Software -> Add&#8230;<br/>
-设置update site:<a href="http://pmd.sourceforge.net/eclipse">http://pmd.sourceforge.net/eclipse</a><br/>
-一路next安装成功即可</p></blockquote>
-
-<p>2.eclipse中的设置</p>
-
-<blockquote><p>Window -> Prefrences -> PMD -> Rules Configuration<br/>
-在其中可以设置相关Rules，这里面的Rules对应maven-pmd-plugins中的pmd-rulesets.xml，可以根据自己的需求进行定制</p></blockquote>
-
-<p>3.eclipse中的使用</p>
-
-<blockquote><p>右键选中project -> PMD -> Check Code with PMD<br/>
-执行结束后，会打开PMD视图，会依据不同的Priority级别显示不同的颜色。其中红色标注的X是级别为错误级别的。</p></blockquote></blockquote>
-
-<hr />
+<p>原文：<a href="http://blog.csdn.net/ant_yan/article/details/7970793">http://blog.csdn.net/ant_yan/article/details/7970793</a></p>
 </div>
 
 
@@ -226,12 +205,12 @@ mvn pmd:check
   
 
 
-<time datetime="2012-10-11T11:20:00+08:00" pubdate data-updated="true">2012年10月11日 11:10:00</time>
+<time datetime="2012-11-02T18:26:00+08:00" pubdate data-updated="true">2012年11月02日 18:11:00</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/maven/'>maven</a>
+    <a class='category' href='/blog/categories/selenium/'>selenium</a>
   
 </span>
 
@@ -283,14 +262,10 @@ document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static
     <ul class="pager">
       
       <li class="previous"><a class="basic-alignment left"
-        href="/blog/2012/09/21/markpad-tools/" title="Previous Post:
-        markdown 工具">&laquo; markdown 工具</a></li>
+        href="/blog/2012/11/02/proxy-in-java/" title="Previous Post:
+        设计模式：代理（Proxy） in java">&laquo; 设计模式：代理（Proxy） in java</a></li>
       
       <li><a href="/blog/archives">Blog Archives</a></li>
-      
-      <li class="next"><a class="basic-alignment right" href="/blog/2012/10/11/selenium-stable-1/"
-        title="Next Post: 提高selenium自动化的稳定性1-点击空白区域">提高selenium自动化的稳定性1-点击空白区域
-        &raquo;</a></li>
       
     </ul>
   </footer>
@@ -385,8 +360,8 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://www.shenyanchao.cn/blog/2012/10/11/pmd/';
-        var disqus_url = 'http://www.shenyanchao.cn/blog/2012/10/11/pmd/';
+        var disqus_identifier = 'http://www.shenyanchao.cn/blog/2012/11/02/how-webdriver-works/';
+        var disqus_url = 'http://www.shenyanchao.cn/blog/2012/11/02/how-webdriver-works/';
         var disqus_script = 'embed.js';
       
     (function () {
