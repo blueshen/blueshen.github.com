@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "memento in java"
+title: "设计模式:备忘录（memento） in java"
 date: 2012-11-02 20:10
 comments: true
-categories: 
+categories: 设计模式
 ---

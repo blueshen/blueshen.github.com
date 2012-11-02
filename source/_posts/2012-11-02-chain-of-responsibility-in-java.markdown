@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "chain of responsibility in java"
+title: "设计模式：责任链（chain of responsibility） in java"
 date: 2012-11-02 20:09
 comments: true
-categories: 
+categories: 设计模式
 ---
