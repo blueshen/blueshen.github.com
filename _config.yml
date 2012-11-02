@@ -3,11 +3,11 @@
 #      Main Configs       #
 # ----------------------- #
 
-url: http://blueshen.github.com
+url: http://www.shenyanchao.cn
 title: Blues 小站
-subtitle: 记录生活轨迹
+subtitle: 专注于原创技术文章
 author: ShenYanchao
-simple_search: http://google.com/search
+simple_search: http://google.com.hk/search
 description:
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
@@ -65,12 +65,16 @@ weibo_fansline: 0
 weibo_show: true       
 weibo_pic: true         
 weibo_skin: 9         
-weibo_share: true
+weibo_share: false
 # Github repositories
 github_user: blueshen
-github_repo_count: 
+github_repo_count: 5
 github_show_profile_link: true
 github_skip_forks: false
+
+#baidu share
+baidu_share: true
+
 
 # Twitter
 #twitter_user:
