@@ -114,11 +114,11 @@
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/blog/2012/11/02/singleton-in-java/</loc>
-        <lastmod>2012-11-02T19:31:59+08:00</lastmod>
+        <lastmod>2012-11-02T20:29:14+08:00</lastmod>
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/blog/2012/11/02/bridge-in-java/</loc>
-        <lastmod>2012-11-02T20:06:51+08:00</lastmod>
+        <lastmod>2012-11-02T20:34:43+08:00</lastmod>
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/blog/2012/11/02/composite-in-java/</loc>
@@ -126,7 +126,7 @@
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/blog/2012/11/02/facade-in-java/</loc>
-        <lastmod>2012-11-02T20:07:19+08:00</lastmod>
+        <lastmod>2012-11-02T20:30:34+08:00</lastmod>
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/blog/2012/11/02/factory-in-java/</loc>
@@ -137,16 +137,12 @@
         <lastmod>2012-11-02T20:07:40+08:00</lastmod>
     </url>
     <url>
-        <loc>http://www.shenyanchao.cn/blog/2012/11/02/builder-in-java/</loc>
-        <lastmod>2012-11-02T20:08:12+08:00</lastmod>
-    </url>
-    <url>
         <loc>http://www.shenyanchao.cn/blog/2012/11/02/prototype-in-java/</loc>
-        <lastmod>2012-11-02T20:08:32+08:00</lastmod>
+        <lastmod>2012-11-02T20:31:39+08:00</lastmod>
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/blog/2012/11/02/chain-of-responsibility-in-java/</loc>
-        <lastmod>2012-11-02T20:09:12+08:00</lastmod>
+        <lastmod>2012-11-02T20:32:11+08:00</lastmod>
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/blog/2012/11/02/command-in-java/</loc>
@@ -162,7 +158,7 @@
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/blog/2012/11/02/memento-in-java/</loc>
-        <lastmod>2012-11-02T20:10:27+08:00</lastmod>
+        <lastmod>2012-11-02T20:35:10+08:00</lastmod>
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/blog/2012/11/02/null-object-in-java/</loc>
@@ -174,7 +170,7 @@
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/blog/2012/11/02/state-in-java/</loc>
-        <lastmod>2012-11-02T20:11:24+08:00</lastmod>
+        <lastmod>2012-11-02T20:30:02+08:00</lastmod>
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/blog/2012/11/02/strategy-in-java/</loc>
@@ -182,18 +178,22 @@
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/blog/2012/11/02/template-method-in-java/</loc>
-        <lastmod>2012-11-02T20:11:56+08:00</lastmod>
+        <lastmod>2012-11-02T20:33:32+08:00</lastmod>
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/blog/2012/11/02/visitor-in-java/</loc>
-        <lastmod>2012-11-02T20:12:15+08:00</lastmod>
+        <lastmod>2012-11-02T20:34:02+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://www.shenyanchao.cn/blog/2012/11/05/builder-in-java/</loc>
+        <lastmod>2012-11-02T20:33:01+08:00</lastmod>
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/blog/archives/</loc>
-        <lastmod>2012-11-02T20:12:15+08:00</lastmod>
+        <lastmod>2012-11-02T20:35:10+08:00</lastmod>
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/</loc>
-        <lastmod>2012-11-02T20:12:15+08:00</lastmod>
+        <lastmod>2012-11-02T20:35:10+08:00</lastmod>
     </url>
 </urlset>
