@@ -4,7 +4,7 @@
   <title><![CDATA[Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2012-11-02T20:42:01+08:00</updated>
+  <updated>2012-11-02T20:46:20+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -41,7 +41,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[strategy in java]]></title>
+    <title type="html"><![CDATA[设计模式：策略（strategy） in java]]></title>
     <link href="http://www.shenyanchao.cn/blog/2012/11/02/strategy-in-java/"/>
     <updated>2012-11-02T20:11:00+08:00</updated>
     <id>http://www.shenyanchao.cn/blog/2012/11/02/strategy-in-java</id>
@@ -68,7 +68,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[null object in java]]></title>
+    <title type="html"><![CDATA[设计模式：空对象（null object） in java]]></title>
     <link href="http://www.shenyanchao.cn/blog/2012/11/02/null-object-in-java/"/>
     <updated>2012-11-02T20:10:00+08:00</updated>
     <id>http://www.shenyanchao.cn/blog/2012/11/02/null-object-in-java</id>
@@ -131,7 +131,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[flyweight in java]]></title>
+    <title type="html"><![CDATA[设计模式：享元（flyweight） in java]]></title>
     <link href="http://www.shenyanchao.cn/blog/2012/11/02/flyweight-in-java/"/>
     <updated>2012-11-02T20:07:00+08:00</updated>
     <id>http://www.shenyanchao.cn/blog/2012/11/02/flyweight-in-java</id>
@@ -158,7 +158,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[composite in java]]></title>
+    <title type="html"><![CDATA[设计模式：组合（composite） in java]]></title>
     <link href="http://www.shenyanchao.cn/blog/2012/11/02/composite-in-java/"/>
     <updated>2012-11-02T20:07:00+08:00</updated>
     <id>http://www.shenyanchao.cn/blog/2012/11/02/composite-in-java</id>
