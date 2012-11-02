@@ -130,7 +130,7 @@
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/blog/2012/11/02/factory-in-java/</loc>
-        <lastmod>2012-11-02T20:07:54+08:00</lastmod>
+        <lastmod>2012-11-02T20:49:05+08:00</lastmod>
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/blog/2012/11/02/flyweight-in-java/</loc>
@@ -185,15 +185,19 @@
         <lastmod>2012-11-02T20:34:02+08:00</lastmod>
     </url>
     <url>
+        <loc>http://www.shenyanchao.cn/blog/2012/11/02/mediator-in-java/</loc>
+        <lastmod>2012-11-02T20:50:46+08:00</lastmod>
+    </url>
+    <url>
         <loc>http://www.shenyanchao.cn/blog/2012/11/05/builder-in-java/</loc>
         <lastmod>2012-11-02T20:33:01+08:00</lastmod>
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/blog/archives/</loc>
-        <lastmod>2012-11-02T20:45:49+08:00</lastmod>
+        <lastmod>2012-11-02T20:50:46+08:00</lastmod>
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/</loc>
-        <lastmod>2012-11-02T20:45:49+08:00</lastmod>
+        <lastmod>2012-11-02T20:50:46+08:00</lastmod>
     </url>
 </urlset>
