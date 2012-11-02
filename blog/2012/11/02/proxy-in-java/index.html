@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Blues 小站</title>
+  <title>设计模式：代理(proxy) in java - Blues 小站</title>
   <meta name="author" content="ShenYanchao">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.shenyanchao.cn">
+  <link rel="canonical" href="http://www.shenyanchao.cn/blog/2012/11/02/proxy-in-java">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/bootstrap/bootstrap.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/stylesheets/bootstrap/responsive.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -101,15 +101,13 @@
 </nav>
   <div class="container">
     <div class="row-fluid">
-      <div class="span9">
-  
-  
-  
-    <article>
-      ﻿
+      
+<article class="hentry span9" role="article">
+
+  ﻿
   <header class="page-header">
     
-      <h1 class="entry-title"><a href="/blog/2012/11/02/proxy-in-java/">设计模式：代理(proxy) in Java</a></h1>
+      <h1 class="entry-title">设计模式：代理(proxy) in Java</h1>
     
 	<p class="meta">
     
@@ -128,14 +126,14 @@
 
 <time datetime="2012-11-02T16:21:00+08:00" pubdate data-updated="true">2012年11月02日 16:11:00</time>
         
-         | <a href="/blog/2012/11/02/proxy-in-java/#disqus_thread">我要评论</a>
+         | <a href="#disqus_thread">我要评论</a>
         
     
  </p>
   </header>
 
 
-  <div class="entry-content"><h2>什么是代理？</h2>
+<div class="entry-content"><h2>什么是代理？</h2>
 
 <p>代理是指，本该有A做的工作，现在找一个代理人B，然后由B来进行实际的工作。<br/>
 代理，简单来分，可以分为以下两类：</p>
@@ -284,23 +282,16 @@ int result = add.add(3, 14);
 
 <p>通过Enhancer制定需要增强的类，并设置CallBack函数来实现代理与功能增强。</p>
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/10/30/decorator-in-java/">设计模式：装饰器（Decorator）in Java</a></h1>
-    
-	<p class="meta">
-    
+  
 
-        
+<span class="byline author vcard"> <span class="fn">ShenYanchao</span> 发布于</span>
+
+      
 
 
 
@@ -312,203 +303,75 @@ int result = add.add(3, 14);
   
 
 
-<time datetime="2012-10-30T21:25:00+08:00" pubdate data-updated="true">2012年10月30日 21:10:00</time>
-        
-         | <a href="/blog/2012/10/30/decorator-in-java/#disqus_thread">我要评论</a>
-        
+<time datetime="2012-11-02T16:21:00+08:00" pubdate data-updated="true">2012年11月02日 16:11:00</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/设计模式/'>设计模式</a>
+  
+</span>
+
+
+    </p>
     
- </p>
-  </header>
-
-
-  <div class="entry-content"><p>1.认识装饰器模式</p>
-
-<p>装饰模式能够实现动态的为对象添加功能，是从一个对象外部来给对象添加功能。通常给对象添加功能，要么直接修改对象添加相应的功能，要么派生对应的子类来扩展，抑或是使用对象组合的方式。显然，直接修改对应的类这种方式并不可取。在面向对象的设计中，而我们也应该尽量使用对象组合，而不是对象继承来扩展和复用功能。装饰器模式就是基于对象组合的方式，可以很灵活的给对象添加所需要的功能。装饰器模式的本质就是动态组合。动态是手段，组合才是目的。总之，装饰模式是通过把复杂的功能简单化，分散化，然后再运行期间，根据需要来动态组合的这样一个模式。</p>
-
+      ﻿<div class="sharing">
+  
+  
+  
+<!-- Baidu Button BEGIN -->
+<div id="bdshare" class="bdshare_t bds_tools_32 get-codes-bdshare">
+<a class="bds_tsina"></a>
+<a class="bds_renren"></a>
+<a class="bds_qzone"></a>
+<a class="bds_kaixin001"></a>
+<a class="bds_hi"></a>
+<a class="bds_douban"></a>
+<a class="bds_tsohu"></a>
+<a class="bds_tqq"></a>
+<a class="bds_ty"></a>
+<a class="bds_twi"></a>
+<a class="bds_tieba"></a>
+<span class="bds_more"></span>
+<a class="shareCount"></a>
 </div>
+<br><br>
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=6337598" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
   
   
-    <footer>
-      <a rel="full-article" href="/blog/2012/10/30/decorator-in-java/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
   
   
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/10/30/adapter-in-java/">设计模式：适配器（Adapter）in Java</a></h1>
-    
-	<p class="meta">
-    
-
-        
-
-
-
-
-
-
-
-
   
-
-
-<time datetime="2012-10-30T21:24:00+08:00" pubdate data-updated="true">2012年10月30日 21:10:00</time>
-        
-         | <a href="/blog/2012/10/30/adapter-in-java/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content"><p><strong>类适配器</strong>:客户的开发人员定义了一个接口，期望用这个接口来完成整数的求和操作，接口定义如下：   <br/>
-Java代码</p>
-
-<pre><code>public interface Operation{  
-    public int add(int a,int b);  
-}  
-</code></pre>
-
-<p>开发人员在了解这个接口的定义后，发现一个第三方类，里面有一个方法能实现他们期望的功能，其代码如下：  <br/>
-Java代码</p>
-
-<pre><code>public class OtherOperation{  
-    public int otherAdd(int a,int b){  
-        return a + b;  
-    }  
-}  
-</code></pre>
-
 </div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/10/30/adapter-in-java/">继续阅读 &rarr;</a>
-    </footer>
-  
 
-
-    </article>
-  
-  
-    <article>
-      ﻿
-  <header class="page-header">
     
-      <h1 class="entry-title"><a href="/blog/2012/10/30/travel-in-yunnan/">云南之行</a></h1>
     
-	<p class="meta">
-    
-
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-30T17:47:00+08:00" pubdate data-updated="true">2012年10月30日 17:10:00</time>
-        
-         | <a href="/blog/2012/10/30/travel-in-yunnan/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content"><h2>拉市海</h2>
-
-<p>我是有多胖，真得减肥了！</p>
-
-<p><img src="/images/blog/psb.jpg" alt="" /></p>
-
-<hr />
+    <section>
+      <h1>Comments</h1>
+      <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      ﻿
-  <header class="page-header">
+    </section>
     
-      <h1 class="entry-title"><a href="/blog/2012/10/23/encode-in-java/">Java字符编码及其使用详解</a></h1>
-    
-	<p class="meta">
-    
+    <ul class="pager">
+      
+      <li class="previous"><a class="basic-alignment left"
+        href="/blog/2012/10/30/decorator-in-java/" title="Previous Post:
+        设计模式：装饰器（Decorator）in Java">&laquo; 设计模式：装饰器（Decorator）in Java</a></li>
+      
+      <li><a href="/blog/archives">Blog Archives</a></li>
+      
+    </ul>
+  </footer>
+</article>
 
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-23T18:58:00+08:00" pubdate data-updated="true">2012年10月23日 18:10:00</time>
-        
-         | <a href="/blog/2012/10/23/encode-in-java/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content"><h2>Java的编译存储</h2>
-
-<p>Java是跨平台的一种语言，这一概念想必已经深入人心。Java是如何实现跨平台的呢?其中起到重大作用的便是Unicode编码。在使用IDE进行开发时，比如ECLIPSE,IDEA等，可以指定源文件（.java）的编码格式，此处的编码格式是指Java文件自身的编码。Java文件可以用各种编码进行存储，考虑到兼容中文字符，大多采用GBK,UTF-8,GB18030等编码格式。但是经过javac命令编译后，生成的.class文件毫无疑问都是Unicode编码。这样在class被加载进JVM后，所有的对象都是Unicode进行编码的，这确保了Java的跨平台特性。<br/>
-<strong>简言之</strong></p>
-
-<p>.java(任意编码) &#8212;> .class(Unicode) &#8212;> JVM内（Unicode）</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/10/23/encode-in-java/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  <ul class="pager">
-    
-    <li class="previous"><a href="/blog/page/2/">&larr; 前一篇</a></li>
-    
-    <li><a href="/blog/archives">文章列表</a></li>
-    
-  </ul>
-</div>
 <aside class="sidebar-nav span3">
   
     ﻿<section class="well">
-	<ul id="about" class="nav nav-list">
-		<li class="nav-header">关于我</li>
-		<p>GitHub</p>
-		<p>申艳超(Blues Shen)</p>
-		<p><a href="mailto:zhiyi.shen@gmail.com">zhiyi.shen@gmail.com</a></p>
-	</ul>
-</section>
-﻿<section class="well">
   <ul id="recent_posts" class="nav nav-list">
     <li class="nav-header">最近更新</li>
     
@@ -553,7 +416,7 @@ Java代码</p>
 <section class="well">
   <ul id="gh_repos" class="nav">
     <li class="nav-header">GitHub Repos</li>
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   
   <a href="https://github.com/blueshen">@blueshen</a> on GitHub
@@ -575,6 +438,7 @@ Java代码</p>
   
 </aside>
 
+
     </div>
   </div>
   <footer role="contentinfo" class="page-footer">﻿<hr>
@@ -593,7 +457,10 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
       var disqus_shortname = 'blueshen';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://www.shenyanchao.cn/blog/2012/11/02/proxy-in-java/';
+        var disqus_url = 'http://www.shenyanchao.cn/blog/2012/11/02/proxy-in-java/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
