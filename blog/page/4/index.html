@@ -109,6 +109,56 @@
       ﻿
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2012/10/19/jvm-out-of-memory/">Java内存溢出详解</a></h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-19T23:12:00+08:00" pubdate data-updated="true">2012年10月19日 23:10:00</time>
+        
+         | <a href="/blog/2012/10/19/jvm-out-of-memory/#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+  <div class="entry-content"><p>一、常见的Java内存溢出有以下三种：</p>
+
+<ol>
+<li><code>java.lang.OutOfMemoryError: Java heap space</code> &#8212;-JVM Heap（堆）溢出
+JVM在启动的时候会自动设置JVM Heap的值，其初始空间(即-Xms)是物理内存的1/64，最大空间(-Xmx)不可超过物理内存。
+可以利用JVM提供的-Xmn -Xms -Xmx等选项可进行设置。Heap的大小是Young Generation 和Tenured Generaion 之和。
+在JVM中如果98％的时间是用于GC，且可用的Heap size 不足2％的时候将抛出此异常信息。
+解决方法：手动设置JVM Heap（堆）的大小。  <br/>
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/10/19/jvm-out-of-memory/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2012/10/19/java6-jvm-params/">JVM参数选项</a></h1>
     
 	<p class="meta">
@@ -303,55 +353,6 @@
 
     </article>
   
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/10/12/selenium-faq-alerts-and-prompts/">Selenium FAQ:如何处理JavaScript弹出的alert、prompt窗口</a></h1>
-    
-	<p class="meta">
-    
-
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-12T14:39:00+08:00" pubdate data-updated="true">2012年10月12日 14:10:00</time>
-        
-         | <a href="/blog/2012/10/12/selenium-faq-alerts-and-prompts/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content"><h2>经常会碰到，页面操作后，出现一个alert窗口或者prompt确认窗口的情况，这时需要获得窗口的提示信息以及点击确定或取消的情况。</h2>
-
-<pre><code>// Get a handle to the open alert, prompt or confirmation
-Alert alert = driver.switchTo().alert();
-// Get the text of the alert or prompt
-alert.getText();  
-// And acknowledge the alert (equivalent to clicking "OK")
-alert.accept();
-</code></pre>
-
-<p>这是通用的处理方法。但是如果弹出的窗口不是<code>alert()</code>或者<code>prompt()</code>弹出来的则不适用。请注意。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <ul class="pager">
     
     <li class="previous"><a href="/blog/page/5/">&larr; 前一篇</a></li>
@@ -377,6 +378,10 @@ alert.accept();
     <li class="nav-header">最近更新</li>
     
       <li class="post">
+        <a href="/blog/2012/11/02/singleton-in-java/">设计模式：单例（singleton） in java</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/11/02/how-webdriver-works/">Selenium WebDriver 工作原理</a>
       </li>
     
@@ -390,10 +395,6 @@ alert.accept();
     
       <li class="post">
         <a href="/blog/2012/10/30/adapter-in-java/">设计模式：适配器（Adapter）in Java</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/10/30/travel-in-yunnan/">云南之行</a>
       </li>
     
   </ul>

@@ -109,6 +109,76 @@
       ﻿
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2012/10/11/pmd/">PMD静态代码检查</a></h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-11T11:20:00+08:00" pubdate data-updated="true">2012年10月11日 11:10:00</time>
+        
+         | <a href="/blog/2012/10/11/pmd/#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+  <div class="entry-content"><h2>一 maven插件：maven-pmd-plugin</h2>
+
+<blockquote><p>pom.xml添加如下内容：</p></blockquote>
+
+<pre><code>    &lt;plugin&gt;
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;maven-pmd-plugin&lt;/artifactId&gt;
+            &lt;version&gt;2.7.1&lt;/version&gt;
+            &lt;executions&gt;
+                &lt;execution&gt;
+                    &lt;phase&gt;package&lt;/phase&gt;
+                    &lt;goals&gt;
+                        &lt;goal&gt;check&lt;/goal&gt;
+                    &lt;/goals&gt;
+                &lt;/execution&gt;
+            &lt;/executions&gt;
+            &lt;configuration&gt;
+                &lt;failurePriority&gt;2&lt;/failurePriority&gt;
+                &lt;targetJdk&gt;1.6&lt;/targetJdk&gt;
+                &lt;rulesets&gt;
+                    &lt;ruleset&gt;/pmd-rulesets.xml&lt;/ruleset&gt;
+                &lt;/rulesets&gt;
+            &lt;/configuration&gt;
+        &lt;/plugin&gt;
+</code></pre>
+
+<blockquote><p>failurePriority用于指定在什么错误级别会failure，级别0~5不等。0为最高，5为最低。此处设为2,意为0、1、2级别的错误都会导致报错。级别可以根据项目的要求进行配置</p></blockquote>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/10/11/pmd/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2012/09/21/markpad-tools/">Markdown 工具</a></h1>
     
 	<p class="meta">
@@ -268,6 +338,10 @@
     <li class="nav-header">最近更新</li>
     
       <li class="post">
+        <a href="/blog/2012/11/02/singleton-in-java/">设计模式：单例（singleton） in java</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/11/02/how-webdriver-works/">Selenium WebDriver 工作原理</a>
       </li>
     
@@ -281,10 +355,6 @@
     
       <li class="post">
         <a href="/blog/2012/10/30/adapter-in-java/">设计模式：适配器（Adapter）in Java</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/10/30/travel-in-yunnan/">云南之行</a>
       </li>
     
   </ul>
