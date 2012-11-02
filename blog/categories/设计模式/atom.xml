@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 设计模式 | Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/blog/categories/设计模式/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2012-11-02T20:35:49+08:00</updated>
+  <updated>2012-11-02T20:42:01+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -50,10 +50,10 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[设计模式:备忘录（memento） in java]]></title>
-    <link href="http://www.shenyanchao.cn/blog/2012/11/02/memento-in-java/"/>
-    <updated>2012-11-02T20:10:00+08:00</updated>
-    <id>http://www.shenyanchao.cn/blog/2012/11/02/memento-in-java</id>
+    <title type="html"><![CDATA[设计模式：观察者（observer） in java]]></title>
+    <link href="http://www.shenyanchao.cn/blog/2012/11/02/observer-in-java/"/>
+    <updated>2012-11-02T20:11:00+08:00</updated>
+    <id>http://www.shenyanchao.cn/blog/2012/11/02/observer-in-java</id>
     <content type="html"><![CDATA[
 ]]></content>
   </entry>
