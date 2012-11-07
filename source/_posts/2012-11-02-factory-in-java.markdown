@@ -203,5 +203,16 @@ categories: 设计模式
 		product4.sayColor();
 
 这样两个工厂分别开工了，一个出的产品都是红色的，一个都是蓝色的。这就是**抽象工厂**了。
+##工厂模式 in JDK##
+
+
+	Class.forName(String className);   
+
+这种应该就是简单工厂的典型了。依据不同的className来生产相应的对象，只不过这里是Class对象了，不要混淆。
+
+	javax.xml.parsers.DocumentBuilderFactory#newInstance()
+	javax.xml.transform.TransformerFactory#newInstance()
+	javax.xml.xpath.XPathFactory#newInstance()
+这几个为什么就是抽象工厂了呢？不理解。高人指点。
 
 ---
