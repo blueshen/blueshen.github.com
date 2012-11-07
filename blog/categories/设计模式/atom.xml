@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 设计模式 | Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/blog/categories/设计模式/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2012-11-07T19:59:41+08:00</updated>
+  <updated>2012-11-07T20:42:22+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -12,6 +12,43 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[设计模式：原型（prototype） in java]]></title>
+    <link href="http://www.shenyanchao.cn/blog/2012/11/07/prototype-in-java/"/>
+    <updated>2012-11-07T20:41:00+08:00</updated>
+    <id>http://www.shenyanchao.cn/blog/2012/11/07/prototype-in-java</id>
+    <content type="html"><![CDATA[<p><strong>定义：</strong>用原型实例指定创建对象的种类，并通过拷贝这些原型创建新的对象。<br/>
+基本上，可以就是一个clone方法，通过这个方法进行对象的拷贝。</p>
+
+<p>Java中的原型模式：</p>
+
+<pre><code>public class ProtoTypeClass implements Cloneable {
+
+    @Override
+    public ProtoTypeClass clone(){
+        ProtoTypeClass cloneObject = null;
+        try{
+            cloneObject = (ProtoTypeClass) super.clone();
+        }catch (Exception e) {
+            // TODO: handle exception
+        }
+        return cloneObject;
+    }
+}
+</code></pre>
+
+<p>上面就是实现了原型模式。不过Java在提供了Cloneable这一接口方便实现原型模式的同时，也带来了一些不容易注意到的问题。</p>
+
+<ul>
+<li>clone时，构造函数不会执行</li>
+<li>浅拷贝与深拷贝</li>
+</ul>
+
+
+<p>这两个问题是需要时刻注意的。由于本文主要不是讲Cloneable,所以另辟专题吧。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[设计模式：门面（Facade） in java]]></title>
@@ -26,7 +63,7 @@
 <!--more-->
 
 
-<p></p>
+<blockquote></blockquote>
 
 <p>在无接待员的时候，病人要做业务，好复杂啊，好累！</p>
 
@@ -400,15 +437,6 @@ javax.xml.xpath.XPathFactory#newInstance()
     <link href="http://www.shenyanchao.cn/blog/2012/11/05/builder-in-java/"/>
     <updated>2012-11-05T20:08:00+08:00</updated>
     <id>http://www.shenyanchao.cn/blog/2012/11/05/builder-in-java</id>
-    <content type="html"><![CDATA[
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[设计模式：中介者（mediator） in java]]></title>
-    <link href="http://www.shenyanchao.cn/blog/2012/11/02/mediator-in-java/"/>
-    <updated>2012-11-02T20:50:00+08:00</updated>
-    <id>http://www.shenyanchao.cn/blog/2012/11/02/mediator-in-java</id>
     <content type="html"><![CDATA[
 ]]></content>
   </entry>

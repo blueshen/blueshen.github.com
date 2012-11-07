@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.shenyanchao.cn/blog/2012/11/02/prototype-in-java">
+  <link rel="canonical" href="http://www.shenyanchao.cn/blog/2012/11/07/prototype-in-java">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/bootstrap/bootstrap.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/stylesheets/bootstrap/responsive.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -124,7 +124,7 @@
   
 
 
-<time datetime="2012-11-02T20:08:00+08:00" pubdate data-updated="true">2012年11月02日 20:11:00</time>
+<time datetime="2012-11-07T20:41:00+08:00" pubdate data-updated="true">2012年11月07日 20:11:00</time>
         
          | <a href="#disqus_thread">我要评论</a>
         
@@ -133,7 +133,35 @@
   </header>
 
 
-<div class="entry-content">
+<div class="entry-content"><p><strong>定义：</strong>用原型实例指定创建对象的种类，并通过拷贝这些原型创建新的对象。<br/>
+基本上，可以就是一个clone方法，通过这个方法进行对象的拷贝。</p>
+
+<p>Java中的原型模式：</p>
+
+<pre><code>public class ProtoTypeClass implements Cloneable {
+
+    @Override
+    public ProtoTypeClass clone(){
+        ProtoTypeClass cloneObject = null;
+        try{
+            cloneObject = (ProtoTypeClass) super.clone();
+        }catch (Exception e) {
+            // TODO: handle exception
+        }
+        return cloneObject;
+    }
+}
+</code></pre>
+
+<p>上面就是实现了原型模式。不过Java在提供了Cloneable这一接口方便实现原型模式的同时，也带来了一些不容易注意到的问题。</p>
+
+<ul>
+<li>clone时，构造函数不会执行</li>
+<li>浅拷贝与深拷贝</li>
+</ul>
+
+
+<p>这两个问题是需要时刻注意的。由于本文主要不是讲Cloneable,所以另辟专题吧。</p>
 </div>
 
 
@@ -156,7 +184,7 @@
   
 
 
-<time datetime="2012-11-02T20:08:00+08:00" pubdate data-updated="true">2012年11月02日 20:11:00</time>
+<time datetime="2012-11-07T20:41:00+08:00" pubdate data-updated="true">2012年11月07日 20:11:00</time>
       
 
 <span class="categories">
@@ -213,14 +241,10 @@ document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static
     <ul class="pager">
       
       <li class="previous"><a class="basic-alignment left"
-        href="/blog/2012/11/02/flyweight-in-java/" title="Previous Post:
-        设计模式：享元（flyweight） in java">&laquo; 设计模式：享元（flyweight） in java</a></li>
+        href="/blog/2012/11/07/facade-in-java/" title="Previous Post:
+        设计模式：门面（Facade） in java">&laquo; 设计模式：门面（Facade） in java</a></li>
       
       <li><a href="/blog/archives">Blog Archives</a></li>
-      
-      <li class="next"><a class="basic-alignment right" href="/blog/2012/11/02/chain-of-responsibility-in-java/"
-        title="Next Post: 设计模式：责任链（chain of responsibility） in java">设计模式：责任链（chain of responsibility） in java
-        &raquo;</a></li>
       
     </ul>
   </footer>
@@ -231,6 +255,10 @@ document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static
     ﻿<section class="well">
   <ul id="recent_posts" class="nav nav-list">
     <li class="nav-header">最近更新</li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/07/prototype-in-java/">设计模式：原型（prototype） in java</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2012/11/07/facade-in-java/">设计模式：门面（Facade） in java</a>
@@ -246,10 +274,6 @@ document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static
     
       <li class="post">
         <a href="/blog/2012/11/05/builder-in-java/">设计模式：构建者（builder） in java</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/11/02/mediator-in-java/">设计模式：中介者（mediator） in java</a>
       </li>
     
   </ul>
@@ -315,8 +339,8 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://www.shenyanchao.cn/blog/2012/11/02/prototype-in-java/';
-        var disqus_url = 'http://www.shenyanchao.cn/blog/2012/11/02/prototype-in-java/';
+        var disqus_identifier = 'http://www.shenyanchao.cn/blog/2012/11/07/prototype-in-java/';
+        var disqus_url = 'http://www.shenyanchao.cn/blog/2012/11/07/prototype-in-java/';
         var disqus_script = 'embed.js';
       
     (function () {
