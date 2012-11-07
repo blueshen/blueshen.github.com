@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>设计模式：门面（facade） in java - Blues 小站</title>
+  <title>设计模式：门面（Facade） in java - Blues 小站</title>
   <meta name="author" content="ShenYanchao">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.shenyanchao.cn/blog/2012/11/02/facade-in-java">
+  <link rel="canonical" href="http://www.shenyanchao.cn/blog/2012/11/07/facade-in-java">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/bootstrap/bootstrap.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/stylesheets/bootstrap/responsive.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -107,7 +107,7 @@
   ﻿
   <header class="page-header">
     
-      <h1 class="entry-title">设计模式：门面（facade） in Java</h1>
+      <h1 class="entry-title">设计模式：门面（Facade） in Java</h1>
     
 	<p class="meta">
     
@@ -124,7 +124,7 @@
   
 
 
-<time datetime="2012-11-02T20:07:00+08:00" pubdate data-updated="true">2012年11月02日 20:11:00</time>
+<time datetime="2012-11-07T20:00:00+08:00" pubdate data-updated="true">2012年11月07日 20:11:00</time>
         
          | <a href="#disqus_thread">我要评论</a>
         
@@ -133,7 +133,45 @@
   </header>
 
 
-<div class="entry-content">
+<div class="entry-content"><p><strong>定义：</strong>为子系统中的一组接口提供一个一致的界面，Facade模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。 <br/>
+就是说，Facade提供了一个统一的接口，掩盖下层系统的复杂性，用户用起来更加的方便。</p>
+
+<p>以医院的例子，做个比喻：</p>
+
+<!--more-->
+
+
+<p></p>
+
+<p>在无接待员的时候，病人要做业务，好复杂啊，好累！</p>
+
+<p><img src="/images/blog/facade-hospital1.png" alt="无接待员" /></p>
+
+<p>有了接待员，各种就医流程好流畅的说。因为有接待员与各个部门打交道。</p>
+
+<p><img src="/images/blog/facade-hospital2.png" alt="有接待员" /></p>
+
+<p>这个例子很好的说出了facade的作用。甚至都不需要代码来表达了。</p>
+
+<p>门面模式的优点：</p>
+
+<p>　　●松散耦合</p>
+
+<p>　　门面模式松散了客户端与子系统的耦合关系，让子系统内部的模块能更容易扩展和维护。</p>
+
+<p>　　●简单易用</p>
+
+<p>　　门面模式让子系统更加易用，客户端不再需要了解子系统内部的实现，也不需要跟众多子系统内部的模块进行交互，只需要跟门面类交互就可以了。</p>
+
+<p>　　●更好的划分访问层次</p>
+
+<p>　　通过合理使用Facade，可以帮助我们更好地划分访问的层次。有些方法是对系统外的，有些方法是系统内部使用的。把需要暴露给外部的功能集中到门面中，这样既方便客户端使用，也很好地隐藏了内部的细节</p>
+
+<h2>门面模式 in JDK</h2>
+
+<p>这个具体的例子，我首先想到的就是<a href="http://www.slf4j.org/">slf4j</a>这个日志框架。通过名字Simple Logging Facade for Java (SLF4J)就知道是采用的Facade模式了。下面是其官方的介绍： <br/>
+The Simple Logging Facade for Java or (SLF4J) serves as a simple facade or abstraction for various logging frameworks, e.g. java.util.logging, log4j and logback, allowing the end user to plug in the desired logging framework at deployment time. <br/>
+也就是说，他屏蔽了各种日志框架的差异，提供了一个统一的日志接口给用户使用。不得不说，<a href="http://www.slf4j.org/">slf4j</a>很好用，推荐！</p>
 </div>
 
 
@@ -156,7 +194,7 @@
   
 
 
-<time datetime="2012-11-02T20:07:00+08:00" pubdate data-updated="true">2012年11月02日 20:11:00</time>
+<time datetime="2012-11-07T20:00:00+08:00" pubdate data-updated="true">2012年11月07日 20:11:00</time>
       
 
 <span class="categories">
@@ -213,14 +251,10 @@ document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static
     <ul class="pager">
       
       <li class="previous"><a class="basic-alignment left"
-        href="/blog/2012/11/02/composite-in-java/" title="Previous Post:
-        设计模式：组合（composite） in java">&laquo; 设计模式：组合（composite） in java</a></li>
+        href="/blog/2012/11/07/template-method-in-java/" title="Previous Post:
+        设计模式：模板方法（template method） in java">&laquo; 设计模式：模板方法（template method） in java</a></li>
       
       <li><a href="/blog/archives">Blog Archives</a></li>
-      
-      <li class="next"><a class="basic-alignment right" href="/blog/2012/11/02/flyweight-in-java/"
-        title="Next Post: 设计模式：享元（flyweight） in java">设计模式：享元（flyweight） in java
-        &raquo;</a></li>
       
     </ul>
   </footer>
@@ -231,6 +265,10 @@ document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static
     ﻿<section class="well">
   <ul id="recent_posts" class="nav nav-list">
     <li class="nav-header">最近更新</li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/07/facade-in-java/">设计模式：门面（Facade） in java</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2012/11/07/template-method-in-java/">设计模式：模板方法（template method） in java</a>
@@ -246,10 +284,6 @@ document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static
     
       <li class="post">
         <a href="/blog/2012/11/02/mediator-in-java/">设计模式：中介者（mediator） in java</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/11/02/visitor-in-java/">设计模式：访问者（visitor） in java</a>
       </li>
     
   </ul>
@@ -315,8 +349,8 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://www.shenyanchao.cn/blog/2012/11/02/facade-in-java/';
-        var disqus_url = 'http://www.shenyanchao.cn/blog/2012/11/02/facade-in-java/';
+        var disqus_identifier = 'http://www.shenyanchao.cn/blog/2012/11/07/facade-in-java/';
+        var disqus_url = 'http://www.shenyanchao.cn/blog/2012/11/07/facade-in-java/';
         var disqus_script = 'embed.js';
       
     (function () {
