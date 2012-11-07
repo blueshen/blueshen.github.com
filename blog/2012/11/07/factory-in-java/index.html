@@ -364,6 +364,20 @@ public class BlueProductFactory  extends AbstractProductFactory{
 
 <p>这样两个工厂分别开工了，一个出的产品都是红色的，一个都是蓝色的。这就是<strong>抽象工厂</strong>了。</p>
 
+<h2>工厂模式 in JDK</h2>
+
+<pre><code>Class.forName(String className);   
+</code></pre>
+
+<p>这种应该就是简单工厂的典型了。依据不同的className来生产相应的对象，只不过这里是Class对象了，不要混淆。</p>
+
+<pre><code>javax.xml.parsers.DocumentBuilderFactory#newInstance()
+javax.xml.transform.TransformerFactory#newInstance()
+javax.xml.xpath.XPathFactory#newInstance()
+</code></pre>
+
+<p>这几个为什么就是抽象工厂了呢？不理解。高人指点。</p>
+
 <hr />
 </div>
 
@@ -449,6 +463,10 @@ document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static
       
       <li><a href="/blog/archives">Blog Archives</a></li>
       
+      <li class="next"><a class="basic-alignment right" href="/blog/2012/11/07/template-method-in-java/"
+        title="Next Post: 设计模式：模板方法（template method） in java">设计模式：模板方法（template method） in java
+        &raquo;</a></li>
+      
     </ul>
   </footer>
 </article>
@@ -458,6 +476,10 @@ document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static
     ﻿<section class="well">
   <ul id="recent_posts" class="nav nav-list">
     <li class="nav-header">最近更新</li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/07/template-method-in-java/">设计模式：模板方法（template method） in java</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2012/11/07/factory-in-java/">设计模式:工厂（factory） in java</a>
@@ -473,10 +495,6 @@ document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static
     
       <li class="post">
         <a href="/blog/2012/11/02/visitor-in-java/">设计模式：访问者（visitor） in java</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/11/02/template-method-in-java/">设计模式：模板方法（template method） in java</a>
       </li>
     
   </ul>

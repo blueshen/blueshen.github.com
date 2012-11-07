@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.shenyanchao.cn/blog/2012/11/02/template-method-in-java">
+  <link rel="canonical" href="http://www.shenyanchao.cn/blog/2012/11/07/template-method-in-java">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/bootstrap/bootstrap.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/stylesheets/bootstrap/responsive.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -124,7 +124,7 @@
   
 
 
-<time datetime="2012-11-02T20:11:00+08:00" pubdate data-updated="true">2012年11月02日 20:11:00</time>
+<time datetime="2012-11-07T19:30:00+08:00" pubdate data-updated="true">2012年11月07日 19:11:00</time>
         
          | <a href="#disqus_thread">我要评论</a>
         
@@ -133,7 +133,79 @@
   </header>
 
 
-<div class="entry-content">
+<div class="entry-content"><p><strong>定义：</strong>定义一个操作中的算法的框架，而将一些步骤延迟到子类中。使得子类可以不改变一个算法的结构即可重定义这个算法的某些特定步骤。 <br/>
+简单的说，就是你首先定义一下算法的各部分之间的执行顺序或者调用关系，然后在子类中实现具体每一部分是如何实现的。</p>
+
+<p>采用什么算法作为例子呢？就是用<strong>把动物放进冰箱</strong>这个算法吧。</p>
+
+<!--more-->
+
+
+<p>先定义一个抽象类:</p>
+
+<pre><code>public abstract class AbstractAlgorithm {
+
+    public abstract void openFridgeDoor();
+
+    public abstract void putAnimalInFridge();
+
+    public abstract void closeFridgeDoor();
+
+    public void execute(){
+        this.openFridgeDoor();
+        this.putAnimalInFridge();
+        this.closeFridgeDoor();
+    }
+}
+</code></pre>
+
+<p>这个类，定义了3个操作，打开冰箱门、把动物放进冰箱、关闭冰箱门，但并未实现，而留给子类来具体实现。<code>execute()</code>用来执行这一算法，它指定了各个操作之间的先后顺序。</p>
+
+<p>比如：我想把大象放进冰箱里：</p>
+
+<pre><code>public class PutElephantInFridge extends AbstractAlgorithm {
+
+    @Override
+    public void openFridgeDoor() {
+        System.out.println("open the fridge door lightly");
+    }
+
+    @Override
+    public void putAnimalInFridge() {
+        System.out
+            .println("try my best to put elephant in fridge,after 2 hours, I got it.");
+    }
+
+    @Override
+    public void closeFridgeDoor() {
+        System.out.println("close the fridge door...");
+    }
+
+}
+</code></pre>
+
+<p>具体使用：</p>
+
+<pre><code>PutElephantInFridge algo = new PutElephantInFridge();
+algo.execute();
+</code></pre>
+
+<p>好吧，执行一下算法就完成了。
+下面吗？我想把猴子放进冰箱，好吧，新建一个类继承AbstractAlgorithm，然后重写相关步骤就可以了。</p>
+
+<h2>模板方法 In JDK</h2>
+
+<pre><code>java.io.InputStream, java.io.OutputStream, java.io.Reader，java.io.Writer      
+
+java.util.AbstractList, java.util.AbstractSet and java.util.AbstractMap
+</code></pre>
+
+<p>所有非抽象方法。</p>
+
+<pre><code>javax.servlet.http.HttpServlet#doXXX()   
+</code></pre>
+
+<p>都默认返回一个<code>SC_METHOD_NOT_ALLOWED</code>类似的错误码，或者代码，要想使用，只有继承并且重写这些方法。</p>
 </div>
 
 
@@ -156,7 +228,7 @@
   
 
 
-<time datetime="2012-11-02T20:11:00+08:00" pubdate data-updated="true">2012年11月02日 20:11:00</time>
+<time datetime="2012-11-07T19:30:00+08:00" pubdate data-updated="true">2012年11月07日 19:11:00</time>
       
 
 <span class="categories">
@@ -213,14 +285,10 @@ document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static
     <ul class="pager">
       
       <li class="previous"><a class="basic-alignment left"
-        href="/blog/2012/11/02/strategy-in-java/" title="Previous Post:
-        设计模式：策略（strategy） in java">&laquo; 设计模式：策略（strategy） in java</a></li>
+        href="/blog/2012/11/07/factory-in-java/" title="Previous Post:
+        设计模式:工厂（factory） in java">&laquo; 设计模式:工厂（factory） in java</a></li>
       
       <li><a href="/blog/archives">Blog Archives</a></li>
-      
-      <li class="next"><a class="basic-alignment right" href="/blog/2012/11/02/visitor-in-java/"
-        title="Next Post: 设计模式：访问者（visitor） in java">设计模式：访问者（visitor） in java
-        &raquo;</a></li>
       
     </ul>
   </footer>
@@ -231,6 +299,10 @@ document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static
     ﻿<section class="well">
   <ul id="recent_posts" class="nav nav-list">
     <li class="nav-header">最近更新</li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/07/template-method-in-java/">设计模式：模板方法（template method） in java</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2012/11/07/factory-in-java/">设计模式:工厂（factory） in java</a>
@@ -246,10 +318,6 @@ document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static
     
       <li class="post">
         <a href="/blog/2012/11/02/visitor-in-java/">设计模式：访问者（visitor） in java</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/11/02/template-method-in-java/">设计模式：模板方法（template method） in java</a>
       </li>
     
   </ul>
@@ -315,8 +383,8 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://www.shenyanchao.cn/blog/2012/11/02/template-method-in-java/';
-        var disqus_url = 'http://www.shenyanchao.cn/blog/2012/11/02/template-method-in-java/';
+        var disqus_identifier = 'http://www.shenyanchao.cn/blog/2012/11/07/template-method-in-java/';
+        var disqus_url = 'http://www.shenyanchao.cn/blog/2012/11/07/template-method-in-java/';
         var disqus_script = 'embed.js';
       
     (function () {
