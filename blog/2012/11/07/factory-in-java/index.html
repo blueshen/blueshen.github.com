@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>设计模式：适配器（Adapter）in Java - Blues 小站</title>
+  <title>设计模式:工厂（factory） in java - Blues 小站</title>
   <meta name="author" content="ShenYanchao">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.shenyanchao.cn/blog/2012/10/30/adapter-in-java">
+  <link rel="canonical" href="http://www.shenyanchao.cn/blog/2012/11/07/factory-in-java">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/bootstrap/bootstrap.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/stylesheets/bootstrap/responsive.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -107,7 +107,7 @@
   ﻿
   <header class="page-header">
     
-      <h1 class="entry-title">设计模式：适配器（Adapter）in Java</h1>
+      <h1 class="entry-title">设计模式:工厂（factory） in Java</h1>
     
 	<p class="meta">
     
@@ -124,7 +124,7 @@
   
 
 
-<time datetime="2012-10-30T21:24:00+08:00" pubdate data-updated="true">2012年10月30日 21:10:00</time>
+<time datetime="2012-11-07T17:43:00+08:00" pubdate data-updated="true">2012年11月07日 17:11:00</time>
         
          | <a href="#disqus_thread">我要评论</a>
         
@@ -133,208 +133,238 @@
   </header>
 
 
-<div class="entry-content"><p><strong>类适配器</strong>:客户的开发人员定义了一个接口，期望用这个接口来完成整数的求和操作，接口定义如下：   <br/>
-Java代码</p>
+<div class="entry-content"><p>工厂模式，直接按名字来说，就是负责专门生产产品的。 <br/>
+大致分为3类：</p>
 
-<pre><code>public interface Operation{  
-    public int add(int a,int b);  
-}  
-</code></pre>
+<ul>
+<li>工厂方法</li>
+<li>简单工厂</li>
+<li>抽象工厂</li>
+</ul>
 
-<p>开发人员在了解这个接口的定义后，发现一个第三方类，里面有一个方法能实现他们期望的功能，其代码如下：  <br/>
-Java代码</p>
 
-<pre><code>public class OtherOperation{  
-    public int otherAdd(int a,int b){  
-        return a + b;  
-    }  
-}  
-</code></pre>
+<p>同时，也有人认为简单工厂只是工厂方法的一种特列，那么就分为两种了。本文就按3种分别进行介绍了。</p>
+
+<h3>工厂方法</h3>
+
+<p><strong>定义：</strong>定义一个用于创建对象的接口，让子类决定实例化哪一个类。工厂方法让一个类的实例化延迟到其子类。</p>
 
 <!--more-->
 
 
-<p>以上第三方类OtherOperation的方法public int otherAdd(int a,int b)所提供的功能，完全能符合客户的期望，所以只需要想办法把OtherOperation的otherAdd(int a,int b)和客户的Operation接口联系起来，让这个第三方类来为客户提供他们期望的服务就行了，这样就避免了开发人员再度去研究类似OtherOperation的otherAdd(int a,int b)方法的实现（利用已有的轮子，避免重复发明），这方法之一，就是用适配器模式： <br/>
-Java代码</p>
+<p>简单的说，就是有一个抽象类定义了一个方法，而实现类来决定到底初始化那个实例。这些实例，就是一个个产品了。 <br/>
+产品接口（主要是考虑面向接口变成吧，个人感觉不要也行，对理解模式没有影响）：</p>
 
-<pre><code>public class AdapterOperation extends OtherOperation implements Operation{  
-    public int add(int a,int b){  
-       return otherAdd(a,b);  
-     }  
-}  
+<pre><code>public interface IProduct {
+    public void sayName();
+}
 </code></pre>
 
-<p>以上就是适配器的实现方法之一，<strong>类适配器</strong>，在以上实现中存在着三中角色分别是：  <br/>
-1：适配目标角色：Operation。<br/>
-2：适配类（原）角色：OtherOperation。<br/>
-3：适配器角色：AdapterOperation。<br/>
-其中适配器角色是适配器模式的核心。
-适配器的主要工作就是通过封装现有的功能，使他满足需要的接口。</p>
+<p>下面呢，假设有两种产品：</p>
 
-<p><strong>对象适配器</strong><br/>
-我们再来看看另一种情况：
-假如客户接口期望的功能不止一个，而是多个： <br/>
-Java代码</p>
-
-<pre><code>public interface Operation{  
-    public int add(int a,int b);  
-    public int minus(int a,int b);  
-    public int multiplied(int a,int b);  
-}  
+<pre><code>public class ProductA implements IProduct {
+    @Override
+    public void sayName() {
+        // TODO Auto-generated method stub
+        System.out.println("I am ProductA");
+    }
+}
+public class ProductB implements IProduct {
+    @Override
+    public void sayName() {
+        System.out.println("I am productB");
+    }
+}
 </code></pre>
 
-<p>而能提供这些实现的原可能不止一个： <br/>
-Java代码</p>
+<p>有了产品定义，那么下面就要建一个工厂了，怎么建呢？依据定义来说，首先要定义一个接口了：</p>
 
-<pre><code>public class OtherAdd{  
-    public int otherAdd(int a,int b){  
-         return a + b;  
-    }  
-}  
-
-public class OtherMinus{  
-    public int minus(int a,int b){  
-       return a - b;  
-    }  
-}  
-
-public class OtherMultiplied{  
-    public int multiplied(int a,int b){  
-       return a * b;  
-    }  
-}  
+<pre><code>public abstract class AbstractProductFactory {
+    public abstract &lt;T extends IProduct&gt; T createProduct(
+        Class&lt;T&gt; productType);
+}
 </code></pre>
 
-<p>由于java是不能实现多继承的，所以我们不能通过构建一个适配器，让他来继承所有原以完成我们的期望，这时候怎么办呢?只能用适配器的另一种实现&#8211;对象适配器：<br/>
-Java代码</p>
+<p>下面就是一个子类了，也就是具体负责初始化实例的工厂了。</p>
 
-<pre><code>public class AdapterOperation implements Operation{  
-    private OtherAdd add;  
-    private OtherMinus minus;  
-    private OtherMultiplied multiplied;  
+<pre><code>public class ProductFactory extends AbstractProductFactory {
 
-    public void setAdd(OtherAdd add){  
-        this.add = add;  
-    }  
-
-    public void setMinus(OtherMinus minus){  
-        this.minus = minus;  
-    }  
-
-    public void setMultiplied(OtherMultiplied multiplied){  
-        this.multiplied = multiplied;  
-    }  
-
-    //适配加法运算  
-    public int add(int a,int b){  
-       return add.otherAdd(a,b);  
-    }  
-
-    //适配减法运算  
-    public int minus(int a,int b){  
-      return minus.minus(a,b);  
-    }  
-
-    //适配乘法运算  
-    public int multiplied(int a,int b){  
-     return multiplied.multiplied(a,b);  
-    }  
-}  
+    @Override
+    public &lt;T extends IProduct&gt; T createProduct(Class&lt;T&gt; productType) {
+        // TODO Auto-generated method stub
+        IProduct product = null;
+        try {
+            product = productType.newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return (T) product;
+    }
+}
 </code></pre>
 
-<p>上面代码很明显，适配器并不是通过继承来获取适配类（原）的功能的，而是通过适配类的对象来获取的，这就解决了java不能多继承所带来的不便了。这也是java提倡的编程思想之一，即尽量使用聚合不要使用继承。<br/>
-还有一种情况是需要使用对象适配器的。我们来看看，
-单我们的客户提供的需求并不是一个明确的接口，而是一个类，并没有定义期望的方法，如下 <br/>
-Java代码</p>
+<p>如何生成不同的产品呢，本例是根据传入的不同的类，来返回不同的实例的。当然了也可以用一个标识符了,如果传入的是“A”那么返回一个ProductA。诸如此类，这就是工厂方法了。<br/>
+具体使用时，是这样的：</p>
 
-<pre><code>public class A{  
-    public int add(int a,int b){  
-        return a + b;  
-    }  
-}  
+<pre><code>ProductFactory productFactory = new ProductFactory();
+IProduct productA = productFactory.createProduct(ProductA.class);
+IProduct productB = productFactory.createProduct(ProductB.class);
+productA.sayName();
+productB.sayName();
 </code></pre>
 
-<p>现在客户要一个新类B，要求能在保留类A功能的情况下增加一个运算减法的功能，并要求B能随时替换掉A但不能对已有系统造成影响。这样我们只能新建一个类B，并让B继承A。 <br/>
-Java代码</p>
+<h2>简单工厂</h2>
 
-<pre><code>public class B extends A{  
-    B(){  
-        super();  
-        }  
+<p>简单工厂，可以说是工厂方法的一种扩展。上例中，发现在使用<code>ProductFactory</code>的时候，还需要先实例化一个。怎么那么麻烦呢？就像在实际生活中，我想要某个产品，我还需要先建一个工厂是一个道理的。</p>
 
-    public int minus(int a,int b){  
-       //待实现的减法运算函数..  
-    }  
-}  
+<p>还好，Java提供了这样一个关键字<code>static</code>,简单工厂类就变成这个样子了。</p>
+
+<pre><code>public class SimpleProductFactory {
+
+    public static &lt;T extends IProduct&gt; T createProduct(Class&lt;T&gt; productType) {
+        // TODO Auto-generated method stub
+        IProduct product = null;
+        try {
+            product = productType.newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return (T) product;
+    }
+}
 </code></pre>
 
-<p>这时候，我们发现类C已经提供了实现减法的函数，    <br/>
-Java代码</p>
+<p>这样在使用的时间是方便了不少呢？</p>
 
-<pre><code>public class C{  
-    public int minus(int a,int b){  
-       return a - b;  
-    }  
-}  
+<pre><code>IProduct productA = SimpleProductFactory.createProduct(ProductA.class);
+IProduct productB = SimpleProductFactory.createProduct(ProductB.class);
+productA.sayName();
+productB.sayName();
 </code></pre>
 
-<p>为了避免重复去设计该函数，我们决定引入C类，通过适配C类来达到我们的期望，但问题是A和C都是一个具体类，我们无法让B同时继承这个两个类，而B继承A又是必须的，所以我们只能考虑把C给内聚到B内部，对象适配器又得派上用场了。<br/>
-Java代码</p>
+<h2>抽象工厂</h2>
 
-<pre><code>public class B extends A{  
-    private C c;  
+<p>情况进一步发展，大家对美的追求不断提高。工厂也是需要对自己的产品不断升级的。那就对现有的产品ProductA，ProductB进行升级，各自推出红，蓝两种颜色的产品。那么，我就需要两个工厂了，一个工厂来生产红色产品，一个工厂来生产蓝色产品。 <br/>
+下面，先对产品进行改造：</p>
 
-    B(){  
-        super();  
-        }  
-
-    public void setMinus(C c){  
-        this.c= c;  
-    }  
-
-    public int minus(int a,int b){  
-       return c.minus(a,b);  
-    }  
-}  
+<pre><code>public interface IProduct {
+    public void sayName();
+    public void sayColor();
+}
+public abstract class ProductA implements IProduct {
+    @Override
+    public void sayName() {
+        // TODO Auto-generated method stub
+        System.out.println("I am ProductA");
+    }
+}
+public abstract class ProductB implements IProduct {
+    @Override
+    public void sayName() {
+        System.out.println("I am productB");
+    }
+}
 </code></pre>
 
-<p>这样，在需要A类的地方都能用B类来代替，同时又保证了新的功能的引入。</p>
+<p>哎呀，貌似ProductA，ProductB没什么变化啊！还是有些变化的，都变为<code>abstract</code>了，也就是说他俩都是半成品，还没给上色呢。怎么能实例化，然后往外销售呢，这不坑人，影响工厂形象啊。当然了，没上色，那也没办法<code>sayColor</code>了，鬼知道将会涂成什么颜色。</p>
 
-<p>更灵活的实现&#8211;<strong>隐藏目标接口的抽象适配器</strong></p>
+<p>好吧，有了半成品，现在进行上色操作。</p>
 
-<p>做java 桌面应用的都知道WindowListener接口， <br/>
-Java代码</p>
+<pre><code>public class RedProductA extends ProductA {
+    @Override
+    public void sayColor() {
+        System.out.println("my color is Red!");
+    }
+}
+public class BlueProductA extends ProductA {
+    @Override
+    public void sayColor() {
+        System.out.println("my color is Blue!");
+    }
+}
 
-<pre><code>public interface WindowListener extends EventListener{  
-     public void windowActivated(WindowEvent e)；  
-     public void windowClosed(WindowEvent e)；  
-     public void windowClosing(WindowEvent e)；  
-     public void windowDeactivated(WindowEvent e)；  
-     public void windowDeiconified(WindowEvent e)；  
-     public void windowIconified(WindowEvent e)；  
-     public void windowOpened(WindowEvent e)；  
-}  
+public class RedProductB extends ProductB {
+    @Override
+    public void sayColor() {
+        System.out.println("my color is Red!");
+    }
+}
+public class BlueProductB extends ProductB {
+    @Override
+    public void sayColor() {
+        System.out.println("my color is Blue!");
+    }
+}
 </code></pre>
 
-<p>要实现这个接口，我们就必须实现它所定义的所有方法，但是实际上，我们很少需要同时用到所有的方法，我们要的只是其中的两三个。为了不使我们实现多余的方法，     <br/>
-jdk WindowListener提供了一个WindowListener的默认实现类WindowAdapter类，这是一个抽象类， <br/>
-Java代码</p>
+<p>到此为止，产品定义完成了。  <br/>
+下面就开建工厂了。一个<strong>红色工厂</strong>、一个<strong>蓝色工厂</strong> <br/>
+先来个抽象的：</p>
 
-<pre><code>public abstract class WindowAdapter implements WindowListener{  
-    public void windowActivated(WindowEvent e){}  
-    public void windowClosed(WindowEvent e){}  
-    public void windowClosing(WindowEvent e){}  
-    public void windowDeactivated(WindowEvent e){}  
-    public void windowDeiconified(WindowEvent e){}  
-    public void windowIconified(WindowEvent e){}  
-    public void windowOpened(WindowEvent e){}  
-}  
+<pre><code>public abstract class AbstractProductFactory {
+    public abstract IProduct createProductA();
+
+    public abstract IProduct createProductB();
+}
 </code></pre>
 
-<p>WindowAdapter类对WindowListener接口的所有有方法都提供了空实现，
-有了WindowAdapter类，我们只需要去继承WindowAdapter，然后选择我们所关心的方法来实现就行了，这样就避免了直接去实现WindowListener接口。</p>
+<p>工厂就是为负责生产两种产品的了。</p>
 
-<p>参考文献：<a href="http://chjl2020.iteye.com/blog/262370">http://chjl2020.iteye.com/blog/262370</a></p>
+<pre><code>public class RedProductFactory extends AbstractProductFactory {
+
+    @Override
+    public IProduct createProductA() {
+        return new RedProductA();
+    }
+
+    @Override
+    public IProduct createProductB() {
+        return new RedProductB();
+    }
+}
+
+public class BlueProductFactory  extends AbstractProductFactory{
+    @Override
+    public IProduct createProductA() {
+        return new BlueProductA();
+    }
+
+    @Override
+    public IProduct createProductB() {
+        return new BlueProductB();
+    }
+}
+</code></pre>
+
+<p>那么，通过这两种工厂生产出的产品，不论是A,还是B，颜色铁定是一致的啊。
+使用场景如下：</p>
+
+<pre><code>    RedProductFactory redProductFactory = new RedProductFactory();
+    System.out.println("red factory is producing");
+    IProduct product1 = redProductFactory.createProductA();
+    product1.sayName();
+    product1.sayColor();
+    IProduct product2 = redProductFactory.createProductB();
+    product2.sayName();
+    product2.sayColor();
+
+    BlueProductFactory blueProductFactory = new BlueProductFactory();
+    System.out.println("blue factory is producing");
+    IProduct product3 = blueProductFactory.createProductA();
+    product3.sayName();
+    product3.sayColor();
+    IProduct product4 = blueProductFactory.createProductB();
+    product4.sayName();
+    product4.sayColor();
+</code></pre>
+
+<p>这样两个工厂分别开工了，一个出的产品都是红色的，一个都是蓝色的。这就是<strong>抽象工厂</strong>了。</p>
+
+<hr />
 </div>
 
 
@@ -357,7 +387,7 @@ Java代码</p>
   
 
 
-<time datetime="2012-10-30T21:24:00+08:00" pubdate data-updated="true">2012年10月30日 21:10:00</time>
+<time datetime="2012-11-07T17:43:00+08:00" pubdate data-updated="true">2012年11月07日 17:11:00</time>
       
 
 <span class="categories">
@@ -414,14 +444,10 @@ document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static
     <ul class="pager">
       
       <li class="previous"><a class="basic-alignment left"
-        href="/blog/2012/10/30/travel-in-yunnan/" title="Previous Post:
-        云南之行">&laquo; 云南之行</a></li>
+        href="/blog/2012/11/05/builder-in-java/" title="Previous Post:
+        设计模式：构建者（builder） in java">&laquo; 设计模式：构建者（builder） in java</a></li>
       
       <li><a href="/blog/archives">Blog Archives</a></li>
-      
-      <li class="next"><a class="basic-alignment right" href="/blog/2012/10/30/decorator-in-java/"
-        title="Next Post: 设计模式：装饰器（Decorator）in Java">设计模式：装饰器（Decorator）in Java
-        &raquo;</a></li>
       
     </ul>
   </footer>
@@ -516,8 +542,8 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://www.shenyanchao.cn/blog/2012/10/30/adapter-in-java/';
-        var disqus_url = 'http://www.shenyanchao.cn/blog/2012/10/30/adapter-in-java/';
+        var disqus_identifier = 'http://www.shenyanchao.cn/blog/2012/11/07/factory-in-java/';
+        var disqus_url = 'http://www.shenyanchao.cn/blog/2012/11/07/factory-in-java/';
         var disqus_script = 'embed.js';
       
     (function () {
