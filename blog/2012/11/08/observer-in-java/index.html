@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>设计模式：观察者（observer） in java - Blues 小站</title>
+  <title>设计模式：观察者（Observer） in java - Blues 小站</title>
   <meta name="author" content="ShenYanchao">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.shenyanchao.cn/blog/2012/11/02/observer-in-java">
+  <link rel="canonical" href="http://www.shenyanchao.cn/blog/2012/11/08/observer-in-java">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/bootstrap/bootstrap.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/stylesheets/bootstrap/responsive.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -107,7 +107,7 @@
   ﻿
   <header class="page-header">
     
-      <h1 class="entry-title">设计模式：观察者（observer） in Java</h1>
+      <h1 class="entry-title">设计模式：观察者（Observer） in Java</h1>
     
 	<p class="meta">
     
@@ -124,7 +124,7 @@
   
 
 
-<time datetime="2012-11-02T20:11:00+08:00" pubdate data-updated="true">2012年11月02日 20:11:00</time>
+<time datetime="2012-11-08T18:50:00+08:00" pubdate data-updated="true">2012年11月08日 18:11:00</time>
         
          | <a href="#disqus_thread">我要评论</a>
         
@@ -133,7 +133,100 @@
   </header>
 
 
-<div class="entry-content">
+<div class="entry-content"><p><strong>定义：</strong>又叫发布订阅模式（Publish/subscribe），它定义了对象间的一种一对多的依赖关系，使得每当一个对象改变状态，则所有依赖于它的对象都会得到通知并自动更新。</p>
+
+<blockquote><p>这个定义还是比较通俗易懂的。我看了一遍，发现这不就是微博吗？我发布一条微博，那么所有关注我的人，都会收到通知，然后在新鲜事里显示出来。没错，就是这样！</p></blockquote>
+
+<p>观察者模式有4个角色：</p>
+
+<ul>
+<li>被观察者(Observable):<br/>
+定义被观察者必须实现的职责，动态的增加、删除观察者以及通知观察者</li>
+<li>观察者（Observer）: <br/>
+接收到消息后，进行更新操作</li>
+<li>被观察者(Observable)具体类:<br/>
+定义自己的业务逻辑，并定义哪儿些事件需要通知观察者</li>
+<li>观察者（Observer）具体类：   <br/>
+每个观察者在接收到消息后的更新操作是不同的。</li>
+</ul>
+
+
+<!--more-->
+
+
+<p>在Java中如何实现观察者模式呢？废话，写代码啊！这个我自然知道，更令人惊喜的是JDK自身就提供了对观察者模式的原生支持，我不得不赞叹Java的强大。</p>
+
+<p>Java提供了这样的两个东西：</p>
+
+<ul>
+<li>类<code>java.util.Observable</code>：<br/>
+它内部维护了一个Vector容器，用来放所有的观察者，并且提供了添加、删除观察者的方法。此外，定义了notifyObservers方法，用来通知观察者。</li>
+<li>接口<code>java.util.Observer</code>：
+它定义了一个update方法，让Observer具体类来实现各自的操作。</li>
+</ul>
+
+
+<p>下面，就以微博作为例子吧。<br/>
+先来一个被观察者，也就是我自己了。</p>
+
+<pre><code>public class ShenYanChao extends Observable {
+
+    //业务逻辑,不通知
+    public String getName(){
+        return "shenyanchao";
+    }
+    //发微博，通知
+    public void publishWeibo(String content){
+        System.out.println("我发布1条微博，內容是：["+content+"]");
+        setChanged();
+        notifyObservers(content);
+    }
+}
+</code></pre>
+
+<p>其中，setChanged()用来表明自身的状态变了，否则观察者是不会理的。这个是JDK的限制，其实观察者模式可以不用这个的。</p>
+
+<p>下面就需要定义观察者了，也就是我的粉丝了。</p>
+
+<pre><code>public class Fans implements Observer {
+
+    @Override
+    public void update(Observable o, Object content) {
+        String who = ((ShenYanChao) o).getName();
+        System.out.println("新鲜事:{" + who + "发布了一条微博，内容是：[" + content + "]}");
+    }
+
+}
+</code></pre>
+
+<p>观察者Fans一旦发现我发了1条微博，那么他就会出现一条新鲜事的了。update()的参数，第1个是被观察者，也就是我；第2个就是notifyObservers传过来的参数了，此处是微博内容。</p>
+
+<p>具体场景是这样的：</p>
+
+<pre><code>ShenYanChao shenyanchao = new ShenYanChao();
+final int FANS_NUM = 10;//我的粉丝可不止这些呢
+for (int i = 0; i &lt; FANS_NUM; i++) {
+    shenyanchao.addObserver(new Fans());
+}
+shenyanchao.publishWeibo("欢迎登录：www.shenyanchao.cn");
+</code></pre>
+
+<p>此处模拟，我有10个粉丝，然后我发了1条微博。结果如下：</p>
+
+<pre><code>我发布1条微博，內容是：[欢迎登录：www.shenyanchao.cn]
+新鲜事:{shenyanchao发布了一条微博，内容是：[欢迎登录：www.shenyanchao.cn]}
+新鲜事:{shenyanchao发布了一条微博，内容是：[欢迎登录：www.shenyanchao.cn]}
+新鲜事:{shenyanchao发布了一条微博，内容是：[欢迎登录：www.shenyanchao.cn]}
+新鲜事:{shenyanchao发布了一条微博，内容是：[欢迎登录：www.shenyanchao.cn]}
+新鲜事:{shenyanchao发布了一条微博，内容是：[欢迎登录：www.shenyanchao.cn]}
+新鲜事:{shenyanchao发布了一条微博，内容是：[欢迎登录：www.shenyanchao.cn]}
+新鲜事:{shenyanchao发布了一条微博，内容是：[欢迎登录：www.shenyanchao.cn]}
+新鲜事:{shenyanchao发布了一条微博，内容是：[欢迎登录：www.shenyanchao.cn]}
+新鲜事:{shenyanchao发布了一条微博，内容是：[欢迎登录：www.shenyanchao.cn]}
+新鲜事:{shenyanchao发布了一条微博，内容是：[欢迎登录：www.shenyanchao.cn]}
+</code></pre>
+
+<p>可见，一旦我发了微博，所有的观察者（Fans）都收到了。</p>
 </div>
 
 
@@ -156,7 +249,7 @@
   
 
 
-<time datetime="2012-11-02T20:11:00+08:00" pubdate data-updated="true">2012年11月02日 20:11:00</time>
+<time datetime="2012-11-08T18:50:00+08:00" pubdate data-updated="true">2012年11月08日 18:11:00</time>
       
 
 <span class="categories">
@@ -213,14 +306,10 @@ document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static
     <ul class="pager">
       
       <li class="previous"><a class="basic-alignment left"
-        href="/blog/2012/11/02/null-object-in-java/" title="Previous Post:
-        设计模式：空对象（null object） in java">&laquo; 设计模式：空对象（null object） in java</a></li>
+        href="/blog/2012/11/08/iterator-in-java/" title="Previous Post:
+        设计模式：迭代器（Iterator） in java">&laquo; 设计模式：迭代器（Iterator） in java</a></li>
       
       <li><a href="/blog/archives">Blog Archives</a></li>
-      
-      <li class="next"><a class="basic-alignment right" href="/blog/2012/11/02/state-in-java/"
-        title="Next Post: 设计模式：状态（state） in java">设计模式：状态（state） in java
-        &raquo;</a></li>
       
     </ul>
   </footer>
@@ -231,6 +320,10 @@ document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static
     ﻿<section class="well">
   <ul id="recent_posts" class="nav nav-list">
     <li class="nav-header">最近更新</li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/08/observer-in-java/">设计模式：观察者（Observer） in java</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2012/11/08/iterator-in-java/">设计模式：迭代器（Iterator） in java</a>
@@ -246,10 +339,6 @@ document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static
     
       <li class="post">
         <a href="/blog/2012/11/07/facade-in-java/">设计模式：门面（Facade） in java</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/11/07/template-method-in-java/">设计模式：模板方法（template method） in java</a>
       </li>
     
   </ul>
@@ -315,8 +404,8 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://www.shenyanchao.cn/blog/2012/11/02/observer-in-java/';
-        var disqus_url = 'http://www.shenyanchao.cn/blog/2012/11/02/observer-in-java/';
+        var disqus_identifier = 'http://www.shenyanchao.cn/blog/2012/11/08/observer-in-java/';
+        var disqus_url = 'http://www.shenyanchao.cn/blog/2012/11/08/observer-in-java/';
         var disqus_script = 'embed.js';
       
     (function () {
