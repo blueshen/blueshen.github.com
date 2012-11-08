@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 设计模式 | Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/blog/categories/设计模式/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2012-11-08T15:01:57+08:00</updated>
+  <updated>2012-11-08T16:50:45+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -12,6 +12,133 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[设计模式：迭代器（Iterator） in java]]></title>
+    <link href="http://www.shenyanchao.cn/blog/2012/11/08/iterator-in-java/"/>
+    <updated>2012-11-08T16:50:00+08:00</updated>
+    <id>http://www.shenyanchao.cn/blog/2012/11/08/iterator-in-java</id>
+    <content type="html"><![CDATA[<p><strong>定义：</strong>迭代器模式提供了一种方法来访问一个容器对象种的各个元素，而又不暴露这个对象的内部细节。</p>
+
+<blockquote><p>在Java中已经默认提供了Iterator支持，各种容器类都进行了实现，而事实上，迭代器模式就是为了解决如何遍历这些容器里的元素而诞生的。</p></blockquote>
+
+<p><strong>迭代器模式</strong>主要有以下的角色：</p>
+
+<ul>
+<li>Iterator抽象迭代器： <br/>
+负责定义访问与遍历元素的接口。基本有3个固定的方法<code>hasNext()</code>,<code>next()</code>,<code>remove()</code>;</li>
+<li>Concrete Iterator具体迭代器：  <br/>
+迭代器的实现类，实现接口，完成元素遍历。</li>
+<li>Aggregate抽象容器： <br/>
+定义创建具体迭代器的接口。在Java种一般是<code>iterator()</code>方法。</li>
+<li>Concrete Aggregate具体容器：<br/>
+实现创建迭代器接口，返回迭代器实例对象。</li>
+</ul>
+
+
+<!--more-->
+
+
+<p>为了方便，下面就直接以ArrayList为例，来看看迭代器是如何实现的吧。<br/>
+在使用时，通常这样对ArrayList进行遍历：</p>
+
+<pre><code>    List&lt;String&gt; list = new ArrayList&lt;String&gt;();
+    list.add("first");
+    list.add("second");
+    Iterator&lt;String&gt; itr = list.iterator();
+    while (itr.hasNext()) {
+        String element = itr.next();
+        System.out.println(element);
+    }
+</code></pre>
+
+<p>从这里，我们可以看出来，这就是完全的迭代器模式。<br/>
+首先来看，Iterator接口（java.util.Iterator）：</p>
+
+<pre><code>public interface Iterator&lt;E&gt; {
+
+    boolean hasNext();
+
+    E next();
+
+    void remove();
+}
+</code></pre>
+
+<p>然后是Iterator的具体实现类(java.util.AbstractList<E>$Itr)：</p>
+
+<pre><code>private class Itr implements Iterator&lt;E&gt; {
+
+    int cursor = 0;
+
+    int lastRet = -1;
+
+    int expectedModCount = modCount;
+
+    public boolean hasNext() {
+        return cursor != size();
+    }
+
+    public E next() {
+        checkForComodification();
+        try {
+        E next = get(cursor);
+        lastRet = cursor++;
+        return next;
+        } catch (IndexOutOfBoundsException e) {
+            checkForComodification();
+            throw new NoSuchElementException();
+        }
+    }
+
+    public void remove() {
+        if (lastRet == -1)
+        throw new IllegalStateException();
+            checkForComodification();
+
+        try {
+            AbstractList.this.remove(lastRet);
+        if (lastRet &lt; cursor)
+            cursor--;
+        lastRet = -1;
+        expectedModCount = modCount;
+        } catch (IndexOutOfBoundsException e) {
+            throw new ConcurrentModificationException();
+        }
+    }
+
+    final void checkForComodification() {
+        if (modCount != expectedModCount)
+            throw new ConcurrentModificationException();
+    }
+}
+</code></pre>
+
+<p>这个就是具体的Iterator了，当然还有另外一个ListItr extends Itr，这个是专门针对List进行操作的。 <br/>
+那么Aggregate接口对应的是哪个呢？就是<code>java.util.AbstractCollection&lt;E&gt;</code> ，它里面定义了这样的一个接口：</p>
+
+<pre><code>...
+/**
+ * Returns an iterator over the elements contained in this collection.
+ *
+ * @return an iterator over the elements contained in this collection
+ */
+public abstract Iterator&lt;E&gt; iterator();
+...
+</code></pre>
+
+<p>那么具体实现是在哪儿？<code>java.util.AbstractList&lt;E&gt;</code>做了实现。</p>
+
+<pre><code>    public Iterator&lt;E&gt; iterator() {
+        return new Itr();
+    }
+</code></pre>
+
+<p>返回了一个具体的迭代器实例。而ArrayList,LinkedList都是继承AbstractList的，因此自动具有了返回迭代器实例的功能。</p>
+
+<p>因此，Java种的容器类只负责元素的的维护就好了。访问就教给迭代器吧，Java做的如此完善，以至于我们都不必再自己写Iterator了。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[设计模式：命令（Command） in java]]></title>
@@ -320,260 +447,6 @@ java.util.AbstractList, java.util.AbstractSet and java.util.AbstractMap
 </code></pre>
 
 <p>都默认返回一个<code>SC_METHOD_NOT_ALLOWED</code>类似的错误码，或者代码，要想使用，只有继承并且重写这些方法。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[设计模式:工厂（factory） in java]]></title>
-    <link href="http://www.shenyanchao.cn/blog/2012/11/07/factory-in-java/"/>
-    <updated>2012-11-07T17:43:00+08:00</updated>
-    <id>http://www.shenyanchao.cn/blog/2012/11/07/factory-in-java</id>
-    <content type="html"><![CDATA[<p>工厂模式，直接按名字来说，就是负责专门生产产品的。 <br/>
-大致分为3类：</p>
-
-<ul>
-<li>工厂方法</li>
-<li>简单工厂</li>
-<li>抽象工厂</li>
-</ul>
-
-
-<p>同时，也有人认为简单工厂只是工厂方法的一种特列，那么就分为两种了。本文就按3种分别进行介绍了。</p>
-
-<h3>工厂方法</h3>
-
-<p><strong>定义：</strong>定义一个用于创建对象的接口，让子类决定实例化哪一个类。工厂方法让一个类的实例化延迟到其子类。</p>
-
-<!--more-->
-
-
-<p>简单的说，就是有一个抽象类定义了一个方法，而实现类来决定到底初始化那个实例。这些实例，就是一个个产品了。 <br/>
-产品接口（主要是考虑面向接口变成吧，个人感觉不要也行，对理解模式没有影响）：</p>
-
-<pre><code>public interface IProduct {
-    public void sayName();
-}
-</code></pre>
-
-<p>下面呢，假设有两种产品：</p>
-
-<pre><code>public class ProductA implements IProduct {
-    @Override
-    public void sayName() {
-        // TODO Auto-generated method stub
-        System.out.println("I am ProductA");
-    }
-}
-public class ProductB implements IProduct {
-    @Override
-    public void sayName() {
-        System.out.println("I am productB");
-    }
-}
-</code></pre>
-
-<p>有了产品定义，那么下面就要建一个工厂了，怎么建呢？依据定义来说，首先要定义一个接口了：</p>
-
-<pre><code>public abstract class AbstractProductFactory {
-    public abstract &lt;T extends IProduct&gt; T createProduct(
-        Class&lt;T&gt; productType);
-}
-</code></pre>
-
-<p>下面就是一个子类了，也就是具体负责初始化实例的工厂了。</p>
-
-<pre><code>public class ProductFactory extends AbstractProductFactory {
-
-    @Override
-    public &lt;T extends IProduct&gt; T createProduct(Class&lt;T&gt; productType) {
-        // TODO Auto-generated method stub
-        IProduct product = null;
-        try {
-            product = productType.newInstance();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        return (T) product;
-    }
-}
-</code></pre>
-
-<p>如何生成不同的产品呢，本例是根据传入的不同的类，来返回不同的实例的。当然了也可以用一个标识符了,如果传入的是“A”那么返回一个ProductA。诸如此类，这就是工厂方法了。<br/>
-具体使用时，是这样的：</p>
-
-<pre><code>ProductFactory productFactory = new ProductFactory();
-IProduct productA = productFactory.createProduct(ProductA.class);
-IProduct productB = productFactory.createProduct(ProductB.class);
-productA.sayName();
-productB.sayName();
-</code></pre>
-
-<h2>简单工厂</h2>
-
-<p>简单工厂，可以说是工厂方法的一种扩展。上例中，发现在使用<code>ProductFactory</code>的时候，还需要先实例化一个。怎么那么麻烦呢？就像在实际生活中，我想要某个产品，我还需要先建一个工厂是一个道理的。</p>
-
-<p>还好，Java提供了这样一个关键字<code>static</code>,简单工厂类就变成这个样子了。</p>
-
-<pre><code>public class SimpleProductFactory {
-
-    public static &lt;T extends IProduct&gt; T createProduct(Class&lt;T&gt; productType) {
-        // TODO Auto-generated method stub
-        IProduct product = null;
-        try {
-            product = productType.newInstance();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        return (T) product;
-    }
-}
-</code></pre>
-
-<p>这样在使用的时间是方便了不少呢？</p>
-
-<pre><code>IProduct productA = SimpleProductFactory.createProduct(ProductA.class);
-IProduct productB = SimpleProductFactory.createProduct(ProductB.class);
-productA.sayName();
-productB.sayName();
-</code></pre>
-
-<h2>抽象工厂</h2>
-
-<p>情况进一步发展，大家对美的追求不断提高。工厂也是需要对自己的产品不断升级的。那就对现有的产品ProductA，ProductB进行升级，各自推出红，蓝两种颜色的产品。那么，我就需要两个工厂了，一个工厂来生产红色产品，一个工厂来生产蓝色产品。 <br/>
-下面，先对产品进行改造：</p>
-
-<pre><code>public interface IProduct {
-    public void sayName();
-    public void sayColor();
-}
-public abstract class ProductA implements IProduct {
-    @Override
-    public void sayName() {
-        // TODO Auto-generated method stub
-        System.out.println("I am ProductA");
-    }
-}
-public abstract class ProductB implements IProduct {
-    @Override
-    public void sayName() {
-        System.out.println("I am productB");
-    }
-}
-</code></pre>
-
-<p>哎呀，貌似ProductA，ProductB没什么变化啊！还是有些变化的，都变为<code>abstract</code>了，也就是说他俩都是半成品，还没给上色呢。怎么能实例化，然后往外销售呢，这不坑人，影响工厂形象啊。当然了，没上色，那也没办法<code>sayColor</code>了，鬼知道将会涂成什么颜色。</p>
-
-<p>好吧，有了半成品，现在进行上色操作。</p>
-
-<pre><code>public class RedProductA extends ProductA {
-    @Override
-    public void sayColor() {
-        System.out.println("my color is Red!");
-    }
-}
-public class BlueProductA extends ProductA {
-    @Override
-    public void sayColor() {
-        System.out.println("my color is Blue!");
-    }
-}
-
-public class RedProductB extends ProductB {
-    @Override
-    public void sayColor() {
-        System.out.println("my color is Red!");
-    }
-}
-public class BlueProductB extends ProductB {
-    @Override
-    public void sayColor() {
-        System.out.println("my color is Blue!");
-    }
-}
-</code></pre>
-
-<p>到此为止，产品定义完成了。  <br/>
-下面就开建工厂了。一个<strong>红色工厂</strong>、一个<strong>蓝色工厂</strong> <br/>
-先来个抽象的：</p>
-
-<pre><code>public abstract class AbstractProductFactory {
-    public abstract IProduct createProductA();
-
-    public abstract IProduct createProductB();
-}
-</code></pre>
-
-<p>工厂就是为负责生产两种产品的了。</p>
-
-<pre><code>public class RedProductFactory extends AbstractProductFactory {
-
-    @Override
-    public IProduct createProductA() {
-        return new RedProductA();
-    }
-
-    @Override
-    public IProduct createProductB() {
-        return new RedProductB();
-    }
-}
-
-public class BlueProductFactory  extends AbstractProductFactory{
-    @Override
-    public IProduct createProductA() {
-        return new BlueProductA();
-    }
-
-    @Override
-    public IProduct createProductB() {
-        return new BlueProductB();
-    }
-}
-</code></pre>
-
-<p>那么，通过这两种工厂生产出的产品，不论是A,还是B，颜色铁定是一致的啊。
-使用场景如下：</p>
-
-<pre><code>    RedProductFactory redProductFactory = new RedProductFactory();
-    System.out.println("red factory is producing");
-    IProduct product1 = redProductFactory.createProductA();
-    product1.sayName();
-    product1.sayColor();
-    IProduct product2 = redProductFactory.createProductB();
-    product2.sayName();
-    product2.sayColor();
-
-    BlueProductFactory blueProductFactory = new BlueProductFactory();
-    System.out.println("blue factory is producing");
-    IProduct product3 = blueProductFactory.createProductA();
-    product3.sayName();
-    product3.sayColor();
-    IProduct product4 = blueProductFactory.createProductB();
-    product4.sayName();
-    product4.sayColor();
-</code></pre>
-
-<p>这样两个工厂分别开工了，一个出的产品都是红色的，一个都是蓝色的。这就是<strong>抽象工厂</strong>了。</p>
-
-<h2>工厂模式 in JDK</h2>
-
-<pre><code>Class.forName(String className);   
-</code></pre>
-
-<p>这种应该就是简单工厂的典型了。依据不同的className来生产相应的对象，只不过这里是Class对象了，不要混淆。</p>
-
-<pre><code>javax.xml.parsers.DocumentBuilderFactory#newInstance()
-javax.xml.transform.TransformerFactory#newInstance()
-javax.xml.xpath.XPathFactory#newInstance()
-</code></pre>
-
-<p>这几个为什么就是抽象工厂了呢？不理解。高人指点。</p>
-
-<hr />
 ]]></content>
   </entry>
   
