@@ -4,7 +4,7 @@ title: "markdown 工具"
 date: 2012-09-21 18:37
 comments: true
 categories: markdown
-tags: [ MarkDownPad, 编辑器 ]
+tags: [ MarkDownPad ]
 ---
 ---
 这个工具不错！可以很好的用来快速的对博客进行排版。  

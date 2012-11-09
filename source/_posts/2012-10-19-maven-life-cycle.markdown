@@ -4,7 +4,7 @@ title: "maven生命周期详解"
 date: 2012-10-19 22:21
 comments: true
 categories: maven
-tags: [ maven, 生命周期, LifeCycle, 命令 ]
+tags: [ 配置, maven, LifeCycle, 生命周期 ]
 ---
 Maven强大的一个重要的原因是它有一个十分完善的生命周期模型(lifecycle)，这个生命周期可以从两方面来理解，第一，顾名思义，运行Maven的每个步骤都由它来定义的，这种预定义的默认行为使得我们使用Maven变得简单，相比而言，Ant的每个步骤都要你手工去定义。第二，这个模型是一种标准，在不同的项目中，使用Maven的接口是一样的，这样就不用去仔细理解每个项目的构建了，一般情况下，mvn clean install 这样的命令是通用的。我想，一定是吸收了许多项目的经验，Maven才能定义出如此完善的模型。   
 <!--more-->  

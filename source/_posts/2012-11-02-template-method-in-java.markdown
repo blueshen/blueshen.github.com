@@ -4,7 +4,7 @@ title: "设计模式：模板方法（template method） in java"
 date: 2012-11-07 19:30
 comments: true
 categories: 设计模式
-tags: [ Java, 设计模式, 模板方法, template, 大象 ]
+tags: [ Java, template method ]
 ---
 **定义：**定义一个操作中的算法的框架，而将一些步骤延迟到子类中。使得子类可以不改变一个算法的结构即可重定义这个算法的某些特定步骤。   
 简单的说，就是你首先定义一下算法的各部分之间的执行顺序或者调用关系，然后在子类中实现具体每一部分是如何实现的。   

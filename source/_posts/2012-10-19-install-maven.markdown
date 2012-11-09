@@ -4,7 +4,7 @@ title: "安装配置Maven"
 date: 2012-10-19 23:40
 comments: true
 categories: maven
-tags: [ maven, 安装, 配置 ]
+tags: [ maven, install, config ]
 ---
 ## Maven安装	
 1.下载Maven：从[Maven官方](http://maven.apache.org/download.html)下载,并解压。比如解压到：D:\apache-maven-3.0.4     

@@ -4,7 +4,7 @@ title: "设计模式：门面（Facade） in java"
 date: 2012-11-07 20:00
 comments: true
 categories: 设计模式
-tags: [ Java, 设计模式, 门面模式, Facade, slf4j ]
+tags: [ Java, Facade, slf4j ]
 ---
 **定义：**为子系统中的一组接口提供一个一致的界面，Facade模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。   
 就是说，Facade提供了一个统一的接口，掩盖下层系统的复杂性，用户用起来更加的方便。

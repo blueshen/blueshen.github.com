@@ -4,7 +4,7 @@ title: "apache mpm介绍[转]"
 date: 2012-10-12 12:45
 comments: true
 categories: apache
-tags: [ apache, mpm, 服务器, worker, perfork ]
+tags: [ apache , mpm , worker , perfork  ]
 ---
 ##什么是MPM？ 
 

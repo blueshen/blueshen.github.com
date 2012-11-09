@@ -4,7 +4,7 @@ title: "设计模式：单例（singleton） in java"
 date: 2012-11-02 18:47
 comments: true
 categories: 设计模式
-tags: [ Java, 设计模式, 单例模式, singleton, 多线程, 安全 ]
+tags: [ Java, singleton ]
 ---
 ###概要###
 单例模式是最简单的设计模式之一，但是对于Java的开发者来说，它却有很多缺陷。在本月的专栏中，David Geary探讨了单例模式以及在面对多线程（multithreading)、类装载器（classloaders）和序列化(serialization)时如何处理这些缺陷。    

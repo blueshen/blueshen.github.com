@@ -4,7 +4,7 @@ title: "PMD静态代码检查"
 date: 2012-10-11 11:20
 comments: true
 categories: maven
-tags: [ pmd, 静态代码检查, maven, eclipse ]
+tags: [ pmd, maven, eclipse ]
 ---
 
 ##一 maven插件：maven-pmd-plugin##
