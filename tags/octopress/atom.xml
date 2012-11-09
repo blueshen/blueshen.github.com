@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[分类：个人 | Blues 小站]]></title>
-  <link href="http://www.shenyanchao.cn/blog/categories/个人/atom.xml" rel="self"/>
+  <title><![CDATA[Tag: octopress | Blues 小站]]></title>
+  <link href="http://www.shenyanchao.cn/tags/octopress/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
   <updated>2012-11-09T16:56:47+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
@@ -12,21 +12,6 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[云南之行]]></title>
-    <link href="http://www.shenyanchao.cn/blog/2012/10/30/travel-in-yunnan/"/>
-    <updated>2012-10-30T17:47:00+08:00</updated>
-    <id>http://www.shenyanchao.cn/blog/2012/10/30/travel-in-yunnan</id>
-    <content type="html"><![CDATA[<h2>拉市海</h2>
-
-<p>我是有多胖，真得减肥了！</p>
-
-<p><img src="/images/blog/psb.jpg" alt="" /></p>
-
-<hr />
-]]></content>
-  </entry>
   
   <entry>
     <title type="html"><![CDATA[我的第一篇中文博客]]></title>
