@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Tag: MarkDownPad | Blues 小站]]></title>
+  <link href="http://www.shenyanchao.cn/tags/markdownpad/atom.xml" rel="self"/>
+  <link href="http://www.shenyanchao.cn/"/>
+  <updated>2012-11-09T21:10:26+08:00</updated>
+  <id>http://www.shenyanchao.cn/</id>
+  <author>
+    <name><![CDATA[ShenYanchao]]></name>
+    <email><![CDATA[zhiyi.shen@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[markdown 工具]]></title>
+    <link href="http://www.shenyanchao.cn/blog/2012/09/21/markpad-tools/"/>
+    <updated>2012-09-21T18:37:00+08:00</updated>
+    <id>http://www.shenyanchao.cn/blog/2012/09/21/markpad-tools</id>
+    <content type="html"><![CDATA[<hr />
+
+<p>这个工具不错！可以很好的用来快速的对博客进行排版。<br/>
+编辑器推荐: <a href="http://markdownpad.com/">MarkDownPad</a></p>
+
+<p>@<a href="http://www.shenyanchao.cn" title="shenyanchao">Blues小站</a>就是使用这种工具进行排版的</p>
+
+<hr />
+]]></content>
+  </entry>
+  
+</feed>
