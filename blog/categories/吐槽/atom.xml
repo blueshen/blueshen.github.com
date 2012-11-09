@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: 吐槽 | Blues 小站]]></title>
+  <title><![CDATA[分类：吐槽 | Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/blog/categories/吐槽/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2012-11-09T11:39:13+08:00</updated>
+  <updated>2012-11-09T12:03:36+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
-    
+    <email><![CDATA[zhiyi.shen@gmail.com]]></email>
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
