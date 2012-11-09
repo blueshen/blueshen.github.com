@@ -4,6 +4,7 @@ title: "设计模式:工厂（factory） in java"
 date: 2012-11-07 17:43
 comments: true
 categories: 设计模式
+tags: [ Java, 设计模式, 工厂模式, Factory, 工厂方法, 简单工厂, 抽象工厂 ]
 ---
 工厂模式，直接按名字来说，就是负责专门生产产品的。   
 大致分为3类： 

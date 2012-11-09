@@ -4,6 +4,7 @@ title: "什么是BOM(Byte Order Mark)?"
 date: 2012-10-23 17:05
 comments: true
 categories: encode
+tags: [ 字符集, 编码, UTF8, encode, BOM, XML ]
 ---
 ###引子###
 在使用诸如UltraEditor,NotePad++等编辑工具时，经常会遇到encode进行转换的情况。以NotePad++为例，一篇ASCII编码的文本，通过菜单栏Encoding->convert to **进行编码格式的转换。我却发现一个奇怪的问题，下拉框里有这样两个选项：

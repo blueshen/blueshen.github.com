@@ -4,6 +4,7 @@ title: "提高selenium自动化的稳定性2-等待"
 date: 2012-10-11 14:32
 comments: true
 categories: selenium
+tags: [ webdriver, selenium, 稳定性, 等待, 元素查找 ]
 ---
 ##很多页面元素都是ajax动态生成的，这就要求进行适当的等待##
 ##如何进行等待呢？##

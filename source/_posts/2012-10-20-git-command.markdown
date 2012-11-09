@@ -4,6 +4,7 @@ title: "Git 命令"
 date: 2012-10-20 10:56
 comments: true
 categories: git
+tags: [ git, 命令, 图片, command ]
 ---
 ##Git 命令结构图：  
  

@@ -4,6 +4,7 @@ title: "Selenium WebDriver的多浏览器支持"
 date: 2012-10-12 14:56
 comments: true
 categories: selenium
+tags: [ webdriver, selenium, 多浏览器, Firefox, Chrome, Driver ]
 ---
 ##Selenium WebDriver支持哪儿些浏览器？
 按照官方文档的说法，现阶段有以下的drivers: 

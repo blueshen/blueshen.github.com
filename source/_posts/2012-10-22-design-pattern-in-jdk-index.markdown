@@ -4,6 +4,7 @@ title: "23个经典JDK设计模式"
 date: 2012-10-22 20:49
 comments: true
 categories: 设计模式
+tags: [ 设计模式, JDK, 23 ]
 ---
 
 下面是JDK中有关23个经典设计模式的示例：

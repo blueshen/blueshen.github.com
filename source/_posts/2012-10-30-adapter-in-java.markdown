@@ -4,6 +4,7 @@ title: "设计模式：适配器（Adapter）in Java"
 date: 2012-10-30 21:24
 comments: true
 categories: 设计模式
+tags: [ Java, 设计模式, 适配器 ]
 ---
 **类适配器**:客户的开发人员定义了一个接口，期望用这个接口来完成整数的求和操作，接口定义如下：     
 Java代码    

@@ -4,6 +4,7 @@ title: "Selenium WebDriver 工作原理"
 date: 2012-11-02 18:26
 comments: true
 categories: selenium
+tags: [ webdriver, selenium, 浏览器, 原理 ]
 ---
 WebDriver与之前Selenium的JS注入实现不同，直接利用了浏览器native support来操作浏览器。所以对于不同平台，不同的浏览器，必须依赖一个特定的浏览器的native component来实现把WebDriver API的调用转化为浏览器的native invoke。   
 <!--more-->

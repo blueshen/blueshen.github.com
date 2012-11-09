@@ -14,13 +14,14 @@ single: true
       {% include post/author.html %}
       {% include post/date.html %}{% if updated %}{{ updated }}{% else %}{{ time }}{% endif %}
       {% include post/categories.html %}
+	  {% include post/tags.html %}
     </p>
     {% unless page.sharing == false %}
       {% include post/sharing.html %}
     {% endunless %}
     {% if site.disqus_short_name and page.comments == true %}
     <section>
-      <h1>Comments</h1>
+      <h1>讨论区</h1>
       <div id="disqus_thread" aria-live="polite">{% include post/disqus_thread.html %}</div>
     </section>
     {% endif %}
@@ -30,7 +31,7 @@ single: true
         href="{{page.previous.url}}" title="Previous Post:
         {{page.previous.title}}">&laquo; {{page.previous.title}}</a></li>
       {% endif %}
-      <li><a href="/blog/archives">Blog Archives</a></li>
+      <li><a href="/blog/archives">博客</a></li>
       {% if page.next.url %}
       <li class="next"><a class="basic-alignment right" href="{{page.next.url}}"
         title="Next Post: {{page.next.title}}">{{page.next.title}}

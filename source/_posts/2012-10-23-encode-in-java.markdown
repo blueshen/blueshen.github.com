@@ -4,6 +4,7 @@ title: "Java字符编码及其使用详解"
 date: 2012-10-23 18:58
 comments: true
 categories: encode Java
+tags: [ Java, 乱码, class, 内码, String, 转码, encode ]
 ---
 ##Java的编译存储##
 Java是跨平台的一种语言，这一概念想必已经深入人心。Java是如何实现跨平台的呢?其中起到重大作用的便是Unicode编码。在使用IDE进行开发时，比如ECLIPSE,IDEA等，可以指定源文件（.java）的编码格式，此处的编码格式是指Java文件自身的编码。Java文件可以用各种编码进行存储，考虑到兼容中文字符，大多采用GBK,UTF-8,GB18030等编码格式。但是经过javac命令编译后，生成的.class文件毫无疑问都是Unicode编码。这样在class被加载进JVM后，所有的对象都是Unicode进行编码的，这确保了Java的跨平台特性。  
