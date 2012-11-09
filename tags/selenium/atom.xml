@@ -1,0 +1,685 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Tag: selenium | Blues 小站]]></title>
+  <link href="http://www.shenyanchao.cn/tags/selenium/atom.xml" rel="self"/>
+  <link href="http://www.shenyanchao.cn/"/>
+  <updated>2012-11-09T23:24:14+08:00</updated>
+  <id>http://www.shenyanchao.cn/</id>
+  <author>
+    <name><![CDATA[ShenYanchao]]></name>
+    <email><![CDATA[zhiyi.shen@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Selenium WebDriver 工作原理]]></title>
+    <link href="http://www.shenyanchao.cn/blog/2012/11/02/how-webdriver-works/"/>
+    <updated>2012-11-02T18:26:00+08:00</updated>
+    <id>http://www.shenyanchao.cn/blog/2012/11/02/how-webdriver-works</id>
+    <content type="html"><![CDATA[<p>WebDriver与之前Selenium的JS注入实现不同，直接利用了浏览器native support来操作浏览器。所以对于不同平台，不同的浏览器，必须依赖一个特定的浏览器的native component来实现把WebDriver API的调用转化为浏览器的native invoke。</p>
+
+<!--more-->
+
+
+<p>在我们new一个WebDriver的过程中，Selenium首先会确认浏览器的native component是否存在可用而且版本匹配。接着就在目标浏览器里启动一整套Web Service，这套Web Service使用了Selenium自己设计定义的协议，名字叫做The WebDriver Wire Protocol。这套协议非常之强大，几乎可以操作浏览器做任何事情，包括打开、关闭、最大化、最小化、元素定位、元素点击、上传文件等等等等。</p>
+
+<p>WebDriver Wire协议是通用的，也就是说不管是FirefoxDriver还是ChromeDriver，启动之后都会在某一个端口启动基于这套协议的Web Service。例如FirefoxDriver初始化成功之后，默认会从http://localhost:7055开始，而ChromeDriver则大概是http://localhost:46350之类的。接下来，我们调用WebDriver的任何API，都需要借助一个ComandExecutor发送一个命令，实际上是一个HTTP request给监听端口上的Web Service。在我们的HTTP request的body中，会以WebDriver Wire协议规定的JSON格式的字符串来告诉Selenium我们希望浏览器接下来做社么事情。</p>
+
+<p>WebDriver的工作原理图：</p>
+
+<p><img src="/images/blog/webdriver-works.png" alt="WebDriver工作原理图" /></p>
+
+<p>从上图中我们可以看出，不同浏览器的WebDriver子类，都需要依赖特定的浏览器原生组件，例如Firefox就需要一个add-on名字叫webdriver.xpi。而IE的话就需要用到一个dll文件来转化Web Service的命令为浏览器native的调用。另外，图中还标明了WebDriver Wire协议是一套基于RESTful的web service。</p>
+
+<p>关于WebDriver Wire协议的细节，比如希望了解这套Web Service能够做哪些事情，可以阅读Selenium官方的协议文档， 在Selenium的源码中，我们可以找到一个HttpCommandExecutor这个类，里面维护了一个Map&lt;String, CommandInfo>，它负责将一个个代表命令的简单字符串key，转化为相应的URL，因为REST的理念是将所有的操作视作一个个状态，每一个状态对应一个URI。所以当我们以特定的URL发送HTTP request给这个RESTful web service之后，它就能解析出需要执行的操作。截取一段源码如下：</p>
+
+<pre><code>nameToUrl = ImmutableMap.&lt;String, CommandInfo&gt;builder()  
+    .put(NEW_SESSION, post("/session"))  
+    .put(QUIT, delete("/session/:sessionId"))  
+    .put(GET_CURRENT_WINDOW_HANDLE, get("/session/:sessionId/window_handle"))  
+    .put(GET_WINDOW_HANDLES, get("/session/:sessionId/window_handles"))  
+    .put(GET, post("/session/:sessionId/url"))  
+        // The Alert API is still experimental and should not be used.  
+    .put(GET_ALERT, get("/session/:sessionId/alert"))  
+    .put(DISMISS_ALERT, post("/session/:sessionId/dismiss_alert"))  
+    .put(ACCEPT_ALERT, post("/session/:sessionId/accept_alert"))  
+    .put(GET_ALERT_TEXT, get("/session/:sessionId/alert_text"))  
+    .put(SET_ALERT_VALUE, post("/session/:sessionId/alert_text"))  
+</code></pre>
+
+<p>可以看到实际发送的URL都是相对路径，后缀多以/session/:sessionId开头，这也意味着WebDriver每次启动浏览器都会分配一个独立的sessionId，多线程并行的时候彼此之间不会有冲突和干扰。例如我们最常用的一个WebDriver的API，getWebElement在这里就会转化为/session/:sessionId/element这个URL，然后在发出的HTTP request body内再附上具体的参数比如by ID还是CSS还是Xpath，各自的值又是什么。收到并执行了这个操作之后，也会回复一个HTTP response。内容也是JSON，会返回找到的WebElement的各种细节，比如text、CSS selector、tag name、class name等等。以下是解析我们说的HTTP response的代码片段：</p>
+
+<pre><code>try {  
+    response = new JsonToBeanConverter().convert(Response.class, responseAsText);  
+  } catch (ClassCastException e) {  
+    if (responseAsText != null &amp;&amp; "".equals(responseAsText)) {  
+      // The remote server has died, but has already set some headers.  
+      // Normally this occurs when the final window of the firefox driver  
+      // is closed on OS X. Return null, as the return value _should_ be  
+      // being ignored. This is not an elegant solution.  
+      return null;  
+    }  
+    throw new WebDriverException("Cannot convert text to response: " + responseAsText, e);  
+  } //...  
+</code></pre>
+
+<p>相信总结道这里，应该对WebDriver的运行原理应该清楚了！其实挺佩服这一套RESTful web service的设计。</p>
+
+<p>原文：<a href="http://blog.csdn.net/ant_yan/article/details/7970793">http://blog.csdn.net/ant_yan/article/details/7970793</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[xpath 详解]]></title>
+    <link href="http://www.shenyanchao.cn/blog/2012/10/20/xpath/"/>
+    <updated>2012-10-20T10:43:00+08:00</updated>
+    <id>http://www.shenyanchao.cn/blog/2012/10/20/xpath</id>
+    <content type="html"><![CDATA[<div id="intro">
+<p><strong>XPath 使用路径表达式来选取 XML 文档中的节点或节点集。节点是通过沿着路径 (path) 或者步 (steps) 来选取的。</strong></p>
+</div>
+
+
+
+
+<div>
+<h2>XML 实例文档</h2>
+<p>我们将在下面的例子中使用这个 XML 文档。</p>
+<pre>&lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot;?&gt;
+
+&lt;bookstore&gt;
+
+&lt;book&gt;
+  &lt;title lang=&quot;eng&quot;&gt;Harry Potter&lt;/title&gt;
+  &lt;price&gt;29.99&lt;/price&gt;
+&lt;/book&gt;
+
+&lt;book&gt;
+  &lt;title lang=&quot;eng&quot;&gt;Learning XML&lt;/title&gt;
+  &lt;price&gt;39.95&lt;/price&gt;
+&lt;/book&gt;
+
+&lt;/bookstore&gt;</pre>
+</div>
+
+
+<!--more-->
+
+
+
+
+<div>
+<h2>选取节点</h2>
+
+<p>XPath 使用路径表达式在 XML 文档中选取节点。节点是通过沿着路径或者 step 来选取的。</p>
+
+<h3>下面列出了最有用的路径表达式：</h3>
+
+<table class="dataintable">
+<tr>
+<th style="width:25%;">表达式</th>
+<th>描述</th>
+</tr>
+
+<tr>
+<td>nodename</td>
+<td>选取此节点的所有子节点。</td>
+</tr>
+
+<tr>
+<td>/</td>
+<td>从根节点选取。</td>
+</tr>
+
+<tr>
+<td>//</td>
+<td>从匹配选择的当前节点选择文档中的节点，而不考虑它们的位置。</td>
+</tr>
+
+<tr>
+<td>.</td>
+<td>选取当前节点。</td>
+</tr>
+
+<tr>
+<td>..</td>
+<td>选取当前节点的父节点。</td>
+</tr>
+
+<tr>
+<td>@</td>
+<td>选取属性。</td>
+</tr>
+</table>
+
+<h3>实例</h3>
+
+<p>在下面的表格中，我们已列出了一些路径表达式以及表达式的结果：</p>
+
+<table class="dataintable">
+<tr>
+<th style="width:25%;">路径表达式</th>
+<th>结果</th>
+</tr>
+
+<tr>
+<td>bookstore</td>
+<td>选取 bookstore 元素的所有子节点。</td>
+</tr>
+
+<tr>
+<td>/bookstore</td>
+<td>
+<p>选取根元素 bookstore。</p>
+<p>注释：假如路径起始于正斜杠( / )，则此路径始终代表到某元素的绝对路径！</p>
+</td>
+</tr>
+
+<tr>
+<td>bookstore/book</td>
+<td>选取属于 bookstore 的子元素的所有 book 元素。</td>
+</tr>
+
+<tr>
+<td>//book</td>
+<td>选取所有 book 子元素，而不管它们在文档中的位置。</td>
+</tr>
+
+<tr>
+<td>bookstore//book</td>
+<td>选择属于 bookstore 元素的后代的所有 book 元素，而不管它们位于 bookstore 之下的什么位置。</td>
+</tr>
+
+<tr>
+<td>//@lang</td>
+<td>选取名为 lang 的所有属性。</td>
+</tr>
+</table>
+</div>
+
+
+
+
+<div>
+<h2>谓语（Predicates）</h2>
+
+<p>谓语用来查找某个特定的节点或者包含某个指定的值的节点。</p>
+<p>谓语被嵌在方括号中。</p>
+
+<h3>实例</h3>
+
+<p>在下面的表格中，我们列出了带有谓语的一些路径表达式，以及表达式的结果：</p>
+
+<table class="dataintable">
+<tr>
+<th style="width:35%;">路径表达式</th>
+<th>结果</th>
+</tr>
+
+<tr>
+<td>/bookstore/book[1]</td>
+<td>选取属于 bookstore 子元素的第一个 book 元素。</td>
+</tr>
+
+<tr>
+<td>/bookstore/book[last()]</td>
+<td>选取属于 bookstore 子元素的最后一个 book 元素。</td>
+</tr>
+
+<tr>
+<td>/bookstore/book[last()-1]</td>
+<td>选取属于 bookstore 子元素的倒数第二个 book 元素。</td>
+</tr>
+
+<tr>
+<td>/bookstore/book[position()&lt;3]</td>
+<td>选取最前面的两个属于 bookstore 元素的子元素的 book 元素。</td>
+</tr>
+
+<tr>
+<td>//title[@lang]</td>
+<td>选取所有拥有名为 lang 的属性的 title 元素。</td>
+</tr>
+
+<tr>
+<td>//title[@lang='eng']</td>
+<td>选取所有 title 元素，且这些元素拥有值为 eng 的 lang 属性。</td>
+</tr>
+
+<tr>
+<td>/bookstore/book[price&gt;35.00]</td>
+<td>选取 bookstore 元素的所有 book 元素，且其中的 price 元素的值须大于 35.00。</td>
+</tr>
+
+<tr>
+<td>/bookstore/book[price&gt;35.00]/title</td>
+<td>选取 bookstore 元素中的 book 元素的所有 title 元素，且其中的 price 元素的值须大于 35.00。</td>
+</tr>
+</table>
+</div>
+
+
+
+
+<div>
+<h2>选取未知节点</h2>
+
+<p>XPath 通配符可用来选取未知的 XML 元素。</p>
+
+<table class="dataintable">
+<tr>
+<th style="width:25%;">通配符</th>
+<th>描述</th>
+</tr>
+
+<tr>
+<td>*</td>
+<td>匹配任何元素节点。</td>
+</tr>
+
+<tr>
+<td>@*</td>
+<td>匹配任何属性节点。</td>
+</tr>
+
+<tr>
+<td>node()</td>
+<td>匹配任何类型的节点。</td>
+</tr>
+</table>
+
+<h3>实例</h3>
+
+<p>在下面的表格中，我们列出了一些路径表达式，以及这些表达式的结果：</p>
+
+<table class="dataintable">
+<tr>
+<th style="width:25%;">路径表达式</th>
+<th>结果</th>
+</tr>
+
+<tr>
+<td>/bookstore/*</td>
+<td>选取 bookstore 元素的所有子元素。</td>
+</tr>
+
+<tr>
+<td>//*</td>
+<td>选取文档中的所有元素。</td>
+</tr>
+
+<tr>
+<td>//title[@*]</td>
+<td>选取所有带有属性的 title 元素。</td>
+</tr>
+</table>
+</div>
+
+
+
+
+<div>
+<h2>选取若干路径</h2>
+
+<p>通过在路径表达式中使用“|”运算符，您可以选取若干个路径。</p>
+
+<h3>实例</h3>
+
+<p>在下面的表格中，我们列出了一些路径表达式，以及这些表达式的结果：</p>
+
+<table class="dataintable">
+<tr>
+<th style="width:35%;">路径表达式</th>
+<th>结果</th>
+</tr>
+
+<tr>
+<td>//book/title | //book/price</td>
+<td>选取 book 元素的所有 title 和 price 元素。</td>
+</tr>
+
+<tr>
+<td>//title | //price</td>
+<td>选取文档中的所有 title 和 price 元素。</td>
+</tr>
+
+<tr>
+<td>/bookstore/book/title | //price</td>
+<td>选取属于 bookstore 元素的 book 元素的所有 title 元素，以及文档中所有的 price 元素。</td>
+</tr>
+</table>
+</div>
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[PageObjects 设计模式]]></title>
+    <link href="http://www.shenyanchao.cn/blog/2012/10/16/pageobjects-design-pattern/"/>
+    <updated>2012-10-16T16:40:00+08:00</updated>
+    <id>http://www.shenyanchao.cn/blog/2012/10/16/pageobjects-design-pattern</id>
+    <content type="html"><![CDATA[<h2>什么是Page Objects(翻译为：页面对象？)...</h2>
+
+<p>简单的说，Page Objects是指UI界面上用于与用户进行交互的对象。它可以指整个页面，也可以指Page上的某个区域。Page Objects是你的test code的交互对象，是对实际UI的一种抽象模型化。通过Page Objects可以减少重复代码的编写，例如，很多页面都有同样的header，footer，navigator等部分，如果对这些进行抽象，只写一次就可以在其他地方通用了。</p>
+
+<p><strong>注意PageObjects与Page Objects是不一样的</strong>，PageObjects用于特指采用Page Objects进行封装的一种设计模式（Design Pattern）,而不仅仅是多一个空格的区别。哈。</p>
+
+<h2>如何实现PageObjects设计模式？</h2>
+
+<p>一般情况下，对于一个Page Objects对象，它有两个方面的特征：</p>
+
+<ul>
+<li>自身元素(WebElement)</li>
+<li>实现功能 (Services)</li>
+</ul>
+
+
+<!--more-->
+
+
+<p></p>
+
+<p>自身元素很好理解，就是实实在在的页面元素。而Page Object通常也都是实现一定的功能的。就Test的开发人员来说，更关心的是Page Objects它们实现了什么交互功能，而不是其内部的实现，因此，这里的功能与开发人员理解的功能是<strong>不一样的</strong>。</p>
+
+<p>以用户登录为例：在登录界面，点击登录后要么成功，转向首页。要么失败，出现提示出错信息。 <br/>
+相信这是一个很容易理解的场景吧！<br/>
+Java Code可能类似如下：</p>
+
+<pre><code>public class LoginPage {
+    //用户名录入框
+    private WebElement usernameBox;
+    //密码录入框
+    private WebElement passwordBox;
+    //提交按钮
+    private WebElement submitButton;
+
+    public HomePage loginAs(String username, String password) {
+        usernameBox.sendKeys(username);
+        passwordBox.sendKeys(password);
+        submitButton.submit();
+        return new HomePage(...)
+    }
+
+    public LoginPage loginAsExpectingError(String username, String password) {
+         //  出错的username,password 仍留在LoginPage
+     }
+
+    public String getErrorMessage() {
+    // 获取错误信息
+    }
+}   
+</code></pre>
+
+<p>从上面可以看出，同时封装了元素以及功能。此处样例，元素是没有初始化的。可以通过类似于<code>driver.findElement()</code>的函数来直接进行初始化，另外WebDriver提供了一个PageFactory用于对PageObjects设计模式进行支持，下面将会讲到。<br/>
+通过上面的这段代码，也展现出了一个重要的问题，那就是assertion不应该在Page Objects内部，而应该由tests进行处理。Page Objects只是返回需要验证的信息即可。</p>
+
+<h2>总结</h2>
+
+<ul>
+<li>public方法代表Page提供的功能</li>
+<li>尽量不要暴露Page的内部细节</li>
+<li>不要assertion</li>
+<li>方法可以返回其他Page Objects</li>
+<li>Page Objects不用代表整个页面，可以是任意一个部分</li>
+<li>一样的操作，不同的结果应该分开（正确登录，错误登录）</li>
+</ul>
+
+
+<h2>样例</h2>
+
+<pre><code>public class LoginPage {
+    private final WebDriver driver;
+    // 用户名录入框
+    private WebElement usernameBox;
+    // 密码录入框
+    private WebElement passwordBox;
+    // 提交按钮
+    private WebElement submitButton;
+
+    public LoginPage(WebDriver driver) {
+        this.driver = driver;
+        if (!"Login".equals(driver.getTitle())) {
+            throw new IllegalStateException("This is not the login page");
+        }
+        this.usernameBox = driver.findElement(By.id("username"));
+        this.passwordBox = driver.findElement(By.id("passwd"));
+        this.submitButton = driver.findElement(By.id("login"));
+    }
+
+    public HomePage loginAs(String username, String password) {
+        usernameBox.sendKeys(username);
+        passwordBox.sendKeys(password);
+        submitButton.submit();
+        return new HomePage(driver);
+    }
+}
+</code></pre>
+
+<h2>PageFactory</h2>
+
+<p>从上面的样例中，有没有发现每个元素都要进行<code>driver.findElement()</code>这样的操作，写起来好累啊，一堆重复性的代码。有没有更好的，更优雅的处理方法呢？<strong><code>org.openqa.selenium.support.PageFactory</code></strong>就是用来负责处理这个的，真Happy! <br/>
+下面以<a href="http://www.baidu.com">百度搜索</a>作为样例场景，搜索一个关键字：</p>
+
+<pre><code>import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import org.openqa.selenium.support.PageFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+* @author shenyanchao
+* 
+ */
+public class BaiduSearchPage {
+    public static final Logger LOG = LoggerFactory
+        .getLogger(BaiduSearchPage.class);
+    private WebElement wd;
+
+    public void searchFor(String keyword) {
+        wd.sendKeys(keyword);
+        wd.submit();
+    }
+
+    public static void main(String[] args) {
+        WebDriver driver = new HtmlUnitDriver();
+        driver.get("http://www.baidu.com");
+        BaiduSearchPage baiduPage = PageFactory.initElements(driver,
+            BaiduSearchPage.class);
+        LOG.info("before search url is:{}",driver.getCurrentUrl());
+        baiduPage.searchFor("blueshen");
+        LOG.info("after search url is:{}",driver.getCurrentUrl());
+    }
+}
+</code></pre>
+
+<p>运行以上代码，发现已经可以正常运行，结果如下：</p>
+
+<pre><code>......
+before search url is:http://www.baidu.com/
+......
+after search url is:http://www.baidu.com/s?wd=blueshen&amp;rsv_bp=0&amp;rsv_spt=3
+</code></pre>
+
+<p>可见，搜索后，已经转向了正确的搜索结果页面。然而WebElement是如何初始化的呢？玄机就在<code>BaiduSearchPage baiduPage = PageFactory.initElements(driver,BaiduSearchPage.class);</code>这行代码。PageFactory负责初始化了Page里的元素，amazing，用起来就是这么的优雅。 <br/>
+那么下来，我就要问了：PageFactory是怎么定位元素的呢？</p>
+
+<blockquote><p>原来PageFactory初始化元素有一个惯例，样例中将WebElement的名称定为wd,那么PageFactory将按类似以下的形式对其进行初始化：  <br/>
+<code>driver.findElement(By.id("wd"));</code><br/>
+PageFactory认为wd是HTML元素的id或者name字段的值,并且优先从id开始查找。至此，我们终于知道怎么回事了。</p></blockquote>
+
+<p>随着项目的变大，以及使用的更加深入，HTML元素的id，name字段并不一定唯一，并且Java Class的属性看起来都是一堆无意义的名称。这些要求我们必须要进行改进。幸好PageFactory已经提前考虑到了这一切，它支持annotations来显式定位元素。那么上述的百度搜索样例，可以修改为如下形式：</p>
+
+<pre><code>public class BaiduSearchPage {
+    public static final Logger LOG = LoggerFactory
+        .getLogger(BaiduSearchPage.class);
+    @FindBy(how = How.NAME, using = "wd")
+    @CacheLookup
+    private WebElement serachBox;
+
+    public void searchFor(String keyword) {
+        serachBox.sendKeys(keyword);
+        serachBox.submit();
+    }
+......
+}
+</code></pre>
+
+<p>明确的指定HOW.NAME,using="wd",意为查找name="wd"的元素，并将其初始化赋值给searchBox这一有意义的属性名。其中@CacheLookup用于标识其只初始化一次，然后缓存起来备用。</p>
+
+<p>感觉还不够简洁吗？继续修改：</p>
+
+<pre><code>@FindBy(name = "wd")
+private WebElement searchBox;
+</code></pre>
+
+<p>这是其简略模式，还支持各种定位方式。</p>
+
+<pre><code>    @FindBy(id="...")
+    @FindBy(className="...")
+    @FindBy(name="...")
+    @FindBy(xpath="...")
+    @FindBy(linkText="...")
+    @FindBy(partialLinkText="...")
+    @FindBy(tagName="...")
+    @FindBy(css="...")
+</code></pre>
+
+<p>同时支持<code>@FindBys</code>用于支持列表元素查找定位，返回<code>List&lt;WebElement&gt;</code>类型。</p>
+
+<p><strong>总之，利用PageObjects设计模式并且配合PageFactory使用，将使你的自动化测试优雅、易度、易维护。</strong></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Selenium WebDriver的多浏览器支持]]></title>
+    <link href="http://www.shenyanchao.cn/blog/2012/10/12/selenium-multiple-browser-support/"/>
+    <updated>2012-10-12T14:56:00+08:00</updated>
+    <id>http://www.shenyanchao.cn/blog/2012/10/12/selenium-multiple-browser-support</id>
+    <content type="html"><![CDATA[<h2>Selenium WebDriver支持哪儿些浏览器？</h2>
+
+<p>按照官方文档的说法，现阶段有以下的drivers:</p>
+
+<blockquote><ul>
+<li>ChromeDriver</li>
+<li>InternetExplorerDriver</li>
+<li>FirefoxDriver</li>
+<li>OperaDriver</li>
+<li>HtmlUnitDriver</li>
+<li>AndroidDriver(mobile testing)</li>
+<li>OperaMobileDriver(mobile testing)</li>
+<li>IPhoneDriver(mobile testing)</li>
+</ul>
+</blockquote>
+
+<!--more-->
+
+
+<p></p>
+
+<h2>为什么selenium自动化case在一个浏览器运行的很好，换为另外一个浏览器则不行？</h2>
+
+<h3>一个Driver可以打开浏览器，另外一个Driver却不行？</h3>
+
+<p>WebDriver是通过调用native浏览器来操作的，浏览器之间的差异注定会出现一些问题。下面以InternetExplorer,Firefox,Chrome为例进行说明：</p>
+
+<h4>InternetExplorer：</h4>
+
+<blockquote><p>1.它分不同的版本，版本之间差异很大。InternetExplorerDriver支持IE6、7、8、9。操作系统支持XP、Vista、Windows 7。 <br/>
+2.InternetExplorerDriver同时支持32/64bit的浏览器，这个取决于你用的是什么版本的<a href="http://code.google.com/p/selenium/downloads/list">IEDriverServer.exe</a>。 <br/>
+3.要求条件如下：</p>
+
+<blockquote><ul>
+<li><a href="http://code.google.com/p/selenium/downloads/list">IEDriverServer</a>在系统环境的PATH内（selenium2.26.0+版本推荐方式）。或者设置<code>webdriver.ie.driver</code>系统属性。 <br/>
+   <code>System.setProperty("webdriver.ie.driver", "D:\\IEDriverServer.exe");</code><br/>
+  <code>WebDriver driver = new InternetExplorerDriver();</code></li>
+<li>在windows vista、windows7操作系统中，如果使用IE7+的浏览器，应该保证浏览器的<strong>保护模式</strong>都处于<strong>同一状态</strong>[开启或者关闭]。如果不一致，那么报错信息类似于<code>Caused by: org.openqa.selenium.WebDriverException: Unexpected error launching Internet Explorer. Protected Mode settings are not the same for all zones. Enable Protected Mode must be set to the same value (enabled or disabled) for all zones. (WARNING: The server did not provide any stacktrace information)</code> <br/>
+不会设置吗？ <br/>
+操作如下：打开浏览器->Internet选项 ->安全->启用保护模式。保证Internet、本地Intranet、受信任的站点、受限制的站点4个zone保护模式一致就OK</li>
+<li>为了确保能获得正确的坐标点，要把浏览器的缩放设为100%。 <br/>
+设置方法：打开浏览器->页面->缩放(Z)->100%</li>
+</ul>
+</blockquote></blockquote>
+
+<p>参考<a href="http://code.google.com/p/selenium/wiki/InternetExplorerDriver">http://code.google.com/p/selenium/wiki/InternetExplorerDriver</a></p>
+
+<h4>Firefox:</h4>
+
+<blockquote><p>1.Firefox不像InternetExplorer一样，用户可以自定义安装路径。因此使用时，需要制定firefox.exe的安装路径。<br/>
+怎么指定?</p>
+
+<blockquote><ul>
+<li>java code: <code>System.setProperty()</code></li>
+<li>命令行：<code>-DpropertyName='value'</code></li>
+</ul>
+</blockquote>
+
+<p>2.系统变量的值为：<code>webdriver.firefox.bin</code>，以及其他的key值，详见参考页面。webdriver.firefox.bin用来指定Firefox的安装路径。如不设置，默认从%PROGRAMFILES%\Mozilla Firefox\firefox.exe加载。<strong>个人强烈建议，即使安装在默认路径也进行指定</strong>。 <br/>
+3.Java代码如下：</p>
+
+<pre><code>System.setProperty("webdriver.firefox.bin", "C://Mozila/firefox.exe");  
+WebDriver driver = new FirefoxDriver();  
+</code></pre>
+
+<p>其中firefox的安装路径，按情况自行替换。</p></blockquote>
+
+<p>参考<a href="http://code.google.com/p/selenium/wiki/FirefoxDriver">http://code.google.com/p/selenium/wiki/FirefoxDriver</a></p>
+
+<h4>Chrome:</h4>
+
+<p>chrome要求条件如下：</p>
+
+<blockquote><p>1.Chrome应当安装在默认路径下（如果是从官方下载的，安装后直接都是默认路径）。
+<table border=”1px">
+<tbody>
+<tr><td>OS</td><td>默认位置</td></tr>
+<tr><td>Linux</td><td>/usr/bin/google-chrome</td></tr>
+<tr><td>Mac</td><td>/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome</td></tr>
+<tr><td>Windwos XP</td><td>%HOMEPATH%\Local Settings\Application Data\Google\Chrome\Application\chrome.exe</td></tr>
+<tr><td>Windwos Vista</td><td>C:\Users\%USERNAME%\AppData\Local\Google\Chrome\Application\chrome.exe</td></tr>
+</tbody>
+</table>  <br/>
+2.需要下载相应版本的<a href="http://code.google.com/p/chromedriver/downloads/list">chromedriver</a>，用来架起chrome浏览器与webdriver之间的桥梁。 <br/>
+3.与FirefoxDriver差不多，需要设置chromedriver的路径。key值为：webdriver.chrome.driver. <br/>
+4.Java代码如下：</p>
+
+<pre><code>System.setProperty("webdriver.chrome.driver", "C://drivers/chromedriver.exe");  
+WebDriver driver = new ChromeDriver();    
+</code></pre>
+
+<p>需要注意的是，chrome浏览器会自动更新，而<a href="http://code.google.com/p/chromedriver/downloads/list">chromedriver</a>也是不断更新的。如果chrome版本太新，而chromedriver没有相应的更换，会造成只是打开chrome浏览器，而不进行任何操作的问题。另外，ChromeDriver只适用于chrome 12.0.712.0+,如果需要使用更老的版本，见参考页面的详细描述。</p></blockquote>
+
+<p>参考<a href="http://code.google.com/p/selenium/wiki/ChromeDriver">http://code.google.com/p/selenium/wiki/ChromeDriver</a></p>
+
+<h3>在一个浏览器里，元素可以找到或者可以操作，而在另外一个浏览器内则不行，为什么？</h3>
+
+<p>不同浏览器之间解析DOM以及响应事件的机制不同，难免会有一些不兼容性。解决方法：</p>
+
+<blockquote><p>1.元素定位，通常是由于DOM解析不同造成的，可以使用不同的findElement方法进行实验，如id,class,xpath等。这个没有统一的结论，大多数情况下id是最靠谱的。<strong>推荐！</strong> <br/>
+2.事件的响应，这个如果存在问题，一般比较难解决。通常是由于浏览器之间的差异造成的。可以通过使用selenium更高的版本，或者更换浏览器的版本来解决。或者想一下，有没有其他的方式，换个事件来绕过去，总有办法的。如果实在解决不了，那也只能暂时是这样了。</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[selenium FAQ:如何处理JavaScript弹出的alert、prompt窗口]]></title>
+    <link href="http://www.shenyanchao.cn/blog/2012/10/12/selenium-faq-alerts-and-prompts/"/>
+    <updated>2012-10-12T14:39:00+08:00</updated>
+    <id>http://www.shenyanchao.cn/blog/2012/10/12/selenium-faq-alerts-and-prompts</id>
+    <content type="html"><![CDATA[<h2>经常会碰到，页面操作后，出现一个alert窗口或者prompt确认窗口的情况，这时需要获得窗口的提示信息以及点击确定或取消的情况。</h2>
+
+<pre><code>// Get a handle to the open alert, prompt or confirmation
+Alert alert = driver.switchTo().alert();
+// Get the text of the alert or prompt
+alert.getText();  
+// And acknowledge the alert (equivalent to clicking "OK")
+alert.accept();
+</code></pre>
+
+<p>这是通用的处理方法。但是如果弹出的窗口不是<code>alert()</code>或者<code>prompt()</code>弹出来的则不适用。请注意。</p>
+]]></content>
+  </entry>
+  
+</feed>
