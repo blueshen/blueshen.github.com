@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[分类：maven | Blues 小站]]></title>
-  <link href="http://www.shenyanchao.cn/blog/categories/maven/atom.xml" rel="self"/>
+  <title><![CDATA[Tag: LifeCycle | Blues 小站]]></title>
+  <link href="http://www.shenyanchao.cn/tags/lifecycle/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
   <updated>2012-11-10T00:55:53+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
@@ -12,29 +12,6 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[安装配置Maven]]></title>
-    <link href="http://www.shenyanchao.cn/blog/2012/10/19/install-maven/"/>
-    <updated>2012-10-19T23:40:00+08:00</updated>
-    <id>http://www.shenyanchao.cn/blog/2012/10/19/install-maven</id>
-    <content type="html"><![CDATA[<h2>Maven安装</h2>
-
-<p>1.下载Maven：从<a href="http://maven.apache.org/download.html">Maven官方</a>下载,并解压。比如解压到：D:\apache-maven-3.0.4   <br/>
-2.配置环境变量：</p>
-
-<ul>
-<li>M2_HOME：D:\apache-maven-3.0.4</li>
-<li>path：%M2_HOME%\bin;</li>
-</ul>
-
-
-<p>打开cmd命令窗口,验证配置是否成功：<code>mvn -v</code>。成功后会显示正确的版本信息。<br/>
-3.修改默认的repository <br/>
-maven默认放在C:\Users\user.m2\repository目录下（不同系统可能不一样）。Window下一般不建议放在C盘。可以通过如下方式修改： <br/>
-进入%M2_HOME%\conf\settings.xml中，添加<code>&lt;localRepository&gt;e:/repo&lt;/localRepository&gt;</code>这样一行。默认的路径就指向新的目录了。</p>
-]]></content>
-  </entry>
   
   <entry>
     <title type="html"><![CDATA[maven生命周期详解]]></title>
@@ -118,85 +95,6 @@ Maven有三套相互独立的生命周期，请注意这里说的是“三套”
 <p>此外，Maven的插件机制是完全依赖Maven的生命周期的，因此理解生命周期至关重要，在之后的文章里，我将会进一步解释Maven的插件机制。</p>
 
 <p>转摘自：<a href="http://juvenshun.iteye.com/blog/213959">http://juvenshun.iteye.com/blog/213959</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[PMD静态代码检查]]></title>
-    <link href="http://www.shenyanchao.cn/blog/2012/10/11/pmd/"/>
-    <updated>2012-10-11T11:20:00+08:00</updated>
-    <id>http://www.shenyanchao.cn/blog/2012/10/11/pmd</id>
-    <content type="html"><![CDATA[<h2>一 maven插件：maven-pmd-plugin</h2>
-
-<blockquote><p>pom.xml添加如下内容：</p></blockquote>
-
-<pre><code>    &lt;plugin&gt;
-            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
-            &lt;artifactId&gt;maven-pmd-plugin&lt;/artifactId&gt;
-            &lt;version&gt;2.7.1&lt;/version&gt;
-            &lt;executions&gt;
-                &lt;execution&gt;
-                    &lt;phase&gt;package&lt;/phase&gt;
-                    &lt;goals&gt;
-                        &lt;goal&gt;check&lt;/goal&gt;
-                    &lt;/goals&gt;
-                &lt;/execution&gt;
-            &lt;/executions&gt;
-            &lt;configuration&gt;
-                &lt;failurePriority&gt;2&lt;/failurePriority&gt;
-                &lt;targetJdk&gt;1.6&lt;/targetJdk&gt;
-                &lt;rulesets&gt;
-                    &lt;ruleset&gt;/pmd-rulesets.xml&lt;/ruleset&gt;
-                &lt;/rulesets&gt;
-            &lt;/configuration&gt;
-        &lt;/plugin&gt;
-</code></pre>
-
-<blockquote><p>failurePriority用于指定在什么错误级别会failure，级别0~5不等。0为最高，5为最低。此处设为2,意为0、1、2级别的错误都会导致报错。级别可以根据项目的要求进行配置</p></blockquote>
-
-<!--more-->
-
-
-<blockquote><p>其中<strong>pmd-rulesets.xml</strong>是规则文件,由pmd制定的一些规则，这些规则可以在pmd-*.jar里找到。 <strong>pmd-rulesets.xml</strong>类似于以下：</p></blockquote>
-
-<pre><code>&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
-&lt;ruleset xmlns="http://pmd.sf.net/ruleset/1.0.0" name="pmd-rulsets" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd" xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"&gt;
-    &lt;description&gt;PMD Plugin preferences rule set&lt;/description&gt;
-    &lt;rule ref="rulesets/typeresolution.xml/LooseCoupling"/&gt;
-    &lt;rule ref="rulesets/typeresolution.xml/CloneMethodMustImplementCloneable"/&gt;
-    &lt;rule ref="rulesets/typeresolution.xml/SignatureDeclareThrowsException"/&gt;
-    &lt;rule ref="rulesets/braces.xml/IfStmtsMustUseBraces"/&gt;
-    &lt;rule ref="rulesets/braces.xml/WhileLoopsMustUseBraces"/&gt;
-&lt;/ruleset&gt;
-</code></pre>
-
-<h3>如何使用</h3>
-
-<pre><code>mvn pmd:pmd
-mvn pmd:check   
-</code></pre>
-
-<hr />
-
-<h2>二 pmd在eclipse中的使用</h2>
-
-<blockquote><p>1.安装</p>
-
-<blockquote><p>Help -> Install New Software -> Add...<br/>
-设置update site:<a href="http://pmd.sourceforge.net/eclipse">http://pmd.sourceforge.net/eclipse</a><br/>
-一路next安装成功即可</p></blockquote>
-
-<p>2.eclipse中的设置</p>
-
-<blockquote><p>Window -> Prefrences -> PMD -> Rules Configuration<br/>
-在其中可以设置相关Rules，这里面的Rules对应maven-pmd-plugins中的pmd-rulesets.xml，可以根据自己的需求进行定制</p></blockquote>
-
-<p>3.eclipse中的使用</p>
-
-<blockquote><p>右键选中project -> PMD -> Check Code with PMD<br/>
-执行结束后，会打开PMD视图，会依据不同的Priority级别显示不同的颜色。其中红色标注的X是级别为错误级别的。</p></blockquote></blockquote>
-
-<hr />
 ]]></content>
   </entry>
   
