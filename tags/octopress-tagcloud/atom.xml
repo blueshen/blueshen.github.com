@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Tag: octopress ， tagcloud ， _config.xml | Blues 小站]]></title>
-  <link href="http://www.shenyanchao.cn/tags/octopress-tagcloud-config-xml/atom.xml" rel="self"/>
+  <title><![CDATA[Tag: octopress ， tagcloud | Blues 小站]]></title>
+  <link href="http://www.shenyanchao.cn/tags/octopress-tagcloud/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2012-11-09T15:16:39+08:00</updated>
+  <updated>2012-11-09T15:24:20+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
