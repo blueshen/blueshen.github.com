@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Tag: wait | Blues 小站]]></title>
+  <link href="http://www.shenyanchao.cn/tags/wait/atom.xml" rel="self"/>
+  <link href="http://www.shenyanchao.cn/"/>
+  <updated>2012-11-10T00:46:48+08:00</updated>
+  <id>http://www.shenyanchao.cn/</id>
+  <author>
+    <name><![CDATA[ShenYanchao]]></name>
+    <email><![CDATA[zhiyi.shen@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[提高selenium自动化的稳定性2-等待]]></title>
+    <link href="http://www.shenyanchao.cn/blog/2012/10/11/selenium-stable-2/"/>
+    <updated>2012-10-11T14:32:00+08:00</updated>
+    <id>http://www.shenyanchao.cn/blog/2012/10/11/selenium-stable-2</id>
+    <content type="html"><![CDATA[<h2>很多页面元素都是ajax动态生成的，这就要求进行适当的等待</h2>
+
+<h2>如何进行等待呢？</h2>
+
+<h3>1.直接sleep</h3>
+
+<pre><code>public static void sleep(int seconds) {
+    try {
+        TimeUnit.SECONDS.sleep(seconds);
+    } catch (InterruptedException e) {
+        e.printStackTrace();
+    }
+}
+</code></pre>
+
+<p>这种方法，用于直接的让thread进行等待指定的seconds。</p>
+
+<!--more-->
+
+
+<h3>2.使用selenium webdriver提供的等待方法</h3>
+
+<pre><code>driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+</code></pre>
+
+<p>这种方法是webdriver提供的一种隐式等待。<br/>
+隐式等待是指当要查找元素（<code>driver.findElement()</code>），而这个元素没有马上出现时，告诉WebDriver查询Dom一定时间。默认值是0,但是设置之后，这个时间将在WebDriver对象实例整个生命周期都起作用。 <br/>
+比如使用：<code>driver.findElement(By.id("element"));</code>来查找id="element"的元素。如果没有设置隐式等待，那么执行到这一步的时候就会直接报错<code>NoSuchElementException</code>。而设置后，则会在10秒内不断就查询元素是否存在，如果存在则返回。超过10秒仍没找到，才报错。</p>
+
+<h3>3.使用WebDriver提供的<code>Wait&lt;T&gt;</code>接口</h3>
+
+<pre><code>FluentWait&lt;T&gt; implements Wait&lt;T&gt;  
+
+Wait&lt;WebDriver&gt; wait = new FluentWait&lt;WebDriver&gt;(driver)
+   .withTimeout(30, SECONDS)
+   .pollingEvery(5, SECONDS)
+   .ignoring(NoSuchElementException.class);
+
+WebElement element = wait.until(new Function&lt;WebDriver, WebElement&gt;() {
+ public WebElement apply(WebDriver driver) {
+   return driver.findElement(By.id("element"));
+ }
+});
+element.click();//something to do
+</code></pre>
+
+<p>此方法用于等待一个元素在页面上出现，超时时间为30S，每隔5S去请求一次，并且忽略掉until中抛出的<code>NoSuchElementException</code>。 <br/>
+FluentWait的源码中这样写到:</p>
+
+<pre><code>private Duration timeout = FIVE_HUNDRED_MILLIS;  
+private Duration interval = FIVE_HUNDRED_MILLIS;   
+</code></pre>
+
+<p>因此，如果不设置<code>withTimeout</code>、<code>pollingEvery</code>则相当于等待了500ms,并且请求了一次，要使用<code>FluentWait</code>应该依据实际需要进行设置。那有没有更好的方法呢，有的，请往下看。</p>
+
+<pre><code>WebDriverWait extends FluentWait&lt;WebDriver&gt;
+
+Wait&lt;WebDriver&gt; waiter = new WebDriverWait(driver, 10);
+WebElement element = waiter.until(new Function&lt;WebDriver, WebElement&gt;() {
+        public WebElement apply(WebDriver driver) {
+            return driver.findElement(By.id("element"));
+        }
+
+    });
+element.click();//something to do
+</code></pre>
+
+<p><code>WebDriverWait</code>是继承于<code>FluentWait</code>的，并且实现了对功能进行了增强。从源码看出<code>WebDriverWait</code>的构造函数进行了如下的设置：</p>
+
+<pre><code>withTimeout(timeOutInSeconds, TimeUnit.SECONDS);
+pollingEvery(sleepTimeOut, TimeUnit.MILLISECONDS);
+ignoring(NotFoundException.class);
+</code></pre>
+
+<p>设置了超时时间、每次请求的间隔为<code>sleepTimeOut</code>（默认500ms）、忽略了<code>NotFoundException</code>。因此直接使用<code>WebDriverWait</code>更加的省事。</p>
+
+<h3>总结</h3>
+
+<p>WebDriver提供了很多等待机制来增加selenium自动化的稳定性，只要合理利用是可以达到理想的效果的。 <br/>
+无疑第一种方法sleep是最不可取的，是万不得已才用的一份方法，因为元素的加载与网络速度等客观因素直接相关。这个sleep的值是很难取的，值小了不行，值大了会造成case的运行速度缓慢。 <br/>
+第二种方法是从全局的角度来解决元素查找问题的，在解决通用性的问题上有一定的优势，可以考虑使用。 <br/>
+第三种方法是最好的，也是<strong>推荐</strong>的一种等待方式，很好的解决了动态元素的查找问题。</p>
+
+<hr />
+]]></content>
+  </entry>
+  
+</feed>

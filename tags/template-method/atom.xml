@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Tag: template method | Blues 小站]]></title>
+  <link href="http://www.shenyanchao.cn/tags/template-method/atom.xml" rel="self"/>
+  <link href="http://www.shenyanchao.cn/"/>
+  <updated>2012-11-10T00:46:48+08:00</updated>
+  <id>http://www.shenyanchao.cn/</id>
+  <author>
+    <name><![CDATA[ShenYanchao]]></name>
+    <email><![CDATA[zhiyi.shen@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[设计模式：模板方法（template method） in java]]></title>
+    <link href="http://www.shenyanchao.cn/blog/2012/11/07/template-method-in-java/"/>
+    <updated>2012-11-07T19:30:00+08:00</updated>
+    <id>http://www.shenyanchao.cn/blog/2012/11/07/template-method-in-java</id>
+    <content type="html"><![CDATA[<p><strong>定义：</strong>定义一个操作中的算法的框架，而将一些步骤延迟到子类中。使得子类可以不改变一个算法的结构即可重定义这个算法的某些特定步骤。 <br/>
+简单的说，就是你首先定义一下算法的各部分之间的执行顺序或者调用关系，然后在子类中实现具体每一部分是如何实现的。</p>
+
+<p>采用什么算法作为例子呢？就是用<strong>把动物放进冰箱</strong>这个算法吧。</p>
+
+<!--more-->
+
+
+<p>先定义一个抽象类:</p>
+
+<pre><code>public abstract class AbstractAlgorithm {
+
+    public abstract void openFridgeDoor();
+
+    public abstract void putAnimalInFridge();
+
+    public abstract void closeFridgeDoor();
+
+    public void execute(){
+        this.openFridgeDoor();
+        this.putAnimalInFridge();
+        this.closeFridgeDoor();
+    }
+}
+</code></pre>
+
+<p>这个类，定义了3个操作，打开冰箱门、把动物放进冰箱、关闭冰箱门，但并未实现，而留给子类来具体实现。<code>execute()</code>用来执行这一算法，它指定了各个操作之间的先后顺序。</p>
+
+<p>比如：我想把大象放进冰箱里：</p>
+
+<pre><code>public class PutElephantInFridge extends AbstractAlgorithm {
+
+    @Override
+    public void openFridgeDoor() {
+        System.out.println("open the fridge door lightly");
+    }
+
+    @Override
+    public void putAnimalInFridge() {
+        System.out
+            .println("try my best to put elephant in fridge,after 2 hours, I got it.");
+    }
+
+    @Override
+    public void closeFridgeDoor() {
+        System.out.println("close the fridge door...");
+    }
+
+}
+</code></pre>
+
+<p>具体使用：</p>
+
+<pre><code>PutElephantInFridge algo = new PutElephantInFridge();
+algo.execute();
+</code></pre>
+
+<p>好吧，执行一下算法就完成了。
+下面吗？我想把猴子放进冰箱，好吧，新建一个类继承AbstractAlgorithm，然后重写相关步骤就可以了。</p>
+
+<h2>模板方法 In JDK</h2>
+
+<pre><code>java.io.InputStream, java.io.OutputStream, java.io.Reader，java.io.Writer      
+
+java.util.AbstractList, java.util.AbstractSet and java.util.AbstractMap
+</code></pre>
+
+<p>所有非抽象方法。</p>
+
+<pre><code>javax.servlet.http.HttpServlet#doXXX()   
+</code></pre>
+
+<p>都默认返回一个<code>SC_METHOD_NOT_ALLOWED</code>类似的错误码，或者代码，要想使用，只有继承并且重写这些方法。</p>
+]]></content>
+  </entry>
+  
+</feed>
