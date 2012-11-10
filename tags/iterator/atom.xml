@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Tag: Iterator | Blues 小站]]></title>
+  <link href="http://www.shenyanchao.cn/tags/iterator/atom.xml" rel="self"/>
+  <link href="http://www.shenyanchao.cn/"/>
+  <updated>2012-11-10T10:22:39+08:00</updated>
+  <id>http://www.shenyanchao.cn/</id>
+  <author>
+    <name><![CDATA[ShenYanchao]]></name>
+    <email><![CDATA[zhiyi.shen@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[设计模式：迭代器（Iterator） in java]]></title>
+    <link href="http://www.shenyanchao.cn/blog/2012/11/08/iterator-in-java/"/>
+    <updated>2012-11-08T16:50:00+08:00</updated>
+    <id>http://www.shenyanchao.cn/blog/2012/11/08/iterator-in-java</id>
+    <content type="html"><![CDATA[<p><strong>定义：</strong>迭代器模式提供了一种方法来访问一个容器对象种的各个元素，而又不暴露这个对象的内部细节。</p>
+
+<blockquote><p>在Java中已经默认提供了Iterator支持，各种容器类都进行了实现，而事实上，迭代器模式就是为了解决如何遍历这些容器里的元素而诞生的。</p></blockquote>
+
+<p><strong>迭代器模式</strong>主要有以下的角色：</p>
+
+<ul>
+<li>Iterator抽象迭代器： <br/>
+负责定义访问与遍历元素的接口。基本有3个固定的方法<code>hasNext()</code>,<code>next()</code>,<code>remove()</code>;</li>
+<li>Concrete Iterator具体迭代器：  <br/>
+迭代器的实现类，实现接口，完成元素遍历。</li>
+<li>Aggregate抽象容器： <br/>
+定义创建具体迭代器的接口。在Java种一般是<code>iterator()</code>方法。</li>
+<li>Concrete Aggregate具体容器：<br/>
+实现创建迭代器接口，返回迭代器实例对象。</li>
+</ul>
+
+
+<!--more-->
+
+
+<p>为了方便，下面就直接以ArrayList为例，来看看迭代器是如何实现的吧。<br/>
+在使用时，通常这样对ArrayList进行遍历：</p>
+
+<pre><code>    List&lt;String&gt; list = new ArrayList&lt;String&gt;();
+    list.add("first");
+    list.add("second");
+    Iterator&lt;String&gt; itr = list.iterator();
+    while (itr.hasNext()) {
+        String element = itr.next();
+        System.out.println(element);
+    }
+</code></pre>
+
+<p>从这里，我们可以看出来，这就是完全的迭代器模式。<br/>
+首先来看，Iterator接口（java.util.Iterator）：</p>
+
+<pre><code>public interface Iterator&lt;E&gt; {
+
+    boolean hasNext();
+
+    E next();
+
+    void remove();
+}
+</code></pre>
+
+<p>然后是Iterator的具体实现类(java.util.AbstractList<E>$Itr)：</p>
+
+<pre><code>private class Itr implements Iterator&lt;E&gt; {
+
+    int cursor = 0;
+
+    int lastRet = -1;
+
+    int expectedModCount = modCount;
+
+    public boolean hasNext() {
+        return cursor != size();
+    }
+
+    public E next() {
+        checkForComodification();
+        try {
+        E next = get(cursor);
+        lastRet = cursor++;
+        return next;
+        } catch (IndexOutOfBoundsException e) {
+            checkForComodification();
+            throw new NoSuchElementException();
+        }
+    }
+
+    public void remove() {
+        if (lastRet == -1)
+        throw new IllegalStateException();
+            checkForComodification();
+
+        try {
+            AbstractList.this.remove(lastRet);
+        if (lastRet &lt; cursor)
+            cursor--;
+        lastRet = -1;
+        expectedModCount = modCount;
+        } catch (IndexOutOfBoundsException e) {
+            throw new ConcurrentModificationException();
+        }
+    }
+
+    final void checkForComodification() {
+        if (modCount != expectedModCount)
+            throw new ConcurrentModificationException();
+    }
+}
+</code></pre>
+
+<p>这个就是具体的Iterator了，当然还有另外一个ListItr extends Itr，这个是专门针对List进行操作的。 <br/>
+那么Aggregate接口对应的是哪个呢？就是<code>java.util.AbstractCollection&lt;E&gt;</code> ，它里面定义了这样的一个接口：</p>
+
+<pre><code>...
+/**
+ * Returns an iterator over the elements contained in this collection.
+ *
+ * @return an iterator over the elements contained in this collection
+ */
+public abstract Iterator&lt;E&gt; iterator();
+...
+</code></pre>
+
+<p>那么具体实现是在哪儿？<code>java.util.AbstractList&lt;E&gt;</code>做了实现。</p>
+
+<pre><code>    public Iterator&lt;E&gt; iterator() {
+        return new Itr();
+    }
+</code></pre>
+
+<p>返回了一个具体的迭代器实例。而ArrayList,LinkedList都是继承AbstractList的，因此自动具有了返回迭代器实例的功能。</p>
+
+<p>因此，Java种的容器类只负责元素的的维护就好了。访问就教给迭代器吧，Java做的如此完善，以至于我们都不必再自己写Iterator了。</p>
+]]></content>
+  </entry>
+  
+</feed>
