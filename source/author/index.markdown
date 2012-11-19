@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "关于我"
-date: 2012-11-09 19:11
+date: 2012-10-01 10:10
 comments: false
 sharing: false
 footer: false

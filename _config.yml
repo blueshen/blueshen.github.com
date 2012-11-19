@@ -8,7 +8,8 @@ title: Blues 小站
 subtitle: 专注于原创技术文章
 author: ShenYanchao
 simple_search: http://google.com.hk/search
-description:
+description: 专注于原创技术博客，并分享精品技术文章
+keywords: Java, Linux, selenium, webdriver, apache, github, 设计模式, 架构, maven, JavaEE
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
 # You can customize the format as defined in
@@ -53,7 +54,7 @@ default_asides: [asides/recent_posts.html, asides/weibo.html, custom/asides/rece
 # and add an array with the asides you want to use.
 blog_index_asides: [asides/weibo.html, asides/recent_posts.html, custom/asides/category_cloud.html, custom/asides/recent_comment.html, asides/github.html]
 post_asides: [asides/recent_posts.html, custom/asides/category_cloud.html, custom/asides/recent_comment.html, custom/asides/category_list.html, asides/github.html]
-page_asides: [asides/recent_posts.html, custom/asides/category_cloud.html, custom/asides/recent_comment.html, custom/asides/category_list.html]
+page_asides: [asides/weibo.html, asides/recent_posts.html, custom/asides/category_cloud.html, custom/asides/recent_comment.html, asides/github.html]
 
 # ----------------------- #
 #   3rd Party Settings    #
@@ -107,7 +108,8 @@ disqus_short_name: blueshen
 disqus_show_comment_count: true
 
 # Google Analytics
-google_analytics_tracking_id: UA-34971023-1
+#google_analytics_tracking_id: UA-34971023-1 for blueshen.github.com
+google_analytics_tracking_id: UA-36243102-1
 
 # Facebook Like
 #facebook_like: false
