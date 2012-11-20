@@ -9,7 +9,9 @@ footer: false
 
 申艳超   
 
-邮箱：[zhiyi.shen@gmail.com](mailto:zhiyi.shen@gmail.com)   
+邮箱：[zhiyi.shen@gmail.com](mailto:zhiyi.shen@gmail.com) 
+
+finally run in ubuntu!  
 
 
 
