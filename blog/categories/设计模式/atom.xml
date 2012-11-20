@@ -4,7 +4,7 @@
   <title><![CDATA[分类：设计模式 | Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/blog/categories/设计模式/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2012-11-10T16:09:09+08:00</updated>
+  <updated>2012-11-20T15:57:08+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -437,7 +437,7 @@ javax.swing.Action#actionPeformed(ActionEvent e)
 <!--more-->
 
 
-<blockquote></blockquote>
+<p></p>
 
 <p>在无接待员的时候，病人要做业务，好复杂啊，好累！</p>
 
