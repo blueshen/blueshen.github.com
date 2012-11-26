@@ -7,12 +7,10 @@ sharing: false
 footer: false
 ---
 
-申艳超   
+ShenYanchao   
 
-邮箱：[zhiyi.shen@gmail.com](mailto:zhiyi.shen@gmail.com) 
-
-finally run in ubuntu!  
-
+Email:
+	echo "emhpeWkuc2hlbkBnbWFpbC5jb20=" | base64 -d
 
 
 
@@ -31,4 +29,8 @@ finally run in ubuntu!
 
 
 
----
+
+
+
+
+
