@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[分类：mysql | Blues 小站]]></title>
-  <link href="http://www.shenyanchao.cn/blog/categories/mysql/atom.xml" rel="self"/>
+  <title><![CDATA[Tag: mysql | Blues 小站]]></title>
+  <link href="http://www.shenyanchao.cn/tags/mysql/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
   <updated>2012-12-04T15:39:54+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
