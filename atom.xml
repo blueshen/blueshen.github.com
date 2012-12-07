@@ -4,7 +4,7 @@
   <title><![CDATA[Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2012-12-07T15:11:42+08:00</updated>
+  <updated>2012-12-07T15:14:00+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -60,7 +60,7 @@ jmeter.bat (windows) <br/>
 jmeter.sh (linux) <br/>
 用来打开GUI界面。<br/>
 点开运行->远程启动，将会看到这样的界面： <br/>
-<img src="images/blog/jmeter-remote.png" alt="Jmeter远程启动" /> <br/>
+<img src="http://www.shenyanchao.cn/images/blog/jmeter-remote.png" alt="Jmeter远程启动" /> <br/>
 从这里就可以指定哪台slave来发压力了。当然也可以选择远程全部启动了。</p>
 
 <h3>为什么要分布式发压力？</h3>
