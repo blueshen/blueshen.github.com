@@ -4,7 +4,7 @@
   <title><![CDATA[Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2012-12-07T14:58:00+08:00</updated>
+  <updated>2012-12-07T15:11:05+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -36,6 +36,9 @@
 <blockquote><p>总控机为<strong>client</strong>，我们（用户）只与这太机器打交道。或者称之为<strong>Master</strong>; <br/>
 节点机器为<strong>server</strong>,它负责真正的向服务发出压力。或者称之为<strong>Slave</strong>;</p></blockquote>
 
+<!--more-->
+
+
 <p>这个只是角度不一样，就是一个总分结构。</p>
 
 <h3>Slave配置</h3>
@@ -65,6 +68,18 @@ jmeter.sh (linux) <br/>
 <p>1.单机运行受限，网络、CPU、内存读可能是瓶颈所在； <br/>
 2.Jmeter是纯Java的程序，受JVM的一些限制；  <br/>
 一般情况下，依据机器配置，单机的发压量为300～600，如果需要更大的并发，就需要使用分布式的多台机器同时加压。</p>
+
+<h3>配置注意事项</h3>
+
+<p>1.尽量保证各台机器之间的jmeter版本一致
+2.JDK／JRE要正确安装
+3.启动端口有可能被占用了，这个需要在启动时间指定SERVER_PORT</p>
+
+<hr />
+
+<p>参考文献： <br/>
+<a href="http://jmeter.apache.org/usermanual/remote-test.html">http://jmeter.apache.org/usermanual/remote-test.html</a>
+<a href="http://jmeter.apache.org/usermanual/jmeter_distributed_testing_step_by_step.pdf">http://jmeter.apache.org/usermanual/jmeter_distributed_testing_step_by_step.pdf</a></p>
 ]]></content>
   </entry>
   
