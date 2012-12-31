@@ -165,4 +165,4 @@ PageFactory认为wd是HTML元素的id或者name字段的值,并且优先从id开
 		@FindBy(css="...")
 同时支持`@FindBys`用于支持列表元素查找定位，返回`List<WebElement>`类型。
 
-**总之，利用PageObjects设计模式并且配合PageFactory使用，将使你的自动化测试优雅、易度、易维护。**
+**总之，利用PageObjects设计模式并且配合PageFactory使用，将使你的自动化测试优雅、易懂、易维护。**
