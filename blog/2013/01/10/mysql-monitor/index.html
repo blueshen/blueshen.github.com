@@ -137,11 +137,7 @@
   </header>
 
 
-<div class="entry-content"><p>MYsql 性能监控 (2012-02-10 18:07:33)转载▼
-标签： 杂谈    分类： mysql
-整理自网络.</p>
-
-<h2>用mysqldumpslow分析mysql的slow query log</h2>
+<div class="entry-content"><h2>用mysqldumpslow分析mysql的slow query log</h2>
 
 <p>mysql有一个功能就是可以log下来运行的比较慢的sql语句，默认是没有这个log的，为了开启这个功能，要修改my.cnf或者在mysql启动的时候加入一些参数。如果在my.cnf里面修改，需增加如下几行</p>
 
@@ -155,7 +151,10 @@ log-slow-queries 设置把日志写在那里，可以为空，系统会给一个
 log-queries-not-using-indexes 就是字面意思，log下来没有使用索引的query。 <br/>
 把上述参数打开，运行一段时间，就可以关掉了，省得影响生产环境。</p>
 
-<p>接下来就是分析了，我这里的文件名字叫host-slow.log。 <br/>
+<!--more-->
+
+
+<p>接下来就是分析了，我这里的文件名字叫host-slow.log。   <br/>
 先mysqldumpslow –help以下，我主要用的是</p>
 
 <pre><code>-s ORDER what to sort by (t, at, l, al, r, ar etc), ‘at’ is default
