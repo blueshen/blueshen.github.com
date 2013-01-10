@@ -113,6 +113,60 @@
       ﻿
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2012/10/23/bom-in-utf8-text/">什么是BOM(Byte Order Mark)?</a></h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-23T17:05:00+08:00" pubdate data-updated="true">2012年10月23日 17:10:00</time>
+        
+         | <a href="/blog/2012/10/23/bom-in-utf8-text/#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+  <div class="entry-content"><h3>引子</h3>
+
+<p>在使用诸如UltraEditor,NotePad++等编辑工具时，经常会遇到encode进行转换的情况。以NotePad++为例，一篇ASCII编码的文本，通过菜单栏Encoding->convert to **进行编码格式的转换。我却发现一个奇怪的问题，下拉框里有这样两个选项：</p>
+
+<ul>
+<li>Convert to UTF-8</li>
+<li>Convert to UTF-8 without BOM</li>
+</ul>
+
+
+<p>同样的是转化为UTF-8编码，为什么还牵涉到BOM呢。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/10/23/bom-in-utf8-text/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2012/10/22/design-pattern-in-jdk-index/">23个经典JDK设计模式</a></h1>
     
 	<p class="meta">
@@ -286,50 +340,6 @@
 
     </article>
   
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/10/20/git-command/">Git 命令</a></h1>
-    
-	<p class="meta">
-    
-
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-20T10:56:00+08:00" pubdate data-updated="true">2012年10月20日 10:10:00</time>
-        
-         | <a href="/blog/2012/10/20/git-command/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content"><h2>Git 命令结构图：</h2>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/10/20/git-command/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <ul class="pager">
     
     <li class="previous"><a href="/blog/page/8/">&larr; 上一页</a></li>
@@ -352,6 +362,10 @@
     <li class="nav-header">最近更新</li>
     
       <li class="post">
+        <a href="/blog/2013/01/10/mysql-monitor/">MySql性能监控</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/12/31/build-jmeter-from-sources/">从源码编译构建Jmeter</a>
       </li>
     
@@ -367,16 +381,12 @@
         <a href="/blog/2012/11/08/observer-in-java/">设计模式：观察者（Observer） in java</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2012/11/08/iterator-in-java/">设计模式：迭代器（Iterator） in java</a>
-      </li>
-    
   </ul>
 </section>
 <section class="well">
 	<ul id="tags-cloud" class="nav nav-list">
 	<li class="nav-header">分类云</li>
-    <span id="tag-cloud"><a href='/blog/categories/apache' style='font-size: 102.5%'>apache(1)</a> <a href='/blog/categories/encode' style='font-size: 110.0%'>encode(4)</a> <a href='/blog/categories/git' style='font-size: 102.5%'>git(1)</a> <a href='/blog/categories/http' style='font-size: 102.5%'>HTTP(1)</a> <a href='/blog/categories/java' style='font-size: 102.5%'>Java(1)</a> <a href='/blog/categories/jmeter' style='font-size: 105.0%'>jmeter(2)</a> <a href='/blog/categories/jvm' style='font-size: 105.0%'>JVM(2)</a> <a href='/blog/categories/markdown' style='font-size: 105.0%'>markdown(2)</a> <a href='/blog/categories/maven' style='font-size: 107.5%'>maven(3)</a> <a href='/blog/categories/mysql' style='font-size: 102.5%'>mysql(1)</a> <a href='/blog/categories/selenium' style='font-size: 120.0%'>selenium(8)</a> <a href='/blog/categories/个人' style='font-size: 105.0%'>个人(2)</a> <a href='/blog/categories/设计模式' style='font-size: 160.0%'>设计模式(24)</a> </span>
+    <span id="tag-cloud"><a href='/blog/categories/apache' style='font-size: 102.5%'>apache(1)</a> <a href='/blog/categories/encode' style='font-size: 110.0%'>encode(4)</a> <a href='/blog/categories/git' style='font-size: 102.5%'>git(1)</a> <a href='/blog/categories/http' style='font-size: 102.5%'>HTTP(1)</a> <a href='/blog/categories/java' style='font-size: 102.5%'>Java(1)</a> <a href='/blog/categories/jmeter' style='font-size: 105.0%'>jmeter(2)</a> <a href='/blog/categories/jvm' style='font-size: 105.0%'>JVM(2)</a> <a href='/blog/categories/markdown' style='font-size: 105.0%'>markdown(2)</a> <a href='/blog/categories/maven' style='font-size: 107.5%'>maven(3)</a> <a href='/blog/categories/mysql' style='font-size: 105.0%'>mysql(2)</a> <a href='/blog/categories/selenium' style='font-size: 120.0%'>selenium(8)</a> <a href='/blog/categories/个人' style='font-size: 105.0%'>个人(2)</a> <a href='/blog/categories/设计模式' style='font-size: 160.0%'>设计模式(24)</a> </span>
   </ul>
 </section>﻿<section class="well">
 <ul class="nav nav-list">
@@ -413,7 +423,7 @@
   </div>
   <footer role="contentinfo" class="page-footer">﻿<hr>
 <p>
-  版权所有 &copy; 2012 - ShenYanchao -
+  版权所有 &copy; 2013 - ShenYanchao -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 
 </p>
