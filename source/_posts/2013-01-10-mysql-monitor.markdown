@@ -6,9 +6,7 @@ comments: true
 categories: mysql
 tags: [ mysql, monitor ]
 ---
-MYsql 性能监控 (2012-02-10 18:07:33)转载▼
-标签： 杂谈	分类： mysql
-整理自网络.
+
 ##用mysqldumpslow分析mysql的slow query log   
 mysql有一个功能就是可以log下来运行的比较慢的sql语句，默认是没有这个log的，为了开启这个功能，要修改my.cnf或者在mysql启动的时候加入一些参数。如果在my.cnf里面修改，需增加如下几行   
 
@@ -20,8 +18,8 @@ long_query_time 是指执行超过多久的sql会被log下来，这里是1秒。
 log-slow-queries 设置把日志写在那里，可以为空，系统会给一个缺省的文件host_name-slow.log，我生成的log就在mysql的data目录   
 log-queries-not-using-indexes 就是字面意思，log下来没有使用索引的query。   
 把上述参数打开，运行一段时间，就可以关掉了，省得影响生产环境。  
-
-接下来就是分析了，我这里的文件名字叫host-slow.log。   
+<!--more-->
+接下来就是分析了，我这里的文件名字叫host-slow.log。     
 先mysqldumpslow –help以下，我主要用的是   
 
 	-s ORDER what to sort by (t, at, l, al, r, ar etc), ‘at’ is default
