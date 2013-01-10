@@ -4,7 +4,7 @@
   <title><![CDATA[Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2013-01-10T19:17:35+08:00</updated>
+  <updated>2013-01-10T21:03:08+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -12,6 +12,130 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Selenium-Grid2 配置]]></title>
+    <link href="http://www.shenyanchao.cn/blog/2013/01/10/selenium-grid2-config/"/>
+    <updated>2013-01-10T19:37:00+08:00</updated>
+    <id>http://www.shenyanchao.cn/blog/2013/01/10/selenium-grid2-config</id>
+    <content type="html"><![CDATA[<h3>为什么要使用Selenium Grid ?</h3>
+
+<ul>
+<li>分布式运行大规模的Test</li>
+<li>能够通过一个中央点，很容易的运行不同OS上的不同browser</li>
+<li>最小化对Grid的维护时间，并能充分利用虚拟设备</li>
+</ul>
+
+
+<h3>Selenium Grid 部署与启动</h3>
+
+<p>Hub :总控节点，连接调用Node。 <br/>
+Node: 负责执行Tests,调用浏览器。</p>
+
+<!--more-->
+
+
+<p>下面以selenium-server-standalone-2.27.0.jar版本为例： <br/>
+使用这样3台机器：</p>
+
+<ul>
+<li>10.81.14.170</li>
+<li>10.81.14.180</li>
+<li>10.81.14.190</li>
+</ul>
+
+
+<p>启动Hub（10.81.14.180）:</p>
+
+<pre><code>java  -jar  selenium-server-standalone-2.27.0.jar -role hub 
+</code></pre>
+
+<p>在浏览器内打开：<a href="http://10.81.14.180:4444/grid/console">http://10.81.14.180:4444/grid/console</a>可以查看Hub状态。也就是说Grid默认启动端口是4444，如果想切换为其他端口，则加<code>-port</code>参数。比如要切换为8888：</p>
+
+<pre><code>java  -jar  selenium-server-standalone-2.27.0.jar -role hub  -port 8888
+</code></pre>
+
+<p>启动Node（10.81.14.170）:</p>
+
+<pre><code>java -jar selenium-server-standalone-2.27.0.jar -role node -hub http://10.81.14.180:8888/grid/register
+</code></pre>
+
+<p>同样的，也可以使用<code>-port</code>切换node端口，默认端口是5555.  <br/>
+此处的node节点，也可以作为一个单机的远程节点存在，并同时支持RC,WebDriver。浏览器输入<a href="http://10.81.14.180:8877/wd/hub">http://10.81.14.180:8877/wd/hub</a>可以看到session信息。</p>
+
+<p>然后，同样的启动10.81.14.180、10.81.14.190上的Node节点。</p>
+
+<p>打开浏览器<a href="http://10.81.14.180:8888/grid/console">http://10.81.14.180:8888/grid/console</a>,可以看到如下的界面：</p>
+
+<p><img src="http://www.shenyanchao.cn/images/blog/selenium-grid-console.png" alt="" /></p>
+
+<p>至此，Selenium Grid2已经配置成功了。</p>
+
+<h3>使用Grid运行Tests</h3>
+
+<p>Selenium Grid2是向后兼容的，同时支持RC,WebDriver。
+如果使用RC,即Selenium1，使用以下的方法：</p>
+
+<pre><code>Selenium selenium = new DefaultSelenium(“10.81.14.180”, 8888, “*firefox”, “http://www.baidu.com”);
+</code></pre>
+
+<p>使用WebDriver的话，使用以下的方法：</p>
+
+<pre><code>DesiredCapabilities capability = DesiredCapabilities.firefox();
+WebDriver driver = new RemoteWebDriver(new URL("http://10.81.14.180:8888/wd/hub"), capability);
+</code></pre>
+
+<p>可以看出所有的请求都发给了Hub,然后由Hub分配给匹配的节点来执行。 <br/>
+那么，Hub是如何来分配的呢？往下看</p>
+
+<h3>Node配置</h3>
+
+<p>默认，Node会启动11个浏览器实例:5 Firefox,5 Chrome, 1 Internet Explorer. 从Grid Console界面看出来，为什么每个机器上有22个实例呢？是这样的，Node为了同时支持RC与WebDriver两种协议，所以就是2＊11了。把鼠标放到各个浏览器图标上，就可以看出里面的配置区别了。<br/>
+内容类似：</p>
+
+<pre><code>{
+      "browserName": "*firefox",
+      "maxInstances": 5,
+      "seleniumProtocol": "Selenium"
+    }
+</code></pre>
+
+<p>或者</p>
+
+<pre><code> {
+      "browserName": "firefox",
+      "maxInstances": 5,
+      "seleniumProtocol": "WebDriver"
+    }
+</code></pre>
+
+<p>其中，seleniumProtocol就是定义的不同协议了。</p>
+
+<p>如何修改Driver配置呢？可以从启动参数里操作。</p>
+
+<pre><code>-browser browserName=firefox,version=3.6,maxInstances=5,platform=LINUX
+</code></pre>
+
+<p>那Node默认启动的配置是什么呢？  <br/>
+由于如果从启动参数里，配置这个多东西，很难写的。因此，官方很人性化的提供了JSON文件来配置。也就是说默认启动的配置如下： <br/>
+<a href="http://code.google.com/p/selenium/source/browse/trunk/java/server/src/org/openqa/grid/common/defaults/DefaultNode.json">http://code.google.com/p/selenium/source/browse/trunk/java/server/src/org/openqa/grid/common/defaults/DefaultNode.json</a></p>
+
+<p><a href="http://code.google.com/p/selenium/source/browse/trunk/java/server/src/org/openqa/grid/common/defaults/DefaultHub.json">http://code.google.com/p/selenium/source/browse/trunk/java/server/src/org/openqa/grid/common/defaults/DefaultHub.json</a></p>
+
+<p>如果想自定义配置，直接对json文件修改，启动时，指定配置文件就可以了。</p>
+
+<pre><code>java -jar selenium-server-standalone.jar -role hub -hubConfig hubconfig.json 
+</code></pre>
+
+<p>仅仅就这样就行了？从博文<a href="http://www.shenyanchao.cn/blog/2012/10/12/selenium-multiple-browser-support/">http://www.shenyanchao.cn/blog/2012/10/12/selenium-multiple-browser-support/</a>知道，浏览器的启动是要制定一些driver位置的，否则Node不知道怎么启动浏览器实例。因此需要进行指定：</p>
+
+<pre><code>java -jar selenium-server-standalone-2.27.0.jar -port 8877 -role node -hub http://10.81.14.180:8888/grid/register  -nodeConfig nodeconfig.json -Dwebdriver.chrome.driver="E:/selenium/chromedriver.exe" -Dwebdriver.ie.driver="E:/selenium/IEDriverServer.exe"
+</code></pre>
+
+<p>参考文档：<br/>
+<a href="http://code.google.com/p/selenium/wiki/Grid2">http://code.google.com/p/selenium/wiki/Grid2</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[MySql性能监控]]></title>
@@ -1171,15 +1295,6 @@ javax.xml.xpath.XPathFactory#newInstance()
     <link href="http://www.shenyanchao.cn/blog/2012/11/02/interpreter-in-java/"/>
     <updated>2012-11-02T20:09:00+08:00</updated>
     <id>http://www.shenyanchao.cn/blog/2012/11/02/interpreter-in-java</id>
-    <content type="html"><![CDATA[
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[设计模式：责任链（chain of responsibility） in java]]></title>
-    <link href="http://www.shenyanchao.cn/blog/2012/11/02/chain-of-responsibility-in-java/"/>
-    <updated>2012-11-02T20:09:00+08:00</updated>
-    <id>http://www.shenyanchao.cn/blog/2012/11/02/chain-of-responsibility-in-java</id>
     <content type="html"><![CDATA[
 ]]></content>
   </entry>

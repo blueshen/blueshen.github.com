@@ -113,6 +113,62 @@
       ﻿
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2013/01/10/selenium-grid2-config/">Selenium-Grid2 配置</a></h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-10T19:37:00+08:00" pubdate data-updated="true">2013年01月10日 19:01:00</time>
+        
+         | <a href="/blog/2013/01/10/selenium-grid2-config/#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+  <div class="entry-content"><h3>为什么要使用Selenium Grid ?</h3>
+
+<ul>
+<li>分布式运行大规模的Test</li>
+<li>能够通过一个中央点，很容易的运行不同OS上的不同browser</li>
+<li>最小化对Grid的维护时间，并能充分利用虚拟设备</li>
+</ul>
+
+
+<h3>Selenium Grid 部署与启动</h3>
+
+<p>Hub :总控节点，连接调用Node。 <br/>
+Node: 负责执行Tests,调用浏览器。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/01/10/selenium-grid2-config/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2013/01/10/mysql-monitor/">MySql性能监控</a></h1>
     
 	<p class="meta">
@@ -325,66 +381,6 @@ Git clone:</p>
 
     </article>
   
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/11/08/observer-in-java/">设计模式：观察者（Observer） in Java</a></h1>
-    
-	<p class="meta">
-    
-
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-08T18:50:00+08:00" pubdate data-updated="true">2012年11月08日 18:11:00</time>
-        
-         | <a href="/blog/2012/11/08/observer-in-java/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content"><p><strong>定义：</strong>又叫发布订阅模式（Publish/subscribe），它定义了对象间的一种一对多的依赖关系，使得每当一个对象改变状态，则所有依赖于它的对象都会得到通知并自动更新。</p>
-
-<blockquote><p>这个定义还是比较通俗易懂的。我看了一遍，发现这不就是微博吗？我发布一条微博，那么所有关注我的人，都会收到通知，然后在新鲜事里显示出来。没错，就是这样！</p></blockquote>
-
-<p>观察者模式有4个角色：</p>
-
-<ul>
-<li>被观察者(Observable):<br/>
-定义被观察者必须实现的职责，动态的增加、删除观察者以及通知观察者</li>
-<li>观察者（Observer）: <br/>
-接收到消息后，进行更新操作</li>
-<li>被观察者(Observable)具体类:<br/>
-定义自己的业务逻辑，并定义哪儿些事件需要通知观察者</li>
-<li>观察者（Observer）具体类：   <br/>
-每个观察者在接收到消息后的更新操作是不同的。</li>
-</ul>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/11/08/observer-in-java/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <ul class="pager">
     
     <li class="previous"><a href="/blog/page/2/">&larr; 上一页</a></li>
@@ -405,6 +401,10 @@ Git clone:</p>
     <li class="nav-header">最近更新</li>
     
       <li class="post">
+        <a href="/blog/2013/01/10/selenium-grid2-config/">Selenium-Grid2 配置</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/01/10/mysql-monitor/">MySql性能监控</a>
       </li>
     
@@ -420,16 +420,12 @@ Git clone:</p>
         <a href="/blog/2012/12/04/mysqldump/">mysqldump命令使用</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2012/11/08/observer-in-java/">设计模式：观察者（Observer） in java</a>
-      </li>
-    
   </ul>
 </section>
 <section class="well">
 	<ul id="tags-cloud" class="nav nav-list">
 	<li class="nav-header">分类云</li>
-    <span id="tag-cloud"><a href='/blog/categories/apache' style='font-size: 102.5%'>apache(1)</a> <a href='/blog/categories/encode' style='font-size: 110.0%'>encode(4)</a> <a href='/blog/categories/git' style='font-size: 102.5%'>git(1)</a> <a href='/blog/categories/http' style='font-size: 102.5%'>HTTP(1)</a> <a href='/blog/categories/java' style='font-size: 102.5%'>Java(1)</a> <a href='/blog/categories/jmeter' style='font-size: 105.0%'>jmeter(2)</a> <a href='/blog/categories/jvm' style='font-size: 105.0%'>JVM(2)</a> <a href='/blog/categories/markdown' style='font-size: 105.0%'>markdown(2)</a> <a href='/blog/categories/maven' style='font-size: 107.5%'>maven(3)</a> <a href='/blog/categories/mysql' style='font-size: 105.0%'>mysql(2)</a> <a href='/blog/categories/selenium' style='font-size: 120.0%'>selenium(8)</a> <a href='/blog/categories/个人' style='font-size: 105.0%'>个人(2)</a> <a href='/blog/categories/设计模式' style='font-size: 160.0%'>设计模式(24)</a> </span>
+    <span id="tag-cloud"><a href='/blog/categories/apache' style='font-size: 102.5%'>apache(1)</a> <a href='/blog/categories/encode' style='font-size: 110.0%'>encode(4)</a> <a href='/blog/categories/git' style='font-size: 102.5%'>git(1)</a> <a href='/blog/categories/http' style='font-size: 102.5%'>HTTP(1)</a> <a href='/blog/categories/java' style='font-size: 102.5%'>Java(1)</a> <a href='/blog/categories/jmeter' style='font-size: 105.0%'>jmeter(2)</a> <a href='/blog/categories/jvm' style='font-size: 105.0%'>JVM(2)</a> <a href='/blog/categories/markdown' style='font-size: 105.0%'>markdown(2)</a> <a href='/blog/categories/maven' style='font-size: 107.5%'>maven(3)</a> <a href='/blog/categories/mysql' style='font-size: 105.0%'>mysql(2)</a> <a href='/blog/categories/selenium' style='font-size: 122.5%'>selenium(9)</a> <a href='/blog/categories/个人' style='font-size: 105.0%'>个人(2)</a> <a href='/blog/categories/设计模式' style='font-size: 160.0%'>设计模式(24)</a> </span>
   </ul>
 </section>﻿<section class="well">
 <ul class="nav nav-list">
