@@ -228,7 +228,11 @@
         <loc>
             http://www.shenyanchao.cn/blog/2013/03/11/node-dot-js-develop-guide-reading-note/
         </loc>
-        <lastmod>2013-03-11T20:20:26+08:00</lastmod>
+        <lastmod>2013-03-11T20:30:00+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://www.shenyanchao.cn/blog/2013/03/12/testacular-in-brief/</loc>
+        <lastmod>2013-03-12T17:48:54+08:00</lastmod>
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/messagebox/</loc>
@@ -248,14 +252,14 @@
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/</loc>
-        <lastmod>2013-03-11T20:22:27+08:00</lastmod>
+        <lastmod>2013-03-12T17:48:54+08:00</lastmod>
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/tags/</loc>
-        <lastmod>2013-03-11T20:22:27+08:00</lastmod>
+        <lastmod>2013-03-12T17:48:54+08:00</lastmod>
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/blog/archives/</loc>
-        <lastmod>2013-03-11T20:22:27+08:00</lastmod>
+        <lastmod>2013-03-12T17:48:54+08:00</lastmod>
     </url>
 </urlset>
