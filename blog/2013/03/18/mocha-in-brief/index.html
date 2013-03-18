@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Blues 小站</title>
+  <title>mocha简介 - Blues 小站</title>
   <meta name="author" content="ShenYanchao">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.shenyanchao.cn/blog/page/9">
+  <link rel="canonical" href="http://www.shenyanchao.cn/blog/2013/03/18/mocha-in-brief">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/bootstrap/bootstrap.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/stylesheets/bootstrap/responsive.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -105,15 +105,13 @@
 </nav>
   <div class="container">
     <div class="row-fluid">
-      <div class="span9">
-  
-  
-  
-    <article>
-      ﻿
+      
+<article class="hentry span9" role="article">
+
+  ﻿
   <header class="page-header">
     
-      <h1 class="entry-title"><a href="/blog/2012/10/22/encode-story/">字符集与编码的故事</a></h1>
+      <h1 class="entry-title">Mocha简介</h1>
     
 	<p class="meta">
     
@@ -130,206 +128,165 @@
   
 
 
-<time datetime="2012-10-22T20:13:00+08:00" pubdate data-updated="true">2012年10月22日 20:10:00</time>
+<time datetime="2013-03-18T20:44:00+08:00" pubdate data-updated="true">2013年03月18日 20:03:00</time>
         
-         | <a href="/blog/2012/10/22/encode-story/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content"><p>很久很久以前，有一群人，他们决定用8个可以开合的晶体管来组合成不同的状态，以表示世界上的万物。他们看到8个开关状态是好的，于是他们把这称为&#8221;字节&#8221;。 再后来，他们又做了一些可以处理这些字节的机器，机器开动了，可以用字节来组合出很多状态，状态开始变来变去。他们看到这样是好的，于是它们就这机器称为&#8221;计算机&#8221;。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/10/22/encode-story/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/10/20/git-command/">Git 命令</a></h1>
-    
-	<p class="meta">
-    
-
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-20T10:56:00+08:00" pubdate data-updated="true">2012年10月20日 10:10:00</time>
-        
-         | <a href="/blog/2012/10/20/git-command/#disqus_thread">我要评论</a>
+         | <a href="#disqus_thread">我要评论</a>
         
     
  </p>
   </header>
 
 
-  <div class="entry-content"><h2>Git 命令结构图：</h2>
+<div class="entry-content"><h2>Mocha</h2>
 
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/10/20/git-command/">阅读全文 &rarr;</a>
-    </footer>
-  
+<p>Mocha作为一种咖啡名，应该是广为人知的，中文翻译为<strong>摩卡</strong>。在这里，我们介绍的是一个JavaScript Test Framework，它用于对NodeJS、JavaScript进行单元测试。<br/>
+Mocha是一个功能丰富的Javascript测试框架，能够运行在node和浏览器上，并且有丰富的报表支持。 <br/>
+项目主页：<a href="http://visionmedia.github.com/mocha/">http://visionmedia.github.com/mocha/</a></p>
 
+<h2>安装</h2>
 
-    </article>
-  
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/10/20/xpath/">Xpath 详解</a></h1>
-    
-	<p class="meta">
-    
+<pre><code>npm install -g mocha
+</code></pre>
 
-        
+<h2>一个简单的样例</h2>
 
+<pre><code>$ mkdir test
+$ cd ..
+$ mocha test/test.js
 
+var assert = require("assert")
+describe('Array', function(){
+describe('#indexOf()', function(){
+    it('should return -1 when the value is not present', function(){
+    assert.equal(-1, [1,2,3].indexOf(5));
+    assert.equal(-1, [1,2,3].indexOf(0));
+    })
+})
+})
 
+$  mocha
 
+ .
 
+ ✔ 1 test complete (1ms)
+</code></pre>
 
-
-
-  
-
-
-<time datetime="2012-10-20T10:43:00+08:00" pubdate data-updated="true">2012年10月20日 10:10:00</time>
-        
-         | <a href="/blog/2012/10/20/xpath/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
+<!--more-->
 
 
-  <div class="entry-content"><div id="intro">
-<p><strong>XPath 使用路径表达式来选取 XML 文档中的节点或节点集。节点是通过沿着路径 (path) 或者步 (steps) 来选取的。</strong></p>
-</div>
+<h2>Assertions</h2>
 
-
-
-
-<div>
-<h2>XML 实例文档</h2>
-<p>我们将在下面的例子中使用这个 XML 文档。</p>
-<pre>&lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot;?&gt;
-
-&lt;bookstore&gt;
-
-&lt;book&gt;
-  &lt;title lang=&quot;eng&quot;&gt;Harry Potter&lt;/title&gt;
-  &lt;price&gt;29.99&lt;/price&gt;
-&lt;/book&gt;
-
-&lt;book&gt;
-  &lt;title lang=&quot;eng&quot;&gt;Learning XML&lt;/title&gt;
-  &lt;price&gt;39.95&lt;/price&gt;
-&lt;/book&gt;
-
-&lt;/bookstore&gt;</pre>
-</div>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/10/20/xpath/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/10/19/install-maven/">安装配置Maven</a></h1>
-    
-	<p class="meta">
-    
-
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-19T23:40:00+08:00" pubdate data-updated="true">2012年10月19日 23:10:00</time>
-        
-         | <a href="/blog/2012/10/19/install-maven/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content"><h2>Maven安装</h2>
-
-<p>1.下载Maven：从<a href="http://maven.apache.org/download.html">Maven官方</a>下载,并解压。比如解压到：D:\apache-maven-3.0.4   <br/>
-2.配置环境变量：</p>
+<p>在Java Unit Test中类似JUNIT，TestNG提供了不少的Assert函数。同样的，mocha也有很多选择。而这些并不属于mocha的一部分。</p>
 
 <ul>
-<li>M2_HOME：D:\apache-maven-3.0.4</li>
-<li>path：%M2_HOME%\bin;</li>
+<li><a href="http://github.com/visionmedia/should.js">should.js</a></li>
+<li><a href="https://github.com/LearnBoost/expect.js">expect.js</a></li>
+<li><a href="http://chaijs.com/">chai</a></li>
+<li><a href="https://github.com/visionmedia/better-assert">better-assert</a></li>
 </ul>
 
 
-<p>打开cmd命令窗口,验证配置是否成功：<code>mvn -v</code>。成功后会显示正确的版本信息。<br/>
-3.修改默认的repository <br/>
-maven默认放在C:\Users\user.m2\repository目录下（不同系统可能不一样）。Window下一般不建议放在C盘。可以通过如下方式修改： <br/>
-进入%M2_HOME%\conf\settings.xml中，添加<code>&lt;localRepository&gt;e:/repo&lt;/localRepository&gt;</code>这样一行。默认的路径就指向新的目录了。</p>
+<h2>测试同步代码</h2>
+
+<pre><code>describe('Array', function(){
+describe('#indexOf()', function(){
+    it('should return -1 when the value is not present', function(){
+    [1,2,3].indexOf(5).should.equal(-1);
+    [1,2,3].indexOf(0).should.equal(-1);
+    })
+})
+})
+</code></pre>
+
+<h2>测试异步代码</h2>
+
+<p>添加一个回调函数，通常称为done,给it。mocha就会知道应该等待操作完成。</p>
+
+<pre><code>describe('User', function(){
+describe('#save()', function(){
+    it('should save without error', function(done){
+    var user = new User('Luna');
+    user.save(done);
+    })
+})
+})
+</code></pre>
+
+<h2>类似与JUNIT的函数</h2>
+
+<ul>
+<li>before : 在所有测试执行之前</li>
+<li>after ： 在所有测试执行之后</li>
+<li>beforeEach ： 每个测试之前</li>
+<li>afterEach ：每个测试之后</li>
+</ul>
+
+
+<h2>mocha指令</h2>
+
+<pre><code>Usage: mocha [debug] [options] [files]
+
+Commands:
+
+init &lt;path&gt;
+initialize a client-side mocha setup at &lt;path&gt;
+
+Options:
+
+-h, --help                      帮助信息
+-V, --version                   版本信息
+-r, --require &lt;name&gt;            依赖的module
+-R, --reporter &lt;name&gt;           使用的报告模式
+-u, --ui &lt;name&gt;                 用什么接口(bdd|tdd|exports)
+-g, --grep &lt;pattern&gt;            执行匹配 &lt;pattern&gt;的测试
+-i, --invert                    --grep 相反的测试
+-t, --timeout &lt;ms&gt;              超时毫秒数 [2000]
+-s, --slow &lt;ms&gt;                 "slow" 测试的门槛 [75]
+-w, --watch                     查看文件的变化，如true,则变化后自动运行。
+-c, --colors                    启用colors
+-C, --no-colors                 禁用colors
+-G, --growl                     启用growl notification
+-d, --debug                     启用debug
+-b, --bail                      只对第一个报错的TEST感兴趣
+--recursive                     递归执行
+--debug-brk                     enable node's debugger breaking on the first line
+--globals &lt;names&gt;               allow the given comma-delimited global [names]
+--ignore-leaks                  ignore global variable leaks
+--interfaces                    显示可用的接口
+--reporters                     显示可用的报表列表
+--compilers &lt;ext&gt;:&lt;module&gt;,...  使用指定的module来编译文件
+</code></pre>
+
+<h2>报表</h2>
+
+<pre><code>dot - dot matrix
+    doc - html documentation
+    spec - hierarchical spec list
+    json - single json object
+    progress - progress bar
+    list - spec-style listing
+    tap - test-anything-protocol
+    landing - unicode landing strip
+    xunit - xunit reportert
+    teamcity - teamcity ci support
+    html-cov - HTML test coverage
+    json-cov - JSON test coverage
+    min - minimal reporter (great with --watch)
+    json-stream - newline delimited json events
+    markdown - markdown documentation (github flavour)
+    nyan - nyan cat!
+</code></pre>
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/10/19/jvm-out-of-memory/">Java内存溢出详解</a></h1>
-    
-	<p class="meta">
-    
+  
 
-        
+<span class="byline author vcard"> <span class="fn">ShenYanchao</span> 发布于</span>
+
+      
 
 
 
@@ -341,52 +298,78 @@ maven默认放在C:\Users\user.m2\repository目录下（不同系统可能不一
   
 
 
-<time datetime="2012-10-19T23:12:00+08:00" pubdate data-updated="true">2012年10月19日 23:10:00</time>
-        
-         | <a href="/blog/2012/10/19/jvm-out-of-memory/#disqus_thread">我要评论</a>
-        
+<time datetime="2013-03-18T20:44:00+08:00" pubdate data-updated="true">2013年03月18日 20:03:00</time>
+      
+
+<span class="categories">
+	| 分类:
+  
+    <a class='category' href='/blog/categories/nodejs/'>nodejs</a>
+  
+</span>
+
+
+	  
+
+    </p>
     
- </p>
-  </header>
-
-
-  <div class="entry-content"><p>一、常见的Java内存溢出有以下三种：</p>
-
-<ol>
-<li><code>java.lang.OutOfMemoryError: Java heap space</code> &#8212;-JVM Heap（堆）溢出
-JVM在启动的时候会自动设置JVM Heap的值，其初始空间(即-Xms)是物理内存的1/64，最大空间(-Xmx)不可超过物理内存。
-可以利用JVM提供的-Xmn -Xms -Xmx等选项可进行设置。Heap的大小是Young Generation 和Tenured Generaion 之和。
-在JVM中如果98％的时间是用于GC，且可用的Heap size 不足2％的时候将抛出此异常信息。
-解决方法：手动设置JVM Heap（堆）的大小。  <br/>
+      ﻿<div class="sharing">
+  
+  
+  
+<!-- Baidu Button BEGIN -->
+<div id="bdshare" class="bdshare_t bds_tools_32 get-codes-bdshare">
+<a class="bds_tsina"></a>
+<a class="bds_renren"></a>
+<a class="bds_qzone"></a>
+<a class="bds_kaixin001"></a>
+<a class="bds_hi"></a>
+<a class="bds_douban"></a>
+<a class="bds_tsohu"></a>
+<a class="bds_tqq"></a>
+<a class="bds_ty"></a>
+<a class="bds_twi"></a>
+<a class="bds_tieba"></a>
+<span class="bds_more"></span>
+<a class="shareCount"></a>
 </div>
+<br><br>
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=6337598" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
   
   
-    <footer>
-      <a rel="full-article" href="/blog/2012/10/19/jvm-out-of-memory/">阅读全文 &rarr;</a>
-    </footer>
   
-
-
-    </article>
   
-  <ul class="pager">
-    
-    <li class="previous"><a href="/blog/page/10/">&larr; 上一页</a></li>
-    
-    <li><a href="/blog/archives">博客</a></li>
-    
-    <li class="next"><a href="/blog/page/8/">下一页 &rarr;</a></li>
-    
-  </ul>
+  
 </div>
+
+    
+    
+    <section>
+      <h1>讨论区</h1>
+      <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+    </section>
+    
+    <ul class="pager">
+      
+      <li class="previous"><a class="basic-alignment left"
+        href="/blog/2013/03/12/testacular-in-brief/" title="Previous Post:
+        testacular 简介">&laquo; testacular 简介</a></li>
+      
+      <li><a href="/blog/archives">博客</a></li>
+      
+    </ul>
+  </footer>
+</article>
+
 <aside class="sidebar-nav span3">
   
-    
-<section> 
-<iframe width="100%" height="90" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=3&isTitle=0&noborder=0&isWeibo=0&isFans=0&uid=2441133651&verifier=88889be4&dpc=1"></iframe>
-</section>
-
-﻿<section class="well">
+    ﻿<section class="well">
   <ul id="recent_posts" class="nav nav-list">
     <li class="nav-header">最近更新</li>
     
@@ -422,11 +405,16 @@ JVM在启动的时候会自动设置JVM Heap的值，其初始空间(即-Xms)是
   <li class="nav-header">最新评论</li>
   <script type="text/javascript" src="http://blueshen.disqus.com/recent_comments_widget.js?num_items=5&hide_avatars=0&avatar_size=32&excerpt_length=200"></script>
 </ul>
-  </section>
+  </section><section class="well">
+  <ul id="categories" class="nav nav-list">
+    <li class="nav-header">文章分类</li>
+    <li><a href='/blog/categories/apache'>apache (1)</a></li><li><a href='/blog/categories/encode'>encode (4)</a></li><li><a href='/blog/categories/git'>git (1)</a></li><li><a href='/blog/categories/http'>HTTP (1)</a></li><li><a href='/blog/categories/java'>Java (1)</a></li><li><a href='/blog/categories/javascript'>javascript (1)</a></li><li><a href='/blog/categories/jmeter'>jmeter (2)</a></li><li><a href='/blog/categories/jvm'>JVM (2)</a></li><li><a href='/blog/categories/markdown'>markdown (2)</a></li><li><a href='/blog/categories/maven'>maven (3)</a></li><li><a href='/blog/categories/mysql'>mysql (2)</a></li><li><a href='/blog/categories/nodejs'>nodejs (2)</a></li><li><a href='/blog/categories/selenium'>selenium (9)</a></li><li><a href='/blog/categories/ubuntu'>ubuntu (1)</a></li><li><a href='/blog/categories/个人'>个人 (2)</a></li><li><a href='/blog/categories/测试'>测试 (1)</a></li><li><a href='/blog/categories/设计模式'>设计模式 (24)</a></li>
+  </ul>
+</section>
 <section class="well">
   <ul id="gh_repos" class="nav">
     <li class="nav-header">GitHub Repos</li>
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   
   <a href="https://github.com/blueshen">@blueshen</a> on GitHub
@@ -448,6 +436,7 @@ JVM在启动的时候会自动设置JVM Heap的值，其初始空间(即-Xms)是
   
 </aside>
 
+
     </div>
   </div>
   <footer role="contentinfo" class="page-footer">﻿<hr>
@@ -463,7 +452,10 @@ JVM在启动的时候会自动设置JVM Heap的值，其初始空间(即-Xms)是
       var disqus_shortname = 'blueshen';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://www.shenyanchao.cn/blog/2013/03/18/mocha-in-brief/';
+        var disqus_url = 'http://www.shenyanchao.cn/blog/2013/03/18/mocha-in-brief/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

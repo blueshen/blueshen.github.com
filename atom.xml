@@ -4,7 +4,7 @@
   <title><![CDATA[Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2013-03-14T13:22:18+08:00</updated>
+  <updated>2013-03-18T20:47:47+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -12,6 +12,153 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[mocha简介]]></title>
+    <link href="http://www.shenyanchao.cn/blog/2013/03/18/mocha-in-brief/"/>
+    <updated>2013-03-18T20:44:00+08:00</updated>
+    <id>http://www.shenyanchao.cn/blog/2013/03/18/mocha-in-brief</id>
+    <content type="html"><![CDATA[<h2>Mocha</h2>
+
+<p>Mocha作为一种咖啡名，应该是广为人知的，中文翻译为<strong>摩卡</strong>。在这里，我们介绍的是一个JavaScript Test Framework，它用于对NodeJS、JavaScript进行单元测试。<br/>
+Mocha是一个功能丰富的Javascript测试框架，能够运行在node和浏览器上，并且有丰富的报表支持。 <br/>
+项目主页：<a href="http://visionmedia.github.com/mocha/">http://visionmedia.github.com/mocha/</a></p>
+
+<h2>安装</h2>
+
+<pre><code>npm install -g mocha
+</code></pre>
+
+<h2>一个简单的样例</h2>
+
+<pre><code>$ mkdir test
+$ cd ..
+$ mocha test/test.js
+
+var assert = require("assert")
+describe('Array', function(){
+describe('#indexOf()', function(){
+    it('should return -1 when the value is not present', function(){
+    assert.equal(-1, [1,2,3].indexOf(5));
+    assert.equal(-1, [1,2,3].indexOf(0));
+    })
+})
+})
+
+$  mocha
+
+ .
+
+ ✔ 1 test complete (1ms)
+</code></pre>
+
+<!--more-->
+
+
+<h2>Assertions</h2>
+
+<p>在Java Unit Test中类似JUNIT，TestNG提供了不少的Assert函数。同样的，mocha也有很多选择。而这些并不属于mocha的一部分。</p>
+
+<ul>
+<li><a href="http://github.com/visionmedia/should.js">should.js</a></li>
+<li><a href="https://github.com/LearnBoost/expect.js">expect.js</a></li>
+<li><a href="http://chaijs.com/">chai</a></li>
+<li><a href="https://github.com/visionmedia/better-assert">better-assert</a></li>
+</ul>
+
+
+<h2>测试同步代码</h2>
+
+<pre><code>describe('Array', function(){
+describe('#indexOf()', function(){
+    it('should return -1 when the value is not present', function(){
+    [1,2,3].indexOf(5).should.equal(-1);
+    [1,2,3].indexOf(0).should.equal(-1);
+    })
+})
+})
+</code></pre>
+
+<h2>测试异步代码</h2>
+
+<p>添加一个回调函数，通常称为done,给it。mocha就会知道应该等待操作完成。</p>
+
+<pre><code>describe('User', function(){
+describe('#save()', function(){
+    it('should save without error', function(done){
+    var user = new User('Luna');
+    user.save(done);
+    })
+})
+})
+</code></pre>
+
+<h2>类似与JUNIT的函数</h2>
+
+<ul>
+<li>before : 在所有测试执行之前</li>
+<li>after ： 在所有测试执行之后</li>
+<li>beforeEach ： 每个测试之前</li>
+<li>afterEach ：每个测试之后</li>
+</ul>
+
+
+<h2>mocha指令</h2>
+
+<pre><code>Usage: mocha [debug] [options] [files]
+
+Commands:
+
+init &lt;path&gt;
+initialize a client-side mocha setup at &lt;path&gt;
+
+Options:
+
+-h, --help                      帮助信息
+-V, --version                   版本信息
+-r, --require &lt;name&gt;            依赖的module
+-R, --reporter &lt;name&gt;           使用的报告模式
+-u, --ui &lt;name&gt;                 用什么接口(bdd|tdd|exports)
+-g, --grep &lt;pattern&gt;            执行匹配 &lt;pattern&gt;的测试
+-i, --invert                    --grep 相反的测试
+-t, --timeout &lt;ms&gt;              超时毫秒数 [2000]
+-s, --slow &lt;ms&gt;                 "slow" 测试的门槛 [75]
+-w, --watch                     查看文件的变化，如true,则变化后自动运行。
+-c, --colors                    启用colors
+-C, --no-colors                 禁用colors
+-G, --growl                     启用growl notification
+-d, --debug                     启用debug
+-b, --bail                      只对第一个报错的TEST感兴趣
+--recursive                     递归执行
+--debug-brk                     enable node's debugger breaking on the first line
+--globals &lt;names&gt;               allow the given comma-delimited global [names]
+--ignore-leaks                  ignore global variable leaks
+--interfaces                    显示可用的接口
+--reporters                     显示可用的报表列表
+--compilers &lt;ext&gt;:&lt;module&gt;,...  使用指定的module来编译文件
+</code></pre>
+
+<h2>报表</h2>
+
+<pre><code>dot - dot matrix
+    doc - html documentation
+    spec - hierarchical spec list
+    json - single json object
+    progress - progress bar
+    list - spec-style listing
+    tap - test-anything-protocol
+    landing - unicode landing strip
+    xunit - xunit reportert
+    teamcity - teamcity ci support
+    html-cov - HTML test coverage
+    json-cov - JSON test coverage
+    min - minimal reporter (great with --watch)
+    json-stream - newline delimited json events
+    markdown - markdown documentation (github flavour)
+    nyan - nyan cat!
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[testacular 简介]]></title>
@@ -1889,15 +2036,6 @@ javax.xml.xpath.XPathFactory#newInstance()
     <link href="http://www.shenyanchao.cn/blog/2012/11/02/visitor-in-java/"/>
     <updated>2012-11-02T20:12:00+08:00</updated>
     <id>http://www.shenyanchao.cn/blog/2012/11/02/visitor-in-java</id>
-    <content type="html"><![CDATA[
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[设计模式：策略（strategy） in java]]></title>
-    <link href="http://www.shenyanchao.cn/blog/2012/11/02/strategy-in-java/"/>
-    <updated>2012-11-02T20:11:00+08:00</updated>
-    <id>http://www.shenyanchao.cn/blog/2012/11/02/strategy-in-java</id>
     <content type="html"><![CDATA[
 ]]></content>
   </entry>
