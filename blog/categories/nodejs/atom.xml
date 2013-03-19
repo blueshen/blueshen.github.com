@@ -4,7 +4,7 @@
   <title><![CDATA[分类：nodejs | Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/blog/categories/nodejs/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2013-03-18T20:47:47+08:00</updated>
+  <updated>2013-03-19T19:53:09+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -161,7 +161,7 @@ Options:
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[testacular 简介]]></title>
+    <title type="html"><![CDATA[testacular or Karma 简介]]></title>
     <link href="http://www.shenyanchao.cn/blog/2013/03/12/testacular-in-brief/"/>
     <updated>2013-03-12T15:12:00+08:00</updated>
     <id>http://www.shenyanchao.cn/blog/2013/03/12/testacular-in-brief</id>
@@ -418,6 +418,10 @@ export PHANTOMJS_BIN=$HOME/local/bin/phantomjs
 
 <p>Testacular应该是Google<a href="http://angularjs.org/">AngularJS</a>的副产品。出于CommonJS的规范，以及对产品质量的保证。AngularJS只身需要进行单元测试，而在测试过程中遇到了种种的问题。也许他们最开始就是使用JsTestDriver来驱动测试的，后来发现不能满足需求，或者能更好。因此Testacular出现了，并开源了出来。<br/>
 以上，存在一定的个人猜测，但是其产生的过程值得好好学习。</p>
+
+<h2>改名为Karma</h2>
+
+<p>2013年3月19日，Testacular更名为Karma，并在GitHub上提交时评论为<code>chore: rename this shit to Karma</code>。具体什么原因，不得而知。也许是因为令人诟病的Testacular名字不好听吧。不过功能都是一样的，只是使用的时候，testacular变为karma了。所以上面文档中的操作，只需要全部替换即可。</p>
 ]]></content>
   </entry>
   
