@@ -4,7 +4,7 @@
   <title><![CDATA[Tag: qunit | Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/tags/qunit/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2013-03-22T15:31:52+08:00</updated>
+  <updated>2013-03-22T15:34:36+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -30,8 +30,8 @@
 
 <pre><code>&lt;!--sample.html:--&gt;
 &lt;html&gt;
-    &lt;head&gt;
-      &lt;meta charset="utf-8"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
   &lt;title&gt;QUnit basic example&lt;/title&gt;
   &lt;link rel="stylesheet" href="./resources/qunit.css"&gt;
 &lt;script type="text/javascript" src="./resources/jquery.js"&gt;&lt;/script&gt;
@@ -233,8 +233,8 @@ test( "test with setup and teardown", function() {
 
 <pre><code>&lt;!--sample-framework.html:--&gt;
 &lt;html&gt;
-    &lt;head&gt;
-      &lt;meta charset="utf-8"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
   &lt;title&gt;QUnit basic example&lt;/title&gt;
   &lt;link rel="stylesheet" href="./resources/qunit.css"&gt;
 &lt;/head&gt;
