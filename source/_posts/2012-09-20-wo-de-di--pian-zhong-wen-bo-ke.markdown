@@ -16,3 +16,7 @@ description: 测试octopress是否成功了
 ***
 代码段
 		System.out.println("ok!")
+
+---
+<iframe height=498 width=510 frameborder=0 src="http://player.youku.com/embed/XODk1Mzg1NTY=" allowfullscreen></iframe>
+---
