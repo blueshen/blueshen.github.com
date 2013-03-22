@@ -1,0 +1,594 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>qunit 简介 - Blues 小站</title>
+  <meta name="author" content="ShenYanchao">
+
+  
+  <meta name="description" content="专注于原创技术博客，并分享精品技术文章">
+  <meta name="keywords" content="Java, Linux, selenium, webdriver, apache, github, 设计模式, 架构, maven, JavaEE, NodeJS">
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.shenyanchao.cn/blog/2013/03/22/qunit-in-brief">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/bootstrap/bootstrap.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/bootstrap/responsive.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/syntax/syntax.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <style type="text/css">
+    body {
+      padding-bottom: 40px;
+    }
+    h1 {
+      margin-bottom: 15px;
+    }
+    img {
+      max-width: 100%;
+    }
+    .sharing, .meta, .pager {
+      margin: 20px 0px 20px 0px;
+    }
+    .page-footer p {
+      text-align: center;
+    }
+  </style>
+  <script src="/javascripts/libs/jquery.js"></script>
+  <script src="/javascripts/libs/modernizr-2.0.js"></script>
+  <script src="/javascripts/libs/bootstrap.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Blues 小站" type="application/atom+xml">
+  
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-36243102-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <nav role="navigation"><div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+
+      <a class="brand" href="/">Blues 小站</a>
+
+      <div class="nav-collapse">
+        ﻿<ul class="nav">
+  <li><a href="/">首页</a></li>
+  <li><a href="/blog/archives">博客</a></li>
+  <li><a href="/tags/">Tag云</a></li>
+  <li><a href="/friends/">友情链接</a></li>
+<li><a href="/messagebox/">留言板</a></li>
+  <li><a href="/author/">关于我</a></li>
+</ul>
+
+
+        <ul class="nav pull-right" data-subscription="rss">
+          <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+          
+        </ul>
+
+        
+          <form class="pull-right navbar-search" action="http://google.com.hk/search" method="get">
+            <fieldset role="search">
+              <input type="hidden" name="q" value="site:www.shenyanchao.cn" />
+              <input class="search-query" type="text" name="q" results="0" placeholder="Search"/>
+            </fieldset>
+          </form>
+        
+      </div>
+    </div>
+  </div>
+</div>
+</nav>
+  <div class="container">
+    <div class="row-fluid">
+      
+<article class="hentry span9" role="article">
+
+  ﻿
+  <header class="page-header">
+    
+      <h1 class="entry-title">Qunit 简介</h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-22T15:21:00+08:00" pubdate data-updated="true">2013年03月22日 15:03:00</time>
+        
+         | <a href="#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+<div class="entry-content"><h1>QUnit</h1>
+
+<p>QUnit是一个强大的JavaScript单元测试框架，用于调试代码。该框架是由jQuery团队的成员所开发，并且是jQuery的官方测试套件。任意正规JavaScript代码QUnit都能测试。 <br/>
+<a href="http://qunitjs.com/">项目官网</a> <br/>
+<a href="https://github.com/jquery/qunit">文件下载地址</a></p>
+
+<h1>建立测试程序</h1>
+
+<p>建立html测试页面，引入 <code>qunit.js</code> 和 <code>qunit.css</code> 这两个必需的文件。其中<code>qunit.js</code>是测试套件程序，<code>qunit.css</code>用于控制测试套件的结果显示的样式。</p>
+
+<pre><code>&lt;!--sample.html:--&gt;
+&lt;html&gt;
+    &lt;head&gt;
+      &lt;meta charset="utf-8"&gt;
+  &lt;title&gt;QUnit basic example&lt;/title&gt;
+  &lt;link rel="stylesheet" href="./resources/qunit.css"&gt;
+&lt;script type="text/javascript" src="./resources/jquery.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div id="qunit"&gt;&lt;/div&gt;
+  &lt;div id="qunit-fixture"&gt;&lt;/div&gt;
+  &lt;script src="./resources/qunit.js"&gt;&lt;/script&gt;
+  &lt;script&gt;
+    test( "a basic test example", function() {
+      var value = "hello";
+      equal( value, "hello", "We expect value to be hello" );
+    });
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<!--more-->
+
+
+<p>其中放置的文件及文件结构如下：</p>
+
+<pre><code>|-qunit-test   
+|  |-sample.html   
+|  |-resources   
+|  |    |-qunit.js   
+|  |    |-qunit.css
+|  |    |-jquery.js   
+</code></pre>
+
+<p>测试的结果会由<code>qunit.js</code>控制输出到页面代码中的<code>&lt;div id="qunit"&gt;&lt;/div&gt;</code>中。另外一个必不可少的元素是<code>&lt;div id=""qunit-fixture""&gt;&lt;/div&gt;</code>。在每个test执行完毕后，如果改动了该元素，会自动重置。<code>jquery.js</code>的引入是为了测试使用jQuery语法写的程序。 <br/>
+在浏览器中打开sample1.html可以看到结果显示如下图所示： <br/>
+<img src="src=/qunit-pic.png" alt="qunit的用例运行显示结果" /></p>
+
+<h1>测试框架使用说明</h1>
+
+<p>标题下面有一条横线，绿色表示全部用例正确，红色表示至少有一个用例错误。 <br/>
+下面是3个checkbox。&#8221;Hide passed tests&#8221;点击后可以过滤掉通过的用例，只显示失败的用例。&#8221;Check for Globals&#8221;，用来检查window对象在test运行前后的变化，如果出现变化，则会报错。&#8221;No try-catch&#8221;用来显示测试用例中抛出的异常，当选中时直接将其死掉，不选中时则显示报错信息。对每个测试用例，标题中包含（x,y,z）表示总共有z个断言，y个是正确的，x个是错误的。</p>
+
+<h1>断言</h1>
+
+<ul>
+<li><strong>ok( truthy [, message ] )</strong>   判断是否为true</li>
+<li><strong>equal( actual, expected [, message ] )</strong>    判断actual==expected</li>
+<li><strong>deepEqual( actual, expected [, message ] )</strong>    判断actual===expected</li>
+</ul>
+
+
+<p>用例如下：</p>
+
+<pre><code>test("assertion",function(){   
+
+    ok( true, "true succeeds" );
+    ok( NaN, "NaN fails" );
+
+    equal( 0, 0, "0, 0 : equal succeeds" );
+    equal( "", 0, "Empty, 0: equal succeeds" );
+    equal( null, "", "null, empty: equal fails" );
+
+    var obj = { foo: "bar" };
+    deepEqual( obj, { foo: "bar" }, "Two objects can be the same in value" );
+    equal( "", 0, "Empty, 0: equal succeeds" );
+});    
+</code></pre>
+
+<h1>测试同步代码</h1>
+
+<p>在同步代码的测试中，有两种方式： <br/>
+-   test( name, expected, fucntion(){&#8230;})：expceted指assertion的数量。 <br/>
+-   test( name, function(){expected(amount);&#8230;})：在function中增加expected(amount)，amount表示assertiong的数量。</p>
+
+<p>test()是常规的测试用例，并且默认是同步的，这意味着他们是一个接一个的运行。expected()最有价值的地方在于callback函数的测试。当callback函数因为任何原因不能执行时，会造成实际断言的数量不等于expected值，这时会有额外的错误提示。</p>
+
+<pre><code>test( "a test", 2, function() {
+    ok( true, "sucess" );
+    ok( false, "fail" );
+});   
+
+test( "a test", function() {
+  expect( 2 );
+
+  function calc( x, operation ) {
+    return operation( x );
+  }
+
+  var result = calc( 2, function( x ) {
+    ok( true, "calc() calls operation function" );
+    return x * x;
+  });
+
+  equal( result, 4, "2 square equals 4" );
+});
+</code></pre>
+
+<h1>测试异步代码</h1>
+
+<p>对Ajax请求或通过setTimeout()或sestInterval()调用的方法，需要使用异步测试函数asyncTest()。</p>
+
+<pre><code>asyncTest( "asynchronous test: one second later!", function() {
+  expect( 1 );
+
+  setTimeout(function() {
+     ok( true, "Passed and ready to resume!" );
+     start();
+  }, 1000);
+});      
+</code></pre>
+
+<h1>用户行为的测试</h1>
+
+<p>测试用户行为时，无法使用一个函数就搞定，通常需要使用一个匿名函数绑定到元素的事件上来模拟。事件的触发使用<code>trigger()</code>或者<code>triggerHandler()</code>来实现。</p>
+
+<pre><code>test( "div click test", 1, function() {
+  var $body = $( "#qunit-fixture" );
+
+  $body.bind( "click", function() {
+    ok( true, "body was clicked!" );
+  });
+
+  $body.trigger( "click" );
+});
+</code></pre>
+
+<p>下面是Qunit中的一个demo例子，其中模拟了一个key的记录器<code>KeyLogger()</code>，在test中初始化了一个事件event，并且使触发了两次，：</p>
+
+<pre><code>function KeyLogger( target ) {
+  if ( !(this instanceof KeyLogger) ) {
+    return new KeyLogger( target );
+  }
+  this.target = target;
+  this.log = [];
+
+  var self = this;
+
+  this.target.bind( "keydown", function( event ) {
+    self.log.push( event.keyCode );
+  });
+}
+test( "keylogger api behavior", function() {
+
+  var event,
+      $doc = $( document ),
+      keys = KeyLogger( $doc );
+
+  // trigger event
+  event = $.Event( "keydown" );
+
+  event.keyCode = 'A';
+  $doc.trigger( event );
+  $doc.trigger( event );
+
+  // verify expected behavior
+  equal( keys.log.length, 2, "2 key was logged" );
+  equal( keys.log[ 0 ], 'A', "correct key was logged" );
+
+});   
+</code></pre>
+
+<h1>模块化</h1>
+
+<p>为了使自己的用例的顺序更加富有逻辑性，可以使用module()函数对用例进行分组。对出现在某个module（）后面的所有用例都被分在该组中。</p>
+
+<pre><code>module( "group a" );
+test( "a basic test example", function() {
+  ok( true, "this test is fine" );
+});
+test( "a basic test example 2", function() {
+  ok( true, "this test is fine" );
+});
+
+module( "group b" );
+test( "a basic test example 3", function() {
+  ok( true, "this test is fine" );
+});
+test( "a basic test example 4", function() {
+  ok( true, "this test is fine" );
+});
+</code></pre>
+
+<p>除了可以进行分组之外，module()还可以从测试用例中抽取通用的代码，用可选的第二个参数来定义每个test在运行之前、之后的函数。</p>
+
+<pre><code>module( "module", {
+  setup: function() {
+    ok( true, "one extra assert per test" );
+  }, teardown: function() {
+    ok( true, "and one extra assert after each test" );
+  }
+});
+test( "test with setup and teardown", function() {
+  expect( 3 );
+  ok( true, "test" );
+});
+</code></pre>
+
+<h1>推荐使用的框架程序</h1>
+
+<p>最上面建立的测试框架为用于学习时建立的demo框架。真正在使用中，为了方便我们习惯通过外部引入的方式来进行测试用例的书写。如下面所示，直接在项目中引入项目代码<code>myProject.js</code>和测试代码<code>myTests.js</code>。</p>
+
+<pre><code>&lt;!--sample-framework.html:--&gt;
+&lt;html&gt;
+    &lt;head&gt;
+      &lt;meta charset="utf-8"&gt;
+  &lt;title&gt;QUnit basic example&lt;/title&gt;
+  &lt;link rel="stylesheet" href="./resources/qunit.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div id="qunit"&gt;&lt;/div&gt;
+  &lt;div id="qunit-fixture"&gt;&lt;/div&gt;
+  &lt;script src="./resources/qunit.js"&gt;&lt;/script&gt;
+  &lt;script type="text/javascript" src="./resources/jquery.js"&gt;&lt;/script&gt;
+    &lt;!-- 项目代码 --&gt;
+  &lt;script type="text/javascript" src="myProject.js"&gt;&lt;/script&gt;
+    &lt;!-- 测试代码 --&gt;
+  &lt;script type="text/javascript" src="myTests.js"&gt;&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<hr />
+
+<p>参考文献：<a href="http://qunitjs.com/cookbook/">http://qunitjs.com/cookbook/</a> <br/>
+感谢：lizejun</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      ﻿
+  
+
+<span class="byline author vcard"> <span class="fn">ShenYanchao</span> 发布于</span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-22T15:21:00+08:00" pubdate data-updated="true">2013年03月22日 15:03:00</time>
+      
+
+<span class="categories">
+	| 分类:
+  
+    <a class='category' href='/blog/categories/nodejs/'>nodejs</a>
+  
+</span>
+
+
+	  
+
+<span class="tags">
+   | 标签:
+  
+    <a class='tag' href='/tags/jquery/'>jquery</a>, <a class='tag' href='/tags/qunit/'>qunit</a>
+  
+</span>
+
+    </p>
+    
+      ﻿<div class="sharing">
+  
+  
+  
+<!-- Baidu Button BEGIN -->
+<div id="bdshare" class="bdshare_t bds_tools_32 get-codes-bdshare">
+<a class="bds_tsina"></a>
+<a class="bds_renren"></a>
+<a class="bds_qzone"></a>
+<a class="bds_kaixin001"></a>
+<a class="bds_hi"></a>
+<a class="bds_douban"></a>
+<a class="bds_tsohu"></a>
+<a class="bds_tqq"></a>
+<a class="bds_ty"></a>
+<a class="bds_twi"></a>
+<a class="bds_tieba"></a>
+<span class="bds_more"></span>
+<a class="shareCount"></a>
+</div>
+<br><br>
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=6337598" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+  
+  
+  
+  
+  
+</div>
+
+    
+    
+    <section>
+      <h1>讨论区</h1>
+      <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+    </section>
+    
+    <ul class="pager">
+      
+      <li class="previous"><a class="basic-alignment left"
+        href="/blog/2013/03/18/mocha-in-brief/" title="Previous Post:
+        mocha简介">&laquo; mocha简介</a></li>
+      
+      <li><a href="/blog/archives">博客</a></li>
+      
+    </ul>
+  </footer>
+</article>
+
+<aside class="sidebar-nav span3">
+  
+    ﻿<section class="well">
+  <ul id="recent_posts" class="nav nav-list">
+    <li class="nav-header">最近更新</li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/22/qunit-in-brief/">qunit 简介</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/18/mocha-in-brief/">mocha简介</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/12/testacular-in-brief/">testacular or Karma 简介</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/11/node-dot-js-develop-guide-reading-note/">《Node.js开发指南》读书笔记</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/01/21/exploratory-software-testing-reading-notes-1/">《探索式软件测试》读书笔记(1)</a>
+      </li>
+    
+  </ul>
+</section>
+<section class="well">
+	<ul id="tags-cloud" class="nav nav-list">
+	<li class="nav-header">分类云</li>
+    <span id="tag-cloud"><a href='/blog/categories/apache' style='font-size: 102.5%'>apache(1)</a> <a href='/blog/categories/encode' style='font-size: 110.0%'>encode(4)</a> <a href='/blog/categories/git' style='font-size: 102.5%'>git(1)</a> <a href='/blog/categories/http' style='font-size: 102.5%'>HTTP(1)</a> <a href='/blog/categories/java' style='font-size: 102.5%'>Java(1)</a> <a href='/blog/categories/javascript' style='font-size: 102.5%'>javascript(1)</a> <a href='/blog/categories/jmeter' style='font-size: 105.0%'>jmeter(2)</a> <a href='/blog/categories/jvm' style='font-size: 105.0%'>JVM(2)</a> <a href='/blog/categories/markdown' style='font-size: 105.0%'>markdown(2)</a> <a href='/blog/categories/maven' style='font-size: 107.5%'>maven(3)</a> <a href='/blog/categories/mysql' style='font-size: 105.0%'>mysql(2)</a> <a href='/blog/categories/nodejs' style='font-size: 107.5%'>nodejs(3)</a> <a href='/blog/categories/selenium' style='font-size: 122.5%'>selenium(9)</a> <a href='/blog/categories/ubuntu' style='font-size: 102.5%'>ubuntu(1)</a> <a href='/blog/categories/个人' style='font-size: 105.0%'>个人(2)</a> <a href='/blog/categories/测试' style='font-size: 102.5%'>测试(1)</a> <a href='/blog/categories/设计模式' style='font-size: 160.0%'>设计模式(24)</a> </span>
+  </ul>
+</section>﻿<section class="well">
+<ul class="nav nav-list">
+  <li class="nav-header">最新评论</li>
+  <script type="text/javascript" src="http://blueshen.disqus.com/recent_comments_widget.js?num_items=5&hide_avatars=0&avatar_size=32&excerpt_length=200"></script>
+</ul>
+  </section><section class="well">
+  <ul id="categories" class="nav nav-list">
+    <li class="nav-header">文章分类</li>
+    <li><a href='/blog/categories/apache'>apache (1)</a></li><li><a href='/blog/categories/encode'>encode (4)</a></li><li><a href='/blog/categories/git'>git (1)</a></li><li><a href='/blog/categories/http'>HTTP (1)</a></li><li><a href='/blog/categories/java'>Java (1)</a></li><li><a href='/blog/categories/javascript'>javascript (1)</a></li><li><a href='/blog/categories/jmeter'>jmeter (2)</a></li><li><a href='/blog/categories/jvm'>JVM (2)</a></li><li><a href='/blog/categories/markdown'>markdown (2)</a></li><li><a href='/blog/categories/maven'>maven (3)</a></li><li><a href='/blog/categories/mysql'>mysql (2)</a></li><li><a href='/blog/categories/nodejs'>nodejs (3)</a></li><li><a href='/blog/categories/selenium'>selenium (9)</a></li><li><a href='/blog/categories/ubuntu'>ubuntu (1)</a></li><li><a href='/blog/categories/个人'>个人 (2)</a></li><li><a href='/blog/categories/测试'>测试 (1)</a></li><li><a href='/blog/categories/设计模式'>设计模式 (24)</a></li>
+  </ul>
+</section>
+<section class="well">
+  <ul id="gh_repos" class="nav">
+    <li class="nav-header">GitHub Repos</li>
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/blueshen">@blueshen</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        github.showRepos({
+            user: 'blueshen',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/asides/github.js" type="text/javascript"> </script>
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo" class="page-footer">﻿<hr>
+<p>
+  版权所有 &copy; 2013 - ShenYanchao -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+
+</p>
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'blueshen';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://www.shenyanchao.cn/blog/2013/03/22/qunit-in-brief/';
+        var disqus_url = 'http://www.shenyanchao.cn/blog/2013/03/22/qunit-in-brief/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+<!--
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F97aa7abbb3b568fb66ab76664b57b8ba' type='text/javascript'%3E%3C/script%3E"));
+</script>
+-->
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F81c9612f8fdceca45435ef7f5404d7b2' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+
+</body>
+</html>

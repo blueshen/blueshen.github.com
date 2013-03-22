@@ -232,11 +232,15 @@
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/blog/2013/03/12/testacular-in-brief/</loc>
-        <lastmod>2013-03-19T19:51:58+08:00</lastmod>
+        <lastmod>2013-03-19T20:02:03+08:00</lastmod>
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/blog/2013/03/18/mocha-in-brief/</loc>
         <lastmod>2013-03-18T20:47:00+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://www.shenyanchao.cn/blog/2013/03/22/qunit-in-brief/</loc>
+        <lastmod>2013-03-22T15:25:31+08:00</lastmod>
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/messagebox/</loc>
@@ -256,14 +260,14 @@
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/</loc>
-        <lastmod>2013-03-19T19:51:58+08:00</lastmod>
+        <lastmod>2013-03-22T15:25:31+08:00</lastmod>
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/tags/</loc>
-        <lastmod>2013-03-19T19:51:58+08:00</lastmod>
+        <lastmod>2013-03-22T15:25:31+08:00</lastmod>
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/blog/archives/</loc>
-        <lastmod>2013-03-19T19:51:58+08:00</lastmod>
+        <lastmod>2013-03-22T15:25:31+08:00</lastmod>
     </url>
 </urlset>

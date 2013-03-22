@@ -4,7 +4,7 @@
   <title><![CDATA[Tag: Testacular | Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/tags/testacular/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2013-03-19T19:53:09+08:00</updated>
+  <updated>2013-03-22T15:25:43+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -274,7 +274,7 @@ export PHANTOMJS_BIN=$HOME/local/bin/phantomjs
 
 <h2>改名为Karma</h2>
 
-<p>2013年3月19日，Testacular更名为Karma，并在GitHub上提交时评论为<code>chore: rename this shit to Karma</code>。具体什么原因，不得而知。也许是因为令人诟病的Testacular名字不好听吧。不过功能都是一样的，只是使用的时候，testacular变为karma了。所以上面文档中的操作，只需要全部替换即可。</p>
+<p>2013年3月18日，Testacular更名为Karma，版本从V0.6.0直接升为V0.8.0，并在GitHub上提交时评论为<code>chore: rename this shit to Karma</code>。具体什么原因，不得而知。也许是因为令人诟病的Testacular名字不好听吧。不过功能都是一样的，只是使用的时候，testacular变为karma了。所以上面文档中的操作，只需要全部替换即可。</p>
 ]]></content>
   </entry>
   
