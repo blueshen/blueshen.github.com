@@ -4,7 +4,7 @@
   <title><![CDATA[Tag: Testacular | Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/tags/testacular/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2013-03-27T19:39:59+08:00</updated>
+  <updated>2013-03-27T19:49:53+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -14,11 +14,11 @@
 
   
   <entry>
-    <title type="html"><![CDATA[testacular or Karma 简介]]></title>
+    <title type="html"><![CDATA[Karma  or Testacular 简介]]></title>
     <link href="http://www.shenyanchao.cn/blog/2013/03/12/testacular-in-brief/"/>
     <updated>2013-03-12T15:12:00+08:00</updated>
     <id>http://www.shenyanchao.cn/blog/2013/03/12/testacular-in-brief</id>
-    <content type="html"><![CDATA[<h2>Testacular是什么？</h2>
+    <content type="html"><![CDATA[<h2>Karma/Testacular是什么？</h2>
 
 <p>在2012年11月，Google开源了<a href="http://testacular.github.com/">Testacular</a>，一个基于Node.js的JavaScript测试执行过程管理工具（Test Runner）。该工具可用于测试所有主流Web浏览器，也可集成到CI（Continuous integration）工具，也可和其他代码编辑器一起使用。</p>
 
@@ -50,11 +50,11 @@ youku[个人转录]:</p>
 <iframe height=498 width=510 src="http://player.youku.com/embed/XNTI2NTg0Mzc2" frameborder=0 allowfullscreen></iframe>
 
 
-<h2>Testacular 安装</h2>
+<h2>Karma/Testacular 安装</h2>
 
 <p>首先，保证已经有Node.js环境以及NPM。然后执行以下命令即可：</p>
 
-<pre><code>npm install -g testacular
+<pre><code>npm install -g karma/testacular
 </code></pre>
 
 <p>安装成功后，可以查看其支持的命令。</p>
@@ -80,14 +80,14 @@ Options:
 <p>简单来看，就只有start,init,run这几个命令。start用于启动浏览器server,init用于辅助的生成配置文件，run用于驱动Test执行。<br/>
 下面就来看以下，最主要的部分，那就是配置文件了。</p>
 
-<h2>Testacular配置文件</h2>
+<h2>Karma/Testacular配置文件</h2>
 
 <p>这个配置文件，定义了Test执行所需要的各种选项，testacular正是通过这个文件来进行测试执行的。 <br/>
 在GitHub上可以看到一个官方提供的默认样例<a href="https://github.com/testacular/testacular/blob/master/test/client/testacular.conf.js">https://github.com/testacular/testacular/blob/master/test/client/testacular.conf.js</a>,可以看出里面有相当多的配置，还要里面都有一些注释的了，都大概能看懂一点。<br/>
-同样的，使用<code>testacular init</code>命令也可以帮助你自动的生成一个配置文件。init后可以跟文件名，如果不写，默认的文件名就是testacular.conf.js。对应的<code>testacular start</code>也会默认搜索当前目录下的testacular.conf.js来启动。  <br/>
+同样的，使用<code>karma/testacular init</code>命令也可以帮助你自动的生成一个配置文件。init后可以跟文件名，如果不写，默认的文件名就是karma/testacular.conf.js。对应的<code>karma/testacular start</code>也会默认搜索当前目录下的karma/testacular.conf.js来启动。  <br/>
 下面，我们来生成一个看看：</p>
 
-<pre><code>testacular init my.conf.js
+<pre><code>karma/testacular init my.conf.js
 
 Which testing framework do you want to use ?
 Press tab to list possible options. Enter to move to the next   question.
@@ -118,7 +118,7 @@ Config file generated at "/home/shenyanchao/tmp/my.conf.js".
 类型: Boolean
 默认: false
 命令行: --auto-watch, --no-auto-watch
-详细介绍:当文件内容变化的时候，是不是自动的重新运行Test
+详细介绍:当检测到文件内容变化的时候，是不是自动的重新运行Test
 
 basePath
 
@@ -245,7 +245,7 @@ singleRun
 类型: Boolean
 默认: false
 命令行: --single-run, no-single-run
-详细介绍: CI模式。如为true，就会在所有浏览器运行，通过返回0，失败返回1.
+详细介绍: CI模式。如为true，就会在所有浏览器运行，运行结束后关闭浏览器，返回码0，失败返回1.
 
 urlRoot
 
@@ -256,7 +256,7 @@ urlRoot
 
 <h2>browser无法启动？</h2>
 
-<p>当在testacular.conf.js中配置完browsersCanary，有可能会出现无法启动浏览器的情况。testacular会在一套默认的路径下进行尝试加载启动浏览器，而在不同的操作系统下默认位置是不同的。
+<p>当在karma/testacular.conf.js中配置完browsersCanary，有可能会出现无法启动浏览器的情况。testacular会在一套默认的路径下进行尝试加载启动浏览器，而在不同的操作系统下默认位置是不同的。
 如果无法找到，可以通过覆盖<code>&lt;BROWSER&gt;_BIN</code>来解决。 <br/>
 比如：</p>
 
