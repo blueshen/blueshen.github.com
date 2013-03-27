@@ -4,7 +4,7 @@
   <title><![CDATA[Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2013-03-27T19:07:35+08:00</updated>
+  <updated>2013-03-27T19:39:59+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -76,8 +76,71 @@ plugins = [
 
 <h2>Karma报告</h2>
 
-<p>Karma的报告（reporter）也是以插件模式进行的。 <br/>
-在karma.conf.js里进行如下配置：</p>
+<p>Karma的报告（reporter）也是以插件模式进行的。</p>
+
+<h4>JUnit Reporter</h4>
+
+<p>首先，要定义reporter类型，在karma.conf.js添加：</p>
+
+<pre><code>reporters = ['junit'];
+</code></pre>
+
+<p>如果想更近一步的话，可以配置一下报告的位置。</p>
+
+<pre><code>junitReporter = {
+    outputFile: 'junit-report/test-results.xml'
+};
+</code></pre>
+
+<p>报告配置完了，自然要有依赖啊。执行<code>npm install karma-junit-reporter</code>来安装。然后在加上这个plugin:</p>
+
+<pre><code>plugins = [
+    'karma-junit-reporter'
+];
+</code></pre>
+
+<h4>Coverage Reporter</h4>
+
+<p>同JUnit Reporter一样，首先添加：</p>
+
+<pre><code>reporters = ['coverage'];
+</code></pre>
+
+<p>进一步的配置coverage report:</p>
+
+<pre><code>coverageReporter = {
+    type : 'cobertura',
+    dir : 'coverage/'
+};
+</code></pre>
+
+<p>其中，type用于指出报告类型；dir用于指出生成报告的存放目录。<br/>
+type包括：</p>
+
+<ul>
+<li>html (default)</li>
+<li>lcov (lcov and html)</li>
+<li>lcovonly</li>
+<li>text (standard output)</li>
+<li>text-summary (standard output)</li>
+<li>cobertura (xml format supported by Jenkins)</li>
+</ul>
+
+
+<p>下面，需要安装依赖<code>npm install karma-coverage</code>。并在配置文件内添加：</p>
+
+<pre><code>plugins = [
+    'karma-coverage'
+];
+</code></pre>
+
+<h2>创建一个样例</h2>
+
+<p>1.执行‘karma init’,然后根据提示按Tab键进行相关选择。先生成一个默认的配置文件，这个是可以再修改的。</p>
+
+<p>2.创建一个src文件夹，用于存放待测试的JS代码。然后在创建一个test文件夹，用于存放自己写的单元测试代码。</p>
+
+<p>3.以mocha为例，将mocha集成到karma中，使用karma来驱动测试。这需要在karma.conf.js里进行如下配置：</p>
 
 <pre><code>// Karma configuration
 // Generated on Tue Mar 19 2013 20:46:08 GMT+0800 (CST)
