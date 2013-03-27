@@ -4,7 +4,7 @@
   <title><![CDATA[Tag: mocha | Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/tags/mocha/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2013-03-27T19:03:44+08:00</updated>
+  <updated>2013-03-27T19:07:35+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -191,8 +191,9 @@ plugins = [
 <p>为了在项目中开发方便，那么在开发中集成到IDE中，会节省N多时间的。下面就先来说说于IDEA的集成。 <br/>
 1.安装NodeJS插件： Settings --> IDE Settings --> Plugins --> Browse repositories --> NodeJS  选中，然后右键Download and Install进行安装。重启后成功安装。 <br/>
 2.配置Karma Server: 从菜单Run --> Edit Configurations... -->点击 ‘+’新建一个Node.js类型的配置。出现以下的界面：  <br/>
-<img src="/images/blog/karma-node-server.png" alt="karma-node-server" />
-其中：  <br/>
+<img src="/images/blog/karma-node-server.png" alt="karma-node-server" /></p>
+
+<p>其中：  <br/>
 Name： 任意，本处为Karma node Server <br/>
 Path to Node: node可执行全路径。$NODE_PATH/bin/node   <br/>
 Working Directory: 当前项目的跟路径 <br/>
@@ -204,8 +205,9 @@ Environment variables: 就是环境变量了。此处我定义了CHROME_BIN来�
 同Karma Server，只是修改Application Parameters为run
 <img src="/images/blog/karma-node-run.png" alt="karma-node-run" /></p>
 
-<p>配置成功后，运行Karma node Server可以看到浏览器就可以正常启动了。console也正确的输出。如同在terminal里执行一般。需要注意的是，本地开发时，需要将<code>singleRun=false</code>,也就是说执行完测试之后不退出。只有在CI环境下才用true。 <br/>
-在浏览器启动之后，如果修改了源代码，Test能否自动执行呢？可以将<code>autoWatch=true</code>,这样当你修改代码后，保存后能自动执行，方便开发了。如果‘autoWatch=false’了，那么这时间就要执行Karma run了，用于在Karma Server上重新执行。</p>
+<p>配置成功后，运行Karma node Server可以看到浏览器就可以正常启动了。console也正确的输出。如同在terminal里执行一般。需要注意的是，本地开发时，需要将<code>singleRun=false</code>,也就是说执行完测试之后不退出。只有在CI环境下才用true。</p>
+
+<p>在浏览器启动之后，如果修改了源代码，Test能否自动执行呢？可以将<code>autoWatch=true</code>,这样当你修改代码后，保存后能自动执行，方便开发了。如果‘autoWatch=false’了，那么这时间就要执行Karma run了，用于在Karma Server上重新执行。</p>
 ]]></content>
   </entry>
   
