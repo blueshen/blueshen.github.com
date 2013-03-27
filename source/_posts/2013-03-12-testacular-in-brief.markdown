@@ -1,12 +1,12 @@
 ---
 layout: post
-title: "testacular or Karma 简介"
+title: "Karma  or Testacular 简介"
 date: 2013-03-12 15:12
 comments: true
 categories: nodejs
 tags: [ Testacular, JsTestDriver, nodejs, jenkins ]
 ---
-##Testacular是什么？##
+##Karma/Testacular是什么？##
 在2012年11月，Google开源了[Testacular](http://testacular.github.com/)，一个基于Node.js的JavaScript测试执行过程管理工具（Test Runner）。该工具可用于测试所有主流Web浏览器，也可集成到CI（Continuous integration）工具，也可和其他代码编辑器一起使用。   
 
 Testacular可以在不同的桌面或移动设备浏览器上，或在持续集成的服务器上测试JavaScript代码。Testacular支持chrome、ChromeCanary、 Safari、Firefox、IE、Opera、PhantomJS，知道如何捕获浏览器正使用的默认路径，这些路径可能在启动器配置文件被忽视（overridden）。Testacular就是一个可以和多重测试框架协作的测试执行过程管理工具，它有针对Jasmine、Mocha和AngularJS的适配器，它也可以与[Jenkins](http://jenkins-ci.org/)或[Travis](https://travis-ci.org/)整合，用于执行持续集成测试。  
@@ -28,10 +28,10 @@ youku[个人转录]:
 <iframe height=498 width=510 src="http://player.youku.com/embed/XNTI2NTg0Nzky" frameborder=0 allowfullscreen></iframe>
 
 <iframe height=498 width=510 src="http://player.youku.com/embed/XNTI2NTg0Mzc2" frameborder=0 allowfullscreen></iframe>
-##Testacular 安装##
+##Karma/Testacular 安装##
 首先，保证已经有Node.js环境以及NPM。然后执行以下命令即可：   
 
-	npm install -g testacular
+	npm install -g karma/testacular
 安装成功后，可以查看其支持的命令。   
 
 	testacular --help
@@ -53,13 +53,13 @@ youku[个人转录]:
 简单来看，就只有start,init,run这几个命令。start用于启动浏览器server,init用于辅助的生成配置文件，run用于驱动Test执行。  
 下面就来看以下，最主要的部分，那就是配置文件了。
 
-##Testacular配置文件##
+##Karma/Testacular配置文件##
 这个配置文件，定义了Test执行所需要的各种选项，testacular正是通过这个文件来进行测试执行的。   
 在GitHub上可以看到一个官方提供的默认样例<https://github.com/testacular/testacular/blob/master/test/client/testacular.conf.js>,可以看出里面有相当多的配置，还要里面都有一些注释的了，都大概能看懂一点。  
-同样的，使用`testacular init`命令也可以帮助你自动的生成一个配置文件。init后可以跟文件名，如果不写，默认的文件名就是testacular.conf.js。对应的`testacular start`也会默认搜索当前目录下的testacular.conf.js来启动。    
+同样的，使用`karma/testacular init`命令也可以帮助你自动的生成一个配置文件。init后可以跟文件名，如果不写，默认的文件名就是karma/testacular.conf.js。对应的`karma/testacular start`也会默认搜索当前目录下的karma/testacular.conf.js来启动。    
 下面，我们来生成一个看看：   
 
-	testacular init my.conf.js
+	karma/testacular init my.conf.js
 
 	Which testing framework do you want to use ?
 	Press tab to list possible options. Enter to move to the next 	question.
@@ -89,7 +89,7 @@ youku[个人转录]:
 	类型: Boolean
 	默认: false
 	命令行: --auto-watch, --no-auto-watch
-	详细介绍:当文件内容变化的时候，是不是自动的重新运行Test
+	详细介绍:当检测到文件内容变化的时候，是不是自动的重新运行Test
 
 	basePath
 
@@ -216,7 +216,7 @@ youku[个人转录]:
 	类型: Boolean
 	默认: false
 	命令行: --single-run, no-single-run
-	详细介绍: CI模式。如为true，就会在所有浏览器运行，通过返回0，失败返回1.
+	详细介绍: CI模式。如为true，就会在所有浏览器运行，运行结束后关闭浏览器，返回码0，失败返回1.
 
 	urlRoot
 
@@ -224,7 +224,7 @@ youku[个人转录]:
 	默认: '/'
 	详细介绍: 基本URL，相当于一个URL默认的前缀。尤其在使用proxies时有用。
 ##browser无法启动？##
-当在testacular.conf.js中配置完browsersCanary，有可能会出现无法启动浏览器的情况。testacular会在一套默认的路径下进行尝试加载启动浏览器，而在不同的操作系统下默认位置是不同的。
+当在karma/testacular.conf.js中配置完browsersCanary，有可能会出现无法启动浏览器的情况。testacular会在一套默认的路径下进行尝试加载启动浏览器，而在不同的操作系统下默认位置是不同的。
 如果无法找到，可以通过覆盖`<BROWSER>_BIN`来解决。   
 比如：   
 

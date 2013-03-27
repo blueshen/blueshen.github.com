@@ -9,7 +9,7 @@ subtitle: 专注于原创技术文章
 author: ShenYanchao
 simple_search: http://google.com.hk/search
 description: 专注于原创技术博客，并分享精品技术文章
-keywords: Java, Linux, selenium, webdriver, apache, github, 设计模式, 架构, maven, JavaEE
+keywords: Java, Linux, selenium, webdriver, apache, github, 设计模式, 架构, maven, JavaEE, NodeJS
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
 # You can customize the format as defined in
