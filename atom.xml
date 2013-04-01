@@ -4,7 +4,7 @@
   <title><![CDATA[Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2013-03-27T19:53:56+08:00</updated>
+  <updated>2013-04-01T21:10:55+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -12,6 +12,112 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Karma与Jenkins-ci集成]]></title>
+    <link href="http://www.shenyanchao.cn/blog/2013/04/01/run-karma-in-jenkins-ci/"/>
+    <updated>2013-04-01T19:38:00+08:00</updated>
+    <id>http://www.shenyanchao.cn/blog/2013/04/01/run-karma-in-jenkins-ci</id>
+    <content type="html"><![CDATA[<p>Jenkins是一款目前最为流行的持续集成工具，那么，如何让Karma的能集成到Jenkins，并自动执行呢？</p>
+
+<h3>前提条件</h3>
+
+<p>Jenkins Server上（可以是Master，也许是Slave结点，总之在那个Server上跑，就需要安装），安装：</p>
+
+<ul>
+<li>Node</li>
+<li>Karma</li>
+</ul>
+
+
+<h3>配置Karma.conf.js文件</h3>
+
+<p>必须保证：</p>
+
+<pre><code>singleRun = true;
+</code></pre>
+
+<p>只有这样，才能保证运行Test后，浏览器自动退出，不影响下次执行。  <br/>
+在Jenkins中，也许你想查看测试结果，这个时候可以借助junit reporter。</p>
+
+<pre><code>reporters = ['junit'];
+junitReporter = {
+    outputFile: 'test-results.xml'
+};
+</code></pre>
+
+<p>那么，Junit格式的测试结果就存到了test-results.xml中。</p>
+
+<p>另外一种情况，我可能还想查看一下代码覆盖率。Karma也是支持的，要进行以下的配置：</p>
+
+<pre><code>reporters = ['coverage'];
+
+preprocessors = {
+    'src/*.js': 'coverage'
+};
+
+coverageReporter = {
+    type : 'cobertura',
+    dir : 'coverage/'
+};
+</code></pre>
+
+<p>这里，reporters指出了要生成coverage报告。preprocessors指明了要统计覆盖率的源码。coverageReporter里，指明type为cobertura，dir则是报告路径。type用多种选择，其中cobertura为Jenkins专属的。</p>
+
+<!--more-->
+
+
+<h3>一个Jenkins Job</h3>
+
+<p>1.新建一个自由风格（freestyle）的Job即可。 <br/>
+2.Restrict where this project can be run 里面填好前提条件中的机器名。当然如果直接是在Master结点，这个可以忽略。 <br/>
+3.源码管理部分，填写repository url。  <br/>
+4.在构建里，直接填写<code>karma start</code>即可。 <br/>
+5.在构建后操作里。选择Publish Cobertura Coverage Report,并指定生成的XML地址。如下图：</p>
+
+<p><img src="http://www.shenyanchao.cn/images/blog/karma-jenkins-cobertura.png" alt="karma-jenkins-cobertura" /></p>
+
+<p>6.在构建后操作里。选择Publish JUnit test result report,同样指定report的XML路径。如图：</p>
+
+<p><img src="http://www.shenyanchao.cn/images/blog/karma-jenkins-junit.png" alt="karma-jenkins-junit" /></p>
+
+<h3>Jenkins运行结果</h3>
+
+<p>Code Coverage结果： <br/>
+<img src="http://www.shenyanchao.cn/images/blog/karma-jenkins-codecoverage.png" alt="" /></p>
+
+<p>点击进入后，可以看到具体的覆盖率情况： <br/>
+<img src="http://www.shenyanchao.cn/images/blog/karma-jenkins-codecoverage-detail.png" alt="" /></p>
+
+<p>JUnit结果： <br/>
+<img src="http://www.shenyanchao.cn/images/blog/karma-jenkins-junit-report.png" alt="" /></p>
+
+<p>点进去后可以查看详细信息：<br/>
+<img src="http://www.shenyanchao.cn/images/blog/karma-jenkins-junit-report-detail.png" alt="" /></p>
+
+<h3>关于Coverage</h3>
+
+<p>coverageReporter的类型有以下几种：</p>
+
+<ul>
+<li>html (default)</li>
+<li>lcov (lcov and html)</li>
+<li>lcovonly</li>
+<li>text (standard output)</li>
+<li>text-summary (standard output)</li>
+<li>cobertura (xml format supported by Jenkins)</li>
+</ul>
+
+
+<p>Karma是使用<a href="http://gotwarlost.github.com/istanbul/">istanbul</a>来生成报告的，上面在Jenkins种使用的cobertura类型。如果不在CI环境中，那么可以考虑使用lcon或者html类型，report也是相当好看呢。 <br/>
+以下是lcov类型的Coverage结果：</p>
+
+<p><img src="http://www.shenyanchao.cn/images/blog/karma-lcov-1.png" alt="" /></p>
+
+<p>而下面的结果，则指明了哪行源码被覆盖了。 <br/>
+<img src="http://www.shenyanchao.cn/images/blog/karma-lcov-2.png" alt="" /></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[使用Karma来驱动mocha测试]]></title>
@@ -2704,53 +2810,6 @@ javax.swing.Action#actionPeformed(ActionEvent e)
 
 
 <p>这两个问题是需要时刻注意的。由于本文主要不是讲Cloneable,所以另辟专题吧。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[设计模式：门面（Facade） in java]]></title>
-    <link href="http://www.shenyanchao.cn/blog/2012/11/07/facade-in-java/"/>
-    <updated>2012-11-07T20:00:00+08:00</updated>
-    <id>http://www.shenyanchao.cn/blog/2012/11/07/facade-in-java</id>
-    <content type="html"><![CDATA[<p><strong>定义：</strong>为子系统中的一组接口提供一个一致的界面，Facade模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。 <br/>
-就是说，Facade提供了一个统一的接口，掩盖下层系统的复杂性，用户用起来更加的方便。</p>
-
-<p>以医院的例子，做个比喻：</p>
-
-<!--more-->
-
-
-<p></p>
-
-<p>在无接待员的时候，病人要做业务，好复杂啊，好累！</p>
-
-<p><img src="http://www.shenyanchao.cn/images/blog/facade-hospital1.png" alt="无接待员" /></p>
-
-<p>有了接待员，各种就医流程好流畅的说。因为有接待员与各个部门打交道。</p>
-
-<p><img src="http://www.shenyanchao.cn/images/blog/facade-hospital2.png" alt="有接待员" /></p>
-
-<p>这个例子很好的说出了facade的作用。甚至都不需要代码来表达了。</p>
-
-<p>门面模式的优点：</p>
-
-<p>　　●松散耦合</p>
-
-<p>　　门面模式松散了客户端与子系统的耦合关系，让子系统内部的模块能更容易扩展和维护。</p>
-
-<p>　　●简单易用</p>
-
-<p>　　门面模式让子系统更加易用，客户端不再需要了解子系统内部的实现，也不需要跟众多子系统内部的模块进行交互，只需要跟门面类交互就可以了。</p>
-
-<p>　　●更好的划分访问层次</p>
-
-<p>　　通过合理使用Facade，可以帮助我们更好地划分访问的层次。有些方法是对系统外的，有些方法是系统内部使用的。把需要暴露给外部的功能集中到门面中，这样既方便客户端使用，也很好地隐藏了内部的细节</p>
-
-<h2>门面模式 in JDK</h2>
-
-<p>这个具体的例子，我首先想到的就是<a href="http://www.slf4j.org/">slf4j</a>这个日志框架。通过名字Simple Logging Facade for Java (SLF4J)就知道是采用的Facade模式了。下面是其官方的介绍： <br/>
-The Simple Logging Facade for Java or (SLF4J) serves as a simple facade or abstraction for various logging frameworks, e.g. java.util.logging, log4j and logback, allowing the end user to plug in the desired logging framework at deployment time. <br/>
-也就是说，他屏蔽了各种日志框架的差异，提供了一个统一的日志接口给用户使用。不得不说，<a href="http://www.slf4j.org/">slf4j</a>很好用，推荐！</p>
 ]]></content>
   </entry>
   
