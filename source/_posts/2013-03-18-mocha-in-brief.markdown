@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "mocha简介"
+title: "Mocha简介"
 date: 2013-03-18 20:44
 comments: true
 categories: nodejs

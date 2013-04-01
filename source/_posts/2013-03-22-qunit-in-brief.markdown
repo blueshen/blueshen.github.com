@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "qunit 简介"
+title: "Qunit 简介"
 date: 2013-03-22 15:21
 comments: true
 categories: nodejs

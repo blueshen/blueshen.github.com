@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "jasmine 简介"
+title: "Jasmine 简介"
 date: 2013-03-22 15:47
 comments: true
 categories: nodejs
