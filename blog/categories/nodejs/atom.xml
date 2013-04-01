@@ -4,7 +4,7 @@
   <title><![CDATA[分类：nodejs | Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/blog/categories/nodejs/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2013-04-01T21:10:55+08:00</updated>
+  <updated>2013-04-01T21:15:32+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Karma与Jenkins-ci集成]]></title>
+    <title type="html"><![CDATA[Karma与Jenkins-CI集成]]></title>
     <link href="http://www.shenyanchao.cn/blog/2013/04/01/run-karma-in-jenkins-ci/"/>
     <updated>2013-04-01T19:38:00+08:00</updated>
     <id>http://www.shenyanchao.cn/blog/2013/04/01/run-karma-in-jenkins-ci</id>
@@ -381,7 +381,7 @@ Environment variables: 就是环境变量了。此处我定义了CHROME_BIN来�
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[jsTestDriver 简介]]></title>
+    <title type="html"><![CDATA[JsTestDriver 简介]]></title>
     <link href="http://www.shenyanchao.cn/blog/2013/03/22/jstestdriver-in-brief/"/>
     <updated>2013-03-22T16:11:00+08:00</updated>
     <id>http://www.shenyanchao.cn/blog/2013/03/22/jstestdriver-in-brief</id>
@@ -478,7 +478,7 @@ Environment variables: 就是环境变量了。此处我定义了CHROME_BIN来�
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[jasmine 简介]]></title>
+    <title type="html"><![CDATA[Jasmine 简介]]></title>
     <link href="http://www.shenyanchao.cn/blog/2013/03/22/jasmine-in-brief/"/>
     <updated>2013-03-22T15:47:00+08:00</updated>
     <id>http://www.shenyanchao.cn/blog/2013/03/22/jasmine-in-brief</id>
@@ -714,7 +714,7 @@ function execJasmine() {
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[qunit 简介]]></title>
+    <title type="html"><![CDATA[Qunit 简介]]></title>
     <link href="http://www.shenyanchao.cn/blog/2013/03/22/qunit-in-brief/"/>
     <updated>2013-03-22T15:21:00+08:00</updated>
     <id>http://www.shenyanchao.cn/blog/2013/03/22/qunit-in-brief</id>
