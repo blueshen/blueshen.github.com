@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Tag: mysql | Blues 小站]]></title>
-  <link href="http://www.shenyanchao.cn/tags/mysql/atom.xml" rel="self"/>
+  <title><![CDATA[Tag: slowquery | Blues 小站]]></title>
+  <link href="http://www.shenyanchao.cn/tags/slowquery/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
   <updated>2013-04-09T13:24:32+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
@@ -182,22 +182,6 @@ mysql > show status like 'Create_tmp%';  <br/>
 mysql > show status like 'Binlog_cache%'; <br/>
 (12) Innodb_log_waits 量  <br/>
 mysql > show status like 'innodb_log_waits';</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[mysqldump命令使用]]></title>
-    <link href="http://www.shenyanchao.cn/blog/2012/12/04/mysqldump/"/>
-    <updated>2012-12-04T15:32:00+08:00</updated>
-    <id>http://www.shenyanchao.cn/blog/2012/12/04/mysqldump</id>
-    <content type="html"><![CDATA[<p>mysqldump命令用来备份数据库，默认会导出一整条insert语句，虽说执行起来会快一些。但是遇到大表，很可能因为缓冲区过载而挂掉。</p>
-
-<p>mysqldump --skip-opt 加入这个参数，就可以导出多条独立的insert语句。</p>
-
-<p>例如：</p>
-
-<pre><code>mysqldump --skip-opt -uroot -p database tablename &gt; script.sql
-</code></pre>
 ]]></content>
   </entry>
   
