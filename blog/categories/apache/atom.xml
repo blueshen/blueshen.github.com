@@ -4,7 +4,7 @@
   <title><![CDATA[分类：apache | Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/blog/categories/apache/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2013-04-09T13:24:32+08:00</updated>
+  <updated>2013-04-12T17:27:17+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[apache mpm介绍[转]]]></title>
+    <title type="html"><![CDATA[apache mpm介绍]]></title>
     <link href="http://www.shenyanchao.cn/blog/2012/10/12/apache-mpm/"/>
     <updated>2012-10-12T12:45:00+08:00</updated>
     <id>http://www.shenyanchao.cn/blog/2012/10/12/apache-mpm</id>
@@ -152,7 +152,15 @@ MaxRequestsPerChild 0
 &lt;/IfModule&gt;  
 </code></pre>
 
-<p>通过上面的叙述，可以了解到Apache 2.0中prefork和worker这两个重要MPM的工作原理，并可根据实际情况来配置Apache相关的核心参数，以获得最大的性能和稳定性。</p>
+<p>硬性公式：</p>
+
+<pre><code>     ThreadLimit &gt;= ThreadsPerChild
+     MaxClients &lt;= ServerLimit * ThreadsPerChild 必须是ThreadsPerChild的倍数
+     MaxSpareThreads &gt;= MinSpareThreads+ThreadsPerChild
+</code></pre>
+
+<p>ServerLimit默认是16,最大20000;ThreadLimit默认是64,最大20000。<br/>
+通过上面的叙述，可以了解到Apache 2.0中prefork和worker这两个重要MPM的工作原理，并可根据实际情况来配置Apache相关的核心参数，以获得最大的性能和稳定性。</p>
 ]]></content>
   </entry>
   

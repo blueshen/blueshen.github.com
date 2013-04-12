@@ -4,7 +4,7 @@
   <title><![CDATA[Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2013-04-09T13:24:32+08:00</updated>
+  <updated>2013-04-12T17:27:17+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -2206,7 +2206,7 @@ id－－》cpu空闲的时间</p>
 
 <p>每100s显示一次mysql 运行的状态:</p>
 
-<pre><code>mysqladmin extended -i100 –r
+<pre><code>mysqladmin extended -i 100 –r
 </code></pre>
 
 <p>显示mysql服务器的线程列表</p>

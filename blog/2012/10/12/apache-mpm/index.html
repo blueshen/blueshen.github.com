@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>apache mpm介绍[转] - Blues 小站</title>
+  <title>apache mpm介绍 - Blues 小站</title>
   <meta name="author" content="ShenYanchao">
 
   
@@ -111,7 +111,7 @@
   ﻿
   <header class="page-header">
     
-      <h1 class="entry-title">Apache Mpm介绍[转]</h1>
+      <h1 class="entry-title">Apache Mpm介绍</h1>
     
 	<p class="meta">
     
@@ -271,7 +271,15 @@ MaxRequestsPerChild 0
 &lt;/IfModule&gt;  
 </code></pre>
 
-<p>通过上面的叙述，可以了解到Apache 2.0中prefork和worker这两个重要MPM的工作原理，并可根据实际情况来配置Apache相关的核心参数，以获得最大的性能和稳定性。</p>
+<p>硬性公式：</p>
+
+<pre><code>     ThreadLimit &gt;= ThreadsPerChild
+     MaxClients &lt;= ServerLimit * ThreadsPerChild 必须是ThreadsPerChild的倍数
+     MaxSpareThreads &gt;= MinSpareThreads+ThreadsPerChild
+</code></pre>
+
+<p>ServerLimit默认是16,最大20000;ThreadLimit默认是64,最大20000。<br/>
+通过上面的叙述，可以了解到Apache 2.0中prefork和worker这两个重要MPM的工作原理，并可根据实际情况来配置Apache相关的核心参数，以获得最大的性能和稳定性。</p>
 </div>
 
 
