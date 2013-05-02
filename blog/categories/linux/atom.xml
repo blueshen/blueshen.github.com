@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[分类：linux | Blues 小站]]></title>
+  <link href="http://www.shenyanchao.cn/blog/categories/linux/atom.xml" rel="self"/>
+  <link href="http://www.shenyanchao.cn/"/>
+  <updated>2013-05-02T17:08:20+08:00</updated>
+  <id>http://www.shenyanchao.cn/</id>
+  <author>
+    <name><![CDATA[ShenYanchao]]></name>
+    <email><![CDATA[zhiyi.shen@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[从windows到linux]]></title>
+    <link href="http://www.shenyanchao.cn/blog/2013/05/02/my-linux-dream/"/>
+    <updated>2013-05-02T16:37:00+08:00</updated>
+    <id>http://www.shenyanchao.cn/blog/2013/05/02/my-linux-dream</id>
+    <content type="html"><![CDATA[<p>从高中时代最早接触计算机,当初什么都不懂,能会用下email就绝对是达人了啊.最早见到OS应该是windows 95,那时候虽然已经出了windows 98,不过学校仍预装的是windows 95.</p>
+
+<p>高中时期,就感觉计算机挺新奇,很感兴趣,至于具体会发展到什么样也不清楚.大学报考时间果断选择了计算机科学与技术这一专业.从此就走上了这一不归路.</p>
+
+<p>大学时期对计算机有了更深刻的认识,也知道除了windows之外还有一个linux的东西所在.这期间先后给自己的机器安装过红帽,安装过国产的红旗.不过这些东西也都没有什么深入,安装后发现也很不好用,不得已而放弃掉.</p>
+
+<p>研究生期间有更多的linux伙伴,有人在用也有人给推荐.那个时候选择了ubuntu作为自己首选,因为大家推荐说资源多,新人入手容易.那个时候应该是9.04左右的版本.</p>
+
+<p>工作后,接触到了更多的服务器,也经历了各种在windows下的程序无法很好在linux运行的情况,因此下决心学习.私人的笔记本装上了ubuntu 10.04,不过公司的工作电脑还是没敢做成ubuntu系统,只是弄了一个虚拟机.</p>
+
+<p>大概在大半年以前,我下定了决心,把系统给完全换成了ubuntu,版本也升到了12.04.这时的系统已经足够成熟,几乎可以满足工作的需要.而最近发布的ubuntu 13.04则更加的完善,各种替代软件都可以找到.</p>
+
+<p>个人常用软件推荐:</p>
+
+<ul>
+<li>office: wps for linux  or libreoffice</li>
+<li>输入法:  sogou for linux</li>
+<li>开发IDE: Intellij IDEA or Eclipse</li>
+<li>编辑器: sublime,retext</li>
+<li>浏览器: chrome,firefox</li>
+<li>邮件客户端: thunderbird</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>
