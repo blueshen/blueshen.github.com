@@ -358,9 +358,36 @@
   </header>
 
 
-  <div class="entry-content">
+  <div class="entry-content"><p><strong>定义：</strong>建造者模式,又叫生成器模式，将一个复杂对象的构建与它的表示分离,使得同样的构建过程可以创建不同的表示. <br/>
+<strong>适用性</strong>:</p>
+
+<blockquote><p>a.当创建复杂对象的算法应该独立于该对象的组成部分以及他们的装配方式.  <br/>
+b.当构建过程必须允许构造的对象有不同的表示.</p></blockquote>
+
+<p>构建者模式的<strong>核心思想</strong>:</p>
+
+<blockquote><p>将一个“<strong>复杂对象的构建算法</strong>”与它的“<strong>部件及组装方式</strong>”分离，使得构件算法和组装方式可以独立应对变化；复用同样的构建算法可以创建不同的表示，不同的构建过程可以复用相同的部件组装方式。</p></blockquote>
+
+<p>建造者者模式有4个角色：</p>
+
+<ul>
+<li>Product产品类:<br/>
+要构建的对象</li>
+<li>Builder抽象构建者: <br/>
+定义操作接口</li>
+<li>ConcreteBuilder具体建造者:<br/>
+实现Builder所有方法</li>
+<li>Director导演类：   <br/>
+每个观察者在接收到消息后的更新操作是不同的。</li>
+</ul>
+
+
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/11/05/builder-in-java/">阅读全文 &rarr;</a>
+    </footer>
   
 
 
