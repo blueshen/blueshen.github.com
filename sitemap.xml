@@ -158,7 +158,7 @@
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/blog/2012/11/02/mediator-in-java/</loc>
-        <lastmod>2012-11-19T20:48:45+08:00</lastmod>
+        <lastmod>2013-05-14T21:17:18+08:00</lastmod>
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/blog/2012/11/05/builder-in-java/</loc>
@@ -267,6 +267,12 @@
         <lastmod>2013-05-02T17:07:47+08:00</lastmod>
     </url>
     <url>
+        <loc>
+            http://www.shenyanchao.cn/blog/2013/05/15/http-the-definitive-guide-reading-notes/
+        </loc>
+        <lastmod>2013-05-15T17:45:40+08:00</lastmod>
+    </url>
+    <url>
         <loc>http://www.shenyanchao.cn/messagebox/</loc>
         <lastmod>2012-11-20T16:17:37+08:00</lastmod>
     </url>
@@ -284,14 +290,14 @@
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/</loc>
-        <lastmod>2013-05-08T18:12:17+08:00</lastmod>
+        <lastmod>2013-05-15T17:45:40+08:00</lastmod>
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/tags/</loc>
-        <lastmod>2013-05-08T18:12:17+08:00</lastmod>
+        <lastmod>2013-05-15T17:45:40+08:00</lastmod>
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/blog/archives/</loc>
-        <lastmod>2013-05-08T18:12:17+08:00</lastmod>
+        <lastmod>2013-05-15T17:45:40+08:00</lastmod>
     </url>
 </urlset>

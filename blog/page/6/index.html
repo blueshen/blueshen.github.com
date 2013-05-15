@@ -113,6 +113,72 @@
       ﻿
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2012/11/05/builder-in-java/">设计模式：构建者（builder） in Java</a></h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-05T20:08:00+08:00" pubdate data-updated="true">2012年11月05日 20:11:00</time>
+        
+         | <a href="/blog/2012/11/05/builder-in-java/#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+  <div class="entry-content"><p><strong>定义：</strong>建造者模式,又叫生成器模式，将一个复杂对象的构建与它的表示分离,使得同样的构建过程可以创建不同的表示. <br/>
+<strong>适用性</strong>:</p>
+
+<blockquote><p>a.当创建复杂对象的算法应该独立于该对象的组成部分以及他们的装配方式.  <br/>
+b.当构建过程必须允许构造的对象有不同的表示.</p></blockquote>
+
+<p>构建者模式的<strong>核心思想</strong>:</p>
+
+<blockquote><p>将一个“<strong>复杂对象的构建算法</strong>”与它的“<strong>部件及组装方式</strong>”分离，使得构件算法和组装方式可以独立应对变化；复用同样的构建算法可以创建不同的表示，不同的构建过程可以复用相同的部件组装方式。</p></blockquote>
+
+<p>建造者者模式有4个角色：</p>
+
+<ul>
+<li>Product产品类:<br/>
+要构建的对象</li>
+<li>Builder抽象构建者: <br/>
+定义操作接口</li>
+<li>ConcreteBuilder具体建造者:<br/>
+实现Builder所有方法</li>
+<li>Director导演类：   <br/>
+每个观察者在接收到消息后的更新操作是不同的。</li>
+</ul>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/11/05/builder-in-java/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2012/11/02/mediator-in-java/">设计模式：中介者（mediator） in Java</a></h1>
     
 	<p class="meta">
@@ -139,7 +205,21 @@
   </header>
 
 
-  <div class="entry-content">
+  <div class="entry-content"><p><strong>定义</strong>:中介者模式,用一个中介对象封装一系列的对象交互,中介者使各对象不需要显式的相互作用,从而使其耦合松散,而且可以独立地改变它们之间的交互.</p>
+
+<p><strong>相关角色</strong></p>
+
+<ul>
+<li>Mediator抽象中介者角色 <br/>
+抽象中介者角色定义统一的接口,用于各个角色之间的通信.</li>
+<li>Concrete Mediator具体中介者 <br/>
+具体中介者角色通过协调各同事角色实现协作行为,因此它必须依赖于各个同事角色.</li>
+<li>Colleague同事角色  <br/>
+每一个同事角色都知道中介者角色,而且与其他的同事角色通信的时候,一定要通过中介者角色协作.</li>
+</ul>
+
+
+<p>士大夫撒</p>
 </div>
   
   
@@ -264,45 +344,6 @@
 
     </article>
   
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/11/02/null-object-in-java/">设计模式：空对象（null Object） in Java</a></h1>
-    
-	<p class="meta">
-    
-
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-02T20:10:00+08:00" pubdate data-updated="true">2012年11月02日 20:11:00</time>
-        
-         | <a href="/blog/2012/11/02/null-object-in-java/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content">
-</div>
-  
-  
-
-
-    </article>
-  
   <ul class="pager">
     
     <li class="previous"><a href="/blog/page/7/">&larr; 上一页</a></li>
@@ -325,6 +366,10 @@
     <li class="nav-header">最近更新</li>
     
       <li class="post">
+        <a href="/blog/2013/05/15/http-the-definitive-guide-reading-notes/">《HTTP权威指南》读书笔记1</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/05/02/my-linux-dream/">从windows到linux</a>
       </li>
     
@@ -338,10 +383,6 @@
     
       <li class="post">
         <a href="/blog/2013/03/22/jenkins-plugin-start/">开始第一个Jenkins Plugin</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/03/22/jstestdriver-in-brief/">JsTestDriver 简介</a>
       </li>
     
   </ul>

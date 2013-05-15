@@ -113,6 +113,64 @@
       ﻿
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2012/10/16/pageobjects-design-pattern/">PageObjects 设计模式</a></h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-16T16:40:00+08:00" pubdate data-updated="true">2012年10月16日 16:10:00</time>
+        
+         | <a href="/blog/2012/10/16/pageobjects-design-pattern/#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+  <div class="entry-content"><h2>什么是Page Objects(翻译为：页面对象？)&#8230;</h2>
+
+<p>简单的说，Page Objects是指UI界面上用于与用户进行交互的对象。它可以指整个页面，也可以指Page上的某个区域。Page Objects是你的test code的交互对象，是对实际UI的一种抽象模型化。通过Page Objects可以减少重复代码的编写，例如，很多页面都有同样的header，footer，navigator等部分，如果对这些进行抽象，只写一次就可以在其他地方通用了。</p>
+
+<p><strong>注意PageObjects与Page Objects是不一样的</strong>，PageObjects用于特指采用Page Objects进行封装的一种设计模式（Design Pattern）,而不仅仅是多一个空格的区别。哈。</p>
+
+<h2>如何实现PageObjects设计模式？</h2>
+
+<p>一般情况下，对于一个Page Objects对象，它有两个方面的特征：</p>
+
+<ul>
+<li>自身元素(WebElement)</li>
+<li>实现功能 (Services)</li>
+</ul>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/10/16/pageobjects-design-pattern/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2012/10/12/selenium-multiple-browser-support/">Selenium WebDriver的多浏览器支持</a></h1>
     
 	<p class="meta">
@@ -319,65 +377,6 @@ js.executeScript("return document.title");
 
     </article>
   
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/10/11/selenium-stable-2/">提高selenium自动化的稳定性2-等待</a></h1>
-    
-	<p class="meta">
-    
-
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-11T14:32:00+08:00" pubdate data-updated="true">2012年10月11日 14:10:00</time>
-        
-         | <a href="/blog/2012/10/11/selenium-stable-2/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content"><h2>很多页面元素都是ajax动态生成的，这就要求进行适当的等待</h2>
-
-<h2>如何进行等待呢？</h2>
-
-<h3>1.直接sleep</h3>
-
-<pre><code>public static void sleep(int seconds) {
-    try {
-        TimeUnit.SECONDS.sleep(seconds);
-    } catch (InterruptedException e) {
-        e.printStackTrace();
-    }
-}
-</code></pre>
-
-<p>这种方法，用于直接的让thread进行等待指定的seconds。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/10/11/selenium-stable-2/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <ul class="pager">
     
     <li class="previous"><a href="/blog/page/13/">&larr; 上一页</a></li>
@@ -400,6 +399,10 @@ js.executeScript("return document.title");
     <li class="nav-header">最近更新</li>
     
       <li class="post">
+        <a href="/blog/2013/05/15/http-the-definitive-guide-reading-notes/">《HTTP权威指南》读书笔记1</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/05/02/my-linux-dream/">从windows到linux</a>
       </li>
     
@@ -413,10 +416,6 @@ js.executeScript("return document.title");
     
       <li class="post">
         <a href="/blog/2013/03/22/jenkins-plugin-start/">开始第一个Jenkins Plugin</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/03/22/jstestdriver-in-brief/">JsTestDriver 简介</a>
       </li>
     
   </ul>

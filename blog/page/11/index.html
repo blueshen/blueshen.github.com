@@ -113,6 +113,76 @@
       ﻿
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2012/10/20/xpath/">Xpath 详解</a></h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-20T10:43:00+08:00" pubdate data-updated="true">2012年10月20日 10:10:00</time>
+        
+         | <a href="/blog/2012/10/20/xpath/#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+  <div class="entry-content"><div id="intro">
+<p><strong>XPath 使用路径表达式来选取 XML 文档中的节点或节点集。节点是通过沿着路径 (path) 或者步 (steps) 来选取的。</strong></p>
+</div>
+
+
+
+
+<div>
+<h2>XML 实例文档</h2>
+<p>我们将在下面的例子中使用这个 XML 文档。</p>
+<pre>&lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot;?&gt;
+
+&lt;bookstore&gt;
+
+&lt;book&gt;
+  &lt;title lang=&quot;eng&quot;&gt;Harry Potter&lt;/title&gt;
+  &lt;price&gt;29.99&lt;/price&gt;
+&lt;/book&gt;
+
+&lt;book&gt;
+  &lt;title lang=&quot;eng&quot;&gt;Learning XML&lt;/title&gt;
+  &lt;price&gt;39.95&lt;/price&gt;
+&lt;/book&gt;
+
+&lt;/bookstore&gt;</pre>
+</div>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/10/20/xpath/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2012/10/19/install-maven/">安装配置Maven</a></h1>
     
 	<p class="meta">
@@ -294,64 +364,6 @@ JVM在启动的时候会自动设置JVM Heap的值，其初始空间(即-Xms)是
 
     </article>
   
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/10/16/pageobjects-design-pattern/">PageObjects 设计模式</a></h1>
-    
-	<p class="meta">
-    
-
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-16T16:40:00+08:00" pubdate data-updated="true">2012年10月16日 16:10:00</time>
-        
-         | <a href="/blog/2012/10/16/pageobjects-design-pattern/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content"><h2>什么是Page Objects(翻译为：页面对象？)&#8230;</h2>
-
-<p>简单的说，Page Objects是指UI界面上用于与用户进行交互的对象。它可以指整个页面，也可以指Page上的某个区域。Page Objects是你的test code的交互对象，是对实际UI的一种抽象模型化。通过Page Objects可以减少重复代码的编写，例如，很多页面都有同样的header，footer，navigator等部分，如果对这些进行抽象，只写一次就可以在其他地方通用了。</p>
-
-<p><strong>注意PageObjects与Page Objects是不一样的</strong>，PageObjects用于特指采用Page Objects进行封装的一种设计模式（Design Pattern）,而不仅仅是多一个空格的区别。哈。</p>
-
-<h2>如何实现PageObjects设计模式？</h2>
-
-<p>一般情况下，对于一个Page Objects对象，它有两个方面的特征：</p>
-
-<ul>
-<li>自身元素(WebElement)</li>
-<li>实现功能 (Services)</li>
-</ul>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/10/16/pageobjects-design-pattern/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <ul class="pager">
     
     <li class="previous"><a href="/blog/page/12/">&larr; 上一页</a></li>
@@ -374,6 +386,10 @@ JVM在启动的时候会自动设置JVM Heap的值，其初始空间(即-Xms)是
     <li class="nav-header">最近更新</li>
     
       <li class="post">
+        <a href="/blog/2013/05/15/http-the-definitive-guide-reading-notes/">《HTTP权威指南》读书笔记1</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/05/02/my-linux-dream/">从windows到linux</a>
       </li>
     
@@ -387,10 +403,6 @@ JVM在启动的时候会自动设置JVM Heap的值，其初始空间(即-Xms)是
     
       <li class="post">
         <a href="/blog/2013/03/22/jenkins-plugin-start/">开始第一个Jenkins Plugin</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/03/22/jstestdriver-in-brief/">JsTestDriver 简介</a>
       </li>
     
   </ul>

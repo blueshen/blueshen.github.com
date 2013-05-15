@@ -113,6 +113,56 @@
       ﻿
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2012/11/08/command-in-java/">设计模式：命令（Command） in Java</a></h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-08T15:09:00+08:00" pubdate data-updated="true">2012年11月08日 15:11:00</time>
+        
+         | <a href="/blog/2012/11/08/command-in-java/#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+  <div class="entry-content"><p><strong>定义：</strong>命令模式是一种高内聚的模式。它将一个请求封装成一个对象，从而让使用不同请求来把客户端参数化，对请求排队或者记录请求日志，可以提供命令的撤销与恢复功能。 <br/>
+听起来，好复杂！</p>
+
+<p>在程序员之间，流传着这样一句话：程序写到最后，就是if-else,for,while。<br/>
+真是枯燥啊！其实能体会到这种感觉，说明作为一个程序员，你已经有了一定的造诣了。那如何提高呢？</p>
+
+<p>试想，在代码中，你有很多if-else或者case语句。为什么有这样的语句呢？因为判断条件多啊，需要根据不同的条件来做不同的事情。2、3个条件还可以写，如果有20个条件呢，或者N多呢。那么我们的if-else那就判断N重条件，这简直是无法忍受的，写出的代码可维护性更不用说了。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/11/08/command-in-java/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2012/11/07/prototype-in-java/">设计模式：原型（prototype） in Java</a></h1>
     
 	<p class="meta">
@@ -327,72 +377,6 @@
 
     </article>
   
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/11/05/builder-in-java/">设计模式：构建者（builder） in Java</a></h1>
-    
-	<p class="meta">
-    
-
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-05T20:08:00+08:00" pubdate data-updated="true">2012年11月05日 20:11:00</time>
-        
-         | <a href="/blog/2012/11/05/builder-in-java/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content"><p><strong>定义：</strong>建造者模式,又叫生成器模式，将一个复杂对象的构建与它的表示分离,使得同样的构建过程可以创建不同的表示. <br/>
-<strong>适用性</strong>:</p>
-
-<blockquote><p>a.当创建复杂对象的算法应该独立于该对象的组成部分以及他们的装配方式.  <br/>
-b.当构建过程必须允许构造的对象有不同的表示.</p></blockquote>
-
-<p>构建者模式的<strong>核心思想</strong>:</p>
-
-<blockquote><p>将一个“<strong>复杂对象的构建算法</strong>”与它的“<strong>部件及组装方式</strong>”分离，使得构件算法和组装方式可以独立应对变化；复用同样的构建算法可以创建不同的表示，不同的构建过程可以复用相同的部件组装方式。</p></blockquote>
-
-<p>建造者者模式有4个角色：</p>
-
-<ul>
-<li>Product产品类:<br/>
-要构建的对象</li>
-<li>Builder抽象构建者: <br/>
-定义操作接口</li>
-<li>ConcreteBuilder具体建造者:<br/>
-实现Builder所有方法</li>
-<li>Director导演类：   <br/>
-每个观察者在接收到消息后的更新操作是不同的。</li>
-</ul>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/11/05/builder-in-java/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <ul class="pager">
     
     <li class="previous"><a href="/blog/page/6/">&larr; 上一页</a></li>
@@ -415,6 +399,10 @@ b.当构建过程必须允许构造的对象有不同的表示.</p></blockquote>
     <li class="nav-header">最近更新</li>
     
       <li class="post">
+        <a href="/blog/2013/05/15/http-the-definitive-guide-reading-notes/">《HTTP权威指南》读书笔记1</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/05/02/my-linux-dream/">从windows到linux</a>
       </li>
     
@@ -428,10 +416,6 @@ b.当构建过程必须允许构造的对象有不同的表示.</p></blockquote>
     
       <li class="post">
         <a href="/blog/2013/03/22/jenkins-plugin-start/">开始第一个Jenkins Plugin</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/03/22/jstestdriver-in-brief/">JsTestDriver 简介</a>
       </li>
     
   </ul>
