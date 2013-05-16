@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "apache mpm介绍[转]"
+title: "apache mpm介绍"
 date: 2012-10-12 12:45
 comments: true
 categories: apache
-tags: [ apache , mpm , worker , perfork  ]
+tags: [ apache, mpm, worker, perfork  ]
 ---
 ##什么是MPM？ 
 
@@ -44,7 +44,7 @@ worker的工作原理是，由主控制进程生成“StartServers”个子进�
 
 ##如何判断当前的服务器使用那种MPM 模块? 
 若使用prefork，在make编译和make install安装后，使用“httpd -l”来确定当前使用的MPM， 
-如下示: 
+如下示:    
 
 	[aaron@webslave1 extra]$ /usr/local/apache2/bin/httpd -l 
 	Compiled in modules: 
@@ -54,7 +54,8 @@ worker的工作原理是，由主控制进程生成“StartServers”个子进�
 	...... 
 应该会看到prefork.c（如果看到worker.c说明使用的是worker MPM，依此类推）。再查看缺省生成的httpd.conf配置文件，里面包含如下配置段： 
 
-Linux代码  
+Linux代码     
+
 	<IfModule prefork.c>  
 	StartServers 5  
 	MinSpareServers 5  
@@ -77,7 +78,8 @@ MaxClients是这些指令中最为重要的一个，设定的是Apache可以同�
 其缺省值150是远远不够的，如果请求总数已达到这个值（可通过ps -ef|grep http|wc -l来确认），那么后面的请求就要排队，直到某个已处理请求完毕。这就是系统资源还剩下很多而HTTP访问却很慢的主要原因。系统管理员可以根据硬件配置和负载情况来动态调整这个值。  
 虽然理论上这个值越大，可以处理的请求就越多，但Apache默认的限制不能大于256。如果把这个值设为大于256，那么Apache将无法起动。事实上，256对于负载稍重的站点也是不够的。在Apache 1.3中，这是个硬限制。如果要加大这个值，必须在“configure”前手工修改的源代码树下的src/include/httpd.h中查找256，就会发现“#define HARD_SERVER_LIMIT 256”这行。把256改为要增大的值（如4000），然后重新编译Apache即可。在Apache 2.0中新加入了ServerLimit指令，使得无须重编译Apache就可以加大MaxClients。下面是笔者的prefork配置段： 
 
-Linux代码  
+Linux代码     
+
 	<IfModule prefork.c>  
 	StartServers 10  
 	MinSpareServers 10  
@@ -91,6 +93,7 @@ Linux代码
 　上述配置中，ServerLimit的最大值是20000，对于大多数站点已经足够。如果一定要再加大这个数值，对位于源代码目录下 
 /httpd-2.2.15/server/mpm/prefork/prefork.c中以下两行做相应修改即可：  
 Linux代码    
+
 	#define DEFAULT_SERVER_LIMIT 256  
 	#define MAX_SERVER_LIMIT 20000  
 
@@ -99,20 +102,23 @@ worker的工作原理是，由主控制进程生成“StartServers”个子进�
 MinSpareThreads和MaxSpareThreads的最大缺省值分别是75和250。这两个参数对Apache的性能影响并不大，可以按照实际情况相应调节。 
 ThreadsPerChild是worker MPM中与性能相关最密切的指令。ThreadsPerChild的最大缺省值是64，如果负载较大，64也是不够的。这时要显式使用ThreadLimit指令，它的最大缺省值是20000。上述两个值位于源码树server/mpm/worker/worker.c中的以下两行： 
 
-Linux代码  
+Linux代码    
+
 	#define DEFAULT_THREAD_LIMIT 64  
 	#define MAX_THREAD_LIMIT 20000  
 
 这两行对应着ThreadsPerChild和ThreadLimit的限制数。最好在configure之前就把64改成所希望的值。注意，不要把这两个值设得太高，超过系统的处理能力，从而因Apache不起动使系统很不稳定。 
 Worker模式下所能同时处理的请求总数是由子进程总数乘以ThreadsPerChild值决定的，应该大于等于MaxClients。如果负载很大，现有的子进程数不能满足时，控制进程会派生新的子进程。默认最大的子进程总数是16，加大时也需要显式声明ServerLimit（最大值是20000）。这两个值位于源码树server/mpm/worker/worker.c中的以下两行： 
 
-Linux代码  
+Linux代码     
+
 	#define DEFAULT_SERVER_LIMIT 16  
 	#define MAX_SERVER_LIMIT 20000  
 
 需要注意的是，如果显式声明了ServerLimit，那么它乘以ThreadsPerChild的值必须大于等于MaxClients，而且MaxClients必须是ThreadsPerChild的整数倍，否则Apache将会自动调节到一个相应值（可能是个非期望值）。下面是笔者的worker配置段： 
 
-Linux代码  
+Linux代码     
+
 	<IfModule worker.c>  
 	StartServers 3  
 	MaxClients 2000  
@@ -124,4 +130,10 @@ Linux代码
 	MaxRequestsPerChild 0  
 	</IfModule>  
 
+硬性公式：  
+
+         ThreadLimit >= ThreadsPerChild
+         MaxClients <= ServerLimit * ThreadsPerChild 必须是ThreadsPerChild的倍数
+         MaxSpareThreads >= MinSpareThreads+ThreadsPerChild
+ServerLimit默认是16,最大20000;ThreadLimit默认是64,最大20000。  
 通过上面的叙述，可以了解到Apache 2.0中prefork和worker这两个重要MPM的工作原理，并可根据实际情况来配置Apache相关的核心参数，以获得最大的性能和稳定性。
