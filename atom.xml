@@ -4,7 +4,7 @@
   <title><![CDATA[Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2013-05-16T10:14:29+08:00</updated>
+  <updated>2013-05-21T17:17:22+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -12,6 +12,105 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[使用Maven Archetype来生成项目框架]]></title>
+    <link href="http://www.shenyanchao.cn/blog/2013/05/21/use-maven-archetype-to-generate-project-architecture/"/>
+    <updated>2013-05-21T16:36:00+08:00</updated>
+    <id>http://www.shenyanchao.cn/blog/2013/05/21/use-maven-archetype-to-generate-project-architecture</id>
+    <content type="html"><![CDATA[<h3>Maven in 5 Minutes</h3>
+
+<p><a href="http://maven.apache.org/guides/getting-started/maven-in-five-minutes.html">maven官方文档</a>的入门章节就介绍了如何创建一个maven项目。大致如下：</p>
+
+<pre><code>mvn archetype:generate -DgroupId=com.mycompany.app -DartifactId=my-app -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false     
+</code></pre>
+
+<p>我相信，很多人都是从这里开始的。但是为什么是这样呢？这里面都是怎么实现的？  <br/>
+其实，这里面是maven archetype的作用。它可以根据模板为你生成样例项目。</p>
+
+<!--more-->
+
+
+<h3>Maven Archetype Plugin</h3>
+
+<p>我们使用这个插件可以依据已经存在的项目来生成一个架构。这样其他人就可以使用这个架构来快速生成自己的项目了。  <br/>
+Maven Archetype Plugin有4个Goal:</p>
+
+<ul>
+<li>archetype:create 已过时，用于从archetype创建maven project</li>
+<li>archetype:generate  替代create,并且可以用交互的模式</li>
+<li>archetype:create-from-project 依据存在的project 创建archetype</li>
+<li>archetype:crawl 查找repo里存在的archetypes并更新目录。</li>
+</ul>
+
+
+<h3>实战演练一把</h3>
+
+<p>假设我们已经有了一个项目名叫seleniumframework-start: <br/>
+进入到这个工程的根目录，首先执行：</p>
+
+<pre><code>mvn clean archetype:create-from-project
+</code></pre>
+
+<p>这样就生成了一个archetype的代码。其路径位于./target/generated-sources/archetype目录内。其中pom.xml类似：</p>
+
+<pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+  &lt;groupId&gt;com.baidu.selenium.archetypes&lt;/groupId&gt;
+  &lt;artifactId&gt;seleniumframework-start-archetype&lt;/artifactId&gt;
+  &lt;version&gt;1.0.0&lt;/version&gt;
+  &lt;packaging&gt;maven-archetype&lt;/packaging&gt;
+
+  &lt;name&gt;seleniumframework-start-archetype&lt;/name&gt;
+
+  &lt;build&gt;
+    &lt;extensions&gt;
+      &lt;extension&gt;
+        &lt;groupId&gt;org.apache.maven.archetype&lt;/groupId&gt;
+        &lt;artifactId&gt;archetype-packaging&lt;/artifactId&gt;
+        &lt;version&gt;2.2&lt;/version&gt;
+      &lt;/extension&gt;
+    &lt;/extensions&gt;
+
+    &lt;pluginManagement&gt;
+      &lt;plugins&gt;
+        &lt;plugin&gt;
+          &lt;artifactId&gt;maven-archetype-plugin&lt;/artifactId&gt;
+          &lt;version&gt;2.2&lt;/version&gt;
+        &lt;/plugin&gt;
+      &lt;/plugins&gt;
+    &lt;/pluginManagement&gt;
+  &lt;/build&gt;
+&lt;/project&gt;
+</code></pre>
+
+<p>这个就是要生成的seleniumframework-start-archetype的pom.xml了。一般情况下生成的代码是不能直接使用的，需要做一些修改。这其中主要有以下几个变量需要替换：</p>
+
+<ul>
+<li>${groupId}</li>
+<li>${artifactId}</li>
+<li>${version}</li>
+<li>${package}</li>
+</ul>
+
+
+<p>找到./target/generated-sources/archetype/src/main/resources/archetype-resources目录，这里面就是要生成的文件模板了，这个时候需要注意以上几个占位符出现的地方是否正确，可以按照需要进行修改。常见的情况是把XML文件里的<code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;</code>转为了<code>&lt;?xml version="${version}" encoding="UTF-8"?&gt;^</code>。这并不是我们想要的，<code>${version}</code>是用来指项目的版本号，因此此处去掉占位符。有的其他地方，应该要使用占位符的可以根据需要修改。修改完毕，那么返回./target/generated-sources/archetype目录，install之：</p>
+
+<pre><code>mvn clean install
+</code></pre>
+
+<p>这样，这个archetype就安装到了local repository。
+如何使用呢？咱们试试。</p>
+
+<pre><code>mvn archetype:generate -DarchetypeGroupId=com.baidu.selenium.archetypes -DarchetypeArtifactId=seleniumframework-start-archetype -DarchetypeVersion=1.0.0
+</code></pre>
+
+<p>其中，有一些交互信息需要确认。依次是groupId,artifactId,version,package。按照要求输入后，这些信息就是用来分别替代上面说的几个变量了，项目就顺利生成了。<br/>
+此时，seleniumframework-start-archetype还只能自己使用，因为它只存在于local repository内。为了让大家共享成果，将这个包deploy到伺服器就OK了。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[《HTTP权威指南》读书笔记1]]></title>
@@ -160,7 +259,7 @@ HTTP性能在很大程度上取决于底层TCP通道的性能。影响TCP性能�
 
 <h3>HTTP状态码</h3>
 
-<p>+&#8212;&#8212;&#8212;&#8212;+&#8212;&#8212;&#8212;&#8212;&#8212;-+&#8212;&#8212;&#8212;+<br/>
+<p>+&#8212;&#8212;&#8212;&#8212;+&#8212;&#8212;&#8212;&#8212;&#8212;+&#8212;&#8212;&#8212;+<br/>
 |  整体范围   |   已定义范围     |   分类   |  <br/>
 +&#8212;&#8212;&#8212;&#8212;+&#8212;&#8212;&#8212;&#8212;&#8212;-+&#8212;&#8212;&#8212;+ <br/>
 | 100～199   | 100～101        | 信息提示 | <br/>
@@ -169,7 +268,7 @@ HTTP性能在很大程度上取决于底层TCP通道的性能。影响TCP性能�
 +&#8212;&#8212;&#8212;&#8212;+&#8212;&#8212;&#8212;&#8212;&#8212;-+&#8212;&#8212;&#8212;+ <br/>
 | 300~399    | 300~305        | 重定向   |  <br/>
 +&#8212;&#8212;&#8212;&#8212;+&#8212;&#8212;&#8212;&#8212;&#8212;-+&#8212;&#8212;&#8212;+ <br/>
-| 400～499   | 400～415        |客户端错误| <br/>
+| 400～499   | 400～415       |客户端错误| <br/>
 +&#8212;&#8212;&#8212;&#8212;+&#8212;&#8212;&#8212;&#8212;&#8212;-+&#8212;&#8212;&#8212;+ <br/>
 | 500~599    | 500~505        | 服务器错误|   <br/>
 +&#8212;&#8212;&#8212;&#8212;+&#8212;&#8212;&#8212;&#8212;&#8212;-+&#8212;&#8212;&#8212;+</p>
@@ -2698,133 +2797,6 @@ shenyanchao.publishWeibo("欢迎登录：www.shenyanchao.cn");
 </code></pre>
 
 <p>可见，一旦我发了微博，所有的观察者（Fans）都收到了。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[设计模式：迭代器（Iterator） in java]]></title>
-    <link href="http://www.shenyanchao.cn/blog/2012/11/08/iterator-in-java/"/>
-    <updated>2012-11-08T16:50:00+08:00</updated>
-    <id>http://www.shenyanchao.cn/blog/2012/11/08/iterator-in-java</id>
-    <content type="html"><![CDATA[<p><strong>定义：</strong>迭代器模式提供了一种方法来访问一个容器对象种的各个元素，而又不暴露这个对象的内部细节。</p>
-
-<blockquote><p>在Java中已经默认提供了Iterator支持，各种容器类都进行了实现，而事实上，迭代器模式就是为了解决如何遍历这些容器里的元素而诞生的。</p></blockquote>
-
-<p><strong>迭代器模式</strong>主要有以下的角色：</p>
-
-<ul>
-<li>Iterator抽象迭代器： <br/>
-负责定义访问与遍历元素的接口。基本有3个固定的方法<code>hasNext()</code>,<code>next()</code>,<code>remove()</code>;</li>
-<li>Concrete Iterator具体迭代器：  <br/>
-迭代器的实现类，实现接口，完成元素遍历。</li>
-<li>Aggregate抽象容器： <br/>
-定义创建具体迭代器的接口。在Java种一般是<code>iterator()</code>方法。</li>
-<li>Concrete Aggregate具体容器：<br/>
-实现创建迭代器接口，返回迭代器实例对象。</li>
-</ul>
-
-
-<!--more-->
-
-
-<p>为了方便，下面就直接以ArrayList为例，来看看迭代器是如何实现的吧。<br/>
-在使用时，通常这样对ArrayList进行遍历：</p>
-
-<pre><code>    List&lt;String&gt; list = new ArrayList&lt;String&gt;();
-    list.add("first");
-    list.add("second");
-    Iterator&lt;String&gt; itr = list.iterator();
-    while (itr.hasNext()) {
-        String element = itr.next();
-        System.out.println(element);
-    }
-</code></pre>
-
-<p>从这里，我们可以看出来，这就是完全的迭代器模式。<br/>
-首先来看，Iterator接口（java.util.Iterator）：</p>
-
-<pre><code>public interface Iterator&lt;E&gt; {
-
-    boolean hasNext();
-
-    E next();
-
-    void remove();
-}
-</code></pre>
-
-<p>然后是Iterator的具体实现类(java.util.AbstractList<E>$Itr)：</p>
-
-<pre><code>private class Itr implements Iterator&lt;E&gt; {
-
-    int cursor = 0;
-
-    int lastRet = -1;
-
-    int expectedModCount = modCount;
-
-    public boolean hasNext() {
-        return cursor != size();
-    }
-
-    public E next() {
-        checkForComodification();
-        try {
-        E next = get(cursor);
-        lastRet = cursor++;
-        return next;
-        } catch (IndexOutOfBoundsException e) {
-            checkForComodification();
-            throw new NoSuchElementException();
-        }
-    }
-
-    public void remove() {
-        if (lastRet == -1)
-        throw new IllegalStateException();
-            checkForComodification();
-
-        try {
-            AbstractList.this.remove(lastRet);
-        if (lastRet &lt; cursor)
-            cursor--;
-        lastRet = -1;
-        expectedModCount = modCount;
-        } catch (IndexOutOfBoundsException e) {
-            throw new ConcurrentModificationException();
-        }
-    }
-
-    final void checkForComodification() {
-        if (modCount != expectedModCount)
-            throw new ConcurrentModificationException();
-    }
-}
-</code></pre>
-
-<p>这个就是具体的Iterator了，当然还有另外一个ListItr extends Itr，这个是专门针对List进行操作的。 <br/>
-那么Aggregate接口对应的是哪个呢？就是<code>java.util.AbstractCollection&lt;E&gt;</code> ，它里面定义了这样的一个接口：</p>
-
-<pre><code>...
-/**
- * Returns an iterator over the elements contained in this collection.
- *
- * @return an iterator over the elements contained in this collection
- */
-public abstract Iterator&lt;E&gt; iterator();
-...
-</code></pre>
-
-<p>那么具体实现是在哪儿？<code>java.util.AbstractList&lt;E&gt;</code>做了实现。</p>
-
-<pre><code>    public Iterator&lt;E&gt; iterator() {
-        return new Itr();
-    }
-</code></pre>
-
-<p>返回了一个具体的迭代器实例。而ArrayList,LinkedList都是继承AbstractList的，因此自动具有了返回迭代器实例的功能。</p>
-
-<p>因此，Java种的容器类只负责元素的的维护就好了。访问就教给迭代器吧，Java做的如此完善，以至于我们都不必再自己写Iterator了。</p>
 ]]></content>
   </entry>
   

@@ -270,7 +270,13 @@
         <loc>
             http://www.shenyanchao.cn/blog/2013/05/15/http-the-definitive-guide-reading-notes/
         </loc>
-        <lastmod>2013-05-16T10:14:08+08:00</lastmod>
+        <lastmod>2013-05-16T10:16:54+08:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://www.shenyanchao.cn/blog/2013/05/21/use-maven-archetype-to-generate-project-architecture/
+        </loc>
+        <lastmod>2013-05-21T17:16:57+08:00</lastmod>
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/messagebox/</loc>
@@ -290,14 +296,14 @@
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/</loc>
-        <lastmod>2013-05-16T10:14:08+08:00</lastmod>
+        <lastmod>2013-05-21T17:16:57+08:00</lastmod>
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/tags/</loc>
-        <lastmod>2013-05-16T10:14:08+08:00</lastmod>
+        <lastmod>2013-05-21T17:16:57+08:00</lastmod>
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/blog/archives/</loc>
-        <lastmod>2013-05-16T10:14:08+08:00</lastmod>
+        <lastmod>2013-05-21T17:16:57+08:00</lastmod>
     </url>
 </urlset>
