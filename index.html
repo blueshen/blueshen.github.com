@@ -113,7 +113,7 @@
       ﻿
   <header class="page-header">
     
-      <h1 class="entry-title"><a href="/blog/2013/05/21/use-maven-archetype-to-generate-project-architecture/">使用Maven Archetype来生成项目框架</a></h1>
+      <h1 class="entry-title"><a href="/blog/2013/05/30/selenium-wiki-frequently-asked-questions/">Selenium Wiki:selenium常见问题</a></h1>
     
 	<p class="meta">
     
@@ -130,30 +130,38 @@
   
 
 
-<time datetime="2013-05-21T16:36:00+08:00" pubdate data-updated="true">2013年05月21日 16:05:00</time>
+<time datetime="2013-05-30T19:57:00+08:00" pubdate data-updated="true">2013年05月30日 19:05:00</time>
         
-         | <a href="/blog/2013/05/21/use-maven-archetype-to-generate-project-architecture/#disqus_thread">我要评论</a>
+         | <a href="/blog/2013/05/30/selenium-wiki-frequently-asked-questions/#disqus_thread">我要评论</a>
         
     
  </p>
   </header>
 
 
-  <div class="entry-content"><h3>Maven in 5 Minutes</h3>
+  <div class="entry-content"><h3>selenium常见问题</h3>
 
-<p><a href="http://maven.apache.org/guides/getting-started/maven-in-five-minutes.html">maven官方文档</a>的入门章节就介绍了如何创建一个maven项目。大致如下：</p>
+<hr />
 
-<pre><code>mvn archetype:generate -DgroupId=com.mycompany.app -DartifactId=my-app -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false     
-</code></pre>
+<p>原文：<a href="https://code.google.com/p/selenium/wiki/FrequentlyAskedQuestions">https://code.google.com/p/selenium/wiki/FrequentlyAskedQuestions</a></p>
 
-<p>我相信，很多人都是从这里开始的。但是为什么是这样呢？这里面都是怎么实现的？  <br/>
-其实，这里面是maven archetype的作用。它可以根据模板为你生成样例项目。</p>
+<h4>Q:什么是WebDriver?</h4>
+
+<p>A:WebDriver是一个用来写网页自动化测试的工具。它致力于模拟真实用户的行为并尽可能的实现HTML上的交互。</p>
+
+<h4>Q:Selenium与<a href="http://sahi.co.in/">Sahi</a>有什么异同？</h4>
+
+<p>A:它们的目标是一样的，都是为了测试webapp。但是，它们的实现是不一样的。WebDriver是直接控制浏览器的，而不是在浏览器内运行了一个Javascript应用（这牵涉到同源策略问题）。这也意味着WebDriver可以充分利用原生平台提供的任何工具。</p>
+
+<h4>Q：什么是Selenium 2.0?</h4>
+
+<p>A:WebDriver是Selenium的一部分。而WebDriver为其提供了强大的API以及原生的Driver。</p>
 
 </div>
   
   
     <footer>
-      <a rel="full-article" href="/blog/2013/05/21/use-maven-archetype-to-generate-project-architecture/">阅读全文 &rarr;</a>
+      <a rel="full-article" href="/blog/2013/05/30/selenium-wiki-frequently-asked-questions/">阅读全文 &rarr;</a>
     </footer>
   
 
@@ -165,7 +173,7 @@
       ﻿
   <header class="page-header">
     
-      <h1 class="entry-title"><a href="/blog/2013/05/15/http-the-definitive-guide-reading-notes/">《HTTP权威指南》读书笔记1</a></h1>
+      <h1 class="entry-title"><a href="/blog/2013/05/30/selenium-wiki-web-driver-js/">Selenium Wiki:webdriverjs</a></h1>
     
 	<p class="meta">
     
@@ -182,42 +190,51 @@
   
 
 
-<time datetime="2013-05-15T16:53:00+08:00" pubdate data-updated="true">2013年05月15日 16:05:00</time>
+<time datetime="2013-05-30T19:56:00+08:00" pubdate data-updated="true">2013年05月30日 19:05:00</time>
         
-         | <a href="/blog/2013/05/15/http-the-definitive-guide-reading-notes/#disqus_thread">我要评论</a>
+         | <a href="/blog/2013/05/30/selenium-wiki-web-driver-js/#disqus_thread">我要评论</a>
         
     
  </p>
   </header>
 
 
-  <div class="entry-content"><h3>URL语法</h3>
+  <div class="entry-content"><h1>WebDriverJS</h1>
 
-<p>完整的URL是建立在由以下9个部分构成的通用格式上的。</p>
-
-<pre><code>&lt;scheme&gt;://&lt;user&gt;:&lt;password&gt;@&lt;host&gt;:&lt;port&gt;/&lt;path&gt;;&lt;params&gt;?&lt;query&gt;#&lt;frag&gt;   
-</code></pre>
-
-<p>其中各个部分代表：</p>
+<p>WebDriver 的 JavaScript 语言绑定。本文包含以下内容：</p>
 
 <ul>
-<li>scheme(方案)：使用的哪种协议;默认无</li>
-<li>user（用户）：用户名；默认匿名</li>
-<li>password(密码)：密码</li>
-<li>host(主机)：服务器主机名或点分IP地址</li>
-<li>port(端口)：服务器监听端口。不同协议，默认值不一样，HTTP默认80</li>
-<li>path(路径)：/分割的资源路径</li>
-<li>params(参数)：名/值对，使用；分割。</li>
-<li>query（查询）：名=值对，用&amp;分割多个</li>
-<li>frag（片段）：小片资源的名字。在html就是一个锚点名了。自动从锚点开始显示。</li>
+<li>介绍</li>
+<li>快速上手
+
+<ul>
+<li>在 Node 中运行</li>
+<li>在浏览器中运行</li>
+</ul>
+</li>
+<li>设计细节
+
+<ul>
+<li>管理异步 API</li>
+<li>同服务端通讯</li>
+<li>/xdrpc</li>
+</ul>
+</li>
+<li>未来计划</li>
 </ul>
 
+
+<h2>介绍</h2>
+
+<p>WebDriver 的 JavaScript 绑定（WebDriverJS），可以使 JavaScript 开发人员避免上下文切换的开销，并且可以让他们使用和项目开发代码一样的语言来编写测试。WebDriverJS 既可以在服务端运行，例如 Node，也可以在浏览器中运行。</p>
+
+<p><strong>警告：</strong> WebDriverJS 要求开发者习惯异步编程。对于那些 JavaScript 新手来说可能会发现 WebDriverJS 有点难上手。</p>
 
 </div>
   
   
     <footer>
-      <a rel="full-article" href="/blog/2013/05/15/http-the-definitive-guide-reading-notes/">阅读全文 &rarr;</a>
+      <a rel="full-article" href="/blog/2013/05/30/selenium-wiki-web-driver-js/">阅读全文 &rarr;</a>
     </footer>
   
 
@@ -229,7 +246,7 @@
       ﻿
   <header class="page-header">
     
-      <h1 class="entry-title"><a href="/blog/2013/05/02/my-linux-dream/">从windows到linux</a></h1>
+      <h1 class="entry-title"><a href="/blog/2013/05/30/selenium-wiki-advanced-user-interactions/">Selenium Wiki:高级用户交互</a></h1>
     
 	<p class="meta">
     
@@ -246,127 +263,50 @@
   
 
 
-<time datetime="2013-05-02T16:37:00+08:00" pubdate data-updated="true">2013年05月02日 16:05:00</time>
+<time datetime="2013-05-30T19:56:00+08:00" pubdate data-updated="true">2013年05月30日 19:05:00</time>
         
-         | <a href="/blog/2013/05/02/my-linux-dream/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content"><p>从高中时代最早接触计算机,当初什么都不懂,能会用下email就绝对是达人了啊.最早见到OS应该是windows 95,那时候虽然已经出了windows 98,不过学校仍预装的是windows 95.</p>
-
-<p>高中时期,就感觉计算机挺新奇,很感兴趣,至于具体会发展到什么样也不清楚.大学报考时间果断选择了计算机科学与技术这一专业.从此就走上了这一不归路.</p>
-
-<p>大学时期对计算机有了更深刻的认识,也知道除了windows之外还有一个linux的东西所在.这期间先后给自己的机器安装过红帽,安装过国产的红旗.不过这些东西也都没有什么深入,安装后发现也很不好用,不得已而放弃掉.</p>
-
-<p>研究生期间有更多的linux伙伴,有人在用也有人给推荐.那个时候选择了ubuntu作为自己首选,因为大家推荐说资源多,新人入手容易.那个时候应该是9.04左右的版本.</p>
-
-<p>工作后,接触到了更多的服务器,也经历了各种在windows下的程序无法很好在linux运行的情况,因此下决心学习.私人的笔记本装上了ubuntu 10.04,不过公司的工作电脑还是没敢做成ubuntu系统,只是弄了一个虚拟机.</p>
-
-<p>大概在大半年以前,我下定了决心,把系统给完全换成了ubuntu,版本也升到了12.04.这时的系统已经足够成熟,几乎可以满足工作的需要.而最近发布的ubuntu 13.04则更加的完善,各种替代软件都可以找到.</p>
-
-<p>个人常用软件推荐:</p>
-
-<ul>
-<li>office: wps for linux  or libreoffice</li>
-<li>输入法:  sogou for linux</li>
-<li>开发IDE: Intellij IDEA or Eclipse</li>
-<li>编辑器: sublime,retext</li>
-<li>浏览器: chrome,firefox</li>
-<li>邮件客户端: thunderbird</li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2013/04/01/run-karma-in-jenkins-ci/">Karma与Jenkins-CI集成</a></h1>
-    
-	<p class="meta">
-    
-
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-04-01T19:38:00+08:00" pubdate data-updated="true">2013年04月01日 19:04:00</time>
-        
-         | <a href="/blog/2013/04/01/run-karma-in-jenkins-ci/#disqus_thread">我要评论</a>
+         | <a href="/blog/2013/05/30/selenium-wiki-advanced-user-interactions/#disqus_thread">我要评论</a>
         
     
  </p>
   </header>
 
 
-  <div class="entry-content"><p>Jenkins是一款目前最为流行的持续集成工具，那么，如何让Karma的能集成到Jenkins，并自动执行呢？</p>
+  <div class="entry-content"><h3>AdvancedUserInteractions(高级用户交互)</h3>
 
-<h3>前提条件</h3>
+<h3>入门</h3>
 
-<p>Jenkins Server上（可以是Master，也许是Slave结点，总之在那个Server上跑，就需要安装），安装：</p>
+<p>高级用户交互API提供了一个更新更完善的机制来定义并描述用户在一个网页上的各种操作。这些操作包括：拖拽、按住CTRL键选择多个元素等等。</p>
 
-<ul>
-<li>Node</li>
-<li>Karma</li>
-</ul>
+<h4>开始（short how to）</h4>
 
+<p>为了生成一连串的动作，我们使用Actions来建立。首先，我们先配置操作：</p>
 
-<h3>配置Karma.conf.js文件</h3>
+<pre><code>Actions builder = new Actions(driver);
 
-<p>必须保证：</p>
-
-<pre><code>singleRun = true;
+builder.keyDown(Keys.CONTROL)
+.click(someElement)
+.click(someOtherElement)
+.keyUp(Keys.CONTROL);
 </code></pre>
 
-<p>只有这样，才能保证运行Test后，浏览器自动退出，不影响下次执行。  <br/>
-在Jenkins中，也许你想查看测试结果，这个时候可以借助junit reporter。</p>
+<p>然后，获得操作（Action）:</p>
 
-<pre><code>reporters = ['junit'];
-junitReporter = {
-    outputFile: 'test-results.xml'
-};
+<pre><code>Action selectMultiple = builder.build();
 </code></pre>
 
-<p>那么，Junit格式的测试结果就存到了test-results.xml中。</p>
+<p>最后，执行这个动作：</p>
 
-<p>另外一种情况，我可能还想查看一下代码覆盖率。Karma也是支持的，要进行以下的配置：</p>
-
-<pre><code>reporters = ['coverage'];
-
-preprocessors = {
-    'src/*.js': 'coverage'
-};
-
-coverageReporter = {
-    type : 'cobertura',
-    dir : 'coverage/'
-};
+<pre><code>selectMultiple.perform();   
 </code></pre>
 
-<p>这里，reporters指出了要生成coverage报告。preprocessors指明了要统计覆盖率的源码。coverageReporter里，指明type为cobertura，dir则是报告路径。type用多种选择，其中cobertura为Jenkins专属的。</p>
+<p>这一系列的动作应该尽量的短。在使用中最好在执行一个简短的动作后验证页面是否处于正确的状态，然后再执行下面的动作。下一节将会列出所有可用的动作（Action），并且说明它们如何进行扩展。</p>
 
 </div>
   
   
     <footer>
-      <a rel="full-article" href="/blog/2013/04/01/run-karma-in-jenkins-ci/">阅读全文 &rarr;</a>
+      <a rel="full-article" href="/blog/2013/05/30/selenium-wiki-advanced-user-interactions/">阅读全文 &rarr;</a>
     </footer>
   
 
@@ -378,7 +318,7 @@ coverageReporter = {
       ﻿
   <header class="page-header">
     
-      <h1 class="entry-title"><a href="/blog/2013/03/27/use-karma-to-run-mocha-test/">使用Karma来驱动mocha测试</a></h1>
+      <h1 class="entry-title"><a href="/blog/2013/05/30/selenium-doc-selenium-web-driver/">Selenium文档:selenium WebDriver</a></h1>
     
 	<p class="meta">
     
@@ -395,54 +335,94 @@ coverageReporter = {
   
 
 
-<time datetime="2013-03-27T19:00:00+08:00" pubdate data-updated="true">2013年03月27日 19:03:00</time>
+<time datetime="2013-05-30T19:55:00+08:00" pubdate data-updated="true">2013年05月30日 19:05:00</time>
         
-         | <a href="/blog/2013/03/27/use-karma-to-run-mocha-test/#disqus_thread">我要评论</a>
+         | <a href="/blog/2013/05/30/selenium-doc-selenium-web-driver/#disqus_thread">我要评论</a>
         
     
  </p>
   </header>
 
 
-  <div class="entry-content"><h2>从Testacular到Karma的变化</h2>
+  <div class="entry-content"><h1>Selenium WebDriver</h1>
 
-<p>2013年03月18日，Testacular正式被重命名为Karma。具体原因，讲起来缺也很滑稽。这里面不含有任何的商业成分，只是因为Testacular与Testicular很相似，因此令人感觉尴尬。仅仅此而已，谁让JsTestDriver已经被别人给拿走了。<br/>
-安装：</p>
+<p>注意：本章内容官方团队正在完善中。</p>
 
-<pre><code>npm install -g karma
-</code></pre>
+<h2>介绍 WebDriver</h2>
 
-<h2>什么时候使用Karma？</h2>
+<p>Selenium 2.0 最主要的一个新特性就是集成了 WebDriver API。WebDriver 提供更精简的编程几口，以解决 Selenium-RC API 中的一些限制。WebDriver 为那些页面元素可以不通过页面重新加载来更新的动态网页提供了更好的支持。WebDriver 的目标是提供一套精心设计的面向对象的 API 来更好的支持现代高级 web 应用的测试工作。</p>
 
-<ul>
-<li>在真实浏览器里测试。</li>
-<li>在多种浏览器里进行测试（包括桌面、移动）。</li>
-<li>在本地开发环境执行测试。</li>
-<li>想在持续集成CI内运行测试。</li>
-<li>想在每次保存代码时，自动执行测试。</li>
-<li>热衷于terminal小黑屏。</li>
-<li>不想陷入令人厌烦的测试生活。</li>
-<li>想使用Istanbul自动生成coverage报告。</li>
-<li>想在源码中使用RequireJS。</li>
-</ul>
+<h2>同 Selenium-RC 相比，WebDriver 如何驱动浏览器的？</h2>
 
+<p>Selenium-WebDriver 直接通过浏览器自动化的本地接口来调用浏览器。如何直接调用，和调用的细节取决于你使用什么浏览器。本章后续的内容介绍了每个 “browser driver” 的详细信息。</p>
 
-<h2>Karma不是Testing Framework</h2>
-
-<p>Karma自从出现，就是一直作为一个Test Runner而存在的，只是用来驱动测试的框架。不过到目前为止，它支持以下流行的测试框架。</p>
-
-<ul>
-<li>Mocha</li>
-<li>Jasmine</li>
-<li>QUnit</li>
-</ul>
-
+<p>相比 Selenium-RC ，WebDriver 确实非常不一样。Selenium-RC 在所有支持的浏览器中工作原理是一样的。它将 JavaScript 在浏览器加载的时候注入浏览器，然后使用这些 JavaScript 驱动 AUT 运行 WebDriver 使用的是不同的技术，再一次强调，它是直接调用浏览器自动化的本地接口。</p>
 
 </div>
   
   
     <footer>
-      <a rel="full-article" href="/blog/2013/03/27/use-karma-to-run-mocha-test/">阅读全文 &rarr;</a>
+      <a rel="full-article" href="/blog/2013/05/30/selenium-doc-selenium-web-driver/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
+      <h1 class="entry-title"><a href="/blog/2013/05/30/selenium-doc-selenium-rc/">Selenium文档:selenium RC</a></h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-30T19:55:00+08:00" pubdate data-updated="true">2013年05月30日 19:05:00</time>
+        
+         | <a href="/blog/2013/05/30/selenium-doc-selenium-rc/#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+  <div class="entry-content"><h1>Selenium 1 (Selenium RC)¶</h1>
+
+<h2>介绍</h2>
+
+<p>正如你在 Selenium 项目简史里读到的，Selenium RC 在很长一段时间内都是 Selenium 的主要项目，直到 WebDriver/Selenium 合并而产生了最新和最强大的 Selenium 2。</p>
+
+<p>Selenium 仍然被活跃的支持（大部分是维护工作），并且提供了一些 Selenium 2 短期不会支持的特性，包括支持多语言 (Java, Javascript, Ruby, PHP, Python, Perl 和 C#) 和支持几乎所有的浏览器。</p>
+
+<h2>Selenium RC 如何工作</h2>
+
+<p>首先，我们将讲述 Selenium RC 的组件如何操作，以及在测试脚本运行时各自扮演的角色。</p>
+
+<h3>RC 组件</h3>
+
+<p>Selenium RC 组件是：</p>
+
+<p>Selenium Server 能启动和杀死浏览器进程，解析并运行由测试程序传递过来的 Selenese 命令，并且可以是一个 HTTP 代理，拦截和验证浏览器和 AUT(测试中的应用)之间的 HTTP 通信。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/05/30/selenium-doc-selenium-rc/">阅读全文 &rarr;</a>
     </footer>
   
 
@@ -469,23 +449,23 @@ coverageReporter = {
     <li class="nav-header">最近更新</li>
     
       <li class="post">
-        <a href="/blog/2013/05/21/use-maven-archetype-to-generate-project-architecture/">使用Maven Archetype来生成项目框架</a>
+        <a href="/blog/2013/05/30/selenium-wiki-frequently-asked-questions/">selenium wiki:selenium常见问题</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/05/15/http-the-definitive-guide-reading-notes/">《HTTP权威指南》读书笔记1</a>
+        <a href="/blog/2013/05/30/selenium-wiki-web-driver-js/">selenium wiki:webdriverjs</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/05/02/my-linux-dream/">从windows到linux</a>
+        <a href="/blog/2013/05/30/selenium-wiki-advanced-user-interactions/">selenium wiki:高级用户交互</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/04/01/run-karma-in-jenkins-ci/">Karma与Jenkins-CI集成</a>
+        <a href="/blog/2013/05/30/selenium-doc-selenium-web-driver/">selenium文档:selenium WebDriver</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/03/27/use-karma-to-run-mocha-test/">使用Karma来驱动mocha测试</a>
+        <a href="/blog/2013/05/30/selenium-doc-selenium-rc/">selenium文档:selenium RC</a>
       </li>
     
   </ul>
@@ -493,7 +473,7 @@ coverageReporter = {
 <section class="well">
 	<ul id="tags-cloud" class="nav nav-list">
 	<li class="nav-header">分类云</li>
-    <span id="tag-cloud"><a href='/blog/categories/apache' style='font-size: 102.5%'>apache(1)</a> <a href='/blog/categories/encode' style='font-size: 110.0%'>encode(4)</a> <a href='/blog/categories/git' style='font-size: 102.5%'>git(1)</a> <a href='/blog/categories/http' style='font-size: 105.0%'>HTTP(2)</a> <a href='/blog/categories/java' style='font-size: 102.5%'>Java(1)</a> <a href='/blog/categories/javascript' style='font-size: 102.5%'>javascript(1)</a> <a href='/blog/categories/jenkins' style='font-size: 102.5%'>jenkins(1)</a> <a href='/blog/categories/jmeter' style='font-size: 105.0%'>jmeter(2)</a> <a href='/blog/categories/jvm' style='font-size: 105.0%'>JVM(2)</a> <a href='/blog/categories/linux' style='font-size: 102.5%'>linux(1)</a> <a href='/blog/categories/markdown' style='font-size: 105.0%'>markdown(2)</a> <a href='/blog/categories/maven' style='font-size: 110.0%'>maven(4)</a> <a href='/blog/categories/mysql' style='font-size: 105.0%'>mysql(2)</a> <a href='/blog/categories/nodejs' style='font-size: 117.5%'>nodejs(7)</a> <a href='/blog/categories/selenium' style='font-size: 122.5%'>selenium(9)</a> <a href='/blog/categories/ubuntu' style='font-size: 102.5%'>ubuntu(1)</a> <a href='/blog/categories/个人' style='font-size: 105.0%'>个人(2)</a> <a href='/blog/categories/测试' style='font-size: 102.5%'>测试(1)</a> <a href='/blog/categories/设计模式' style='font-size: 160.0%'>设计模式(24)</a> </span>
+    <span id="tag-cloud"><a href='/blog/categories/apache' style='font-size: 102.5%'>apache(1)</a> <a href='/blog/categories/encode' style='font-size: 110.0%'>encode(4)</a> <a href='/blog/categories/git' style='font-size: 102.5%'>git(1)</a> <a href='/blog/categories/http' style='font-size: 105.0%'>HTTP(2)</a> <a href='/blog/categories/java' style='font-size: 102.5%'>Java(1)</a> <a href='/blog/categories/javascript' style='font-size: 102.5%'>javascript(1)</a> <a href='/blog/categories/jenkins' style='font-size: 102.5%'>jenkins(1)</a> <a href='/blog/categories/jmeter' style='font-size: 105.0%'>jmeter(2)</a> <a href='/blog/categories/jvm' style='font-size: 105.0%'>JVM(2)</a> <a href='/blog/categories/linux' style='font-size: 102.5%'>linux(1)</a> <a href='/blog/categories/markdown' style='font-size: 105.0%'>markdown(2)</a> <a href='/blog/categories/maven' style='font-size: 110.0%'>maven(4)</a> <a href='/blog/categories/mysql' style='font-size: 105.0%'>mysql(2)</a> <a href='/blog/categories/nodejs' style='font-size: 117.5%'>nodejs(7)</a> <a href='/blog/categories/selenium' style='font-size: 130.0%'>selenium(12)</a> <a href='/blog/categories/selenium官方文档' style='font-size: 110.0%'>selenium官方文档(4)</a> <a href='/blog/categories/ubuntu' style='font-size: 102.5%'>ubuntu(1)</a> <a href='/blog/categories/wiki' style='font-size: 107.5%'>wiki(3)</a> <a href='/blog/categories/个人' style='font-size: 105.0%'>个人(2)</a> <a href='/blog/categories/测试' style='font-size: 102.5%'>测试(1)</a> <a href='/blog/categories/设计模式' style='font-size: 160.0%'>设计模式(24)</a> </span>
   </ul>
 </section>﻿<section class="well">
 <ul class="nav nav-list">

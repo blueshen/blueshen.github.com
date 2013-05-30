@@ -113,7 +113,7 @@
       ﻿
   <header class="page-header">
     
-      <h1 class="entry-title"><a href="/blog/2013/03/12/testacular-in-brief/">Karma or Testacular 简介</a></h1>
+      <h1 class="entry-title"><a href="/blog/2013/04/01/run-karma-in-jenkins-ci/">Karma与Jenkins-CI集成</a></h1>
     
 	<p class="meta">
     
@@ -130,26 +130,66 @@
   
 
 
-<time datetime="2013-03-12T15:12:00+08:00" pubdate data-updated="true">2013年03月12日 15:03:00</time>
+<time datetime="2013-04-01T19:38:00+08:00" pubdate data-updated="true">2013年04月01日 19:04:00</time>
         
-         | <a href="/blog/2013/03/12/testacular-in-brief/#disqus_thread">我要评论</a>
+         | <a href="/blog/2013/04/01/run-karma-in-jenkins-ci/#disqus_thread">我要评论</a>
         
     
  </p>
   </header>
 
 
-  <div class="entry-content"><h2>Karma/Testacular是什么？</h2>
+  <div class="entry-content"><p>Jenkins是一款目前最为流行的持续集成工具，那么，如何让Karma的能集成到Jenkins，并自动执行呢？</p>
 
-<p>在2012年11月，Google开源了<a href="http://testacular.github.com/">Testacular</a>，一个基于Node.js的JavaScript测试执行过程管理工具（Test Runner）。该工具可用于测试所有主流Web浏览器，也可集成到CI（Continuous integration）工具，也可和其他代码编辑器一起使用。</p>
+<h3>前提条件</h3>
 
-<p>Testacular可以在不同的桌面或移动设备浏览器上，或在持续集成的服务器上测试JavaScript代码。Testacular支持chrome、ChromeCanary、 Safari、Firefox、IE、Opera、PhantomJS，知道如何捕获浏览器正使用的默认路径，这些路径可能在启动器配置文件被忽视（overridden）。Testacular就是一个可以和多重测试框架协作的测试执行过程管理工具，它有针对Jasmine、Mocha和AngularJS的适配器，它也可以与<a href="http://jenkins-ci.org/">Jenkins</a>或<a href="https://travis-ci.org/">Travis</a>整合，用于执行持续集成测试。</p>
+<p>Jenkins Server上（可以是Master，也许是Slave结点，总之在那个Server上跑，就需要安装），安装：</p>
+
+<ul>
+<li>Node</li>
+<li>Karma</li>
+</ul>
+
+
+<h3>配置Karma.conf.js文件</h3>
+
+<p>必须保证：</p>
+
+<pre><code>singleRun = true;
+</code></pre>
+
+<p>只有这样，才能保证运行Test后，浏览器自动退出，不影响下次执行。  <br/>
+在Jenkins中，也许你想查看测试结果，这个时候可以借助junit reporter。</p>
+
+<pre><code>reporters = ['junit'];
+junitReporter = {
+    outputFile: 'test-results.xml'
+};
+</code></pre>
+
+<p>那么，Junit格式的测试结果就存到了test-results.xml中。</p>
+
+<p>另外一种情况，我可能还想查看一下代码覆盖率。Karma也是支持的，要进行以下的配置：</p>
+
+<pre><code>reporters = ['coverage'];
+
+preprocessors = {
+    'src/*.js': 'coverage'
+};
+
+coverageReporter = {
+    type : 'cobertura',
+    dir : 'coverage/'
+};
+</code></pre>
+
+<p>这里，reporters指出了要生成coverage报告。preprocessors指明了要统计覆盖率的源码。coverageReporter里，指明type为cobertura，dir则是报告路径。type用多种选择，其中cobertura为Jenkins专属的。</p>
 
 </div>
   
   
     <footer>
-      <a rel="full-article" href="/blog/2013/03/12/testacular-in-brief/">阅读全文 &rarr;</a>
+      <a rel="full-article" href="/blog/2013/04/01/run-karma-in-jenkins-ci/">阅读全文 &rarr;</a>
     </footer>
   
 
@@ -161,7 +201,7 @@
       ﻿
   <header class="page-header">
     
-      <h1 class="entry-title"><a href="/blog/2013/03/11/node-dot-js-develop-guide-reading-note/">《Node.js开发指南》读书笔记</a></h1>
+      <h1 class="entry-title"><a href="/blog/2013/03/27/use-karma-to-run-mocha-test/">使用Karma来驱动mocha测试</a></h1>
     
 	<p class="meta">
     
@@ -178,37 +218,46 @@
   
 
 
-<time datetime="2013-03-11T16:53:00+08:00" pubdate data-updated="true">2013年03月11日 16:03:00</time>
+<time datetime="2013-03-27T19:00:00+08:00" pubdate data-updated="true">2013年03月27日 19:03:00</time>
         
-         | <a href="/blog/2013/03/11/node-dot-js-develop-guide-reading-note/#disqus_thread">我要评论</a>
+         | <a href="/blog/2013/03/27/use-karma-to-run-mocha-test/#disqus_thread">我要评论</a>
         
     
  </p>
   </header>
 
 
-  <div class="entry-content"><h3>书籍信息</h3>
+  <div class="entry-content"><h2>从Testacular到Karma的变化</h2>
 
-<p>Amazon: <a href="http://www.amazon.cn/Node-js%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97-%E9%83%AD%E5%AE%B6%E5%AE%9D/dp/B008HN793I">NodeJS开发指南</a></p>
+<p>2013年03月18日，Testacular正式被重命名为Karma。具体原因，讲起来缺也很滑稽。这里面不含有任何的商业成分，只是因为Testacular与Testicular很相似，因此令人感觉尴尬。仅仅此而已，谁让JsTestDriver已经被别人给拿走了。<br/>
+安装：</p>
 
-<p>PDF: <a href="http://azrael.ihorsley.com/wordpress/wp-content/uploads/2012/11/Node.js%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97_%E4%B8%AD%E6%96%87%E6%AD%A3%E7%89%88.pdf">免费下载</a></p>
+<pre><code>npm install -g karma
+</code></pre>
 
-<h3>NodeJS简介</h3>
-
-<p>是NodeJS的出现，让JavaScript在服务器端得以使用，重新焕发了生机。而不仅仅像大家所认为的，只是一个客户端脚本语言。<br/>
-由于JavaScript自身的脚本语言特性，造成开发混乱，难以维护。CommonJS对这个进行了规范。像NodeJS,ringojs都是对这一规范的具体实现。
-CommonJS规范包括：</p>
+<h2>什么时候使用Karma？</h2>
 
 <ul>
-<li>模块（modules）</li>
-<li>包（packages）</li>
-<li>系统（system）</li>
-<li>二进制（binary）</li>
-<li>控制台（console）</li>
-<li>编码（encodings）</li>
-<li>文件系统（filesystems）</li>
-<li>套接字（sockets）</li>
-<li>单元测试（unit testing）</li>
+<li>在真实浏览器里测试。</li>
+<li>在多种浏览器里进行测试（包括桌面、移动）。</li>
+<li>在本地开发环境执行测试。</li>
+<li>想在持续集成CI内运行测试。</li>
+<li>想在每次保存代码时，自动执行测试。</li>
+<li>热衷于terminal小黑屏。</li>
+<li>不想陷入令人厌烦的测试生活。</li>
+<li>想使用Istanbul自动生成coverage报告。</li>
+<li>想在源码中使用RequireJS。</li>
+</ul>
+
+
+<h2>Karma不是Testing Framework</h2>
+
+<p>Karma自从出现，就是一直作为一个Test Runner而存在的，只是用来驱动测试的框架。不过到目前为止，它支持以下流行的测试框架。</p>
+
+<ul>
+<li>Mocha</li>
+<li>Jasmine</li>
+<li>QUnit</li>
 </ul>
 
 
@@ -216,7 +265,7 @@ CommonJS规范包括：</p>
   
   
     <footer>
-      <a rel="full-article" href="/blog/2013/03/11/node-dot-js-develop-guide-reading-note/">阅读全文 &rarr;</a>
+      <a rel="full-article" href="/blog/2013/03/27/use-karma-to-run-mocha-test/">阅读全文 &rarr;</a>
     </footer>
   
 
@@ -228,7 +277,7 @@ CommonJS规范包括：</p>
       ﻿
   <header class="page-header">
     
-      <h1 class="entry-title"><a href="/blog/2013/01/21/exploratory-software-testing-reading-notes-1/">《探索式软件测试》读书笔记(1)</a></h1>
+      <h1 class="entry-title"><a href="/blog/2013/03/22/jenkins-plugin-start/">开始第一个Jenkins Plugin</a></h1>
     
 	<p class="meta">
     
@@ -245,25 +294,39 @@ CommonJS规范包括：</p>
   
 
 
-<time datetime="2013-01-21T19:14:00+08:00" pubdate data-updated="true">2013年01月21日 19:01:00</time>
+<time datetime="2013-03-22T16:48:00+08:00" pubdate data-updated="true">2013年03月22日 16:03:00</time>
         
-         | <a href="/blog/2013/01/21/exploratory-software-testing-reading-notes-1/#disqus_thread">我要评论</a>
+         | <a href="/blog/2013/03/22/jenkins-plugin-start/#disqus_thread">我要评论</a>
         
     
  </p>
   </header>
 
 
-  <div class="entry-content"><p>书中，完全以旅游来讲解各种测试方法，从而让晦涩的理论变得浅显易懂。 <br/>
-一般情况下，旅游地都会有这样一些区域：</p>
+  <div class="entry-content"><h2>一，Jenkins插件的结构</h2>
+
+<p>Jenkins插件实际上是一个按照一定规则组织的jar包，其结构如下：</p>
+
+<pre><code>xxx.hpi
++- META-INF
+|   +-MANIFEST.MF
++- WEB-INF
+|   +- classes
+|       +- index.jelly
+|       +- XXXX.class
+|   +- lib
++-  (static resources)
+</code></pre>
+
+<p>说明：</p>
 
 <ul>
-<li><strong>商业区</strong>: 早晚交通拥挤，上班紧张。商业区有银行、办公楼、各类商店。对软件来说，指的是“在那里完成实际业务”。</li>
-<li><strong>历史区</strong>: 城市一般都有写历史古迹，历史事件吸引着大批的旅游者。对软件来说，就是“历史遗留代码”。</li>
-<li><strong>旅游区</strong>: 专门针对旅游者的区域，而一般人是不会去的。这是说故宫、长城吗？软件的有些特性和功能就是专门针对新用户的，老用户则不再使用。</li>
-<li><strong>娱乐区</strong>: 旅游者看了所有景点和名胜古迹后，通常是很累的，筋疲力尽之后难免要去一些地方娱乐娱乐的，借此来消磨时间。软件也有这样的辅助特性和功能。</li>
-<li><strong>旅馆区</strong>: 是人总是要有个休息的地方，睡一觉。可有时候，“休息”时还是很忙的。软件尤其如此。</li>
-<li><strong>破旧区</strong>：每个城市都有阴暗的一面，但也有很多人无限向往之，贫民窟的百万富翁之类的。这些地方尽量不去，但是这些地方也可能存在一些漏洞。</li>
+<li>1.插件的后缀为&#8221;.hpi&#8221;,文件名（xxx部分）是插件的简写名字，用来区分插件。</li>
+<li>2.如上图结构所示，它与war包类似，只是缺少web.xml。</li>
+<li>3.MANIFEST.MF包含一些入口的配置信息。其中有继承自Jenkins插件的类，用作实例化的入口。类的全名，用作我们去区分其他插件。</li>
+<li>4.WEB-INF/classes 用来包含插件需要的.class，jelly页面等内容。它们可以封装成jar包放到WEB-INF/lib下面</li>
+<li>5.WEB-INF/lib 包含插件中需要的.jar文件</li>
+<li>6.插件需要的静态文件如图片，HTML，css样式文件，JS文件等可以放到文件的根目录下面。</li>
 </ul>
 
 
@@ -271,7 +334,7 @@ CommonJS规范包括：</p>
   
   
     <footer>
-      <a rel="full-article" href="/blog/2013/01/21/exploratory-software-testing-reading-notes-1/">阅读全文 &rarr;</a>
+      <a rel="full-article" href="/blog/2013/03/22/jenkins-plugin-start/">阅读全文 &rarr;</a>
     </footer>
   
 
@@ -283,7 +346,7 @@ CommonJS规范包括：</p>
       ﻿
   <header class="page-header">
     
-      <h1 class="entry-title"><a href="/blog/2013/01/17/most-rated-20-software-in-ubuntu-softcenter/">Ubuntu软件中心最受欢迎的20个软件</a></h1>
+      <h1 class="entry-title"><a href="/blog/2013/03/22/jstestdriver-in-brief/">JsTestDriver 简介</a></h1>
     
 	<p class="meta">
     
@@ -300,32 +363,25 @@ CommonJS规范包括：</p>
   
 
 
-<time datetime="2013-01-17T13:21:00+08:00" pubdate data-updated="true">2013年01月17日 13:01:00</time>
+<time datetime="2013-03-22T16:11:00+08:00" pubdate data-updated="true">2013年03月22日 16:03:00</time>
         
-         | <a href="/blog/2013/01/17/most-rated-20-software-in-ubuntu-softcenter/#disqus_thread">我要评论</a>
+         | <a href="/blog/2013/03/22/jstestdriver-in-brief/#disqus_thread">我要评论</a>
         
     
  </p>
   </header>
 
 
-  <div class="entry-content"><p>Ubuntu软件中心以下20款软件下载次数很多并且得票很高。</p>
+  <div class="entry-content"><h1>jsTestDriver</h1>
 
-<p>1.Stellarium 开源的桌面星空软件</p>
-
-<p>2.Chromium web浏览器</p>
-
-<p>3.SMPlayer 播放器</p>
-
-<p>4.GnuCash 资金管理软件</p>
-
-<p>5.Blender 三维绘图及渲染软件</p>
+<p>jsTestDriver是一个JavaScript单元测试工具，易于与持续构建系统相集成并能够在多个浏览器上执行运行测试，轻松实现TDD（测试驱动开发）风格的开发。当在项目中配置好js-test-driver以后，如同junit测试java文件一般，js-test-driver可以直接通过直接运行js文件，来对js文件单元测试。 <br/>
+<img src="/images/blog/jsTestDriver-framework.jpg" alt="alt jsTestDriver框架" /></p>
 
 </div>
   
   
     <footer>
-      <a rel="full-article" href="/blog/2013/01/17/most-rated-20-software-in-ubuntu-softcenter/">阅读全文 &rarr;</a>
+      <a rel="full-article" href="/blog/2013/03/22/jstestdriver-in-brief/">阅读全文 &rarr;</a>
     </footer>
   
 
@@ -337,7 +393,7 @@ CommonJS规范包括：</p>
       ﻿
   <header class="page-header">
     
-      <h1 class="entry-title"><a href="/blog/2013/01/10/selenium-grid2-config/">Selenium-Grid2 配置</a></h1>
+      <h1 class="entry-title"><a href="/blog/2013/03/22/jasmine-in-brief/">Jasmine 简介</a></h1>
     
 	<p class="meta">
     
@@ -354,34 +410,39 @@ CommonJS规范包括：</p>
   
 
 
-<time datetime="2013-01-10T19:37:00+08:00" pubdate data-updated="true">2013年01月10日 19:01:00</time>
+<time datetime="2013-03-22T15:47:00+08:00" pubdate data-updated="true">2013年03月22日 15:03:00</time>
         
-         | <a href="/blog/2013/01/10/selenium-grid2-config/#disqus_thread">我要评论</a>
+         | <a href="/blog/2013/03/22/jasmine-in-brief/#disqus_thread">我要评论</a>
         
     
  </p>
   </header>
 
 
-  <div class="entry-content"><h3>为什么要使用Selenium Grid ?</h3>
+  <div class="entry-content"><h2>jasmine测试框架简介</h2>
 
-<ul>
-<li>分布式运行大规模的Test</li>
-<li>能够通过一个中央点，很容易的运行不同OS上的不同browser</li>
-<li>最小化对Grid的维护时间，并能充分利用虚拟设备</li>
-</ul>
+<p><strong>jasmine</strong>是一种javascript测试框架，它既可以在html文件中运行，也可以和jsTestDriver整合，在jsTestDriver中运行。</p>
 
+<h3>jasmine的简单语法</h3>
 
-<h3>Selenium Grid 部署与启动</h3>
+<p>一个基本的jasmine测试用例如下：</p>
 
-<p>Hub :总控节点，连接调用Node。 <br/>
-Node: 负责执行Tests,调用浏览器。</p>
+<pre><code>describe("A suite", function() {  
+    it("contains spec with an expectation", function() {  
+    expect(true).toBe(true);  
+    });  
+});   
+</code></pre>
+
+<h4>describe方法</h4>
+
+<p>describe方法标志着一个测试集(test suite)的开始，这个方法有两个参数，一个字符串String，一个方法function；字符串用来描述我们这个test suite，function里的东西就是测试代码，它们就是suite。</p>
 
 </div>
   
   
     <footer>
-      <a rel="full-article" href="/blog/2013/01/10/selenium-grid2-config/">阅读全文 &rarr;</a>
+      <a rel="full-article" href="/blog/2013/03/22/jasmine-in-brief/">阅读全文 &rarr;</a>
     </footer>
   
 
@@ -410,23 +471,23 @@ Node: 负责执行Tests,调用浏览器。</p>
     <li class="nav-header">最近更新</li>
     
       <li class="post">
-        <a href="/blog/2013/05/21/use-maven-archetype-to-generate-project-architecture/">使用Maven Archetype来生成项目框架</a>
+        <a href="/blog/2013/05/30/selenium-wiki-frequently-asked-questions/">selenium wiki:selenium常见问题</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/05/15/http-the-definitive-guide-reading-notes/">《HTTP权威指南》读书笔记1</a>
+        <a href="/blog/2013/05/30/selenium-wiki-web-driver-js/">selenium wiki:webdriverjs</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/05/02/my-linux-dream/">从windows到linux</a>
+        <a href="/blog/2013/05/30/selenium-wiki-advanced-user-interactions/">selenium wiki:高级用户交互</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/04/01/run-karma-in-jenkins-ci/">Karma与Jenkins-CI集成</a>
+        <a href="/blog/2013/05/30/selenium-doc-selenium-web-driver/">selenium文档:selenium WebDriver</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/03/27/use-karma-to-run-mocha-test/">使用Karma来驱动mocha测试</a>
+        <a href="/blog/2013/05/30/selenium-doc-selenium-rc/">selenium文档:selenium RC</a>
       </li>
     
   </ul>
@@ -434,7 +495,7 @@ Node: 负责执行Tests,调用浏览器。</p>
 <section class="well">
 	<ul id="tags-cloud" class="nav nav-list">
 	<li class="nav-header">分类云</li>
-    <span id="tag-cloud"><a href='/blog/categories/apache' style='font-size: 102.5%'>apache(1)</a> <a href='/blog/categories/encode' style='font-size: 110.0%'>encode(4)</a> <a href='/blog/categories/git' style='font-size: 102.5%'>git(1)</a> <a href='/blog/categories/http' style='font-size: 105.0%'>HTTP(2)</a> <a href='/blog/categories/java' style='font-size: 102.5%'>Java(1)</a> <a href='/blog/categories/javascript' style='font-size: 102.5%'>javascript(1)</a> <a href='/blog/categories/jenkins' style='font-size: 102.5%'>jenkins(1)</a> <a href='/blog/categories/jmeter' style='font-size: 105.0%'>jmeter(2)</a> <a href='/blog/categories/jvm' style='font-size: 105.0%'>JVM(2)</a> <a href='/blog/categories/linux' style='font-size: 102.5%'>linux(1)</a> <a href='/blog/categories/markdown' style='font-size: 105.0%'>markdown(2)</a> <a href='/blog/categories/maven' style='font-size: 110.0%'>maven(4)</a> <a href='/blog/categories/mysql' style='font-size: 105.0%'>mysql(2)</a> <a href='/blog/categories/nodejs' style='font-size: 117.5%'>nodejs(7)</a> <a href='/blog/categories/selenium' style='font-size: 122.5%'>selenium(9)</a> <a href='/blog/categories/ubuntu' style='font-size: 102.5%'>ubuntu(1)</a> <a href='/blog/categories/个人' style='font-size: 105.0%'>个人(2)</a> <a href='/blog/categories/测试' style='font-size: 102.5%'>测试(1)</a> <a href='/blog/categories/设计模式' style='font-size: 160.0%'>设计模式(24)</a> </span>
+    <span id="tag-cloud"><a href='/blog/categories/apache' style='font-size: 102.5%'>apache(1)</a> <a href='/blog/categories/encode' style='font-size: 110.0%'>encode(4)</a> <a href='/blog/categories/git' style='font-size: 102.5%'>git(1)</a> <a href='/blog/categories/http' style='font-size: 105.0%'>HTTP(2)</a> <a href='/blog/categories/java' style='font-size: 102.5%'>Java(1)</a> <a href='/blog/categories/javascript' style='font-size: 102.5%'>javascript(1)</a> <a href='/blog/categories/jenkins' style='font-size: 102.5%'>jenkins(1)</a> <a href='/blog/categories/jmeter' style='font-size: 105.0%'>jmeter(2)</a> <a href='/blog/categories/jvm' style='font-size: 105.0%'>JVM(2)</a> <a href='/blog/categories/linux' style='font-size: 102.5%'>linux(1)</a> <a href='/blog/categories/markdown' style='font-size: 105.0%'>markdown(2)</a> <a href='/blog/categories/maven' style='font-size: 110.0%'>maven(4)</a> <a href='/blog/categories/mysql' style='font-size: 105.0%'>mysql(2)</a> <a href='/blog/categories/nodejs' style='font-size: 117.5%'>nodejs(7)</a> <a href='/blog/categories/selenium' style='font-size: 130.0%'>selenium(12)</a> <a href='/blog/categories/selenium官方文档' style='font-size: 110.0%'>selenium官方文档(4)</a> <a href='/blog/categories/ubuntu' style='font-size: 102.5%'>ubuntu(1)</a> <a href='/blog/categories/wiki' style='font-size: 107.5%'>wiki(3)</a> <a href='/blog/categories/个人' style='font-size: 105.0%'>个人(2)</a> <a href='/blog/categories/测试' style='font-size: 102.5%'>测试(1)</a> <a href='/blog/categories/设计模式' style='font-size: 160.0%'>设计模式(24)</a> </span>
   </ul>
 </section>﻿<section class="well">
 <ul class="nav nav-list">
