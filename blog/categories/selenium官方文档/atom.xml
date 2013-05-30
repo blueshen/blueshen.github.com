@@ -4,7 +4,7 @@
   <title><![CDATA[分类：selenium官方文档 | Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/blog/categories/selenium官方文档/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2013-05-30T20:17:01+08:00</updated>
+  <updated>2013-05-30T20:21:10+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -1421,6 +1421,9 @@ Browser 465828/:top frame1 posted START NEW
 
 <p>Selenium-Grid 允许你在多台机器的多个浏览器上并行的进行测试，也就是说，你可以同时运行多个测试。本质上来说就是，Selenium-Grid 支持分布式的测试执行。它可以让你的测试在一个分布式的执行环境中运行。</p>
 
+<!--more-->
+
+
 <h2>何时需要使用</h2>
 
 <p>通常，以下两种情况你都会需要使用 Selenium-Grid。</p>
@@ -1464,9 +1467,6 @@ Browser 465828/:top frame1 posted START NEW
 <h2>启动 Selenium-Grid</h2>
 
 <p>由于节点对中心有依赖，所以你通常需要先启动一个中心。这也不是必须的，因为节点可以识别其中心是否已经启动，反之亦然。作为教程，我们建议你先启动中心，否则会显示一些错误信息，你应该不会想在第一次使用 Selenium-Grid 的时候就看到它们。</p>
-
-<!--more-->
-
 
 <h3>启动中心</h3>
 
