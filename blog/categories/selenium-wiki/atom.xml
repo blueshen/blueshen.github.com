@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[分类：wiki | Blues 小站]]></title>
-  <link href="http://www.shenyanchao.cn/blog/categories/wiki/atom.xml" rel="self"/>
+  <title><![CDATA[分类：selenium-wiki | Blues 小站]]></title>
+  <link href="http://www.shenyanchao.cn/blog/categories/selenium-wiki/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2013-05-30T20:12:35+08:00</updated>
+  <updated>2013-05-30T20:17:01+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -273,7 +273,7 @@ WebDriver driver = new FirefoxDriver(profile);
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[selenium wiki:webdriverjs]]></title>
+    <title type="html"><![CDATA[selenium wiki:webdriverJs]]></title>
     <link href="http://www.shenyanchao.cn/blog/2013/05/30/selenium-wiki-web-driver-js/"/>
     <updated>2013-05-30T19:56:00+08:00</updated>
     <id>http://www.shenyanchao.cn/blog/2013/05/30/selenium-wiki-web-driver-js</id>

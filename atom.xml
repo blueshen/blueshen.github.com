@@ -4,7 +4,7 @@
   <title><![CDATA[Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2013-05-30T20:12:35+08:00</updated>
+  <updated>2013-05-30T20:17:01+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -273,7 +273,7 @@ WebDriver driver = new FirefoxDriver(profile);
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[selenium wiki:webdriverjs]]></title>
+    <title type="html"><![CDATA[selenium wiki:webdriverJs]]></title>
     <link href="http://www.shenyanchao.cn/blog/2013/05/30/selenium-wiki-web-driver-js/"/>
     <updated>2013-05-30T19:56:00+08:00</updated>
     <id>http://www.shenyanchao.cn/blog/2013/05/30/selenium-wiki-web-driver-js</id>
