@@ -187,7 +187,8 @@
   </header>
 
 
-  <div class="entry-content"><p>WebDriver与之前Selenium的JS注入实现不同，直接利用了浏览器native support来操作浏览器。所以对于不同平台，不同的浏览器，必须依赖一个特定的浏览器的native component来实现把WebDriver API的调用转化为浏览器的native invoke。</p>
+  <div class="entry-content"><p>WebDriver与之前Selenium的JS注入实现不同，直接利用了浏览器native support来操作浏览器。所以对于不同平台，不同的浏览器，必须依赖一个特定的浏览器的native component来实现把WebDriver API的调用转化为浏览器的native invoke。 <br/>
+Selenium采用Javascript的合成事件来处理操作，比如要点击某个元素，JS会定位到这个元素然后触发onclick事件。而WebDriver使用的是系统的原生支持，首先是找到这个元素，然后找到它的location,并在这个座标点触发一个左键点击操作。因此，可以看出WebDriver能更好的模拟真实的环境。也正因为这个区别，有些hidden的元素是可以使用Selenium操作的，但是WebDriver缺不行，会报一个cannot clickable类似的错误。</p>
 
 </div>
   
