@@ -113,6 +113,64 @@
       ﻿
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2012/10/12/selenium-multiple-browser-support/">Selenium WebDriver的多浏览器支持</a></h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-12T14:56:00+08:00" pubdate data-updated="true">2012年10月12日 14:10:00</time>
+        
+         | <a href="/blog/2012/10/12/selenium-multiple-browser-support/#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+  <div class="entry-content"><h2>Selenium WebDriver支持哪儿些浏览器？</h2>
+
+<p>按照官方文档的说法，现阶段有以下的drivers:</p>
+
+<blockquote><ul>
+<li>ChromeDriver</li>
+<li>InternetExplorerDriver</li>
+<li>FirefoxDriver</li>
+<li>OperaDriver</li>
+<li>HtmlUnitDriver</li>
+<li>AndroidDriver(mobile testing)</li>
+<li>OperaMobileDriver(mobile testing)</li>
+<li>IPhoneDriver(mobile testing)</li>
+</ul>
+</blockquote>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/10/12/selenium-multiple-browser-support/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2012/10/12/selenium-faq-alerts-and-prompts/">Selenium FAQ:如何处理JavaScript弹出的alert、prompt窗口</a></h1>
     
 	<p class="meta">
@@ -320,62 +378,6 @@ js.executeScript("return document.title");
 
     </article>
   
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/10/11/selenium-stable-1/">提高selenium自动化的稳定性1-点击空白区域</a></h1>
-    
-	<p class="meta">
-    
-
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-11T14:12:00+08:00" pubdate data-updated="true">2012年10月11日 14:10:00</time>
-        
-         | <a href="/blog/2012/10/11/selenium-stable-1/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content"><p>在写selenium自动化的过程中，经常会遇到这样的问题：</p>
-
-<blockquote><p>1.在同一个页面内做操作，比如点击某个按钮后，弹出一个框，再点击另外一个按钮，又弹出一个框 <br/>
-2.此时如果第一个click操作后，第二个click再点击时，由于前一个弹出的框仍旧在前端显示，就会出错 <br/>
-3.在实际人工操作中，点击出第一个框后，点击一下空白区域，在点击出现第二个框。因此，可以考虑一个点击空白区域的方法</p></blockquote>
-
-<h2>实现方法如下</h2>
-
-<pre><code>/**
- * 点击空白区域：坐标（0，0）
- */
-public static void clickBlankArea(WebDriver driver) {
-    Actions actions = new Actions(driver);
-    actions.moveByOffset(0, 0).click().build().perform();
-}
-</code></pre>
-
-<p>让driver先移动到一个空白位置（此处设为(0,0)坐标点），做一下点击操作即可</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <ul class="pager">
     
     <li class="previous"><a href="/blog/page/15/">&larr; 上一页</a></li>
@@ -398,6 +400,10 @@ public static void clickBlankArea(WebDriver driver) {
     <li class="nav-header">最近更新</li>
     
       <li class="post">
+        <a href="/blog/2013/06/05/deep-in-testng/">deep in TestNG</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/05/30/selenium-wiki-frequently-asked-questions/">selenium wiki:selenium常见问题</a>
       </li>
     
@@ -411,10 +417,6 @@ public static void clickBlankArea(WebDriver driver) {
     
       <li class="post">
         <a href="/blog/2013/05/30/selenium-doc-selenium-web-driver/">selenium文档:selenium WebDriver</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/05/30/selenium-doc-selenium-rc/">selenium文档:selenium RC</a>
       </li>
     
   </ul>

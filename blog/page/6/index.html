@@ -113,6 +113,66 @@
       ﻿
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2012/12/07/jmeter-distribution-step-by-step/">Jmeter 分布式 Step by Step</a></h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-07T13:25:00+08:00" pubdate data-updated="true">2012年12月07日 13:12:00</time>
+        
+         | <a href="/blog/2012/12/07/jmeter-distribution-step-by-step/#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+  <div class="entry-content"><h3>环境准备</h3>
+
+<ul>
+<li>Jmeter(本文以2.8为例)</li>
+<li>jdk 1.5+</li>
+<li>多台机器<br/>
+(假设3台，IP分别为：10.81.14.170，10.81.14.180，10.81.14.190)</li>
+</ul>
+
+
+<h3>工作原理</h3>
+
+<p>1台机器做为总控机，其他机器作为节点机。总控机器，负责将JMX脚本分发到节点机上，各个节点同时独立运行，向服务发出压力，总控机可以获取并汇总报告。 <br/>
+定义：</p>
+
+<blockquote><p>总控机为<strong>client</strong>，我们（用户）只与这太机器打交道。或者称之为<strong>Master</strong>; <br/>
+节点机器为<strong>server</strong>,它负责真正的向服务发出压力。或者称之为<strong>Slave</strong>;</p></blockquote>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/12/07/jmeter-distribution-step-by-step/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2012/12/04/mysqldump/">Mysqldump命令使用</a></h1>
     
 	<p class="meta">
@@ -324,73 +384,6 @@
 
     </article>
   
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/11/07/prototype-in-java/">设计模式：原型（prototype） in Java</a></h1>
-    
-	<p class="meta">
-    
-
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-07T20:41:00+08:00" pubdate data-updated="true">2012年11月07日 20:11:00</time>
-        
-         | <a href="/blog/2012/11/07/prototype-in-java/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content"><p><strong>定义：</strong>用原型实例指定创建对象的种类，并通过拷贝这些原型创建新的对象。<br/>
-基本上，可以就是一个clone方法，通过这个方法进行对象的拷贝。</p>
-
-<p>Java中的原型模式：</p>
-
-<pre><code>public class ProtoTypeClass implements Cloneable {
-
-    @Override
-    public ProtoTypeClass clone(){
-        ProtoTypeClass cloneObject = null;
-        try{
-            cloneObject = (ProtoTypeClass) super.clone();
-        }catch (Exception e) {
-            // TODO: handle exception
-        }
-        return cloneObject;
-    }
-}
-</code></pre>
-
-<p>上面就是实现了原型模式。不过Java在提供了Cloneable这一接口方便实现原型模式的同时，也带来了一些不容易注意到的问题。</p>
-
-<ul>
-<li>clone时，构造函数不会执行</li>
-<li>浅拷贝与深拷贝</li>
-</ul>
-
-
-<p>这两个问题是需要时刻注意的。由于本文主要不是讲Cloneable,所以另辟专题吧。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <ul class="pager">
     
     <li class="previous"><a href="/blog/page/7/">&larr; 上一页</a></li>
@@ -413,6 +406,10 @@
     <li class="nav-header">最近更新</li>
     
       <li class="post">
+        <a href="/blog/2013/06/05/deep-in-testng/">deep in TestNG</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/05/30/selenium-wiki-frequently-asked-questions/">selenium wiki:selenium常见问题</a>
       </li>
     
@@ -426,10 +423,6 @@
     
       <li class="post">
         <a href="/blog/2013/05/30/selenium-doc-selenium-web-driver/">selenium文档:selenium WebDriver</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/05/30/selenium-doc-selenium-rc/">selenium文档:selenium RC</a>
       </li>
     
   </ul>
