@@ -4,7 +4,7 @@
   <title><![CDATA[Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2013-06-05T20:49:31+08:00</updated>
+  <updated>2013-06-05T20:54:18+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[deep in TestNG]]></title>
+    <title type="html"><![CDATA[TestNG深入理解]]></title>
     <link href="http://www.shenyanchao.cn/blog/2013/06/05/deep-in-testng/"/>
     <updated>2013-06-05T20:10:00+08:00</updated>
     <id>http://www.shenyanchao.cn/blog/2013/06/05/deep-in-testng</id>
@@ -24,32 +24,36 @@
 <li>@DataProvider</li>
 <li>@ExpectedExceptions</li>
 <li>@Factory</li>
-<li>@Test</li>
-<li><p>@Parameters</p>
+<li>@Test
 
-<p>  <suite name="ParametersTest"></p>
-
-<p>  　　<test name="Regression1">
-  　　　　<classes>
-  　　　　　　<class name="com.example.ParameterSample" />
-  　　　　　　<class name="com.example.ParameterTest">
-  　　　　　　　　<mtehods>
-  　　　　　　　　　　<include name="database.*" />
-  　　　　　　　　　　<exclude name="inProgress" />
-  　　　　　　　　</methods>
-  　　　　　　</class>
-  　　　　</classes>
-  　　</test></p>
-
-<p>  　　<test name="Parameters">
-  　　　　<packages>
-  　　　　　　<package name="test.parameters.Parameter*" />
-  　　　　</packages>
-  　　</test></p>
-
-<p>  </suite></p></li>
+<ul>
+<li>@Parameters</li>
+</ul>
+</li>
 </ul>
 
+
+<hr />
+
+<pre><code>&lt;suite name="ParametersTest"&gt;
+　　&lt;test name="Regression1"&gt;
+　　　　&lt;classes&gt;
+　　　　　　&lt;class name="com.example.ParameterSample" /&gt;
+　　　　　　&lt;class name="com.example.ParameterTest"&gt;
+　　　　　　　　&lt;mtehods&gt;
+　　　　　　　　　　&lt;include name="database.*" /&gt;
+　　　　　　　　　　&lt;exclude name="inProgress" /&gt;
+　　　　　　　　&lt;/methods&gt;
+　　　　　　&lt;/class&gt;
+　　　　&lt;/classes&gt;
+　　&lt;/test&gt;    
+　　&lt;test name="Parameters"&gt;
+　　　　&lt;packages&gt;
+　　　　　　&lt;package name="test.parameters.Parameter*" /&gt;
+　　　　&lt;/packages&gt;
+　　&lt;/test&gt;   
+&lt;/suite&gt;    
+</code></pre>
 
 <p>一个suite(套件) 由一个或多个测试组成。 <br/>
 一个test(测试) 由一个或多个类组成  <br/>
@@ -60,6 +64,9 @@
 @BeforeClass/@AfterClass 在某个测试类开始之前/在某个类的所有测试方法执行之后   <br/>
 @BeforeMethod/@AfterMethod 在某个测试方法之前/在某个测试方法执行之后 <br/>
 @BeforeGroup/@AfterGroup 在某个组的所有测试方法之前/在某个组的所有测试方法执行之后</p>
+
+<!--more-->
+
 
 <h4>1、分组</h4>
 
