@@ -4,7 +4,7 @@
   <title><![CDATA[Tag: testng | Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/tags/testng/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2013-06-06T16:04:56+08:00</updated>
+  <updated>2013-06-07T12:50:06+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -24,12 +24,8 @@
 <li>@DataProvider</li>
 <li>@ExpectedExceptions</li>
 <li>@Factory</li>
-<li>@Test
-
-<ul>
+<li>@Test</li>
 <li>@Parameters</li>
-</ul>
-</li>
 </ul>
 
 
