@@ -4,7 +4,7 @@
   <title><![CDATA[Tag: eclipse | Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/tags/eclipse/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2013-06-07T20:34:09+08:00</updated>
+  <updated>2013-06-19T15:16:18+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -12,6 +12,190 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[使用Eclipse AST来解析Java]]></title>
+    <link href="http://www.shenyanchao.cn/blog/2013/06/19/use-eclipse-ast-to-parser-java/"/>
+    <updated>2013-06-19T14:46:00+08:00</updated>
+    <id>http://www.shenyanchao.cn/blog/2013/06/19/use-eclipse-ast-to-parser-java</id>
+    <content type="html"><![CDATA[<p>Eclipse中有个Outline视图，这个视图内可以显示类的各种信息，包括属性、方法等。同时在这个视图内点击哪里，就能定位的类什么地方。这是个神奇的东西，那么它是如何实现的呢？其实就是AST（Abstract Syntax Tree），抽象语法树了。利用这个来对Java源码进行解析。
+另外，Eclipse有一个<a href="http://www.eclipse.org/jdt/ui/astview/">AST View</a>插件，使用这个能更加的清楚的看到解析后的效果。</p>
+
+<p><img src="images/blog/eclipse-ast-view.png" alt="Eclipse AST View" /></p>
+
+<!--more-->
+
+
+<h4>依赖的jar包</h4>
+
+<ul>
+<li>org.eclipse.core.contenttype_3.4.100.v20110423-0524.jar</li>
+<li>org.eclipse.core.jobs_3.5.101.v20120113-1953.jar</li>
+<li>org.eclipse.core.resources_3.7.101.v20120125-1505.jar</li>
+<li>org.eclipse.core.runtime_3.7.0.v20110110.jar</li>
+<li>org.eclipse.equinox.common_3.6.0.v20110523.jar</li>
+<li>org.eclipse.equinox.preferences_3.4.2.v20120111-2020.jar</li>
+<li>org.eclipse.jdt.core_3.7.3.v20120119-1537.jar</li>
+<li>org.eclipse.osgi_3.7.2.v20120110-1415.jar</li>
+</ul>
+
+
+<p>这些包都可以在eclipse的plugin目录找到。可能版本有所区别。 <br/>
+如果使用maven管理，经个人试验，直接使用以下dependency也是可以的。</p>
+
+<pre><code>          &lt;dependency&gt;
+                &lt;groupId&gt;org.eclipse.tycho&lt;/groupId&gt;
+                &lt;artifactId&gt;org.eclipse.jdt.core&lt;/artifactId&gt;
+                &lt;version&gt;3.8.0.v_C03&lt;/version&gt;
+            &lt;/dependency&gt;
+             &lt;dependency&gt;
+                 &lt;groupId&gt;org.eclipse.core&lt;/groupId&gt;
+                 &lt;artifactId&gt;org.eclipse.core.runtime&lt;/artifactId&gt;
+                 &lt;version&gt;3.6.0.v20100505&lt;/version&gt;
+             &lt;/dependency&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;org.eclipse.core&lt;/groupId&gt;
+                &lt;artifactId&gt;org.eclipse.core.resources&lt;/artifactId&gt;
+                &lt;version&gt;3.6.0.v20100526-0737&lt;/version&gt;
+            &lt;/dependency&gt;
+</code></pre>
+
+<h4>如何解析Java</h4>
+
+<pre><code>package cn.shenyanchao.ast;
+
+import org.apache.commons.io.FileUtils;
+import org.eclipse.jdt.core.dom.*;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
+/**
+ * Created with IntelliJ IDEA.
+ *
+ * @author shenyanchao
+ *         Date:  6/13/13
+ *         Time:  11:52 AM
+ */
+public class AstAnalyzer {
+    public static void main(String[] args) throws IOException {
+
+        String javaSource = FileUtils.readFileToString(new File("/home/shenyanchao/IdeaProjects/ast/src/main/java/cn/shenyanchao/from/ShenYanChaoAST.java"));
+
+        ASTParser parser = ASTParser.newParser(AST.JLS3);
+        parser.setSource(javaSource.toCharArray());
+
+        // 使用解析器进行解析并返回AST上下文结果(CompilationUnit为根节点)
+        CompilationUnit result = (CompilationUnit) parser.createAST(null);
+
+        result.imports();
+        result.getPackage();
+        result.getCommentList();
+        System.out.println(result.getCommentList().toString());
+
+        TypeDeclaration type = (TypeDeclaration) result.types().get(0);
+        System.out.println("---------Type---------");
+        System.out.println(type.toString());
+
+        MethodDeclaration method = type.getMethods()[0];
+        method.parameters();
+        method.isConstructor();
+
+        System.out.println("---------Method---------");
+        System.out.println(method.toString());
+        method.getName();
+        method.getModifiers();
+        Type returnType = method.getReturnType2();
+        System.out.println("returnType = " + returnType.toString());
+
+
+        Block methodBody = method.getBody();
+        List&lt;Statement&gt; statementList = methodBody.statements();
+
+        System.out.println(statementList.toString());
+
+        statementList.get(0);
+
+        ExpressionStatement ifs = (ExpressionStatement) method.getBody().statements().get(1);
+        Assignment expression = (Assignment) ifs.getExpression();
+        Expression exp = expression.getRightHandSide();
+
+        System.out.println(result.toString());
+    }
+}
+</code></pre>
+
+<h4>如何创建Java</h4>
+
+<pre><code>package cn.shenyanchao.ast;
+
+import org.eclipse.jdt.core.dom.*;
+
+/**
+ * Created with IntelliJ IDEA.
+ *
+ * @author shenyanchao
+ *         Date:  6/13/13
+ *         Time:  11:27 AM
+ */
+public class AstHelloWorld {
+
+
+    public static void main(String[] args) {
+        AST ast = AST.newAST(AST.JLS3);
+        CompilationUnit compilationUnit = ast.newCompilationUnit();
+
+        // 创建类
+        TypeDeclaration programClass = ast.newTypeDeclaration();
+        programClass.setName(ast.newSimpleName("HelloWorld"));
+        programClass.modifiers().add(
+                ast.newModifier(Modifier.ModifierKeyword.PUBLIC_KEYWORD));
+        compilationUnit.types().add(programClass);
+
+        // 创建包
+        PackageDeclaration packageDeclaration = ast.newPackageDeclaration();
+        packageDeclaration.setName(ast.newName("cn.shenyanchao.hello"));
+        compilationUnit.setPackage(packageDeclaration);
+
+        MethodDeclaration main = ast.newMethodDeclaration();
+        main.setName(ast.newSimpleName("main"));
+        main.modifiers().add(
+                ast.newModifier(Modifier.ModifierKeyword.PUBLIC_KEYWORD));
+        main.modifiers().add(ast.newModifier(Modifier.ModifierKeyword.STATIC_KEYWORD));
+        main.setReturnType2(ast.newPrimitiveType(PrimitiveType.VOID));
+        programClass.bodyDeclarations().add(main);
+        Block mainBlock = ast.newBlock();
+        main.setBody(mainBlock);
+
+        // 给main方法定义String[]参数
+        SingleVariableDeclaration mainParameter = ast
+                .newSingleVariableDeclaration();
+        mainParameter.setName(ast.newSimpleName("arg"));
+        mainParameter.setType(ast.newArrayType(ast.newSimpleType(ast
+                .newName("String"))));
+        main.parameters().add(mainParameter);
+
+        MethodInvocation println = ast.newMethodInvocation();
+        println.setName(ast.newSimpleName("println"));
+
+        //生成String类型的常量
+        StringLiteral s = ast.newStringLiteral();
+        s.setLiteralValue("Hello World");
+        println.arguments().add(s);
+
+        println.setExpression(ast.newName("System.out"));
+
+        mainBlock.statements().add(ast.newExpressionStatement(println));
+
+        System.out.println(compilationUnit.toString());
+    }
+}
+</code></pre>
+
+<p>具体的使用手册，参见<a href="http://www.shenyanchao.cn/blog/2013/06/07/eclipse-ast/">http://www.shenyanchao.cn/blog/2013/06/07/eclipse-ast/</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Eclipse AST抽象语法树API]]></title>

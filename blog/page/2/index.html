@@ -113,6 +113,151 @@
       ﻿
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2013/05/30/selenium-wiki-web-driver-js/">Selenium wiki:webdriverJs</a></h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-30T19:56:00+08:00" pubdate data-updated="true">2013年05月30日 19:05:00</time>
+        
+         | <a href="/blog/2013/05/30/selenium-wiki-web-driver-js/#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+  <div class="entry-content"><h1>WebDriverJS</h1>
+
+<p>WebDriver 的 JavaScript 语言绑定。本文包含以下内容：</p>
+
+<ul>
+<li>介绍</li>
+<li>快速上手
+
+<ul>
+<li>在 Node 中运行</li>
+<li>在浏览器中运行</li>
+</ul>
+</li>
+<li>设计细节
+
+<ul>
+<li>管理异步 API</li>
+<li>同服务端通讯</li>
+<li>/xdrpc</li>
+</ul>
+</li>
+<li>未来计划</li>
+</ul>
+
+
+<h2>介绍</h2>
+
+<p>WebDriver 的 JavaScript 绑定（WebDriverJS），可以使 JavaScript 开发人员避免上下文切换的开销，并且可以让他们使用和项目开发代码一样的语言来编写测试。WebDriverJS 既可以在服务端运行，例如 Node，也可以在浏览器中运行。</p>
+
+<p><strong>警告：</strong> WebDriverJS 要求开发者习惯异步编程。对于那些 JavaScript 新手来说可能会发现 WebDriverJS 有点难上手。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/05/30/selenium-wiki-web-driver-js/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
+      <h1 class="entry-title"><a href="/blog/2013/05/30/selenium-wiki-advanced-user-interactions/">Selenium Wiki:高级用户交互</a></h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-30T19:56:00+08:00" pubdate data-updated="true">2013年05月30日 19:05:00</time>
+        
+         | <a href="/blog/2013/05/30/selenium-wiki-advanced-user-interactions/#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+  <div class="entry-content"><h3>AdvancedUserInteractions(高级用户交互)</h3>
+
+<h3>入门</h3>
+
+<p>高级用户交互API提供了一个更新更完善的机制来定义并描述用户在一个网页上的各种操作。这些操作包括：拖拽、按住CTRL键选择多个元素等等。</p>
+
+<h4>开始（short how to）</h4>
+
+<p>为了生成一连串的动作，我们使用Actions来建立。首先，我们先配置操作：</p>
+
+<pre><code>Actions builder = new Actions(driver);
+
+builder.keyDown(Keys.CONTROL)
+.click(someElement)
+.click(someOtherElement)
+.keyUp(Keys.CONTROL);
+</code></pre>
+
+<p>然后，获得操作（Action）:</p>
+
+<pre><code>Action selectMultiple = builder.build();
+</code></pre>
+
+<p>最后，执行这个动作：</p>
+
+<pre><code>selectMultiple.perform();   
+</code></pre>
+
+<p>这一系列的动作应该尽量的短。在使用中最好在执行一个简短的动作后验证页面是否处于正确的状态，然后再执行下面的动作。下一节将会列出所有可用的动作（Action），并且说明它们如何进行扩展。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/05/30/selenium-wiki-advanced-user-interactions/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2013/05/30/selenium-doc-selenium-web-driver/">Selenium文档:selenium WebDriver</a></h1>
     
 	<p class="meta">
@@ -276,123 +421,6 @@
 
     </article>
   
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/30/selenium-doc-introduction/">Selenium 文档:入门介绍</a></h1>
-    
-	<p class="meta">
-    
-
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-30T19:54:00+08:00" pubdate data-updated="true">2013年05月30日 19:05:00</time>
-        
-         | <a href="/blog/2013/05/30/selenium-doc-introduction/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content"><h1>介绍</h1>
-
-<h2>用于网站应用的测试自动化</h2>
-
-<p>如今，大多数软件应用都是跑在浏览器中的网站应用。不同公司和组织之间的测试效率迥异。在这个富交互和响应式处理随处可见的时代，很多组织都使用敏捷的方式来开发，因此测试自动化也成为软件项目的必备部分。测试自动化意味着使用软件工具来反复运行项目中的测试，并为回归测试提供反馈。</p>
-
-<p>测试自动化有很多优点。大多数都和测试的可重复性和高执行效率这两点相关。市面上有一些商业或开源的同居来辅助测试自动化开发。Selenium 应该是最广泛使用的开源方案。本文档将帮助新手和有经验的使用者学习为网站应用创建测试自动化的有效技术。</p>
-
-<p>本文档介绍了 Selenium，其细节和从社区中积累的最佳实践。其中包含很多范例。同时，也将提及 Selenium 的一些技术细节和推荐用法。</p>
-
-<p>对于一个软件团队的测试过程来说，测试自动化具有提高长期效率的优势。测试自动化包括：</p>
-
-<ul>
-<li>频繁的回归测试</li>
-<li>快速反馈</li>
-<li>几乎无限制的测试用例迭代执行</li>
-<li>支持敏捷和极限编程</li>
-<li>遵循测试用例的文档</li>
-<li>自定义缺陷报告</li>
-<li>能找出手工测试中没发现的缺陷</li>
-</ul>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/05/30/selenium-doc-introduction/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/21/use-maven-archetype-to-generate-project-architecture/">使用Maven Archetype来生成项目框架</a></h1>
-    
-	<p class="meta">
-    
-
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-21T16:36:00+08:00" pubdate data-updated="true">2013年05月21日 16:05:00</time>
-        
-         | <a href="/blog/2013/05/21/use-maven-archetype-to-generate-project-architecture/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content"><h3>Maven in 5 Minutes</h3>
-
-<p><a href="http://maven.apache.org/guides/getting-started/maven-in-five-minutes.html">maven官方文档</a>的入门章节就介绍了如何创建一个maven项目。大致如下：</p>
-
-<pre><code>mvn archetype:generate -DgroupId=com.mycompany.app -DartifactId=my-app -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false     
-</code></pre>
-
-<p>我相信，很多人都是从这里开始的。但是为什么是这样呢？这里面都是怎么实现的？  <br/>
-其实，这里面是maven archetype的作用。它可以根据模板为你生成样例项目。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/05/21/use-maven-archetype-to-generate-project-architecture/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <ul class="pager">
     
     <li class="previous"><a href="/blog/page/3/">&larr; 上一页</a></li>
@@ -415,6 +443,14 @@
     <li class="nav-header">最近更新</li>
     
       <li class="post">
+        <a href="/blog/2013/06/19/use-eclipse-ast-to-parser-java/">使用Eclipse AST来解析Java</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/13/write-my-maven-plugin/">write my maven plugin</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/06/07/eclipse-ast/">Eclipse AST抽象语法树API</a>
       </li>
     
@@ -426,20 +462,12 @@
         <a href="/blog/2013/05/30/selenium-wiki-frequently-asked-questions/">selenium wiki:selenium常见问题</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2013/05/30/selenium-wiki-web-driver-js/">selenium wiki:webdriverJs</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/05/30/selenium-wiki-advanced-user-interactions/">selenium wiki:高级用户交互</a>
-      </li>
-    
   </ul>
 </section>
 <section class="well">
 	<ul id="tags-cloud" class="nav nav-list">
 	<li class="nav-header">分类云</li>
-    <span id="tag-cloud"><a href='/blog/categories/apache' style='font-size: 102.5%'>apache(1)</a> <a href='/blog/categories/encode' style='font-size: 110.0%'>encode(4)</a> <a href='/blog/categories/git' style='font-size: 102.5%'>git(1)</a> <a href='/blog/categories/http' style='font-size: 105.0%'>HTTP(2)</a> <a href='/blog/categories/java' style='font-size: 102.5%'>Java(1)</a> <a href='/blog/categories/java' style='font-size: 102.5%'>java(1)</a> <a href='/blog/categories/javascript' style='font-size: 102.5%'>javascript(1)</a> <a href='/blog/categories/jenkins' style='font-size: 102.5%'>jenkins(1)</a> <a href='/blog/categories/jmeter' style='font-size: 105.0%'>jmeter(2)</a> <a href='/blog/categories/jvm' style='font-size: 105.0%'>JVM(2)</a> <a href='/blog/categories/linux' style='font-size: 102.5%'>linux(1)</a> <a href='/blog/categories/markdown' style='font-size: 105.0%'>markdown(2)</a> <a href='/blog/categories/maven' style='font-size: 110.0%'>maven(4)</a> <a href='/blog/categories/mysql' style='font-size: 105.0%'>mysql(2)</a> <a href='/blog/categories/nodejs' style='font-size: 117.5%'>nodejs(7)</a> <a href='/blog/categories/selenium' style='font-size: 122.5%'>selenium(9)</a> <a href='/blog/categories/selenium-wiki' style='font-size: 107.5%'>selenium-wiki(3)</a> <a href='/blog/categories/selenium官方文档' style='font-size: 110.0%'>selenium官方文档(4)</a> <a href='/blog/categories/testng' style='font-size: 102.5%'>testng(1)</a> <a href='/blog/categories/ubuntu' style='font-size: 102.5%'>ubuntu(1)</a> <a href='/blog/categories/个人' style='font-size: 105.0%'>个人(2)</a> <a href='/blog/categories/测试' style='font-size: 102.5%'>测试(1)</a> <a href='/blog/categories/设计模式' style='font-size: 160.0%'>设计模式(24)</a> </span>
+    <span id="tag-cloud"><a href='/blog/categories/apache' style='font-size: 102.5%'>apache(1)</a> <a href='/blog/categories/encode' style='font-size: 110.0%'>encode(4)</a> <a href='/blog/categories/git' style='font-size: 102.5%'>git(1)</a> <a href='/blog/categories/http' style='font-size: 105.0%'>HTTP(2)</a> <a href='/blog/categories/java' style='font-size: 102.5%'>Java(1)</a> <a href='/blog/categories/java' style='font-size: 105.0%'>java(2)</a> <a href='/blog/categories/javascript' style='font-size: 102.5%'>javascript(1)</a> <a href='/blog/categories/jenkins' style='font-size: 102.5%'>jenkins(1)</a> <a href='/blog/categories/jmeter' style='font-size: 105.0%'>jmeter(2)</a> <a href='/blog/categories/jvm' style='font-size: 105.0%'>JVM(2)</a> <a href='/blog/categories/linux' style='font-size: 102.5%'>linux(1)</a> <a href='/blog/categories/markdown' style='font-size: 105.0%'>markdown(2)</a> <a href='/blog/categories/maven' style='font-size: 110.0%'>maven(4)</a> <a href='/blog/categories/mysql' style='font-size: 105.0%'>mysql(2)</a> <a href='/blog/categories/nodejs' style='font-size: 117.5%'>nodejs(7)</a> <a href='/blog/categories/selenium' style='font-size: 122.5%'>selenium(9)</a> <a href='/blog/categories/selenium-wiki' style='font-size: 107.5%'>selenium-wiki(3)</a> <a href='/blog/categories/selenium官方文档' style='font-size: 110.0%'>selenium官方文档(4)</a> <a href='/blog/categories/testng' style='font-size: 102.5%'>testng(1)</a> <a href='/blog/categories/ubuntu' style='font-size: 102.5%'>ubuntu(1)</a> <a href='/blog/categories/个人' style='font-size: 105.0%'>个人(2)</a> <a href='/blog/categories/测试' style='font-size: 102.5%'>测试(1)</a> <a href='/blog/categories/设计模式' style='font-size: 160.0%'>设计模式(24)</a> </span>
   </ul>
 </section>﻿<section class="well">
 <ul class="nav nav-list">
