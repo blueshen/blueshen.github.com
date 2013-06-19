@@ -327,6 +327,12 @@
         <lastmod>2013-06-19T15:19:14+08:00</lastmod>
     </url>
     <url>
+        <loc>
+            http://www.shenyanchao.cn/blog/2013/06/19/publishing-from-github-to-maven-central/
+        </loc>
+        <lastmod>2013-06-19T21:13:24+08:00</lastmod>
+    </url>
+    <url>
         <loc>http://www.shenyanchao.cn/messagebox/</loc>
         <lastmod>2012-11-20T16:17:37+08:00</lastmod>
     </url>
@@ -344,14 +350,14 @@
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/</loc>
-        <lastmod>2013-06-19T15:19:48+08:00</lastmod>
+        <lastmod>2013-06-19T21:13:24+08:00</lastmod>
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/tags/</loc>
-        <lastmod>2013-06-19T15:19:48+08:00</lastmod>
+        <lastmod>2013-06-19T21:13:24+08:00</lastmod>
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/blog/archives/</loc>
-        <lastmod>2013-06-19T15:19:48+08:00</lastmod>
+        <lastmod>2013-06-19T21:13:24+08:00</lastmod>
     </url>
 </urlset>
