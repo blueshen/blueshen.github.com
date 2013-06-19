@@ -10,6 +10,7 @@ footer: false
 
 易踪网: <http://www.yeetrack.com>   
 
+滴水悦读吧：<http://yuedu8.duapp.com/>
 
 
 
