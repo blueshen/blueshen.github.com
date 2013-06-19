@@ -4,7 +4,7 @@
   <title><![CDATA[Tag: archetype | Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/tags/archetype/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2013-06-19T15:16:18+08:00</updated>
+  <updated>2013-06-19T15:20:01+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -12,6 +12,17 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[write my maven plugin]]></title>
+    <link href="http://www.shenyanchao.cn/blog/2013/06/13/write-my-maven-plugin/"/>
+    <updated>2013-06-13T20:35:00+08:00</updated>
+    <id>http://www.shenyanchao.cn/blog/2013/06/13/write-my-maven-plugin</id>
+    <content type="html"><![CDATA[<p>mvn archetype:generate -DgroupId=cn.shenyanchao.ut -DartifactId=ut-maven-plugin -DarchetypeGroupId=org.apache.maven.archetypes -DarchetypeArtifactId=maven-archetype-plugin</p>
+
+<p><a href="http://maven.apache.org/guides/plugin/guide-java-plugin-development.html">http://maven.apache.org/guides/plugin/guide-java-plugin-development.html</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[使用Maven Archetype来生成项目框架]]></title>

@@ -4,7 +4,7 @@
   <title><![CDATA[Tag: eclipse | Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/tags/eclipse/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2013-06-19T15:16:18+08:00</updated>
+  <updated>2013-06-19T15:20:01+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -21,7 +21,7 @@
     <content type="html"><![CDATA[<p>Eclipse中有个Outline视图，这个视图内可以显示类的各种信息，包括属性、方法等。同时在这个视图内点击哪里，就能定位的类什么地方。这是个神奇的东西，那么它是如何实现的呢？其实就是AST（Abstract Syntax Tree），抽象语法树了。利用这个来对Java源码进行解析。
 另外，Eclipse有一个<a href="http://www.eclipse.org/jdt/ui/astview/">AST View</a>插件，使用这个能更加的清楚的看到解析后的效果。</p>
 
-<p><img src="images/blog/eclipse-ast-view.png" alt="Eclipse AST View" /></p>
+<p><img src="/images/blog/eclipse-ast-view.png" alt="Eclipse AST View" /></p>
 
 <!--more-->
 
