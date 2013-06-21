@@ -156,12 +156,12 @@
 
 <p>2.创建GPG的密钥对并发布公钥。参看<a href="https://docs.sonatype.org/display/Repository/How+To+Generate+PGP+Signatures+With+Maven">Sonatype documentation</a>的具体步骤.推荐使用Linux,Mac来发布。</p>
 
-<blockquote><p><code>gpg --gen-key</code> 创建key
+<blockquote><p><code>gpg --gen-key</code> 创建key  <br/>
 <code>gpg --list-keys</code> 查看所有的key <br/>
 <code>gpg --send-keys --keyserver pool.sks-keyservers.net yourkey</code>   发布你的key到服务器上</p></blockquote>
 
 <p>3.确保你的工程POM符合<a href="https://docs.sonatype.org/display/Repository/Central+Sync+Requirements">要求</a><br/>
-4.创建一个<a href="https://issues.sonatype.org/">Sonatype JIRA</a>账户，并发布一个ticket来让Nexus repository建立。用户名，密码后面要用的。</p>
+4.创建一个<a href="https://issues.sonatype.org/">Sonatype JIRA</a>账户，并发布一个ticket来让Nexus repository建立。用户名，密码后面要用的。这中间牵涉到人工操作，会花费一些时间。</p>
 
 </div>
   
