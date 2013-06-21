@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Tag: github | Blues 小站]]></title>
-  <link href="http://www.shenyanchao.cn/tags/github/atom.xml" rel="self"/>
+  <title><![CDATA[Tag: sonatype | Blues 小站]]></title>
+  <link href="http://www.shenyanchao.cn/tags/sonatype/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
   <updated>2013-06-21T13:56:47+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
@@ -178,36 +178,6 @@ $ mvn release:prepare
 4.在你的JIRA ticket下添加一个评论，说你已经推了release版本。下次Sonatype同步的时候，就会将你的artifacts放到Maven Central了。以后再发布新版本的时候，就不用添加评论了，会自动同步的。</p>
 
 <p>参考文档<a href="http://datumedge.blogspot.jp/2012/05/publishing-from-github-to-maven-central.html">http://datumedge.blogspot.jp/2012/05/publishing-from-github-to-maven-central.html</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[我的第一篇中文博客]]></title>
-    <link href="http://www.shenyanchao.cn/blog/2012/09/20/wo-de-di--pian-zhong-wen-bo-ke/"/>
-    <updated>2012-09-20T16:57:00+08:00</updated>
-    <id>http://www.shenyanchao.cn/blog/2012/09/20/wo-de-di--pian-zhong-wen-bo-ke</id>
-    <content type="html"><![CDATA[<h1>吐槽</h1>
-
-<p>这个OCTOPRESS真是难搞啊，最主要是_config.xml里面的格式校验也太严格了</center></p>
-
-<h1>正文</h1>
-
-<p>在这里写一些内容。
-链接<a href="http://www.baidu.com">http://www.baidu.com</a></p>
-
-<hr />
-
-<p>代码段</p>
-
-<pre><code>    System.out.println("ok!")
-</code></pre>
-
-<hr />
-
-<iframe height=498 width=510 frameborder=0 src="http://player.youku.com/embed/XODk1Mzg1NTY=" allowfullscreen></iframe>
-
-
-<hr />
 ]]></content>
   </entry>
   

@@ -4,7 +4,7 @@
   <title><![CDATA[Tag: maven | Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/tags/maven/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2013-06-19T21:13:43+08:00</updated>
+  <updated>2013-06-21T13:56:47+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -26,23 +26,29 @@
 
 <p>1.添加source code management信息到pom.xml:</p>
 
-<pre><code> &lt;scm&gt;
-    &lt;connection&gt;scm:git:git://github.com/hertzsprung/redis-launcher.git&lt;/connection&gt;
-    &lt;developerConnection&gt;scm:git:git@github.com:hertzsprung/redis-launcher.git&lt;/developerConnection&gt;
-    &lt;url&gt;http://github.com/hertzsprung/redis-launcher&lt;/url&gt;
+<pre><code>&lt;scm&gt;
+    &lt;connection&gt;scm:git:git@github.com:blueshen/ut-maven-plugin.git&lt;/connection&gt;
+    &lt;developerConnection&gt;scm:git:git@github.com:blueshen/ut-maven-plugin.git&lt;/developerConnection&gt;
+    &lt;url&gt;git@github.com:blueshen/ut-maven-plugin.git&lt;/url&gt;
 &lt;/scm&gt;
 </code></pre>
 
-<p>2.创建GPG的密钥对并发布公钥。参看<a href="https://docs.sonatype.org/display/Repository/How+To+Generate+PGP+Signatures+With+Maven">Sonatype documentation</a>的具体步骤.  <br/>
-3.确保你的工程POM符合<a href="https://docs.sonatype.org/display/Repository/Central+Sync+Requirements">要求</a><br/>
-4.创建一个<a href="https://issues.sonatype.org/">Sonatype JIRA</a>账户，并发布一个ticket来让Nexus repository建立。</p>
+<p>2.创建GPG的密钥对并发布公钥。参看<a href="https://docs.sonatype.org/display/Repository/How+To+Generate+PGP+Signatures+With+Maven">Sonatype documentation</a>的具体步骤.推荐使用Linux,Mac来发布。</p>
+
+<blockquote><p><code>gpg --list-keys</code> 查看key <br/>
+<code>gpg --send-keys --keyserver pool.sks-keyservers.net yourkey</code>   发布你的key到服务器上</p></blockquote>
+
+<p>3.确保你的工程POM符合<a href="https://docs.sonatype.org/display/Repository/Central+Sync+Requirements">要求</a><br/>
+4.创建一个<a href="https://issues.sonatype.org/">Sonatype JIRA</a>账户，并发布一个ticket来让Nexus repository建立。用户名，密码后面要用的。</p>
 
 <!--more-->
 
 
 <h3>使用Maven来发布到Sonatype Nexus repository</h3>
 
-<p>添加maven-release-plugin到pom.xml:</p>
+<h4>pom.xml配置有2种方法：</h4>
+
+<p>1.添加maven-release-plugin到pom.xml:</p>
 
 <pre><code>&lt;plugin&gt;
     &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
@@ -106,7 +112,18 @@
 &lt;/profiles&gt;
 </code></pre>
 
-<p>编辑或者创建~/.m2/settings.xml并包含证书:</p>
+<p>2.直接添加sonatype parent到POM.XML（推荐）</p>
+
+<pre><code>&lt;parent&gt;
+    &lt;groupId&gt;org.sonatype.oss&lt;/groupId&gt;
+    &lt;artifactId&gt;oss-parent&lt;/artifactId&gt;
+    &lt;version&gt;7&lt;/version&gt;
+&lt;/parent&gt;
+</code></pre>
+
+<h4>maven settings.xml配置</h4>
+
+<p>编辑或者创建~/.m2/settings.xml并包含验证信息:</p>
 
 <pre><code>&lt;settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -143,16 +160,22 @@
 
 <h3>准备一个release版本</h3>
 
-<p>为了准备一个release版本, 执行 <a href="http://maven.apache.org/plugins/maven-release-plugin/examples/prepare-release.html">mvn clean release:prepare</a> 即可.如果你的工程的版本是0.1-SNAPSHOT. 准备一个发布版本会去掉-SNAPSHOT后缀，然后提交到github，并将这时的代码打一个tag。同时，更新项目到0.2-SNAPSHOT版本.</p>
+<p>为了准备一个release版本, 执行:</p>
 
-<p>如果你要撤销release,可以使用<code>git reset --hard HEAD~2</code>进行<a href="http://stackoverflow.com/a/6866485/150884">回退</a>,使用<code>git tag -d redis-launcher-0.1</code><a href="http://nathanhoad.net/how-to-delete-a-remote-git-tag">删除Tag</a>,然后使用<code>git push origin :refs/tags/redis-launcher-0.1</code>提交.</p>
+<pre><code>$ mvn release:clean    
+$ mvn release:prepare
+</code></pre>
+
+<p><a href="http://maven.apache.org/plugins/maven-release-plugin/examples/prepare-release.html">参考这个</a>.这里具体做了以下工作：如果你的工程的版本是0.1-SNAPSHOT. 准备一个发布版本会去掉-SNAPSHOT后缀，然后提交到github，并将这时的代码打一个tag。同时，更新本地项目到0.2-SNAPSHOT版本.</p>
+
+<p>如果你要撤销release,可以使用<code>git reset --hard HEAD~2</code>进行<a href="http://stackoverflow.com/a/6866485/150884">回退</a>,使用<code>git tag -d redis-launcher-0.1</code><a href="http://nathanhoad.net/how-to-delete-a-remote-git-tag">删除Tag</a>,然后使用<code>git push origin :refs/tags/ut-maven-plugin-0.1</code>提交.</p>
 
 <h3>发布到Sonatype</h3>
 
 <p>1.如果一切OK，你就可以使用<a href="http://maven.apache.org/plugins/maven-release-plugin/examples/perform-release.html">mvn release:perform</a>来发布工程到Sonatype。<br/>
 2.登录到Sonatype Nexus，在Staging Repositories找到你的artifacts。 <br/>
-3.关闭,发布artifacts。Sonatype有一些<a href="https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide#SonatypeOSSMavenRepositoryUsageGuide-8.ReleaseIt">很好的指引</a>. 你可以使用<a href="http://www.sonatype.com/books/nexus-book/reference/staging-sect-managing-plugin.html">Maven repository management plugin</a>来自动化这些步骤,尽管我自己还没有试过。   <br/>
-4.在你的JIRA ticket下添加一个评论，说你已经推了release版本。下次Sonatype同步的时候，就会将你的artifacts放到Maven Central了。</p>
+3.点击close,关闭后，点击Release发布artifacts。Sonatype有一些<a href="https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide#SonatypeOSSMavenRepositoryUsageGuide-8.ReleaseIt">很好的指引</a>. 你可以使用<a href="http://www.sonatype.com/books/nexus-book/reference/staging-sect-managing-plugin.html">Maven repository management plugin</a>来自动化这些步骤,尽管我自己还没有试过。   <br/>
+4.在你的JIRA ticket下添加一个评论，说你已经推了release版本。下次Sonatype同步的时候，就会将你的artifacts放到Maven Central了。以后再发布新版本的时候，就不用添加评论了，会自动同步的。</p>
 
 <p>参考文档<a href="http://datumedge.blogspot.jp/2012/05/publishing-from-github-to-maven-central.html">http://datumedge.blogspot.jp/2012/05/publishing-from-github-to-maven-central.html</a></p>
 ]]></content>
