@@ -154,7 +154,8 @@
 
 <p>2.创建GPG的密钥对并发布公钥。参看<a href="https://docs.sonatype.org/display/Repository/How+To+Generate+PGP+Signatures+With+Maven">Sonatype documentation</a>的具体步骤.推荐使用Linux,Mac来发布。</p>
 
-<blockquote><p><code>gpg --list-keys</code> 查看key <br/>
+<blockquote><p><code>gpg --gen-key</code> 创建key
+<code>gpg --list-keys</code> 查看所有的key <br/>
 <code>gpg --send-keys --keyserver pool.sks-keyservers.net yourkey</code>   发布你的key到服务器上</p></blockquote>
 
 <p>3.确保你的工程POM符合<a href="https://docs.sonatype.org/display/Repository/Central+Sync+Requirements">要求</a><br/>
@@ -287,7 +288,7 @@ $ mvn release:prepare
 
 <p><a href="http://maven.apache.org/plugins/maven-release-plugin/examples/prepare-release.html">参考这个</a>.这里具体做了以下工作：如果你的工程的版本是0.1-SNAPSHOT. 准备一个发布版本会去掉-SNAPSHOT后缀，然后提交到github，并将这时的代码打一个tag。同时，更新本地项目到0.2-SNAPSHOT版本.</p>
 
-<p>如果你要撤销release,可以使用<code>git reset --hard HEAD~2</code>进行<a href="http://stackoverflow.com/a/6866485/150884">回退</a>,使用<code>git tag -d redis-launcher-0.1</code><a href="http://nathanhoad.net/how-to-delete-a-remote-git-tag">删除Tag</a>,然后使用<code>git push origin :refs/tags/ut-maven-plugin-0.1</code>提交.</p>
+<p>如果你要撤销release,可以使用<code>git reset --hard HEAD~2</code>进行<a href="http://stackoverflow.com/a/6866485/150884">回退</a>,使用<code>git tag -d ut-maven-plugin-0.1</code><a href="http://nathanhoad.net/how-to-delete-a-remote-git-tag">删除Tag</a>,然后使用<code>git push origin :refs/tags/ut-maven-plugin-0.1</code>提交.</p>
 
 <h3>发布到Sonatype</h3>
 
