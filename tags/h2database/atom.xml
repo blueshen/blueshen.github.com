@@ -4,7 +4,7 @@
   <title><![CDATA[Tag: h2database | Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/tags/h2database/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2013-06-27T17:52:10+08:00</updated>
+  <updated>2013-06-27T17:56:30+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -209,67 +209,67 @@ protected void tearDown() throws Exception
 <h3>使用什么数据库？</h3>
 
 <p>由于单元测试，与生产环境不要求是一样的数据库。因此，原则上是可以随意选取的。但是考虑到敏捷性，尽量选取轻量级的，以及可移植的。  <br/>
-这里推荐一个数据库<a href="http://www.h2database.com/html/main.html">H2Database</a>，它是一个内存数据库，极为轻量。它与其它几种数据库的对比如下：  <br/>
- <table style="width: 470px;" border="1"><tr></p>
+这里推荐一个数据库<a href="http://www.h2database.com/html/main.html">H2Database</a>，它是一个内存数据库，极为轻量。它与其它几种数据库的对比如下：</p>
 
-<pre><code>    &lt;th&gt;&lt;/th&gt;
-    &lt;th&gt;H2&lt;/th&gt;
-    &lt;th&gt;&lt;a href="http://db.apache.org/derby"&gt;Derby&lt;/a&gt;&lt;/th&gt;
-    &lt;th&gt;&lt;a href="http://hsqldb.org"&gt;HSQLDB&lt;/a&gt;&lt;/th&gt;
-    &lt;th&gt;&lt;a href="http://mysql.com"&gt;MySQL&lt;/a&gt;&lt;/th&gt;
-    &lt;th&gt;&lt;a href="http://www.postgresql.org"&gt;PostgreSQL&lt;/a&gt;&lt;/th&gt;
-    &lt;/tr&gt;&lt;tr&gt;
-    &lt;td&gt;Pure Java&lt;/td&gt;
-    &lt;td class="compareY"&gt;Yes&lt;/td&gt;
-    &lt;td class="compareY"&gt;Yes&lt;/td&gt;
-    &lt;td class="compareY"&gt;Yes&lt;/td&gt;
-    &lt;td class="compareN"&gt;No&lt;/td&gt;
-    &lt;td class="compareN"&gt;No&lt;/td&gt;
-    &lt;/tr&gt;&lt;tr&gt;
-    &lt;td&gt;Memory Mode&lt;/td&gt;
-    &lt;td class="compareY"&gt;Yes&lt;/td&gt;
-    &lt;td class="compareY"&gt;Yes&lt;/td&gt;
-    &lt;td class="compareY"&gt;Yes&lt;/td&gt;
-    &lt;td class="compareN"&gt;No&lt;/td&gt;
-    &lt;td class="compareN"&gt;No&lt;/td&gt;
-    &lt;/tr&gt;&lt;tr&gt;
-    &lt;td&gt;Encrypted Database&lt;/td&gt;
-    &lt;td class="compareY"&gt;Yes&lt;/td&gt;
-    &lt;td class="compareY"&gt;Yes&lt;/td&gt;
-    &lt;td class="compareY"&gt;Yes&lt;/td&gt;
-    &lt;td class="compareN"&gt;No&lt;/td&gt;
-    &lt;td class="compareN"&gt;No&lt;/td&gt;
-    &lt;/tr&gt;&lt;tr&gt;
-    &lt;td&gt;ODBC Driver&lt;/td&gt;
-    &lt;td class="compareY"&gt;Yes&lt;/td&gt;
-    &lt;td class="compareN"&gt;No&lt;/td&gt;
-    &lt;td class="compareN"&gt;No&lt;/td&gt;
-    &lt;td class="compareY"&gt;Yes&lt;/td&gt;
-    &lt;td class="compareY"&gt;Yes&lt;/td&gt;
-    &lt;/tr&gt;&lt;tr&gt;
-    &lt;td&gt;Fulltext Search&lt;/td&gt;
-    &lt;td class="compareY"&gt;Yes&lt;/td&gt;
-    &lt;td class="compareN"&gt;No&lt;/td&gt;
-    &lt;td class="compareN"&gt;No&lt;/td&gt;
-    &lt;td class="compareY"&gt;Yes&lt;/td&gt;
-    &lt;td class="compareY"&gt;Yes&lt;/td&gt;
-    &lt;/tr&gt;&lt;tr&gt;
-    &lt;td&gt;Multi Version Concurrency&lt;/td&gt;
-    &lt;td class="compareY"&gt;Yes&lt;/td&gt;
-    &lt;td class="compareN"&gt;No&lt;/td&gt;
-    &lt;td class="compareY"&gt;Yes&lt;/td&gt;
-    &lt;td class="compareY"&gt;Yes&lt;/td&gt;
-    &lt;td class="compareY"&gt;Yes&lt;/td&gt;
-    &lt;/tr&gt;&lt;tr&gt;
-    &lt;td&gt;Footprint (jar/dll size)&lt;/td&gt;
-    &lt;td&gt;~1 MB&lt;/td&gt;
-    &lt;td&gt;~2 MB&lt;/td&gt;
-    &lt;td&gt;~1 MB&lt;/td&gt;
-    &lt;td&gt;~4 MB&lt;/td&gt;
-    &lt;td&gt;~6 MB&lt;/td&gt;
-    &lt;/tr&gt;
-&lt;/table&gt;
-</code></pre>
+<table style="width: 470px;" border="1"><tr>
+<th></th>
+<th>H2</th>
+<th><a href="http://db.apache.org/derby">Derby</a></th>
+<th><a href="http://hsqldb.org">HSQLDB</a></th>
+<th><a href="http://mysql.com">MySQL</a></th>
+<th><a href="http://www.postgresql.org">PostgreSQL</a></th>
+</tr><tr>
+<td>Pure Java</td>
+<td class="compareY">Yes</td>
+<td class="compareY">Yes</td>
+<td class="compareY">Yes</td>
+<td class="compareN">No</td>
+<td class="compareN">No</td>
+</tr><tr>
+<td>Memory Mode</td>
+<td class="compareY">Yes</td>
+<td class="compareY">Yes</td>
+<td class="compareY">Yes</td>
+<td class="compareN">No</td>
+<td class="compareN">No</td>
+</tr><tr>
+<td>Encrypted Database</td>
+<td class="compareY">Yes</td>
+<td class="compareY">Yes</td>
+<td class="compareY">Yes</td>
+<td class="compareN">No</td>
+<td class="compareN">No</td>
+</tr><tr>
+<td>ODBC Driver</td>
+<td class="compareY">Yes</td>
+<td class="compareN">No</td>
+<td class="compareN">No</td>
+<td class="compareY">Yes</td>
+<td class="compareY">Yes</td>
+</tr><tr>
+<td>Fulltext Search</td>
+<td class="compareY">Yes</td>
+<td class="compareN">No</td>
+<td class="compareN">No</td>
+<td class="compareY">Yes</td>
+<td class="compareY">Yes</td>
+</tr><tr>
+<td>Multi Version Concurrency</td>
+<td class="compareY">Yes</td>
+<td class="compareN">No</td>
+<td class="compareY">Yes</td>
+<td class="compareY">Yes</td>
+<td class="compareY">Yes</td>
+</tr><tr>
+<td>Footprint (jar/dll size)</td>
+<td>~1 MB</td>
+<td>~2 MB</td>
+<td>~1 MB</td>
+<td>~4 MB</td>
+<td>~6 MB</td>
+</tr>
+</table>
+
 
 <p>之所以选择内存数据库，是因为在诸如持续集成时，不同的机器可能配置不一样，想运行还要搭建数据库，这个比较麻烦啊。  <br/>
 有了数据库就牵涉到如何初始化数据库的问题。如果你使用MAVEN触发Test，这里推荐一个<a href="http://mojo.codehaus.org/sql-maven-plugin/">sql-maven-plugin</a>。它可以方便的执行数据库SQL脚本来创建数据库。</p>
