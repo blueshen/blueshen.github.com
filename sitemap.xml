@@ -341,6 +341,12 @@
         <lastmod>2013-06-27T17:56:09+08:00</lastmod>
     </url>
     <url>
+        <loc>
+            http://www.shenyanchao.cn/blog/2013/06/28/refactoring-to-patterns-reading-notes/
+        </loc>
+        <lastmod>2013-06-28T19:56:28+08:00</lastmod>
+    </url>
+    <url>
         <loc>http://www.shenyanchao.cn/messagebox/</loc>
         <lastmod>2012-11-20T16:17:37+08:00</lastmod>
     </url>
@@ -358,14 +364,14 @@
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/</loc>
-        <lastmod>2013-06-27T17:56:09+08:00</lastmod>
+        <lastmod>2013-06-28T19:56:28+08:00</lastmod>
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/tags/</loc>
-        <lastmod>2013-06-27T17:56:09+08:00</lastmod>
+        <lastmod>2013-06-28T19:56:28+08:00</lastmod>
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/blog/archives/</loc>
-        <lastmod>2013-06-27T17:56:09+08:00</lastmod>
+        <lastmod>2013-06-28T19:56:28+08:00</lastmod>
     </url>
 </urlset>

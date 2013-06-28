@@ -113,6 +113,66 @@
       ﻿
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2012/11/08/iterator-in-java/">设计模式：迭代器（Iterator） in Java</a></h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-08T16:50:00+08:00" pubdate data-updated="true">2012年11月08日 16:11:00</time>
+        
+         | <a href="/blog/2012/11/08/iterator-in-java/#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+  <div class="entry-content"><p><strong>定义：</strong>迭代器模式提供了一种方法来访问一个容器对象种的各个元素，而又不暴露这个对象的内部细节。</p>
+
+<blockquote><p>在Java中已经默认提供了Iterator支持，各种容器类都进行了实现，而事实上，迭代器模式就是为了解决如何遍历这些容器里的元素而诞生的。</p></blockquote>
+
+<p><strong>迭代器模式</strong>主要有以下的角色：</p>
+
+<ul>
+<li>Iterator抽象迭代器： <br/>
+负责定义访问与遍历元素的接口。基本有3个固定的方法<code>hasNext()</code>,<code>next()</code>,<code>remove()</code>;</li>
+<li>Concrete Iterator具体迭代器：  <br/>
+迭代器的实现类，实现接口，完成元素遍历。</li>
+<li>Aggregate抽象容器： <br/>
+定义创建具体迭代器的接口。在Java种一般是<code>iterator()</code>方法。</li>
+<li>Concrete Aggregate具体容器：<br/>
+实现创建迭代器接口，返回迭代器实例对象。</li>
+</ul>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/11/08/iterator-in-java/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2012/11/08/command-in-java/">设计模式：命令（Command） in Java</a></h1>
     
 	<p class="meta">
@@ -319,64 +379,6 @@
 
     </article>
   
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/11/07/factory-in-java/">设计模式:工厂（factory） in Java</a></h1>
-    
-	<p class="meta">
-    
-
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-07T17:43:00+08:00" pubdate data-updated="true">2012年11月07日 17:11:00</time>
-        
-         | <a href="/blog/2012/11/07/factory-in-java/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content"><p>工厂模式，直接按名字来说，就是负责专门生产产品的。 <br/>
-大致分为3类：</p>
-
-<ul>
-<li>工厂方法</li>
-<li>简单工厂</li>
-<li>抽象工厂</li>
-</ul>
-
-
-<p>同时，也有人认为简单工厂只是工厂方法的一种特列，那么就分为两种了。本文就按3种分别进行介绍了。</p>
-
-<h3>工厂方法</h3>
-
-<p><strong>定义：</strong>定义一个用于创建对象的接口，让子类决定实例化哪一个类。工厂方法让一个类的实例化延迟到其子类。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/11/07/factory-in-java/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <ul class="pager">
     
     <li class="previous"><a href="/blog/page/9/">&larr; 上一页</a></li>
@@ -399,6 +401,10 @@
     <li class="nav-header">最近更新</li>
     
       <li class="post">
+        <a href="/blog/2013/06/28/refactoring-to-patterns-reading-notes/">《重构与模式》读书笔记</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/06/27/usage-dbunit/">DbUnit使用入门</a>
       </li>
     
@@ -414,16 +420,12 @@
         <a href="/blog/2013/06/19/use-eclipse-ast-to-parser-java/">使用Eclipse AST来解析Java</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2013/06/13/write-my-maven-plugin/">write my maven plugin</a>
-      </li>
-    
   </ul>
 </section>
 <section class="well">
 	<ul id="tags-cloud" class="nav nav-list">
 	<li class="nav-header">分类云</li>
-    <span id="tag-cloud"><a href='/blog/categories/apache' style='font-size: 102.5%'>apache(1)</a> <a href='/blog/categories/encode' style='font-size: 110.0%'>encode(4)</a> <a href='/blog/categories/git' style='font-size: 102.5%'>git(1)</a> <a href='/blog/categories/http' style='font-size: 105.0%'>HTTP(2)</a> <a href='/blog/categories/java' style='font-size: 105.0%'>java(2)</a> <a href='/blog/categories/java' style='font-size: 102.5%'>Java(1)</a> <a href='/blog/categories/javascript' style='font-size: 102.5%'>javascript(1)</a> <a href='/blog/categories/jenkins' style='font-size: 102.5%'>jenkins(1)</a> <a href='/blog/categories/jmeter' style='font-size: 105.0%'>jmeter(2)</a> <a href='/blog/categories/jvm' style='font-size: 105.0%'>JVM(2)</a> <a href='/blog/categories/linux' style='font-size: 102.5%'>linux(1)</a> <a href='/blog/categories/markdown' style='font-size: 105.0%'>markdown(2)</a> <a href='/blog/categories/maven' style='font-size: 115.0%'>maven(6)</a> <a href='/blog/categories/mysql' style='font-size: 105.0%'>mysql(2)</a> <a href='/blog/categories/nodejs' style='font-size: 117.5%'>nodejs(7)</a> <a href='/blog/categories/selenium' style='font-size: 122.5%'>selenium(9)</a> <a href='/blog/categories/selenium-wiki' style='font-size: 107.5%'>selenium-wiki(3)</a> <a href='/blog/categories/selenium官方文档' style='font-size: 110.0%'>selenium官方文档(4)</a> <a href='/blog/categories/testng' style='font-size: 102.5%'>testng(1)</a> <a href='/blog/categories/ubuntu' style='font-size: 102.5%'>ubuntu(1)</a> <a href='/blog/categories/ut' style='font-size: 105.0%'>ut(2)</a> <a href='/blog/categories/个人' style='font-size: 105.0%'>个人(2)</a> <a href='/blog/categories/测试' style='font-size: 102.5%'>测试(1)</a> <a href='/blog/categories/设计模式' style='font-size: 160.0%'>设计模式(24)</a> </span>
+    <span id="tag-cloud"><a href='/blog/categories/apache' style='font-size: 102.4%'>apache(1)</a> <a href='/blog/categories/encode' style='font-size: 109.6%'>encode(4)</a> <a href='/blog/categories/git' style='font-size: 102.4%'>git(1)</a> <a href='/blog/categories/http' style='font-size: 104.8%'>HTTP(2)</a> <a href='/blog/categories/java' style='font-size: 104.8%'>java(2)</a> <a href='/blog/categories/java' style='font-size: 102.4%'>Java(1)</a> <a href='/blog/categories/javascript' style='font-size: 102.4%'>javascript(1)</a> <a href='/blog/categories/jenkins' style='font-size: 102.4%'>jenkins(1)</a> <a href='/blog/categories/jmeter' style='font-size: 104.8%'>jmeter(2)</a> <a href='/blog/categories/jvm' style='font-size: 104.8%'>JVM(2)</a> <a href='/blog/categories/linux' style='font-size: 102.4%'>linux(1)</a> <a href='/blog/categories/markdown' style='font-size: 104.8%'>markdown(2)</a> <a href='/blog/categories/maven' style='font-size: 114.4%'>maven(6)</a> <a href='/blog/categories/mysql' style='font-size: 104.8%'>mysql(2)</a> <a href='/blog/categories/nodejs' style='font-size: 116.8%'>nodejs(7)</a> <a href='/blog/categories/selenium' style='font-size: 121.6%'>selenium(9)</a> <a href='/blog/categories/selenium-wiki' style='font-size: 107.2%'>selenium-wiki(3)</a> <a href='/blog/categories/selenium官方文档' style='font-size: 109.6%'>selenium官方文档(4)</a> <a href='/blog/categories/testng' style='font-size: 102.4%'>testng(1)</a> <a href='/blog/categories/ubuntu' style='font-size: 102.4%'>ubuntu(1)</a> <a href='/blog/categories/ut' style='font-size: 104.8%'>ut(2)</a> <a href='/blog/categories/个人' style='font-size: 104.8%'>个人(2)</a> <a href='/blog/categories/测试' style='font-size: 102.4%'>测试(1)</a> <a href='/blog/categories/设计模式' style='font-size: 160.0%'>设计模式(25)</a> </span>
   </ul>
 </section>﻿<section class="well">
 <ul class="nav nav-list">

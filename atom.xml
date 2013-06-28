@@ -4,7 +4,7 @@
   <title><![CDATA[Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2013-06-27T17:56:30+08:00</updated>
+  <updated>2013-06-28T19:56:50+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -12,6 +12,330 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[《重构与模式》读书笔记]]></title>
+    <link href="http://www.shenyanchao.cn/blog/2013/06/28/refactoring-to-patterns-reading-notes/"/>
+    <updated>2013-06-28T13:53:00+08:00</updated>
+    <id>http://www.shenyanchao.cn/blog/2013/06/28/refactoring-to-patterns-reading-notes</id>
+    <content type="html"><![CDATA[<p>GoF的《设计模式》以及Martin Fowler的《重构》都是经典。而《重构与模式》则是将二者结合起来。通过设计模式来指导重构，而重构的目的就是让代码更加的简单，易于维护和扩展。</p>
+
+<h3>写作缘由</h3>
+
+<ul>
+<li>过度设计：代码存在设计过度的情况</li>
+<li>模式万灵丹：认为设计模式的万能的</li>
+<li>设计不足：类比与过度设计，长期设计不足，导致开发节奏“快、慢、更慢”</li>
+<li>测试驱动开发和持续重构：敏捷开发中，Kent Beck说开发过程是“红-绿-重构”</li>
+<li>重构与模式：模式有助于改进设计，通过重构实现模式或者趋向模式进行重构</li>
+<li>演进式设计：将模式放到重构的背景中进行领会
+
+<h3>什么是重构</h3>
+
+<p>定义：重构是一种对软件内部结构的改善，目的是在不改变软件的可见行为的情况下，使其更易理解，修改成本更低。 <br/>
+重构过程包括去除重复、简化复杂逻辑和澄清模糊的代码。要保证重构的安全性，必须确保所做的修改不会产生任何破坏，这需要进行手工测试或者自动化测试。循序渐进的进行重构有处于防止增加缺陷。</p></li>
+</ul>
+
+
+<p>重构的动机：</p>
+
+<ul>
+<li>使新代码的增加更容易</li>
+<li>改善既有代码的设计</li>
+<li>对代码理解更透彻</li>
+<li>提高编程的趣味性</li>
+</ul>
+
+
+<!--more-->
+
+
+<h3>什么是模式</h3>
+
+<p>GoF的《设计模式》是在软件开发中总结出来的用于解决不同场景下的软件开发模式。但是不应该陷入模式痴迷，应保证代码的可读性。 <br/>
+应该知道实现模式的方法不止一种，通过重构是为了实现、趋向和去除模式。通常情况下模式不会使代码更加复杂，实现模式有助于去除重复代码、简化逻辑、说明意图和提高灵活性，但是这也取决于人们对模式的熟悉程度。</p>
+
+<h3>代码坏味</h3>
+
+<ul>
+<li><p>1.重复代码（Duplicated Code）</p>
+
+<blockquote><p>形成Template Method;用Factory Method引入多态创建；链构造函数；用Composite替换一/多之分；提取Composite；通过Adapter统一接口；引入Null Object；</p></blockquote></li>
+<li><p>2.过长函数（Long Method）：</p>
+
+<blockquote><p>组合方法；将聚集操作搬移到Collecting Parameter；用Command替换条件调度程序；将聚集操作搬移到Visitor；用Strategy替换条件逻辑；</p></blockquote></li>
+<li><p>3.条件逻辑太复杂（Conditional Complexity）：</p>
+
+<blockquote><p>用Strategy替换条件逻辑；将装饰功能搬移到Decorator;用State替换状态改变条件语句；引入Null Object;</p></blockquote></li>
+<li><p>4.基本类型偏执（Primitive Obsession）:</p>
+
+<blockquote><p>用类替换类型代码；用State替换状态改变条件语句；用Strategy替换条件逻辑；用Composite替换隐含树；用Interpreter替换隐式语言；将装饰功能搬移到Decorator；用Builder封装Composite。</p></blockquote></li>
+<li><p>5.不恰当的暴露（Indecent Exposure）：</p>
+
+<blockquote><p>用Factory封装类；</p></blockquote></li>
+<li><p>6.解决方案蔓延（Solution Sprawl）：</p>
+
+<blockquote><p>将创建知识搬移到Factory；</p></blockquote></li>
+<li><p>7.异曲同工的类（Alternative Classes With Different Interfaces）：</p>
+
+<blockquote><p>通过Adapter统一接口；</p></blockquote></li>
+<li><p>8.冗赘类（Lazy Class）：</p>
+
+<blockquote><p>内联Singeton；</p></blockquote></li>
+<li>9.过大的类（Large Class）：
+
+<blockquote><p>用Command替换条件调度程序；用State替换状态改变条件语句；用Interpreter替换隐式语言；</p></blockquote></li>
+<li>10.分支语句（Switch Statement）：
+
+<blockquote><p>用Command替换条件调度程序；将聚集操作搬移到Visitor；</p></blockquote></li>
+<li>11.组合爆炸（Combinatorial Explosion）：
+
+<blockquote><p>用Interpreter替换隐式语言；</p></blockquote></li>
+<li>12.怪异解决方案（Oddball Solution）：
+
+<blockquote><p>通过Adapter统一接口；</p>
+
+<h3>创建</h3>
+
+<h4>用Creation Method替换构造函数</h4>
+
+<p>如果类中有多个构造函数，那么客户代码就可能不知道该调用哪一个。这个时候，可以使用能够说明意图的返回对象实例的Creation Method来替换构造函数。 <br/>
+优缺点：<br/>
++比构造函数能够更好的表达所创建的实例的种类。 <br/>
++避免了构造函数的局限，比如2个构造函数的参数数目和类型不能相同。 <br/>
++更容易发现无用的创建代码。 <br/>
+-创建方式是非标准的：有些是用new初始化，有的是用Creation Method实例化。</p>
+
+<h4>将创建知识搬移到Factory</h4>
+
+<p>当创建一个对象的知识散布在多个类中，说明出现了创建蔓延的问题。应该将有关的创建知识搬移到一个Factory类中。  <br/>
+优缺点： <br/>
++合并创建逻辑和实例化/配置选项。 <br/>
++将客户代码与创建逻辑解耦。  <br/>
+-如果可以直接实例化，会使设计复杂化。</p>
+
+<h4>用Factory封装类</h4>
+
+<p>如果在同一个包结构中，有实现了同一接口的多个类。可以把类的构造函数声明为非公共的，并通过Factory来创建它们的实例。 <br/>
+优缺点： <br/>
++通过意图导向的CreationMethod简化了不同种类实例的创建。  <br/>
++通过隐藏不需要公开的类减少了包结构的“概念重量”  <br/>
++帮助严格执行“面向接口编程，而不是面向实现”这一格言。  <br/>
+-当需要创建新种类的实例时，必须新建/更新Creation Method。<br/>
+-当客户只获得Factory的二进制代码而无法获得源代码时，对Factory的制定将受到限制。</p>
+
+<h4>用Factory Method引入多态创建</h4>
+
+<p>一个层次中的类都相似的实现一个方法，只是对象创建的步骤不同。可以调用Factory Method来处理实例化的方法的唯一超类版本。 <br/>
+优缺点： <br/>
++减少因创建自定义对象而产生的重复代码  <br/>
++有效的表达了对象创建发生的位置，以及如何重写对象的创建。 <br/>
++强制Factory Method使用的类必须实现统一的类型。 <br/>
+-可能会向Factory Method的一些实现者传递不必要的参数。</p>
+
+<h4>用Builder封装Composite</h4>
+
+<p>构造Composite是重复的、复杂的且容易出错的工作。通过使用Builder处理构造细节来简化构造过程。 <br/>
+优缺点： <br/>
++简化了构造Composite的客户代码。 <br/>
++减少了创建Composite的重复和易出错的本性。<br/>
++在客户代码和Composite之间实现了松耦合。 <br/>
+-接口可能不会很清楚的表达其意图。</p>
+
+<h4>内联Singleton</h4>
+
+<p>绝大多数时候，Singleton都是不需要的。当可以设计或重新设计而避免使用它们的时候，Singleton就是不必要的。可以考虑把Singleton的功能搬移到一个保存并提供对象访问入口的类中，并删除Singleton。 <br/>
+优缺点： <br/>
++使对象的协作变得更明显和明确。 <br/>
++保护了单一的实例，且不要要特殊的代码。 <br/>
+-当在许多层次间传递对象实例比较困难的时候，会使设计变得复杂。</p>
+
+<h3>简化</h3>
+
+<h4>组合方法</h4>
+
+<p>一个方法逻辑很难理解的时候，就要考虑进行重构。提高每一步骤的可读性。 <br/>
+优缺点：  <br/>
++清晰的描述了一个方法所实现的功能以及如何实现。 <br/>
++把方法分解成命名良好的，处在细节的同一层面的行为模块，以此来简化方法。 <br/>
+-可能会产生过多的小方法。 <br/>
+-可能会使调试变得困难，因为程序的逻辑分散在许多小方法中。</p>
+
+<h4>用Strategy替换条件逻辑</h4>
+
+<p>当一个方法的条件逻辑太多太复杂的时候，考虑使用Strategy模式来为每个分支创建一个Strategy。  <br/>
+优缺点： <br/>
++通过减少或去除条件逻辑使算法变得清晰易懂。 <br/>
++通过把算法的变体搬移到类层次中简化了类。 <br/>
++允许在运行时用一种算法替换另一种算法。 <br/>
+-当应用基于继承的解决方案或“简化条件表达式”中的重构更简单时，会增加设计的复杂度。 <br/>
+-增加了算法如何获取或接受上下文类的数据的复杂度。</p>
+
+<h4>将装饰功能搬移到Decorator</h4>
+
+<p>如果需要对一个功能进行增强，那增强的部分就称为装饰功能了。如果直接改代码那是不好的，考虑使用Decorator模式吧。把这个装饰功能放到装饰器内部。 <br/>
+优缺点： <br/>
++把装饰功能从类中搬移去除，从而简化了类。 <br/>
++有效地把类的核心职责和装饰功能区分开来。 <br/>
++可以去除几个相关类中重复的装饰逻辑。 <br/>
+-改变了被装饰对象的对象类型。 <br/>
+-会使代码变得更难理解和调适。 <br/>
+-当Decorator组合产生负面影响的时候，会增加设计的复杂度。</p>
+
+<h4>用State替换状态改变条件语句</h4>
+
+<p>如果控制一个对象状态转换的条件表达式过于复杂，那么就使用State模式吧。 <br/>
+优缺点： <br/>
++减少或去除状态改变条件逻辑。<br/>
++简化了复杂的状态改变逻辑。 <br/>
++提供了观察状态改变逻辑的很好的鸟瞰图。<br/>
+-当状态转换逻辑已经易于理解的时候，会增加设计的复杂度。</p>
+
+<h4>用Composite替换隐含树</h4>
+
+<p>有一些逻辑用原生表示法隐含的形成了树结构。可以使用Composite来进行重构。 <br/>
+优缺点： <br/>
++封装重复的指令，如格式化、添加或删除结点。 <br/>
++提供了处理相似逻辑增长的一般性方法。 <br/>
++简化了客户代码的构造职责。  <br/>
+-当构造隐式树更简单的时候，会增加设计的复杂度。</p>
+
+<h4>用Command替换条件调度程序</h4>
+
+<p>许多系统会收到，发送并处理请求。条件调度程序是一条条条件语句，它用来执行请求的发送和处理。可以使用Command模式来实现。  <br/>
+优缺点： <br/>
++提供了用统一方法执行不同行为的简单机制。 <br/>
++允许在运行时改变所处理的请求，以及如何处理请求。 <br/>
++仅仅需要很少的代码实现。 <br/>
+-当条件调度程序已经足够的时候，会增加设计的复杂度。</p></blockquote></li>
+</ul>
+
+
+<h3>泛化</h3>
+
+<h4>形成Template Method</h4>
+
+<p>借助Template设计模式，将算法的不变部分全部由父类实现，而可变的行为留给子类来实现。去掉所有子类的不变部分，如果仍有共同的部分，则继续重构。  <br/>
+优点与缺点： <br/>
++通过把不变行为搬移到超类，去除子类中的重复代码  <br/>
++简化并有效地表达了一个通用算法的步骤。 <br/>
++允许子类很容易的定制一个算法  <br/>
+-当为了生成算法、子类必须实现很多方法的时候，会增加设计的复杂度。</p>
+
+<h4>提取Composite</h4>
+
+<p>在处于同一层次的子类中，如果存在完全重复的方法或者部分重复的方法，就可以考虑将这个方法上移到超类。完全重复的方法，直接提取上移。对于部分重复的方法，可以先提取出重复的部分，然后上移。  <br/>
+优缺点： <br/>
++去除重复的类存储逻辑和类处理逻辑。  <br/>
++能够有效的表达类处理逻辑的可继承性。</p>
+
+<h4>用Composite替换一/多之分</h4>
+
+<p>这个名字，翻译的貌似有点问题。不知道原文是如何写的。简单说，它处理了以下问题： <br/>
+如果一个类含有2个几乎一样的方法，唯一的区别就是一个用来处理单一对象，一个用来处理对象的集合。那么这个就称为一/多之分。这个时候，我们可以使用Composite进行替换。  <br/>
+使用Composite扩展出And，Or等条件，简化客户端的处理。  <br/>
+优缺点： <br/>
++去除与处理一个或多个对象相关联的重复代码。 <br/>
++提供了处理一个或多个对象的同一方法。 <br/>
++支持处理多个对象的更丰富的方法。（如OR表达式） <br/>
+-可能会在Composite的构造过程中要求类型安全的运行时检查。</p>
+
+<h4>用Observer替换硬编码的通知</h4>
+
+<p>拒绝使用硬编码的通知，考虑使用Observer模式。 <br/>
+优缺点： <br/>
++使主题及其观察者访问松散耦合 <br/>
++支持一个或多个观察者  <br/>
+-当硬编码的通知已经足够的时候，会增加设计复杂度  <br/>
+-当出现串联通知的时候，会增加代码的复杂度      <br/>
+-当观察者没有从他们的主题中被删除的时候，可能会造成内存泄漏。</p>
+
+<h4>通过Adapter统一接口</h4>
+
+<p>全部满足以下条件，考虑使用Adapter:</p>
+
+<ul>
+<li>2个类所做的事情相同或者相似，但是具有不同的接口。</li>
+<li>如果类共享同一个接口，客户代码会更简单、更直接、更紧凑。</li>
+<li>无法轻易改变其中一个类的接口，因为它是第三方类库的一部分，或者它是一个已经被其他客户代码广泛使用的框架的一部分，或者无法获得源代码。</li>
+</ul>
+
+
+<p>比如slf4j，就是通过各种Adapter实现了各种日志系统的大一统，并提供统一的接口。 <br/>
+优缺点： <br/>
++使得客户代码可以通过相同的接口与不同的类交互，从而去除或减少了重复代码。 <br/>
++使客户代码可以通过公共的接口与多个对象交互，从而简化了客户代码。  <br/>
++统一了客户代码与不同的类的交互方式。  <br/>
+-当类的接口可以改变的时候，会增加设计的复杂度。</p>
+
+<h4>提取Adapter</h4>
+
+<p>当一个类适配了多个版本的组件，类库，API或其他实体。这个时候，应该为组件，类库，API或其他实体的每个版本提取一个Adapter。  <br/>
+优缺点：<br/>
++隔离了不同版本的组件，类库或API之间的不同之处。 <br/>
++使类只负责适配代码的一个版本。  <br/>
++避免频繁地修改代码   <br/>
+-如果某个重要行为在Adapter中不可用的话，那么客户代码将无法执行这一重要行为。</p>
+
+<h4>用Interpreter替换隐式语言</h4>
+
+<p>在前面“用Composite替换一/多之分”部分，提到了使用Composite的问题。但是使用了Composite后，是需要对Composite进行翻译的。否则是不知道如何查询的。  <br/>
+优缺点： <br/>
++比隐式语言更好的支持语言元素的组合。 <br/>
++不需要新的代码来支持语言元素的新组合。<br/>
++允许行为的运行时配置。
+-会产生定义语法和修改客户代码的开销。 <br/>
+-如果语言很复杂，则需要很多的编程工作。 <br/>
+-如果语言本身就很简单，则会增加设计的复杂度。</p>
+
+<h3>保护</h3>
+
+<h4>用类替换类型代码</h4>
+
+<p>字段的类型（如，String或int）无法保护它免受不正确的赋值和非法的等同性比较。使用类进行替代，从而可以限制赋值和等同性比较。  <br/>
+优缺点：  <br/>
++更好的避免非法赋值和比较。  <br/>
+-比使用不安全类型要求更多的代码。</p>
+
+<h4>用Singleton限制实例化</h4>
+
+<p>有时间，遇到创建了一个对象的多个实例，导致内存使用过多和系统性能下降。可以使用单例模式。慎用。 <br/>
+优缺点：  <br/>
++改进性能。  <br/>
+-从任何地方都可以很容易的访问。在很多情况下，这可能是设计的缺点。 <br/>
+-当对象含有不能共享的状态的时候，本重构就无效了。</p>
+
+<h4>引入Null Object</h4>
+
+<p>代码中到处都是处理null字段或变量的重复逻辑。而使用Null Object可以进行改善。  <br/>
+优缺点：   <br/>
++不需要重复的null逻辑就可以避免null错误。 <br/>
++通过最小化null测试简化了代码。  <br/>
+-当系统不太需要null测试的时候，会增加设计的复杂度。 <br/>
+-如果程序员不知道Null Object的存在，就会产生多余的null测试。 <br/>
+-使维护变得复杂。拥有超类的Null Object必须重写所有新继承到的公共方法。</p>
+
+<h3>聚集操作</h3>
+
+<h4>将聚集操作搬移到Collecting Parameter</h4>
+
+<p>有一个很大的方法将信息聚集到一个局部变量中，那么可以把结果聚集到一个Collecting Parameter中，将它传入被提炼出的方法。  <br/>
+优缺点：   <br/>
++帮助我们把很大的方法转换成更小的，更简单的多个方法。  <br/>
+-使结果代码运行得更快。</p>
+
+<h4>将聚集操作搬移到Visitor</h4>
+
+<p>如果一个方法需要从不同的类中聚集信息，可以考虑把聚集工作搬移到一个能够访问每个类以便聚集信息的Visitor中。   <br/>
+优缺点：  <br/>
++调节多个算法，使其适用于不同的对象结构。 <br/>
++访问相同或不同继承结构中的类。 <br/>
++调用不同类上的类型特定方法，无需类型转换。  <br/>
+-当可以使用通用接口把互不相同的类变成相似类的时候，会增加代码的复杂度。  <br/>
+-新的可访问类需要新的接受方法，每个Visitor中需要新的访问方法。  <br/>
+-可能会破坏被访问类的封装性。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[DbUnit使用入门]]></title>
@@ -6538,238 +6862,6 @@ Environment variables: 就是环境变量了。此处我定义了CHROME_BIN来�
 <p>配置成功后，运行Karma node Server可以看到浏览器就可以正常启动了。console也正确的输出。如同在terminal里执行一般。需要注意的是，本地开发时，需要将<code>singleRun=false</code>,也就是说执行完测试之后不退出。只有在CI环境下才用true。</p>
 
 <p>在浏览器启动之后，如果修改了源代码，Test能否自动执行呢？可以将<code>autoWatch=true</code>,这样当你修改代码后，保存后能自动执行，方便开发了。如果‘autoWatch=false’了，那么这时间就要执行Karma run了，用于在Karma Server上重新执行。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[开始第一个Jenkins Plugin]]></title>
-    <link href="http://www.shenyanchao.cn/blog/2013/03/22/jenkins-plugin-start/"/>
-    <updated>2013-03-22T16:48:00+08:00</updated>
-    <id>http://www.shenyanchao.cn/blog/2013/03/22/jenkins-plugin-start</id>
-    <content type="html"><![CDATA[<h2>一，Jenkins插件的结构</h2>
-
-<p>Jenkins插件实际上是一个按照一定规则组织的jar包，其结构如下：</p>
-
-<pre><code>xxx.hpi
-+- META-INF
-|   +-MANIFEST.MF
-+- WEB-INF
-|   +- classes
-|       +- index.jelly
-|       +- XXXX.class
-|   +- lib
-+-  (static resources)
-</code></pre>
-
-<p>说明：</p>
-
-<ul>
-<li>1.插件的后缀为&#8221;.hpi&#8221;,文件名（xxx部分）是插件的简写名字，用来区分插件。</li>
-<li>2.如上图结构所示，它与war包类似，只是缺少web.xml。</li>
-<li>3.MANIFEST.MF包含一些入口的配置信息。其中有继承自Jenkins插件的类，用作实例化的入口。类的全名，用作我们去区分其他插件。</li>
-<li>4.WEB-INF/classes 用来包含插件需要的.class，jelly页面等内容。它们可以封装成jar包放到WEB-INF/lib下面</li>
-<li>5.WEB-INF/lib 包含插件中需要的.jar文件</li>
-<li>6.插件需要的静态文件如图片，HTML，css样式文件，JS文件等可以放到文件的根目录下面。</li>
-</ul>
-
-
-<!--more-->
-
-
-<h2>二，Jenkins-Plugins的开发</h2>
-
-<p>Jenkins插件的开发，使用maven来进行项目的管理和构建。如下罗列了其中需要的步骤。</p>
-
-<h3>2.1 Jenkins插件开发时的环境配置</h3>
-
-<p>Jenkins插件开发，需要JDK和Maven环境。下面以windows下的环境配置为例说明。</p>
-
-<h4>2.1.1 JDK配置</h4>
-
-<p>JDK的版本要求在1.6以上，需要在配置文件中配置JDK的变量：</p>
-
-<pre><code>JAVA_HOME = C:\Program Files (x86)\Java\jdk1.6.0_38   
-CLASSPATH = ...;%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin;   
-PATH = ...;%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin;   
-</code></pre>
-
-<h4>2.1.2 Maven的配置</h4>
-
-<pre><code>M2_HOME =  D:\maven
-M2 = %M2_HOME%\bin
-MAVEN_OPTS  = -Xms256m -Xmx512m
-
-CLASSPATH = ...;%M2%   
-PATH = ...;%M2%   
-</code></pre>
-
-<p>可以通过<code>mvn --version</code>,查看maven是否配置成功。</p>
-
-<h4>2.1.3 Maven开发环境的配置</h4>
-
-<p>在~/.m2/settings.xml中，或者/maven/conf/settings.xml中，配置如下的Jenkins库依赖：</p>
-
-<pre><code>&lt;settings&gt;
-  &lt;pluginGroups&gt;
-    &lt;pluginGroup&gt;org.jenkins-ci.tools&lt;/pluginGroup&gt;
-  &lt;/pluginGroups&gt;
-
-  &lt;profiles&gt;
-    &lt;!-- Give access to Jenkins plugins --&gt;
-    &lt;profile&gt;
-      &lt;id&gt;jenkins&lt;/id&gt;
-      &lt;activation&gt;
-        &lt;activeByDefault&gt;true&lt;/activeByDefault&gt; &lt;!-- change this to false, if you don't like to have it on per default --&gt;
-      &lt;/activation&gt;
-      &lt;repositories&gt;
-        &lt;repository&gt;
-          &lt;id&gt;repo.jenkins-ci.org&lt;/id&gt;
-          &lt;url&gt;http://repo.jenkins-ci.org/public/&lt;/url&gt;
-        &lt;/repository&gt;
-      &lt;/repositories&gt;
-      &lt;pluginRepositories&gt;
-        &lt;pluginRepository&gt;
-          &lt;id&gt;repo.jenkins-ci.org&lt;/id&gt;
-          &lt;url&gt;http://repo.jenkins-ci.org/public/&lt;/url&gt;
-        &lt;/pluginRepository&gt;
-      &lt;/pluginRepositories&gt;
-    &lt;/profile&gt;
-  &lt;/profiles&gt;
-  &lt;mirrors&gt;
-    &lt;mirror&gt;
-      &lt;id&gt;repo.jenkins-ci.org&lt;/id&gt;
-      &lt;url&gt;http://repo.jenkins-ci.org/public/&lt;/url&gt;
-      &lt;mirrorOf&gt;m.g.o-public&lt;/mirrorOf&gt;
-    &lt;/mirror&gt;
-  &lt;/mirrors&gt;
-&lt;/settings&gt;
-</code></pre>
-
-<h3>2.2 生成插件的框架程序</h3>
-
-<p>配置好maven后，即可使用maven命令建立插件的框架，并且命令行会提示你输入groupId和artifactId：</p>
-
-<pre><code>mvn hpi:create
-
-Enter the groupId of your plugin: com.baidu.ite.hudson
-Enter the artifactId of your plugin: samplePlugin
-</code></pre>
-
-<p>这样会建立一个工程，名字为<code>samplePlugin</code>,包路径<code>com.baidu.ite.hudson</code>。 <br/>
-或者使用如下的命令：</p>
-
-<pre><code>mvn -U org.jenkins-ci.tools:maven-hpi-plugin:create -DgroupId={your.gound.id} -DartifactId={your.plugin.id}
-</code></pre>
-
-<p>说明： <br/>
-1，-u代表jenkins需要更新自己所有的插件内容。 <br/>
-2，jenkins中提供的archetype-resources，文件的名字为<code>HelloWorldBuilder.java</code>。我们需要手工修改成自己需要的内容。</p>
-
-<h4>2.2.1 代码结构</h4>
-
-<p>使用 hpi:create生成的文件结构如下：</p>
-
-<pre><code>+- src 
-|   +- main 
-|   |   +- java
-|   |   |   +- groupId.HelloWorldBuilder.java 
-|   |   +- resources 
-|   |   |   +-  groupId.HelloWorldBuilder
-|   |   |   |   +- config.jelly
-|   |   |   |   +- help-name.html 
-|   |   |   +- index.jelly 
-</code></pre>
-
-<p>Jenkins定义了一些扩展点（Extension Points）,这些扩展点是接口或者抽象类。你可以根据自己的需要来修改文件的名字和扩展点。我们使用命令生成的框架程序中，HelloWorldBuilder继承了Builder。</p>
-
-<h4>2.2.2 代码的解释</h4>
-
-<pre><code>数据的绑定：   
-
-&lt;!--config.jelly--&gt;
-&lt;f:entry title="Name" field="name"&gt;
-    &lt;f:textbox /&gt;
-&lt;/f:entry&gt;
-
-//--HelloWorldBuilder.java--
-@DataBoundConstructor
-public HelloWorldBuilder(String name) {
-    this.name = name;
-}
-</code></pre>
-
-<p>首先，在config.jelly中包含需要传入的参数配置信息的文本框，field为name，这样可以在Jenkins中进行配置，然后通过DataBoundConstructor的方式，传到类中。</p>
-
-<pre><code>Jenkins插件任务的执行
-
-@Override
-public boolean perform(AbstractBuild build, Launcher launcher, BuildListener listener) {
-    // This is where you 'build' the project.
-
-    // This also shows how you can consult the global configuration of the builder
-        listener.getLogger().println("Hello, "+name+"!");
-    return true;
-}
-</code></pre>
-
-<p>根据注释可以了解：该处是你在Job进行构建时进行操作的地方，并且这里可以根据你在配置中的设置执行你需要的工作。通常，根据需要修改perform函数即可。</p>
-
-<pre><code>传入数据的检查
-
- public FormValidation doCheckName(@QueryParameter String value)
-                throws IOException, ServletException {
-            if (value.length() == 0)
-                return FormValidation.error("Please set a name");
-            if (value.length() &lt; 4)
-                return FormValidation.warning("Isn't the name too short?");
-            return FormValidation.ok();
-        }
-</code></pre>
-
-<p>在该函数中，实现在配置页面中填写内容时，进行校验的过程。如函数所述，当填入内容为空时，提示：Please set a name。你可以根据你的需要进行逻辑的控制。</p>
-
-<h3>2.3 转换为eclipse工程</h3>
-
-<p>为了便于在编辑器中进行修改，我们需要将生成的maven代码转化为eclipse工程，使用的命令如下：</p>
-
-<pre><code>mvn eclipse:eclipse
-或者
-mvn -DdownloadSources=true -DdownloadJavadocs=true -DoutputDirectory=target/eclipse-classes eclipse:eclipse
-</code></pre>
-
-<p>第二条较长的命令中，参数是可选的。</p>
-
-<h3>2.4 生成hpi文件</h3>
-
-<p>使用如下命令可以生成<code>./target/pluginname.hpi</code>:</p>
-
-<pre><code>mvn install
-或者
-mvn package 
-</code></pre>
-
-<p>其中mvn install 生成hpi文件，并放置到本地maven仓库中，mvn package只进行打包操作。</p>
-
-<h3>2.5 使用.hpl进行调试</h3>
-
-<p>maven中使用<code>.hpl（hudson plugin link）</code>格式来进行插件的调试。hpl文件中只包含一个链接，链接到类似<code>META-INF/MANIFEST.MF</code>的说明文件<code>../path/to/your/plugin/workspace/manifest-debug.mf</code>。该文件其中额外定义了一些属性来指定文件目录位置,这样资源的修改可以立即生效（需要配置stapler.jelly.noCache=true），不需要重新打包安装。 <br/>
-在maven中可以使用命令：</p>
-
-<pre><code>mvn hpi:hpl -DhudsonHome=/...
-</code></pre>
-
-<h3>2.6 使用.hpi进行测试</h3>
-
-<p>在调试通过后，可以使用.hpi文件来启动jenkins,查看结果，命令如下：</p>
-
-<pre><code>mvn hpi:run -DhudsonHome=/...
-</code></pre>
-
-<p>说明：-DhudsonHome可以不选，默认Jenkins安装到工程的./target目录中。</p>
-
-<hr />
-
-<p>致谢:lizejun</p>
 ]]></content>
   </entry>
   
