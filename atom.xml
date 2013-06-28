@@ -4,7 +4,7 @@
   <title><![CDATA[Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2013-06-28T19:56:50+08:00</updated>
+  <updated>2013-06-28T20:00:49+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -93,7 +93,9 @@
 <blockquote><p>用Interpreter替换隐式语言；</p></blockquote></li>
 <li>12.怪异解决方案（Oddball Solution）：
 
-<blockquote><p>通过Adapter统一接口；</p>
+<blockquote><p>通过Adapter统一接口；</p></blockquote></li>
+</ul>
+
 
 <h3>创建</h3>
 
@@ -207,9 +209,7 @@
 +提供了用统一方法执行不同行为的简单机制。 <br/>
 +允许在运行时改变所处理的请求，以及如何处理请求。 <br/>
 +仅仅需要很少的代码实现。 <br/>
--当条件调度程序已经足够的时候，会增加设计的复杂度。</p></blockquote></li>
-</ul>
-
+-当条件调度程序已经足够的时候，会增加设计的复杂度。</p>
 
 <h3>泛化</h3>
 
