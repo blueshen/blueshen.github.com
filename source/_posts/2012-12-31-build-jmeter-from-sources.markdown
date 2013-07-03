@@ -4,10 +4,10 @@ title: "从源码编译构建Jmeter"
 date: 2012-12-31 15:48
 comments: true
 categories: jmeter
-tags: [ jmeter, ant]
+tags: [ jmeter, ant, source ]
 ---
 ###获取Jmeter的源码###
-Jmeter源码可以从SVN REPO找到，地址：<https://github.com/apache/jmeter>    
+Jmeter源码可以从SVN REPO找到，地址：<http://svn.apache.org/repos/asf/jmeter/trunk/>    
 从GIT上也是可以的。地址：<https://github.com/apache/jmeter>    
 Git clone:   
 
@@ -31,4 +31,5 @@ Git clone:
 
 
 ###运行Jmeter###
-进入bin目录，执行jmeter.bat（windows）或者 ./jmeter（linux）,Jmeter的界面打开了，开始体验吧。
+进入bin目录，执行jmeter.bat（windows）或者 ./jmeter（linux）,Jmeter的界面打开了，开始体验吧。   
+
