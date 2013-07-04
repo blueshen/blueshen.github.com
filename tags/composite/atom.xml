@@ -4,7 +4,7 @@
   <title><![CDATA[Tag: composite | Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/tags/composite/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2013-07-04T17:25:50+08:00</updated>
+  <updated>2013-07-04T17:27:30+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -22,7 +22,7 @@
 
 <p>组合模式类图如下：</p>
 
-<p><img src="file:///home/shenyanchao/git/blueshen.github.com/source/images/blog/composite-pattern.jpg" alt="组合模式" /></p>
+<p><img src="/images/blog/composite-pattern.jpg" alt="组合模式" /></p>
 
 <p>组合模式有以下几个角色：</p>
 
