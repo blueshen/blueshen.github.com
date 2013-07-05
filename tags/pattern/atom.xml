@@ -4,7 +4,7 @@
   <title><![CDATA[Tag: pattern | Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/tags/pattern/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2013-07-04T20:40:34+08:00</updated>
+  <updated>2013-07-05T14:09:09+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -12,6 +12,129 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[设计模式：访问者（visitor） in java]]></title>
+    <link href="http://www.shenyanchao.cn/blog/2012/11/02/visitor-in-java/"/>
+    <updated>2012-11-02T20:12:00+08:00</updated>
+    <id>http://www.shenyanchao.cn/blog/2012/11/02/visitor-in-java</id>
+    <content type="html"><![CDATA[<p><strong>定义：</strong>封装一些作用于某种数据结构中的各元素的操作，它可以在不改变数据结构的前提下定义作用于这些元素的新的操作。</p>
+
+<p>访问者模式有以下几个角色：</p>
+
+<ul>
+<li>Visitor抽象访问者  <br/>
+抽象类或者接口，声明访问者可以访问哪些元素，具体到程序中就visit方法的参数定义哪些对象是可以被访问的。</li>
+<li>ConcreteVisitor具体访问者  <br/>
+它影响访问者访问到一个类后该怎么办，要做什么事情。</li>
+<li>Element抽象元素  <br/>
+接口或者抽象类，声明接受哪一类访问者访问。程序上是通过accept方法中的参数来定义的。</li>
+<li>ConcreteElement具体元素  <br/>
+实现accept方法，通常是visitor.visit(this),基本都形成一个模式了。</li>
+<li>ObjectStruture结构对象  <br/>
+元素产生者，一般容纳在多个不同类，不同接口的容器。项目中，一般很少抽象这个角色。</li>
+</ul>
+
+
+<!--more-->
+
+
+<p>下面看看各个部分是如何实现的。  <br/>
+抽象元素：</p>
+
+<pre><code>public abstract class Element {
+    //业务逻辑
+    public abstract void doSomething();
+    //允许谁来访问
+    public abstract void accept(IVisitor visitor);
+}
+</code></pre>
+
+<p>具体元素：</p>
+
+<pre><code>public class ConcreteElement1 extends Element {
+
+    @Override
+    public void doSomething() {
+        //todo
+    }
+
+    @Override
+    public void accept(IVisitor visitor) {
+        visitor.visit(this);
+    }
+}
+
+public class ConcreteElement2 extends Element {
+
+    @Override
+    public void doSomething() {
+        //todo
+    }
+
+    @Override
+    public void accept(IVisitor visitor) {
+        visitor.visit(this);
+    }
+}  
+</code></pre>
+
+<p>抽象访问者：</p>
+
+<pre><code>public interface IVisitor {
+
+    public void visit(ConcreteElement1 el1);
+
+    public void visit(ConcreteElement2 el2);
+}
+</code></pre>
+
+<p>具体访问者：</p>
+
+<pre><code>public class Visitor implements IVisitor {
+
+    @Override
+    public void visit(ConcreteElement1 el1) {
+        el1.doSomething();
+    }
+
+    @Override
+    public void visit(ConcreteElement2 el2) {
+        el2.doSomething();
+    }
+}
+</code></pre>
+
+<p>结构对象：</p>
+
+<pre><code>public class ObjectStruture {
+
+    public static Element createElment(){
+        Random random = new Random();
+        if (random.nextInt(100) &gt; 50){
+            return new ConcreteElement1();
+        }else{
+            return new ConcreteElement2();
+        }
+    }
+
+}
+</code></pre>
+
+<p>下面看下具体场景类是怎么使用的：</p>
+
+<pre><code>public class Client {
+
+    public static void main(String[] args) {
+        for (int i = 0; i &lt; 10; i++) {
+            Element el = ObjectStruture.createElment();
+            el.accept(new Visitor());
+        }
+    }
+}
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[设计模式：策略（strategy） in java]]></title>
@@ -338,33 +461,6 @@ public class ConcreteFlyweight2 extends Flyweight{
 （1）系统中存在大量的相似对象   <br/>
 （2）细粒度的对象都具备较接近的外部状态，而且内部状态与环境无关，也就是说对象没有特定身份。     <br/>
 （3）需要缓冲池的场景。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[设计模式：组合（composite） in java]]></title>
-    <link href="http://www.shenyanchao.cn/blog/2012/11/02/composite-in-java/"/>
-    <updated>2012-11-02T20:07:00+08:00</updated>
-    <id>http://www.shenyanchao.cn/blog/2012/11/02/composite-in-java</id>
-    <content type="html"><![CDATA[<p><strong>定义：</strong>组合模式（Composite Pattern）也叫合成模式，有时又叫做部分-整体模式（Part-Whole），主要是用来描述部分与整体的关系。确切的定义：将对象组合成树形结构以表示“部分-整体”的层次结构，使得用户对单个对象和组合对象的使用具有一致性。</p>
-
-<p>组合模式类图如下：</p>
-
-<p><img src="/images/blog/composite-pattern.jpg" alt="组合模式" /></p>
-
-<p>组合模式有以下几个角色：</p>
-
-<ul>
-<li>Component抽象构件角色 <br/>
-定义参加组合对象的共有方法和树形，可以定义一些默认的行为或属性。</li>
-<li>Leaf叶子构件  <br/>
-叶子对象，下面没有其他分支，也就是最小的遍历单位。</li>
-<li>Composite树枝构件  <br/>
-树枝对象，它的作用是组合树枝节点和叶子节点形成一个树形结构。</li>
-</ul>
-
-
-<p>这个说白了就是一个树形结构，不再具体使用例子了。</p>
 ]]></content>
   </entry>
   
