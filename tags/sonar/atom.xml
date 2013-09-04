@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Tag: sonar | Blues 小站]]></title>
+  <link href="http://www.shenyanchao.cn/tags/sonar/atom.xml" rel="self"/>
+  <link href="http://www.shenyanchao.cn/"/>
+  <updated>2013-09-04T18:02:52+08:00</updated>
+  <id>http://www.shenyanchao.cn/</id>
+  <author>
+    <name><![CDATA[ShenYanchao]]></name>
+    <email><![CDATA[zhiyi.shen@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Sonar的安装与使用]]></title>
+    <link href="http://www.shenyanchao.cn/blog/2013/09/04/use-sonar/"/>
+    <updated>2013-09-04T17:02:00+08:00</updated>
+    <id>http://www.shenyanchao.cn/blog/2013/09/04/use-sonar</id>
+    <content type="html"><![CDATA[<h3>什么是Sonar？</h3>
+
+<p><a href="http://www.sonarqube.org/">Sonar</a>是一个开源的代码质量管理平台。它能对代码进行如下7个维度的管理。</p>
+
+<p><img src="http://www.sonarqube.org/wp-content/themes/sonar/images/7axes.png" alt="" />
+使用插件，它可以对20多种语言进行代码质量管理，这其中包括Java，C#，C/C++,PL/SQL等等。</p>
+
+<h3>安装Sonar</h3>
+
+<p>1.下载sonar,地址<a href="http://www.sonarqube.org/downloads/">http://www.sonarqube.org/downloads/</a>。通常选取稳定版本下载即可，这是一个zip文件。 <br/>
+2.解压下载的sonar到一个目录。我们称这个解压后的路径为SONAR_HOME  <br/>
+3.进入$SONAR_HOME/bin/${os-version}/,找到sonar.sh,执行<code>./sonar.sh console</code>即可。在windows下是StartSonar.bat。<br/>
+4.现在进入<a href="http://localhost:9000">http://localhost:9000</a>,就看到了界面。默认的登录使用admin:admin</p>
+
+<p>这个时候，Sonar已经运行啦。但是在生产环境是不行的。上面跑起来的只是一个样例，使用的是h2内存数据库。我们可不想重启服务后，生产环境的数据都没了。</p>
+
+<!--more-->
+
+
+<h3>配置Sonar数据库</h3>
+
+<p>1.首先新建一个数据库。</p>
+
+<pre><code>CREATE DATABASE sonar CHARACTER SET utf8 COLLATE utf8_general_ci;  
+grant all privileges on sonar.* to 'sonar'@'%' identified by '你的密码';  
+flush privileges; 
+</code></pre>
+
+<p>这样就准备好了数据库sonar,并授权给sonar这个用户。</p>
+
+<p>2.找到$SONAR_HOME/conf/sonar.properties。
+注释掉默认的数据库配置，然后配上自己的数据库信息即可。这里以mysql为例。</p>
+
+<pre><code># Comment the following line to deactivate the default embedded database.
+#sonar.jdbc.url:                            jdbc:h2:tcp://localhost:9092/sonar
+#sonar.jdbc.driverClassName:                org.h2.Driver
+
+-------------------
+# The schema must be created first.
+</code></pre>
+
+<p>sonar.jdbc.username:                       sonar
+sonar.jdbc.password:                       sonar</p>
+
+<pre><code>#----- MySQL 5.x
+# Comment the embedded database and uncomment the following line to use MySQL
+sonar.jdbc.url:                            jdbc:mysql://localhost:3306/sonar?useUnicode=true&amp;characterEncoding=utf8&amp;rewriteBatchedStatements=true
+
+# Optional properties
+sonar.jdbc.driverClassName:                com.mysql.jdbc.Driver
+</code></pre>
+
+<p>配置好之后，这样所有的数据都会存放到mysql内啦。不用再担心数据问题啦。要添加其他数据库，同理。</p>
+
+<h3>把Sonar变为中文</h3>
+
+<p>英文看这不方便啊。有2种方法可以将Sonar变为中文界面。</p>
+
+<p>1.用管理员登录后，在Update Center种找到Localization里的Chinese Pack安装就可以了。<br/>
+2.直接下载<a href="http://repository.codehaus.org/org/codehaus/sonar-plugins/l10n/sonar-l10n-zh-plugin/1.6/sonar-l10n-zh-plugin-1.6.jar">http://repository.codehaus.org/org/codehaus/sonar-plugins/l10n/sonar-l10n-zh-plugin/1.6/sonar-l10n-zh-plugin-1.6.jar</a>这个插件jar包到$SONAR_HOME/extensions/plugins内，重启即可。</p>
+
+<h3>把Sonar放到JEE容器内</h3>
+
+<p>默认的情况下，sonar启动是采用内置的jetty的，为了方便管理，一般在生产环境可以放到JEE容器内，这里就以Tomcat为例了。 <br/>
+Sonar在经过上面几步的配置后，已经满足了基本的需求。接下来就可以进入到$SONAR_HOME/war/内。执行build-war命令。这样就生成了一个sonar.war，把这个war包发布到Tomcat即可。</p>
+
+<h3>如何对源码进行检测</h3>
+
+<p>1.配置maven的settings.xml,添加一下内容：</p>
+
+<pre><code>    &lt;profile&gt;
+         &lt;id&gt;sonar&lt;/id&gt;
+         &lt;activation&gt;
+             &lt;activeByDefault&gt;true&lt;/activeByDefault&gt;
+         &lt;/activation&gt;
+         &lt;properties&gt;
+              &lt;sonar.jdbc.url&gt;
+              jdbc:mysql://localhost:3306/sonar?useUnicode=true&amp;amp;characterEncoding=utf8
+              &lt;/sonar.jdbc.url&gt;
+              &lt;sonar.jdbc.driver&gt;com.mysql.jdbc.Driver&lt;/sonar.jdbc.driver&gt;
+              &lt;sonar.jdbc.username&gt;sonar&lt;/sonar.jdbc.username&gt;
+              &lt;sonar.jdbc.password&gt;sonar&lt;/sonar.jdbc.password&gt;
+             &lt;sonar.host.url&gt;http://localhost:9000/sonar&lt;/sonar.host.url&gt;
+         &lt;/properties&gt;
+      &lt;/profile&gt;
+</code></pre>
+
+<p>其中的数据库配置以及sonar主机地址都依据实际进行修改即可。 <br/>
+2.在maven项目种执行</p>
+
+<pre><code>mvn clean install
+mvn sonar:sonar
+</code></pre>
+
+<p>3.打开sonar主页，就可以看到结果了。</p>
+
+<h3>Sonar与Jenkins的集成。</h3>
+
+<p>1.安装<a href="http://docs.codehaus.org/display/SONAR/Jenkins+Plugin">jenkins-sonar-plugin</a>到Jenkins内。  <br/>
+2.在Jenkins里的系统配置中，填写Sonar安装信息。  <br/>
+3.在Jenkins的JOB中，配置post-build action中添加上Sonar即可。这样在项目构建后，会自动的执行Sonar分析。并将结果放在首页进行展现。</p>
+]]></content>
+  </entry>
+  
+</feed>
