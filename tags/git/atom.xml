@@ -4,7 +4,7 @@
   <title><![CDATA[Tag: git | Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/tags/git/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2013-09-16T18:01:08+08:00</updated>
+  <updated>2013-09-16T18:19:58+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -12,6 +12,39 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[提交代码到GitHub SSH错误解决方案]]></title>
+    <link href="http://www.shenyanchao.cn/blog/2013/09/16/git-ssh-connection/"/>
+    <updated>2013-09-16T18:08:00+08:00</updated>
+    <id>http://www.shenyanchao.cn/blog/2013/09/16/git-ssh-connection</id>
+    <content type="html"><![CDATA[<p>最近，由于公司内部的网络改造，在<code>git push</code>的时候提示如下信息：</p>
+
+<pre><code>ssh: connect to host github.com port 22: Connection timed out
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+</code></pre>
+
+<p>看字面的意思就是连接超时了，什么原因造成的呢，这个估计是公司网络禁用了SSH的22端口导致的。所幸git提供了https、git、ssh三种协议来读写。</p>
+
+<p>运行<code>git config --local -e</code>打开配置信息。 <br/>
+修改其中的</p>
+
+<pre><code>url = git@github.com:username/repo.git
+</code></pre>
+
+<p>为</p>
+
+<pre><code>url = https://username@github.com/username/repo.git
+</code></pre>
+
+<p>这样就改为使用https协议了。提交什么的就OK了。</p>
+
+<p>后来，我再使用Octopress提交博客的时候问题又出现了。也就是在<code>rake deploy</code>的时候，又走ssh了。此时只要进入_deploy目录，把上述步骤再执行一次就好了。就是每次提交都要输入用户名密码而已。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Git 命令]]></title>

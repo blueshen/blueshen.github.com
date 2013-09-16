@@ -4,7 +4,7 @@
   <title><![CDATA[Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2013-09-16T18:01:08+08:00</updated>
+  <updated>2013-09-16T18:19:58+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -12,6 +12,39 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[提交代码到GitHub SSH错误解决方案]]></title>
+    <link href="http://www.shenyanchao.cn/blog/2013/09/16/git-ssh-connection/"/>
+    <updated>2013-09-16T18:08:00+08:00</updated>
+    <id>http://www.shenyanchao.cn/blog/2013/09/16/git-ssh-connection</id>
+    <content type="html"><![CDATA[<p>最近，由于公司内部的网络改造，在<code>git push</code>的时候提示如下信息：</p>
+
+<pre><code>ssh: connect to host github.com port 22: Connection timed out
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+</code></pre>
+
+<p>看字面的意思就是连接超时了，什么原因造成的呢，这个估计是公司网络禁用了SSH的22端口导致的。所幸git提供了https、git、ssh三种协议来读写。</p>
+
+<p>运行<code>git config --local -e</code>打开配置信息。 <br/>
+修改其中的</p>
+
+<pre><code>url = git@github.com:username/repo.git
+</code></pre>
+
+<p>为</p>
+
+<pre><code>url = https://username@github.com/username/repo.git
+</code></pre>
+
+<p>这样就改为使用https协议了。提交什么的就OK了。</p>
+
+<p>后来，我再使用Octopress提交博客的时候问题又出现了。也就是在<code>rake deploy</code>的时候，又走ssh了。此时只要进入_deploy目录，把上述步骤再执行一次就好了。就是每次提交都要输入用户名密码而已。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Sonar的安装与使用]]></title>
@@ -6604,112 +6637,6 @@ HTTP性能在很大程度上取决于底层TCP通道的性能。影响TCP性能�
 <li>邮件客户端: thunderbird</li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Karma与Jenkins-CI集成]]></title>
-    <link href="http://www.shenyanchao.cn/blog/2013/04/01/run-karma-in-jenkins-ci/"/>
-    <updated>2013-04-01T19:38:00+08:00</updated>
-    <id>http://www.shenyanchao.cn/blog/2013/04/01/run-karma-in-jenkins-ci</id>
-    <content type="html"><![CDATA[<p>Jenkins是一款目前最为流行的持续集成工具，那么，如何让Karma的能集成到Jenkins，并自动执行呢？</p>
-
-<h3>前提条件</h3>
-
-<p>Jenkins Server上（可以是Master，也许是Slave结点，总之在那个Server上跑，就需要安装），安装：</p>
-
-<ul>
-<li>Node</li>
-<li>Karma</li>
-</ul>
-
-
-<h3>配置Karma.conf.js文件</h3>
-
-<p>必须保证：</p>
-
-<pre><code>singleRun = true;
-</code></pre>
-
-<p>只有这样，才能保证运行Test后，浏览器自动退出，不影响下次执行。  <br/>
-在Jenkins中，也许你想查看测试结果，这个时候可以借助junit reporter。</p>
-
-<pre><code>reporters = ['junit'];
-junitReporter = {
-    outputFile: 'test-results.xml'
-};
-</code></pre>
-
-<p>那么，Junit格式的测试结果就存到了test-results.xml中。</p>
-
-<p>另外一种情况，我可能还想查看一下代码覆盖率。Karma也是支持的，要进行以下的配置：</p>
-
-<pre><code>reporters = ['coverage'];
-
-preprocessors = {
-    'src/*.js': 'coverage'
-};
-
-coverageReporter = {
-    type : 'cobertura',
-    dir : 'coverage/'
-};
-</code></pre>
-
-<p>这里，reporters指出了要生成coverage报告。preprocessors指明了要统计覆盖率的源码。coverageReporter里，指明type为cobertura，dir则是报告路径。type用多种选择，其中cobertura为Jenkins专属的。</p>
-
-<!--more-->
-
-
-<h3>一个Jenkins Job</h3>
-
-<p>1.新建一个自由风格（freestyle）的Job即可。 <br/>
-2.Restrict where this project can be run 里面填好前提条件中的机器名。当然如果直接是在Master结点，这个可以忽略。 <br/>
-3.源码管理部分，填写repository url。  <br/>
-4.在构建里，直接填写<code>karma start</code>即可。 <br/>
-5.在构建后操作里。选择Publish Cobertura Coverage Report,并指定生成的XML地址。如下图：</p>
-
-<p><img src="http://www.shenyanchao.cn/images/blog/karma-jenkins-cobertura.png" alt="karma-jenkins-cobertura" /></p>
-
-<p>6.在构建后操作里。选择Publish JUnit test result report,同样指定report的XML路径。如图：</p>
-
-<p><img src="http://www.shenyanchao.cn/images/blog/karma-jenkins-junit.png" alt="karma-jenkins-junit" /></p>
-
-<h3>Jenkins运行结果</h3>
-
-<p>Code Coverage结果： <br/>
-<img src="http://www.shenyanchao.cn/images/blog/karma-jenkins-codecoverage.png" alt="" /></p>
-
-<p>点击进入后，可以看到具体的覆盖率情况： <br/>
-<img src="http://www.shenyanchao.cn/images/blog/karma-jenkins-codecoverage-detail.png" alt="" /></p>
-
-<p>JUnit结果： <br/>
-<img src="http://www.shenyanchao.cn/images/blog/karma-jenkins-junit-report.png" alt="" /></p>
-
-<p>点进去后可以查看详细信息：<br/>
-<img src="http://www.shenyanchao.cn/images/blog/karma-jenkins-junit-report-detail.png" alt="" /></p>
-
-<h3>关于Coverage</h3>
-
-<p>coverageReporter的类型有以下几种：</p>
-
-<ul>
-<li>html (default)</li>
-<li>lcov (lcov and html)</li>
-<li>lcovonly</li>
-<li>text (standard output)</li>
-<li>text-summary (standard output)</li>
-<li>cobertura (xml format supported by Jenkins)</li>
-</ul>
-
-
-<p>Karma是使用<a href="http://gotwarlost.github.com/istanbul/">istanbul</a>来生成报告的，上面在Jenkins种使用的cobertura类型。如果不在CI环境中，那么可以考虑使用lcon或者html类型，report也是相当好看呢。 <br/>
-以下是lcov类型的Coverage结果：</p>
-
-<p><img src="http://www.shenyanchao.cn/images/blog/karma-lcov-1.png" alt="" /></p>
-
-<p>而下面的结果，则指明了哪行源码被覆盖了。 <br/>
-<img src="http://www.shenyanchao.cn/images/blog/karma-lcov-2.png" alt="" /></p>
 ]]></content>
   </entry>
   
