@@ -113,6 +113,66 @@
       ﻿
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2012/12/07/jmeter-distribution-step-by-step/">Jmeter 分布式 Step by Step</a></h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-07T13:25:00+08:00" pubdate data-updated="true">2012年12月07日 13:12:00</time>
+        
+         | <a href="/blog/2012/12/07/jmeter-distribution-step-by-step/#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+  <div class="entry-content"><h3>环境准备</h3>
+
+<ul>
+<li>Jmeter(本文以2.8为例)</li>
+<li>jdk 1.5+</li>
+<li>多台机器<br/>
+(假设3台，IP分别为：10.81.14.170，10.81.14.180，10.81.14.190)</li>
+</ul>
+
+
+<h3>工作原理</h3>
+
+<p>1台机器做为总控机，其他机器作为节点机。总控机器，负责将JMX脚本分发到节点机上，各个节点同时独立运行，向服务发出压力，总控机可以获取并汇总报告。 <br/>
+定义：</p>
+
+<blockquote><p>总控机为<strong>client</strong>，我们（用户）只与这太机器打交道。或者称之为<strong>Master</strong>; <br/>
+节点机器为<strong>server</strong>,它负责真正的向服务发出压力。或者称之为<strong>Slave</strong>;</p></blockquote>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/12/07/jmeter-distribution-step-by-step/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2012/12/04/mysqldump/">Mysqldump命令使用</a></h1>
     
 	<p class="meta">
@@ -324,73 +384,6 @@
 
     </article>
   
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/11/07/prototype-in-java/">设计模式：原型（prototype） in Java</a></h1>
-    
-	<p class="meta">
-    
-
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-07T20:41:00+08:00" pubdate data-updated="true">2012年11月07日 20:11:00</time>
-        
-         | <a href="/blog/2012/11/07/prototype-in-java/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content"><p><strong>定义：</strong>用原型实例指定创建对象的种类，并通过拷贝这些原型创建新的对象。<br/>
-基本上，可以就是一个clone方法，通过这个方法进行对象的拷贝。</p>
-
-<p>Java中的原型模式：</p>
-
-<pre><code>public class ProtoTypeClass implements Cloneable {
-
-    @Override
-    public ProtoTypeClass clone(){
-        ProtoTypeClass cloneObject = null;
-        try{
-            cloneObject = (ProtoTypeClass) super.clone();
-        }catch (Exception e) {
-            // TODO: handle exception
-        }
-        return cloneObject;
-    }
-}
-</code></pre>
-
-<p>上面就是实现了原型模式。不过Java在提供了Cloneable这一接口方便实现原型模式的同时，也带来了一些不容易注意到的问题。</p>
-
-<ul>
-<li>clone时，构造函数不会执行</li>
-<li>浅拷贝与深拷贝</li>
-</ul>
-
-
-<p>这两个问题是需要时刻注意的。由于本文主要不是讲Cloneable,所以另辟专题吧。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <ul class="pager">
     
     <li class="previous"><a href="/blog/page/9/">&larr; 上一页</a></li>
@@ -413,6 +406,10 @@
     <li class="nav-header">最近更新</li>
     
       <li class="post">
+        <a href="/blog/2013/09/24/performance-tuning-in-web-test/">Web系统性能调优常用技巧</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/09/16/git-ssh-connection/">提交代码到GitHub SSH错误解决方案</a>
       </li>
     
@@ -428,16 +425,12 @@
         <a href="/blog/2013/06/27/usage-dbunit/">DbUnit使用入门</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2013/06/21/mockito-in-brief/">Mockito简介</a>
-      </li>
-    
   </ul>
 </section>
 <section class="well">
 	<ul id="tags-cloud" class="nav nav-list">
 	<li class="nav-header">分类云</li>
-    <span id="tag-cloud"><a href='/blog/categories/apache' style='font-size: 102.4%'>apache(1)</a> <a href='/blog/categories/encode' style='font-size: 109.6%'>encode(4)</a> <a href='/blog/categories/git' style='font-size: 104.8%'>git(2)</a> <a href='/blog/categories/http' style='font-size: 104.8%'>HTTP(2)</a> <a href='/blog/categories/java' style='font-size: 104.8%'>java(2)</a> <a href='/blog/categories/java' style='font-size: 102.4%'>Java(1)</a> <a href='/blog/categories/javascript' style='font-size: 102.4%'>javascript(1)</a> <a href='/blog/categories/jenkins' style='font-size: 102.4%'>jenkins(1)</a> <a href='/blog/categories/jmeter' style='font-size: 104.8%'>jmeter(2)</a> <a href='/blog/categories/jvm' style='font-size: 104.8%'>JVM(2)</a> <a href='/blog/categories/linux' style='font-size: 102.4%'>linux(1)</a> <a href='/blog/categories/markdown' style='font-size: 104.8%'>markdown(2)</a> <a href='/blog/categories/maven' style='font-size: 114.4%'>maven(6)</a> <a href='/blog/categories/mysql' style='font-size: 104.8%'>mysql(2)</a> <a href='/blog/categories/nodejs' style='font-size: 116.8%'>nodejs(7)</a> <a href='/blog/categories/selenium' style='font-size: 121.6%'>selenium(9)</a> <a href='/blog/categories/selenium-wiki' style='font-size: 107.2%'>selenium-wiki(3)</a> <a href='/blog/categories/selenium官方文档' style='font-size: 109.6%'>selenium官方文档(4)</a> <a href='/blog/categories/testng' style='font-size: 102.4%'>testng(1)</a> <a href='/blog/categories/ubuntu' style='font-size: 102.4%'>ubuntu(1)</a> <a href='/blog/categories/ut' style='font-size: 104.8%'>ut(2)</a> <a href='/blog/categories/个人' style='font-size: 104.8%'>个人(2)</a> <a href='/blog/categories/测试' style='font-size: 104.8%'>测试(2)</a> <a href='/blog/categories/设计模式' style='font-size: 160.0%'>设计模式(25)</a> </span>
+    <span id="tag-cloud"><a href='/blog/categories/apache' style='font-size: 102.4%'>apache(1)</a> <a href='/blog/categories/encode' style='font-size: 109.6%'>encode(4)</a> <a href='/blog/categories/git' style='font-size: 104.8%'>git(2)</a> <a href='/blog/categories/http' style='font-size: 104.8%'>HTTP(2)</a> <a href='/blog/categories/java' style='font-size: 104.8%'>java(2)</a> <a href='/blog/categories/java' style='font-size: 102.4%'>Java(1)</a> <a href='/blog/categories/javascript' style='font-size: 102.4%'>javascript(1)</a> <a href='/blog/categories/jenkins' style='font-size: 102.4%'>jenkins(1)</a> <a href='/blog/categories/jmeter' style='font-size: 104.8%'>jmeter(2)</a> <a href='/blog/categories/jvm' style='font-size: 104.8%'>JVM(2)</a> <a href='/blog/categories/linux' style='font-size: 102.4%'>linux(1)</a> <a href='/blog/categories/markdown' style='font-size: 104.8%'>markdown(2)</a> <a href='/blog/categories/maven' style='font-size: 114.4%'>maven(6)</a> <a href='/blog/categories/mysql' style='font-size: 104.8%'>mysql(2)</a> <a href='/blog/categories/nodejs' style='font-size: 116.8%'>nodejs(7)</a> <a href='/blog/categories/selenium' style='font-size: 121.6%'>selenium(9)</a> <a href='/blog/categories/selenium-wiki' style='font-size: 107.2%'>selenium-wiki(3)</a> <a href='/blog/categories/selenium官方文档' style='font-size: 109.6%'>selenium官方文档(4)</a> <a href='/blog/categories/testng' style='font-size: 102.4%'>testng(1)</a> <a href='/blog/categories/ubuntu' style='font-size: 102.4%'>ubuntu(1)</a> <a href='/blog/categories/ut' style='font-size: 104.8%'>ut(2)</a> <a href='/blog/categories/个人' style='font-size: 104.8%'>个人(2)</a> <a href='/blog/categories/测试' style='font-size: 104.8%'>测试(2)</a> <a href='/blog/categories/设计模式' style='font-size: 160.0%'>设计模式(25)</a> <a href='/blog/categories/调优' style='font-size: 102.4%'>调优(1)</a> </span>
   </ul>
 </section>﻿<section class="well">
 <ul class="nav nav-list">
