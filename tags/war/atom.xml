@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Tag: war | Blues 小站]]></title>
+  <link href="http://www.shenyanchao.cn/tags/war/atom.xml" rel="self"/>
+  <link href="http://www.shenyanchao.cn/"/>
+  <updated>2013-11-20T19:30:30+08:00</updated>
+  <id>http://www.shenyanchao.cn/</id>
+  <author>
+    <name><![CDATA[ShenYanchao]]></name>
+    <email><![CDATA[zhiyi.shen@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Maven如何打包本地依赖包]]></title>
+    <link href="http://www.shenyanchao.cn/blog/2013/11/20/how-package-system-dependency-lib-in-maven/"/>
+    <updated>2013-11-20T19:04:00+08:00</updated>
+    <id>http://www.shenyanchao.cn/blog/2013/11/20/how-package-system-dependency-lib-in-maven</id>
+    <content type="html"><![CDATA[<h4>Maven如何依赖本地包？</h4>
+
+<p>有些依赖包在mavencentral上是没有的。那么如何在项目中使用呢？</p>
+
+<pre><code>    &lt;dependency&gt;
+        &lt;groupId&gt;org.wltea.ik-analyzer&lt;/groupId&gt;
+        &lt;artifactId&gt;ik-analyzer&lt;/artifactId&gt;
+        &lt;version&gt;3.2.8&lt;/version&gt;
+        &lt;scope&gt;system&lt;/scope&gt;
+        &lt;systemPath&gt;${project.basedir}/lib/ik-analyzer-3.2.8.jar&lt;/systemPath&gt;
+    &lt;/dependency&gt;
+</code></pre>
+
+<p>这里可以指明scope是system,然后制定这个依赖包的systemPath就可以啦。这里依ik-analyzer为例的。</p>
+
+<h4>如何将本地包打到war包内？</h4>
+
+<p>打war包，一般直接执行<code>mvn clean package</code>即可，但是默认的情况下是不能将scope=system的本地包打包的。这个时候就需要显式的指定啦。如下面这样，默认将lib下的所有jar文件打包到WEB-INF/lib下。当然也是可以打包其他的文件的，诸如xml,properties等的。</p>
+
+<pre><code>        &lt;plugin&gt;
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
+            &lt;version&gt;2.3&lt;/version&gt;
+            &lt;configuration&gt;
+                &lt;warName&gt;${project.artifactId}&lt;/warName&gt;
+                &lt;webResources&gt;
+                    &lt;resource&gt;
+                        &lt;directory&gt;lib/&lt;/directory&gt;
+                        &lt;targetPath&gt;WEB-INF/lib&lt;/targetPath&gt;
+                        &lt;includes&gt;
+                            &lt;include&gt;**/*.jar&lt;/include&gt;
+                        &lt;/includes&gt;
+                    &lt;/resource&gt;
+                &lt;/webResources&gt;
+            &lt;/configuration&gt;
+        &lt;/plugin&gt;
+</code></pre>
+]]></content>
+  </entry>
+  
+</feed>

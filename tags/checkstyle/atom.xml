@@ -4,7 +4,7 @@
   <title><![CDATA[Tag: checkstyle | Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/tags/checkstyle/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2013-09-25T13:19:25+08:00</updated>
+  <updated>2013-11-20T19:30:30+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -12,6 +12,117 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Maven项目集成CheckStyle，PMD，FindBugs进行静态代码扫描]]></title>
+    <link href="http://www.shenyanchao.cn/blog/2013/11/20/maven-project-integrate-checkstyle-pmd-findbugs/"/>
+    <updated>2013-11-20T19:22:00+08:00</updated>
+    <id>http://www.shenyanchao.cn/blog/2013/11/20/maven-project-integrate-checkstyle-pmd-findbugs</id>
+    <content type="html"><![CDATA[<p>在pom.xml里添加以下maven插件配置：</p>
+
+<pre><code>        &lt;!-- 静态代码检查 --&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;maven-checkstyle-plugin&lt;/artifactId&gt;
+            &lt;version&gt;2.10&lt;/version&gt;
+            &lt;configuration&gt;
+                &lt;configLocation&gt;checkstyle.xml&lt;/configLocation&gt;
+                &lt;failsOnError&gt;true&lt;/failsOnError&gt;
+                &lt;consoleOutput&gt;true&lt;/consoleOutput&gt;
+                &lt;linkXRef&gt;false&lt;/linkXRef&gt;
+                &lt;includes&gt;
+                    **/package/**.java
+                &lt;/includes&gt;
+            &lt;/configuration&gt;
+            &lt;!-- &lt;executions&gt;
+                 &lt;execution&gt;
+                     &lt;goals&gt;
+                         &lt;goal&gt;checkstyle&lt;/goal&gt;
+                     &lt;/goals&gt;
+                     &lt;phase&gt;validate&lt;/phase&gt;
+                 &lt;/execution&gt;
+             &lt;/executions&gt;--&gt;
+        &lt;/plugin&gt;
+
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;maven-pmd-plugin&lt;/artifactId&gt;
+            &lt;version&gt;2.7.1&lt;/version&gt;
+            &lt;configuration&gt;
+                &lt;failurePriority&gt;2&lt;/failurePriority&gt;
+                &lt;targetJdk&gt;1.6&lt;/targetJdk&gt;
+                &lt;rulesets&gt;
+                    &lt;ruleset&gt;pmd.xml&lt;/ruleset&gt;
+                &lt;/rulesets&gt;
+                &lt;includes&gt;
+                    &lt;include&gt;**/package/**.java&lt;/include&gt;
+                &lt;/includes&gt;
+            &lt;/configuration&gt;
+            &lt;!-- &lt;executions&gt;
+                 &lt;execution&gt;
+                     &lt;phase&gt;package&lt;/phase&gt;
+                     &lt;goals&gt;
+                         &lt;goal&gt;check&lt;/goal&gt;
+                     &lt;/goals&gt;
+                 &lt;/execution&gt;
+             &lt;/executions&gt;--&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+            &lt;artifactId&gt;findbugs-maven-plugin&lt;/artifactId&gt;
+            &lt;version&gt;2.5.2&lt;/version&gt;
+            &lt;configuration&gt;
+                &lt;onlyAnalyze&gt;cn.shenyanchao.service.*&lt;/onlyAnalyze&gt;
+                &lt;includeFilterFile&gt;findbugs.xml&lt;/includeFilterFile&gt;
+            &lt;/configuration&gt;
+        &lt;/plugin&gt;
+</code></pre>
+
+<p>这些配置集成了checkstyle,pmd,findbugs的插件。并指明了要使用的规则集合（checkstyle.xml,pmd.xml,findbugs.xml）。</p>
+
+<!--more-->
+
+
+<p></p>
+
+<h5>那么能否指定只扫描特定的包或者文件呢？</h5>
+
+<p>上面checkstyle用的是：</p>
+
+<pre><code> &lt;includes&gt;
+        **/package/**.java
+ &lt;/includes&gt;
+</code></pre>
+
+<p>pmd是：</p>
+
+<pre><code>                &lt;includes&gt;
+                    &lt;include&gt;**/package/**.java&lt;/include&gt;
+                &lt;/includes&gt;
+</code></pre>
+
+<p>findbugs则使用的是：</p>
+
+<pre><code> &lt;onlyAnalyze&gt;cn.shenyanchao.service.*&lt;/onlyAnalyze&gt;
+</code></pre>
+
+<h5>如何在编译期间或打包期间执行检查？</h5>
+
+<p>如上所示的注释掉部分，添加就可以了：</p>
+
+<pre><code>        &lt;executions&gt;
+                 &lt;execution&gt;
+                     &lt;phase&gt;package&lt;/phase&gt;
+                     &lt;goals&gt;
+                         &lt;goal&gt;check&lt;/goal&gt;
+                     &lt;/goals&gt;
+                 &lt;/execution&gt;
+             &lt;/executions&gt;
+</code></pre>
+
+<p>这里的意思是在mvn 执行打包package的时候进行check操作。因此如果check不通过，那么将不会编译打包成功。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[自定义CheckStyle规则]]></title>
