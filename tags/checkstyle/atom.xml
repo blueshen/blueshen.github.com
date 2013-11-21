@@ -4,7 +4,7 @@
   <title><![CDATA[Tag: checkstyle | Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/tags/checkstyle/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2013-11-20T19:51:53+08:00</updated>
+  <updated>2013-11-21T15:51:58+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -20,24 +20,27 @@
     <id>http://www.shenyanchao.cn/blog/2013/11/20/maven-project-integrate-checkstyle-pmd-findbugs</id>
     <content type="html"><![CDATA[<p>在pom.xml里添加以下maven插件配置：</p>
 
-<pre><code>&lt;!-- 静态代码检查 --&gt;
+<pre><code>    &lt;!-- 静态代码检查 --&gt;
 &lt;plugin&gt;
     &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
     &lt;artifactId&gt;maven-checkstyle-plugin&lt;/artifactId&gt;
-    &lt;version&gt;2.10&lt;/version&gt;
+    &lt;version&gt;2.11&lt;/version&gt;
     &lt;configuration&gt;
         &lt;configLocation&gt;checkstyle.xml&lt;/configLocation&gt;
-        &lt;failsOnError&gt;true&lt;/failsOnError&gt;
+        &lt;includeResources&gt;false&lt;/includeResources&gt;
+        &lt;failOnViolation&gt;true&lt;/failOnViolation&gt;
+        &lt;violationSeverity&gt;info&lt;/violationSeverity&gt;
+        &lt;maxAllowedViolations&gt;0&lt;/maxAllowedViolations&gt;
         &lt;consoleOutput&gt;true&lt;/consoleOutput&gt;
-        &lt;linkXRef&gt;false&lt;/linkXRef&gt;
+        &lt;encoding&gt;UTF-8&lt;/encoding&gt;
         &lt;includes&gt;
-            **/package/**.java
+            **\/package\/**.java,**\/otherpackage\/**.java
         &lt;/includes&gt;
     &lt;/configuration&gt;
-    &lt;!-- &lt;executions&gt;
+&lt;!--     &lt;executions&gt;
          &lt;execution&gt;
              &lt;goals&gt;
-                 &lt;goal&gt;checkstyle&lt;/goal&gt;
+                 &lt;goal&gt;check&lt;/goal&gt;
              &lt;/goals&gt;
              &lt;phase&gt;validate&lt;/phase&gt;
          &lt;/execution&gt;
@@ -49,16 +52,20 @@
     &lt;artifactId&gt;maven-pmd-plugin&lt;/artifactId&gt;
     &lt;version&gt;2.7.1&lt;/version&gt;
     &lt;configuration&gt;
-        &lt;failurePriority&gt;2&lt;/failurePriority&gt;
-        &lt;targetJdk&gt;1.6&lt;/targetJdk&gt;
+        &lt;failurePriority&gt;5&lt;/failurePriority&gt;
+        &lt;failOnViolation&gt;true&lt;/failOnViolation&gt;
+        &lt;targetJdk&gt;${jdk.version}&lt;/targetJdk&gt;
+        &lt;verbose&gt;true&lt;/verbose&gt;
+        &lt;outputEncoding&gt;UTF-8&lt;/outputEncoding&gt;
         &lt;rulesets&gt;
             &lt;ruleset&gt;pmd.xml&lt;/ruleset&gt;
         &lt;/rulesets&gt;
         &lt;includes&gt;
-            &lt;include&gt;**/package/**.java&lt;/include&gt;
+            &lt;include&gt;**\/package\/**.java&lt;/include&gt;
+            &lt;include&gt;**\/otherpackage\/**.java&lt;/include&gt;
         &lt;/includes&gt;
     &lt;/configuration&gt;
-    &lt;!-- &lt;executions&gt;
+  &lt;!--   &lt;executions&gt;
          &lt;execution&gt;
              &lt;phase&gt;package&lt;/phase&gt;
              &lt;goals&gt;
@@ -72,9 +79,22 @@
     &lt;artifactId&gt;findbugs-maven-plugin&lt;/artifactId&gt;
     &lt;version&gt;2.5.2&lt;/version&gt;
     &lt;configuration&gt;
-        &lt;onlyAnalyze&gt;cn.shenyanchao.service.*&lt;/onlyAnalyze&gt;
+        &lt;onlyAnalyze&gt;
+            cn.shenyanchao.package.*,
+            cn.shenyanchao.otherpackage.*,
+        &lt;/onlyAnalyze&gt;
         &lt;includeFilterFile&gt;findbugs.xml&lt;/includeFilterFile&gt;
+        &lt;failOnError&gt;true&lt;/failOnError&gt;
+        &lt;outputEncoding&gt;UTF-8&lt;/outputEncoding&gt;
     &lt;/configuration&gt;
+ &lt;!--   &lt;executions&gt;
+        &lt;execution&gt;
+            &lt;phase&gt;package&lt;/phase&gt;
+            &lt;goals&gt;
+                &lt;goal&gt;check&lt;/goal&gt;
+            &lt;/goals&gt;
+        &lt;/execution&gt;
+    &lt;/executions&gt;--&gt;
 &lt;/plugin&gt;
 </code></pre>
 
@@ -89,21 +109,25 @@
 
 <p>上面checkstyle用的是：</p>
 
-<pre><code> &lt;includes&gt;
-        **/package/**.java
- &lt;/includes&gt;
+<pre><code>&lt;includes&gt;
+    **\/package\/**.java,**\/otherpackage\/**.java
+&lt;/includes&gt;
 </code></pre>
 
 <p>pmd是：</p>
 
 <pre><code>&lt;includes&gt;
-    &lt;include&gt;**/package/**.java&lt;/include&gt;
+    &lt;include&gt;**\/package\/**.java&lt;/include&gt;
+    &lt;include&gt;**\/otherpackage\/**.java&lt;/include&gt;
 &lt;/includes&gt;
 </code></pre>
 
 <p>findbugs则使用的是：</p>
 
-<pre><code> &lt;onlyAnalyze&gt;cn.shenyanchao.service.*&lt;/onlyAnalyze&gt;
+<pre><code>&lt;onlyAnalyze&gt;
+    cn.shenyanchao.package.*,
+    cn.shenyanchao.otherpackage.*,
+&lt;/onlyAnalyze&gt;
 </code></pre>
 
 <h5>如何在编译期间或打包期间执行检查？</h5>
