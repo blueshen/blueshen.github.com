@@ -113,6 +113,162 @@
       ﻿
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2013/11/26/the-principle-of-ssh/">SSH原理</a></h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-26T16:04:00+08:00" pubdate data-updated="true">2013年11月26日 16:11:00</time>
+        
+         | <a href="/blog/2013/11/26/the-principle-of-ssh/#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+  <div class="entry-content"><h3>一、什么是SSH？</h3>
+
+<p>简单说，SSH是一种网络协议，用于计算机之间的加密登录。</p>
+
+<p>如果一个用户从本地计算机，使用SSH协议登录另一台远程计算机，我们就可以认为，这种登录是安全的，即使被中途截获，密码也不会泄露。</p>
+
+<p>最早的时候，互联网通信都是明文通信，一旦被截获，内容就暴露无疑。1995年，芬兰学者Tatu Ylonen设计了SSH协议，将登录信息全部加密，成为互联网安全的一个基本解决方案，迅速在全世界获得推广，目前已经成为Linux系统的标准配置。</p>
+
+<p>需要指出的是，SSH只是一种协议，存在多种实现，既有商业实现，也有开源实现。本文针对的实现是OpenSSH，它是自由软件，应用非常广泛。</p>
+
+<h3>二、最基本的用法</h3>
+
+<p>SSH主要用于远程登录。假定你要以用户名user，登录远程主机host，只要一条简单命令就可以了。</p>
+
+<pre><code>$ ssh user@host
+</code></pre>
+
+<p>如果本地用户名与远程用户名一致，登录时可以省略用户名。</p>
+
+<pre><code>$ ssh host
+</code></pre>
+
+<p>SSH的默认端口是22，也就是说，你的登录请求会送进远程主机的22端口。使用p参数，可以修改这个端口。</p>
+
+<p>　　$ ssh -p 2222 user@host</p>
+
+<p>上面这条命令表示，ssh直接连接远程主机的2222端口。</p>
+
+<h3>三、中间人攻击</h3>
+
+<p>SSH之所以能够保证安全，原因在于它采用了公钥加密。</p>
+
+<p>整个过程是这样的：（1）远程主机收到用户的登录请求，把自己的公钥发给用户。（2）用户使用这个公钥，将登录密码加密后，发送回来。（3）远程主机用自己的私钥，解密登录密码，如果密码正确，就同意用户登录。  <br/>
+这个过程本身是安全的，但是实施的时候存在一个风险：如果有人截获了登录请求，然后冒充远程主机，将伪造的公钥发给用户，那么用户很难辨别真伪。因为不像https协议，SSH协议的公钥是没有证书中心（CA）公证的，也就是说，都是自己签发的。</p>
+
+<p>可以设想，如果攻击者插在用户与远程主机之间（比如在公共的wifi区域），用伪造的公钥，获取用户的登录密码。再用这个密码登录远程主机，那么SSH的安全机制就荡然无存了。这种风险就是著名的&#8221;中间人攻击&#8221;（Man-in-the-middle attack）。 <br/>
+SSH协议是如何应对的呢？</p>
+
+<h3>四、口令登录</h3>
+
+<p>如果你是第一次登录对方主机，系统会出现下面的提示：</p>
+
+<pre><code>$ ssh user@host
+The authenticity of host 'host (12.18.429.21)' can't be established.
+RSA key fingerprint is 98:2e:d7:e0:de:9f:ac:67:28:c2:42:2d:37:16:58:4d.
+Are you sure you want to continue connecting (yes/no)?
+</code></pre>
+
+<p>这段话的意思是，无法确认host主机的真实性，只知道它的公钥指纹，问你还想继续连接吗？  <br/>
+所谓&#8221;公钥指纹&#8221;，是指公钥长度较长（这里采用RSA算法，长达1024位），很难比对，所以对其进行MD5计算，将它变成一个128位的指纹。上例中是98:2e:d7:e0:de:9f:ac:67:28:c2:42:2d:37:16:58:4d，再进行比较，就容易多了。   <br/>
+很自然的一个问题就是，用户怎么知道远程主机的公钥指纹应该是多少？回答是没有好办法，远程主机必须在自己的网站上贴出公钥指纹，以便用户自行核对。   <br/>
+假定经过风险衡量以后，用户决定接受这个远程主机的公钥。</p>
+
+<pre><code>Are you sure you want to continue connecting (yes/no)? yes
+</code></pre>
+
+<p>系统会出现一句提示，表示host主机已经得到认可。</p>
+
+<pre><code>Warning: Permanently added 'host,12.18.429.21' (RSA) to the list of known hosts.
+</code></pre>
+
+<p>然后，会要求输入密码。</p>
+
+<pre><code>Password: (enter password)
+</code></pre>
+
+<p>如果密码正确，就可以登录了。   <br/>
+当远程主机的公钥被接受以后，它就会被保存在文件$HOME/.ssh/known_hosts之中。下次再连接这台主机，系统就会认出它的公钥已经保存在本地了，从而跳过警告部分，直接提示输入密码。   <br/>
+每个SSH用户都有自己的known_hosts文件，此外系统也有一个这样的文件，通常是/etc/ssh/ssh_known_hosts，保存一些对所有用户都可信赖的远程主机的公钥。</p>
+
+<h3>五、公钥登录</h3>
+
+<p>使用密码登录，每次都必须输入密码，非常麻烦。好在SSH还提供了公钥登录，可以省去输入密码的步骤。   <br/>
+所谓&#8221;公钥登录&#8221;，原理很简单，就是用户将自己的公钥储存在远程主机上。登录的时候，远程主机会向用户发送一段随机字符串，用户用自己的私钥加密后，再发回来。远程主机用事先储存的公钥进行解密，如果成功，就证明用户是可信的，直接允许登录shell，不再要求密码。   <br/>
+这种方法要求用户必须提供自己的公钥。如果没有现成的，可以直接用ssh-keygen生成一个：</p>
+
+<pre><code>$ ssh-keygen
+</code></pre>
+
+<p>运行上面的命令以后，系统会出现一系列提示，可以一路回车。其中有一个问题是，要不要对私钥设置口令（passphrase），如果担心私钥的安全，这里可以设置一个。</p>
+
+<p>运行结束以后，在$HOME/.ssh/目录下，会新生成两个文件：id_rsa.pub和id_rsa。前者是你的公钥，后者是你的私钥。   <br/>
+这时再输入下面的命令，将公钥传送到远程主机host上面：</p>
+
+<pre><code>$ ssh-copy-id user@host
+</code></pre>
+
+<p>好了，从此你再登录，就不需要输入密码了。    <br/>
+如果还是不行，就打开远程主机的/etc/ssh/sshd_config这个文件，检查下面几行前面&#8221;#&#8221;注释是否取掉。</p>
+
+<pre><code>RSAAuthentication yes
+PubkeyAuthentication yes
+AuthorizedKeysFile .ssh/authorized_keys
+</code></pre>
+
+<p>然后，重启远程主机的ssh服务。</p>
+
+<pre><code>// ubuntu系统
+service ssh restart
+// debian系统
+/etc/init.d/ssh restart
+</code></pre>
+
+<h3>六、authorized_keys文件</h3>
+
+<p>远程主机将用户的公钥，保存在登录后的用户主目录的$HOME/.ssh/authorized_keys文件中。公钥就是一段字符串，只要把它追加在authorized_keys文件的末尾就行了。</p>
+
+<p>这里不使用上面的ssh-copy-id命令，改用下面的命令，解释公钥的保存过程：</p>
+
+<pre><code>$ ssh user@host 'mkdir -p .ssh &amp;&amp; cat &gt;&gt; .ssh/authorized_keys' &lt; ~/.ssh/id_rsa.pub     
+</code></pre>
+
+<p>这条命令由多个语句组成，依次分解开来看： <br/>
+（1）<code>$ ssh user@host</code>，表示登录远程主机； <br/>
+（2）单引号中的<code>mkdir .ssh &amp;&amp; cat &gt;&gt; .ssh/authorized_keys</code>，表示登录后在远程shell上执行的命令： <br/>
+（3）<code>$ mkdir -p .ssh</code>的作用是，如果用户主目录中的.ssh目录不存在，就创建一个;   <br/>
+（4）<code>cat &gt;&gt; .ssh/authorized_keys' &lt; ~/.ssh/id_rsa.pub</code>的作用是，将本地的公钥文件<code>~/.ssh/id_rsa.pub</code>，重定向追加到远程文件authorized_keys的末尾。    <br/>
+写入authorized_keys文件后，公钥登录的设置就完成了。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2013/11/20/maven-project-integrate-checkstyle-pmd-findbugs/">Maven项目集成CheckStyle,PMD,FindBugs进行静态代码扫描</a></h1>
     
 	<p class="meta">
@@ -433,69 +589,6 @@ acceptCount 默认值是100</p>
 
     </article>
   
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2013/09/16/git-ssh-connection/">提交代码到GitHub SSH错误解决方案</a></h1>
-    
-	<p class="meta">
-    
-
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-09-16T18:08:00+08:00" pubdate data-updated="true">2013年09月16日 18:09:00</time>
-        
-         | <a href="/blog/2013/09/16/git-ssh-connection/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content"><p>最近，由于公司内部的网络改造，在<code>git push</code>的时候提示如下信息：</p>
-
-<pre><code>ssh: connect to host github.com port 22: Connection timed out
-fatal: Could not read from remote repository.
-
-Please make sure you have the correct access rights
-and the repository exists.
-</code></pre>
-
-<p>看字面的意思就是连接超时了，什么原因造成的呢，这个估计是公司网络禁用了SSH的22端口导致的。所幸git提供了https、git、ssh三种协议来读写。</p>
-
-<p>运行<code>git config --local -e</code>打开配置信息。 <br/>
-修改其中的</p>
-
-<pre><code>url = git@github.com:username/repo.git
-</code></pre>
-
-<p>为</p>
-
-<pre><code>url = https://username@github.com/username/repo.git
-</code></pre>
-
-<p>这样就改为使用https协议了。提交什么的就OK了。</p>
-
-<p>后来，我再使用Octopress提交博客的时候问题又出现了。也就是在<code>rake deploy</code>的时候，又走ssh了。此时只要进入_deploy目录，把上述步骤再执行一次就好了。就是每次提交都要输入用户名密码而已。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <ul class="pager">
     
     <li class="previous"><a href="/blog/page/2/">&larr; 上一页</a></li>
@@ -516,6 +609,10 @@ and the repository exists.
     <li class="nav-header">最近更新</li>
     
       <li class="post">
+        <a href="/blog/2013/11/26/the-principle-of-ssh/">SSH原理</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/11/20/maven-project-integrate-checkstyle-pmd-findbugs/">Maven项目集成CheckStyle,PMD,FindBugs进行静态代码扫描</a>
       </li>
     
@@ -531,16 +628,12 @@ and the repository exists.
         <a href="/blog/2013/09/24/performance-tuning-in-web-test/">Web系统性能调优常用技巧</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2013/09/16/git-ssh-connection/">提交代码到GitHub SSH错误解决方案</a>
-      </li>
-    
   </ul>
 </section>
 <section class="well">
 	<ul id="tags-cloud" class="nav nav-list">
 	<li class="nav-header">分类云</li>
-    <span id="tag-cloud"><a href='/blog/categories/apache' style='font-size: 102.4%'>apache(1)</a> <a href='/blog/categories/checkstyle' style='font-size: 102.4%'>checkstyle(1)</a> <a href='/blog/categories/encode' style='font-size: 109.6%'>encode(4)</a> <a href='/blog/categories/git' style='font-size: 104.8%'>git(2)</a> <a href='/blog/categories/http' style='font-size: 104.8%'>HTTP(2)</a> <a href='/blog/categories/java' style='font-size: 104.8%'>java(2)</a> <a href='/blog/categories/java' style='font-size: 102.4%'>Java(1)</a> <a href='/blog/categories/javascript' style='font-size: 102.4%'>javascript(1)</a> <a href='/blog/categories/jenkins' style='font-size: 102.4%'>jenkins(1)</a> <a href='/blog/categories/jmeter' style='font-size: 104.8%'>jmeter(2)</a> <a href='/blog/categories/jvm' style='font-size: 104.8%'>JVM(2)</a> <a href='/blog/categories/linux' style='font-size: 102.4%'>linux(1)</a> <a href='/blog/categories/markdown' style='font-size: 104.8%'>markdown(2)</a> <a href='/blog/categories/maven' style='font-size: 119.2%'>maven(8)</a> <a href='/blog/categories/mysql' style='font-size: 104.8%'>mysql(2)</a> <a href='/blog/categories/nodejs' style='font-size: 116.8%'>nodejs(7)</a> <a href='/blog/categories/selenium' style='font-size: 121.6%'>selenium(9)</a> <a href='/blog/categories/selenium-wiki' style='font-size: 107.2%'>selenium-wiki(3)</a> <a href='/blog/categories/selenium官方文档' style='font-size: 109.6%'>selenium官方文档(4)</a> <a href='/blog/categories/testng' style='font-size: 102.4%'>testng(1)</a> <a href='/blog/categories/ubuntu' style='font-size: 102.4%'>ubuntu(1)</a> <a href='/blog/categories/ut' style='font-size: 104.8%'>ut(2)</a> <a href='/blog/categories/个人' style='font-size: 104.8%'>个人(2)</a> <a href='/blog/categories/测试' style='font-size: 104.8%'>测试(2)</a> <a href='/blog/categories/设计模式' style='font-size: 160.0%'>设计模式(25)</a> <a href='/blog/categories/调优' style='font-size: 102.4%'>调优(1)</a> </span>
+    <span id="tag-cloud"><a href='/blog/categories/apache' style='font-size: 102.4%'>apache(1)</a> <a href='/blog/categories/checkstyle' style='font-size: 102.4%'>checkstyle(1)</a> <a href='/blog/categories/encode' style='font-size: 109.6%'>encode(4)</a> <a href='/blog/categories/git' style='font-size: 104.8%'>git(2)</a> <a href='/blog/categories/http' style='font-size: 104.8%'>HTTP(2)</a> <a href='/blog/categories/java' style='font-size: 102.4%'>Java(1)</a> <a href='/blog/categories/java' style='font-size: 104.8%'>java(2)</a> <a href='/blog/categories/javascript' style='font-size: 102.4%'>javascript(1)</a> <a href='/blog/categories/jenkins' style='font-size: 102.4%'>jenkins(1)</a> <a href='/blog/categories/jmeter' style='font-size: 104.8%'>jmeter(2)</a> <a href='/blog/categories/jvm' style='font-size: 104.8%'>JVM(2)</a> <a href='/blog/categories/linux' style='font-size: 104.8%'>linux(2)</a> <a href='/blog/categories/markdown' style='font-size: 104.8%'>markdown(2)</a> <a href='/blog/categories/maven' style='font-size: 119.2%'>maven(8)</a> <a href='/blog/categories/mysql' style='font-size: 104.8%'>mysql(2)</a> <a href='/blog/categories/nodejs' style='font-size: 116.8%'>nodejs(7)</a> <a href='/blog/categories/selenium' style='font-size: 121.6%'>selenium(9)</a> <a href='/blog/categories/selenium-wiki' style='font-size: 107.2%'>selenium-wiki(3)</a> <a href='/blog/categories/selenium官方文档' style='font-size: 109.6%'>selenium官方文档(4)</a> <a href='/blog/categories/testng' style='font-size: 102.4%'>testng(1)</a> <a href='/blog/categories/ubuntu' style='font-size: 102.4%'>ubuntu(1)</a> <a href='/blog/categories/ut' style='font-size: 104.8%'>ut(2)</a> <a href='/blog/categories/个人' style='font-size: 104.8%'>个人(2)</a> <a href='/blog/categories/测试' style='font-size: 104.8%'>测试(2)</a> <a href='/blog/categories/设计模式' style='font-size: 160.0%'>设计模式(25)</a> <a href='/blog/categories/调优' style='font-size: 102.4%'>调优(1)</a> </span>
   </ul>
 </section>﻿<section class="well">
 <ul class="nav nav-list">
