@@ -4,7 +4,7 @@
   <title><![CDATA[Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2013-11-26T16:36:51+08:00</updated>
+  <updated>2013-12-04T18:04:29+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -12,6 +12,113 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[《程序员修炼之道》读书笔记]]></title>
+    <link href="http://www.shenyanchao.cn/blog/2013/12/04/the-pragmatic-programmer-reading-notes/"/>
+    <updated>2013-12-04T15:45:00+08:00</updated>
+    <id>http://www.shenyanchao.cn/blog/2013/12/04/the-pragmatic-programmer-reading-notes</id>
+    <content type="html"><![CDATA[<p>《程序员修炼之道-从小工到专家》写的具有普遍意义的指导方法。很少有具体的开发讲解，更多的是告诉你，作为一个程序员，你应该具有哪些素质，以及怎么做。下面是我对书中印象比较深的一些记录。</p>
+
+<h3>关于心态</h3>
+
+<h4>石头汤与煮青蛙</h4>
+
+<blockquote><p>三个士兵从战场返回家乡，在路上饿了，他们看见前面有村庄，就来了精神(他们相信村民会给他们一顿饭吃)。但当他们到达那里，却发现门锁着，窗户也关着。经历了多年的战乱，村名们粮食匮乏，并把他们仅有的一点粮食藏了起来。</p>
+
+<p>士兵们并没有气馁，他们煮开一锅水，小心地把三块石头放进去。吃惊的村民走出来望着他们。</p>
+
+<p>“这是石头汤。”士兵们解释说。“就放这些吗？”村民们问。“一点也没错——但是有人说加一些胡萝卜味道更好&#8230;&#8230;.” 一个村民跑开了，又很快带着他储藏的一篮胡萝卜跑回来。
+几分钟后，村民们又问：“就这些了吗？”</p>
+
+<p>“啊，”士兵们说：“几个土豆会让汤更实在。”又一个村民跑开了。</p>
+
+<p>接下来的一小时，士兵们列举了更多让汤更鲜美的配料：牛肉，韭菜，盐，还有香菜。每一次都会有一个不同的村民跑回去搜寻自己的私人储藏品。</p>
+
+<p>最后他们煮出了一大锅热气腾腾的汤。士兵们掉石头，和所有的村民一起享用了一顿美餐，这是几个月以来他们所有人第一次吃饱饭。</p></blockquote>
+
+<!--more-->
+
+
+<p>在石头汤的故事里有两层寓意。</p>
+
+<p>士兵们戏弄了村民，他们利用村民的好奇，从他们那里弄到了食物。但更重要的是，士兵充当了催化剂，把村名团结起来，和他们一起做到了他们自己本来做不到的事情—— 一项协作的成果。最后每个人都是赢家。</p>
+
+<p>另一方面，石头汤的故事也是关于温和渐进的欺骗的故事。它讲述的是过于集中的注意力。村民们想到了石头，却忘记了世界的其余部分。我们都是这样，每一天,事情都会悄悄爬到我们身上。</p>
+
+<p>我们现在是程序员，那你的目标是什么呢？当然是软件的总设计师—— 项目经理。那又会有什么启示呢？你常常是否也可以效仿这些士兵，做一个聪明的项目经理呢？在有些情况下，你也许确切的知道需要做什么，以及怎样去做。整个项目就在你的眼前，完全在你的掌控之中—— 你知道它是对的。但随着项目的深入，问题的复杂化，你会遇到拖延和漠然。这时你将会怎么做呢？你可以把项目看成是石头，把我们的成员看成是村民，而把我们自己看成是士兵。因为每个人都会保卫他们自己的资源。这正是拿出石头的时候。设计出你可以合理请求的东西，好好的开发它。一旦完成就拿给大家看，让他们大吃一惊。然后说：“要是我们增加…….可能就会更好。”然后假装那并不重要。坐回椅子上，等他们开始增加你本来就想增加的功能。这时大家就会发现参与正在发生的成功更容易。让他们去创造未来，你就会让他们聚集在你的周围，最大化的发挥团队的作用。</p>
+
+<p>再来看两个案例。</p>
+
+<blockquote><p>如果你抓一只青蛙放进沸水里，他会一下子跳出来。但是你把青蛙放进冷水里，然后慢慢加热，青蛙不会注意到温度的缓慢变化，会呆在锅里，直到被煮熟。</p>
+
+<p>一扇破窗户，只要有那么一段时间不修理，就会渐渐给建筑物周围的居民带来一种废弃感。于是又一扇窗户破了，人们开始乱扔垃圾，出现了乱涂乱画，慢慢的更严重的结构破坏开始了。在相对较短的一段时间里，建筑就被损毁的超出了业主想象的程度，也超出了业主愿意修理的程度，而废弃感则变成了现实！</p></blockquote>
+
+<p>锅里的那只可怜的青蛙是谁？它没有注意到周围环境的渐变，最终被煮熟了。同样的事情也会发生在不警醒的人身上。在项目开发高涨的热度里，很难再用一只眼睛注意中周围的环境。这又引出了一个“破窗户”的理论。一扇破窗户，只要有那么一段时间不修理，就会渐渐给建筑物周围的居民带来一种废弃感。于是又一扇窗户破了，人们开始乱扔垃圾，出现了乱涂乱画，慢慢的更严重的结构破坏开始了。在相对较短的一段时间里，建筑就被损毁的超出了业主想象的程度，也超出了业主愿意修理的程度，而废弃感则变成了现实！那我们如何解决呢？很简单，当第一扇破窗户出现时就及时的修理。</p>
+
+<p>当然我们也看到过这样的症状。项目慢慢的不可改变的完全失去控制。大多数的软件灾难都是从微不足道的小事情开始的，大多数项目的拖延也都是一天一天发生的。系统一个特性一个特性地偏离其规范，项目的目标也慢慢的偏离轨道，直到整个项目的失败。常常是小事情的积累破坏了士气和团队，因为众所周知的困难是不会导致失败的，只有那些微不足道的小事才会导致失败。这些小事并不会立即显现出来，它只会在积累到一定程度时才会爆发。</p>
+
+<p>作为整体开发的团队更容易被煮熟。所以未来的项目经理们，我们要时刻，持续地检查范围的扩大，时间的减缩，新增特性，新环境 ——任何不在初期的约定中定义的东西。因为团队无需拒绝不在预计中的变化—— 只要你注意到它们正在发生。记住，当出现第一扇破窗户时就及时修理。否则，你就会置身于热水之中。</p>
+
+<h3>关于工具</h3>
+
+<h3>文本编辑器</h3>
+
+<p>文本处理是每个程序员无法回避的问题。首先，要选择编辑器。一个好的编辑器应该具有以下的特性：</p>
+
+<ul>
+<li>可配置</li>
+<li>可扩展</li>
+<li>可编程</li>
+</ul>
+
+
+<p>一旦你选择了一种编辑器，就彻底的了解它，并将其用于所有的编辑任务。如果你用一种编辑器进行所有的文本编辑活动，你就不必停下来思考怎样完成文本操纵。编辑器将成为你双手的延伸。 <br/>
+知道了这些应该怎么做？</p>
+
+<table border="1px">
+<tr>
+<th>如果你现在这样&#8230;</th><th>那么考虑&#8230;</th>
+</tr>
+<tr>
+<td>我使用不同的编辑器，但只使用其基本特性。</td><td>选一种强大的编辑器，好好学习它。</td>
+</tr>
+<tr>
+<td>我有最喜欢的编辑器，但不使用其全部特性。</td><td>学习它们。减少你需要敲击的键数</td>
+</tr>
+<tr>
+<td>我有最喜欢的编辑器，只要可能就使用它。</td><td>设法扩展它，并将其用于比现在更多的任务。</td>
+</tr>
+<tr>
+<td>我认为你们在胡说。notepad就是有史以来最好的编辑器。</td><td>只要你愿意，并且生产率很高，那就这样吧！但如果你发现自己在羡慕别人的编辑器，你可能需要重新评估自己的位置啦。</td>
+</tr>
+</table>
+
+
+<p><strong>推荐工具：</strong>Emacs,vi,CRiSP,Brief以及其他的跨平台软件。  <br/>
+珍惜生命，远离office哦。</p>
+
+<h4>源码控制</h4>
+
+<p>源码控制系统追踪你在源码和文档中的每一项变动。并且能在适当的时候进行undo操作。</p>
+
+<p>把源码置于源码控制系统的保护之下具有一个很大，隐蔽的好处：可以进行自动的和可重复的产品持续集成构建。</p>
+
+<h3>关于编码</h3>
+
+<p>注重时效的程序员批判的思考所有代码，包括自己写的。要相信从来没有完美的软件。不能靠运气和偶然的成功，而要深思熟虑的编程。并且要考虑算法的效率。</p>
+
+<p>适时的进行重构。Martin Fowler告诉我们如何进行利大于弊的重构。</p>
+
+<ul>
+<li>不要试图在重构的同时增加功能</li>
+<li>在开始重构之前，确保你拥有良好的测试。尽可能经常运行这些测试。这样，如果你的改动破坏了任何东西，你就能很快的知道。</li>
+</ul>
+
+
+<p>重构需要良好的测试代码。测试代码的存在要求代码有很好的可测性。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[SSH原理]]></title>
@@ -5963,706 +6070,6 @@ WebDriver driver = new RemoteWebDriver(executor, capabilities);
 <h2>接下来</h2>
 
 <p>本章节简要地从较高的层面介绍了 WebDriver 和其可信功能。一旦你熟悉了 Selenium WebDriver API 你可能会想要学习如何创建一个易于维护、可扩展的测试套件，并且提高哪些特性频繁修改的 AUT 的健壮性。大多数 Selenium 专家推荐的一种方式是：使用页面对象设计模式（可能是一个页面工厂）来设计你的测试代码。 Selenium WebDriver 在 Java 和 C sharp 中通过一个 PageFactory 类提供了这项支持。它同其他高级话题一样，将在下一章节讨论。同时，对于此项技术的较高层次的描述，你可以希望查看“测试设计考虑”章节。这两个章节都描述了如何通过模块化的思想使你的测试代码更易于维护。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[selenium文档:selenium RC]]></title>
-    <link href="http://www.shenyanchao.cn/blog/2013/05/30/selenium-doc-selenium-rc/"/>
-    <updated>2013-05-30T19:55:00+08:00</updated>
-    <id>http://www.shenyanchao.cn/blog/2013/05/30/selenium-doc-selenium-rc</id>
-    <content type="html"><![CDATA[<h1>Selenium 1 (Selenium RC)¶</h1>
-
-<h2>介绍</h2>
-
-<p>正如你在 Selenium 项目简史里读到的，Selenium RC 在很长一段时间内都是 Selenium 的主要项目，直到 WebDriver/Selenium 合并而产生了最新和最强大的 Selenium 2。</p>
-
-<p>Selenium 仍然被活跃的支持（大部分是维护工作），并且提供了一些 Selenium 2 短期不会支持的特性，包括支持多语言 (Java, Javascript, Ruby, PHP, Python, Perl 和 C#) 和支持几乎所有的浏览器。</p>
-
-<h2>Selenium RC 如何工作</h2>
-
-<p>首先，我们将讲述 Selenium RC 的组件如何操作，以及在测试脚本运行时各自扮演的角色。</p>
-
-<h3>RC 组件</h3>
-
-<p>Selenium RC 组件是：</p>
-
-<p>Selenium Server 能启动和杀死浏览器进程，解析并运行由测试程序传递过来的 Selenese 命令，并且可以是一个 HTTP 代理，拦截和验证浏览器和 AUT(测试中的应用)之间的 HTTP 通信。</p>
-
-<!--more-->
-
-
-<p>客户端库提供了各种编程语言和 Selenium RC Server 之间的接口。</p>
-
-<p>以下是一个简单的架构图：</p>
-
-<p><img src="http://seleniumhq.org/docs/_images/chapt5_img01_Architecture_Diagram_Simple.png" alt="架构图" /></p>
-
-<p>上图演示了客户端和服务端进行通信以传递要执行的 Selenium 命令。然后服务端使用 Selenium-Core JavaScript 命令将 Selenium 命令传递给浏览器。浏览器则使用其内置的 JavaScript 解析器来执行 Selenium 命令。这样运行 Seleniun 动作或者验证你指定的测试脚本。</p>
-
-<h3>Selenium 服务端</h3>
-
-<p>Selenium 服务端从你的测试程序接收 Selenium 命令，解析它们，并且反馈给你程序的测试执行结果。</p>
-
-<p>RC 服务端绑定了 Selenium Core 并且自动将其注入浏览器。这在你的测试程序打开浏览器时发生（使用客户端库的方法）。Selenium-Core 是一个 JavaScript 程序，实际上是一些利用浏览器的内置 JavaScript 解析器解析和实行 Selenese 命令 的 JavaScript 函数。</p>
-
-<p>Server 使用简单的 HTTP GET/POST 请求来接收你的测试程序中的 Selenese 命令。这意味这你可以使用任何可以发送 HTTP 请求的编程语言来实现 Selenium 测试在浏览器中的自动运行。</p>
-
-<h3>客户端库</h3>
-
-<p>客户端库提供了能让你从自定义的程序中运行 Selenium 命令的编程支持。每种支持的语言都有一个不同的客户端库。Selenium 客户端库提供了一组接口，例如一些从你的程序中运行 Selenium 命令的方法。通过实现这些接口，我们就能得到一个支持所有 Selenese 命令的编程方法。</p>
-
-<p>客户端库将 Selenese 命令传递给 Selenium 服务端来处理一个特定的动作或者执行 AUT 的测试。客户端库同时接收所传递命令的执行结果，并将其返回给你的程序。你的程序可以接收这个结果并且将其存储到一个变量中，然后报告其运行结果是成功还是失败，或者当其发生错误是进行适当的处理。</p>
-
-<p>因此要创建一个测试程序，你仅仅需要使用客户端库的 API 来编写一个可以运行 Selenium 命令的程序。或者，如果你已经有了使用 Selenium-IDE 创建的 Selenium 测试脚本，你可以使用它来生成 Selenium RC 代码。Selenium-IDE 可以将 Selenium 命令转换（使用导出菜单）成客户端 API 的方法调用。查看 Selenium-IDE 章节中关于从 Selenium-IDE 中导出 RC 代码的细节。</p>
-
-<h2>安装</h2>
-
-<p>用安装这个词不是很恰当。Selenium 在你选择的编程语言中有一组组件可用。你可以从下载页面下载它们。</p>
-
-<p>一旦你选定了一种编程语言，你仅需要：</p>
-
-<ul>
-<li>安装 Selenium RC 服务端。</li>
-<li>使用特定于该语言的客户端驱动创建你的项目</li>
-</ul>
-
-
-<h3>安装 Selenium 服务端</h3>
-
-<p>Selenium RC 服务端是一个简单的 jar 包 (selenium-server-standalone-<version-number>.jar)，它不需要安装。只需要下载这个zip文件，并提取服务所需的目录即可。</p>
-
-<h3>运行 Selenium 服务</h3>
-
-<p>在开始任何测试之前，你必须先启动服务。进到 Selenium RC 服务端所在的目录，并在命令行中运行以下命令：</p>
-
-<pre><code>java -jar selenium-server-standalone-&lt;version-number&gt;.jar
-</code></pre>
-
-<p>你也可以简单的创建一个包含上述命令的批处理或shell文件（Windows 中扩展名为 .bat，Linux 中扩展名为 .sh）。然后在你的桌面上创建一个该可执行文件的快捷方式，通过双击图标来启动服务。</p>
-
-<p>要成功启动服务必须确保 Java 已安装，并且设置了正确的 PATH 环境变量。你可以通过下面的命令检查你的 Java 是否安装正确：</p>
-
-<pre><code>java -version
-</code></pre>
-
-<p>如果你得到一个版本号（必须>=1.5），那么你已经成功启动 Selenium RC。</p>
-
-<h3>使用 Java 客户端驱动</h3>
-
-<ul>
-<li>从 SeleniumHQ 下载页面下载 Selenium java 客户端驱动 zip 包。</li>
-<li>提取 selenium-java-<version-number>.jar</li>
-<li>打开你喜欢的 Java IDE (Eclipse, NetBeans, IntelliJ, Netweaver, etc.)</li>
-<li>创建一个 java 项目。</li>
-<li>将 selenium-java-<version-number>.jar 文件作为引用添加到你的项目中。</li>
-<li>将 selenium-java-<version-number>.jar 文件添加到你项目的 classpath 中。</li>
-<li>从 Selenium-IDE 到处一个 Java 文件，并放入你的项目，或者使用 Selenium 的 Java 客户端 API 编写一个 Selenium 测试文件。这些 API 将在本章的后面部分进行讲解。你可以使用 JUnit，或者 TestNg 来运行你的测试，或者你可以简单的写一个 main() 方法。这些概念也将在本文后面进行说明。</li>
-<li>从命令行运行 Selenium 服务。</li>
-<li>从 Java IDE 或者命令行中执行你的测试。</li>
-</ul>
-
-
-<p>关于更多 Java 测试项目的配置细节，可查看本章附件：<strong>在 Eclipse 中配置 Selenium RC</strong> 和 <strong>在 Intellij 中配置 Selenium RC</strong>。</p>
-
-<h2>将 Selenese 转换成程序</h2>
-
-<p>使用 Selenium RC 的主要任务就是将你的 Selenese 转换成一个编程语言。在本小结中，我们提供几种不同的语言演示。</p>
-
-<h3>测试脚本范例</h3>
-
-<p>让我们从一个 Selenese 测试脚本的例子开始. 假定我们使用 Selenium-IDE 记录了如下测试：</p>
-
-<table>
-    <tbody>
-        <tr>
-            <td>open</td>
-            <td>/</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td>type</td>
-            <td>q</td>
-            <td>selenium rc</td>
-        </tr>
-        <tr>
-            <td>clickAndWait</td>
-            <td>btnG</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td>assertTextPresent</td>
-            <td>Results * for selenium rc</td>
-            <td>&nbsp;</td>
-        </tr>
-    </tbody>
-</table>
-
-
-<p>注意: 这个例子仅仅在 Google 搜索页面 http://www.google.com 工作。</p>
-
-<h2>Selenese 作为编程代码</h2>
-
-<p>以下为使用支持的多种编程序言从 Selenium-IDE 中导出的测试脚本。如果你有一些面向对象编程的基础知识，你就可以通过阅读以下代码理解 Selenium 如何运行 Selenese 命令。</p>
-
-<pre><code>/** Add JUnit framework to your classpath if not already there
- *  for this example to work
- */
-package com.example.tests;
-
-import com.thoughtworks.selenium.*;
-import java.util.regex.Pattern;
-
-public class NewTest extends SeleneseTestCase {
-    public void setUp() throws Exception {
-        setUp("http://www.google.com/", "*firefox");
-    }
-      public void testNew() throws Exception {
-          selenium.open("/");
-          selenium.type("q", "selenium rc");
-          selenium.click("btnG");
-          selenium.waitForPageToLoad("30000");
-          assertTrue(selenium.isTextPresent("Results * for selenium rc"));
-    }
-}
-</code></pre>
-
-<p>在接下来的章节中，我们将介绍如何通过生成的代码创建你的测试程序。</p>
-
-<h2>编写你的测试代码</h2>
-
-<p>现在我们将为每种支持的语言演示如何通过上述例子编写你自己的测试代码。我们主要需要做2件事情：</p>
-
-<ul>
-<li>从 Selenium-IDE 导出指定语言的脚本，有选择性的修改它。</li>
-<li>编写一个 main() 方法来执行创建的代码。</li>
-</ul>
-
-
-<p>你可以选择平台支持的任意测试引擎，如 Java 的 JUnit 或 TestNG。</p>
-
-<p>这里我们将演示指定语言的例子。每种语言的 API 都有所不同，所以我们将单独解释每一个。</p>
-
-<h3>Java</h3>
-
-<p>在 Java 中，大家通常选择 JUnit 或 TestNG 作为测试引擎。一些像 Eclipse 这样的 IDE 能通过插件直接支持它们，使得事情更简单。JUnit 和 TestNG 教学不在本文档的范围内，但是你可以通过网络找到相关资料。如果你是一个 Java 程序员，你可能已经有使用这些框架的经验了。</p>
-
-<p>你可能希望为 “NewTest” 测试类重命名。同时，你可能也需要修改以下语句中的浏览器打开参数。</p>
-
-<pre><code>selenium = new DefaultSelenium("localhost", 4444, "*iehta", "http://www.google.com/");
-</code></pre>
-
-<p>使用 Selenium-IDE 创建的代码看起来大致如下。为了使代码更清晰易读，我们手工加入了注释。</p>
-
-<pre><code>package com.example.tests;
-// 我们指定了这个文件的包
-
-import com.thoughtworks.selenium.*;
-// 导入驱动。
-// 你将使用它来初始化浏览器并执行一些任务。
-
-import java.util.regex.Pattern;
-// 加入正则表达式模块，因为有些我们需要使用它进行校验。
-// 如果你的代码不需要它，完全可以移除掉。 
-
-public class NewTest extends SeleneseTestCase {
-// 创建 Selenium 测试用例
-
-      public void setUp() throws Exception {
-        setUp("http://www.google.com/", "*firefox");
-             // 初始化并启动浏览器
-      }
-
-      public void testNew() throws Exception {
-           selenium.open("/");
-           selenium.type("q", "selenium rc");
-           selenium.click("btnG");
-           selenium.waitForPageToLoad("30000");
-           assertTrue(selenium.isTextPresent("Results * for selenium rc"));
-           // 以上为真实的测试步骤
-     }
-}
-</code></pre>
-
-<h2>学习使用 API</h2>
-
-<p>Selenium RC API 使用以下约定：假设你了解 Selenese，并且大部分接口是自解释的。在此，我们仅解释最具争议或者看起来不那么直接明了的部分。</p>
-
-<h3>启动浏览器</h3>
-
-<pre><code>setUp("http://www.google.com/", "*firefox");
-</code></pre>
-
-<p>每个例子都打开了一个浏览器，并且将浏览器作为一个浏览器对象返回，赋值给一个变量。这个变量将用于调用浏览器方法。这些方法可以执行 Selenium 命令，例如打开、键入或者校验。</p>
-
-<p>创建浏览器对象所需要的参数如下：</p>
-
-<h4>host</h4>
-
-<p>指定服务所在的机器的 IP 地址。通常它和运行客户端的机器是同一台。所以在这个例子中我们传入 localhost。在某些客户端中，这是一个可选参数。</p>
-
-<h4>port</h4>
-
-<p>指定服务监听的客户端用于创建连接的 TCP/IP socket。这在某些客户端中也是可选的。</p>
-
-<h4>browser</h4>
-
-<p>指定你希望运行测试的浏览器。该参数必选。</p>
-
-<h4>url</h4>
-
-<p>AUT 的基准 url。在所有的客户端中必选，并且是启动浏览器代理的 AUT 通讯的必须信息。</p>
-
-<p>注意，有些客户端要求调用 start() 方法来启动浏览器。</p>
-
-<h3>运行 命令</h3>
-
-<p>一旦你初始化了一个浏览器并且将其赋值给一个变量（通常命名为 &#8220;Selenium&#8221;），你可以使用这个变量调用各种方法来运行 Selenese 命令。例如，调用 selenium 对象的键入方法：</p>
-
-<pre><code>selenium.type(“field-id”,”string to type”)
-</code></pre>
-
-<p>此时浏览器将真正执行指定的操作，在这个方法调用时指定了定位符和要键入的字符串，本质上就像是一个用户在浏览器中输入了这些内容。</p>
-
-<h2>报告结果</h2>
-
-<p>Selenium RC 没有内置的结果报告机制。而是让你根据所选语言的特性创建符合你需求的自定义报告。这非常棒！但是你是不是希望这些事情都已经就绪，而你可以快速使用它们？其实市面上不难找到符合你需求的库或框架，这比编写你自己的测试报告代码快多了。</p>
-
-<h3>测试框架报告工具</h3>
-
-<p>很多语言都有对应的测试框架。它们除了提供灵活的测试引擎执行你的测试之外，通常还包括结果报告的库。例如，Java有两个常用的测试框架，JUnit 和 TestNG. .NET 也有适合它的, NUnit。</p>
-
-<p>我们不会教你如何使用这些框架，那超出了本指南的范围。但我们将简单介绍一下这些框架中你可以使用的跟 Selenium 相关的特性。有很多关于学习这些测试框架的书，互联网上页有丰富的资料。</p>
-
-<h3>测试报告库</h3>
-
-<p>同样可以利用的是使用你所选语言编写的专门用于报告测试结果的三方库。它们通常支持多种格式，如 HTML 或 PDF。</p>
-
-<h3>最佳实践是？</h3>
-
-<p>大多数新接触测试框架的人将会从框架内置的报告功能开始。他们会检查任何可用库，这可比你自己开发的开销要小。当你开始使用 Selenium，毫无疑问你将开始在报告处理中使用你自己的 “print 语句”。这将可能导致你在使用一个库或框架的同时，逐渐开发开发你自己的报告功能。无论如何，在最初短暂的学习曲线之后，你将自然而然的开发出最适合你的报告功能。</p>
-
-<h3>测试报告范例</h3>
-
-<p>为了进行演示，我们将直接使用 Selenium 支持的语言的特定工具。以下列出的是最常用的，而且也是最为推荐的。</p>
-
-<h4>Java 中的测试报告</h4>
-
-<ul>
-<li>如果 Selenium 测试用例是使用 JUnit 开发的，那么 JUnit 报告就能用于创建测试报告。了解更多 <a href="http://ant.apache.org/manual/Tasks/junitreport.html">JUnit 报告</a> 。</li>
-<li>如果 Selenium 测试用例是使用 TestNG 开发的，那也不需要依赖外部任务来创建测试报告。TestNG 框架创建包含测试详情列表的 HTML 报告。了解更多 <a href="http://testng.org/doc/documentation-main.html#test-results">TestNG 报告</a> 。</li>
-<li>ReportNG 是一个用于TestNG 框架的 HTML 报告插件。它的初衷是用于取代默认的 HTML 报告。ReportNG 提供了简单、彩色的测试结果显示。了解更多 <a href="http://reportng.uncommons.org/">TestNG</a></li>
-<li><p>同时，TestNG-xslt 是一个很好的摘要报告工具。TestNG-xslt 报告看起来如下图：</p>
-
-<p>  <img src="http://seleniumhq.org/docs/_images/chapt5_TestNGxsltReport.png" alt="TestNG-xslt" /></p>
-
-<p>  了解更多 <a href="">TestNG-xslt</a></p></li>
-</ul>
-
-
-<h5>记录 Selenese 命令</h5>
-
-<p>Logging Selenium 可以用于为你的测试创建一个含有所有 Selenium 命令及其运行结果（成功或失败）的报告。为了获得这项功能，使用 Logging Selenium 扩展你的 Java 客户端。了解更多 <a href="http://loggingselenium.sourceforge.net/index.html">Logging Selenium</a></p>
-
-<h2>为你的测试加点料</h2>
-
-<p>现在我们将获得所有使用 Selenium 的理由，它能为你的测试添加逻辑。就像任何程序一样。程序流通过条件语句和迭代控制。另外，你能使用 IO 来报告处理信息。在这一小结中，我们将演示一些可联合 Selenium 使用的编程语言构建例子，用以解决常见的测试问题。</p>
-
-<p>当你将页面元素是否存在的简单测试转换成涉及多个网页和数据的动态功能时，你将发现你需要编程逻辑来校验期待的结果。一般的， Selenium-IDE 不支持迭代和标准的条件语句。你可以通过将 javascript 嵌入 Selenese 参数来实现条件控制和迭代，并且大部分的条件都比真正的编程语言要简单。此外，你可能需要使用异常处理来进行错误回复。基于这些原因，我们编写了这一小结内容来演示普通编程技巧的使用，以使你在自动化测试中获得更大的校验能力。</p>
-
-<p>本小结例子使用 C# 和 Java 编写而成，它们非常简单，也很容易转换成其他语言。如果你有一些面向对象编程的基础知识，你将很容易掌握这个章节。</p>
-
-<h3>迭代</h3>
-
-<p>迭代是测试中最常用的功能了。例如你可能希望执行一个查询多次。或者你需要处理那些从数据库中返回的结果集以校验你的测试结果。</p>
-
-<p>使用同之前一样的 <a href="http://seleniumhq.org/docs/05_selenium_rc.jsp#google-search-example">Google 搜索例子</a>，让我们来检查搜索结果。这个测试将使用 Selenese：</p>
-
-<table>
-    <tbody>
-        <tr>
-            <td>open</td>
-            <td>/</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td>type</td>
-            <td>q</td>
-            <td>selenium rc</td>
-        </tr>
-        <tr>
-            <td>clickAndWait</td>
-            <td>btnG</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td>assertTextPresent</td>
-            <td>Results * for selenium rc</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td>type</td>
-            <td>q</td>
-            <td>selenium ide</td>
-        </tr>
-        <tr>
-            <td>clickAndWait</td>
-            <td>btnG</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td>assertTextPresent</td>
-            <td>Results * for selenium ide</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td>type</td>
-            <td>q</td>
-            <td>selenium grid</td>
-        </tr>
-        <tr>
-            <td>clickAndWait</td>
-            <td>btnG</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td>assertTextPresent</td>
-            <td>Results * for selenium grid</td>
-            <td>&nbsp;</td>
-        </tr>
-    </tbody>
-</table>
-
-
-<p>同样的代码重复跑了3次。将同样的代码拷贝多次运行可不是一个好的编程实践，因为维护的时候成本会很高。使用编程语言，我们可以通过迭代这一更灵活更易于维护的方式来处理搜索结果。</p>
-
-<h3>In Csharp</h3>
-
-<pre><code>// Collection of String values.
-String[] arr = {"ide", "rc", "grid"};
-
-// Execute loop for each String in array 'arr'.
-foreach (String s in arr) {
-    sel.open("/");
-    sel.type("q", "selenium " +s);
-    sel.click("btnG");
-    sel.waitForPageToLoad("30000");
-    assertTrue("Expected text: " +s+ " is missing on page."
-    , sel.isTextPresent("Results * for selenium " + s));
-}
-</code></pre>
-
-<h3>条件语句</h3>
-
-<p>我们使用一个例子来演示条件语句的使用。让运行 Selenium 测试时，如果一个原本应该存在的元素没有出现在页面上时，将会触发一个普通的错误。例如，我们运行如下 代码：</p>
-
-<pre><code>// Java
-selenium.type("q", "selenium " +s);
-</code></pre>
-
-<p>如果元素“q”不在页面上将会抛出一个异常：</p>
-
-<pre><code>com.thoughtworks.selenium.SeleniumException: ERROR: Element q not found
-</code></pre>
-
-<p>这个异常将会终止你的测试。对于某些测试来说这正是你想要的。但是更多的时候，你并不希望这样，因为还有很多后续的测试要执行。</p>
-
-<p>一个更好的解决办法是我们首先判定元素是否存在，然后再进行相应的处理。我们来看看 Java 的写法：</p>
-
-<pre><code>// 如果元素可用，则则行类型判定操作
-if(selenium.isElementPresent("q")) {
-    selenium.type("q", "Selenium rc");
-} else {
-    System.out.printf("Element: " +q+ " is not available on page.")
-}
-</code></pre>
-
-<p>这样做的好处是，即使页面上没有这个元素测试也能够继续执行。</p>
-
-<h3>在你的测试中执行 JavaScript</h3>
-
-<p>在一个应用程序中使用 JavaScript 是非常方便的，但是 Selenium 不直接支持它。你可以在 Selenium RC 中使用 getEval 接口的方法来执行它。</p>
-
-<p>考虑一个应用中的没有静态 id 的多选框。在这种情况下，你可以通过使用 Selenium RC 对 JavaScript 语句进行求值（evaluate）来找到所有的多选框并处理它们。</p>
-
-<pre><code>// Java
-public static String[] getAllCheckboxIds () {
-     String script = "var inputId  = new Array();";// Create array in java script.
-            script += "var cnt = 0;"; // Counter for check box ids.
-            script += "var inputFields  = new Array();"; // Create array in java script.
-            script += "inputFields = window.document.getElementsByTagName('input');"; // Collect input elements.
-            script += "for(var i=0; i&lt;inputFields.length; i++) {"; // Loop through the collected elements.
-            script += "if(inputFields[i].id !=null " +
-                      "&amp;&amp; inputFields[i].id !='undefined' " +
-                      "&amp;&amp; inputFields[i].getAttribute('type') == 'checkbox') {"; // If input field is of type check box and input id is not null.
-            script += "inputId[cnt]=inputFields[i].id ;" + // Save check box id to inputId array.
-                      "cnt++;" + // increment the counter.
-                      "}" + // end of if.
-                      "}"; // end of for.
-            script += "inputId.toString();" ;// Convert array in to string.
-     String[] checkboxIds = selenium.getEval(script).split(","); // Split the string.
-     return checkboxIds;
- }
-</code></pre>
-
-<p>如果要计算页面中的图片数，你可以：</p>
-
-<pre><code>// Java
-selenium.getEval("window.document.images.length;");
-</code></pre>
-
-<p>记住要调用 window 对象，以防在 DOM 表达式中其默认指向 Selenium 窗口而不是测试窗口。</p>
-
-<h2>服务端选项</h2>
-
-<p>当服务启动时，可以使用命令行配置项来改变其默认行为。</p>
-
-<p>回想一下，我们是这样启动服务的：</p>
-
-<pre><code>$ java -jar selenium-server-standalone-&lt;version-number&gt;.jar
-</code></pre>
-
-<p>你可以使用 -h 来查看所有的配置项：</p>
-
-<pre><code>$ java -jar selenium-server-standalone-&lt;version-number&gt;.jar -h
-</code></pre>
-
-<p>你将看到所有配置项列表，每个配置项附带间断描述。这里提供的描述并不总是足够禽畜，所以接下来我们将对一些重要的配置项进行补充描述。</p>
-
-<h3>代理配置</h3>
-
-<p>如果你的 AUAT 使用了一个需要授权的 HTTP 代理，你需要使用以下命令来配置 http.proxyHost, http.proxyPort, http.proxyUser 和 http.proxyPassword。</p>
-
-<pre><code>$ java -jar selenium-server-standalone-&lt;version-number&gt;.jar -Dhttp.proxyHost=proxy.com -Dhttp.proxyPort=8080 -Dhttp.proxyUser=username -Dhttp.proxyPassword=password
-</code></pre>
-
-<h3>多窗口模式</h3>
-
-<p>如果你正在使用 Selenium 1，你可以跳过这部分内容，因为多窗口模式已经是默认配置。但是在更早的版本中，AUT 默认是在子帧(sub frame)中运行的。</p>
-
-<p><img src="http://seleniumhq.org/docs/_images/chapt5_img26_single_window_mode.png" alt="multi-window" /></p>
-
-<p>有些应用在子帧中不能正常运行，必须要加载到顶级帧中运行。多窗口模式允许 AUT 在两个独立的窗口中运行，而不是在默认的帧中运行，这样它就能在顶级帧中运行了。</p>
-
-<p><img src="http://seleniumhq.org/docs/_images/chapt5_img27_multi_window_mode.png" alt="multi-window2" /></p>
-
-<p>对于老版本的 Selenium 来说，你必须通过下面的配置项明确指定多窗口模式：</p>
-
-<pre><code>-multiwindow
-</code></pre>
-
-<p>在 Selenium 1 以及更新的版本中，如果你希望在单窗口中运行你的测试，你可以使用以下配置项：</p>
-
-<pre><code>-singlewindow
-</code></pre>
-
-<h3>指定 Firefox 配置</h3>
-
-<p>Firefox 不会同时运行两个实例，除非你为每一个指定单独的配置。Selenium RC 1 及其后续版本会自动运行两个单独的配置，所以如果你正在使用 Selenium 1，你可以跳过这个章节。如果你在使用更老的版本而你有需要指定单独的配置，你需要明确的指定它。</p>
-
-<p>首先，穿加你一个单独的 Firefox 配置，根据以下步骤。打开 Windows 的开始菜单，选择 “run”，然后键入以下内容：</p>
-
-<pre><code>firefox.exe -profilemanager
-
-firefox.exe -P
-</code></pre>
-
-<p>使用对话框来创建新配置。当你运行 Selenium 服务时，你需要使用命令行选项 -firefoxProfileTemplate 告诉它使用新的 Firefox 配置，并且指定要使用的配置的路径。</p>
-
-<pre><code>-firefoxProfileTemplate "path to the profile"
-</code></pre>
-
-<p><strong>警告</strong></p>
-
-<p>确保你的配置文件被存放在一个不同于默认路径的文件夹中！！！Firefox 配置管理会在你删除一个配置的时候删除该配置所在文件夹的所有内容，而不管它是不是配置文件。</p>
-
-<p>更多请参考 <a href="http://support.mozilla.com/zh-CN/kb/Managing+profiles">Mozilla’s Knowledge Base</a></p>
-
-<h3>通过 -htmlSuite 配置项在服务端直接运行 Selenese</h3>
-
-<p>通过将 html 文件传递给服务端的命令行，你可以直接在 Selenium 服务端运行 Selenese html 文件。例如：</p>
-
-<pre><code>java -jar selenium-server-standalone-&lt;version-number&gt;.jar -htmlSuite "*firefox"
-"http://www.google.com" "c:\absolute\path\to\my\HTMLSuite.html"
-"c:\absolute\path\to\my\results.html"
-</code></pre>
-
-<p>这个例子将自动加载你的 html 测试套件，运行所有的测试并生成一份 html 格式的测试报告。</p>
-
-<p><strong>注意</strong></p>
-
-<p>在使用这个配置项时，服务端将开始运行测试，并为测试结束等待指定的秒数，如果测试没有在指定时间内结束，命令行将以一个非0的退出码退出，并且没有报告文件生成。</p>
-
-<p>这个命令行非常长，所以键入它的时候需要非常小心。注意这要求你传入一个 html 测试套件，而非单个的测试。并且配置项和 -interactive 不兼容，你不能同时使用他们。</p>
-
-<h3>Selenium 服务日志</h3>
-
-<h4>服务端日志</h4>
-
-<p>当启动 Selenium 服务，可以使用 -log 配置项来将 Selenium 服务报告的有价值的 debug 信息记录到一个文本文件。</p>
-
-<pre><code>java -jar selenium-server-standalone-&lt;version-number&gt;.jar -log selenium.log
-</code></pre>
-
-<p>这个日志文件相比标准的 console 日志而言要冗余的多（它包括了 debug 级别的日志信息）。它页包含了 logger name，打印日志信息的线程 id。例如：</p>
-
-<pre><code>20:44:25 DEBUG [12] org.openqa.selenium.server.SeleniumDriverResourceHandler -
-Browser 465828/:top frame1 posted START NEW
-</code></pre>
-
-<p>该信息格式为：</p>
-
-<pre><code>TIMESTAMP(HH:mm:ss) LEVEL [THREAD] LOGGER - MESSAGE
-</code></pre>
-
-<h4>浏览器端日志</h4>
-
-<p>在浏览器端的 javascript （Selenium Core）也将记录重要的日志信息。在很多时候，对最终用户而言，这比常规的 Selenium 服务端日志有用的多。为了访问浏览器端日志，将 -browserSideLog 参数传递给 Selenium 服务。</p>
-
-<pre><code>java -jar selenium-server-standalone-&lt;version-number&gt;.jar -browserSideLog
-</code></pre>
-
-<p>为了将所有浏览器端的日志保存到一个文件中，-browserSideLog 必须和 -log 配置项联合使用。</p>
-
-<h3>指定特定浏览器路径</h3>
-
-<p>你可以为 Selenium RC 指定一个特定浏览器的路径。如果你需要测试同一个浏览器的不同版本时，这一功能将非常有效。同时这也允许你在一个 Selenium RC 不直接支持的浏览器中运行你的测试。当指定这个运行模式，使用 *cunstom 来指定可执行的浏览器的全路径：</p>
-
-<pre><code>*custom &lt;path to browser&gt;
-</code></pre>
-
-<h2>Selenium RC 架构</h2>
-
-<p><strong>注意</strong></p>
-
-<p>该主题尝试解释 Selenium RC 背后的运行原理。这并不是 Selnium 用户需要了解的基础知识，但是你会发现它对于了解一些问题非常有用。</p>
-
-<p>为了理解 Selenium RC 服务端工作的细节，以及为什么它使用代理注入和高特权模式你必须先了解 <a href="http://seleniumhq.org/docs/05_selenium_rc.jsp#the-same-origin-policy">同源策略</a>。</p>
-
-<h3>同源策略</h3>
-
-<p>Selenium 面临的主要约束即同源策略。市面上所有的浏览器都有这个安全约束，它的目的是确保一个网站的内容永远不会被另外一个站点的脚本访问到。同源策略规定浏览器加载的任何脚本仅能操作引入它的页面所在的域的内容。它也不能执行另一个网站中的方法。例如，如果浏览器在载入 www.mysite.com 时加载了一个脚本，这脚本就不能操作 www.mysite2.com 的内容，即使那是另一个你自己的网站。如果这被允许，脚本将可以操作你打开的任何网站的内容，于是当你在 tab 页中打开一个银行站点时它就能读取你的银行账号信息。。我们把这叫 XSS(Cross-site Scripting) 攻击。</p>
-
-<p>为了在这个约束下工作，Selenium Core（包括它的 javascript 脚本）必须和 AUT 放置在同一个域下。</p>
-
-<p>之前，因为 Selenium core 使用 JavaScript 实现的，所以一直被这个问题困扰。但现在，这个问题已经得到解决。它使用 Selenium 服务端作为一个代理来避免这个问题。本质上来讲，Selenium RC 告诉浏览器它是运行在服务端提供的一个“被欺骗的”站点上。</p>
-
-<p><strong>注意</strong></p>
-
-<p>你可以在维基百科上找到更多关于 <a href="http://en.wikipedia.org/wiki/Same_origin_policy">同源策略</a> 和 <a href="http://en.wikipedia.org/wiki/Cross-site_scripting">XSS</a> 的内容</p>
-
-<h3>代理注入</h3>
-
-<p>Selenium 避免同源策略约束的首选方法是代理注入。在代理注入模式，Seleniium 服务端扮演一个客户端配置[1] 的 HTTP 代理[2] 的角色，它位于浏览器和 AUT 之间。它为 AUT 伪装了一个虚假的 url（将Selenium Core 和测试注入到 AUT，就好像他们来自同一个域）。</p>
-
-<ol>
-<li>代理扮演一个第三方角色，在双方传递内容的过程中。它好像一个 web 服务器将 AUT 传送给浏览器。作为一个代理，使得 Selenium 服务端有能力伪装 AUT 的真实 url。</li>
-<li>浏览器加载的时候，配置文件将指定 localhost:4444 作为 http 代理，这就是为什么浏览器发起一个 http 请求将通过 Selenium 服务端并且响应页将通过它而不是来自真实的服务器。以下是结构图：</li>
-</ol>
-
-
-<p><img src="http://seleniumhq.org/docs/_images/chapt5_img02_Architecture_Diagram_1.png" alt="proxy" /></p>
-
-<p>当测试开始时，将发生以下事情：</p>
-
-<ol>
-<li>客户端驱动将和 Selenium RC 服务端建立一个连接。</li>
-<li>Selenium RC 服务端启动一个打开指定 url 的浏览器（或复用一个已打开的），将 Selenium Core 的 JavaScript 代码注入的这个页面中。</li>
-<li>客户端驱动向服务端传递一个 Selenese 命令。</li>
-<li>服务端解析这个命令，然后触发 JavaScript 脚本执行浏览器中相应的命令。</li>
-<li>Selenium Core 指示浏览器在第一个指令后开始执行，典型的是打开一个 AUT 页面。</li>
-<li>浏览器收到打开页面的请求，并且从 Selenium RC 服务端询问获取页面内容（作为浏览器的 http 代理）</li>
-<li>Selenium RC 服务端和网站服务器通讯，一旦获取到页面，它就对页面的源进行伪装然后发送到浏览器，使这个页面看起来像是和 Selenium Core 来自于同一个源（这使得我们可以绕开同源策略的限制）</li>
-<li>浏览器接收到这个页面并且渲染到相应的帧或者窗口。</li>
-</ol>
-
-
-<h3>高特权浏览器（Heightened Privileges Browsers）</h3>
-
-<p>这种方法的工作流程和代理注入非常像，主要的区别是浏览器在一个叫高特权的模式下启动，这将允许网站做一些平时不被允许做的事情（例如 XSS，或者填充文件上传输入框，或者其他一些对 Selenium 非常有用的操作）。使用这种浏览器模式， Selenium Core 就可以直接打开 AUT 并且读取或操作其内容，而不需要将整个 AUT 通过 Selenium RC 服务端中转。</p>
-
-<p>结构图如下：</p>
-
-<p><img src="http://seleniumhq.org/docs/_images/chapt5_img02_Architecture_Diagram_2.png" alt="Heightened Privileges Browsers" /></p>
-
-<p>此时，将发生以下事情：</p>
-
-<ol>
-<li>客户端驱动和 Selenium RC 服务端建立一个连接。</li>
-<li>Selenium RC 服务端启动一个开打指定 url 的浏览器，并且将 Selenium Core 加载到整个页面中。</li>
-<li>Selenium Core 从客户端驱动获得第一个指令（通过向 Selenium RC 服务端发起的另一个 http 请求）。</li>
-<li>Selenium Core 执行第一个指令，典型的是打开一个 AUT 页面。</li>
-<li>浏览器收到这个请求并且向站点服务器请求页面。一旦浏览器接收到页面内容，就会渲染到相应的帧或窗口。</li>
-</ol>
-
-
-<h2>处理 HTTPS 和安全警告弹出框</h2>
-
-<p>当需要发送诸如密码或信用卡等加密信息时，我们往往会从 http 转为 https。这在今天的应用中非常常见。Selenium RC 也支持。</p>
-
-<p>为了确保这个 https 站点的真实性，浏览器需要一个安全整数。否则，当浏览器使用 https 访问 AUT 时，这个应用经常被认为是不受信任的。当遇到这种情况时，浏览器会显示安全警告弹出框，而 Selenium RC 无法关闭这个弹出框。</p>
-
-<p>当在 Selenium RC 测试中使用 https 时，你必须使用一个支持的运行模式，并且能为你处理安全证书。你可以在测试项目初始化 Selenium 时指定这个运行模式。</p>
-
-<p>在 Selenium RC 1.0 beta 2 和其后续版本中，可以使用 <em>firefox 和 </em>iexplore 运行模式。在更早期的版本中，包括 Selenium RC 1.0 beta 1 使用 <em>chrome 和 </em>iehta 运行模式。通过使用这些运行模式，你不需要安装任何特殊的安全证书，Selenium RC 将帮你处理它。</p>
-
-<p>在版本1中，推荐运行 <em>firefox 和 </em>iexplore 运行模式。然而，我们还提供 <em>iexploreproxy 和 </em>firefoxproxy 运行模式。它们只是用于提供向后兼容，除非遗留的测试项目，否则我们不应该使用它们。在你需要处理安全证书和运行多窗口时，它们的处理将存在局限性。</p>
-
-<p>在 Selenium RC 的早期版本中，<em>chrome 或 </em>iehta 是支持 https 和能处理安全警告弹出窗的运行模式。它们被认为是实验性的模式，虽然现在它们已经很稳定并且有大量用户。如果你在使用 Selenium 1，你不应该使用那些老的运行模式。</p>
-
-<h3>关于安全证书</h3>
-
-<p>通常来来说，安装了安全证书后，浏览器将信任你测试的应用。你可以在浏览器的选项或者 Internet 属性中检查它（如果你不知道你的 AUT 的安全证书，询问你的系统管理员）。当 Selenium 启动了浏览器，它注入代码以解析浏览器和服务器之间的通讯。这时，浏览器认为这个引用是不被信任的了，并且会弹出一个安全警告。</p>
-
-<p>为了绕过这个问题，Selenium RC，（又需要使用支持的运行模式）将安装它自己的证书。将临时装在你的客户机上，能被浏览器访问到的地方。这将欺骗浏览器认为它在访问一个和你的 AUT 完全不同的重难点，就能成功的组织弹出框。</p>
-
-<p>另一个在早期的版本中解决此问题的方法是安装一个随 Selenium 安装提供的 Cybervillians 安全证书。大部分用户不需要做这件事情，但是当你在代理注入的模式下运行 Selenium RC 时，你就需要安装它了。</p>
-
-<h2>更多浏览器支持和相关配置</h2>
-
-<p>Selenium API 支持在多个浏览器中运行，包括 ie 和 Firefox。请从 SeleniumHQ.org 查看支持的浏览器。另外，当一个浏览器不直接被支持时，启动浏览器时，你可以使用 ”<em>custom“ 来指定一个浏览器运行你的 Selenium 测试（例如：替换 </em>firefox 或 *iexplore）。这样，你可以将这个 API 调用可执行的路径传递给浏览器。这个操作也可以在服务端的交互模式下完成。</p>
-
-<pre><code>cmd=getNewBrowserSession&amp;1=*custom c:\Program Files\Mozilla Firefox\MyBrowser.exe&amp;2=http://www.google.com
-</code></pre>
-
-<h3>使用不同的浏览器配置来运行测试</h3>
-
-<p>通常 Selenium RC 会自动配置浏览器, 但是如果你使用 “*custom” 运行模式启动浏览器，你必须强制 Selenium RC 启动浏览器，就像自动配置不存在一样。</p>
-
-<p>例如，你使用如下自定义配置启动 Firefox：</p>
-
-<pre><code>cmd=getNewBrowserSession&amp;1=*custom c:\Program Files\Mozilla Firefox\firefox.exe&amp;2=http://www.google.com
-</code></pre>
-
-<p>注意，当使用这种方法启动浏览器时，我们必须手工配置浏览器使用 Selenium 服务端作为代理。通常这意味这你需要打开你的浏览器选项，指定 “localhost:4444” 作为 http 代理，但是每种浏览器的设置方式可能不太一样。</p>
-
-<p>注意 Mozilla 浏览器的启动和停止不太一样。你需要设置 MOZ_NO_REMOTE 环境变量确保它表现如预期。Unix 用户应该避免使用 shell 脚本来启动它，直接使用一个二进制可执行文（如：firefox-bin）会更好。</p>
-
-<h2>常见问题</h2>
-
-<p><strong>译者注：</strong>这部分内容不翻译了，请参考原英文文档。</p>
-
-<ul>
-<li>Unable to Connect to Server</li>
-<li>Unable to Load the Browser</li>
-<li>Selenium Cannot Find the AUT</li>
-<li>Firefox Refused Shutdown While Preparing a Profile</li>
-<li>Versioning Problems</li>
-<li>Error message: “(Unsupported major.minor version 49.0)” while starting server</li>
-<li>404 error when running the getNewBrowserSession command</li>
-<li>Permission Denied Error</li>
-<li>Handling Browser Popup Windows</li>
-<li>On Linux, why isn’t my Firefox browser session closing?</li>
-<li>Firefox *chrome doesn’t work with custom profile</li>
-<li>Is it ok to load a custom pop-up as the parent page is loading (i.e., before the parent page’s javascript window.onload() function runs)?</li>
-<li>Problems With Verify Commands</li>
-<li>Safari and MultiWindow Mode</li>
-<li>Firefox on Linux</li>
-<li>IE and Style Attributes</li>
-<li>Error encountered - “Cannot convert object to primitive value” with shut down of *googlechrome browser</li>
-<li>Where can I Ask Questions that Aren’t Answered Here?</li>
-</ul>
-
 ]]></content>
   </entry>
   

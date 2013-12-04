@@ -1,0 +1,455 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>《程序员修炼之道》读书笔记 - Blues 小站</title>
+  <meta name="author" content="ShenYanchao">
+
+  
+  <meta name="description" content="专注于原创技术博客，并分享精品技术文章">
+  <meta name="keywords" content="shenyanchao, karma, Java, Linux, selenium, webdriver, 设计模式, JavaEE, NodeJS">
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.shenyanchao.cn/blog/2013/12/04/the-pragmatic-programmer-reading-notes">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/bootstrap/bootstrap.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/bootstrap/responsive.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/syntax/syntax.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <style type="text/css">
+    body {
+      padding-bottom: 40px;
+    }
+    h1 {
+      margin-bottom: 15px;
+    }
+    img {
+      max-width: 100%;
+    }
+    .sharing, .meta, .pager {
+      margin: 20px 0px 20px 0px;
+    }
+    .page-footer p {
+      text-align: center;
+    }
+  </style>
+  <script src="/javascripts/libs/jquery.js"></script>
+  <script src="/javascripts/libs/modernizr-2.0.js"></script>
+  <script src="/javascripts/libs/bootstrap.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Blues 小站" type="application/atom+xml">
+  
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-36243102-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <nav role="navigation"><div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+
+      <a class="brand" href="/">Blues 小站</a>
+
+      <div class="nav-collapse">
+        ﻿<ul class="nav">
+  <li><a href="/">首页</a></li>
+  <li><a href="/blog/archives">博客</a></li>
+  <li><a href="/tags/">Tag云</a></li>
+  <li><a href="/friends/">友情链接</a></li>
+<li><a href="/messagebox/">留言板</a></li>
+  <li><a href="/author/">关于我</a></li>
+</ul>
+
+
+        <ul class="nav pull-right" data-subscription="rss">
+          <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+          
+        </ul>
+
+        
+          <form class="pull-right navbar-search" action="http://google.com.hk/search" method="get">
+            <fieldset role="search">
+              <input type="hidden" name="q" value="site:www.shenyanchao.cn" />
+              <input class="search-query" type="text" name="q" results="0" placeholder="Search"/>
+            </fieldset>
+          </form>
+        
+      </div>
+    </div>
+  </div>
+</div>
+</nav>
+  <div class="container">
+    <div class="row-fluid">
+      
+<article class="hentry span9" role="article">
+
+  ﻿
+  <header class="page-header">
+    
+      <h1 class="entry-title">《程序员修炼之道》读书笔记</h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-04T15:45:00+08:00" pubdate data-updated="true">2013年12月04日 15:12:00</time>
+        
+         | <a href="#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+<div class="entry-content"><p>《程序员修炼之道-从小工到专家》写的具有普遍意义的指导方法。很少有具体的开发讲解，更多的是告诉你，作为一个程序员，你应该具有哪些素质，以及怎么做。下面是我对书中印象比较深的一些记录。</p>
+
+<h3>关于心态</h3>
+
+<h4>石头汤与煮青蛙</h4>
+
+<blockquote><p>三个士兵从战场返回家乡，在路上饿了，他们看见前面有村庄，就来了精神(他们相信村民会给他们一顿饭吃)。但当他们到达那里，却发现门锁着，窗户也关着。经历了多年的战乱，村名们粮食匮乏，并把他们仅有的一点粮食藏了起来。</p>
+
+<p>士兵们并没有气馁，他们煮开一锅水，小心地把三块石头放进去。吃惊的村民走出来望着他们。</p>
+
+<p>“这是石头汤。”士兵们解释说。“就放这些吗？”村民们问。“一点也没错——但是有人说加一些胡萝卜味道更好&#8230;&#8230;.” 一个村民跑开了，又很快带着他储藏的一篮胡萝卜跑回来。
+几分钟后，村民们又问：“就这些了吗？”</p>
+
+<p>“啊，”士兵们说：“几个土豆会让汤更实在。”又一个村民跑开了。</p>
+
+<p>接下来的一小时，士兵们列举了更多让汤更鲜美的配料：牛肉，韭菜，盐，还有香菜。每一次都会有一个不同的村民跑回去搜寻自己的私人储藏品。</p>
+
+<p>最后他们煮出了一大锅热气腾腾的汤。士兵们掉石头，和所有的村民一起享用了一顿美餐，这是几个月以来他们所有人第一次吃饱饭。</p></blockquote>
+
+<!--more-->
+
+
+<p>在石头汤的故事里有两层寓意。</p>
+
+<p>士兵们戏弄了村民，他们利用村民的好奇，从他们那里弄到了食物。但更重要的是，士兵充当了催化剂，把村名团结起来，和他们一起做到了他们自己本来做不到的事情—— 一项协作的成果。最后每个人都是赢家。</p>
+
+<p>另一方面，石头汤的故事也是关于温和渐进的欺骗的故事。它讲述的是过于集中的注意力。村民们想到了石头，却忘记了世界的其余部分。我们都是这样，每一天,事情都会悄悄爬到我们身上。</p>
+
+<p>我们现在是程序员，那你的目标是什么呢？当然是软件的总设计师—— 项目经理。那又会有什么启示呢？你常常是否也可以效仿这些士兵，做一个聪明的项目经理呢？在有些情况下，你也许确切的知道需要做什么，以及怎样去做。整个项目就在你的眼前，完全在你的掌控之中—— 你知道它是对的。但随着项目的深入，问题的复杂化，你会遇到拖延和漠然。这时你将会怎么做呢？你可以把项目看成是石头，把我们的成员看成是村民，而把我们自己看成是士兵。因为每个人都会保卫他们自己的资源。这正是拿出石头的时候。设计出你可以合理请求的东西，好好的开发它。一旦完成就拿给大家看，让他们大吃一惊。然后说：“要是我们增加…….可能就会更好。”然后假装那并不重要。坐回椅子上，等他们开始增加你本来就想增加的功能。这时大家就会发现参与正在发生的成功更容易。让他们去创造未来，你就会让他们聚集在你的周围，最大化的发挥团队的作用。</p>
+
+<p>再来看两个案例。</p>
+
+<blockquote><p>如果你抓一只青蛙放进沸水里，他会一下子跳出来。但是你把青蛙放进冷水里，然后慢慢加热，青蛙不会注意到温度的缓慢变化，会呆在锅里，直到被煮熟。</p>
+
+<p>一扇破窗户，只要有那么一段时间不修理，就会渐渐给建筑物周围的居民带来一种废弃感。于是又一扇窗户破了，人们开始乱扔垃圾，出现了乱涂乱画，慢慢的更严重的结构破坏开始了。在相对较短的一段时间里，建筑就被损毁的超出了业主想象的程度，也超出了业主愿意修理的程度，而废弃感则变成了现实！</p></blockquote>
+
+<p>锅里的那只可怜的青蛙是谁？它没有注意到周围环境的渐变，最终被煮熟了。同样的事情也会发生在不警醒的人身上。在项目开发高涨的热度里，很难再用一只眼睛注意中周围的环境。这又引出了一个“破窗户”的理论。一扇破窗户，只要有那么一段时间不修理，就会渐渐给建筑物周围的居民带来一种废弃感。于是又一扇窗户破了，人们开始乱扔垃圾，出现了乱涂乱画，慢慢的更严重的结构破坏开始了。在相对较短的一段时间里，建筑就被损毁的超出了业主想象的程度，也超出了业主愿意修理的程度，而废弃感则变成了现实！那我们如何解决呢？很简单，当第一扇破窗户出现时就及时的修理。</p>
+
+<p>当然我们也看到过这样的症状。项目慢慢的不可改变的完全失去控制。大多数的软件灾难都是从微不足道的小事情开始的，大多数项目的拖延也都是一天一天发生的。系统一个特性一个特性地偏离其规范，项目的目标也慢慢的偏离轨道，直到整个项目的失败。常常是小事情的积累破坏了士气和团队，因为众所周知的困难是不会导致失败的，只有那些微不足道的小事才会导致失败。这些小事并不会立即显现出来，它只会在积累到一定程度时才会爆发。</p>
+
+<p>作为整体开发的团队更容易被煮熟。所以未来的项目经理们，我们要时刻，持续地检查范围的扩大，时间的减缩，新增特性，新环境 ——任何不在初期的约定中定义的东西。因为团队无需拒绝不在预计中的变化—— 只要你注意到它们正在发生。记住，当出现第一扇破窗户时就及时修理。否则，你就会置身于热水之中。</p>
+
+<h3>关于工具</h3>
+
+<h3>文本编辑器</h3>
+
+<p>文本处理是每个程序员无法回避的问题。首先，要选择编辑器。一个好的编辑器应该具有以下的特性：</p>
+
+<ul>
+<li>可配置</li>
+<li>可扩展</li>
+<li>可编程</li>
+</ul>
+
+
+<p>一旦你选择了一种编辑器，就彻底的了解它，并将其用于所有的编辑任务。如果你用一种编辑器进行所有的文本编辑活动，你就不必停下来思考怎样完成文本操纵。编辑器将成为你双手的延伸。 <br/>
+知道了这些应该怎么做？</p>
+
+<table border="1px">
+<tr>
+<th>如果你现在这样&#8230;</th><th>那么考虑&#8230;</th>
+</tr>
+<tr>
+<td>我使用不同的编辑器，但只使用其基本特性。</td><td>选一种强大的编辑器，好好学习它。</td>
+</tr>
+<tr>
+<td>我有最喜欢的编辑器，但不使用其全部特性。</td><td>学习它们。减少你需要敲击的键数</td>
+</tr>
+<tr>
+<td>我有最喜欢的编辑器，只要可能就使用它。</td><td>设法扩展它，并将其用于比现在更多的任务。</td>
+</tr>
+<tr>
+<td>我认为你们在胡说。notepad就是有史以来最好的编辑器。</td><td>只要你愿意，并且生产率很高，那就这样吧！但如果你发现自己在羡慕别人的编辑器，你可能需要重新评估自己的位置啦。</td>
+</tr>
+</table>
+
+
+<p><strong>推荐工具：</strong>Emacs,vi,CRiSP,Brief以及其他的跨平台软件。  <br/>
+珍惜生命，远离office哦。</p>
+
+<h4>源码控制</h4>
+
+<p>源码控制系统追踪你在源码和文档中的每一项变动。并且能在适当的时候进行undo操作。</p>
+
+<p>把源码置于源码控制系统的保护之下具有一个很大，隐蔽的好处：可以进行自动的和可重复的产品持续集成构建。</p>
+
+<h3>关于编码</h3>
+
+<p>注重时效的程序员批判的思考所有代码，包括自己写的。要相信从来没有完美的软件。不能靠运气和偶然的成功，而要深思熟虑的编程。并且要考虑算法的效率。</p>
+
+<p>适时的进行重构。Martin Fowler告诉我们如何进行利大于弊的重构。</p>
+
+<ul>
+<li>不要试图在重构的同时增加功能</li>
+<li>在开始重构之前，确保你拥有良好的测试。尽可能经常运行这些测试。这样，如果你的改动破坏了任何东西，你就能很快的知道。</li>
+</ul>
+
+
+<p>重构需要良好的测试代码。测试代码的存在要求代码有很好的可测性。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      ﻿
+  
+
+<span class="byline author vcard"> <span class="fn">ShenYanchao</span> 发布于</span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-04T15:45:00+08:00" pubdate data-updated="true">2013年12月04日 15:12:00</time>
+      
+
+<span class="categories">
+	| 分类:
+  
+    <a class='category' href='/blog/categories/开发/'>开发</a>
+  
+</span>
+
+
+	  
+
+<span class="tags">
+   | 标签:
+  
+    <a class='tag' href='/tags/读书笔记/'>读书笔记</a>
+  
+</span>
+
+    </p>
+    
+      ﻿<div class="sharing">
+  
+  
+  
+<!-- Baidu Button BEGIN -->
+<div id="bdshare" class="bdshare_t bds_tools_32 get-codes-bdshare">
+<a class="bds_tsina"></a>
+<a class="bds_renren"></a>
+<a class="bds_qzone"></a>
+<a class="bds_kaixin001"></a>
+<a class="bds_hi"></a>
+<a class="bds_douban"></a>
+<a class="bds_tsohu"></a>
+<a class="bds_tqq"></a>
+<a class="bds_ty"></a>
+<a class="bds_twi"></a>
+<a class="bds_tieba"></a>
+<span class="bds_more"></span>
+<a class="shareCount"></a>
+</div>
+<br><br>
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=6337598" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+  
+  
+  
+  
+  
+</div>
+
+    
+    
+    <section>
+      <h1>讨论区</h1>
+      <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+    </section>
+    
+    <ul class="pager">
+      
+      <li class="previous"><a class="basic-alignment left"
+        href="/blog/2013/11/26/the-principle-of-ssh/" title="Previous Post:
+        SSH原理">&laquo; SSH原理</a></li>
+      
+      <li><a href="/blog/archives">博客</a></li>
+      
+    </ul>
+  </footer>
+</article>
+
+<aside class="sidebar-nav span3">
+  
+    ﻿<section class="well">
+  <ul id="recent_posts" class="nav nav-list">
+    <li class="nav-header">最近更新</li>
+    
+      <li class="post">
+        <a href="/blog/2013/12/04/the-pragmatic-programmer-reading-notes/">《程序员修炼之道》读书笔记</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/26/the-principle-of-ssh/">SSH原理</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/20/maven-project-integrate-checkstyle-pmd-findbugs/">Maven项目集成CheckStyle,PMD,FindBugs进行静态代码扫描</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/20/how-package-system-dependency-lib-in-maven/">Maven如何打包本地依赖包</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/25/custome-checkstyle-rule/">自定义CheckStyle规则</a>
+      </li>
+    
+  </ul>
+</section>
+<section class="well">
+	<ul id="tags-cloud" class="nav nav-list">
+	<li class="nav-header">分类云</li>
+    <span id="tag-cloud"><a href='/blog/categories/apache' style='font-size: 102.4%'>apache(1)</a> <a href='/blog/categories/checkstyle' style='font-size: 102.4%'>checkstyle(1)</a> <a href='/blog/categories/encode' style='font-size: 109.6%'>encode(4)</a> <a href='/blog/categories/git' style='font-size: 104.8%'>git(2)</a> <a href='/blog/categories/http' style='font-size: 104.8%'>HTTP(2)</a> <a href='/blog/categories/java' style='font-size: 102.4%'>Java(1)</a> <a href='/blog/categories/java' style='font-size: 104.8%'>java(2)</a> <a href='/blog/categories/javascript' style='font-size: 102.4%'>javascript(1)</a> <a href='/blog/categories/jenkins' style='font-size: 102.4%'>jenkins(1)</a> <a href='/blog/categories/jmeter' style='font-size: 104.8%'>jmeter(2)</a> <a href='/blog/categories/jvm' style='font-size: 104.8%'>JVM(2)</a> <a href='/blog/categories/linux' style='font-size: 104.8%'>linux(2)</a> <a href='/blog/categories/markdown' style='font-size: 104.8%'>markdown(2)</a> <a href='/blog/categories/maven' style='font-size: 119.2%'>maven(8)</a> <a href='/blog/categories/mysql' style='font-size: 104.8%'>mysql(2)</a> <a href='/blog/categories/nodejs' style='font-size: 116.8%'>nodejs(7)</a> <a href='/blog/categories/selenium' style='font-size: 121.6%'>selenium(9)</a> <a href='/blog/categories/selenium-wiki' style='font-size: 107.2%'>selenium-wiki(3)</a> <a href='/blog/categories/selenium官方文档' style='font-size: 109.6%'>selenium官方文档(4)</a> <a href='/blog/categories/testng' style='font-size: 102.4%'>testng(1)</a> <a href='/blog/categories/ubuntu' style='font-size: 102.4%'>ubuntu(1)</a> <a href='/blog/categories/ut' style='font-size: 104.8%'>ut(2)</a> <a href='/blog/categories/个人' style='font-size: 104.8%'>个人(2)</a> <a href='/blog/categories/开发' style='font-size: 102.4%'>开发(1)</a> <a href='/blog/categories/测试' style='font-size: 104.8%'>测试(2)</a> <a href='/blog/categories/设计模式' style='font-size: 160.0%'>设计模式(25)</a> <a href='/blog/categories/调优' style='font-size: 102.4%'>调优(1)</a> </span>
+  </ul>
+</section>﻿<section class="well">
+<ul class="nav nav-list">
+  <li class="nav-header">最新评论</li>
+  <script type="text/javascript" src="http://blueshen.disqus.com/recent_comments_widget.js?num_items=5&hide_avatars=0&avatar_size=32&excerpt_length=200"></script>
+</ul>
+  </section><section class="well">
+  <ul id="categories" class="nav nav-list">
+    <li class="nav-header">文章分类</li>
+    <li><a href='/blog/categories/apache'>apache (1)</a></li><li><a href='/blog/categories/checkstyle'>checkstyle (1)</a></li><li><a href='/blog/categories/encode'>encode (4)</a></li><li><a href='/blog/categories/git'>git (2)</a></li><li><a href='/blog/categories/http'>HTTP (2)</a></li><li><a href='/blog/categories/java'>Java (1)</a></li><li><a href='/blog/categories/java'>java (2)</a></li><li><a href='/blog/categories/javascript'>javascript (1)</a></li><li><a href='/blog/categories/jenkins'>jenkins (1)</a></li><li><a href='/blog/categories/jmeter'>jmeter (2)</a></li><li><a href='/blog/categories/jvm'>JVM (2)</a></li><li><a href='/blog/categories/linux'>linux (2)</a></li><li><a href='/blog/categories/markdown'>markdown (2)</a></li><li><a href='/blog/categories/maven'>maven (8)</a></li><li><a href='/blog/categories/mysql'>mysql (2)</a></li><li><a href='/blog/categories/nodejs'>nodejs (7)</a></li><li><a href='/blog/categories/selenium'>selenium (9)</a></li><li><a href='/blog/categories/selenium-wiki'>selenium-wiki (3)</a></li><li><a href='/blog/categories/selenium官方文档'>selenium官方文档 (4)</a></li><li><a href='/blog/categories/testng'>testng (1)</a></li><li><a href='/blog/categories/ubuntu'>ubuntu (1)</a></li><li><a href='/blog/categories/ut'>ut (2)</a></li><li><a href='/blog/categories/个人'>个人 (2)</a></li><li><a href='/blog/categories/开发'>开发 (1)</a></li><li><a href='/blog/categories/测试'>测试 (2)</a></li><li><a href='/blog/categories/设计模式'>设计模式 (25)</a></li><li><a href='/blog/categories/调优'>调优 (1)</a></li>
+  </ul>
+</section>
+<section class="well">
+  <ul id="gh_repos" class="nav">
+    <li class="nav-header">GitHub Repos</li>
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/blueshen">@blueshen</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        github.showRepos({
+            user: 'blueshen',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/asides/github.js" type="text/javascript"> </script>
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo" class="page-footer">﻿<hr>
+<p>
+  版权所有 &copy; 2013 - ShenYanchao -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+
+</p>
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'blueshen';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://www.shenyanchao.cn/blog/2013/12/04/the-pragmatic-programmer-reading-notes/';
+        var disqus_url = 'http://www.shenyanchao.cn/blog/2013/12/04/the-pragmatic-programmer-reading-notes/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+<!--
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F97aa7abbb3b568fb66ab76664b57b8ba' type='text/javascript'%3E%3C/script%3E"));
+</script>
+-->
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F81c9612f8fdceca45435ef7f5404d7b2' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+
+</body>
+</html>
