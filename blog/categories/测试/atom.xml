@@ -4,7 +4,7 @@
   <title><![CDATA[分类：测试 | Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/blog/categories/测试/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2013-12-14T21:41:39+08:00</updated>
+  <updated>2013-12-14T21:45:24+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -38,7 +38,7 @@
 
 <p>同时,Eclipse也提供的有抽象语法树视图，即ASTView。</p>
 
-<p><img src="/images/blog/2013/eclipse-astview.png" alt="" /></p>
+<p><img src="/images/blog/2013/eclipse-ast-view.png" alt="" /></p>
 
 <p>本插件选用<a href="https://code.google.com/p/javaparser/">JavaParser</a>来分析源码，提取并生成测试代码。</p>
 
