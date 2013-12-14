@@ -113,6 +113,68 @@
       ﻿
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2013/09/25/custome-checkstyle-rule/">自定义CheckStyle规则</a></h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-25T13:11:00+08:00" pubdate data-updated="true">2013年09月25日 13:09:00</time>
+        
+         | <a href="/blog/2013/09/25/custome-checkstyle-rule/#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+  <div class="entry-content"><h3>CheckStyle基于antlr对源码进行处理</h3>
+
+<ul>
+<li>antlr对AST解析</li>
+<li>使用Visitor模式</li>
+</ul>
+
+
+<p>主要是通过：</p>
+
+<pre><code>public int[] getDefaultTokens()
+</code></pre>
+
+<p>指定要访问的节点类型。</p>
+
+<pre><code>public void visitToken(DetailAST assignAST)
+</code></pre>
+
+<p>指定如何处理节点，并进行规则校验。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/09/25/custome-checkstyle-rule/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2013/09/24/performance-tuning-in-web-test/">Web系统性能调优常用技巧</a></h1>
     
 	<p class="meta">
@@ -364,62 +426,6 @@ and the repository exists.
 
     </article>
   
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2013/06/27/usage-dbunit/">DbUnit使用入门</a></h1>
-    
-	<p class="meta">
-    
-
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-06-27T15:57:00+08:00" pubdate data-updated="true">2013年06月27日 15:06:00</time>
-        
-         | <a href="/blog/2013/06/27/usage-dbunit/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://www.dbunit.org/">DbUnit</a>是一个意在对使用数据库驱动项目进行测试的JUnit扩展。它使得你的数据库在各个Test之间处于一个已知的状态。这很好的解决了以下问题：当一个测试破坏了数据库时，导致其后面的所有测试失败或给出了错误的结果。</p>
-
-<h3>DbUnit原理</h3>
-
-<p>DbUnit通过维护真实数据库与数据集(DataSet)之间的关系来发现与暴露测试过程中的问题。此处DataSet可以自建，可以由数据库导出，并以多种方式体现，xml文件、XLS文件和数据库查询数据等，一般多用XML文件。在测试过程中，DataSet被称为期望结果(expected result),真实数据库被称真实结果(actual result),你所要做的就是通过DbUnit完成期望结果与真实结果之间的操作与比较，从而发现问题和校验结果。 <br/>
-DbUnit包括三个核心部分:</p>
-
-<ul>
-<li>IDatabaseConnection ：描述DbUnit数据库连接接口；</li>
-<li>IDataSet：数据集操作接口；</li>
-<li>DatabaseOperation：描述测试用例测试方法执行前与执行后所做操作的抽象类；</li>
-</ul>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/06/27/usage-dbunit/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <ul class="pager">
     
     <li class="previous"><a href="/blog/page/3/">&larr; 上一页</a></li>
@@ -442,6 +448,10 @@ DbUnit包括三个核心部分:</p>
     <li class="nav-header">最近更新</li>
     
       <li class="post">
+        <a href="/blog/2013/12/14/ut-maven-plugin/">ut-maven-plugin</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/12/04/the-pragmatic-programmer-reading-notes/">《程序员修炼之道》读书笔记</a>
       </li>
     
@@ -457,16 +467,12 @@ DbUnit包括三个核心部分:</p>
         <a href="/blog/2013/11/20/how-package-system-dependency-lib-in-maven/">Maven如何打包本地依赖包</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2013/09/25/custome-checkstyle-rule/">自定义CheckStyle规则</a>
-      </li>
-    
   </ul>
 </section>
 <section class="well">
 	<ul id="tags-cloud" class="nav nav-list">
 	<li class="nav-header">分类云</li>
-    <span id="tag-cloud"><a href='/blog/categories/apache' style='font-size: 102.4%'>apache(1)</a> <a href='/blog/categories/checkstyle' style='font-size: 102.4%'>checkstyle(1)</a> <a href='/blog/categories/encode' style='font-size: 109.6%'>encode(4)</a> <a href='/blog/categories/git' style='font-size: 104.8%'>git(2)</a> <a href='/blog/categories/http' style='font-size: 104.8%'>HTTP(2)</a> <a href='/blog/categories/java' style='font-size: 102.4%'>Java(1)</a> <a href='/blog/categories/java' style='font-size: 104.8%'>java(2)</a> <a href='/blog/categories/javascript' style='font-size: 102.4%'>javascript(1)</a> <a href='/blog/categories/jenkins' style='font-size: 102.4%'>jenkins(1)</a> <a href='/blog/categories/jmeter' style='font-size: 104.8%'>jmeter(2)</a> <a href='/blog/categories/jvm' style='font-size: 104.8%'>JVM(2)</a> <a href='/blog/categories/linux' style='font-size: 104.8%'>linux(2)</a> <a href='/blog/categories/markdown' style='font-size: 104.8%'>markdown(2)</a> <a href='/blog/categories/maven' style='font-size: 119.2%'>maven(8)</a> <a href='/blog/categories/mysql' style='font-size: 104.8%'>mysql(2)</a> <a href='/blog/categories/nodejs' style='font-size: 116.8%'>nodejs(7)</a> <a href='/blog/categories/selenium' style='font-size: 121.6%'>selenium(9)</a> <a href='/blog/categories/selenium-wiki' style='font-size: 107.2%'>selenium-wiki(3)</a> <a href='/blog/categories/selenium官方文档' style='font-size: 109.6%'>selenium官方文档(4)</a> <a href='/blog/categories/testng' style='font-size: 102.4%'>testng(1)</a> <a href='/blog/categories/ubuntu' style='font-size: 102.4%'>ubuntu(1)</a> <a href='/blog/categories/ut' style='font-size: 104.8%'>ut(2)</a> <a href='/blog/categories/个人' style='font-size: 104.8%'>个人(2)</a> <a href='/blog/categories/开发' style='font-size: 102.4%'>开发(1)</a> <a href='/blog/categories/测试' style='font-size: 104.8%'>测试(2)</a> <a href='/blog/categories/设计模式' style='font-size: 160.0%'>设计模式(25)</a> <a href='/blog/categories/调优' style='font-size: 102.4%'>调优(1)</a> </span>
+    <span id="tag-cloud"><a href='/blog/categories/apache' style='font-size: 102.4%'>apache(1)</a> <a href='/blog/categories/checkstyle' style='font-size: 102.4%'>checkstyle(1)</a> <a href='/blog/categories/encode' style='font-size: 109.6%'>encode(4)</a> <a href='/blog/categories/git' style='font-size: 104.8%'>git(2)</a> <a href='/blog/categories/http' style='font-size: 104.8%'>HTTP(2)</a> <a href='/blog/categories/java' style='font-size: 102.4%'>Java(1)</a> <a href='/blog/categories/java' style='font-size: 104.8%'>java(2)</a> <a href='/blog/categories/javascript' style='font-size: 102.4%'>javascript(1)</a> <a href='/blog/categories/jenkins' style='font-size: 102.4%'>jenkins(1)</a> <a href='/blog/categories/jmeter' style='font-size: 104.8%'>jmeter(2)</a> <a href='/blog/categories/jvm' style='font-size: 104.8%'>JVM(2)</a> <a href='/blog/categories/linux' style='font-size: 104.8%'>linux(2)</a> <a href='/blog/categories/markdown' style='font-size: 104.8%'>markdown(2)</a> <a href='/blog/categories/maven' style='font-size: 119.2%'>maven(8)</a> <a href='/blog/categories/mysql' style='font-size: 104.8%'>mysql(2)</a> <a href='/blog/categories/nodejs' style='font-size: 116.8%'>nodejs(7)</a> <a href='/blog/categories/selenium' style='font-size: 121.6%'>selenium(9)</a> <a href='/blog/categories/selenium-wiki' style='font-size: 107.2%'>selenium-wiki(3)</a> <a href='/blog/categories/selenium官方文档' style='font-size: 109.6%'>selenium官方文档(4)</a> <a href='/blog/categories/testng' style='font-size: 102.4%'>testng(1)</a> <a href='/blog/categories/ubuntu' style='font-size: 102.4%'>ubuntu(1)</a> <a href='/blog/categories/ut' style='font-size: 104.8%'>ut(2)</a> <a href='/blog/categories/个人' style='font-size: 104.8%'>个人(2)</a> <a href='/blog/categories/开发' style='font-size: 102.4%'>开发(1)</a> <a href='/blog/categories/测试' style='font-size: 107.2%'>测试(3)</a> <a href='/blog/categories/设计模式' style='font-size: 160.0%'>设计模式(25)</a> <a href='/blog/categories/调优' style='font-size: 102.4%'>调优(1)</a> </span>
   </ul>
 </section>﻿<section class="well">
 <ul class="nav nav-list">
