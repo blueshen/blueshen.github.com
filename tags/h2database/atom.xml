@@ -4,7 +4,7 @@
   <title><![CDATA[Tag: h2database | Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/tags/h2database/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2013-12-14T21:45:24+08:00</updated>
+  <updated>2013-12-16T14:45:32+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -42,8 +42,8 @@ DbUnit包括三个核心部分:</p>
 <ul>
 <li>NONE：不执行任何操作，是getTearDownOperation的默认返回值。</li>
 <li>UPDATE：将数据集中的内容更新到数据库中。它假设数据库中已经有对应的记录，否则将失败。</li>
-<li>INSERT：将数据集中的内容插入到数据库中。它假设数据库中没有对应的记录，否则将失败。
-REFRESH：将数据集中的内容刷新到数据库中。如果数据库有对应的记录，则更新，没有则插入。</li>
+<li>INSERT：将数据集中的内容插入到数据库中。它假设数据库中没有对应的记录，否则将失败。</li>
+<li>REFRESH：将数据集中的内容刷新到数据库中。如果数据库有对应的记录，则更新，没有则插入。</li>
 <li>DELETE：删除数据库中与数据集对应的记录。</li>
 <li>DELETE_ALL：删除表中所有的记录，如果没有对应的表，则不受影响。</li>
 <li>TRUNCATE_TABLE：与DELETE_ALL类似，更轻量级，不能rollback。</li>
