@@ -4,7 +4,7 @@
   <title><![CDATA[Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2014-03-18T21:03:36+08:00</updated>
+  <updated>2014-03-18T21:07:21+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -45,8 +45,8 @@
 
 <p>说明：在JSTL 1.1规范中，JSP2.0容器已经能够独立的理解任何EL表达式。EL可以独立出现在JSP页面的任何角落。本文随后的内容将以JSTL 1.1规范作为介绍的重点。</p>
 
-<pre><code>  &lt;!--more--&gt;
-</code></pre>
+<!--more-->
+
 
 <h4>9.2.1JSTL EL 表达式语言简介</h4>
 
