@@ -113,6 +113,66 @@
       ﻿
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2012/11/08/iterator-in-java/">设计模式：迭代器（Iterator） in Java</a></h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-08T16:50:00+08:00" pubdate data-updated="true">2012年11月08日 16:11:00</time>
+        
+         | <a href="/blog/2012/11/08/iterator-in-java/#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+  <div class="entry-content"><p><strong>定义：</strong>迭代器模式提供了一种方法来访问一个容器对象种的各个元素，而又不暴露这个对象的内部细节。</p>
+
+<blockquote><p>在Java中已经默认提供了Iterator支持，各种容器类都进行了实现，而事实上，迭代器模式就是为了解决如何遍历这些容器里的元素而诞生的。</p></blockquote>
+
+<p><strong>迭代器模式</strong>主要有以下的角色：</p>
+
+<ul>
+<li>Iterator抽象迭代器： <br/>
+负责定义访问与遍历元素的接口。基本有3个固定的方法<code>hasNext()</code>,<code>next()</code>,<code>remove()</code>;</li>
+<li>Concrete Iterator具体迭代器：  <br/>
+迭代器的实现类，实现接口，完成元素遍历。</li>
+<li>Aggregate抽象容器： <br/>
+定义创建具体迭代器的接口。在Java种一般是<code>iterator()</code>方法。</li>
+<li>Concrete Aggregate具体容器：<br/>
+实现创建迭代器接口，返回迭代器实例对象。</li>
+</ul>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/11/08/iterator-in-java/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2012/11/08/command-in-java/">设计模式：命令（Command） in Java</a></h1>
     
 	<p class="meta">
@@ -319,64 +379,6 @@
 
     </article>
   
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/11/07/factory-in-java/">设计模式:工厂（factory） in Java</a></h1>
-    
-	<p class="meta">
-    
-
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-07T17:43:00+08:00" pubdate data-updated="true">2012年11月07日 17:11:00</time>
-        
-         | <a href="/blog/2012/11/07/factory-in-java/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content"><p>工厂模式，直接按名字来说，就是负责专门生产产品的。 <br/>
-大致分为3类：</p>
-
-<ul>
-<li>工厂方法</li>
-<li>简单工厂</li>
-<li>抽象工厂</li>
-</ul>
-
-
-<p>同时，也有人认为简单工厂只是工厂方法的一种特列，那么就分为两种了。本文就按3种分别进行介绍了。</p>
-
-<h3>工厂方法</h3>
-
-<p><strong>定义：</strong>定义一个用于创建对象的接口，让子类决定实例化哪一个类。工厂方法让一个类的实例化延迟到其子类。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/11/07/factory-in-java/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <ul class="pager">
     
     <li class="previous"><a href="/blog/page/11/">&larr; 上一页</a></li>
@@ -399,6 +401,10 @@
     <li class="nav-header">最近更新</li>
     
       <li class="post">
+        <a href="/blog/2014/03/18/use-jstl/">JSTL介绍</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/12/14/ut-maven-plugin/">ut-maven-plugin</a>
       </li>
     
@@ -412,10 +418,6 @@
     
       <li class="post">
         <a href="/blog/2013/11/20/maven-project-integrate-checkstyle-pmd-findbugs/">Maven项目集成CheckStyle,PMD,FindBugs进行静态代码扫描</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/11/20/how-package-system-dependency-lib-in-maven/">Maven如何打包本地依赖包</a>
       </li>
     
   </ul>
@@ -460,7 +462,7 @@
   </div>
   <footer role="contentinfo" class="page-footer">﻿<hr>
 <p>
-  版权所有 &copy; 2013 - ShenYanchao -
+  版权所有 &copy; 2014 - ShenYanchao -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 
 </p>

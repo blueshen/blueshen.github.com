@@ -113,6 +113,75 @@
       ﻿
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2013/03/22/jenkins-plugin-start/">开始第一个Jenkins Plugin</a></h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-22T16:48:00+08:00" pubdate data-updated="true">2013年03月22日 16:03:00</time>
+        
+         | <a href="/blog/2013/03/22/jenkins-plugin-start/#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+  <div class="entry-content"><h2>一，Jenkins插件的结构</h2>
+
+<p>Jenkins插件实际上是一个按照一定规则组织的jar包，其结构如下：</p>
+
+<pre><code>xxx.hpi
++- META-INF
+|   +-MANIFEST.MF
++- WEB-INF
+|   +- classes
+|       +- index.jelly
+|       +- XXXX.class
+|   +- lib
++-  (static resources)
+</code></pre>
+
+<p>说明：</p>
+
+<ul>
+<li>1.插件的后缀为&#8221;.hpi&#8221;,文件名（xxx部分）是插件的简写名字，用来区分插件。</li>
+<li>2.如上图结构所示，它与war包类似，只是缺少web.xml。</li>
+<li>3.MANIFEST.MF包含一些入口的配置信息。其中有继承自Jenkins插件的类，用作实例化的入口。类的全名，用作我们去区分其他插件。</li>
+<li>4.WEB-INF/classes 用来包含插件需要的.class，jelly页面等内容。它们可以封装成jar包放到WEB-INF/lib下面</li>
+<li>5.WEB-INF/lib 包含插件中需要的.jar文件</li>
+<li>6.插件需要的静态文件如图片，HTML，css样式文件，JS文件等可以放到文件的根目录下面。</li>
+</ul>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/03/22/jenkins-plugin-start/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2013/03/22/jstestdriver-in-brief/">JsTestDriver 简介</a></h1>
     
 	<p class="meta">
@@ -366,54 +435,6 @@ $  mocha
 
     </article>
   
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2013/03/12/testacular-in-brief/">Karma or Testacular 简介</a></h1>
-    
-	<p class="meta">
-    
-
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-12T15:12:00+08:00" pubdate data-updated="true">2013年03月12日 15:03:00</time>
-        
-         | <a href="/blog/2013/03/12/testacular-in-brief/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content"><h2>Karma/Testacular是什么？</h2>
-
-<p>在2012年11月，Google开源了<a href="http://testacular.github.com/">Testacular</a>，一个基于Node.js的JavaScript测试执行过程管理工具（Test Runner）。该工具可用于测试所有主流Web浏览器，也可集成到CI（Continuous integration）工具，也可和其他代码编辑器一起使用。</p>
-
-<p>Testacular可以在不同的桌面或移动设备浏览器上，或在持续集成的服务器上测试JavaScript代码。Testacular支持chrome、ChromeCanary、 Safari、Firefox、IE、Opera、PhantomJS，知道如何捕获浏览器正使用的默认路径，这些路径可能在启动器配置文件被忽视（overridden）。Testacular就是一个可以和多重测试框架协作的测试执行过程管理工具，它有针对Jasmine、Mocha和AngularJS的适配器，它也可以与<a href="http://jenkins-ci.org/">Jenkins</a>或<a href="https://travis-ci.org/">Travis</a>整合，用于执行持续集成测试。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/03/12/testacular-in-brief/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <ul class="pager">
     
     <li class="previous"><a href="/blog/page/8/">&larr; 上一页</a></li>
@@ -436,6 +457,10 @@ $  mocha
     <li class="nav-header">最近更新</li>
     
       <li class="post">
+        <a href="/blog/2014/03/18/use-jstl/">JSTL介绍</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/12/14/ut-maven-plugin/">ut-maven-plugin</a>
       </li>
     
@@ -449,10 +474,6 @@ $  mocha
     
       <li class="post">
         <a href="/blog/2013/11/20/maven-project-integrate-checkstyle-pmd-findbugs/">Maven项目集成CheckStyle,PMD,FindBugs进行静态代码扫描</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/11/20/how-package-system-dependency-lib-in-maven/">Maven如何打包本地依赖包</a>
       </li>
     
   </ul>
@@ -497,7 +518,7 @@ $  mocha
   </div>
   <footer role="contentinfo" class="page-footer">﻿<hr>
 <p>
-  版权所有 &copy; 2013 - ShenYanchao -
+  版权所有 &copy; 2014 - ShenYanchao -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 
 </p>

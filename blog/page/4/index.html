@@ -113,6 +113,47 @@
       ﻿
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2013/06/13/write-my-maven-plugin/">Write My Maven Plugin</a></h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-13T20:35:00+08:00" pubdate data-updated="true">2013年06月13日 20:06:00</time>
+        
+         | <a href="/blog/2013/06/13/write-my-maven-plugin/#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+  <div class="entry-content"><p>mvn archetype:generate -DgroupId=cn.shenyanchao.ut -DartifactId=ut-maven-plugin -DarchetypeGroupId=org.apache.maven.archetypes -DarchetypeArtifactId=maven-archetype-plugin</p>
+
+<p><a href="http://maven.apache.org/guides/plugin/guide-java-plugin-development.html">http://maven.apache.org/guides/plugin/guide-java-plugin-development.html</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2013/06/07/eclipse-ast/">Eclipse AST抽象语法树API</a></h1>
     
 	<p class="meta">
@@ -382,78 +423,6 @@ AST 的访问者抽象类,类中声明了一组访问各类 AST 节点的 visit(
 
     </article>
   
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/30/selenium-wiki-advanced-user-interactions/">Selenium Wiki:高级用户交互</a></h1>
-    
-	<p class="meta">
-    
-
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-30T19:56:00+08:00" pubdate data-updated="true">2013年05月30日 19:05:00</time>
-        
-         | <a href="/blog/2013/05/30/selenium-wiki-advanced-user-interactions/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content"><h3>AdvancedUserInteractions(高级用户交互)</h3>
-
-<h3>入门</h3>
-
-<p>高级用户交互API提供了一个更新更完善的机制来定义并描述用户在一个网页上的各种操作。这些操作包括：拖拽、按住CTRL键选择多个元素等等。</p>
-
-<h4>开始（short how to）</h4>
-
-<p>为了生成一连串的动作，我们使用Actions来建立。首先，我们先配置操作：</p>
-
-<pre><code>Actions builder = new Actions(driver);
-
-builder.keyDown(Keys.CONTROL)
-.click(someElement)
-.click(someOtherElement)
-.keyUp(Keys.CONTROL);
-</code></pre>
-
-<p>然后，获得操作（Action）:</p>
-
-<pre><code>Action selectMultiple = builder.build();
-</code></pre>
-
-<p>最后，执行这个动作：</p>
-
-<pre><code>selectMultiple.perform();   
-</code></pre>
-
-<p>这一系列的动作应该尽量的短。在使用中最好在执行一个简短的动作后验证页面是否处于正确的状态，然后再执行下面的动作。下一节将会列出所有可用的动作（Action），并且说明它们如何进行扩展。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/05/30/selenium-wiki-advanced-user-interactions/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <ul class="pager">
     
     <li class="previous"><a href="/blog/page/5/">&larr; 上一页</a></li>
@@ -476,6 +445,10 @@ builder.keyDown(Keys.CONTROL)
     <li class="nav-header">最近更新</li>
     
       <li class="post">
+        <a href="/blog/2014/03/18/use-jstl/">JSTL介绍</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/12/14/ut-maven-plugin/">ut-maven-plugin</a>
       </li>
     
@@ -489,10 +462,6 @@ builder.keyDown(Keys.CONTROL)
     
       <li class="post">
         <a href="/blog/2013/11/20/maven-project-integrate-checkstyle-pmd-findbugs/">Maven项目集成CheckStyle,PMD,FindBugs进行静态代码扫描</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/11/20/how-package-system-dependency-lib-in-maven/">Maven如何打包本地依赖包</a>
       </li>
     
   </ul>
@@ -537,7 +506,7 @@ builder.keyDown(Keys.CONTROL)
   </div>
   <footer role="contentinfo" class="page-footer">﻿<hr>
 <p>
-  版权所有 &copy; 2013 - ShenYanchao -
+  版权所有 &copy; 2014 - ShenYanchao -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 
 </p>

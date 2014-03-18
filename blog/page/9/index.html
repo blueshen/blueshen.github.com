@@ -113,6 +113,62 @@
       ﻿
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2013/01/10/mysql-monitor/">MySql性能监控</a></h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-10T19:03:00+08:00" pubdate data-updated="true">2013年01月10日 19:01:00</time>
+        
+         | <a href="/blog/2013/01/10/mysql-monitor/#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+  <div class="entry-content"><h2>用mysqldumpslow分析mysql的slow query log</h2>
+
+<p>mysql有一个功能就是可以log下来运行的比较慢的sql语句，默认是没有这个log的，为了开启这个功能，要修改my.cnf或者在mysql启动的时候加入一些参数。如果在my.cnf里面修改，需增加如下几行</p>
+
+<pre><code>long_query_time = 1
+log-slow-queries = /var/youpath/slow.log
+log-queries-not-using-indexes[这个在mysql4.10以后才被引入]
+</code></pre>
+
+<p>long_query_time 是指执行超过多久的sql会被log下来，这里是1秒。<br/>
+log-slow-queries 设置把日志写在那里，可以为空，系统会给一个缺省的文件host_name-slow.log，我生成的log就在mysql的data目录 <br/>
+log-queries-not-using-indexes 就是字面意思，log下来没有使用索引的query。 <br/>
+把上述参数打开，运行一段时间，就可以关掉了，省得影响生产环境。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/01/10/mysql-monitor/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2012/12/31/build-jmeter-from-sources/">从源码编译构建Jmeter</a></h1>
     
 	<p class="meta">
@@ -329,66 +385,6 @@ Git clone:</p>
 
     </article>
   
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/11/08/iterator-in-java/">设计模式：迭代器（Iterator） in Java</a></h1>
-    
-	<p class="meta">
-    
-
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-08T16:50:00+08:00" pubdate data-updated="true">2012年11月08日 16:11:00</time>
-        
-         | <a href="/blog/2012/11/08/iterator-in-java/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content"><p><strong>定义：</strong>迭代器模式提供了一种方法来访问一个容器对象种的各个元素，而又不暴露这个对象的内部细节。</p>
-
-<blockquote><p>在Java中已经默认提供了Iterator支持，各种容器类都进行了实现，而事实上，迭代器模式就是为了解决如何遍历这些容器里的元素而诞生的。</p></blockquote>
-
-<p><strong>迭代器模式</strong>主要有以下的角色：</p>
-
-<ul>
-<li>Iterator抽象迭代器： <br/>
-负责定义访问与遍历元素的接口。基本有3个固定的方法<code>hasNext()</code>,<code>next()</code>,<code>remove()</code>;</li>
-<li>Concrete Iterator具体迭代器：  <br/>
-迭代器的实现类，实现接口，完成元素遍历。</li>
-<li>Aggregate抽象容器： <br/>
-定义创建具体迭代器的接口。在Java种一般是<code>iterator()</code>方法。</li>
-<li>Concrete Aggregate具体容器：<br/>
-实现创建迭代器接口，返回迭代器实例对象。</li>
-</ul>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/11/08/iterator-in-java/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <ul class="pager">
     
     <li class="previous"><a href="/blog/page/10/">&larr; 上一页</a></li>
@@ -411,6 +407,10 @@ Git clone:</p>
     <li class="nav-header">最近更新</li>
     
       <li class="post">
+        <a href="/blog/2014/03/18/use-jstl/">JSTL介绍</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/12/14/ut-maven-plugin/">ut-maven-plugin</a>
       </li>
     
@@ -424,10 +424,6 @@ Git clone:</p>
     
       <li class="post">
         <a href="/blog/2013/11/20/maven-project-integrate-checkstyle-pmd-findbugs/">Maven项目集成CheckStyle,PMD,FindBugs进行静态代码扫描</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/11/20/how-package-system-dependency-lib-in-maven/">Maven如何打包本地依赖包</a>
       </li>
     
   </ul>
@@ -472,7 +468,7 @@ Git clone:</p>
   </div>
   <footer role="contentinfo" class="page-footer">﻿<hr>
 <p>
-  版权所有 &copy; 2013 - ShenYanchao -
+  版权所有 &copy; 2014 - ShenYanchao -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 
 </p>

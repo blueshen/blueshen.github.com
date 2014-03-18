@@ -113,6 +113,61 @@
       ﻿
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2012/11/02/flyweight-in-java/">设计模式：享元（flyweight） in Java</a></h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-02T20:07:00+08:00" pubdate data-updated="true">2012年11月02日 20:11:00</time>
+        
+         | <a href="/blog/2012/11/02/flyweight-in-java/#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+  <div class="entry-content"><p><strong>定义：</strong>享元模式（Flyweight Pattern）是池技术的重要实现方式。使用共享对象可有效地支持大量的细粒度的对象。</p>
+
+<p>享元模式提出了2个要求：细粒度的对象和共享对象。  <br/>
+要求细粒度对象，那么不可避免地使用对象数量多且性质相近。可以将这些对象分为2个部分：</p>
+
+<ul>
+<li>内部状态（intrinsic）  <br/>
+内部状态是对象可共享出来的信息，存储在享元对象内部并且不会随环境改变而改变。它们可以作为一个对象的动态附加信息，不必直接储存在具体的某个对象中，属于可以共享的部分。</li>
+<li>外部状态（extrinsic） <br/>
+外部状态是对象得以依赖的一个标记，是随环境改变而改变的，不可以共享的状态。</li>
+</ul>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/11/02/flyweight-in-java/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2012/11/02/composite-in-java/">设计模式：组合（composite） in Java</a></h1>
     
 	<p class="meta">
@@ -311,59 +366,6 @@ Selenium采用Javascript的合成事件来处理操作，比如要点击某个�
 
     </article>
   
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/11/02/proxy-in-java/">设计模式：代理（Proxy） in Java</a></h1>
-    
-	<p class="meta">
-    
-
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-02T16:21:00+08:00" pubdate data-updated="true">2012年11月02日 16:11:00</time>
-        
-         | <a href="/blog/2012/11/02/proxy-in-java/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content"><h2>什么是代理？</h2>
-
-<p>代理是指，本该有A做的工作，现在找一个代理人B，然后由B来进行实际的工作。<br/>
-代理，简单来分，可以分为以下两类：</p>
-
-<ul>
-<li>静态代理</li>
-<li>动态代理</li>
-</ul>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/11/02/proxy-in-java/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <ul class="pager">
     
     <li class="previous"><a href="/blog/page/14/">&larr; 上一页</a></li>
@@ -386,6 +388,10 @@ Selenium采用Javascript的合成事件来处理操作，比如要点击某个�
     <li class="nav-header">最近更新</li>
     
       <li class="post">
+        <a href="/blog/2014/03/18/use-jstl/">JSTL介绍</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/12/14/ut-maven-plugin/">ut-maven-plugin</a>
       </li>
     
@@ -399,10 +405,6 @@ Selenium采用Javascript的合成事件来处理操作，比如要点击某个�
     
       <li class="post">
         <a href="/blog/2013/11/20/maven-project-integrate-checkstyle-pmd-findbugs/">Maven项目集成CheckStyle,PMD,FindBugs进行静态代码扫描</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/11/20/how-package-system-dependency-lib-in-maven/">Maven如何打包本地依赖包</a>
       </li>
     
   </ul>
@@ -447,7 +449,7 @@ Selenium采用Javascript的合成事件来处理操作，比如要点击某个�
   </div>
   <footer role="contentinfo" class="page-footer">﻿<hr>
 <p>
-  版权所有 &copy; 2013 - ShenYanchao -
+  版权所有 &copy; 2014 - ShenYanchao -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 
 </p>

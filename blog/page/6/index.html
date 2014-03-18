@@ -113,6 +113,58 @@
       ﻿
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2013/05/21/use-maven-archetype-to-generate-project-architecture/">使用Maven Archetype来生成项目框架</a></h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-21T16:36:00+08:00" pubdate data-updated="true">2013年05月21日 16:05:00</time>
+        
+         | <a href="/blog/2013/05/21/use-maven-archetype-to-generate-project-architecture/#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+  <div class="entry-content"><h3>Maven in 5 Minutes</h3>
+
+<p><a href="http://maven.apache.org/guides/getting-started/maven-in-five-minutes.html">maven官方文档</a>的入门章节就介绍了如何创建一个maven项目。大致如下：</p>
+
+<pre><code>mvn archetype:generate -DgroupId=com.mycompany.app -DartifactId=my-app -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false     
+</code></pre>
+
+<p>我相信，很多人都是从这里开始的。但是为什么是这样呢？这里面都是怎么实现的？  <br/>
+其实，这里面是maven archetype的作用。它可以根据模板为你生成样例项目。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/05/21/use-maven-archetype-to-generate-project-architecture/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2013/05/15/http-the-definitive-guide-reading-notes/">《HTTP权威指南》读书笔记1</a></h1>
     
 	<p class="meta">
@@ -397,75 +449,6 @@ coverageReporter = {
 
     </article>
   
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2013/03/22/jenkins-plugin-start/">开始第一个Jenkins Plugin</a></h1>
-    
-	<p class="meta">
-    
-
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-22T16:48:00+08:00" pubdate data-updated="true">2013年03月22日 16:03:00</time>
-        
-         | <a href="/blog/2013/03/22/jenkins-plugin-start/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content"><h2>一，Jenkins插件的结构</h2>
-
-<p>Jenkins插件实际上是一个按照一定规则组织的jar包，其结构如下：</p>
-
-<pre><code>xxx.hpi
-+- META-INF
-|   +-MANIFEST.MF
-+- WEB-INF
-|   +- classes
-|       +- index.jelly
-|       +- XXXX.class
-|   +- lib
-+-  (static resources)
-</code></pre>
-
-<p>说明：</p>
-
-<ul>
-<li>1.插件的后缀为&#8221;.hpi&#8221;,文件名（xxx部分）是插件的简写名字，用来区分插件。</li>
-<li>2.如上图结构所示，它与war包类似，只是缺少web.xml。</li>
-<li>3.MANIFEST.MF包含一些入口的配置信息。其中有继承自Jenkins插件的类，用作实例化的入口。类的全名，用作我们去区分其他插件。</li>
-<li>4.WEB-INF/classes 用来包含插件需要的.class，jelly页面等内容。它们可以封装成jar包放到WEB-INF/lib下面</li>
-<li>5.WEB-INF/lib 包含插件中需要的.jar文件</li>
-<li>6.插件需要的静态文件如图片，HTML，css样式文件，JS文件等可以放到文件的根目录下面。</li>
-</ul>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/03/22/jenkins-plugin-start/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <ul class="pager">
     
     <li class="previous"><a href="/blog/page/7/">&larr; 上一页</a></li>
@@ -488,6 +471,10 @@ coverageReporter = {
     <li class="nav-header">最近更新</li>
     
       <li class="post">
+        <a href="/blog/2014/03/18/use-jstl/">JSTL介绍</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/12/14/ut-maven-plugin/">ut-maven-plugin</a>
       </li>
     
@@ -501,10 +488,6 @@ coverageReporter = {
     
       <li class="post">
         <a href="/blog/2013/11/20/maven-project-integrate-checkstyle-pmd-findbugs/">Maven项目集成CheckStyle,PMD,FindBugs进行静态代码扫描</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/11/20/how-package-system-dependency-lib-in-maven/">Maven如何打包本地依赖包</a>
       </li>
     
   </ul>
@@ -549,7 +532,7 @@ coverageReporter = {
   </div>
   <footer role="contentinfo" class="page-footer">﻿<hr>
 <p>
-  版权所有 &copy; 2013 - ShenYanchao -
+  版权所有 &copy; 2014 - ShenYanchao -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 
 </p>

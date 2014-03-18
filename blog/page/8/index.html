@@ -113,6 +113,54 @@
       ﻿
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2013/03/12/testacular-in-brief/">Karma or Testacular 简介</a></h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-12T15:12:00+08:00" pubdate data-updated="true">2013年03月12日 15:03:00</time>
+        
+         | <a href="/blog/2013/03/12/testacular-in-brief/#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+  <div class="entry-content"><h2>Karma/Testacular是什么？</h2>
+
+<p>在2012年11月，Google开源了<a href="http://testacular.github.com/">Testacular</a>，一个基于Node.js的JavaScript测试执行过程管理工具（Test Runner）。该工具可用于测试所有主流Web浏览器，也可集成到CI（Continuous integration）工具，也可和其他代码编辑器一起使用。</p>
+
+<p>Testacular可以在不同的桌面或移动设备浏览器上，或在持续集成的服务器上测试JavaScript代码。Testacular支持chrome、ChromeCanary、 Safari、Firefox、IE、Opera、PhantomJS，知道如何捕获浏览器正使用的默认路径，这些路径可能在启动器配置文件被忽视（overridden）。Testacular就是一个可以和多重测试框架协作的测试执行过程管理工具，它有针对Jasmine、Mocha和AngularJS的适配器，它也可以与<a href="http://jenkins-ci.org/">Jenkins</a>或<a href="https://travis-ci.org/">Travis</a>整合，用于执行持续集成测试。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/03/12/testacular-in-brief/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2013/03/11/node-dot-js-develop-guide-reading-note/">《Node.js开发指南》读书笔记</a></h1>
     
 	<p class="meta">
@@ -340,62 +388,6 @@ Node: 负责执行Tests,调用浏览器。</p>
 
     </article>
   
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2013/01/10/mysql-monitor/">MySql性能监控</a></h1>
-    
-	<p class="meta">
-    
-
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-01-10T19:03:00+08:00" pubdate data-updated="true">2013年01月10日 19:01:00</time>
-        
-         | <a href="/blog/2013/01/10/mysql-monitor/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content"><h2>用mysqldumpslow分析mysql的slow query log</h2>
-
-<p>mysql有一个功能就是可以log下来运行的比较慢的sql语句，默认是没有这个log的，为了开启这个功能，要修改my.cnf或者在mysql启动的时候加入一些参数。如果在my.cnf里面修改，需增加如下几行</p>
-
-<pre><code>long_query_time = 1
-log-slow-queries = /var/youpath/slow.log
-log-queries-not-using-indexes[这个在mysql4.10以后才被引入]
-</code></pre>
-
-<p>long_query_time 是指执行超过多久的sql会被log下来，这里是1秒。<br/>
-log-slow-queries 设置把日志写在那里，可以为空，系统会给一个缺省的文件host_name-slow.log，我生成的log就在mysql的data目录 <br/>
-log-queries-not-using-indexes 就是字面意思，log下来没有使用索引的query。 <br/>
-把上述参数打开，运行一段时间，就可以关掉了，省得影响生产环境。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/01/10/mysql-monitor/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <ul class="pager">
     
     <li class="previous"><a href="/blog/page/9/">&larr; 上一页</a></li>
@@ -418,6 +410,10 @@ log-queries-not-using-indexes 就是字面意思，log下来没有使用索引�
     <li class="nav-header">最近更新</li>
     
       <li class="post">
+        <a href="/blog/2014/03/18/use-jstl/">JSTL介绍</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/12/14/ut-maven-plugin/">ut-maven-plugin</a>
       </li>
     
@@ -431,10 +427,6 @@ log-queries-not-using-indexes 就是字面意思，log下来没有使用索引�
     
       <li class="post">
         <a href="/blog/2013/11/20/maven-project-integrate-checkstyle-pmd-findbugs/">Maven项目集成CheckStyle,PMD,FindBugs进行静态代码扫描</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/11/20/how-package-system-dependency-lib-in-maven/">Maven如何打包本地依赖包</a>
       </li>
     
   </ul>
@@ -479,7 +471,7 @@ log-queries-not-using-indexes 就是字面意思，log下来没有使用索引�
   </div>
   <footer role="contentinfo" class="page-footer">﻿<hr>
 <p>
-  版权所有 &copy; 2013 - ShenYanchao -
+  版权所有 &copy; 2014 - ShenYanchao -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 
 </p>
