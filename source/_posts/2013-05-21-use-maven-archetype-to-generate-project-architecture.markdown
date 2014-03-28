@@ -72,7 +72,8 @@ Maven Archetype Plugin有4个Goal:
 这样，这个archetype就安装到了local repository。
 如何使用呢？咱们试试。   
 
-    mvn archetype:generate -DarchetypeGroupId=com.baidu.selenium.archetypes -DarchetypeArtifactId=seleniumframework-start-archetype -DarchetypeVersion=1.0.0
+    mvn archetype:generate -DarchetypeGroupId=com.baidu.selenium.archetypes \
+    -DarchetypeArtifactId=seleniumframework-start-archetype -DarchetypeVersion=1.0.0
 其中，有一些交互信息需要确认。依次是groupId,artifactId,version,package。按照要求输入后，这些信息就是用来分别替代上面说的几个变量了，项目就顺利生成了。  
 此时，seleniumframework-start-archetype还只能自己使用，因为它只存在于local repository内。为了让大家共享成果，将这个包deploy到伺服器就OK了。  
 
