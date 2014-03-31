@@ -113,6 +113,69 @@
       ﻿
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2013/09/16/git-ssh-connection/">提交代码到GitHub SSH错误解决方案</a></h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-16T18:08:00+08:00" pubdate data-updated="true">2013年09月16日 18:09:00</time>
+        
+         | <a href="/blog/2013/09/16/git-ssh-connection/#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+  <div class="entry-content"><p>最近，由于公司内部的网络改造，在<code>git push</code>的时候提示如下信息：</p>
+
+<pre><code>ssh: connect to host github.com port 22: Connection timed out
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+</code></pre>
+
+<p>看字面的意思就是连接超时了，什么原因造成的呢，这个估计是公司网络禁用了SSH的22端口导致的。所幸git提供了https、git、ssh三种协议来读写。</p>
+
+<p>运行<code>git config --local -e</code>打开配置信息。 <br/>
+修改其中的</p>
+
+<pre><code>url = git@github.com:username/repo.git
+</code></pre>
+
+<p>为</p>
+
+<pre><code>url = https://username@github.com/username/repo.git
+</code></pre>
+
+<p>这样就改为使用https协议了。提交什么的就OK了。</p>
+
+<p>后来，我再使用Octopress提交博客的时候问题又出现了。也就是在<code>rake deploy</code>的时候，又走ssh了。此时只要进入_deploy目录，把上述步骤再执行一次就好了。就是每次提交都要输入用户名密码而已。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2013/09/04/use-sonar/">Sonar的安装与使用</a></h1>
     
 	<p class="meta">
@@ -345,72 +408,6 @@ DbUnit包括三个核心部分:</p>
 
     </article>
   
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2013/06/19/publishing-from-github-to-maven-central/">从Github发布jar包到Maven Central</a></h1>
-    
-	<p class="meta">
-    
-
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-06-19T19:50:00+08:00" pubdate data-updated="true">2013年06月19日 19:06:00</time>
-        
-         | <a href="/blog/2013/06/19/publishing-from-github-to-maven-central/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content"><p>除非你的项目是Apache或者Codehaus管理的，否则你是不可能直接把artifacts发布到Maven Central的。然而，Sonatype提供了它们的Nexus repositories,我们可以将开源项目提交上去，然后会自动同步到Maven Central。</p>
-
-<p>下面介绍下如何做：</p>
-
-<h3>准备工作</h3>
-
-<p>1.添加source code management信息到pom.xml:</p>
-
-<pre><code>&lt;scm&gt;
-    &lt;connection&gt;scm:git:git@github.com:blueshen/ut-maven-plugin.git&lt;/connection&gt;
-    &lt;developerConnection&gt;scm:git:git@github.com:blueshen/ut-maven-plugin.git&lt;/developerConnection&gt;
-    &lt;url&gt;git@github.com:blueshen/ut-maven-plugin.git&lt;/url&gt;
-&lt;/scm&gt;
-</code></pre>
-
-<p>2.创建GPG的密钥对并发布公钥。参看<a href="https://docs.sonatype.org/display/Repository/How+To+Generate+PGP+Signatures+With+Maven">Sonatype documentation</a>的具体步骤.推荐使用Linux,Mac来发布。</p>
-
-<blockquote><p><code>gpg --gen-key</code> 创建key  <br/>
-<code>gpg --list-keys</code> 查看所有的key <br/>
-<code>gpg --send-keys --keyserver pool.sks-keyservers.net yourkey</code>   发布你的key到服务器上</p></blockquote>
-
-<p>3.确保你的工程POM符合<a href="https://docs.sonatype.org/display/Repository/Central+Sync+Requirements">要求</a><br/>
-4.创建一个<a href="https://issues.sonatype.org/">Sonatype JIRA</a>账户，并发布一个ticket来让Nexus repository建立。用户名，密码后面要用的。这中间牵涉到人工操作，会花费一些时间。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/06/19/publishing-from-github-to-maven-central/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <ul class="pager">
     
     <li class="previous"><a href="/blog/page/4/">&larr; 上一页</a></li>
@@ -433,6 +430,10 @@ DbUnit包括三个核心部分:</p>
     <li class="nav-header">最近更新</li>
     
       <li class="post">
+        <a href="/blog/2014/03/31/velocity-study-summary/">Velocity学习小结</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/03/27/java-encode-error-again/">又见Java乱码</a>
       </li>
     
@@ -448,16 +449,12 @@ DbUnit包括三个核心部分:</p>
         <a href="/blog/2013/12/04/the-pragmatic-programmer-reading-notes/">《程序员修炼之道》读书笔记</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2013/11/26/the-principle-of-ssh/">SSH原理</a>
-      </li>
-    
   </ul>
 </section>
 <section class="well">
 	<ul id="tags-cloud" class="nav nav-list">
 	<li class="nav-header">分类云</li>
-    <span id="tag-cloud"><a href='/blog/categories/apache' style='font-size: 102.4%'>apache(1)</a> <a href='/blog/categories/checkstyle' style='font-size: 102.4%'>checkstyle(1)</a> <a href='/blog/categories/encode' style='font-size: 109.6%'>encode(4)</a> <a href='/blog/categories/git' style='font-size: 104.8%'>git(2)</a> <a href='/blog/categories/http' style='font-size: 104.8%'>HTTP(2)</a> <a href='/blog/categories/java' style='font-size: 107.2%'>java(3)</a> <a href='/blog/categories/java' style='font-size: 102.4%'>Java(1)</a> <a href='/blog/categories/java-encode' style='font-size: 102.4%'>Java,encode(1)</a> <a href='/blog/categories/javascript' style='font-size: 102.4%'>javascript(1)</a> <a href='/blog/categories/jenkins' style='font-size: 102.4%'>jenkins(1)</a> <a href='/blog/categories/jmeter' style='font-size: 104.8%'>jmeter(2)</a> <a href='/blog/categories/jvm' style='font-size: 104.8%'>JVM(2)</a> <a href='/blog/categories/linux' style='font-size: 104.8%'>linux(2)</a> <a href='/blog/categories/markdown' style='font-size: 104.8%'>markdown(2)</a> <a href='/blog/categories/maven' style='font-size: 119.2%'>maven(8)</a> <a href='/blog/categories/mysql' style='font-size: 104.8%'>mysql(2)</a> <a href='/blog/categories/nodejs' style='font-size: 116.8%'>nodejs(7)</a> <a href='/blog/categories/selenium' style='font-size: 121.6%'>selenium(9)</a> <a href='/blog/categories/selenium-wiki' style='font-size: 107.2%'>selenium-wiki(3)</a> <a href='/blog/categories/selenium官方文档' style='font-size: 109.6%'>selenium官方文档(4)</a> <a href='/blog/categories/testng' style='font-size: 102.4%'>testng(1)</a> <a href='/blog/categories/ubuntu' style='font-size: 102.4%'>ubuntu(1)</a> <a href='/blog/categories/ut' style='font-size: 104.8%'>ut(2)</a> <a href='/blog/categories/个人' style='font-size: 104.8%'>个人(2)</a> <a href='/blog/categories/开发' style='font-size: 102.4%'>开发(1)</a> <a href='/blog/categories/测试' style='font-size: 107.2%'>测试(3)</a> <a href='/blog/categories/设计模式' style='font-size: 160.0%'>设计模式(25)</a> <a href='/blog/categories/调优' style='font-size: 102.4%'>调优(1)</a> </span>
+    <span id="tag-cloud"><a href='/blog/categories/apache' style='font-size: 102.4%'>apache(1)</a> <a href='/blog/categories/checkstyle' style='font-size: 102.4%'>checkstyle(1)</a> <a href='/blog/categories/encode' style='font-size: 109.6%'>encode(4)</a> <a href='/blog/categories/git' style='font-size: 104.8%'>git(2)</a> <a href='/blog/categories/http' style='font-size: 104.8%'>HTTP(2)</a> <a href='/blog/categories/java' style='font-size: 107.2%'>java(3)</a> <a href='/blog/categories/java' style='font-size: 102.4%'>Java(1)</a> <a href='/blog/categories/java-encode' style='font-size: 102.4%'>Java,encode(1)</a> <a href='/blog/categories/javascript' style='font-size: 102.4%'>javascript(1)</a> <a href='/blog/categories/jenkins' style='font-size: 102.4%'>jenkins(1)</a> <a href='/blog/categories/jmeter' style='font-size: 104.8%'>jmeter(2)</a> <a href='/blog/categories/jvm' style='font-size: 104.8%'>JVM(2)</a> <a href='/blog/categories/linux' style='font-size: 104.8%'>linux(2)</a> <a href='/blog/categories/markdown' style='font-size: 104.8%'>markdown(2)</a> <a href='/blog/categories/maven' style='font-size: 119.2%'>maven(8)</a> <a href='/blog/categories/mysql' style='font-size: 104.8%'>mysql(2)</a> <a href='/blog/categories/nodejs' style='font-size: 116.8%'>nodejs(7)</a> <a href='/blog/categories/selenium' style='font-size: 121.6%'>selenium(9)</a> <a href='/blog/categories/selenium-wiki' style='font-size: 107.2%'>selenium-wiki(3)</a> <a href='/blog/categories/selenium官方文档' style='font-size: 109.6%'>selenium官方文档(4)</a> <a href='/blog/categories/testng' style='font-size: 102.4%'>testng(1)</a> <a href='/blog/categories/ubuntu' style='font-size: 102.4%'>ubuntu(1)</a> <a href='/blog/categories/ut' style='font-size: 104.8%'>ut(2)</a> <a href='/blog/categories/velocity' style='font-size: 102.4%'>velocity(1)</a> <a href='/blog/categories/个人' style='font-size: 104.8%'>个人(2)</a> <a href='/blog/categories/开发' style='font-size: 102.4%'>开发(1)</a> <a href='/blog/categories/测试' style='font-size: 107.2%'>测试(3)</a> <a href='/blog/categories/设计模式' style='font-size: 160.0%'>设计模式(25)</a> <a href='/blog/categories/调优' style='font-size: 102.4%'>调优(1)</a> </span>
   </ul>
 </section>﻿<section class="well">
 <ul class="nav nav-list">
