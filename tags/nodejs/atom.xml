@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Tag: NodeJS | Blues 小站]]></title>
+  <title><![CDATA[Tag: nodejs | Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/tags/nodejs/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2014-03-31T16:43:42+08:00</updated>
+  <updated>2014-06-20T16:41:58+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -14,216 +14,600 @@
 
   
   <entry>
-    <title type="html"><![CDATA[《Node.js开发指南》读书笔记]]></title>
-    <link href="http://www.shenyanchao.cn/blog/2013/03/11/node-dot-js-develop-guide-reading-note/"/>
-    <updated>2013-03-11T16:53:00+08:00</updated>
-    <id>http://www.shenyanchao.cn/blog/2013/03/11/node-dot-js-develop-guide-reading-note</id>
-    <content type="html"><![CDATA[<h3>书籍信息</h3>
+    <title type="html"><![CDATA[JsTestDriver 简介]]></title>
+    <link href="http://www.shenyanchao.cn/blog/2013/03/22/jstestdriver-in-brief/"/>
+    <updated>2013-03-22T16:11:00+08:00</updated>
+    <id>http://www.shenyanchao.cn/blog/2013/03/22/jstestdriver-in-brief</id>
+    <content type="html"><![CDATA[<h1>jsTestDriver</h1>
 
-<p>Amazon: <a href="http://www.amazon.cn/Node-js%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97-%E9%83%AD%E5%AE%B6%E5%AE%9D/dp/B008HN793I">NodeJS开发指南</a></p>
-
-<p>PDF: <a href="http://azrael.ihorsley.com/wordpress/wp-content/uploads/2012/11/Node.js%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97_%E4%B8%AD%E6%96%87%E6%AD%A3%E7%89%88.pdf">免费下载</a></p>
-
-<h3>NodeJS简介</h3>
-
-<p>是NodeJS的出现，让JavaScript在服务器端得以使用，重新焕发了生机。而不仅仅像大家所认为的，只是一个客户端脚本语言。<br/>
-由于JavaScript自身的脚本语言特性，造成开发混乱，难以维护。CommonJS对这个进行了规范。像NodeJS,ringojs都是对这一规范的具体实现。
-CommonJS规范包括：</p>
-
-<ul>
-<li>模块（modules）</li>
-<li>包（packages）</li>
-<li>系统（system）</li>
-<li>二进制（binary）</li>
-<li>控制台（console）</li>
-<li>编码（encodings）</li>
-<li>文件系统（filesystems）</li>
-<li>套接字（sockets）</li>
-<li>单元测试（unit testing）</li>
-</ul>
-
+<p>jsTestDriver是一个JavaScript单元测试工具，易于与持续构建系统相集成并能够在多个浏览器上执行运行测试，轻松实现TDD（测试驱动开发）风格的开发。当在项目中配置好js-test-driver以后，如同junit测试java文件一般，js-test-driver可以直接通过直接运行js文件，来对js文件单元测试。 <br/>
+<img src="/images/blog/jsTestDriver-framework.jpg" alt="alt jsTestDriver框架" /></p>
 
 <!--more-->
 
 
-<h3>NodeJS的模块与包</h3>
-
-<p>模块（module）和包(package)是NodeJS的基本。并且都是参照CommonJS标准来实现的。如果项目有一定的规模，势必要把各种功能模块进行切分，然后再组装起来。这也正式所有服务器端的通用做法。然而，在NodeJS中怎么实现模块之间的调用呢，这里是使用require函数的。模块和包通常区分不是很明确，可以认为是一致的。</p>
-
-<h4>1.什么是模块？</h4>
-
-<pre><code>var http = require("http");
-</code></pre>
-
-<p>其中http就是nodeJs中的一个核心模块. 像Java中的import一样，这里是使用require来引入这个模块。</p>
-
-<h4>2.创建与发布模块</h4>
-
-<p>NodeJS提供了exports和require两个对象来完成，exports用于公开模块的接口，require用于获取外部模块的接口。
-如创建一个module.js:</p>
-
-<pre><code>var name;
-exports.setName=function(thyName){
-     name=thyName;
-     }
-     exports.sayHello = function(){
-    console.log('Hello '+name);
-}
-</code></pre>
-
-<p>在同一个目录下，再创建一个getmodule.js:</p>
-
-<pre><code>var mymodule = require('./module');
-myModule.setName('shenyanchao');
-myModule.sayHello();
-</code></pre>
-
-<p>运行后的结果：</p>
-
-<pre><code>Hello shenyanchao
-</code></pre>
-
-<p>这就是一个简单的模块发布与调用关系。</p>
-
-<h4>3.包（package）</h4>
-
-<p>包是对模块的更进一步的抽象。类似与Java的类库概念。当包便多，甚至依赖很复杂的时候，就需要一个管理工具，就像是Java的Maven用来管理Jar包一样。NodeJs用NPM（Node Packages Manager）来发布、更新、依赖管理和版本控制。<br/>
-直观上看，NodeJS的包是一个目录，并且包含一个package.json文件。一个符合CommonJS的包应有以下的特征：</p>
+<h5>在Intellij IDEA中安装JsTestDriver</h5>
 
 <ul>
-<li>package.json在包的顶层目录下；</li>
-<li>二进制可执行文件在bin目录下；</li>
-<li>JS代码在lib目录下；</li>
-<li>文档在doc目录下；</li>
-<li>单元测试在test下；
-这就相当于对包的目录结构进行了一个定义，类似于J2EE的规范一样，减少大家的学习成本，什么东西放在哪儿都一清二楚。如果在github或者googlecode上看开源项目，绝对都是这样的结构。</li>
+<li>打开IDEA编辑器，点击<strong>File</strong>，点击下拉列表中的<strong>setting</strong>，进入IDEA设置对话框</li>
+<li>在搜索框中键入<strong>plugins</strong>，在搜索结果中选择<strong>plugins</strong>这一项</li>
+<li>点击<strong>Browse Repositories</strong>，在弹出的列表中搜索jsTestDriver。</li>
+<li>右击jsTestDriver插件，选择<strong>Download and Install</strong>.</li>
 </ul>
 
 
-<p>模块与文件是一一对应的。文件不仅可以是 JavaScript 代码或二进制代码,还可以是一个文件夹。最简单的包,就是一个作为文件夹的模块。建立一个叫做 somepackage 的文件夹,在其中创建 index.js,内容如下:</p>
+<p><img src="/images/blog/idea-install-jstestdriver-plugin-dialog.png" alt="alt jsTestDriver插件安装" /></p>
 
-<pre><code>exports.hello = function() {
-   console.log('Hello.');
+<h5>在IDEA中使用jsTestDriver运行js测试代码</h5>
+
+<ul>
+<li>在IDEA中新建一个空的工程，在工程目录下新建代码包test</li>
+<li><p>在src代码包中新建Greeter.js代码如下：</p>
+
+<p>  myapp = {};<br/>
+  myapp.Greeter = function() { };<br/>
+  myapp.Greeter.prototype.greet = function(name) {
+  return "Hello " + name + "!";<br/>
+  };</p></li>
+<li><p>在test代码包中新建GreeterTest.js,代码如下</p>
+
+<p>  GGdTestCase("GreeterTest", {
+  "test greet": function() {</p>
+
+<pre><code>  var greeter = new myapp.Greeter();
+  assertEquals("Hello World!", greeter.greet("World"));
+</code></pre>
+
+  },
+  "test greet null": function() {
+
+<pre><code>  var greeter = new myapp.Greeter();
+  //assertNull(greeter.greet(null));
+  assertTrue(true);
+</code></pre>
+
+<p>  }
+  });</p></li>
+<li><p>在项目主文件夹中新建配置文件greeter.jstd,文件内容如下：</p>
+
+<p>  load:<br/>
+-- src/Greeter.js<br/>
+--test/GreeterTest.js</p></li>
+<li>启动jsTestDriver Server<br/>
+<img src="/images/blog/jsTestDriver-server.jpg" alt="alt jsTestDriver server" /></li>
+<li>打开本地浏览器，访问url http://localhost:9876/capture</li>
+<li>运行greeter.jstd</li>
+</ul>
+
+
+<h5>在Eclipse中安装jsTestDriver</h5>
+
+<ul>
+<li>在<strong>Help</strong>中的<strong>Install new software</strong>中，添加一个update site ：http://js-test-driver.googlecode.com/svn/update/</li>
+<li>安装完毕后，重启Eclipse，新建一个空的java项目</li>
+<li>在java项目中添加test代码包，在src中新建src.js,其代码如IDEA中的Greeter.js一样。</li>
+<li>在test中添加test.js，其代码和IDEA中GreeterTest.js一样。</li>
+<li><p>在项目目录中添加配置文件jsTestDriver.conf，其内容为</p>
+
+<p>  load:<br/>
+  -- src/<em>.js<br/>
+  -- test/</em>.js<br/>
+目录结构如图：<br/>
+<img src="/images/blog/eclipse-jstestDriver.jpg" alt="alt 目录结构" /></p></li>
+<li>配置Run Configuration，新建一个Js Test Driver Test, 选择好项目和相应的配置文件。</li>
+<li>启动jsTestDriver服务器，然后用浏览器去访问http://127.0.0.1:4244/capture，这样就可以在
+浏览器中执行我们的js测试脚本了。<br/>
+<img src="/images/blog//eclipse-test.jpg" alt="alt eclipse执行结果" /><br/>
+我们可以再eclipse中配置jsTestDriver的相关项，如图：<br/>
+<img src="/images/blog//eclipse-js-setting.jpg" alt="alt eclipse配置jsTestDriver" /></li>
+</ul>
+
+
+<hr />
+
+<p>参考文献：<a href="http://code.google.com/p/js-test-driver/">http://code.google.com/p/js-test-driver/</a> <br/>
+感谢：youthflies</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Jasmine 简介]]></title>
+    <link href="http://www.shenyanchao.cn/blog/2013/03/22/jasmine-in-brief/"/>
+    <updated>2013-03-22T15:47:00+08:00</updated>
+    <id>http://www.shenyanchao.cn/blog/2013/03/22/jasmine-in-brief</id>
+    <content type="html"><![CDATA[<h2>jasmine测试框架简介</h2>
+
+<p><strong>jasmine</strong>是一种javascript测试框架，它既可以在html文件中运行，也可以和jsTestDriver整合，在jsTestDriver中运行。</p>
+
+<h3>jasmine的简单语法</h3>
+
+<p>一个基本的jasmine测试用例如下：</p>
+
+<pre><code>describe("A suite", function() {  
+    it("contains spec with an expectation", function() {  
+    expect(true).toBe(true);  
+    });  
+});   
+</code></pre>
+
+<h4>describe方法</h4>
+
+<p>describe方法标志着一个测试集(test suite)的开始，这个方法有两个参数，一个字符串String，一个方法function；字符串用来描述我们这个test suite，function里的东西就是测试代码，它们就是suite。</p>
+
+<!--more-->
+
+
+<h4>it方法</h4>
+
+<p>jasmine中用方法it来开始specs（我理解成测试点，一个测试suite里可以有很多spec）。it方法和describe方法类似，同样有两个参数，一个String，一个function；String用来描述测试点（spec），function是具体的测试代码。一个测试点(spec)可以包含多个expections（其实是断言的意思）。</p>
+
+<h4>expectations</h4>
+
+<p>断言可以返回为true或者false。全部的断言返回true这个测试点就通过，一个或者多个断言返回false这个测试点就不通过。<br/>
+describe和it都是方法，我们可以自定义一些变量，在describe中定义的变量，在it方法中可以直接使用。</p>
+
+<pre><code>describe("A suite is just a function", function() {
+var a;
+
+it("and so is a spec", function() {
+    a = true;
+
+    expect(a).toBe(true);
+});
+});  
+</code></pre>
+
+<h4>Matchers</h4>
+
+<p>一个一个的测试点们由expect开头，后面跟着一个我们需要测试的变量，如上面的a，然后跟着一个Matcher方法（我理解成校验规则），Matcher方法带着一个期望值，如上面的true。Matchers方法返回true或者false，它决定着测试点（spec）是否通过。所有的Matchers方法都能在mathcer前面加上not来进行否定断言，如`expect(a).not.toBe(true);</p>
+
+<p>jasmine中有很多Matchers方法供我们使用，当然我们也可以定义自己的Matchers方法。</p>
+
+<pre><code>describe("Included matchers:", function() {
+
+    it("The 'toBe' matcher compares with ===", function() {
+        var a = 12;
+        var b = a;
+
+        expect(a).toBe(b);
+        expect(a).not.toBe(null);
+    });  
+    //上面的例子，比较a、b是否相等；验证a是否不是空。 
+
+    it("should work for objects", function() {
+        var foo = {
+            a: 12,
+            b: 34
+        };
+        var bar = {
+            a: 12,
+            b: 34
+        };
+        expect(foo).toEqual(bar);
+    });
+    //上面的例子比较了两个对象是否相等
+});
+
+it("The 'toMatch' matcher is for regular expressions", function() {
+    var message = 'foo bar baz';
+
+    expect(message).toMatch(/bar/);
+    expect(message).toMatch('bar');
+    expect(message).not.toMatch(/quux/);
+});
+//也可以使用正则表达式
+
+it("The 'toBeDefined' matcher compares against `undefined`", function() {
+    var a = {
+        foo: 'foo'
+    };
+
+    expect(a.foo).toBeDefined();
+    expect(a.bar).not.toBeDefined();
+});
+//验证变量是否被定义
+
+it("The 'toBeNull' matcher compares against null", function() {
+    var a = null;
+    var foo = 'foo';
+
+    expect(null).toBeNull();
+    expect(a).toBeNull();
+    expect(foo).not.toBeNull();
+});
+//验证是否为空
+
+it("The 'toBeTruthy' matcher is for boolean casting testing", function() {
+    var a, foo = 'foo';
+
+    expect(foo).toBeTruthy();
+    expect(a).not.toBeTruthy();
+});
+
+it("The 'toBeFalsy' matcher is for boolean casting testing", function() {
+    var a, foo = 'foo';
+
+    expect(a).toBeFalsy();
+    expect(foo).not.toBeFalsy();
+});
+//变量是否能够转化成boolean变量？ 不太确定
+
+it("The 'toContain' matcher is for finding an item in an Array", function() {
+    var a = ['foo', 'bar', 'baz'];
+
+    expect(a).toContain('bar');
+    expect(a).not.toContain('quux');
+});
+//是否包含
+it("The 'toBeLessThan' matcher is for mathematical comparisons", function() {
+    var pi = 3.1415926, e = 2.78;
+
+    expect(e).toBeLessThan(pi);
+    expect(pi).not.toBeLessThan(e);
+});
+
+it("The 'toBeGreaterThan' is for mathematical comparisons", function() {
+    var pi = 3.1415926, e = 2.78;
+
+    expect(pi).toBeGreaterThan(e);
+    expect(e).not.toBeGreaterThan(pi);
+});
+//数学大小的比较
+
+it("The 'toBeCloseTo' matcher is for precision math comparison", function() {
+var pi = 3.1415926, e = 2.78;
+
+expect(pi).not.toBeCloseTo(e, 2);
+expect(pi).toBeCloseTo(e, 0);
+});
+//两个数值是否接近，这里接近的意思是将pi和e保留一定小数位数后，是否相等。（一定小数位数：默认为2，也可以手动指定）
+
+it("The 'toThrow' matcher is for testing if a function throws an exception", function() {
+    var foo = function() {
+    return 1 + 2;
+    };
+    var bar = function() {
+        return a + 1;
+    };
+
+    expect(foo).not.toThrow();
+    expect(bar).toThrow();
+    });
+}); 
+//测试一个方法是否抛出异常  
+</code></pre>
+
+<h4>Setup和Teardown方法</h4>
+
+<p>为了代码简洁，减少重复性的工作，jasmine提供<code>beforeEach</code>和<code>afterEach</code>方法。<code>beforeEach</code>会在每个spec之前执行，<code>after</code>会在每个spec之后执行，类似于selenium中的<code>beforeMethod</code>和<code>afterMethod</code>方法。</p>
+
+<pre><code>describe("A spec (with setup and tear-down)", function() {
+    var foo;
+
+    beforeEach(function() {
+        foo = 1;
+    });
+
+    afterEach(function() {
+        foo = 0;
+    });
+
+    it("is just a function, so it can contain any code", function() {
+        expect(foo).toEqual(1);
+    });
+
+    it("can have more than one expectation", function() {
+        expect(foo).toEqual(1);
+        expect(true).toEqual(true);
+    });
+});  
+</code></pre>
+
+<p>另外describe和it作为方法是可以嵌套的，也就是describe中可以出现子describe和it。</p>
+
+<h4>禁用某些spec和suites</h4>
+
+<p>在测试中，我们可能需要禁用一些suites和spec，方法是使用xdescribe和xit方法，这些测试的方法会被忽略，不计入统计结果。</p>
+
+<h4>The Runner and Reporter</h4>
+
+<p>Jasmine是用javascript实现的，所以它也必须在javascript的环境中运行，最简单的环境也就是一个web页面。所有的spec都可以在这个页面中运行，这个页面就叫做Runner。</p>
+
+<p>Jasmine通过下面的js代码来展现spec运行结果：</p>
+
+<pre><code>var htmlReporter = new jasmine.HtmlReporter(); //创建一个HTMLReporter
+jasmineEnv.addReporter(htmlReporter);  
+
+jasmineEnv.specFilter = function(spec) {  //一个过滤器，允许我们点击单个的suites，单独运行
+return htmlReporter.specFilter(spec);
+};  
+
+
+var currentWindowOnload = window.onload;   //页面加载完毕后，执行所有的test。
+window.onload = function() {
+    if (currentWindowOnload) {
+        currentWindowOnload();
+    }
+
+    document.querySelector('.version').innerHTML = jasmineEnv.versionString();
+    execJasmine();
 };
-</code></pre>
 
-<p>然后在 somepackage 之外建立 getpackage.js,内容如下:</p>
-
-<pre><code>var somePackage = require('./somepackage');
-somePackage.hello();
-</code></pre>
-
-<p>运行 node getpackage.js,控制台将输出结果 Hello。 <br/>
-我们使用这种方法可以把文件夹封装为一个模块,即所谓的包。包通常是一些模块的集合,在模块的基础上提供了更高层的抽象,相当于提供了一些固定接口的函数库。通过定制package.json,我们可以创建更复杂、更完善、更符合规范的包用于发布。 <br/>
-<strong>package.json</strong>
-在somepackage 文件夹下,我们创建一个叫做 package.json 的文件,内容如下所示:</p>
-
-<pre><code>{
-    "main" : "./lib/interface.js"
+function execJasmine() {
+        jasmineEnv.execute();
 }
+})();
 </code></pre>
 
-<p>然后将 index.js 重命名为 interface.js 并放入 lib 子文件夹下。以同样的方式再次调用这个包,依然可以正常使用。 <br/>
-NodeJS在调用某个包时,会首先检查包中 package.json 文件的 main 字段,将其作为包的接口模块,如package.json 或 main 字段不存在,会尝试寻找 index.js 或 index.node 作为包的接口。<br/>
-package.json 是 CommonJS 规定的用来描述包的文件,完全符合规范的 package.json 文件应该含有以下字段。 <br/>
-name:包的名称,必须是唯一的,由小写英文字母、数字和下划线组成,不能包含空格。 <br/>
-description:包的简要说明。 <br/>
-version:符合语义化版本识别 规范的版本字符串。<br/>
-keywords:关键字数组,通常用于搜索。 <br/>
-maintainers:维护者数组,每个元素要包含 name、email (可选) web (可选)字段。<br/>
-contributors:贡献者数组,格式与maintainers相同。包的作者应该是贡献者数组的第一个元素。 <br/>
-bugs:提交bug的地址,可以是网址或者电子邮件地址。 <br/>
-licenses:许可证数组,每个元素要包含 type (许可证的名称)和 url (链接到许可证文本的地址)字段。 <br/>
-repositories:仓库托管地址数组,每个元素要包含 type(仓库的类型, git )如url (仓库的地址)和 path (相对于仓库的路径,可选)字段。 <br/>
-下面是mocha的package.json:</p>
+<hr />
 
-<pre><code>{
- "name": "mocha",
- "version": "1.8.1",
-"description": "simple, flexible, fun test framework",
- "keywords": [
- "mocha",
-    "test",
- "bdd",
- "tdd",
- "tap"
-],
- "author": {
- "name": "TJ Holowaychuk",
-    "email": "tj@vision-media.ca"
- },
-"repository": {
-    "type": "git",
-    "url": "git://github.com/visionmedia/mocha.git"
- },
-"main": "./index",
-"bin": {
-    "mocha": "./bin/mocha",
-    "_mocha": "./bin/_mocha"
-},
-"engines": {
-    "node": "&gt;= 0.4.x"
-},
-"scripts": {
-    "test": "make test-all"
- },
-"dependencies": {
-    "commander": "0.6.1",
-    "growl": "1.7.x",
-    "jade": "0.26.3",
-    "diff": "1.0.2",
-    "debug": "*",
-    "mkdirp": "0.3.3",
-    "ms": "0.3.0"
-},
-"devDependencies": {
- "should": "*",
-    "coffee-script": "1.2"
- },
-"readme": "..."
-}
+<p>参考文献：<a href="http://pivotal.github.com/jasmine/">http://pivotal.github.com/jasmine/</a> <br/>
+感谢：youthflies</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Karma  or Testacular 简介]]></title>
+    <link href="http://www.shenyanchao.cn/blog/2013/03/12/testacular-in-brief/"/>
+    <updated>2013-03-12T15:12:00+08:00</updated>
+    <id>http://www.shenyanchao.cn/blog/2013/03/12/testacular-in-brief</id>
+    <content type="html"><![CDATA[<h2>Karma/Testacular是什么？</h2>
+
+<p>在2012年11月，Google开源了<a href="http://testacular.github.com/">Testacular</a>，一个基于Node.js的JavaScript测试执行过程管理工具（Test Runner）。该工具可用于测试所有主流Web浏览器，也可集成到CI（Continuous integration）工具，也可和其他代码编辑器一起使用。</p>
+
+<p>Testacular可以在不同的桌面或移动设备浏览器上，或在持续集成的服务器上测试JavaScript代码。Testacular支持chrome、ChromeCanary、 Safari、Firefox、IE、Opera、PhantomJS，知道如何捕获浏览器正使用的默认路径，这些路径可能在启动器配置文件被忽视（overridden）。Testacular就是一个可以和多重测试框架协作的测试执行过程管理工具，它有针对Jasmine、Mocha和AngularJS的适配器，它也可以与<a href="http://jenkins-ci.org/">Jenkins</a>或<a href="https://travis-ci.org/">Travis</a>整合，用于执行持续集成测试。</p>
+
+<!--more-->
+
+
+<p>这个测试工具的一个强大特性就是，它可以监控一套文件的变换，并立即开始测试已保存的文件，用户无需离开文本编辑器。测试结果通常显示在命令行中，而非代码编辑器。这也就让Testacular基本可以和任何JS编辑器一起使用。为更好结果，它可以整合到<a href="http://www.jetbrains.com/webstorm/">WebStorm</a>中，而WebStorm持错误栈追踪和单元测试调试。</p>
+
+<p>为更好运行，Testacular需要Node.js和一个配置文件，该配置文件包括：待测试的文件、需忽略的文件、基本路径、web服务器端口、日子等级等。（配置文件样例）</p>
+
+<p>说到Testacular的性能，Google工程师Vojta Jína在Chrome Canary和Chrome做了一个演示，用WebStorm大约执行了1500个AngularJS测试，在5秒之内完成。</p>
+
+<p>Jína也说到Testacular是受<a href="http://code.google.com/p/js-test-driver/">JS Test Driver(JSTD)</a>的启发，但他们决定写一个完全不同的测试执行过程管理工具，因为JSTD有很多问题，他们想要一个能稳定并快速执行Javascript测试的工具。所以他们用了Socket.io库和Node.js。</p>
+
+<h2>Vojta Jína原版视频</h2>
+
+<p>youtube(凸墙): <br/>
+<a href="http://www.youtube.com/watch?v=5mHjJ4xf_K0">http://www.youtube.com/watch?v=5mHjJ4xf_K0</a>  <br/>
+<a href="http://www.youtube.com/watch?v=MVw8N3hTfCI">http://www.youtube.com/watch?v=MVw8N3hTfCI</a>  <br/>
+youku[个人转录]:</p>
+
+<iframe height=498 width=510 src="http://player.youku.com/embed/XNTI2NTg0Nzky" frameborder=0 allowfullscreen></iframe>
+
+
+
+
+<iframe height=498 width=510 src="http://player.youku.com/embed/XNTI2NTg0Mzc2" frameborder=0 allowfullscreen></iframe>
+
+
+<h2>Karma/Testacular 安装</h2>
+
+<p>首先，保证已经有Node.js环境以及NPM。然后执行以下命令即可：</p>
+
+<pre><code>npm install -g karma/testacular
 </code></pre>
 
-<p>也就是说，这里面提供了完善的信息来告诉npm，怎么样安装、升级、传播。 <br/>
-如执行：</p>
+<p>安装成功后，可以查看其支持的命令。</p>
 
-<pre><code>npm install -g mocha
+<pre><code>testacular --help
+Testacular - Spectacular Test Runner for JavaScript.
+
+Usage:
+testacular &lt;command&gt;
+
+Commands:
+start [&lt;configFile&gt;] [&lt;options&gt;] Start the server / do single run.
+init [&lt;configFile&gt;] Initialize a config file.
+run [&lt;options&gt;] Trigger a test run.
+
+Run --help with particular command to see its description and   available options.
+
+Options:
+--help     Print usage and options.
+--version  Print current version.   
 </code></pre>
 
-<p>那么，npm将会依据json提供的信息来进行管理。</p>
+<p>简单来看，就只有start,init,run这几个命令。start用于启动浏览器server,init用于辅助的生成配置文件，run用于驱动Test执行。<br/>
+下面就来看以下，最主要的部分，那就是配置文件了。</p>
 
-<h4>4.npm的本地模式与全局模式</h4>
+<h2>Karma/Testacular配置文件</h2>
 
-<p>npm默认会从http://npmjs.org上搜索并下载包，并将包安装在当前目录的node_modules子目录下。这种就称为本地模式。也就意味着只能在当前目录使用。如果想在全部地方可用，那就用<code>-g</code>参数。这样包就会安装到NODE_PATH里了，在任何目录都可以使用了。g应该就是global的缩写，很容易记。</p>
+<p>这个配置文件，定义了Test执行所需要的各种选项，testacular正是通过这个文件来进行测试执行的。 <br/>
+在GitHub上可以看到一个官方提供的默认样例<a href="https://github.com/testacular/testacular/blob/master/test/client/testacular.conf.js">https://github.com/testacular/testacular/blob/master/test/client/testacular.conf.js</a>,可以看出里面有相当多的配置，还要里面都有一些注释的了，都大概能看懂一点。<br/>
+同样的，使用<code>karma/testacular init</code>命令也可以帮助你自动的生成一个配置文件。init后可以跟文件名，如果不写，默认的文件名就是karma/testacular.conf.js。对应的<code>karma/testacular start</code>也会默认搜索当前目录下的karma/testacular.conf.js来启动。  <br/>
+下面，我们来生成一个看看：</p>
 
-<h3>模块（modules）的加载机制</h3>
+<pre><code>karma/testacular init my.conf.js
 
-<p>前面，已经知道模块加载是通过require来进行的。NodeJS的模块可以分为2大类，一类是核心模块、一类是文件模块。核心模块有最高的优先级，如有模块命名冲突，NodeJS总是优先加载核心模块。<br/>
-那么，文件模块是如何加载的呢？</p>
+Which testing framework do you want to use ?
+Press tab to list possible options. Enter to move to the next   question.
+&gt; mocha
 
-<h4>按路径加载模块</h4>
+Do you want to use Require.js ?
+This will add Require.js adapter into files.
+Press tab to list possible options. Enter to move to the next question.
+&gt; no
 
-<p>1.如果require按“/”开头，那就是绝对路径进行加载。如require('/home/shenyanchao/module'),将会按照以下优先级尝试加载 /home/shenyanchao/module.js、/home/shenyanchao/module.json、/home/shenyanchao/module.node。 <br/>
-2.如果require按“./”或者“../”开头，则是依相对路径来查找模块，这种较为常见。<br/>
-3.对于核心模块,比如require('http')，nodeJS是怎么找到的呢，自然是通过NODE_PATH目录加载的。那么对于文件模块，如果不用绝对路径已经相对路径，那么该如何查找呢？ <br/>
-如果，使用require('mymodule'),那么NodeJS将首先在当前目录的node_modules目录内进行尝试加载。如果没有找到，那么将会到当前目录的上一级目录的node_modules继续查找，并反复执行，直到根目录为止。 <br/>
-例如： 我们在/home/shenyanchao/develop/app.js中使用require('mymodule')，NodeJS的查找路径如下：</p>
+Do you want to capture a browser automatically ?
+Press tab to list possible options. Enter empty string to move to the next question.
+&gt; Firefox
+......
 
-<ul>
-<li>/home/shenyanchao/develop/node_modules/mymodule.js</li>
-<li>/home/shenyanchao/node_modules/mymodule.js</li>
-<li>/home/node_modules/mymodule.js</li>
-<li>/node_modules/mymodule.js</li>
-</ul>
+Config file generated at "/home/shenyanchao/tmp/my.conf.js".
+</code></pre>
 
+<p>这样就生成了一个my.conf.js文件。其中要我们自己要做的就是选择一下而已。需要注意的是，正如提示所说，选择切换使用的是<strong>Tab</strong>。<br/>
+此时，执行<code>testacular start my.conf.js</code>,可以发现，浏览器已经启动了。</p>
 
-<p>这个时候，明白了加载机制，就可以返回来，看一下模块的本地模式于全局模式来。当以本地模式<code>npm install mocha</code>的时候，会在当前目录建立一个node_modules目录，这就保证了系统内使用require('mocha')时，能够直接使用。而<code>npm install -g mocha</code>相当于把mocha安装到NODE_PATH，这样就使用类似于加载核心模块的形式进行加载了。</p>
+<p><img src="/images/blog/testacular-run-in-firefox.png" alt="Testacular启动" /></p>
 
-<h3>express: JS的MVC框架</h3>
+<p><strong>配置文件参数：</strong></p>
 
-<p>这里介绍来一个强大的Web application Framework for Node。用于进行WEB项目的开发。类似于Java的SpringFramework。很轻量级，简单易用。 <br/>
-express将NodeJS的开发，推向了一个新的高度。很有兴趣，待研究！  <br/>
-express主页：<a href="http://expressjs.com/">http://expressjs.com/</a></p>
+<pre><code>autoWatch
+
+类型: Boolean
+默认: false
+命令行: --auto-watch, --no-auto-watch
+详细介绍:当检测到文件内容变化的时候，是不是自动的重新运行Test
+
+basePath
+
+类型: String
+默认: ''
+详细介绍: 基本路径，用来解决相对路径问题。
+
+browsers
+
+类型: Array
+默认: []
+命令行: --browsers Chrome,Firefox
+取值:
+Chrome
+ChromeCanary
+Firefox
+Opera
+Safari
+PhantomJS
+IE
+详细介绍: 定义一组需要启动的浏览器，那么所有测试将分别在各个浏览器运行并给出结果。关闭的时候也同时全部关闭。
+
+captureTimeout
+
+类型: Number
+默认: 60000
+详细介绍: 捕获浏览器的超时时间 (单位 ms)。超时后，testacular会关闭然后重新尝试。  
+
+colors
+
+类型: Boolean
+默认: true
+命令行: --colors, --no-colors
+详细介绍: 在reporters和logs里面是否启用色彩。
+exclude
+
+类型: Array
+默认: []
+详细介绍: 排除在外的文件列表或者正则表达式
+
+files
+
+类型: Array
+默认: []
+详细介绍: 要加载的文件列表或者正则表达式
+
+hostname
+
+类型: String
+默认: 'localhost'
+详细介绍: 启动的浏览器主机名
+
+logLevel
+
+类型: Constant
+默认: LOG_INFO
+命令行: --log-level debug
+取值:
+LOG_DISABLE
+LOG_ERROR
+LOG_WARN
+LOG_INFO
+LOG_DEBUG
+详细介绍: 日志级别.
+
+loggers
+
+类型: Array
+默认: [{type: 'console'}]
+详细介绍: 定义日志目标。比如log4js
+
+port
+
+类型: Number
+默认: 9876
+命令行: --port 9876
+详细介绍: web服务的监听端口
+
+preprocessors
+
+类型: Object
+默认: {'**/*.coffee': 'coffee'}
+详细介绍: 前置处理器的MAP
+
+proxies
+
+类型: Object
+默认: {}
+详细介绍: 路径代理的映射MAP
+例如:
+proxies =  {
+    '/static': 'http://gstatic.com',
+    '/web': 'http://localhost:9000'
+};
+
+reportSlowerThan
+
+类型: Number
+默认: 0
+详细介绍: 这时一个以ms为单位的数值，如果test执行超过这个时间，那么Testacular会进行记录。 
+
+reporters
+
+类型: Array
+默认: ['progress']
+命令行: --reporters progress,growl
+取值:
+dots
+progress
+junit
+growl
+coverage
+详细介绍: 使用的报表列表
+
+runnerPort
+
+类型: Number
+默认: 9100
+命令行: --runner-port 9100
+详细介绍: 使用testacular run时，服务器的监听端口
+
+singleRun
+
+类型: Boolean
+默认: false
+命令行: --single-run, no-single-run
+详细介绍: CI模式。如为true，就会在所有浏览器运行，运行结束后关闭浏览器，返回码0，失败返回1.
+
+urlRoot
+
+类型: String
+默认: '/'
+详细介绍: 基本URL，相当于一个URL默认的前缀。尤其在使用proxies时有用。
+</code></pre>
+
+<h2>browser无法启动？</h2>
+
+<p>当在karma/testacular.conf.js中配置完browsersCanary，有可能会出现无法启动浏览器的情况。testacular会在一套默认的路径下进行尝试加载启动浏览器，而在不同的操作系统下默认位置是不同的。
+如果无法找到，可以通过覆盖<code>&lt;BROWSER&gt;_BIN</code>来解决。 <br/>
+比如：</p>
+
+<pre><code>export CHROME_BIN=/usr/local/bin/my-chrome-build
+export CHROME_CANARY_BIN=/usr/local/bin/my-chrome-build
+export PHANTOMJS_BIN=$HOME/local/bin/phantomjs
+</code></pre>
+
+<p>就是要设置相应的变量。在windows下自然就是添加相应的环境变量了。这样配置后，testacular就直到从哪儿加载启动浏览器了。</p>
+
+<h2>写在Testacular学习之后</h2>
+
+<p>Testacular应该是Google<a href="http://angularjs.org/">AngularJS</a>的副产品。出于CommonJS的规范，以及对产品质量的保证。AngularJS只身需要进行单元测试，而在测试过程中遇到了种种的问题。也许他们最开始就是使用JsTestDriver来驱动测试的，后来发现不能满足需求，或者能更好。因此Testacular出现了，并开源了出来。<br/>
+以上，存在一定的个人猜测，但是其产生的过程值得好好学习。</p>
+
+<h2>改名为Karma</h2>
+
+<p>2013年3月18日，Testacular更名为Karma，版本从V0.6.0直接升为V0.8.0，并在GitHub上提交时评论为<code>chore: rename this shit to Karma</code>。具体什么原因，不得而知。也许是因为令人诟病的Testacular名字不好听吧。不过功能都是一样的，只是使用的时候，testacular变为karma了。所以上面文档中的操作，只需要全部替换即可。</p>
 ]]></content>
   </entry>
   

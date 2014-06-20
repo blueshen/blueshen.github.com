@@ -113,6 +113,59 @@
       ﻿
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2012/11/02/bridge-in-java/">设计模式：桥接(bridge) in Java</a></h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-02T20:06:00+08:00" pubdate data-updated="true">2012年11月02日 20:11:00</time>
+        
+         | <a href="/blog/2012/11/02/bridge-in-java/#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+  <div class="entry-content"><p><strong>定义：</strong>Bridge 模式又叫做桥接模式，是构造型的设计模式之一。Bridge模式基于类的最小设计原则，通过使用封装，聚合以及继承等行为来让不同的类承担不同的责任。它的主要特点是把抽象（abstraction）与行为实现（implementation）分离开来，从而可以保持各部分的独立性以及应对它们的功能扩展。</p>
+
+<h3>为什么要使用桥接模式？</h3>
+
+<p>场景：我们想绘制矩形、圆形、椭圆形、正方形，我们至少需要4个形状类。但是如果又需要绘制的图形是不同颜色的，比如白色、灰色、蓝色的。  <br/>
+我们可能很快就会想到这样的方案：</p>
+
+<p><img src="/images/blog/bridge-pattern-1.png" alt="方案1" />      <br/>
+按照上面的说法，我们可能要新建4*3=12个类来完成。 <br/>
+但是如果需要画更多的图形，并有更多的颜色呢。如此扩展下去很可能出现类爆炸。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/11/02/bridge-in-java/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2012/11/02/singleton-in-java/">设计模式：单例（singleton） in Java</a></h1>
     
 	<p class="meta">
@@ -300,66 +353,6 @@ Selenium采用Javascript的合成事件来处理操作，比如要点击某个�
 
     </article>
   
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/10/30/adapter-in-java/">设计模式：适配器（Adapter）in Java</a></h1>
-    
-	<p class="meta">
-    
-
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-30T21:24:00+08:00" pubdate data-updated="true">2012年10月30日 21:10:00</time>
-        
-         | <a href="/blog/2012/10/30/adapter-in-java/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content"><p><strong>类适配器</strong>:客户的开发人员定义了一个接口，期望用这个接口来完成整数的求和操作，接口定义如下：   <br/>
-Java代码</p>
-
-<pre><code>public interface Operation{  
-    public int add(int a,int b);  
-}  
-</code></pre>
-
-<p>开发人员在了解这个接口的定义后，发现一个第三方类，里面有一个方法能实现他们期望的功能，其代码如下：  <br/>
-Java代码</p>
-
-<pre><code>public class OtherOperation{  
-    public int otherAdd(int a,int b){  
-        return a + b;  
-    }  
-}  
-</code></pre>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/10/30/adapter-in-java/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <ul class="pager">
     
     <li class="previous"><a href="/blog/page/15/">&larr; 上一页</a></li>
@@ -382,6 +375,10 @@ Java代码</p>
     <li class="nav-header">最近更新</li>
     
       <li class="post">
+        <a href="/blog/2014/06/20/quartz-cluster-with-spring/">spring中配置quartz集群</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/03/31/velocity-study-summary/">Velocity学习小结</a>
       </li>
     
@@ -397,16 +394,12 @@ Java代码</p>
         <a href="/blog/2013/12/14/ut-maven-plugin/">ut-maven-plugin</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2013/12/04/the-pragmatic-programmer-reading-notes/">《程序员修炼之道》读书笔记</a>
-      </li>
-    
   </ul>
 </section>
 <section class="well">
 	<ul id="tags-cloud" class="nav nav-list">
 	<li class="nav-header">分类云</li>
-    <span id="tag-cloud"><a href='/blog/categories/apache' style='font-size: 102.4%'>apache(1)</a> <a href='/blog/categories/checkstyle' style='font-size: 102.4%'>checkstyle(1)</a> <a href='/blog/categories/encode' style='font-size: 109.6%'>encode(4)</a> <a href='/blog/categories/git' style='font-size: 104.8%'>git(2)</a> <a href='/blog/categories/http' style='font-size: 104.8%'>HTTP(2)</a> <a href='/blog/categories/java' style='font-size: 107.2%'>java(3)</a> <a href='/blog/categories/java' style='font-size: 102.4%'>Java(1)</a> <a href='/blog/categories/java-encode' style='font-size: 102.4%'>Java,encode(1)</a> <a href='/blog/categories/javascript' style='font-size: 102.4%'>javascript(1)</a> <a href='/blog/categories/jenkins' style='font-size: 102.4%'>jenkins(1)</a> <a href='/blog/categories/jmeter' style='font-size: 104.8%'>jmeter(2)</a> <a href='/blog/categories/jvm' style='font-size: 104.8%'>JVM(2)</a> <a href='/blog/categories/linux' style='font-size: 104.8%'>linux(2)</a> <a href='/blog/categories/markdown' style='font-size: 104.8%'>markdown(2)</a> <a href='/blog/categories/maven' style='font-size: 119.2%'>maven(8)</a> <a href='/blog/categories/mysql' style='font-size: 104.8%'>mysql(2)</a> <a href='/blog/categories/nodejs' style='font-size: 116.8%'>nodejs(7)</a> <a href='/blog/categories/selenium' style='font-size: 121.6%'>selenium(9)</a> <a href='/blog/categories/selenium-wiki' style='font-size: 107.2%'>selenium-wiki(3)</a> <a href='/blog/categories/selenium官方文档' style='font-size: 109.6%'>selenium官方文档(4)</a> <a href='/blog/categories/testng' style='font-size: 102.4%'>testng(1)</a> <a href='/blog/categories/ubuntu' style='font-size: 102.4%'>ubuntu(1)</a> <a href='/blog/categories/ut' style='font-size: 104.8%'>ut(2)</a> <a href='/blog/categories/velocity' style='font-size: 102.4%'>velocity(1)</a> <a href='/blog/categories/个人' style='font-size: 104.8%'>个人(2)</a> <a href='/blog/categories/开发' style='font-size: 102.4%'>开发(1)</a> <a href='/blog/categories/测试' style='font-size: 107.2%'>测试(3)</a> <a href='/blog/categories/设计模式' style='font-size: 160.0%'>设计模式(25)</a> <a href='/blog/categories/调优' style='font-size: 102.4%'>调优(1)</a> </span>
+    <span id="tag-cloud"><a href='/blog/categories/apache' style='font-size: 102.4%'>apache(1)</a> <a href='/blog/categories/checkstyle' style='font-size: 102.4%'>checkstyle(1)</a> <a href='/blog/categories/encode' style='font-size: 109.6%'>encode(4)</a> <a href='/blog/categories/git' style='font-size: 104.8%'>git(2)</a> <a href='/blog/categories/http' style='font-size: 104.8%'>HTTP(2)</a> <a href='/blog/categories/java' style='font-size: 107.2%'>java(3)</a> <a href='/blog/categories/java' style='font-size: 104.8%'>Java(2)</a> <a href='/blog/categories/java-encode' style='font-size: 102.4%'>Java,encode(1)</a> <a href='/blog/categories/javascript' style='font-size: 102.4%'>javascript(1)</a> <a href='/blog/categories/jenkins' style='font-size: 102.4%'>jenkins(1)</a> <a href='/blog/categories/jmeter' style='font-size: 104.8%'>jmeter(2)</a> <a href='/blog/categories/jvm' style='font-size: 104.8%'>JVM(2)</a> <a href='/blog/categories/linux' style='font-size: 104.8%'>linux(2)</a> <a href='/blog/categories/markdown' style='font-size: 104.8%'>markdown(2)</a> <a href='/blog/categories/maven' style='font-size: 119.2%'>maven(8)</a> <a href='/blog/categories/mysql' style='font-size: 104.8%'>mysql(2)</a> <a href='/blog/categories/nodejs' style='font-size: 116.8%'>nodejs(7)</a> <a href='/blog/categories/selenium' style='font-size: 121.6%'>selenium(9)</a> <a href='/blog/categories/selenium-wiki' style='font-size: 107.2%'>selenium-wiki(3)</a> <a href='/blog/categories/selenium官方文档' style='font-size: 109.6%'>selenium官方文档(4)</a> <a href='/blog/categories/testng' style='font-size: 102.4%'>testng(1)</a> <a href='/blog/categories/ubuntu' style='font-size: 102.4%'>ubuntu(1)</a> <a href='/blog/categories/ut' style='font-size: 104.8%'>ut(2)</a> <a href='/blog/categories/velocity' style='font-size: 102.4%'>velocity(1)</a> <a href='/blog/categories/个人' style='font-size: 104.8%'>个人(2)</a> <a href='/blog/categories/开发' style='font-size: 102.4%'>开发(1)</a> <a href='/blog/categories/测试' style='font-size: 107.2%'>测试(3)</a> <a href='/blog/categories/设计模式' style='font-size: 160.0%'>设计模式(25)</a> <a href='/blog/categories/调优' style='font-size: 102.4%'>调优(1)</a> </span>
   </ul>
 </section>﻿<section class="well">
 <ul class="nav nav-list">

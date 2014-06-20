@@ -113,6 +113,58 @@
       ﻿
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2013/06/21/mockito-in-brief/">Mockito简介</a></h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-21T21:29:00+08:00" pubdate data-updated="true">2013年06月21日 21:06:00</time>
+        
+         | <a href="/blog/2013/06/21/mockito-in-brief/#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+  <div class="entry-content"><p>Mockito 是目前 java 单测中使用比较流行的 mock 工具。其他还有 EasyMock，JMock，MockCreator，Mockrunner，MockMaker 及 PowerMock。</p>
+
+<p>项目地址:<a href="https://code.google.com/p/mockito/">https://code.google.com/p/mockito/</a></p>
+
+<h2>powermock 简介</h2>
+
+<p>EasyMock 以及 Mockito 都因为可以极大地简化单元测试的书写过程而被许多人应用在自己的工作中，但是这两种 Mock 工具都不可以实现对静态函数、构造函数、私有函数、Final 函数以及系统函数的模拟，但是这些方法往往是我们在大型系统中需要的功能。PowerMock 是在 EasyMock 以及 Mockito 基础上的扩展，通过定制类加载器等技术，PowerMock 实现了之前提到的所有模拟功能，使其成为大型系统上单元测试中的必备工具。缺点是缺少文档。</p>
+
+<p>项目地址:<a href="https://code.google.com/p/powermock/">https://code.google.com/p/powermock/</a></p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/06/21/mockito-in-brief/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2013/06/19/publishing-from-github-to-maven-central/">从Github发布jar包到Maven Central</a></h1>
     
 	<p class="meta">
@@ -318,91 +370,6 @@ AST 的访问者抽象类,类中声明了一组访问各类 AST 节点的 visit(
 
     </article>
   
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2013/06/05/deep-in-testng/">TestNG深入理解</a></h1>
-    
-	<p class="meta">
-    
-
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-06-05T20:10:00+08:00" pubdate data-updated="true">2013年06月05日 20:06:00</time>
-        
-         | <a href="/blog/2013/06/05/deep-in-testng/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content"><h3>TestNG annotaion:</h3>
-
-<ul>
-<li>@DataProvider</li>
-<li>@ExpectedExceptions</li>
-<li>@Factory</li>
-<li>@Test</li>
-<li>@Parameters</li>
-</ul>
-
-
-<hr />
-
-<pre><code>&lt;suite name="ParametersTest"&gt;
-　　&lt;test name="Regression1"&gt;
-　　　　&lt;classes&gt;
-　　　　　　&lt;class name="com.example.ParameterSample" /&gt;
-　　　　　　&lt;class name="com.example.ParameterTest"&gt;
-　　　　　　　　&lt;mtehods&gt;
-　　　　　　　　　　&lt;include name="database.*" /&gt;
-　　　　　　　　　　&lt;exclude name="inProgress" /&gt;
-　　　　　　　　&lt;/methods&gt;
-　　　　　　&lt;/class&gt;
-　　　　&lt;/classes&gt;
-　　&lt;/test&gt;    
-　　&lt;test name="Parameters"&gt;
-　　　　&lt;packages&gt;
-　　　　　　&lt;package name="test.parameters.Parameter*" /&gt;
-　　　　&lt;/packages&gt;
-　　&lt;/test&gt;   
-&lt;/suite&gt;    
-</code></pre>
-
-<p>一个suite(套件) 由一个或多个测试组成。 <br/>
-一个test(测试) 由一个或多个类组成  <br/>
-一个class(类) 由一个或多个方法组成。</p>
-
-<p>@BeforeSuite/@AfterSuite 在某个测试套件开始之前/在某个套件所有测试方法执行之后  <br/>
-@BeforeTest/@AfterTest 在某个测试开始之前/在某个测试所有测试方法执行之后   <br/>
-@BeforeClass/@AfterClass 在某个测试类开始之前/在某个类的所有测试方法执行之后   <br/>
-@BeforeMethod/@AfterMethod 在某个测试方法之前/在某个测试方法执行之后 <br/>
-@BeforeGroup/@AfterGroup 在某个组的所有测试方法之前/在某个组的所有测试方法执行之后</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/06/05/deep-in-testng/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <ul class="pager">
     
     <li class="previous"><a href="/blog/page/5/">&larr; 上一页</a></li>
@@ -425,6 +392,10 @@ AST 的访问者抽象类,类中声明了一组访问各类 AST 节点的 visit(
     <li class="nav-header">最近更新</li>
     
       <li class="post">
+        <a href="/blog/2014/06/20/quartz-cluster-with-spring/">spring中配置quartz集群</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/03/31/velocity-study-summary/">Velocity学习小结</a>
       </li>
     
@@ -440,16 +411,12 @@ AST 的访问者抽象类,类中声明了一组访问各类 AST 节点的 visit(
         <a href="/blog/2013/12/14/ut-maven-plugin/">ut-maven-plugin</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2013/12/04/the-pragmatic-programmer-reading-notes/">《程序员修炼之道》读书笔记</a>
-      </li>
-    
   </ul>
 </section>
 <section class="well">
 	<ul id="tags-cloud" class="nav nav-list">
 	<li class="nav-header">分类云</li>
-    <span id="tag-cloud"><a href='/blog/categories/apache' style='font-size: 102.4%'>apache(1)</a> <a href='/blog/categories/checkstyle' style='font-size: 102.4%'>checkstyle(1)</a> <a href='/blog/categories/encode' style='font-size: 109.6%'>encode(4)</a> <a href='/blog/categories/git' style='font-size: 104.8%'>git(2)</a> <a href='/blog/categories/http' style='font-size: 104.8%'>HTTP(2)</a> <a href='/blog/categories/java' style='font-size: 107.2%'>java(3)</a> <a href='/blog/categories/java' style='font-size: 102.4%'>Java(1)</a> <a href='/blog/categories/java-encode' style='font-size: 102.4%'>Java,encode(1)</a> <a href='/blog/categories/javascript' style='font-size: 102.4%'>javascript(1)</a> <a href='/blog/categories/jenkins' style='font-size: 102.4%'>jenkins(1)</a> <a href='/blog/categories/jmeter' style='font-size: 104.8%'>jmeter(2)</a> <a href='/blog/categories/jvm' style='font-size: 104.8%'>JVM(2)</a> <a href='/blog/categories/linux' style='font-size: 104.8%'>linux(2)</a> <a href='/blog/categories/markdown' style='font-size: 104.8%'>markdown(2)</a> <a href='/blog/categories/maven' style='font-size: 119.2%'>maven(8)</a> <a href='/blog/categories/mysql' style='font-size: 104.8%'>mysql(2)</a> <a href='/blog/categories/nodejs' style='font-size: 116.8%'>nodejs(7)</a> <a href='/blog/categories/selenium' style='font-size: 121.6%'>selenium(9)</a> <a href='/blog/categories/selenium-wiki' style='font-size: 107.2%'>selenium-wiki(3)</a> <a href='/blog/categories/selenium官方文档' style='font-size: 109.6%'>selenium官方文档(4)</a> <a href='/blog/categories/testng' style='font-size: 102.4%'>testng(1)</a> <a href='/blog/categories/ubuntu' style='font-size: 102.4%'>ubuntu(1)</a> <a href='/blog/categories/ut' style='font-size: 104.8%'>ut(2)</a> <a href='/blog/categories/velocity' style='font-size: 102.4%'>velocity(1)</a> <a href='/blog/categories/个人' style='font-size: 104.8%'>个人(2)</a> <a href='/blog/categories/开发' style='font-size: 102.4%'>开发(1)</a> <a href='/blog/categories/测试' style='font-size: 107.2%'>测试(3)</a> <a href='/blog/categories/设计模式' style='font-size: 160.0%'>设计模式(25)</a> <a href='/blog/categories/调优' style='font-size: 102.4%'>调优(1)</a> </span>
+    <span id="tag-cloud"><a href='/blog/categories/apache' style='font-size: 102.4%'>apache(1)</a> <a href='/blog/categories/checkstyle' style='font-size: 102.4%'>checkstyle(1)</a> <a href='/blog/categories/encode' style='font-size: 109.6%'>encode(4)</a> <a href='/blog/categories/git' style='font-size: 104.8%'>git(2)</a> <a href='/blog/categories/http' style='font-size: 104.8%'>HTTP(2)</a> <a href='/blog/categories/java' style='font-size: 107.2%'>java(3)</a> <a href='/blog/categories/java' style='font-size: 104.8%'>Java(2)</a> <a href='/blog/categories/java-encode' style='font-size: 102.4%'>Java,encode(1)</a> <a href='/blog/categories/javascript' style='font-size: 102.4%'>javascript(1)</a> <a href='/blog/categories/jenkins' style='font-size: 102.4%'>jenkins(1)</a> <a href='/blog/categories/jmeter' style='font-size: 104.8%'>jmeter(2)</a> <a href='/blog/categories/jvm' style='font-size: 104.8%'>JVM(2)</a> <a href='/blog/categories/linux' style='font-size: 104.8%'>linux(2)</a> <a href='/blog/categories/markdown' style='font-size: 104.8%'>markdown(2)</a> <a href='/blog/categories/maven' style='font-size: 119.2%'>maven(8)</a> <a href='/blog/categories/mysql' style='font-size: 104.8%'>mysql(2)</a> <a href='/blog/categories/nodejs' style='font-size: 116.8%'>nodejs(7)</a> <a href='/blog/categories/selenium' style='font-size: 121.6%'>selenium(9)</a> <a href='/blog/categories/selenium-wiki' style='font-size: 107.2%'>selenium-wiki(3)</a> <a href='/blog/categories/selenium官方文档' style='font-size: 109.6%'>selenium官方文档(4)</a> <a href='/blog/categories/testng' style='font-size: 102.4%'>testng(1)</a> <a href='/blog/categories/ubuntu' style='font-size: 102.4%'>ubuntu(1)</a> <a href='/blog/categories/ut' style='font-size: 104.8%'>ut(2)</a> <a href='/blog/categories/velocity' style='font-size: 102.4%'>velocity(1)</a> <a href='/blog/categories/个人' style='font-size: 104.8%'>个人(2)</a> <a href='/blog/categories/开发' style='font-size: 102.4%'>开发(1)</a> <a href='/blog/categories/测试' style='font-size: 107.2%'>测试(3)</a> <a href='/blog/categories/设计模式' style='font-size: 160.0%'>设计模式(25)</a> <a href='/blog/categories/调优' style='font-size: 102.4%'>调优(1)</a> </span>
   </ul>
 </section>﻿<section class="well">
 <ul class="nav nav-list">
