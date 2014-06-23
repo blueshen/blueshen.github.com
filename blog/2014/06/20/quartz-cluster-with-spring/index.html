@@ -280,6 +280,14 @@ public class TestTask extends QuartzJobBean {
 </code></pre>
 
 <p>由于使用MethodInvokingFactoryBean总是报seriziable错误，因此本例使用的是JobDetailBean。那这也意味着要继承QuartzJobBean。同时由于配置了JobFactory，使得可以直接注入UserService等实例。</p>
+
+<p> ####5.quartz在mysql5.6下报错</p>
+
+<pre><code>    You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'OPTION SQL_SELECT_LIMIT=5' at line 1
+</code></pre>
+
+<p>这个错误是由于mysql connector的版本太低导致的，可以通过升级版本来解决。
+参见<a href="http://stackoverflow.com/questions/13023548/mysql-server-version-for-the-right-syntax-to-use-near-option-sql-select-limit-1">http://stackoverflow.com/questions/13023548/mysql-server-version-for-the-right-syntax-to-use-near-option-sql-select-limit-1</a></p>
 </div>
 
 
