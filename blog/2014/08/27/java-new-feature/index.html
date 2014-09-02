@@ -329,7 +329,184 @@ postVisitDirectory(T dir, IOException exc);
 
 <h4>1.引入Garbage First回收算法</h4>
 
+<hr />
+
 <p>参考文档：<a href="http://www.slideshare.net/boulderjug/55-things-in-java-7">http://www.slideshare.net/boulderjug/55-things-in-java-7</a></p>
+
+<h2>Java8新特性</h2>
+
+<h3>1.接口默认方法[接口允许有实现啦!!!]</h3>
+
+<p>Java 8允许我们给接口添加一个非抽象的方法实现，只需要使用 default关键字即可，这个特征又叫做扩展方法。</p>
+
+<pre><code>interface Formula {
+    double calculate(int a);
+
+    default double sqrt(int a) {
+        return Math.sqrt(a);
+    }
+}
+</code></pre>
+
+<h3>2.Lambda表达式</h3>
+
+<p>据说借鉴了各种动态语言的新特性，比如scala，python
+首先看看在老版本的Java中是如何排列字符串的：</p>
+
+<pre><code>List&lt;String&gt; names = Arrays.asList("peter", "anna", "mike", "xenia");
+
+Collections.sort(names, new Comparator&lt;String&gt;() {
+@Override
+public int compare(String a, String b) {
+    return b.compareTo(a);
+}
+});
+</code></pre>
+
+<p>Java 8 提供了更为简介的语法，lambda表达式：</p>
+
+<pre><code>Collections.sort(names, (String a, String b) -&gt; {
+    return b.compareTo(a);
+});
+</code></pre>
+
+<p>可以更短：</p>
+
+<pre><code>Collections.sort(names, (String a, String b) -&gt; b.compareTo(a));
+</code></pre>
+
+<p>再短：</p>
+
+<pre><code>Collections.sort(names, (a, b) -&gt; b.compareTo(a));
+</code></pre>
+
+<h3>3.@FunctionalInterface</h3>
+
+<p>这是新引入的一个注解，用于支持lambda。用<code>FunctionalInterface</code>标识的接口，必须只包含1个抽象方法。否则会报错的。估计是因为如果有多个抽象方法，lambda就无法知道对应哪个方法了。</p>
+
+<pre><code>@FunctionalInterface
+interface Converter&lt;F, T&gt; {
+    T convert(F from);
+}
+
+Converter&lt;String, Integer&gt; converter = (from) -&gt; Integer.valueOf(from);
+Integer converted = converter.convert("123");
+System.out.println(converted);    // 123
+</code></pre>
+
+<p>例子中，<code>(from) -&gt; Integer.valueOf(from)</code>这个lambda表达式指出了convert方法的具体实现。</p>
+
+<h4>(1)方法与构造函数的引用::</h4>
+
+<p>Java 8 允许你使用 :: 关键字来传递方法或者构造函数引用,下面的代码展示了如何引用一个静态方法</p>
+
+<pre><code>Converter&lt;String, Integer&gt; converter = Integer::valueOf;
+Integer converted = converter.convert("123");
+System.out.println(converted);   // 123
+</code></pre>
+
+<p>当然也可以引用一个对象的方法：</p>
+
+<pre><code>converter = something::startsWith;
+String converted = converter.convert("Java");
+System.out.println(converted);    // "J"
+</code></pre>
+
+<p>那么如何引用构造函数呢？</p>
+
+<pre><code>class Person {
+    String firstName;
+    String lastName;
+
+    Person() {}
+
+    Person(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+}
+</code></pre>
+
+<p>这是一个pojo类。下面创建一个用于创建person对象的FunctionalInterface：</p>
+
+<pre><code>interface PersonFactory&lt;P extends Person&gt; {
+    P create(String firstName, String lastName);
+}
+</code></pre>
+
+<p>这里我们使用构造函数引用来将他们关联起来，而不是实现一个完整的工厂：</p>
+
+<pre><code>PersonFactory&lt;Person&gt; personFactory = Person::new;
+Person person = personFactory.create("Peter", "Parker");
+</code></pre>
+
+<p>我们只需要使用 Person::new 来获取Person类构造函数的引用，Java编译器会自动根据PersonFactory.create方法的签名来选择合适的构造函数。</p>
+
+<h4>(2)内嵌的Functional Interfaces</h4>
+
+<p>上面提到的Comparator接口，为什么可以使用lambda表达式，正是因为在java 8中，被定义为了FunctionalInterface。这些已经存在的接口是通过添加@FunctionalInterface注解来支持的。</p>
+
+<p>另外，java 8 api还提供了丰富的接口。这些接口貌似都是从Google Guava包里得到的提示，命名甚至都是一样的。</p>
+
+<ul>
+<li><p>Predicates
+Predicate 接口只有一个参数，返回boolean类型。该接口包含多种默认方法来将Predicate组合成其他复杂的逻辑（比如：与，或，非）：</p>
+
+<pre><code>  Predicate&lt;String&gt; predicate = (s) -&gt; s.length() &gt; 0;
+
+  predicate.test("foo");              // true
+  predicate.negate().test("foo");     // false
+
+  Predicate&lt;Boolean&gt; nonNull = Objects::nonNull;
+  Predicate&lt;Boolean&gt; isNull = Objects::isNull;
+
+  Predicate&lt;String&gt; isEmpty = String::isEmpty;
+  Predicate&lt;String&gt; isNotEmpty = isEmpty.negate();
+</code></pre></li>
+<li><p>Function
+Function 接口有一个参数并且返回一个结果，并附带了一些可以和其他函数组合的默认方法（compose, andThen）：</p>
+
+<pre><code>  Function&lt;String, Integer&gt; toInteger = Integer::valueOf;
+  Function&lt;String, String&gt; backToString = toInteger.andThen(String::valueOf);
+
+  backToString.apply("123");     // "123"
+</code></pre></li>
+<li><p>Supplier
+Supplier 接口返回一个给定类型的反省，和Function接口不同的是该接口不接受任何参数.</p>
+
+<pre><code>  Supplier&lt;Person&gt; personSupplier = Person::new;
+  personSupplier.get();   // new Person
+</code></pre></li>
+<li><p>Consumer
+Consumer在一个输入参数上做一些操作。</p>
+
+<pre><code>  Consumer&lt;Person&gt; greeter = (p) -&gt; System.out.println("Hello, " + p.firstName);
+  greeter.accept(new Person("Luke", "Skywalker"));
+</code></pre></li>
+<li><p>Comparator
+Comparator是早就存在的，不过java 8提供了一些默认方法。</p>
+
+<pre><code>  Comparator&lt;Person&gt; comparator = (p1, p2) -&gt; p1.firstName.compareTo(p2.firstName);
+
+  Person p1 = new Person("John", "Doe");
+  Person p2 = new Person("Alice", "Wonderland");
+
+  comparator.compare(p1, p2);             // &gt; 0
+  comparator.reversed().compare(p1, p2);  // &lt; 0
+</code></pre></li>
+<li><p>Optional
+Optional其实并不是一个FunctionInterface，而是一个用来避免<code>NullPointerException</code>的工具。</p>
+
+<pre><code>  Optional&lt;String&gt; optional = Optional.of("bam");
+
+  optional.isPresent();           // true
+  optional.get();                 // "bam"
+  optional.orElse("fallback");    // "bam"
+
+  optional.ifPresent((s) -&gt; System.out.println(s.charAt(0)));     // "b"
+</code></pre></li>
+</ul>
+
 </div>
 
 
