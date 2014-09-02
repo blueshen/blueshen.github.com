@@ -4,7 +4,7 @@
   <title><![CDATA[Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2014-09-02T18:41:46+08:00</updated>
+  <updated>2014-09-02T19:45:01+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -353,7 +353,7 @@ Function 接口有一个参数并且返回一个结果，并附带了一些可�
   backToString.apply("123");     // "123"
 </code></pre></li>
 <li><p>Supplier
-Supplier 接口返回一个给定类型的反省，和Function接口不同的是该接口不接受任何参数.</p>
+Supplier 接口返回一个给定类型的泛型，和Function接口不同的是该接口不接受任何参数.</p>
 
 <pre><code>  Supplier&lt;Person&gt; personSupplier = Person::new;
   personSupplier.get();   // new Person
@@ -386,8 +386,265 @@ Optional其实并不是一个FunctionInterface，而是一个用来避免<code>N
 
   optional.ifPresent((s) -&gt; System.out.println(s.charAt(0)));     // "b"
 </code></pre></li>
+<li><p>Stream
+<code>java.util.stream.Stream</code>代表了能在其上做一系列操作的一串元素。在java 8中，Collections被扩展了。我们可以通过<code>Collections.stream()</code>或者<code>Collections.parallelStream()</code>来创建Stream。
+首先，新建一个数组。</p>
+
+<pre><code>  List&lt;String&gt; stringCollection = new ArrayList&lt;&gt;();
+  stringCollection.add("ddd2");
+  stringCollection.add("aaa2");
+  stringCollection.add("bbb1");
+  stringCollection.add("aaa1");
+  stringCollection.add("bbb3");
+  stringCollection.add("ccc");
+  stringCollection.add("bbb2");
+  stringCollection.add("ddd1");
+</code></pre></li>
 </ul>
 
+
+<p>具体使用如下：</p>
+
+<pre><code>    stringCollection
+        .stream()
+        .sorted()
+        .filter((s) -&gt; s.startsWith("a"))
+        .forEach(System.out::println);
+
+    // "aaa1", "aaa2"
+</code></pre>
+
+<p>map()函数可以把每个值转换为另外的值。</p>
+
+<pre><code>    stringCollection
+        .stream()
+        .map(String::toUpperCase)
+        .sorted((a, b) -&gt; b.compareTo(a))
+        .forEach(System.out::println);
+
+    // "DDD2", "DDD1", "CCC", "BBB3", "BBB2", "AAA2", "AAA1"
+</code></pre>
+
+<p>另外提供有各种match方法。</p>
+
+<pre><code>    boolean anyStartsWithA =
+        stringCollection
+            .stream()
+            .anyMatch((s) -&gt; s.startsWith("a"));
+
+    System.out.println(anyStartsWithA);      // true
+
+    boolean allStartsWithA =
+        stringCollection
+            .stream()
+            .allMatch((s) -&gt; s.startsWith("a"));
+
+    System.out.println(allStartsWithA);      // false
+
+    boolean noneStartsWithZ =
+        stringCollection
+            .stream()
+            .noneMatch((s) -&gt; s.startsWith("z"));
+
+    System.out.println(noneStartsWithZ);      // true
+</code></pre>
+
+<p>count()方法返回的是一个值。</p>
+
+<pre><code>    long startsWithB =
+        stringCollection
+            .stream()
+            .filter((s) -&gt; s.startsWith("b"))
+            .count();
+
+    System.out.println(startsWithB);    // 3
+</code></pre>
+
+<p>reduce则进行了归一化处理：</p>
+
+<pre><code>    Optional&lt;String&gt; reduced =
+        stringCollection
+            .stream()
+            .sorted()
+            .reduce((s1, s2) -&gt; s1 + "#" + s2);
+
+    reduced.ifPresent(System.out::println);
+    // "aaa1#aaa2#bbb1#bbb2#bbb3#ccc#ddd1#ddd2"
+</code></pre>
+
+<ul>
+<li><p>ParallelStream 它是一个并行的。速度要比stream快的多。</p></li>
+<li><p>Map
+Map并不支持Stream，不过Java 8 提供了各种有用的新方法：</p>
+
+<pre><code>  Map&lt;Integer, String&gt; map = new HashMap&lt;&gt;();
+
+  for (int i = 0; i &lt; 10; i++) {
+      map.putIfAbsent(i, "val" + i);
+  }
+
+  map.forEach((id, val) -&gt; System.out.println(val));
+
+  map.computeIfPresent(3, (num, val) -&gt; val + num);
+  map.get(3);             // val33
+
+  map.computeIfPresent(9, (num, val) -&gt; null);
+  map.containsKey(9);     // false
+
+  map.computeIfAbsent(23, num -&gt; "val" + num);
+  map.containsKey(23);    // true
+
+  map.computeIfAbsent(3, num -&gt; "bam");
+  map.get(3);             // val33
+
+  map.remove(3, "val3");
+  map.get(3);             // val33
+
+  map.remove(3, "val33");
+  map.get(3);             // null
+
+  map.getOrDefault(42, "not found");  // not found
+
+  map.merge(9, "val9", (value, newValue) -&gt; value.concat(newValue));
+  map.get(9);             // val9
+
+  map.merge(9, "concat", (value, newValue) -&gt; value.concat(newValue));
+  map.get(9);             // val9concat
+</code></pre>
+
+<h3>4.时间API</h3>
+
+Java8更新了Date API,这个新的api与joda-time类似。
+
+<h4>(1)Clock</h4>
+
+<p>Clock类提供了访问当前日期和时间的方法，Clock是时区敏感的，可以用来取代 System.currentTimeMillis() 来获取当前的微秒数。某一个特定的时间点也可以使用Instant类来表示，Instant类也可以用来创建老的java.util.Date对象。</p>
+
+<pre><code>  Clock clock = Clock.systemDefaultZone();
+  long millis = clock.millis();
+
+  Instant instant = clock.instant();
+  Date legacyDate = Date.from(instant);   // legacy java.util.Date
+</code></pre></li>
+</ul>
+
+
+<h4>(2)TimeZones</h4>
+
+<p>在新API中时区使用ZoneId来表示。时区可以很方便的使用静态方法of来获取到。 时区定义了到UTS时间的时间差，在Instant时间点对象到本地日期对象之间转换的时候是极其重要的</p>
+
+<pre><code>    System.out.println(ZoneId.getAvailableZoneIds());
+    // prints all available timezone ids
+
+    ZoneId zone1 = ZoneId.of("Europe/Berlin");
+    ZoneId zone2 = ZoneId.of("Brazil/East");
+    System.out.println(zone1.getRules());
+    System.out.println(zone2.getRules());
+
+    // ZoneRules[currentStandardOffset=+01:00]
+    // ZoneRules[currentStandardOffset=-03:00]
+</code></pre>
+
+<h4>(3)LocalTime</h4>
+
+<p>LocalTime 定义了一个没有时区信息的时间，例如 晚上10点，或者 17:30:15。下面的例子使用前面代码创建的时区创建了两个本地时间。之后比较时间并以小时和分钟为单位计算两个时间的时间差：</p>
+
+<pre><code>    LocalTime now1 = LocalTime.now(zone1);
+    LocalTime now2 = LocalTime.now(zone2);
+
+    System.out.println(now1.isBefore(now2));  // false
+
+    long hoursBetween = ChronoUnit.HOURS.between(now1, now2);
+    long minutesBetween = ChronoUnit.MINUTES.between(now1, now2);
+
+    System.out.println(hoursBetween);       // -3
+    System.out.println(minutesBetween);     // -239
+</code></pre>
+
+<p>LocalTime 提供了多种工厂方法来简化对象的创建，包括解析时间字符串</p>
+
+<pre><code>    LocalTime late = LocalTime.of(23, 59, 59);
+    System.out.println(late);       // 23:59:59
+
+    DateTimeFormatter germanFormatter =
+        DateTimeFormatter
+            .ofLocalizedTime(FormatStyle.SHORT)
+            .withLocale(Locale.GERMAN);
+
+    LocalTime leetTime = LocalTime.parse("13:37", germanFormatter);
+    System.out.println(leetTime);   // 13:37
+</code></pre>
+
+<h4>(4)LocalDate</h4>
+
+<p>LocalDate 表示了一个确切的日期，比如 2014-03-11。该对象值是不可变的，用起来和LocalTime基本一致。下面的例子展示了如何给Date对象加减天/月/年。另外要注意的是这些对象是不可变的，操作返回的总是一个新实例。</p>
+
+<pre><code>    LocalDate today = LocalDate.now();
+    LocalDate tomorrow = today.plus(1, ChronoUnit.DAYS);
+    LocalDate yesterday = tomorrow.minusDays(2);
+
+    LocalDate independenceDay = LocalDate.of(2014, Month.JULY, 4);
+    DayOfWeek dayOfWeek = independenceDay.getDayOfWeek();
+    System.out.println(dayOfWeek);    // FRIDAY
+
+    DateTimeFormatter germanFormatter =
+        DateTimeFormatter
+            .ofLocalizedDate(FormatStyle.MEDIUM)
+            .withLocale(Locale.GERMAN);
+
+    LocalDate xmas = LocalDate.parse("24.12.2014", germanFormatter);
+    System.out.println(xmas);   // 2014-12-24
+</code></pre>
+
+<h4>(5)LocalDateTime</h4>
+
+<pre><code>    LocalDateTime 同时表示了时间和日期，相当于前两节内容合并到一个对象上了。LocalDateTime和LocalTime还有LocalDate一样，都是不可变的。LocalDateTime提供了一些能访问具体字段的方法。
+
+    LocalDateTime sylvester = LocalDateTime.of(2014, Month.DECEMBER, 31, 23, 59, 59);
+
+    DayOfWeek dayOfWeek = sylvester.getDayOfWeek();
+    System.out.println(dayOfWeek);      // WEDNESDAY
+
+    Month month = sylvester.getMonth();
+    System.out.println(month);          // DECEMBER
+
+    long minuteOfDay = sylvester.getLong(ChronoField.MINUTE_OF_DAY);
+    System.out.println(minuteOfDay);    // 1439
+
+    Instant instant = sylvester
+            .atZone(ZoneId.systemDefault())
+            .toInstant();
+
+    Date legacyDate = Date.from(instant);
+    System.out.println(legacyDate);     // Wed Dec 31 23:59:59 CET 2014
+
+    DateTimeFormatter formatter =
+        DateTimeFormatter
+            .ofPattern("MMM dd, yyyy - HH:mm");
+
+    LocalDateTime parsed = LocalDateTime.parse("Nov 03, 2014 - 07:13", formatter);
+    String string = formatter.format(parsed);
+    System.out.println(string);     // Nov 03, 2014 - 07:13
+</code></pre>
+
+<h3>支持多重注解了</h3>
+
+<p>java8之前，要多个注解需要这样：</p>
+
+<pre><code>    @Hints({@Hint("hint1"), @Hint("hint2")})
+    class Person {}
+</code></pre>
+
+<p>而现在：</p>
+
+<pre><code>    @Hint("hint1")
+    @Hint("hint2")
+    class Person {}
+</code></pre>
+
+<hr />
+
+<p>参考文档：<a href="http://winterbe.com/posts/2014/03/16/java-8-tutorial/">http://winterbe.com/posts/2014/03/16/java-8-tutorial/</a></p>
 ]]></content>
   </entry>
   
