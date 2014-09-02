@@ -113,6 +113,54 @@
       ﻿
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2013/03/12/testacular-in-brief/">Karma or Testacular 简介</a></h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-12T15:12:00+08:00" pubdate data-updated="true">2013年03月12日 15:03:00</time>
+        
+         | <a href="/blog/2013/03/12/testacular-in-brief/#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+  <div class="entry-content"><h2>Karma/Testacular是什么？</h2>
+
+<p>在2012年11月，Google开源了<a href="http://testacular.github.com/">Testacular</a>，一个基于Node.js的JavaScript测试执行过程管理工具（Test Runner）。该工具可用于测试所有主流Web浏览器，也可集成到CI（Continuous integration）工具，也可和其他代码编辑器一起使用。</p>
+
+<p>Testacular可以在不同的桌面或移动设备浏览器上，或在持续集成的服务器上测试JavaScript代码。Testacular支持chrome、ChromeCanary、 Safari、Firefox、IE、Opera、PhantomJS，知道如何捕获浏览器正使用的默认路径，这些路径可能在启动器配置文件被忽视（overridden）。Testacular就是一个可以和多重测试框架协作的测试执行过程管理工具，它有针对Jasmine、Mocha和AngularJS的适配器，它也可以与<a href="http://jenkins-ci.org/">Jenkins</a>或<a href="https://travis-ci.org/">Travis</a>整合，用于执行持续集成测试。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/03/12/testacular-in-brief/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2013/03/11/node-dot-js-develop-guide-reading-note/">《Node.js开发指南》读书笔记</a></h1>
     
 	<p class="meta">
@@ -340,62 +388,6 @@ Node: 负责执行Tests,调用浏览器。</p>
 
     </article>
   
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2013/01/10/mysql-monitor/">MySql性能监控</a></h1>
-    
-	<p class="meta">
-    
-
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-01-10T19:03:00+08:00" pubdate data-updated="true">2013年01月10日 19:01:00</time>
-        
-         | <a href="/blog/2013/01/10/mysql-monitor/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content"><h2>用mysqldumpslow分析mysql的slow query log</h2>
-
-<p>mysql有一个功能就是可以log下来运行的比较慢的sql语句，默认是没有这个log的，为了开启这个功能，要修改my.cnf或者在mysql启动的时候加入一些参数。如果在my.cnf里面修改，需增加如下几行</p>
-
-<pre><code>long_query_time = 1
-log-slow-queries = /var/youpath/slow.log
-log-queries-not-using-indexes[这个在mysql4.10以后才被引入]
-</code></pre>
-
-<p>long_query_time 是指执行超过多久的sql会被log下来，这里是1秒。<br/>
-log-slow-queries 设置把日志写在那里，可以为空，系统会给一个缺省的文件host_name-slow.log，我生成的log就在mysql的data目录 <br/>
-log-queries-not-using-indexes 就是字面意思，log下来没有使用索引的query。 <br/>
-把上述参数打开，运行一段时间，就可以关掉了，省得影响生产环境。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/01/10/mysql-monitor/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <ul class="pager">
     
     <li class="previous"><a href="/blog/page/10/">&larr; 上一页</a></li>
@@ -418,11 +410,15 @@ log-queries-not-using-indexes 就是字面意思，log下来没有使用索引�
     <li class="nav-header">最近更新</li>
     
       <li class="post">
-        <a href="/blog/2014/06/20/export-excel-by-jxls/">使用jXLS来导出报表</a>
+        <a href="/blog/2014/08/27/java-new-feature/">Java新特性</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2014/06/20/quartz-cluster-with-spring/">spring中配置quartz集群</a>
+        <a href="/blog/2014/06/24/export-excel-by-jxls/">使用 jXLS导出报表</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/24/quartz-cluster-with-spring/">Spring中配置quartz集群</a>
       </li>
     
       <li class="post">
@@ -433,16 +429,12 @@ log-queries-not-using-indexes 就是字面意思，log下来没有使用索引�
         <a href="/blog/2014/03/27/java-encode-error-again/">又见Java乱码</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/03/18/use-jstl/">JSTL介绍</a>
-      </li>
-    
   </ul>
 </section>
 <section class="well">
 	<ul id="tags-cloud" class="nav nav-list">
 	<li class="nav-header">分类云</li>
-    <span id="tag-cloud"><a href='/blog/categories/apache' style='font-size: 102.4%'>apache(1)</a> <a href='/blog/categories/checkstyle' style='font-size: 102.4%'>checkstyle(1)</a> <a href='/blog/categories/encode' style='font-size: 109.6%'>encode(4)</a> <a href='/blog/categories/git' style='font-size: 104.8%'>git(2)</a> <a href='/blog/categories/http' style='font-size: 104.8%'>HTTP(2)</a> <a href='/blog/categories/java' style='font-size: 109.6%'>java(4)</a> <a href='/blog/categories/java' style='font-size: 104.8%'>Java(2)</a> <a href='/blog/categories/java-encode' style='font-size: 102.4%'>Java,encode(1)</a> <a href='/blog/categories/javascript' style='font-size: 102.4%'>javascript(1)</a> <a href='/blog/categories/jenkins' style='font-size: 102.4%'>jenkins(1)</a> <a href='/blog/categories/jmeter' style='font-size: 104.8%'>jmeter(2)</a> <a href='/blog/categories/jvm' style='font-size: 104.8%'>JVM(2)</a> <a href='/blog/categories/linux' style='font-size: 104.8%'>linux(2)</a> <a href='/blog/categories/markdown' style='font-size: 104.8%'>markdown(2)</a> <a href='/blog/categories/maven' style='font-size: 119.2%'>maven(8)</a> <a href='/blog/categories/mysql' style='font-size: 104.8%'>mysql(2)</a> <a href='/blog/categories/nodejs' style='font-size: 116.8%'>nodejs(7)</a> <a href='/blog/categories/selenium' style='font-size: 121.6%'>selenium(9)</a> <a href='/blog/categories/selenium-wiki' style='font-size: 107.2%'>selenium-wiki(3)</a> <a href='/blog/categories/selenium官方文档' style='font-size: 109.6%'>selenium官方文档(4)</a> <a href='/blog/categories/testng' style='font-size: 102.4%'>testng(1)</a> <a href='/blog/categories/ubuntu' style='font-size: 102.4%'>ubuntu(1)</a> <a href='/blog/categories/ut' style='font-size: 104.8%'>ut(2)</a> <a href='/blog/categories/velocity' style='font-size: 102.4%'>velocity(1)</a> <a href='/blog/categories/个人' style='font-size: 104.8%'>个人(2)</a> <a href='/blog/categories/开发' style='font-size: 102.4%'>开发(1)</a> <a href='/blog/categories/测试' style='font-size: 107.2%'>测试(3)</a> <a href='/blog/categories/设计模式' style='font-size: 160.0%'>设计模式(25)</a> <a href='/blog/categories/调优' style='font-size: 102.4%'>调优(1)</a> </span>
+    <span id="tag-cloud"><a href='/blog/categories/apache' style='font-size: 102.4%'>apache(1)</a> <a href='/blog/categories/checkstyle' style='font-size: 102.4%'>checkstyle(1)</a> <a href='/blog/categories/encode' style='font-size: 109.6%'>encode(4)</a> <a href='/blog/categories/git' style='font-size: 104.8%'>git(2)</a> <a href='/blog/categories/http' style='font-size: 104.8%'>HTTP(2)</a> <a href='/blog/categories/java' style='font-size: 109.6%'>java(4)</a> <a href='/blog/categories/java' style='font-size: 107.2%'>Java(3)</a> <a href='/blog/categories/java-encode' style='font-size: 102.4%'>Java,encode(1)</a> <a href='/blog/categories/javascript' style='font-size: 102.4%'>javascript(1)</a> <a href='/blog/categories/jenkins' style='font-size: 102.4%'>jenkins(1)</a> <a href='/blog/categories/jmeter' style='font-size: 104.8%'>jmeter(2)</a> <a href='/blog/categories/jvm' style='font-size: 104.8%'>JVM(2)</a> <a href='/blog/categories/linux' style='font-size: 104.8%'>linux(2)</a> <a href='/blog/categories/markdown' style='font-size: 104.8%'>markdown(2)</a> <a href='/blog/categories/maven' style='font-size: 119.2%'>maven(8)</a> <a href='/blog/categories/mysql' style='font-size: 104.8%'>mysql(2)</a> <a href='/blog/categories/nodejs' style='font-size: 116.8%'>nodejs(7)</a> <a href='/blog/categories/selenium' style='font-size: 121.6%'>selenium(9)</a> <a href='/blog/categories/selenium-wiki' style='font-size: 107.2%'>selenium-wiki(3)</a> <a href='/blog/categories/selenium官方文档' style='font-size: 109.6%'>selenium官方文档(4)</a> <a href='/blog/categories/testng' style='font-size: 102.4%'>testng(1)</a> <a href='/blog/categories/ubuntu' style='font-size: 102.4%'>ubuntu(1)</a> <a href='/blog/categories/ut' style='font-size: 104.8%'>ut(2)</a> <a href='/blog/categories/velocity' style='font-size: 102.4%'>velocity(1)</a> <a href='/blog/categories/个人' style='font-size: 104.8%'>个人(2)</a> <a href='/blog/categories/开发' style='font-size: 102.4%'>开发(1)</a> <a href='/blog/categories/测试' style='font-size: 107.2%'>测试(3)</a> <a href='/blog/categories/设计模式' style='font-size: 160.0%'>设计模式(25)</a> <a href='/blog/categories/调优' style='font-size: 102.4%'>调优(1)</a> </span>
   </ul>
 </section>﻿<section class="well">
 <ul class="nav nav-list">

@@ -4,7 +4,7 @@
   <title><![CDATA[Tag: 集群 | Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/tags/集群/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2014-06-23T13:13:46+08:00</updated>
+  <updated>2014-09-02T14:03:36+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -14,24 +14,22 @@
 
   
   <entry>
-    <title type="html"><![CDATA[spring中配置quartz集群]]></title>
-    <link href="http://www.shenyanchao.cn/blog/2014/06/20/quartz-cluster-with-spring/"/>
-    <updated>2014-06-20T16:01:00+08:00</updated>
-    <id>http://www.shenyanchao.cn/blog/2014/06/20/quartz-cluster-with-spring</id>
+    <title type="html"><![CDATA[Spring中配置quartz集群]]></title>
+    <link href="http://www.shenyanchao.cn/blog/2014/06/24/quartz-cluster-with-spring/"/>
+    <updated>2014-06-24T15:10:00+08:00</updated>
+    <id>http://www.shenyanchao.cn/blog/2014/06/24/quartz-cluster-with-spring</id>
     <content type="html"><![CDATA[<h3>为什么使用quartz集群？</h3>
 
-<p>在服务部署一个节点的时候，quartz任务是可以正常运行的。但是如果你业务上需要部署2个或者以上的集群时，就需要处理集群之间的定时任务执行问题了。而quartz集群就是为了解决这个问题的。前提是集群的时间同步，以及共用同一个数据库。</p>
-
-<h3>quartz集群在spring中的配置</h3>
+<p>在服务部署一个节点的时候，quartz任务是可以正常运行的。但是如果你业务上需要部署2个或者以上的集群时，就需要处理集群之间的定时任务执行问题了。而quartz集群就是为了解决这个问题的。前提是集群的时间同步，以及共用同一个数据库。
+quartz集群在spring中的配置</p>
 
 <h4>1.导入数据库表</h4>
 
-<p>以mysql为例，下载quartz发行版，在/docs/dbTables下找到tables_mysql_innodb.sql。导入数据结构到数据库内。
-使用tables_mysql.sql的话，由于没有指定使用innodB引擎，在一些默认使用MYISAM的数据库实例内可能会报错。</p>
+<p>以mysql为例，下载quartz发行版，在/docs/dbTables下找到tables_mysql_innodb.sql。导入数据结构到数据库内。 使用tables_mysql.sql的话，由于没有指定使用innodB引擎，在一些默认使用MYISAM的数据库实例内可能会报错。</p>
 
 <p>注意事项：</p>
 
-<p>修改SQL： TYPE=InnoDB  --> ENGINE=InnoDB</p>
+<p>修改SQL： TYPE=InnoDB –> ENGINE=InnoDB</p>
 
 <!--more-->
 
@@ -162,13 +160,12 @@ public class TestTask extends QuartzJobBean {
 
 <p>由于使用MethodInvokingFactoryBean总是报seriziable错误，因此本例使用的是JobDetailBean。那这也意味着要继承QuartzJobBean。同时由于配置了JobFactory，使得可以直接注入UserService等实例。</p>
 
-<p> ####5.quartz在mysql5.6下报错</p>
+<h4>5.quartz在mysql5.6下报错</h4>
 
-<pre><code>    You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'OPTION SQL_SELECT_LIMIT=5' at line 1
+<pre><code>You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'OPTION SQL_SELECT_LIMIT=5' at line 1
 </code></pre>
 
-<p>这个错误是由于mysql connector的版本太低导致的，可以通过升级版本来解决。
-参见<a href="http://stackoverflow.com/questions/13023548/mysql-server-version-for-the-right-syntax-to-use-near-option-sql-select-limit-1">http://stackoverflow.com/questions/13023548/mysql-server-version-for-the-right-syntax-to-use-near-option-sql-select-limit-1</a></p>
+<p>这个错误是由于mysql connector的版本太低导致的，可以通过升级版本来解决。 参见<a href="http://stackoverflow.com/questions/13023548/mysql-server-version-for-the-right-syntax-to-use-near-option-sql-select-limit-1">http://stackoverflow.com/questions/13023548/mysql-server-version-for-the-right-syntax-to-use-near-option-sql-select-limit-1</a></p>
 ]]></content>
   </entry>
   

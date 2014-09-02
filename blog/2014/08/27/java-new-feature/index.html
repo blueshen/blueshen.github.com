@@ -1,0 +1,549 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Java新特性 - Blues 小站</title>
+  <meta name="author" content="ShenYanchao">
+
+  
+  <meta name="description" content="专注于原创技术博客，并分享精品技术文章">
+  <meta name="keywords" content="shenyanchao, karma, Java, Linux, selenium, webdriver, 设计模式, JavaEE, NodeJS">
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.shenyanchao.cn/blog/2014/08/27/java-new-feature">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/bootstrap/bootstrap.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/bootstrap/responsive.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/syntax/syntax.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <style type="text/css">
+    body {
+      padding-bottom: 40px;
+    }
+    h1 {
+      margin-bottom: 15px;
+    }
+    img {
+      max-width: 100%;
+    }
+    .sharing, .meta, .pager {
+      margin: 20px 0px 20px 0px;
+    }
+    .page-footer p {
+      text-align: center;
+    }
+  </style>
+  <script src="/javascripts/libs/jquery.js"></script>
+  <script src="/javascripts/libs/modernizr-2.0.js"></script>
+  <script src="/javascripts/libs/bootstrap.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Blues 小站" type="application/atom+xml">
+  
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-36243102-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <nav role="navigation"><div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+
+      <a class="brand" href="/">Blues 小站</a>
+
+      <div class="nav-collapse">
+        ﻿<ul class="nav">
+  <li><a href="/">首页</a></li>
+  <li><a href="/blog/archives">博客</a></li>
+  <li><a href="/tags/">Tag云</a></li>
+  <li><a href="/friends/">友情链接</a></li>
+<li><a href="/messagebox/">留言板</a></li>
+  <li><a href="/author/">关于我</a></li>
+</ul>
+
+
+        <ul class="nav pull-right" data-subscription="rss">
+          <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+          
+        </ul>
+
+        
+          <form class="pull-right navbar-search" action="http://google.com.hk/search" method="get">
+            <fieldset role="search">
+              <input type="hidden" name="q" value="site:www.shenyanchao.cn" />
+              <input class="search-query" type="text" name="q" results="0" placeholder="Search"/>
+            </fieldset>
+          </form>
+        
+      </div>
+    </div>
+  </div>
+</div>
+</nav>
+  <div class="container">
+    <div class="row-fluid">
+      
+<article class="hentry span9" role="article">
+
+  ﻿
+  <header class="page-header">
+    
+      <h1 class="entry-title">Java新特性</h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-27T14:43:00+08:00" pubdate data-updated="true">2014年08月27日 14:08:00</time>
+        
+         | <a href="#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+<div class="entry-content"><h2>Java7新特性</h2>
+
+<h3>Java7语法特性</h3>
+
+<p>根据JSR 334，Java7添加了数个语法方面的新特性：</p>
+
+<h4>1. switch可以消化String</h4>
+
+<p>比如：</p>
+
+<pre><code>public static void switchString(String s){
+    switch (s){
+    case "db": ...
+    case "wls": ...
+    case "idm": ...
+    case "soa": ...
+    case "fa": ...
+    default: ...
+    }
+}
+</code></pre>
+
+<!--more-->
+
+
+<h4>2. 新的整数字面表达方式 - &#8220;0b&#8221;前缀和&#8221;_&#8221;连数符，提升程序员的幸福感。</h4>
+
+<ul>
+<li><p>a. 表示二进制字面值的前缀, 0b:
+比如以下三个变量的值相同：</p>
+
+<pre><code>   byte b1 = 0b00100001;     // New
+   byte b2 = 0x21;        // Old
+   byte b3 = 33;        // Old
+</code></pre></li>
+<li><p>b. 用下划线连接整数提升其可读性，自身无含义，不可用在数字的起始和末尾：</p>
+
+<pre><code>  long phone_nbr = 021_1111_2222;
+</code></pre></li>
+</ul>
+
+
+<h4>3. 简化了泛型对象创建的语法 - &#8220;菱形 new&#8221;，以下两个语句等价：</h4>
+
+<pre><code>    ArrayList&lt;String&gt; al1 = new ArrayList&lt;String&gt;();    // Old
+    ArrayList&lt;String&gt; al2 = new ArrayList&lt;&gt;();        // New
+</code></pre>
+
+<h4>4. 为所有的reflect操作异常找了个新爸爸 - ReflectOperationException，孩儿们是：</h4>
+
+<pre><code>    ClassNotFoundException, 
+    IllegalAccessException, 
+    InstantiationException, 
+    InvocationTargetException, 
+    NoSuchFieldException, 
+    NoSuchMethodException
+</code></pre>
+
+<h4>5. catch有了多重捕获功能，也玩起了包养的勾当，以下代码心领神会：</h4>
+
+<pre><code>    try{
+        // code
+    }
+    catch (SQLException | IOException ex) {
+        // ...
+    }
+</code></pre>
+
+<h4>6. 异常精确重抛 - 重抛时自动造型为子类，有点半主动制导武器的style：</h4>
+
+<pre><code>    public void test() throws NoSuchMethodException, NoSuchFieldException{    // 子类
+        try{
+            // code
+        }
+        catch (RelectiveOperationException ex){    // 父类
+            throws ex;
+        }
+    }
+</code></pre>
+
+<h4>7. 发明了try()结构 - Try with Resources，能够自动接住异常并关闭资源(所谓的资源需要利用新的java.lang.AutoCloseable接口)，注意以下代码中try后面跟的是&#8221;(&#8220;不是&#8221;{&#8220;：</h4>
+
+<pre><code>try(BufferedReader br = new BufferedReader(new FileReader("/home/oracle/temp.txt"))){
+    ... br.readLine() ...
+}
+</code></pre>
+
+<p>try-with-resources语句可以带catch，也可以向上例一样一个catch也没有。</p>
+
+<h3>Java7 NIO 新方法</h3>
+
+<p>整体来说，对IO操作进行了优化，使用起来更加顺手，甚至可以替换apache common-io包。</p>
+
+<h4>1.增加<code>java.nio.file.Paths</code>用于目录操作</h4>
+
+<pre><code>    Path path = Paths.get("/home/shenyanchao", "Desktop");
+    System.out.println(path.toAbsolutePath());
+    System.out.println(path.getParent());
+    System.out.println(path.getFileSystem().isOpen());
+</code></pre>
+
+<h4>2.增加<code>java.nio.file.Files</code>工具类来处理文件</h4>
+
+<pre><code>    Files.copy(src,dest, StandardCopyOption.COPY_ATTRIBUTES,StandardCopyOption.REPLACE_EXISTING);
+
+    Files.move(src,dest,StandardCopyOption.ATOMIC_MOVE);
+
+    Files.createLink(src,dest);
+    Files.createSymbolicLink(src,dest);
+    Files.deleteIfExists(dest);
+
+    Files.readAllLines(src);
+
+    Files.createTempFile(src,"aa","bb");
+</code></pre>
+
+<h4>3.目录树遍历</h4>
+
+<p>使用<code>FileVisitor</code>来实现访问者模式。</p>
+
+<pre><code>preVisitDirectory(T dir, BasicFileAttributes attrs);
+visitFile(T dir, BasicFileAttributes attrs);
+visitFileFailed(T dir, IOException exc);
+postVisitDirectory(T dir, IOException exc);
+</code></pre>
+
+<h4>4.使用WatchService来监控目录，变化请通知</h4>
+
+<pre><code>    WatchService watchService = FileSystems.getDefault().newWatchService();
+    Path path = Paths.get("/home/shenyanchao/Documents");
+    WatchKey watchKey = path.register(watchService, StandardWatchEventKinds.ENTRY_CREATE,
+            StandardWatchEventKinds.ENTRY_DELETE, StandardWatchEventKinds.ENTRY_MODIFY);
+    while (true) {
+        List&lt;WatchEvent&lt;?&gt;&gt; watchEvents = watchService.take().pollEvents();
+        for (WatchEvent&lt;?&gt; watchEvent : watchEvents) {
+            System.out.printf("[%s]文件发生了[%s]事件。%n", watchEvent.context(), watchEvent.kind());
+        }
+        boolean valid = watchKey.reset();
+        if (!valid){
+            break;
+        }
+    }
+</code></pre>
+
+<h3>Java7并发（JSR166Y）</h3>
+
+<h4>Fork Join框架，大任务分解为小任务</h4>
+
+<pre><code>public class Fibonacci extends RecursiveTask&lt;Integer&gt; {
+
+    final int n;
+
+    Fibonacci(int n) {
+        this.n = n;
+    }
+
+    @Override
+    protected Integer compute() {
+        if (n &lt;= 1)
+            return n;
+        Fibonacci f1 = new Fibonacci(n - 1);
+        f1.fork();
+        Fibonacci f2 = new Fibonacci(n - 2);
+        f2.fork();
+        return f1.join() + f2.join();
+    }
+
+    public static void main(String[] args) {
+        Fibonacci fibonacci = new Fibonacci(4);
+        System.out.println(fibonacci.compute());
+    }
+}
+</code></pre>
+
+<h4>TransferQueue，ConcurrentLinkedDeque等新类</h4>
+
+<h4>ThreadLocalRandom用于生成随机数</h4>
+
+<pre><code>ThreadLocalRandom.current().nextInt (...)
+</code></pre>
+
+<p>Random是线程安全的，但速度较慢。而这个是快速的，但是速度很快。适用于线程内部的使用。</p>
+
+<h3>Java7客户端</h3>
+
+<p>诸如更新了很多swing显示相关的api.
+更好的支持linux fonts</p>
+
+<h3>Java7 VM新特性</h3>
+
+<h4>1.引入Garbage First回收算法</h4>
+
+<p>参考文档：<a href="http://www.slideshare.net/boulderjug/55-things-in-java-7">http://www.slideshare.net/boulderjug/55-things-in-java-7</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      ﻿
+  
+
+<span class="byline author vcard"> <span class="fn">ShenYanchao</span> 发布于</span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-27T14:43:00+08:00" pubdate data-updated="true">2014年08月27日 14:08:00</time>
+      
+
+<span class="categories">
+	| 分类:
+  
+    <a class='category' href='/blog/categories/java/'>java</a>
+  
+</span>
+
+
+	  
+
+<span class="tags">
+   | 标签:
+  
+    <a class='tag' href='/tags/java7/'>java7</a>, <a class='tag' href='/tags/java8/'>java8</a>
+  
+</span>
+
+    </p>
+    
+      ﻿<div class="sharing">
+  
+  
+  
+<!-- Baidu Button BEGIN -->
+<div id="bdshare" class="bdshare_t bds_tools_32 get-codes-bdshare">
+<a class="bds_tsina"></a>
+<a class="bds_renren"></a>
+<a class="bds_qzone"></a>
+<a class="bds_kaixin001"></a>
+<a class="bds_hi"></a>
+<a class="bds_douban"></a>
+<a class="bds_tsohu"></a>
+<a class="bds_tqq"></a>
+<a class="bds_ty"></a>
+<a class="bds_twi"></a>
+<a class="bds_tieba"></a>
+<span class="bds_more"></span>
+<a class="shareCount"></a>
+</div>
+<br><br>
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=6337598" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+  
+  
+  
+  
+  
+</div>
+
+    
+    
+    <section>
+      <h1>讨论区</h1>
+      <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+    </section>
+    
+    <ul class="pager">
+      
+      <li class="previous"><a class="basic-alignment left"
+        href="/blog/2014/06/24/export-excel-by-jxls/" title="Previous Post:
+        使用 jXLS导出报表">&laquo; 使用 jXLS导出报表</a></li>
+      
+      <li><a href="/blog/archives">博客</a></li>
+      
+    </ul>
+  </footer>
+</article>
+
+<aside class="sidebar-nav span3">
+  
+    ﻿<section class="well">
+  <ul id="recent_posts" class="nav nav-list">
+    <li class="nav-header">最近更新</li>
+    
+      <li class="post">
+        <a href="/blog/2014/08/27/java-new-feature/">Java新特性</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/24/export-excel-by-jxls/">使用 jXLS导出报表</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/24/quartz-cluster-with-spring/">Spring中配置quartz集群</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/31/velocity-study-summary/">Velocity学习小结</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/27/java-encode-error-again/">又见Java乱码</a>
+      </li>
+    
+  </ul>
+</section>
+<section class="well">
+	<ul id="tags-cloud" class="nav nav-list">
+	<li class="nav-header">分类云</li>
+    <span id="tag-cloud"><a href='/blog/categories/apache' style='font-size: 102.4%'>apache(1)</a> <a href='/blog/categories/checkstyle' style='font-size: 102.4%'>checkstyle(1)</a> <a href='/blog/categories/encode' style='font-size: 109.6%'>encode(4)</a> <a href='/blog/categories/git' style='font-size: 104.8%'>git(2)</a> <a href='/blog/categories/http' style='font-size: 104.8%'>HTTP(2)</a> <a href='/blog/categories/java' style='font-size: 109.6%'>java(4)</a> <a href='/blog/categories/java' style='font-size: 107.2%'>Java(3)</a> <a href='/blog/categories/java-encode' style='font-size: 102.4%'>Java,encode(1)</a> <a href='/blog/categories/javascript' style='font-size: 102.4%'>javascript(1)</a> <a href='/blog/categories/jenkins' style='font-size: 102.4%'>jenkins(1)</a> <a href='/blog/categories/jmeter' style='font-size: 104.8%'>jmeter(2)</a> <a href='/blog/categories/jvm' style='font-size: 104.8%'>JVM(2)</a> <a href='/blog/categories/linux' style='font-size: 104.8%'>linux(2)</a> <a href='/blog/categories/markdown' style='font-size: 104.8%'>markdown(2)</a> <a href='/blog/categories/maven' style='font-size: 119.2%'>maven(8)</a> <a href='/blog/categories/mysql' style='font-size: 104.8%'>mysql(2)</a> <a href='/blog/categories/nodejs' style='font-size: 116.8%'>nodejs(7)</a> <a href='/blog/categories/selenium' style='font-size: 121.6%'>selenium(9)</a> <a href='/blog/categories/selenium-wiki' style='font-size: 107.2%'>selenium-wiki(3)</a> <a href='/blog/categories/selenium官方文档' style='font-size: 109.6%'>selenium官方文档(4)</a> <a href='/blog/categories/testng' style='font-size: 102.4%'>testng(1)</a> <a href='/blog/categories/ubuntu' style='font-size: 102.4%'>ubuntu(1)</a> <a href='/blog/categories/ut' style='font-size: 104.8%'>ut(2)</a> <a href='/blog/categories/velocity' style='font-size: 102.4%'>velocity(1)</a> <a href='/blog/categories/个人' style='font-size: 104.8%'>个人(2)</a> <a href='/blog/categories/开发' style='font-size: 102.4%'>开发(1)</a> <a href='/blog/categories/测试' style='font-size: 107.2%'>测试(3)</a> <a href='/blog/categories/设计模式' style='font-size: 160.0%'>设计模式(25)</a> <a href='/blog/categories/调优' style='font-size: 102.4%'>调优(1)</a> </span>
+  </ul>
+</section>﻿<section class="well">
+<ul class="nav nav-list">
+  <li class="nav-header">最新评论</li>
+  <script type="text/javascript" src="http://blueshen.disqus.com/recent_comments_widget.js?num_items=5&hide_avatars=0&avatar_size=32&excerpt_length=200"></script>
+</ul>
+  </section><section class="well">
+  <ul id="categories" class="nav nav-list">
+    <li class="nav-header">文章分类</li>
+    <li><a href='/blog/categories/apache'>apache (1)</a></li><li><a href='/blog/categories/checkstyle'>checkstyle (1)</a></li><li><a href='/blog/categories/encode'>encode (4)</a></li><li><a href='/blog/categories/git'>git (2)</a></li><li><a href='/blog/categories/http'>HTTP (2)</a></li><li><a href='/blog/categories/java'>java (4)</a></li><li><a href='/blog/categories/java'>Java (3)</a></li><li><a href='/blog/categories/java-encode'>Java,encode (1)</a></li><li><a href='/blog/categories/javascript'>javascript (1)</a></li><li><a href='/blog/categories/jenkins'>jenkins (1)</a></li><li><a href='/blog/categories/jmeter'>jmeter (2)</a></li><li><a href='/blog/categories/jvm'>JVM (2)</a></li><li><a href='/blog/categories/linux'>linux (2)</a></li><li><a href='/blog/categories/markdown'>markdown (2)</a></li><li><a href='/blog/categories/maven'>maven (8)</a></li><li><a href='/blog/categories/mysql'>mysql (2)</a></li><li><a href='/blog/categories/nodejs'>nodejs (7)</a></li><li><a href='/blog/categories/selenium'>selenium (9)</a></li><li><a href='/blog/categories/selenium-wiki'>selenium-wiki (3)</a></li><li><a href='/blog/categories/selenium官方文档'>selenium官方文档 (4)</a></li><li><a href='/blog/categories/testng'>testng (1)</a></li><li><a href='/blog/categories/ubuntu'>ubuntu (1)</a></li><li><a href='/blog/categories/ut'>ut (2)</a></li><li><a href='/blog/categories/velocity'>velocity (1)</a></li><li><a href='/blog/categories/个人'>个人 (2)</a></li><li><a href='/blog/categories/开发'>开发 (1)</a></li><li><a href='/blog/categories/测试'>测试 (3)</a></li><li><a href='/blog/categories/设计模式'>设计模式 (25)</a></li><li><a href='/blog/categories/调优'>调优 (1)</a></li>
+  </ul>
+</section>
+<section class="well">
+  <ul id="gh_repos" class="nav">
+    <li class="nav-header">GitHub Repos</li>
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/blueshen">@blueshen</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        github.showRepos({
+            user: 'blueshen',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/asides/github.js" type="text/javascript"> </script>
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo" class="page-footer">﻿<hr>
+<p>
+  版权所有 &copy; 2014 - ShenYanchao -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+
+</p>
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'blueshen';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://www.shenyanchao.cn/blog/2014/08/27/java-new-feature/';
+        var disqus_url = 'http://www.shenyanchao.cn/blog/2014/08/27/java-new-feature/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+<!--
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F97aa7abbb3b568fb66ab76664b57b8ba' type='text/javascript'%3E%3C/script%3E"));
+</script>
+-->
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F81c9612f8fdceca45435ef7f5404d7b2' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+
+</body>
+</html>

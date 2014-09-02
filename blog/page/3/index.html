@@ -113,6 +113,81 @@
       ﻿
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2013/11/20/how-package-system-dependency-lib-in-maven/">Maven如何打包本地依赖包</a></h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-20T19:04:00+08:00" pubdate data-updated="true">2013年11月20日 19:11:00</time>
+        
+         | <a href="/blog/2013/11/20/how-package-system-dependency-lib-in-maven/#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+  <div class="entry-content"><h4>Maven如何依赖本地包？</h4>
+
+<p>有些依赖包在mavencentral上是没有的。那么如何在项目中使用呢？</p>
+
+<pre><code>    &lt;dependency&gt;
+        &lt;groupId&gt;org.wltea.ik-analyzer&lt;/groupId&gt;
+        &lt;artifactId&gt;ik-analyzer&lt;/artifactId&gt;
+        &lt;version&gt;3.2.8&lt;/version&gt;
+        &lt;scope&gt;system&lt;/scope&gt;
+        &lt;systemPath&gt;${project.basedir}/lib/ik-analyzer-3.2.8.jar&lt;/systemPath&gt;
+    &lt;/dependency&gt;
+</code></pre>
+
+<p>这里可以指明scope是system,然后制定这个依赖包的systemPath就可以啦。这里依ik-analyzer为例的。</p>
+
+<h4>如何将本地包打到war包内？</h4>
+
+<p>打war包，一般直接执行<code>mvn clean package</code>即可，但是默认的情况下是不能将scope=system的本地包打包的。这个时候就需要显式的指定啦。如下面这样，默认将lib下的所有jar文件打包到WEB-INF/lib下。当然也是可以打包其他的文件的，诸如xml,properties等的。</p>
+
+<pre><code>        &lt;plugin&gt;
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
+            &lt;version&gt;2.3&lt;/version&gt;
+            &lt;configuration&gt;
+                &lt;warName&gt;${project.artifactId}&lt;/warName&gt;
+                &lt;webResources&gt;
+                    &lt;resource&gt;
+                        &lt;directory&gt;lib/&lt;/directory&gt;
+                        &lt;targetPath&gt;WEB-INF/lib&lt;/targetPath&gt;
+                        &lt;includes&gt;
+                            &lt;include&gt;**/*.jar&lt;/include&gt;
+                        &lt;/includes&gt;
+                    &lt;/resource&gt;
+                &lt;/webResources&gt;
+            &lt;/configuration&gt;
+        &lt;/plugin&gt;
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2013/09/25/custome-checkstyle-rule/">自定义CheckStyle规则</a></h1>
     
 	<p class="meta">
@@ -355,77 +430,6 @@ and the repository exists.
 
     </article>
   
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2013/06/28/refactoring-to-patterns-reading-notes/">《重构与模式》读书笔记</a></h1>
-    
-	<p class="meta">
-    
-
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-06-28T13:53:00+08:00" pubdate data-updated="true">2013年06月28日 13:06:00</time>
-        
-         | <a href="/blog/2013/06/28/refactoring-to-patterns-reading-notes/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content"><p>GoF的《设计模式》以及Martin Fowler的《重构》都是经典。而《重构与模式》则是将二者结合起来。通过设计模式来指导重构，而重构的目的就是让代码更加的简单，易于维护和扩展。</p>
-
-<h3>写作缘由</h3>
-
-<ul>
-<li>过度设计：代码存在设计过度的情况</li>
-<li>模式万灵丹：认为设计模式的万能的</li>
-<li>设计不足：类比与过度设计，长期设计不足，导致开发节奏“快、慢、更慢”</li>
-<li>测试驱动开发和持续重构：敏捷开发中，Kent Beck说开发过程是“红-绿-重构”</li>
-<li>重构与模式：模式有助于改进设计，通过重构实现模式或者趋向模式进行重构</li>
-<li>演进式设计：将模式放到重构的背景中进行领会</li>
-</ul>
-
-
-<h3>什么是重构</h3>
-
-<p>定义：重构是一种对软件内部结构的改善，目的是在不改变软件的可见行为的情况下，使其更易理解，修改成本更低。 <br/>
-重构过程包括去除重复、简化复杂逻辑和澄清模糊的代码。要保证重构的安全性，必须确保所做的修改不会产生任何破坏，这需要进行手工测试或者自动化测试。循序渐进的进行重构有处于防止增加缺陷。</p>
-
-<p>重构的动机：</p>
-
-<ul>
-<li>使新代码的增加更容易</li>
-<li>改善既有代码的设计</li>
-<li>对代码理解更透彻</li>
-<li>提高编程的趣味性</li>
-</ul>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/06/28/refactoring-to-patterns-reading-notes/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <ul class="pager">
     
     <li class="previous"><a href="/blog/page/4/">&larr; 上一页</a></li>
@@ -448,11 +452,15 @@ and the repository exists.
     <li class="nav-header">最近更新</li>
     
       <li class="post">
-        <a href="/blog/2014/06/20/export-excel-by-jxls/">使用jXLS来导出报表</a>
+        <a href="/blog/2014/08/27/java-new-feature/">Java新特性</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2014/06/20/quartz-cluster-with-spring/">spring中配置quartz集群</a>
+        <a href="/blog/2014/06/24/export-excel-by-jxls/">使用 jXLS导出报表</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/24/quartz-cluster-with-spring/">Spring中配置quartz集群</a>
       </li>
     
       <li class="post">
@@ -463,16 +471,12 @@ and the repository exists.
         <a href="/blog/2014/03/27/java-encode-error-again/">又见Java乱码</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/03/18/use-jstl/">JSTL介绍</a>
-      </li>
-    
   </ul>
 </section>
 <section class="well">
 	<ul id="tags-cloud" class="nav nav-list">
 	<li class="nav-header">分类云</li>
-    <span id="tag-cloud"><a href='/blog/categories/apache' style='font-size: 102.4%'>apache(1)</a> <a href='/blog/categories/checkstyle' style='font-size: 102.4%'>checkstyle(1)</a> <a href='/blog/categories/encode' style='font-size: 109.6%'>encode(4)</a> <a href='/blog/categories/git' style='font-size: 104.8%'>git(2)</a> <a href='/blog/categories/http' style='font-size: 104.8%'>HTTP(2)</a> <a href='/blog/categories/java' style='font-size: 109.6%'>java(4)</a> <a href='/blog/categories/java' style='font-size: 104.8%'>Java(2)</a> <a href='/blog/categories/java-encode' style='font-size: 102.4%'>Java,encode(1)</a> <a href='/blog/categories/javascript' style='font-size: 102.4%'>javascript(1)</a> <a href='/blog/categories/jenkins' style='font-size: 102.4%'>jenkins(1)</a> <a href='/blog/categories/jmeter' style='font-size: 104.8%'>jmeter(2)</a> <a href='/blog/categories/jvm' style='font-size: 104.8%'>JVM(2)</a> <a href='/blog/categories/linux' style='font-size: 104.8%'>linux(2)</a> <a href='/blog/categories/markdown' style='font-size: 104.8%'>markdown(2)</a> <a href='/blog/categories/maven' style='font-size: 119.2%'>maven(8)</a> <a href='/blog/categories/mysql' style='font-size: 104.8%'>mysql(2)</a> <a href='/blog/categories/nodejs' style='font-size: 116.8%'>nodejs(7)</a> <a href='/blog/categories/selenium' style='font-size: 121.6%'>selenium(9)</a> <a href='/blog/categories/selenium-wiki' style='font-size: 107.2%'>selenium-wiki(3)</a> <a href='/blog/categories/selenium官方文档' style='font-size: 109.6%'>selenium官方文档(4)</a> <a href='/blog/categories/testng' style='font-size: 102.4%'>testng(1)</a> <a href='/blog/categories/ubuntu' style='font-size: 102.4%'>ubuntu(1)</a> <a href='/blog/categories/ut' style='font-size: 104.8%'>ut(2)</a> <a href='/blog/categories/velocity' style='font-size: 102.4%'>velocity(1)</a> <a href='/blog/categories/个人' style='font-size: 104.8%'>个人(2)</a> <a href='/blog/categories/开发' style='font-size: 102.4%'>开发(1)</a> <a href='/blog/categories/测试' style='font-size: 107.2%'>测试(3)</a> <a href='/blog/categories/设计模式' style='font-size: 160.0%'>设计模式(25)</a> <a href='/blog/categories/调优' style='font-size: 102.4%'>调优(1)</a> </span>
+    <span id="tag-cloud"><a href='/blog/categories/apache' style='font-size: 102.4%'>apache(1)</a> <a href='/blog/categories/checkstyle' style='font-size: 102.4%'>checkstyle(1)</a> <a href='/blog/categories/encode' style='font-size: 109.6%'>encode(4)</a> <a href='/blog/categories/git' style='font-size: 104.8%'>git(2)</a> <a href='/blog/categories/http' style='font-size: 104.8%'>HTTP(2)</a> <a href='/blog/categories/java' style='font-size: 109.6%'>java(4)</a> <a href='/blog/categories/java' style='font-size: 107.2%'>Java(3)</a> <a href='/blog/categories/java-encode' style='font-size: 102.4%'>Java,encode(1)</a> <a href='/blog/categories/javascript' style='font-size: 102.4%'>javascript(1)</a> <a href='/blog/categories/jenkins' style='font-size: 102.4%'>jenkins(1)</a> <a href='/blog/categories/jmeter' style='font-size: 104.8%'>jmeter(2)</a> <a href='/blog/categories/jvm' style='font-size: 104.8%'>JVM(2)</a> <a href='/blog/categories/linux' style='font-size: 104.8%'>linux(2)</a> <a href='/blog/categories/markdown' style='font-size: 104.8%'>markdown(2)</a> <a href='/blog/categories/maven' style='font-size: 119.2%'>maven(8)</a> <a href='/blog/categories/mysql' style='font-size: 104.8%'>mysql(2)</a> <a href='/blog/categories/nodejs' style='font-size: 116.8%'>nodejs(7)</a> <a href='/blog/categories/selenium' style='font-size: 121.6%'>selenium(9)</a> <a href='/blog/categories/selenium-wiki' style='font-size: 107.2%'>selenium-wiki(3)</a> <a href='/blog/categories/selenium官方文档' style='font-size: 109.6%'>selenium官方文档(4)</a> <a href='/blog/categories/testng' style='font-size: 102.4%'>testng(1)</a> <a href='/blog/categories/ubuntu' style='font-size: 102.4%'>ubuntu(1)</a> <a href='/blog/categories/ut' style='font-size: 104.8%'>ut(2)</a> <a href='/blog/categories/velocity' style='font-size: 102.4%'>velocity(1)</a> <a href='/blog/categories/个人' style='font-size: 104.8%'>个人(2)</a> <a href='/blog/categories/开发' style='font-size: 102.4%'>开发(1)</a> <a href='/blog/categories/测试' style='font-size: 107.2%'>测试(3)</a> <a href='/blog/categories/设计模式' style='font-size: 160.0%'>设计模式(25)</a> <a href='/blog/categories/调优' style='font-size: 102.4%'>调优(1)</a> </span>
   </ul>
 </section>﻿<section class="well">
 <ul class="nav nav-list">

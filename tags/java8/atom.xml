@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Tag: java8 | Blues 小站]]></title>
+  <link href="http://www.shenyanchao.cn/tags/java8/atom.xml" rel="self"/>
+  <link href="http://www.shenyanchao.cn/"/>
+  <updated>2014-09-02T14:03:36+08:00</updated>
+  <id>http://www.shenyanchao.cn/</id>
+  <author>
+    <name><![CDATA[ShenYanchao]]></name>
+    <email><![CDATA[zhiyi.shen@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Java新特性]]></title>
+    <link href="http://www.shenyanchao.cn/blog/2014/08/27/java-new-feature/"/>
+    <updated>2014-08-27T14:43:00+08:00</updated>
+    <id>http://www.shenyanchao.cn/blog/2014/08/27/java-new-feature</id>
+    <content type="html"><![CDATA[<h2>Java7新特性</h2>
+
+<h3>Java7语法特性</h3>
+
+<p>根据JSR 334，Java7添加了数个语法方面的新特性：</p>
+
+<h4>1. switch可以消化String</h4>
+
+<p>比如：</p>
+
+<pre><code>public static void switchString(String s){
+    switch (s){
+    case "db": ...
+    case "wls": ...
+    case "idm": ...
+    case "soa": ...
+    case "fa": ...
+    default: ...
+    }
+}
+</code></pre>
+
+<!--more-->
+
+
+<h4>2. 新的整数字面表达方式 - "0b"前缀和"_"连数符，提升程序员的幸福感。</h4>
+
+<ul>
+<li><p>a. 表示二进制字面值的前缀, 0b:
+比如以下三个变量的值相同：</p>
+
+<pre><code>   byte b1 = 0b00100001;     // New
+   byte b2 = 0x21;        // Old
+   byte b3 = 33;        // Old
+</code></pre></li>
+<li><p>b. 用下划线连接整数提升其可读性，自身无含义，不可用在数字的起始和末尾：</p>
+
+<pre><code>  long phone_nbr = 021_1111_2222;
+</code></pre></li>
+</ul>
+
+
+<h4>3. 简化了泛型对象创建的语法 - "菱形 new"，以下两个语句等价：</h4>
+
+<pre><code>    ArrayList&lt;String&gt; al1 = new ArrayList&lt;String&gt;();    // Old
+    ArrayList&lt;String&gt; al2 = new ArrayList&lt;&gt;();        // New
+</code></pre>
+
+<h4>4. 为所有的reflect操作异常找了个新爸爸 - ReflectOperationException，孩儿们是：</h4>
+
+<pre><code>    ClassNotFoundException, 
+    IllegalAccessException, 
+    InstantiationException, 
+    InvocationTargetException, 
+    NoSuchFieldException, 
+    NoSuchMethodException
+</code></pre>
+
+<h4>5. catch有了多重捕获功能，也玩起了包养的勾当，以下代码心领神会：</h4>
+
+<pre><code>    try{
+        // code
+    }
+    catch (SQLException | IOException ex) {
+        // ...
+    }
+</code></pre>
+
+<h4>6. 异常精确重抛 - 重抛时自动造型为子类，有点半主动制导武器的style：</h4>
+
+<pre><code>    public void test() throws NoSuchMethodException, NoSuchFieldException{    // 子类
+        try{
+            // code
+        }
+        catch (RelectiveOperationException ex){    // 父类
+            throws ex;
+        }
+    }
+</code></pre>
+
+<h4>7. 发明了try()结构 - Try with Resources，能够自动接住异常并关闭资源(所谓的资源需要利用新的java.lang.AutoCloseable接口)，注意以下代码中try后面跟的是"("不是"{"：</h4>
+
+<pre><code>try(BufferedReader br = new BufferedReader(new FileReader("/home/oracle/temp.txt"))){
+    ... br.readLine() ...
+}
+</code></pre>
+
+<p>try-with-resources语句可以带catch，也可以向上例一样一个catch也没有。</p>
+
+<h3>Java7 NIO 新方法</h3>
+
+<p>整体来说，对IO操作进行了优化，使用起来更加顺手，甚至可以替换apache common-io包。</p>
+
+<h4>1.增加<code>java.nio.file.Paths</code>用于目录操作</h4>
+
+<pre><code>    Path path = Paths.get("/home/shenyanchao", "Desktop");
+    System.out.println(path.toAbsolutePath());
+    System.out.println(path.getParent());
+    System.out.println(path.getFileSystem().isOpen());
+</code></pre>
+
+<h4>2.增加<code>java.nio.file.Files</code>工具类来处理文件</h4>
+
+<pre><code>    Files.copy(src,dest, StandardCopyOption.COPY_ATTRIBUTES,StandardCopyOption.REPLACE_EXISTING);
+
+    Files.move(src,dest,StandardCopyOption.ATOMIC_MOVE);
+
+    Files.createLink(src,dest);
+    Files.createSymbolicLink(src,dest);
+    Files.deleteIfExists(dest);
+
+    Files.readAllLines(src);
+
+    Files.createTempFile(src,"aa","bb");
+</code></pre>
+
+<h4>3.目录树遍历</h4>
+
+<p>使用<code>FileVisitor</code>来实现访问者模式。</p>
+
+<pre><code>preVisitDirectory(T dir, BasicFileAttributes attrs);
+visitFile(T dir, BasicFileAttributes attrs);
+visitFileFailed(T dir, IOException exc);
+postVisitDirectory(T dir, IOException exc);
+</code></pre>
+
+<h4>4.使用WatchService来监控目录，变化请通知</h4>
+
+<pre><code>    WatchService watchService = FileSystems.getDefault().newWatchService();
+    Path path = Paths.get("/home/shenyanchao/Documents");
+    WatchKey watchKey = path.register(watchService, StandardWatchEventKinds.ENTRY_CREATE,
+            StandardWatchEventKinds.ENTRY_DELETE, StandardWatchEventKinds.ENTRY_MODIFY);
+    while (true) {
+        List&lt;WatchEvent&lt;?&gt;&gt; watchEvents = watchService.take().pollEvents();
+        for (WatchEvent&lt;?&gt; watchEvent : watchEvents) {
+            System.out.printf("[%s]文件发生了[%s]事件。%n", watchEvent.context(), watchEvent.kind());
+        }
+        boolean valid = watchKey.reset();
+        if (!valid){
+            break;
+        }
+    }
+</code></pre>
+
+<h3>Java7并发（JSR166Y）</h3>
+
+<h4>Fork Join框架，大任务分解为小任务</h4>
+
+<pre><code>public class Fibonacci extends RecursiveTask&lt;Integer&gt; {
+
+    final int n;
+
+    Fibonacci(int n) {
+        this.n = n;
+    }
+
+    @Override
+    protected Integer compute() {
+        if (n &lt;= 1)
+            return n;
+        Fibonacci f1 = new Fibonacci(n - 1);
+        f1.fork();
+        Fibonacci f2 = new Fibonacci(n - 2);
+        f2.fork();
+        return f1.join() + f2.join();
+    }
+
+    public static void main(String[] args) {
+        Fibonacci fibonacci = new Fibonacci(4);
+        System.out.println(fibonacci.compute());
+    }
+}
+</code></pre>
+
+<h4>TransferQueue，ConcurrentLinkedDeque等新类</h4>
+
+<h4>ThreadLocalRandom用于生成随机数</h4>
+
+<pre><code>ThreadLocalRandom.current().nextInt (...)
+</code></pre>
+
+<p>Random是线程安全的，但速度较慢。而这个是快速的，但是速度很快。适用于线程内部的使用。</p>
+
+<h3>Java7客户端</h3>
+
+<p>诸如更新了很多swing显示相关的api.
+更好的支持linux fonts</p>
+
+<h3>Java7 VM新特性</h3>
+
+<h4>1.引入Garbage First回收算法</h4>
+
+<p>参考文档：<a href="http://www.slideshare.net/boulderjug/55-things-in-java-7">http://www.slideshare.net/boulderjug/55-things-in-java-7</a></p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -4,7 +4,7 @@
   <title><![CDATA[Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2014-06-23T13:13:46+08:00</updated>
+  <updated>2014-09-02T14:03:36+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -14,15 +14,216 @@
 
   
   <entry>
-    <title type="html"><![CDATA[使用jXLS来导出报表]]></title>
-    <link href="http://www.shenyanchao.cn/blog/2014/06/20/export-excel-by-jxls/"/>
-    <updated>2014-06-20T16:47:00+08:00</updated>
-    <id>http://www.shenyanchao.cn/blog/2014/06/20/export-excel-by-jxls</id>
+    <title type="html"><![CDATA[Java新特性]]></title>
+    <link href="http://www.shenyanchao.cn/blog/2014/08/27/java-new-feature/"/>
+    <updated>2014-08-27T14:43:00+08:00</updated>
+    <id>http://www.shenyanchao.cn/blog/2014/08/27/java-new-feature</id>
+    <content type="html"><![CDATA[<h2>Java7新特性</h2>
+
+<h3>Java7语法特性</h3>
+
+<p>根据JSR 334，Java7添加了数个语法方面的新特性：</p>
+
+<h4>1. switch可以消化String</h4>
+
+<p>比如：</p>
+
+<pre><code>public static void switchString(String s){
+    switch (s){
+    case "db": ...
+    case "wls": ...
+    case "idm": ...
+    case "soa": ...
+    case "fa": ...
+    default: ...
+    }
+}
+</code></pre>
+
+<!--more-->
+
+
+<h4>2. 新的整数字面表达方式 - &#8220;0b&#8221;前缀和&#8221;_&#8221;连数符，提升程序员的幸福感。</h4>
+
+<ul>
+<li><p>a. 表示二进制字面值的前缀, 0b:
+比如以下三个变量的值相同：</p>
+
+<pre><code>   byte b1 = 0b00100001;     // New
+   byte b2 = 0x21;        // Old
+   byte b3 = 33;        // Old
+</code></pre></li>
+<li><p>b. 用下划线连接整数提升其可读性，自身无含义，不可用在数字的起始和末尾：</p>
+
+<pre><code>  long phone_nbr = 021_1111_2222;
+</code></pre></li>
+</ul>
+
+
+<h4>3. 简化了泛型对象创建的语法 - &#8220;菱形 new&#8221;，以下两个语句等价：</h4>
+
+<pre><code>    ArrayList&lt;String&gt; al1 = new ArrayList&lt;String&gt;();    // Old
+    ArrayList&lt;String&gt; al2 = new ArrayList&lt;&gt;();        // New
+</code></pre>
+
+<h4>4. 为所有的reflect操作异常找了个新爸爸 - ReflectOperationException，孩儿们是：</h4>
+
+<pre><code>    ClassNotFoundException, 
+    IllegalAccessException, 
+    InstantiationException, 
+    InvocationTargetException, 
+    NoSuchFieldException, 
+    NoSuchMethodException
+</code></pre>
+
+<h4>5. catch有了多重捕获功能，也玩起了包养的勾当，以下代码心领神会：</h4>
+
+<pre><code>    try{
+        // code
+    }
+    catch (SQLException | IOException ex) {
+        // ...
+    }
+</code></pre>
+
+<h4>6. 异常精确重抛 - 重抛时自动造型为子类，有点半主动制导武器的style：</h4>
+
+<pre><code>    public void test() throws NoSuchMethodException, NoSuchFieldException{    // 子类
+        try{
+            // code
+        }
+        catch (RelectiveOperationException ex){    // 父类
+            throws ex;
+        }
+    }
+</code></pre>
+
+<h4>7. 发明了try()结构 - Try with Resources，能够自动接住异常并关闭资源(所谓的资源需要利用新的java.lang.AutoCloseable接口)，注意以下代码中try后面跟的是&#8221;(&#8220;不是&#8221;{&#8220;：</h4>
+
+<pre><code>try(BufferedReader br = new BufferedReader(new FileReader("/home/oracle/temp.txt"))){
+    ... br.readLine() ...
+}
+</code></pre>
+
+<p>try-with-resources语句可以带catch，也可以向上例一样一个catch也没有。</p>
+
+<h3>Java7 NIO 新方法</h3>
+
+<p>整体来说，对IO操作进行了优化，使用起来更加顺手，甚至可以替换apache common-io包。</p>
+
+<h4>1.增加<code>java.nio.file.Paths</code>用于目录操作</h4>
+
+<pre><code>    Path path = Paths.get("/home/shenyanchao", "Desktop");
+    System.out.println(path.toAbsolutePath());
+    System.out.println(path.getParent());
+    System.out.println(path.getFileSystem().isOpen());
+</code></pre>
+
+<h4>2.增加<code>java.nio.file.Files</code>工具类来处理文件</h4>
+
+<pre><code>    Files.copy(src,dest, StandardCopyOption.COPY_ATTRIBUTES,StandardCopyOption.REPLACE_EXISTING);
+
+    Files.move(src,dest,StandardCopyOption.ATOMIC_MOVE);
+
+    Files.createLink(src,dest);
+    Files.createSymbolicLink(src,dest);
+    Files.deleteIfExists(dest);
+
+    Files.readAllLines(src);
+
+    Files.createTempFile(src,"aa","bb");
+</code></pre>
+
+<h4>3.目录树遍历</h4>
+
+<p>使用<code>FileVisitor</code>来实现访问者模式。</p>
+
+<pre><code>preVisitDirectory(T dir, BasicFileAttributes attrs);
+visitFile(T dir, BasicFileAttributes attrs);
+visitFileFailed(T dir, IOException exc);
+postVisitDirectory(T dir, IOException exc);
+</code></pre>
+
+<h4>4.使用WatchService来监控目录，变化请通知</h4>
+
+<pre><code>    WatchService watchService = FileSystems.getDefault().newWatchService();
+    Path path = Paths.get("/home/shenyanchao/Documents");
+    WatchKey watchKey = path.register(watchService, StandardWatchEventKinds.ENTRY_CREATE,
+            StandardWatchEventKinds.ENTRY_DELETE, StandardWatchEventKinds.ENTRY_MODIFY);
+    while (true) {
+        List&lt;WatchEvent&lt;?&gt;&gt; watchEvents = watchService.take().pollEvents();
+        for (WatchEvent&lt;?&gt; watchEvent : watchEvents) {
+            System.out.printf("[%s]文件发生了[%s]事件。%n", watchEvent.context(), watchEvent.kind());
+        }
+        boolean valid = watchKey.reset();
+        if (!valid){
+            break;
+        }
+    }
+</code></pre>
+
+<h3>Java7并发（JSR166Y）</h3>
+
+<h4>Fork Join框架，大任务分解为小任务</h4>
+
+<pre><code>public class Fibonacci extends RecursiveTask&lt;Integer&gt; {
+
+    final int n;
+
+    Fibonacci(int n) {
+        this.n = n;
+    }
+
+    @Override
+    protected Integer compute() {
+        if (n &lt;= 1)
+            return n;
+        Fibonacci f1 = new Fibonacci(n - 1);
+        f1.fork();
+        Fibonacci f2 = new Fibonacci(n - 2);
+        f2.fork();
+        return f1.join() + f2.join();
+    }
+
+    public static void main(String[] args) {
+        Fibonacci fibonacci = new Fibonacci(4);
+        System.out.println(fibonacci.compute());
+    }
+}
+</code></pre>
+
+<h4>TransferQueue，ConcurrentLinkedDeque等新类</h4>
+
+<h4>ThreadLocalRandom用于生成随机数</h4>
+
+<pre><code>ThreadLocalRandom.current().nextInt (...)
+</code></pre>
+
+<p>Random是线程安全的，但速度较慢。而这个是快速的，但是速度很快。适用于线程内部的使用。</p>
+
+<h3>Java7客户端</h3>
+
+<p>诸如更新了很多swing显示相关的api.
+更好的支持linux fonts</p>
+
+<h3>Java7 VM新特性</h3>
+
+<h4>1.引入Garbage First回收算法</h4>
+
+<p>参考文档：<a href="http://www.slideshare.net/boulderjug/55-things-in-java-7">http://www.slideshare.net/boulderjug/55-things-in-java-7</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[使用 jXLS导出报表]]></title>
+    <link href="http://www.shenyanchao.cn/blog/2014/06/24/export-excel-by-jxls/"/>
+    <updated>2014-06-24T15:17:00+08:00</updated>
+    <id>http://www.shenyanchao.cn/blog/2014/06/24/export-excel-by-jxls</id>
     <content type="html"><![CDATA[<h3>常用的excel操作工具</h3>
 
 <ul>
-<li><a href="http://poi.apache.org/">Apache POI</a></li>
-<li><a href="http://jexcelapi.sourceforge.net/">jexcelApi</a></li>
+<li>Apache POI</li>
+<li>jexcelApi</li>
 </ul>
 
 
@@ -30,7 +231,7 @@
 
 <h3>jXLS是什么？</h3>
 
-<p><a href="http://jxls.sourceforge.net/">jXLS</a>是基于apache poi的一个扩展。它的功能就类似于jstl在servlet中的作用，你可以自定义一个模板，然后往里面放数据就OK了。</p>
+<p>jXLS是基于apache poi的一个扩展。它的功能就类似于jstl在servlet中的作用，你可以自定义一个模板，然后往里面放数据就OK了。</p>
 
 <p>jXLS的基本功能：</p>
 
@@ -39,31 +240,31 @@
 <li>生成Excel 2000标准格式</li>
 <li>支持字体、数字、日期操作</li>
 <li>能够修饰单元格属性</li>
-<li>支持图像和图表</li>
+<li><p>支持图像和图表</p>
+
+<pre><code>  &lt;dependency&gt;
+         &lt;groupId&gt;net.sf.jxls&lt;/groupId&gt;
+         &lt;artifactId&gt;jxls-core&lt;/artifactId&gt;
+         &lt;version&gt;1.0.5&lt;/version&gt;
+  &lt;/dependency&gt;
+</code></pre></li>
 </ul>
 
 
 <!--more-->
 
 
-<pre><code>    &lt;dependency&gt;
-           &lt;groupId&gt;net.sf.jxls&lt;/groupId&gt;
-           &lt;artifactId&gt;jxls-core&lt;/artifactId&gt;
-           &lt;version&gt;1.0.5&lt;/version&gt;
-    &lt;/dependency&gt;
-</code></pre>
-
 <p>jXLS的API也很简单：</p>
 
-<pre><code>                Map beans = new HashMap();
-                beans.put("department", department);
-                XLSTransformer transformer = new XLSTransformer();
-                transformer.transformXLS(xlsTemplateFileName, beans, outputFileName);
+<pre><code>            Map beans = new HashMap();
+            beans.put("department", department);
+            XLSTransformer transformer = new XLSTransformer();
+            transformer.transformXLS(xlsTemplateFileName, beans, outputFileName);
 </code></pre>
 
 <h3>jXLS是如何解析模板生成数据的？</h3>
 
-<p>查看net.sf.jxls.transformer.CellTransformer可以看到：</p>
+<p>查看<code>net.sf.jxls.transformer.CellTransformer</code>可以看到：</p>
 
 <pre><code>Object value = ((Expression) cell.getExpressions().get(0)).evaluate();
 </code></pre>
@@ -85,7 +286,7 @@
 
 <p>从而可以看出，数据的获得是通过JEXL来实现的。换句话说，模板内可以使用任何的JEXL标签。</p>
 
-<h4>让jXLS支持hyperlink</h4>
+<h3>让jXLS支持hyperlink</h3>
 
 <p>业务上有这么一个需求，想在单元格内显示一个链接，而链接是动态生成的。通过模板设置单元格为链接始终无法生效，但是如果链接是固定的是可以生效的。如何实现动态的呢，改源码net.sf.jxls.transformer.CellTransformer 82行：</p>
 
@@ -102,29 +303,27 @@
         }
 </code></pre>
 
-<p>当遇见<code>${href}</code>开头的表达式，则认为是链接CELL。此处<code>${href}</code>只是一个标记，可以任意替换的啦。然后将后面的第1个表达式作为显示值，第2个表达式作为链接地址就实现啦。</p>
+<p>当遇见${href}开头的表达式，则认为是链接CELL。此处${href}只是一个标记，可以任意替换的啦。然后将后面的第1个表达式作为显示值，第2个表达式作为链接地址就实现啦。</p>
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[spring中配置quartz集群]]></title>
-    <link href="http://www.shenyanchao.cn/blog/2014/06/20/quartz-cluster-with-spring/"/>
-    <updated>2014-06-20T16:01:00+08:00</updated>
-    <id>http://www.shenyanchao.cn/blog/2014/06/20/quartz-cluster-with-spring</id>
+    <title type="html"><![CDATA[Spring中配置quartz集群]]></title>
+    <link href="http://www.shenyanchao.cn/blog/2014/06/24/quartz-cluster-with-spring/"/>
+    <updated>2014-06-24T15:10:00+08:00</updated>
+    <id>http://www.shenyanchao.cn/blog/2014/06/24/quartz-cluster-with-spring</id>
     <content type="html"><![CDATA[<h3>为什么使用quartz集群？</h3>
 
-<p>在服务部署一个节点的时候，quartz任务是可以正常运行的。但是如果你业务上需要部署2个或者以上的集群时，就需要处理集群之间的定时任务执行问题了。而quartz集群就是为了解决这个问题的。前提是集群的时间同步，以及共用同一个数据库。</p>
-
-<h3>quartz集群在spring中的配置</h3>
+<p>在服务部署一个节点的时候，quartz任务是可以正常运行的。但是如果你业务上需要部署2个或者以上的集群时，就需要处理集群之间的定时任务执行问题了。而quartz集群就是为了解决这个问题的。前提是集群的时间同步，以及共用同一个数据库。
+quartz集群在spring中的配置</p>
 
 <h4>1.导入数据库表</h4>
 
-<p>以mysql为例，下载quartz发行版，在/docs/dbTables下找到tables_mysql_innodb.sql。导入数据结构到数据库内。
-使用tables_mysql.sql的话，由于没有指定使用innodB引擎，在一些默认使用MYISAM的数据库实例内可能会报错。</p>
+<p>以mysql为例，下载quartz发行版，在/docs/dbTables下找到tables_mysql_innodb.sql。导入数据结构到数据库内。 使用tables_mysql.sql的话，由于没有指定使用innodB引擎，在一些默认使用MYISAM的数据库实例内可能会报错。</p>
 
 <p>注意事项：</p>
 
-<p>修改SQL： TYPE=InnoDB  &#8211;> ENGINE=InnoDB</p>
+<p>修改SQL： TYPE=InnoDB –> ENGINE=InnoDB</p>
 
 <!--more-->
 
@@ -255,13 +454,12 @@ public class TestTask extends QuartzJobBean {
 
 <p>由于使用MethodInvokingFactoryBean总是报seriziable错误，因此本例使用的是JobDetailBean。那这也意味着要继承QuartzJobBean。同时由于配置了JobFactory，使得可以直接注入UserService等实例。</p>
 
-<p> ####5.quartz在mysql5.6下报错</p>
+<h4>5.quartz在mysql5.6下报错</h4>
 
-<pre><code>    You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'OPTION SQL_SELECT_LIMIT=5' at line 1
+<pre><code>You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'OPTION SQL_SELECT_LIMIT=5' at line 1
 </code></pre>
 
-<p>这个错误是由于mysql connector的版本太低导致的，可以通过升级版本来解决。
-参见<a href="http://stackoverflow.com/questions/13023548/mysql-server-version-for-the-right-syntax-to-use-near-option-sql-select-limit-1">http://stackoverflow.com/questions/13023548/mysql-server-version-for-the-right-syntax-to-use-near-option-sql-select-limit-1</a></p>
+<p>这个错误是由于mysql connector的版本太低导致的，可以通过升级版本来解决。 参见<a href="http://stackoverflow.com/questions/13023548/mysql-server-version-for-the-right-syntax-to-use-near-option-sql-select-limit-1">http://stackoverflow.com/questions/13023548/mysql-server-version-for-the-right-syntax-to-use-near-option-sql-select-limit-1</a></p>
 ]]></content>
   </entry>
   
@@ -5069,17 +5267,6 @@ public class AstHelloWorld {
 </code></pre>
 
 <p>具体的使用手册，参见<a href="http://www.shenyanchao.cn/blog/2013/06/07/eclipse-ast/">http://www.shenyanchao.cn/blog/2013/06/07/eclipse-ast/</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[write my maven plugin]]></title>
-    <link href="http://www.shenyanchao.cn/blog/2013/06/13/write-my-maven-plugin/"/>
-    <updated>2013-06-13T20:35:00+08:00</updated>
-    <id>http://www.shenyanchao.cn/blog/2013/06/13/write-my-maven-plugin</id>
-    <content type="html"><![CDATA[<p>mvn archetype:generate -DgroupId=cn.shenyanchao.ut -DartifactId=ut-maven-plugin -DarchetypeGroupId=org.apache.maven.archetypes -DarchetypeArtifactId=maven-archetype-plugin</p>
-
-<p><a href="http://maven.apache.org/guides/plugin/guide-java-plugin-development.html">http://maven.apache.org/guides/plugin/guide-java-plugin-development.html</a></p>
 ]]></content>
   </entry>
   
