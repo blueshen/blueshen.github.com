@@ -4,7 +4,7 @@
   <title><![CDATA[Tag: java8 | Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/tags/java8/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2014-09-02T19:45:01+08:00</updated>
+  <updated>2014-10-20T19:15:15+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -32,7 +32,7 @@
     switch (s){
     case "db": ...
     case "wls": ...
-    case "idm": ...
+    case "ibm": ...
     case "soa": ...
     case "fa": ...
     default: ...
@@ -201,24 +201,24 @@ postVisitDirectory(T dir, IOException exc);
 
 <p>Random是线程安全的，但速度较慢。而这个是快速的，但是速度很快。适用于线程内部的使用。</p>
 
-<h3>Java7客户端</h3>
+<h3>Java7 client</h3>
 
-<p>诸如更新了很多swing显示相关的api.
+<p>诸如更新了很多swing显示相关的api. <br/>
 更好的支持linux fonts</p>
 
 <h3>Java7 VM新特性</h3>
 
 <h4>1.引入Garbage First回收算法</h4>
 
-<hr />
+<h2>Garbage First简称G1，它的目标是要做到尽量减少GC所导致的应用暂停的时间，让应用达到准实时的效果，同时保持JVM堆空间的利用率。用于替代CMS</h2>
 
 <p>参考文档：<a href="http://www.slideshare.net/boulderjug/55-things-in-java-7">http://www.slideshare.net/boulderjug/55-things-in-java-7</a></p>
 
 <h2>Java8新特性</h2>
 
-<h3>1.接口默认方法[接口允许有实现啦!!!]</h3>
+<h3>1.接口默认方法[接口允许有实现啦]</h3>
 
-<p>Java 8允许我们给接口添加一个非抽象的方法实现，只需要使用 default关键字即可，这个特征又叫做扩展方法。</p>
+<p>Java 8允许我们给接口添加一个非抽象的方法实现，只需要使用 <code>default</code>关键字即可，这个特征又叫做扩展方法。</p>
 
 <pre><code>interface Formula {
     double calculate(int a);
@@ -263,7 +263,7 @@ public int compare(String a, String b) {
 
 <h3>3.@FunctionalInterface</h3>
 
-<p>这是新引入的一个注解，用于支持lambda。用<code>FunctionalInterface</code>标识的接口，必须只包含1个抽象方法。否则会报错的。估计是因为如果有多个抽象方法，lambda就无法知道对应哪个方法了。</p>
+<p>这是新引入的一个注解，用于支持lambda。用<code>FunctionalInterface</code>标识的接口，必须只包含1个抽象方法。否则会编译报错的。因为如果有多个抽象方法，lambda就无法知道对应哪个方法了。</p>
 
 <pre><code>@FunctionalInterface
 interface Converter&lt;F, T&gt; {
@@ -330,78 +330,109 @@ Person person = personFactory.create("Peter", "Parker");
 <p>另外，java 8 api还提供了丰富的接口。这些接口貌似都是从Google Guava包里得到的提示，命名甚至都是一样的。</p>
 
 <ul>
-<li><p>Predicates
-Predicate 接口只有一个参数，返回boolean类型。该接口包含多种默认方法来将Predicate组合成其他复杂的逻辑（比如：与，或，非）：</p>
-
-<pre><code>  Predicate&lt;String&gt; predicate = (s) -&gt; s.length() &gt; 0;
-
-  predicate.test("foo");              // true
-  predicate.negate().test("foo");     // false
-
-  Predicate&lt;Boolean&gt; nonNull = Objects::nonNull;
-  Predicate&lt;Boolean&gt; isNull = Objects::isNull;
-
-  Predicate&lt;String&gt; isEmpty = String::isEmpty;
-  Predicate&lt;String&gt; isNotEmpty = isEmpty.negate();
-</code></pre></li>
-<li><p>Function
-Function 接口有一个参数并且返回一个结果，并附带了一些可以和其他函数组合的默认方法（compose, andThen）：</p>
-
-<pre><code>  Function&lt;String, Integer&gt; toInteger = Integer::valueOf;
-  Function&lt;String, String&gt; backToString = toInteger.andThen(String::valueOf);
-
-  backToString.apply("123");     // "123"
-</code></pre></li>
-<li><p>Supplier
-Supplier 接口返回一个给定类型的泛型，和Function接口不同的是该接口不接受任何参数.</p>
-
-<pre><code>  Supplier&lt;Person&gt; personSupplier = Person::new;
-  personSupplier.get();   // new Person
-</code></pre></li>
-<li><p>Consumer
-Consumer在一个输入参数上做一些操作。</p>
-
-<pre><code>  Consumer&lt;Person&gt; greeter = (p) -&gt; System.out.println("Hello, " + p.firstName);
-  greeter.accept(new Person("Luke", "Skywalker"));
-</code></pre></li>
-<li><p>Comparator
-Comparator是早就存在的，不过java 8提供了一些默认方法。</p>
-
-<pre><code>  Comparator&lt;Person&gt; comparator = (p1, p2) -&gt; p1.firstName.compareTo(p2.firstName);
-
-  Person p1 = new Person("John", "Doe");
-  Person p2 = new Person("Alice", "Wonderland");
-
-  comparator.compare(p1, p2);             // &gt; 0
-  comparator.reversed().compare(p1, p2);  // &lt; 0
-</code></pre></li>
-<li><p>Optional
-Optional其实并不是一个FunctionInterface，而是一个用来避免<code>NullPointerException</code>的工具。</p>
-
-<pre><code>  Optional&lt;String&gt; optional = Optional.of("bam");
-
-  optional.isPresent();           // true
-  optional.get();                 // "bam"
-  optional.orElse("fallback");    // "bam"
-
-  optional.ifPresent((s) -&gt; System.out.println(s.charAt(0)));     // "b"
-</code></pre></li>
-<li><p>Stream
-<code>java.util.stream.Stream</code>代表了能在其上做一系列操作的一串元素。在java 8中，Collections被扩展了。我们可以通过<code>Collections.stream()</code>或者<code>Collections.parallelStream()</code>来创建Stream。
-首先，新建一个数组。</p>
-
-<pre><code>  List&lt;String&gt; stringCollection = new ArrayList&lt;&gt;();
-  stringCollection.add("ddd2");
-  stringCollection.add("aaa2");
-  stringCollection.add("bbb1");
-  stringCollection.add("aaa1");
-  stringCollection.add("bbb3");
-  stringCollection.add("ccc");
-  stringCollection.add("bbb2");
-  stringCollection.add("ddd1");
-</code></pre></li>
+<li>Predicates</li>
 </ul>
 
+
+<p>Predicate 接口只有一个参数，返回boolean类型。该接口包含多种默认方法来将Predicate组合成其他复杂的逻辑（比如：与，或，非）：</p>
+
+<pre><code>    Predicate&lt;String&gt; predicate = (s) -&gt; s.length() &gt; 0;
+
+    predicate.test("foo");              // true
+    predicate.negate().test("foo");     // false
+
+    Predicate&lt;Boolean&gt; nonNull = Objects::nonNull;
+    Predicate&lt;Boolean&gt; isNull = Objects::isNull;
+
+    Predicate&lt;String&gt; isEmpty = String::isEmpty;
+    Predicate&lt;String&gt; isNotEmpty = isEmpty.negate();
+</code></pre>
+
+<ul>
+<li>Function</li>
+</ul>
+
+
+<p>Function 接口有一个参数并且返回一个结果，并附带了一些可以和其他函数组合的默认方法（compose, andThen）：</p>
+
+<pre><code>    Function&lt;String, Integer&gt; toInteger = Integer::valueOf;
+    Function&lt;String, String&gt; backToString = toInteger.andThen(String::valueOf);
+
+    backToString.apply("123");     // "123"
+</code></pre>
+
+<ul>
+<li>Supplier</li>
+</ul>
+
+
+<p>Supplier 接口返回一个给定类型的泛型，和Function接口不同的是该接口不接受任何参数.</p>
+
+<pre><code>    Supplier&lt;Person&gt; personSupplier = Person::new;
+    personSupplier.get();   // new Person
+</code></pre>
+
+<ul>
+<li>Consumer</li>
+</ul>
+
+
+<p>Consumer在一个输入参数上做一些操作。</p>
+
+<pre><code>    Consumer&lt;Person&gt; greeter = (p) -&gt; System.out.println("Hello, " + p.firstName);
+    greeter.accept(new Person("Luke", "Skywalker"));
+</code></pre>
+
+<ul>
+<li>Comparator</li>
+</ul>
+
+
+<p>Comparator是早就存在的，不过java 8提供了一些默认方法。</p>
+
+<pre><code>    Comparator&lt;Person&gt; comparator = (p1, p2) -&gt; p1.firstName.compareTo(p2.firstName);
+
+    Person p1 = new Person("John", "Doe");
+    Person p2 = new Person("Alice", "Wonderland");
+
+    comparator.compare(p1, p2);             // &gt; 0
+    comparator.reversed().compare(p1, p2);  // &lt; 0
+</code></pre>
+
+<ul>
+<li>Optional</li>
+</ul>
+
+
+<p>Optional其实并不是一个FunctionInterface，而是一个用来避免<code>NullPointerException</code>的工具。</p>
+
+<pre><code>    Optional&lt;String&gt; optional = Optional.of("bam");
+
+    optional.isPresent();           // true
+    optional.get();                 // "bam"
+    optional.orElse("fallback");    // "bam"
+
+    optional.ifPresent((s) -&gt; System.out.println(s.charAt(0)));     // "b"
+</code></pre>
+
+<ul>
+<li>Stream</li>
+</ul>
+
+
+<p><code>java.util.stream.Stream</code>代表了能在其上做一系列操作的一串元素。在java 8中，Collections被扩展了。我们可以通过<code>Collections.stream()</code>或者<code>Collections.parallelStream()</code>来创建Stream。
+首先，新建一个数组。</p>
+
+<pre><code>    List&lt;String&gt; stringCollection = new ArrayList&lt;&gt;();
+    stringCollection.add("ddd2");
+    stringCollection.add("aaa2");
+    stringCollection.add("bbb1");
+    stringCollection.add("aaa1");
+    stringCollection.add("bbb3");
+    stringCollection.add("ccc");
+    stringCollection.add("bbb2");
+    stringCollection.add("ddd1");
+</code></pre>
 
 <p>具体使用如下：</p>
 
@@ -422,7 +453,7 @@ Optional其实并不是一个FunctionInterface，而是一个用来避免<code>N
         .sorted((a, b) -&gt; b.compareTo(a))
         .forEach(System.out::println);
 
-    // "DDD2", "DDD1", "CCC", "BBB3", "BBB2", "AAA2", "AAA1"
+    // "DDD2", "DDD1", "CCC", "BBB3", "BBB2", "AAA2", "AAA1"        
 </code></pre>
 
 <p>另外提供有各种match方法。</p>
@@ -457,7 +488,7 @@ Optional其实并不是一个FunctionInterface，而是一个用来避免<code>N
             .filter((s) -&gt; s.startsWith("b"))
             .count();
 
-    System.out.println(startsWithB);    // 3
+    System.out.println(startsWithB);    // 3        
 </code></pre>
 
 <p>reduce则进行了归一化处理：</p>
@@ -473,61 +504,68 @@ Optional其实并不是一个FunctionInterface，而是一个用来避免<code>N
 </code></pre>
 
 <ul>
-<li><p>ParallelStream 它是一个并行的。速度要比stream快的多。</p></li>
-<li><p>Map
-Map并不支持Stream，不过Java 8 提供了各种有用的新方法：</p>
+<li>ParallelStream</li>
+</ul>
 
-<pre><code>  Map&lt;Integer, String&gt; map = new HashMap&lt;&gt;();
 
-  for (int i = 0; i &lt; 10; i++) {
-      map.putIfAbsent(i, "val" + i);
-  }
+<p>它是一个并行的。速度要比stream快的多。</p>
 
-  map.forEach((id, val) -&gt; System.out.println(val));
+<ul>
+<li>Map</li>
+</ul>
 
-  map.computeIfPresent(3, (num, val) -&gt; val + num);
-  map.get(3);             // val33
 
-  map.computeIfPresent(9, (num, val) -&gt; null);
-  map.containsKey(9);     // false
+<p>Map并不支持Stream，不过Java 8 提供了各种有用的新方法：</p>
 
-  map.computeIfAbsent(23, num -&gt; "val" + num);
-  map.containsKey(23);    // true
+<pre><code>    Map&lt;Integer, String&gt; map = new HashMap&lt;&gt;();
 
-  map.computeIfAbsent(3, num -&gt; "bam");
-  map.get(3);             // val33
+    for (int i = 0; i &lt; 10; i++) {
+        map.putIfAbsent(i, "val" + i);
+    }
 
-  map.remove(3, "val3");
-  map.get(3);             // val33
+    map.forEach((id, val) -&gt; System.out.println(val));
 
-  map.remove(3, "val33");
-  map.get(3);             // null
+    map.computeIfPresent(3, (num, val) -&gt; val + num);
+    map.get(3);             // val33
 
-  map.getOrDefault(42, "not found");  // not found
+    map.computeIfPresent(9, (num, val) -&gt; null);
+    map.containsKey(9);     // false
 
-  map.merge(9, "val9", (value, newValue) -&gt; value.concat(newValue));
-  map.get(9);             // val9
+    map.computeIfAbsent(23, num -&gt; "val" + num);
+    map.containsKey(23);    // true
 
-  map.merge(9, "concat", (value, newValue) -&gt; value.concat(newValue));
-  map.get(9);             // val9concat
+    map.computeIfAbsent(3, num -&gt; "bam");
+    map.get(3);             // val33
+
+    map.remove(3, "val3");
+    map.get(3);             // val33
+
+    map.remove(3, "val33");
+    map.get(3);             // null
+
+    map.getOrDefault(42, "not found");  // not found
+
+    map.merge(9, "val9", (value, newValue) -&gt; value.concat(newValue));
+    map.get(9);             // val9
+
+    map.merge(9, "concat", (value, newValue) -&gt; value.concat(newValue));
+    map.get(9);             // val9concat
 </code></pre>
 
 <h3>4.时间API</h3>
 
-Java8更新了Date API,这个新的api与joda-time类似。
+<p>Java8更新了Date API,这个新的api与joda-time类似。</p>
 
 <h4>(1)Clock</h4>
 
 <p>Clock类提供了访问当前日期和时间的方法，Clock是时区敏感的，可以用来取代 System.currentTimeMillis() 来获取当前的微秒数。某一个特定的时间点也可以使用Instant类来表示，Instant类也可以用来创建老的java.util.Date对象。</p>
 
-<pre><code>  Clock clock = Clock.systemDefaultZone();
-  long millis = clock.millis();
+<pre><code>    Clock clock = Clock.systemDefaultZone();
+    long millis = clock.millis();
 
-  Instant instant = clock.instant();
-  Date legacyDate = Date.from(instant);   // legacy java.util.Date
-</code></pre></li>
-</ul>
-
+    Instant instant = clock.instant();
+    Date legacyDate = Date.from(instant);   // legacy java.util.Date
+</code></pre>
 
 <h4>(2)TimeZones</h4>
 
@@ -627,20 +665,55 @@ Java8更新了Date API,这个新的api与joda-time类似。
     System.out.println(string);     // Nov 03, 2014 - 07:13
 </code></pre>
 
-<h3>支持多重注解了</h3>
+<h3>5.支持重复注解了，注解也可以用在任何地方了</h3>
 
-<p>java8之前，要多个注解需要这样：</p>
+<p>java8之前，类，属性，方法才有注解，现在几乎任何地方都可以了。</p>
 
-<pre><code>    @Hints({@Hint("hint1"), @Hint("hint2")})
-    class Person {}
+<pre><code>new @Interned MyObject();
+myString = (@NonNull String) str;
+
+void monitorTemperature() throws @Critical TemperatureException { ... }
+</code></pre>
+
+<p>之前要实现重复注解需要这样：</p>
+
+<pre><code>public @interface Authority {
+     String role();
+}
+
+public @interface Authorities {
+    Authority[] value();
+}
+
+public class RepeatAnnotationUseOldVersion {
+
+    @Authorities({@Authority(role="Admin"),@Authority(role="Manager")})
+    public void doSomeThing(){
+    }
+}
 </code></pre>
 
 <p>而现在：</p>
 
-<pre><code>    @Hint("hint1")
-    @Hint("hint2")
-    class Person {}
+<pre><code>@Repeatable(Authorities.class)
+public @interface Authority {
+     String role();
+}
+
+public @interface Authorities {
+    Authority[] value();
+}
+
+public class RepeatAnnotationUseNewVersion {
+    @Authority(role="Admin")
+    @Authority(role="Manager")
+    public void doSomeThing(){ }
+}
 </code></pre>
+
+<h3>6.Nashorn JavaScript 引擎</h3>
+
+<p>简单的说，它是 Rhino 的接替者.升级啦。</p>
 
 <hr />
 
