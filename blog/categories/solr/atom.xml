@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[分类：solr | Blues 小站]]></title>
+  <link href="http://www.shenyanchao.cn/blog/categories/solr/atom.xml" rel="self"/>
+  <link href="http://www.shenyanchao.cn/"/>
+  <updated>2014-10-22T17:27:37+08:00</updated>
+  <id>http://www.shenyanchao.cn/</id>
+  <author>
+    <name><![CDATA[ShenYanchao]]></name>
+    <email><![CDATA[zhiyi.shen@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[solr中的tie breaker]]></title>
+    <link href="http://www.shenyanchao.cn/blog/2014/10/22/tie-breaker-in-solr/"/>
+    <updated>2014-10-22T17:14:00+08:00</updated>
+    <id>http://www.shenyanchao.cn/blog/2014/10/22/tie-breaker-in-solr</id>
+    <content type="html"><![CDATA[<p>solr 查询参数中有tie这样的一个参数，下面是它的官方解释：</p>
+
+<p><strong>The tie (Tie Breaker) Parameter</strong></p>
+
+<p>The tie parameter specifies a float value (which should be something much less than 1) to use as tiebreaker in DisMax queries.</p>
+
+<p>When a term from the user's input is tested against multiple fields, more than one field may match. If so, each field will generate a different score based on how common that word is in that field (for each document relative to all other documents). The tie parameter lets you control how much the final score of the query will be influenced by the scores of the lower scoring fields compared to the highest scoring field.</p>
+
+<p>A value of "0.0" makes the query a pure "disjunction max query": that is, only the maximum scoring subquery contributes to the final score. A value of "1.0" makes the query a pure "disjunction sum query" where it doesn't matter what the maximum scoring sub query is, because the final score will be the sum of the subquery scores. Typically a low value, such as 0.1, is useful.</p>
+
+<p>读起来比较令人费解。</p>
+
+<p>简单解释就是：</p>
+
+<p>这个tie参数通常是一个小于1的浮点数，用于defType=disMax的solr查询。当查询命中多个field的时候，最终的score获得多少将由这个tie参数来进行调节。比如命中了field1，field2这2个field。</p>
+
+<p>如果field1.score= 10，field2.score=3。那么 score = 10 + tie * 3.</p>
+
+<p>也就是说，如果tie=1的话，最终的score就相当于多个字段得分总和;如果tie=0,那么最终的score就相当于是命中的field的最高分。</p>
+
+<p>通常情况下呢，官方推荐tie=0.1。</p>
+]]></content>
+  </entry>
+  
+</feed>

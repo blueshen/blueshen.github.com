@@ -113,6 +113,65 @@
       ﻿
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2014/10/22/tie-breaker-in-solr/">Solr中的tie Breaker</a></h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-22T17:14:00+08:00" pubdate data-updated="true">2014年10月22日 17:10:00</time>
+        
+         | <a href="/blog/2014/10/22/tie-breaker-in-solr/#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+  <div class="entry-content"><p>solr 查询参数中有tie这样的一个参数，下面是它的官方解释：</p>
+
+<p><strong>The tie (Tie Breaker) Parameter</strong></p>
+
+<p>The tie parameter specifies a float value (which should be something much less than 1) to use as tiebreaker in DisMax queries.</p>
+
+<p>When a term from the user&#8217;s input is tested against multiple fields, more than one field may match. If so, each field will generate a different score based on how common that word is in that field (for each document relative to all other documents). The tie parameter lets you control how much the final score of the query will be influenced by the scores of the lower scoring fields compared to the highest scoring field.</p>
+
+<p>A value of &#8220;0.0&#8221; makes the query a pure &#8220;disjunction max query&#8221;: that is, only the maximum scoring subquery contributes to the final score. A value of &#8220;1.0&#8221; makes the query a pure &#8220;disjunction sum query&#8221; where it doesn&#8217;t matter what the maximum scoring sub query is, because the final score will be the sum of the subquery scores. Typically a low value, such as 0.1, is useful.</p>
+
+<p>读起来比较令人费解。</p>
+
+<p>简单解释就是：</p>
+
+<p>这个tie参数通常是一个小于1的浮点数，用于defType=disMax的solr查询。当查询命中多个field的时候，最终的score获得多少将由这个tie参数来进行调节。比如命中了field1，field2这2个field。</p>
+
+<p>如果field1.score= 10，field2.score=3。那么 score = 10 + tie * 3.</p>
+
+<p>也就是说，如果tie=1的话，最终的score就相当于多个字段得分总和;如果tie=0,那么最终的score就相当于是命中的field的最高分。</p>
+
+<p>通常情况下呢，官方推荐tie=0.1。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2014/08/27/java-new-feature/">Java新特性</a></h1>
     
 	<p class="meta">
@@ -388,101 +447,6 @@ output.encoding = utf-8
 
     </article>
   
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2014/03/27/java-encode-error-again/">又见Java乱码</a></h1>
-    
-	<p class="meta">
-    
-
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-03-27T21:43:00+08:00" pubdate data-updated="true">2014年03月27日 21:03:00</time>
-        
-         | <a href="/blog/2014/03/27/java-encode-error-again/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content"><h3>dom4j解析xml</h3>
-
-<p>dom4j提供了一个<code>DocumentHelper</code>来解析xml内容，此处的内容是String类型的。下面是其源码：</p>
-
-<pre><code>    public static Document parseText(String text) throws DocumentException {
-        Document result = null;
-
-        SAXReader reader = new SAXReader();
-        String encoding = getEncoding(text);
-
-        InputSource source = new InputSource(new StringReader(text));
-        source.setEncoding(encoding);
-
-        result = reader.read(source);
-
-        // if the XML parser doesn't provide a way to retrieve the encoding,
-        // specify it manually
-        if (result.getXMLEncoding() == null) {
-            result.setXMLEncoding(encoding);
-        }
-
-        return result;
-    }
-
-    private static String getEncoding(String text) {
-        String result = null;
-
-        String xml = text.trim();
-
-        if (xml.startsWith("&lt;?xml")) {
-            int end = xml.indexOf("?&gt;");
-            String sub = xml.substring(0, end);
-            StringTokenizer tokens = new StringTokenizer(sub, " =\"\'");
-
-            while (tokens.hasMoreTokens()) {
-                String token = tokens.nextToken();
-
-                if ("encoding".equals(token)) {
-                    if (tokens.hasMoreTokens()) {
-                        result = tokens.nextToken();
-                    }
-
-                    break;
-                }
-            }
-        }
-
-        return result;
-    }
-</code></pre>
-
-<p>从以上的代码中可以看出，解析过程中是使用XML的头<code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;</code>来获取编码信息的。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/03/27/java-encode-error-again/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <ul class="pager">
     
     <li class="previous"><a href="/blog/page/2/">&larr; 上一页</a></li>
@@ -503,6 +467,10 @@ output.encoding = utf-8
     <li class="nav-header">最近更新</li>
     
       <li class="post">
+        <a href="/blog/2014/10/22/tie-breaker-in-solr/">solr中的tie breaker</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/08/27/java-new-feature/">Java新特性</a>
       </li>
     
@@ -518,16 +486,12 @@ output.encoding = utf-8
         <a href="/blog/2014/03/31/velocity-study-summary/">Velocity学习小结</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/03/27/java-encode-error-again/">又见Java乱码</a>
-      </li>
-    
   </ul>
 </section>
 <section class="well">
 	<ul id="tags-cloud" class="nav nav-list">
 	<li class="nav-header">分类云</li>
-    <span id="tag-cloud"><a href='/blog/categories/apache' style='font-size: 102.4%'>apache(1)</a> <a href='/blog/categories/checkstyle' style='font-size: 102.4%'>checkstyle(1)</a> <a href='/blog/categories/encode' style='font-size: 109.6%'>encode(4)</a> <a href='/blog/categories/git' style='font-size: 104.8%'>git(2)</a> <a href='/blog/categories/http' style='font-size: 104.8%'>HTTP(2)</a> <a href='/blog/categories/java' style='font-size: 109.6%'>java(4)</a> <a href='/blog/categories/java' style='font-size: 107.2%'>Java(3)</a> <a href='/blog/categories/java-encode' style='font-size: 102.4%'>Java,encode(1)</a> <a href='/blog/categories/javascript' style='font-size: 102.4%'>javascript(1)</a> <a href='/blog/categories/jenkins' style='font-size: 102.4%'>jenkins(1)</a> <a href='/blog/categories/jmeter' style='font-size: 104.8%'>jmeter(2)</a> <a href='/blog/categories/jvm' style='font-size: 104.8%'>JVM(2)</a> <a href='/blog/categories/linux' style='font-size: 104.8%'>linux(2)</a> <a href='/blog/categories/markdown' style='font-size: 104.8%'>markdown(2)</a> <a href='/blog/categories/maven' style='font-size: 119.2%'>maven(8)</a> <a href='/blog/categories/mysql' style='font-size: 104.8%'>mysql(2)</a> <a href='/blog/categories/nodejs' style='font-size: 116.8%'>nodejs(7)</a> <a href='/blog/categories/selenium' style='font-size: 121.6%'>selenium(9)</a> <a href='/blog/categories/selenium-wiki' style='font-size: 107.2%'>selenium-wiki(3)</a> <a href='/blog/categories/selenium官方文档' style='font-size: 109.6%'>selenium官方文档(4)</a> <a href='/blog/categories/testng' style='font-size: 102.4%'>testng(1)</a> <a href='/blog/categories/ubuntu' style='font-size: 102.4%'>ubuntu(1)</a> <a href='/blog/categories/ut' style='font-size: 104.8%'>ut(2)</a> <a href='/blog/categories/velocity' style='font-size: 102.4%'>velocity(1)</a> <a href='/blog/categories/个人' style='font-size: 104.8%'>个人(2)</a> <a href='/blog/categories/开发' style='font-size: 102.4%'>开发(1)</a> <a href='/blog/categories/测试' style='font-size: 107.2%'>测试(3)</a> <a href='/blog/categories/设计模式' style='font-size: 160.0%'>设计模式(25)</a> <a href='/blog/categories/调优' style='font-size: 102.4%'>调优(1)</a> </span>
+    <span id="tag-cloud"><a href='/blog/categories/apache' style='font-size: 102.4%'>apache(1)</a> <a href='/blog/categories/checkstyle' style='font-size: 102.4%'>checkstyle(1)</a> <a href='/blog/categories/encode' style='font-size: 109.6%'>encode(4)</a> <a href='/blog/categories/git' style='font-size: 104.8%'>git(2)</a> <a href='/blog/categories/http' style='font-size: 104.8%'>HTTP(2)</a> <a href='/blog/categories/java' style='font-size: 109.6%'>java(4)</a> <a href='/blog/categories/java' style='font-size: 107.2%'>Java(3)</a> <a href='/blog/categories/java-encode' style='font-size: 102.4%'>Java,encode(1)</a> <a href='/blog/categories/javascript' style='font-size: 102.4%'>javascript(1)</a> <a href='/blog/categories/jenkins' style='font-size: 102.4%'>jenkins(1)</a> <a href='/blog/categories/jmeter' style='font-size: 104.8%'>jmeter(2)</a> <a href='/blog/categories/jvm' style='font-size: 104.8%'>JVM(2)</a> <a href='/blog/categories/linux' style='font-size: 104.8%'>linux(2)</a> <a href='/blog/categories/markdown' style='font-size: 104.8%'>markdown(2)</a> <a href='/blog/categories/maven' style='font-size: 119.2%'>maven(8)</a> <a href='/blog/categories/mysql' style='font-size: 104.8%'>mysql(2)</a> <a href='/blog/categories/nodejs' style='font-size: 116.8%'>nodejs(7)</a> <a href='/blog/categories/selenium' style='font-size: 121.6%'>selenium(9)</a> <a href='/blog/categories/selenium-wiki' style='font-size: 107.2%'>selenium-wiki(3)</a> <a href='/blog/categories/selenium官方文档' style='font-size: 109.6%'>selenium官方文档(4)</a> <a href='/blog/categories/solr' style='font-size: 102.4%'>solr(1)</a> <a href='/blog/categories/testng' style='font-size: 102.4%'>testng(1)</a> <a href='/blog/categories/ubuntu' style='font-size: 102.4%'>ubuntu(1)</a> <a href='/blog/categories/ut' style='font-size: 104.8%'>ut(2)</a> <a href='/blog/categories/velocity' style='font-size: 102.4%'>velocity(1)</a> <a href='/blog/categories/个人' style='font-size: 104.8%'>个人(2)</a> <a href='/blog/categories/开发' style='font-size: 102.4%'>开发(1)</a> <a href='/blog/categories/测试' style='font-size: 107.2%'>测试(3)</a> <a href='/blog/categories/设计模式' style='font-size: 160.0%'>设计模式(25)</a> <a href='/blog/categories/调优' style='font-size: 102.4%'>调优(1)</a> </span>
   </ul>
 </section>﻿<section class="well">
 <ul class="nav nav-list">
