@@ -4,7 +4,7 @@
   <title><![CDATA[Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2014-11-11T19:41:29+08:00</updated>
+  <updated>2014-11-11T19:49:36+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -20,7 +20,7 @@
     <id>http://www.shenyanchao.cn/blog/2014/11/11/introduce-oryx</id>
     <content type="html"><![CDATA[<p>Hadoop软件供应商Cloudera去年收购了一家总部位于伦敦的新兴企业<a href="https://github.com/myrrix/myrrix-recommender]">Myrrix</a>——但在此之后无论是买家还是卖家在机器学习技术方面都开始归于沉寂。不过无论如何，Myrrix公司的技术方案加上其创始人Sean Owen可能已经足以值回票价。</p>
 
-<p>　　Owen目前的正式头衔为数据科学部门主管，目前他正专注投身于名为<a href="https://github.com/OryxProject/oryx">Oryx</a>的开源机器学习项目当中。(Oryx意思是剑羚、属于非洲羚羊的一类分支，Cloudera在售的产品中则有一款名为Impala——即黑斑羚)。Oryx的开发意图在于帮助Hadoop用户构建机器学习模式并将其加以部署，这样我们就能够以实时方式查询并获取其结果——例如将其作为垃圾邮件过滤器或者推荐引擎的组成部分。在理想状态下，Oryx能够在接纳输入数据流的同时对自身进行更新。</p>
+<p>　　Owen目前的正式头衔为数据科学部门主管，目前他正专注投身于名为<a href="https://github.com/cloudera/oryx">Oryx</a>的开源机器学习项目当中。(Oryx意思是剑羚、属于非洲羚羊的一类分支，Cloudera在售的产品中则有一款名为Impala——即黑斑羚)。Oryx的开发意图在于帮助Hadoop用户构建机器学习模式并将其加以部署，这样我们就能够以实时方式查询并获取其结果——例如将其作为垃圾邮件过滤器或者推荐引擎的组成部分。在理想状态下，Oryx能够在接纳输入数据流的同时对自身进行更新。</p>
 
 <!--more-->
 
