@@ -113,6 +113,76 @@
       ﻿
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2012/10/20/xpath/">Xpath 详解</a></h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-20T10:43:00+08:00" pubdate data-updated="true">2012年10月20日 10:10:00</time>
+        
+         | <a href="/blog/2012/10/20/xpath/#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+  <div class="entry-content"><div id="intro">
+<p><strong>XPath 使用路径表达式来选取 XML 文档中的节点或节点集。节点是通过沿着路径 (path) 或者步 (steps) 来选取的。</strong></p>
+</div>
+
+
+
+
+<div>
+<h2>XML 实例文档</h2>
+<p>我们将在下面的例子中使用这个 XML 文档。</p>
+<pre>&lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot;?&gt;
+
+&lt;bookstore&gt;
+
+&lt;book&gt;
+  &lt;title lang=&quot;eng&quot;&gt;Harry Potter&lt;/title&gt;
+  &lt;price&gt;29.99&lt;/price&gt;
+&lt;/book&gt;
+
+&lt;book&gt;
+  &lt;title lang=&quot;eng&quot;&gt;Learning XML&lt;/title&gt;
+  &lt;price&gt;39.95&lt;/price&gt;
+&lt;/book&gt;
+
+&lt;/bookstore&gt;</pre>
+</div>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/10/20/xpath/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2012/10/19/install-maven/">安装配置Maven</a></h1>
     
 	<p class="meta">
@@ -294,64 +364,6 @@ JVM在启动的时候会自动设置JVM Heap的值，其初始空间(即-Xms)是
 
     </article>
   
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/10/16/pageobjects-design-pattern/">PageObjects 设计模式</a></h1>
-    
-	<p class="meta">
-    
-
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-16T16:40:00+08:00" pubdate data-updated="true">2012年10月16日 16:10:00</time>
-        
-         | <a href="/blog/2012/10/16/pageobjects-design-pattern/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content"><h2>什么是Page Objects(翻译为：页面对象？)&#8230;</h2>
-
-<p>简单的说，Page Objects是指UI界面上用于与用户进行交互的对象。它可以指整个页面，也可以指Page上的某个区域。Page Objects是你的test code的交互对象，是对实际UI的一种抽象模型化。通过Page Objects可以减少重复代码的编写，例如，很多页面都有同样的header，footer，navigator等部分，如果对这些进行抽象，只写一次就可以在其他地方通用了。</p>
-
-<p><strong>注意PageObjects与Page Objects是不一样的</strong>，PageObjects用于特指采用Page Objects进行封装的一种设计模式（Design Pattern）,而不仅仅是多一个空格的区别。哈。</p>
-
-<h2>如何实现PageObjects设计模式？</h2>
-
-<p>一般情况下，对于一个Page Objects对象，它有两个方面的特征：</p>
-
-<ul>
-<li>自身元素(WebElement)</li>
-<li>实现功能 (Services)</li>
-</ul>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/10/16/pageobjects-design-pattern/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <ul class="pager">
     
     <li class="previous"><a href="/blog/page/19/">&larr; 上一页</a></li>
@@ -374,6 +386,10 @@ JVM在启动的时候会自动设置JVM Heap的值，其初始空间(即-Xms)是
     <li class="nav-header">最近更新</li>
     
       <li class="post">
+        <a href="/blog/2014/11/13/install-hadoop/">Hadoop1.2.1安装部署</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/11/11/introduce-oryx/">oryx介绍</a>
       </li>
     
@@ -389,16 +405,12 @@ JVM在启动的时候会自动设置JVM Heap的值，其初始空间(即-Xms)是
         <a href="/blog/2014/08/27/java-new-feature/">Java新特性</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/06/24/export-excel-by-jxls/">使用 jXLS导出报表</a>
-      </li>
-    
   </ul>
 </section>
 <section class="well">
 	<ul id="tags-cloud" class="nav nav-list">
 	<li class="nav-header">分类云</li>
-    <span id="tag-cloud"><a href='/blog/categories/apache' style='font-size: 102.4%'>apache(1)</a> <a href='/blog/categories/checkstyle' style='font-size: 102.4%'>checkstyle(1)</a> <a href='/blog/categories/encode' style='font-size: 109.6%'>encode(4)</a> <a href='/blog/categories/git' style='font-size: 104.8%'>git(2)</a> <a href='/blog/categories/http' style='font-size: 104.8%'>HTTP(2)</a> <a href='/blog/categories/idea' style='font-size: 102.4%'>IDEA(1)</a> <a href='/blog/categories/java' style='font-size: 107.2%'>Java(3)</a> <a href='/blog/categories/java' style='font-size: 109.6%'>java(4)</a> <a href='/blog/categories/java-encode' style='font-size: 102.4%'>Java,encode(1)</a> <a href='/blog/categories/javascript' style='font-size: 102.4%'>javascript(1)</a> <a href='/blog/categories/jenkins' style='font-size: 102.4%'>jenkins(1)</a> <a href='/blog/categories/jmeter' style='font-size: 104.8%'>jmeter(2)</a> <a href='/blog/categories/jvm' style='font-size: 104.8%'>JVM(2)</a> <a href='/blog/categories/linux' style='font-size: 104.8%'>linux(2)</a> <a href='/blog/categories/markdown' style='font-size: 104.8%'>markdown(2)</a> <a href='/blog/categories/maven' style='font-size: 119.2%'>maven(8)</a> <a href='/blog/categories/mysql' style='font-size: 104.8%'>mysql(2)</a> <a href='/blog/categories/nodejs' style='font-size: 116.8%'>nodejs(7)</a> <a href='/blog/categories/oryx' style='font-size: 102.4%'>oryx(1)</a> <a href='/blog/categories/selenium' style='font-size: 121.6%'>selenium(9)</a> <a href='/blog/categories/selenium-wiki' style='font-size: 107.2%'>selenium-wiki(3)</a> <a href='/blog/categories/selenium官方文档' style='font-size: 109.6%'>selenium官方文档(4)</a> <a href='/blog/categories/solr' style='font-size: 102.4%'>solr(1)</a> <a href='/blog/categories/testng' style='font-size: 102.4%'>testng(1)</a> <a href='/blog/categories/ubuntu' style='font-size: 102.4%'>ubuntu(1)</a> <a href='/blog/categories/ut' style='font-size: 104.8%'>ut(2)</a> <a href='/blog/categories/velocity' style='font-size: 102.4%'>velocity(1)</a> <a href='/blog/categories/个人' style='font-size: 104.8%'>个人(2)</a> <a href='/blog/categories/开发' style='font-size: 102.4%'>开发(1)</a> <a href='/blog/categories/测试' style='font-size: 107.2%'>测试(3)</a> <a href='/blog/categories/设计模式' style='font-size: 160.0%'>设计模式(25)</a> <a href='/blog/categories/调优' style='font-size: 102.4%'>调优(1)</a> </span>
+    <span id="tag-cloud"><a href='/blog/categories/apache' style='font-size: 102.4%'>apache(1)</a> <a href='/blog/categories/checkstyle' style='font-size: 102.4%'>checkstyle(1)</a> <a href='/blog/categories/encode' style='font-size: 109.6%'>encode(4)</a> <a href='/blog/categories/git' style='font-size: 104.8%'>git(2)</a> <a href='/blog/categories/hadoop' style='font-size: 102.4%'>hadoop(1)</a> <a href='/blog/categories/http' style='font-size: 104.8%'>HTTP(2)</a> <a href='/blog/categories/idea' style='font-size: 102.4%'>IDEA(1)</a> <a href='/blog/categories/java' style='font-size: 109.6%'>java(4)</a> <a href='/blog/categories/java' style='font-size: 107.2%'>Java(3)</a> <a href='/blog/categories/java-encode' style='font-size: 102.4%'>Java,encode(1)</a> <a href='/blog/categories/javascript' style='font-size: 102.4%'>javascript(1)</a> <a href='/blog/categories/jenkins' style='font-size: 102.4%'>jenkins(1)</a> <a href='/blog/categories/jmeter' style='font-size: 104.8%'>jmeter(2)</a> <a href='/blog/categories/jvm' style='font-size: 104.8%'>JVM(2)</a> <a href='/blog/categories/linux' style='font-size: 104.8%'>linux(2)</a> <a href='/blog/categories/markdown' style='font-size: 104.8%'>markdown(2)</a> <a href='/blog/categories/maven' style='font-size: 119.2%'>maven(8)</a> <a href='/blog/categories/mysql' style='font-size: 104.8%'>mysql(2)</a> <a href='/blog/categories/nodejs' style='font-size: 116.8%'>nodejs(7)</a> <a href='/blog/categories/oryx' style='font-size: 102.4%'>oryx(1)</a> <a href='/blog/categories/selenium' style='font-size: 121.6%'>selenium(9)</a> <a href='/blog/categories/selenium-wiki' style='font-size: 107.2%'>selenium-wiki(3)</a> <a href='/blog/categories/selenium官方文档' style='font-size: 109.6%'>selenium官方文档(4)</a> <a href='/blog/categories/solr' style='font-size: 102.4%'>solr(1)</a> <a href='/blog/categories/testng' style='font-size: 102.4%'>testng(1)</a> <a href='/blog/categories/ubuntu' style='font-size: 102.4%'>ubuntu(1)</a> <a href='/blog/categories/ut' style='font-size: 104.8%'>ut(2)</a> <a href='/blog/categories/velocity' style='font-size: 102.4%'>velocity(1)</a> <a href='/blog/categories/个人' style='font-size: 104.8%'>个人(2)</a> <a href='/blog/categories/开发' style='font-size: 102.4%'>开发(1)</a> <a href='/blog/categories/测试' style='font-size: 107.2%'>测试(3)</a> <a href='/blog/categories/设计模式' style='font-size: 160.0%'>设计模式(25)</a> <a href='/blog/categories/调优' style='font-size: 102.4%'>调优(1)</a> </span>
   </ul>
 </section>﻿<section class="well">
 <ul class="nav nav-list">

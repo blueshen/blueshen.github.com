@@ -113,6 +113,78 @@
       ﻿
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2014/11/13/install-hadoop/">Hadoop1.2.1安装部署</a></h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-11-13T13:24:00+08:00" pubdate data-updated="true">2014年11月13日 13:11:00</time>
+        
+         | <a href="/blog/2014/11/13/install-hadoop/#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+  <div class="entry-content"><h3>安装需求</h3>
+
+<ul>
+<li>Java 1.6</li>
+<li>ssh,sshd正常安装</li>
+</ul>
+
+
+<p>确保可以ssh到localhost，并且不需要密码</p>
+
+<pre><code>ssh localhost
+</code></pre>
+
+<p> 如果报错，connect to host localhost port 22:Connection refused。说明ssh-server未安装或者未启动。
+ 运行：</p>
+
+<pre><code>ps -ef | grep sshd 
+</code></pre>
+
+<p>查看sshd进程是否存在，如果不存在，说明没有安装。那么进行安装。</p>
+
+<pre><code>sudo apt-get install openssh-server
+</code></pre>
+
+<p>然后再执行<code>ssh localhost</code>,如果不能无密码登陆，需要做一下操作：</p>
+
+<pre><code>    ssh-keygen -t dsa -P '' -f ~/.ssh/id_dsa 
+    cat ~/.ssh/id_dsa.pub &gt;&gt; ~/.ssh/authorized_keys
+</code></pre>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/11/13/install-hadoop/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2014/11/11/introduce-oryx/">Oryx介绍</a></h1>
     
 	<p class="meta">
@@ -439,80 +511,6 @@ public class IntellijIDEAKeyGen {
 
     </article>
   
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2014/06/24/export-excel-by-jxls/">使用 jXLS导出报表</a></h1>
-    
-	<p class="meta">
-    
-
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-24T15:17:00+08:00" pubdate data-updated="true">2014年06月24日 15:06:00</time>
-        
-         | <a href="/blog/2014/06/24/export-excel-by-jxls/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content"><h3>常用的excel操作工具</h3>
-
-<ul>
-<li>Apache POI</li>
-<li>jexcelApi</li>
-</ul>
-
-
-<p>它们都提供了完善的API来支持EXCEL的读写。</p>
-
-<h3>jXLS是什么？</h3>
-
-<p>jXLS是基于apache poi的一个扩展。它的功能就类似于jstl在servlet中的作用，你可以自定义一个模板，然后往里面放数据就OK了。</p>
-
-<p>jXLS的基本功能：</p>
-
-<ul>
-<li>支持Excel 95-2000的所有版本</li>
-<li>生成Excel 2000标准格式</li>
-<li>支持字体、数字、日期操作</li>
-<li>能够修饰单元格属性</li>
-<li><p>支持图像和图表</p>
-
-<pre><code>  &lt;dependency&gt;
-         &lt;groupId&gt;net.sf.jxls&lt;/groupId&gt;
-         &lt;artifactId&gt;jxls-core&lt;/artifactId&gt;
-         &lt;version&gt;1.0.5&lt;/version&gt;
-  &lt;/dependency&gt;
-</code></pre></li>
-</ul>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/06/24/export-excel-by-jxls/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <ul class="pager">
     
     <li class="previous"><a href="/blog/page/2/">&larr; 上一页</a></li>
@@ -533,6 +531,10 @@ public class IntellijIDEAKeyGen {
     <li class="nav-header">最近更新</li>
     
       <li class="post">
+        <a href="/blog/2014/11/13/install-hadoop/">Hadoop1.2.1安装部署</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/11/11/introduce-oryx/">oryx介绍</a>
       </li>
     
@@ -548,16 +550,12 @@ public class IntellijIDEAKeyGen {
         <a href="/blog/2014/08/27/java-new-feature/">Java新特性</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/06/24/export-excel-by-jxls/">使用 jXLS导出报表</a>
-      </li>
-    
   </ul>
 </section>
 <section class="well">
 	<ul id="tags-cloud" class="nav nav-list">
 	<li class="nav-header">分类云</li>
-    <span id="tag-cloud"><a href='/blog/categories/apache' style='font-size: 102.4%'>apache(1)</a> <a href='/blog/categories/checkstyle' style='font-size: 102.4%'>checkstyle(1)</a> <a href='/blog/categories/encode' style='font-size: 109.6%'>encode(4)</a> <a href='/blog/categories/git' style='font-size: 104.8%'>git(2)</a> <a href='/blog/categories/http' style='font-size: 104.8%'>HTTP(2)</a> <a href='/blog/categories/idea' style='font-size: 102.4%'>IDEA(1)</a> <a href='/blog/categories/java' style='font-size: 107.2%'>Java(3)</a> <a href='/blog/categories/java' style='font-size: 109.6%'>java(4)</a> <a href='/blog/categories/java-encode' style='font-size: 102.4%'>Java,encode(1)</a> <a href='/blog/categories/javascript' style='font-size: 102.4%'>javascript(1)</a> <a href='/blog/categories/jenkins' style='font-size: 102.4%'>jenkins(1)</a> <a href='/blog/categories/jmeter' style='font-size: 104.8%'>jmeter(2)</a> <a href='/blog/categories/jvm' style='font-size: 104.8%'>JVM(2)</a> <a href='/blog/categories/linux' style='font-size: 104.8%'>linux(2)</a> <a href='/blog/categories/markdown' style='font-size: 104.8%'>markdown(2)</a> <a href='/blog/categories/maven' style='font-size: 119.2%'>maven(8)</a> <a href='/blog/categories/mysql' style='font-size: 104.8%'>mysql(2)</a> <a href='/blog/categories/nodejs' style='font-size: 116.8%'>nodejs(7)</a> <a href='/blog/categories/oryx' style='font-size: 102.4%'>oryx(1)</a> <a href='/blog/categories/selenium' style='font-size: 121.6%'>selenium(9)</a> <a href='/blog/categories/selenium-wiki' style='font-size: 107.2%'>selenium-wiki(3)</a> <a href='/blog/categories/selenium官方文档' style='font-size: 109.6%'>selenium官方文档(4)</a> <a href='/blog/categories/solr' style='font-size: 102.4%'>solr(1)</a> <a href='/blog/categories/testng' style='font-size: 102.4%'>testng(1)</a> <a href='/blog/categories/ubuntu' style='font-size: 102.4%'>ubuntu(1)</a> <a href='/blog/categories/ut' style='font-size: 104.8%'>ut(2)</a> <a href='/blog/categories/velocity' style='font-size: 102.4%'>velocity(1)</a> <a href='/blog/categories/个人' style='font-size: 104.8%'>个人(2)</a> <a href='/blog/categories/开发' style='font-size: 102.4%'>开发(1)</a> <a href='/blog/categories/测试' style='font-size: 107.2%'>测试(3)</a> <a href='/blog/categories/设计模式' style='font-size: 160.0%'>设计模式(25)</a> <a href='/blog/categories/调优' style='font-size: 102.4%'>调优(1)</a> </span>
+    <span id="tag-cloud"><a href='/blog/categories/apache' style='font-size: 102.4%'>apache(1)</a> <a href='/blog/categories/checkstyle' style='font-size: 102.4%'>checkstyle(1)</a> <a href='/blog/categories/encode' style='font-size: 109.6%'>encode(4)</a> <a href='/blog/categories/git' style='font-size: 104.8%'>git(2)</a> <a href='/blog/categories/hadoop' style='font-size: 102.4%'>hadoop(1)</a> <a href='/blog/categories/http' style='font-size: 104.8%'>HTTP(2)</a> <a href='/blog/categories/idea' style='font-size: 102.4%'>IDEA(1)</a> <a href='/blog/categories/java' style='font-size: 109.6%'>java(4)</a> <a href='/blog/categories/java' style='font-size: 107.2%'>Java(3)</a> <a href='/blog/categories/java-encode' style='font-size: 102.4%'>Java,encode(1)</a> <a href='/blog/categories/javascript' style='font-size: 102.4%'>javascript(1)</a> <a href='/blog/categories/jenkins' style='font-size: 102.4%'>jenkins(1)</a> <a href='/blog/categories/jmeter' style='font-size: 104.8%'>jmeter(2)</a> <a href='/blog/categories/jvm' style='font-size: 104.8%'>JVM(2)</a> <a href='/blog/categories/linux' style='font-size: 104.8%'>linux(2)</a> <a href='/blog/categories/markdown' style='font-size: 104.8%'>markdown(2)</a> <a href='/blog/categories/maven' style='font-size: 119.2%'>maven(8)</a> <a href='/blog/categories/mysql' style='font-size: 104.8%'>mysql(2)</a> <a href='/blog/categories/nodejs' style='font-size: 116.8%'>nodejs(7)</a> <a href='/blog/categories/oryx' style='font-size: 102.4%'>oryx(1)</a> <a href='/blog/categories/selenium' style='font-size: 121.6%'>selenium(9)</a> <a href='/blog/categories/selenium-wiki' style='font-size: 107.2%'>selenium-wiki(3)</a> <a href='/blog/categories/selenium官方文档' style='font-size: 109.6%'>selenium官方文档(4)</a> <a href='/blog/categories/solr' style='font-size: 102.4%'>solr(1)</a> <a href='/blog/categories/testng' style='font-size: 102.4%'>testng(1)</a> <a href='/blog/categories/ubuntu' style='font-size: 102.4%'>ubuntu(1)</a> <a href='/blog/categories/ut' style='font-size: 104.8%'>ut(2)</a> <a href='/blog/categories/velocity' style='font-size: 102.4%'>velocity(1)</a> <a href='/blog/categories/个人' style='font-size: 104.8%'>个人(2)</a> <a href='/blog/categories/开发' style='font-size: 102.4%'>开发(1)</a> <a href='/blog/categories/测试' style='font-size: 107.2%'>测试(3)</a> <a href='/blog/categories/设计模式' style='font-size: 160.0%'>设计模式(25)</a> <a href='/blog/categories/调优' style='font-size: 102.4%'>调优(1)</a> </span>
   </ul>
 </section>﻿<section class="well">
 <ul class="nav nav-list">

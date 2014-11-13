@@ -425,6 +425,10 @@
         <lastmod>2014-11-11T19:47:52+08:00</lastmod>
     </url>
     <url>
+        <loc>http://www.shenyanchao.cn/blog/2014/11/13/install-hadoop/</loc>
+        <lastmod>2014-11-13T15:25:08+08:00</lastmod>
+    </url>
+    <url>
         <loc>http://www.shenyanchao.cn/404.html</loc>
         <lastmod>2014-06-24T14:43:25+08:00</lastmod>
     </url>
@@ -434,11 +438,11 @@
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/blog/archives/</loc>
-        <lastmod>2014-11-11T19:47:52+08:00</lastmod>
+        <lastmod>2014-11-13T15:25:08+08:00</lastmod>
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/tags/</loc>
-        <lastmod>2014-11-11T19:47:52+08:00</lastmod>
+        <lastmod>2014-11-13T15:25:08+08:00</lastmod>
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/author/</loc>
@@ -450,6 +454,6 @@
     </url>
     <url>
         <loc>http://www.shenyanchao.cn/</loc>
-        <lastmod>2014-11-11T19:47:52+08:00</lastmod>
+        <lastmod>2014-11-13T15:25:08+08:00</lastmod>
     </url>
 </urlset>
