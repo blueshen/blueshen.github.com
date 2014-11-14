@@ -64,5 +64,5 @@ mahout vectordump -i sogou-vectors/tfidf-vectors/part-r-00000 | more
 ---
 参考文档：
 
-<http://mahout.apache.org/users/classification/twenty-newsgroups.html>    
+<http://mahout.apache.org/users/classification/twenty-newsgroups.html>     
 <http://www.sogou.com/labs/dl/c.html>
