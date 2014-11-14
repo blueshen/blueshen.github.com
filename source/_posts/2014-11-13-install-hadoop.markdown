@@ -130,7 +130,7 @@ Ubuntu Linux为例：
   
 - NameNode - <http://localhost:50070/dfshealth.jsp/>
 - JobTracker - <http://localhost:50030/jobtracker.jsp/>
--TaskTracker - <http://localhost:50060/tasktracker.jsp>
+- TaskTracker - <http://localhost:50060/tasktracker.jsp>
  
  下面使用distributed filesystem来跑样例:
  拷贝conf目录到hadoop的input目录，此时可以在控制台看到创建了目录。
