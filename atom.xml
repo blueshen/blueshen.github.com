@@ -4,7 +4,7 @@
   <title><![CDATA[Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2014-11-14T14:16:55+08:00</updated>
+  <updated>2014-11-14T17:46:50+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -390,8 +390,9 @@ $ cat output/*
 <pre><code>$ bin/stop-all.sh
 </code></pre>
 
-<p> ###Hadoop分布式部署
- 详见<a href="http://hadoop.apache.org/docs/r1.2.1/cluster_setup.html">http://hadoop.apache.org/docs/r1.2.1/cluster_setup.html</a></p>
+<h4>Hadoop分布式部署</h4>
+
+<p> 详见<a href="http://hadoop.apache.org/docs/r1.2.1/cluster_setup.html">http://hadoop.apache.org/docs/r1.2.1/cluster_setup.html</a></p>
 
 <hr />
 
