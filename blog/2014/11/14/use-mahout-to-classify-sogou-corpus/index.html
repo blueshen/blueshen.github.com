@@ -172,7 +172,7 @@ find sogou -type f -exec iconv -f GB2312 -t UTF-8 {} -o utf/{} \;
 <pre><code>mahout seqdumper -i sogou-seq/part-m-00000 | more
 </code></pre>
 
-<p><img src="images/blog/2014/sogou-seqfile.png" alt="" /></p>
+<p><img src="/images/blog/2014/sogou-seqfile.png" alt="" /></p>
 
 <p>如果是在hadoop上跑，可以这样看。</p>
 
@@ -190,7 +190,7 @@ find sogou -type f -exec iconv -f GB2312 -t UTF-8 {} -o utf/{} \;
 
 <p>mahout vectordump -i sogou-vectors/tfidf-vectors/part-r-00000 | more</p>
 
-<p><img src="file:///home/shenyanchao/Pictures/sogou-vector.png" alt="" /></p>
+<p><img src="/images/blog/2014/sogou-vector.png" alt="" /></p>
 
 <p>需要注意的是<code>org.wltea.analyzer.lucene.IKAnalyzer</code>，是上面提到的ik-analyzer里的。需要将ik-analyzer打包，然后将打出的包，放入$MAHOUT_HOME/lib内。默认是英文的，使用的是<code>org.apache.lucene.analysis.standard.StandardAnalyzer</code>，空格分割明显不适用中文。</p>
 
@@ -209,7 +209,7 @@ find sogou -type f -exec iconv -f GB2312 -t UTF-8 {} -o utf/{} \;
 <pre><code>mahout testnb -i sogou-test-vectors -m sogou-model -l sogou-labelindex -ow -o sogou-testing -c
 </code></pre>
 
-<p><img src="file:///home/shenyanchao/Pictures/sogou-result.png" alt="" /></p>
+<p><img src="/images/blog/2014/sogou-result.png" alt="" /></p>
 
 <p>可以看出87%的正确率还是不错的。</p>
 
