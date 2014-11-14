@@ -155,7 +155,8 @@ Ubuntu Linux为例：
     $ bin/stop-all.sh
  
  
- ###Hadoop分布式部署
+####Hadoop分布式部署
  详见<http://hadoop.apache.org/docs/r1.2.1/cluster_setup.html>
+ 
 ---
 参考文档：<http://hadoop.apache.org/docs/r1.2.1/single_node_setup.html>
