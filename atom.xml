@@ -4,7 +4,7 @@
   <title><![CDATA[Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2014-11-13T15:25:41+08:00</updated>
+  <updated>2014-11-14T14:02:34+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -12,6 +12,189 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[使用mahout对Sogou语料库进行分类]]></title>
+    <link href="http://www.shenyanchao.cn/blog/2014/11/14/use-mahout-to-classify-sogou-corpus/"/>
+    <updated>2014-11-14T13:26:00+08:00</updated>
+    <id>http://www.shenyanchao.cn/blog/2014/11/14/use-mahout-to-classify-sogou-corpus</id>
+    <content type="html"><![CDATA[<h3>软件版本</h3>
+
+<ul>
+<li>Ubuntu Linux</li>
+<li><a href="http://mirror.bit.edu.cn/apache/mahout/0.9/mahout-distribution-0.9.tar.gz">mahout-0.9</a>,本文写作的时候的最新版本</li>
+<li><a href="http://download.labs.sogou.com/dl/sogoulabdown/SogouC.reduced.20061102.tar.gz">Sogou语料库</a>精简版</li>
+<li><a href="https://github.com/blueshen/ik-analyzer">ik-analyzer</a>, 这个版本是专门为了在mahout中进行分词而单独做的版本，源码从官方拿来。只更改了停用词，以及适配lucene4.6.1版本。maven化更方便使用。</li>
+</ul>
+
+
+<h3>Sogou语料库处理</h3>
+
+<p>下载后的预料库，文档都是GB2312编码的。虽然mahout支持不同的编码方式，但是为了更方便的放到Hadoop里跑，还是建议先转化为标准的UTF-8.
+语料库解压后，是sogou目录。我们执行以下代码进行转化，转换后的在utf/sogou目录下：</p>
+
+<pre><code>find sogou -type d -exec mkdir -p utf/{} \;
+find sogou -type f -exec iconv -f GB2312 -t UTF-8 {} -o utf/{} \;
+</code></pre>
+
+<h3>使用mahout生成sequence file</h3>
+
+<p>进入utf/sogou目录，执行：</p>
+
+<pre><code>mahout seqdirectory -i sogou -o sogou-seq -c UTF-8 -ow
+</code></pre>
+
+<p>生成的sequence file存放在sogou-seq目录内。
+可以通过seqdumper命令查看：</p>
+
+<!--more-->
+
+
+<pre><code>mahout seqdumper -i sogou-seq/part-m-00000 | more
+</code></pre>
+
+<p><img src="images/blog/2014/sogou-seqfile.png" alt="" /></p>
+
+<p>如果是在hadoop上跑，可以这样看。</p>
+
+<pre><code>hadoop fs -text sogou-seq/part-m-00000 | more
+</code></pre>
+
+<h3>使用seq2sparse生成Vectors</h3>
+
+<p>执行命令：</p>
+
+<pre><code>mahout seq2sparse -i sogou-seq  -o sogou-vectors -lnorm -nv -wt tfidf -a org.wltea.analyzer.lucene.IKAnalyzer -ow
+</code></pre>
+
+<p>查看生成的vector</p>
+
+<p>mahout vectordump -i sogou-vectors/tfidf-vectors/part-r-00000 | more</p>
+
+<p><img src="file:///home/shenyanchao/Pictures/sogou-vector.png" alt="" /></p>
+
+<p>需要注意的是<code>org.wltea.analyzer.lucene.IKAnalyzer</code>，是上面提到的ik-analyzer里的。需要将ik-analyzer打包，然后将打出的包，放入$MAHOUT_HOME/lib内。默认是英文的，使用的是<code>org.apache.lucene.analysis.standard.StandardAnalyzer</code>，空格分割明显不适用中文。</p>
+
+<h3>切分训练集和测试集</h3>
+
+<pre><code>mahout split -i sogou-vectors/tfidf-vectors/ --trainingOutput sogou-train-vectors --testOutput sogou-test-vectors --randomSelectionPct 40 --overwrite --sequenceFiles -xm sequential
+</code></pre>
+
+<h3>使用Native Bayes训练model</h3>
+
+<pre><code>mahout trainnb -i sogou-train-vectors -el -o sogou-model -li sogou-labelindex -ow -c
+</code></pre>
+
+<h3>使用测试集来查看效果</h3>
+
+<pre><code>mahout testnb -i sogou-test-vectors -m sogou-model -l sogou-labelindex -ow -o sogou-testing -c
+</code></pre>
+
+<p><img src="file:///home/shenyanchao/Pictures/sogou-result.png" alt="" /></p>
+
+<p>可以看出87%的正确率还是不错的。</p>
+
+<hr />
+
+<p>参考文档：</p>
+
+<p><a href="http://mahout.apache.org/users/classification/twenty-newsgroups.html">http://mahout.apache.org/users/classification/twenty-newsgroups.html</a>
+<a href="http://www.sogou.com/labs/dl/c.html">http://www.sogou.com/labs/dl/c.html</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Linux中文件编码转换]]></title>
+    <link href="http://www.shenyanchao.cn/blog/2014/11/13/encode-convert-in-linux/"/>
+    <updated>2014-11-13T16:20:00+08:00</updated>
+    <id>http://www.shenyanchao.cn/blog/2014/11/13/encode-convert-in-linux</id>
+    <content type="html"><![CDATA[<p>　在工作中，经常会遇到使用操作系统不一样的环境，从而导致在不同环境下的文件编辑的编码是不一样的，Windows默认是GBK编码格式，Linux默认是UTF-8的格式，这样就会出现把GBK编码的文件拷贝到Linux下出现乱码情况，很是让人头疼，下面给大家介绍下GBK->UTF-8文件编码批量转换。</p>
+
+<p>Linux命令-enca 查看文件的编码</p>
+
+<p>Enca语法</p>
+
+<pre><code>Usage:  enca [-L LANGUAGE] [OPTION]... [FILE]...
+        enconv [-L LANGUAGE] [OPTION]... [FILE]...
+        Detect encoding of text files and convert them if required.
+</code></pre>
+
+<p>Enca用法</p>
+
+<pre><code>$ enca -L zh_CN file 检查文件的编码
+$ enca -L zh_CN -x UTF-8 file 将文件编码转换为"UTF-8"编码
+$ enca -L zh_CN -x UTF-8 file1 file2 如果不想覆盖原文件可以这样
+</code></pre>
+
+<p>除了有检查文件编码的功能以外，”enca”还有一个好处就是如果文件本来就是你要转换的那种编码，它不会报错，还是会print出结果来， 而”iconv”则会报错。这对于脚本编写是比较方便的事情。</p>
+
+<!--more-->
+
+
+<p>转换单个文件的编码</p>
+
+<pre><code>$ enca -L none -x utf-8  index.html
+</code></pre>
+
+<p>转换多个文件的编码</p>
+
+<pre><code>$ enca -x utf-8 *
+</code></pre>
+
+<p>Linux文件名编码批量转换&#8211;convmv</p>
+
+<p>Convmv语法</p>
+
+<pre><code>$ convmv -f 源编码 -t 新编码 [选项] 文件名
+</code></pre>
+
+<p>Convmv 常用参数</p>
+
+<pre><code>-r 递归处理子文件夹
+–notest 真正进行操作，请注意在默认情况下是不对文件进行真实操作的，而只是试验。
+–list 显示所有支持的编码
+–unescap 可以做一下转义，比如把%20变成空格
+</code></pre>
+
+<p>示例</p>
+
+<p>转换一个文件由GBK转换成UTF-8</p>
+
+<pre><code>convmv -f GBK -t UTF-8 --notest utf8 filename
+</code></pre>
+
+<p>GBK->UTF-8文件编码批量转换脚本</p>
+
+<pre><code>$ find default -type f -exec convmv -f GBK -t UTF-8 --notest utf8 {} -o utf/{} \;
+</code></pre>
+
+<p>使用iconv 转换</p>
+
+<p>Iconv语法</p>
+
+<pre><code>iconv -f encoding -t encoding inputfile
+</code></pre>
+
+<p>示例</p>
+
+<p>单个文件转换</p>
+
+<pre><code>$ iconv -f GBK -t UTF-8 file1 -o file2
+</code></pre>
+
+<p>批量转换</p>
+
+<pre><code>$ find default -type d -exec mkdir -p utf/{} \;
+$ find default -type f -exec iconv -f GBK -t UTF-8 {} -o utf/{} \;
+</code></pre>
+
+<p>这两行命令将default目录下的文件由GBK编码转换为UTF-8编码，目录结构不变，转码后的文件保存在utf/default目录下。</p>
+
+<hr />
+
+<p>原文:<a href="http://blog.csdn.net/a280606790/article/details/8504133">http://blog.csdn.net/a280606790/article/details/8504133</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Hadoop1.2.1安装部署]]></title>
@@ -4773,439 +4956,6 @@ and the repository exists.
 <p>这样就改为使用https协议了。提交什么的就OK了。</p>
 
 <p>后来，我再使用Octopress提交博客的时候问题又出现了。也就是在<code>rake deploy</code>的时候，又走ssh了。此时只要进入_deploy目录，把上述步骤再执行一次就好了。就是每次提交都要输入用户名密码而已。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Sonar的安装与使用]]></title>
-    <link href="http://www.shenyanchao.cn/blog/2013/09/04/use-sonar/"/>
-    <updated>2013-09-04T17:02:00+08:00</updated>
-    <id>http://www.shenyanchao.cn/blog/2013/09/04/use-sonar</id>
-    <content type="html"><![CDATA[<h3>什么是Sonar？</h3>
-
-<p><a href="http://www.sonarqube.org/">Sonar</a>是一个开源的代码质量管理平台。它能对代码进行如下7个维度的管理。</p>
-
-<p><img src="http://www.sonarqube.org/wp-content/themes/sonar/images/7axes.png" alt="" />
-使用插件，它可以对20多种语言进行代码质量管理，这其中包括Java，C#，C/C++,PL/SQL等等。</p>
-
-<h3>安装Sonar</h3>
-
-<p>1.下载sonar,地址<a href="http://www.sonarqube.org/downloads/">http://www.sonarqube.org/downloads/</a>。通常选取稳定版本下载即可，这是一个zip文件。 <br/>
-2.解压下载的sonar到一个目录。我们称这个解压后的路径为SONAR_HOME  <br/>
-3.进入$SONAR_HOME/bin/${os-version}/,找到sonar.sh,执行<code>./sonar.sh console</code>即可。在windows下是StartSonar.bat。<br/>
-4.现在进入<a href="http://localhost:9000">http://localhost:9000</a>,就看到了界面。默认的登录使用admin:admin</p>
-
-<p>这个时候，Sonar已经运行啦。但是在生产环境是不行的。上面跑起来的只是一个样例，使用的是h2内存数据库。我们可不想重启服务后，生产环境的数据都没了。</p>
-
-<!--more-->
-
-
-<h3>配置Sonar数据库</h3>
-
-<p>1.首先新建一个数据库。</p>
-
-<pre><code>CREATE DATABASE sonar CHARACTER SET utf8 COLLATE utf8_general_ci;  
-grant all privileges on sonar.* to 'sonar'@'%' identified by '你的密码';  
-flush privileges; 
-</code></pre>
-
-<p>这样就准备好了数据库sonar,并授权给sonar这个用户。</p>
-
-<p>2.找到$SONAR_HOME/conf/sonar.properties。
-注释掉默认的数据库配置，然后配上自己的数据库信息即可。这里以mysql为例。</p>
-
-<pre><code># Comment the following line to deactivate the default embedded database.
-#sonar.jdbc.url:                            jdbc:h2:tcp://localhost:9092/sonar
-#sonar.jdbc.driverClassName:                org.h2.Driver
-
--------------------
-# The schema must be created first.
-</code></pre>
-
-<p>sonar.jdbc.username:                       sonar
-sonar.jdbc.password:                       sonar</p>
-
-<pre><code>#----- MySQL 5.x
-# Comment the embedded database and uncomment the following line to use MySQL
-sonar.jdbc.url:                            jdbc:mysql://localhost:3306/sonar?useUnicode=true&amp;characterEncoding=utf8&amp;rewriteBatchedStatements=true
-
-# Optional properties
-sonar.jdbc.driverClassName:                com.mysql.jdbc.Driver
-</code></pre>
-
-<p>配置好之后，这样所有的数据都会存放到mysql内啦。不用再担心数据问题啦。要添加其他数据库，同理。</p>
-
-<h3>把Sonar变为中文</h3>
-
-<p>英文看这不方便啊。有2种方法可以将Sonar变为中文界面。</p>
-
-<p>1.用管理员登录后，在Update Center种找到Localization里的Chinese Pack安装就可以了。<br/>
-2.直接下载<a href="http://repository.codehaus.org/org/codehaus/sonar-plugins/l10n/sonar-l10n-zh-plugin/1.6/sonar-l10n-zh-plugin-1.6.jar">http://repository.codehaus.org/org/codehaus/sonar-plugins/l10n/sonar-l10n-zh-plugin/1.6/sonar-l10n-zh-plugin-1.6.jar</a>这个插件jar包到$SONAR_HOME/extensions/plugins内，重启即可。</p>
-
-<h3>把Sonar放到JEE容器内</h3>
-
-<p>默认的情况下，sonar启动是采用内置的jetty的，为了方便管理，一般在生产环境可以放到JEE容器内，这里就以Tomcat为例了。 <br/>
-Sonar在经过上面几步的配置后，已经满足了基本的需求。接下来就可以进入到$SONAR_HOME/war/内。执行build-war命令。这样就生成了一个sonar.war，把这个war包发布到Tomcat即可。</p>
-
-<h3>如何对源码进行检测</h3>
-
-<p>1.配置maven的settings.xml,添加一下内容：</p>
-
-<pre><code>    &lt;profile&gt;
-         &lt;id&gt;sonar&lt;/id&gt;
-         &lt;activation&gt;
-             &lt;activeByDefault&gt;true&lt;/activeByDefault&gt;
-         &lt;/activation&gt;
-         &lt;properties&gt;
-              &lt;sonar.jdbc.url&gt;
-              jdbc:mysql://localhost:3306/sonar?useUnicode=true&amp;amp;characterEncoding=utf8
-              &lt;/sonar.jdbc.url&gt;
-              &lt;sonar.jdbc.driver&gt;com.mysql.jdbc.Driver&lt;/sonar.jdbc.driver&gt;
-              &lt;sonar.jdbc.username&gt;sonar&lt;/sonar.jdbc.username&gt;
-              &lt;sonar.jdbc.password&gt;sonar&lt;/sonar.jdbc.password&gt;
-             &lt;sonar.host.url&gt;http://localhost:9000/sonar&lt;/sonar.host.url&gt;
-         &lt;/properties&gt;
-      &lt;/profile&gt;
-</code></pre>
-
-<p>其中的数据库配置以及sonar主机地址都依据实际进行修改即可。 <br/>
-2.在maven项目种执行</p>
-
-<pre><code>mvn clean install
-mvn sonar:sonar
-</code></pre>
-
-<p>3.打开sonar主页，就可以看到结果了。</p>
-
-<h3>Sonar与Jenkins的集成。</h3>
-
-<p>1.安装<a href="http://docs.codehaus.org/display/SONAR/Jenkins+Plugin">jenkins-sonar-plugin</a>到Jenkins内。  <br/>
-2.在Jenkins里的系统配置中，填写Sonar安装信息。  <br/>
-3.在Jenkins的JOB中，配置post-build action中添加上Sonar即可。这样在项目构建后，会自动的执行Sonar分析。并将结果放在首页进行展现。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[《重构与模式》读书笔记]]></title>
-    <link href="http://www.shenyanchao.cn/blog/2013/06/28/refactoring-to-patterns-reading-notes/"/>
-    <updated>2013-06-28T13:53:00+08:00</updated>
-    <id>http://www.shenyanchao.cn/blog/2013/06/28/refactoring-to-patterns-reading-notes</id>
-    <content type="html"><![CDATA[<p>GoF的《设计模式》以及Martin Fowler的《重构》都是经典。而《重构与模式》则是将二者结合起来。通过设计模式来指导重构，而重构的目的就是让代码更加的简单，易于维护和扩展。</p>
-
-<h3>写作缘由</h3>
-
-<ul>
-<li>过度设计：代码存在设计过度的情况</li>
-<li>模式万灵丹：认为设计模式的万能的</li>
-<li>设计不足：类比与过度设计，长期设计不足，导致开发节奏“快、慢、更慢”</li>
-<li>测试驱动开发和持续重构：敏捷开发中，Kent Beck说开发过程是“红-绿-重构”</li>
-<li>重构与模式：模式有助于改进设计，通过重构实现模式或者趋向模式进行重构</li>
-<li>演进式设计：将模式放到重构的背景中进行领会</li>
-</ul>
-
-
-<h3>什么是重构</h3>
-
-<p>定义：重构是一种对软件内部结构的改善，目的是在不改变软件的可见行为的情况下，使其更易理解，修改成本更低。 <br/>
-重构过程包括去除重复、简化复杂逻辑和澄清模糊的代码。要保证重构的安全性，必须确保所做的修改不会产生任何破坏，这需要进行手工测试或者自动化测试。循序渐进的进行重构有处于防止增加缺陷。</p>
-
-<p>重构的动机：</p>
-
-<ul>
-<li>使新代码的增加更容易</li>
-<li>改善既有代码的设计</li>
-<li>对代码理解更透彻</li>
-<li>提高编程的趣味性</li>
-</ul>
-
-
-<!--more-->
-
-
-<h3>什么是模式</h3>
-
-<p>GoF的《设计模式》是在软件开发中总结出来的用于解决不同场景下的软件开发模式。但是不应该陷入模式痴迷，应保证代码的可读性。 <br/>
-应该知道实现模式的方法不止一种，通过重构是为了实现、趋向和去除模式。通常情况下模式不会使代码更加复杂，实现模式有助于去除重复代码、简化逻辑、说明意图和提高灵活性，但是这也取决于人们对模式的熟悉程度。</p>
-
-<h3>代码坏味</h3>
-
-<ul>
-<li><p>1.重复代码（Duplicated Code）</p>
-
-<blockquote><p>形成Template Method;用Factory Method引入多态创建；链构造函数；用Composite替换一/多之分；提取Composite；通过Adapter统一接口；引入Null Object；</p></blockquote></li>
-<li><p>2.过长函数（Long Method）：</p>
-
-<blockquote><p>组合方法；将聚集操作搬移到Collecting Parameter；用Command替换条件调度程序；将聚集操作搬移到Visitor；用Strategy替换条件逻辑；</p></blockquote></li>
-<li><p>3.条件逻辑太复杂（Conditional Complexity）：</p>
-
-<blockquote><p>用Strategy替换条件逻辑；将装饰功能搬移到Decorator;用State替换状态改变条件语句；引入Null Object;</p></blockquote></li>
-<li><p>4.基本类型偏执（Primitive Obsession）:</p>
-
-<blockquote><p>用类替换类型代码；用State替换状态改变条件语句；用Strategy替换条件逻辑；用Composite替换隐含树；用Interpreter替换隐式语言；将装饰功能搬移到Decorator；用Builder封装Composite。</p></blockquote></li>
-<li><p>5.不恰当的暴露（Indecent Exposure）：</p>
-
-<blockquote><p>用Factory封装类；</p></blockquote></li>
-<li><p>6.解决方案蔓延（Solution Sprawl）：</p>
-
-<blockquote><p>将创建知识搬移到Factory；</p></blockquote></li>
-<li><p>7.异曲同工的类（Alternative Classes With Different Interfaces）：</p>
-
-<blockquote><p>通过Adapter统一接口；</p></blockquote></li>
-<li><p>8.冗赘类（Lazy Class）：</p>
-
-<blockquote><p>内联Singeton；</p></blockquote></li>
-<li>9.过大的类（Large Class）：
-
-<blockquote><p>用Command替换条件调度程序；用State替换状态改变条件语句；用Interpreter替换隐式语言；</p></blockquote></li>
-<li>10.分支语句（Switch Statement）：
-
-<blockquote><p>用Command替换条件调度程序；将聚集操作搬移到Visitor；</p></blockquote></li>
-<li>11.组合爆炸（Combinatorial Explosion）：
-
-<blockquote><p>用Interpreter替换隐式语言；</p></blockquote></li>
-<li>12.怪异解决方案（Oddball Solution）：
-
-<blockquote><p>通过Adapter统一接口；</p></blockquote></li>
-</ul>
-
-
-<h3>创建</h3>
-
-<h4>用Creation Method替换构造函数</h4>
-
-<p>如果类中有多个构造函数，那么客户代码就可能不知道该调用哪一个。这个时候，可以使用能够说明意图的返回对象实例的Creation Method来替换构造函数。 <br/>
-优缺点：<br/>
-+比构造函数能够更好的表达所创建的实例的种类。 <br/>
-+避免了构造函数的局限，比如2个构造函数的参数数目和类型不能相同。 <br/>
-+更容易发现无用的创建代码。 <br/>
--创建方式是非标准的：有些是用new初始化，有的是用Creation Method实例化。</p>
-
-<h4>将创建知识搬移到Factory</h4>
-
-<p>当创建一个对象的知识散布在多个类中，说明出现了创建蔓延的问题。应该将有关的创建知识搬移到一个Factory类中。  <br/>
-优缺点： <br/>
-+合并创建逻辑和实例化/配置选项。 <br/>
-+将客户代码与创建逻辑解耦。  <br/>
--如果可以直接实例化，会使设计复杂化。</p>
-
-<h4>用Factory封装类</h4>
-
-<p>如果在同一个包结构中，有实现了同一接口的多个类。可以把类的构造函数声明为非公共的，并通过Factory来创建它们的实例。 <br/>
-优缺点： <br/>
-+通过意图导向的CreationMethod简化了不同种类实例的创建。  <br/>
-+通过隐藏不需要公开的类减少了包结构的“概念重量”  <br/>
-+帮助严格执行“面向接口编程，而不是面向实现”这一格言。  <br/>
--当需要创建新种类的实例时，必须新建/更新Creation Method。<br/>
--当客户只获得Factory的二进制代码而无法获得源代码时，对Factory的制定将受到限制。</p>
-
-<h4>用Factory Method引入多态创建</h4>
-
-<p>一个层次中的类都相似的实现一个方法，只是对象创建的步骤不同。可以调用Factory Method来处理实例化的方法的唯一超类版本。 <br/>
-优缺点： <br/>
-+减少因创建自定义对象而产生的重复代码  <br/>
-+有效的表达了对象创建发生的位置，以及如何重写对象的创建。 <br/>
-+强制Factory Method使用的类必须实现统一的类型。 <br/>
--可能会向Factory Method的一些实现者传递不必要的参数。</p>
-
-<h4>用Builder封装Composite</h4>
-
-<p>构造Composite是重复的、复杂的且容易出错的工作。通过使用Builder处理构造细节来简化构造过程。 <br/>
-优缺点： <br/>
-+简化了构造Composite的客户代码。 <br/>
-+减少了创建Composite的重复和易出错的本性。<br/>
-+在客户代码和Composite之间实现了松耦合。 <br/>
--接口可能不会很清楚的表达其意图。</p>
-
-<h4>内联Singleton</h4>
-
-<p>绝大多数时候，Singleton都是不需要的。当可以设计或重新设计而避免使用它们的时候，Singleton就是不必要的。可以考虑把Singleton的功能搬移到一个保存并提供对象访问入口的类中，并删除Singleton。 <br/>
-优缺点： <br/>
-+使对象的协作变得更明显和明确。 <br/>
-+保护了单一的实例，且不要要特殊的代码。 <br/>
--当在许多层次间传递对象实例比较困难的时候，会使设计变得复杂。</p>
-
-<h3>简化</h3>
-
-<h4>组合方法</h4>
-
-<p>一个方法逻辑很难理解的时候，就要考虑进行重构。提高每一步骤的可读性。 <br/>
-优缺点：  <br/>
-+清晰的描述了一个方法所实现的功能以及如何实现。 <br/>
-+把方法分解成命名良好的，处在细节的同一层面的行为模块，以此来简化方法。 <br/>
--可能会产生过多的小方法。 <br/>
--可能会使调试变得困难，因为程序的逻辑分散在许多小方法中。</p>
-
-<h4>用Strategy替换条件逻辑</h4>
-
-<p>当一个方法的条件逻辑太多太复杂的时候，考虑使用Strategy模式来为每个分支创建一个Strategy。  <br/>
-优缺点： <br/>
-+通过减少或去除条件逻辑使算法变得清晰易懂。 <br/>
-+通过把算法的变体搬移到类层次中简化了类。 <br/>
-+允许在运行时用一种算法替换另一种算法。 <br/>
--当应用基于继承的解决方案或“简化条件表达式”中的重构更简单时，会增加设计的复杂度。 <br/>
--增加了算法如何获取或接受上下文类的数据的复杂度。</p>
-
-<h4>将装饰功能搬移到Decorator</h4>
-
-<p>如果需要对一个功能进行增强，那增强的部分就称为装饰功能了。如果直接改代码那是不好的，考虑使用Decorator模式吧。把这个装饰功能放到装饰器内部。 <br/>
-优缺点： <br/>
-+把装饰功能从类中搬移去除，从而简化了类。 <br/>
-+有效地把类的核心职责和装饰功能区分开来。 <br/>
-+可以去除几个相关类中重复的装饰逻辑。 <br/>
--改变了被装饰对象的对象类型。 <br/>
--会使代码变得更难理解和调适。 <br/>
--当Decorator组合产生负面影响的时候，会增加设计的复杂度。</p>
-
-<h4>用State替换状态改变条件语句</h4>
-
-<p>如果控制一个对象状态转换的条件表达式过于复杂，那么就使用State模式吧。 <br/>
-优缺点： <br/>
-+减少或去除状态改变条件逻辑。<br/>
-+简化了复杂的状态改变逻辑。 <br/>
-+提供了观察状态改变逻辑的很好的鸟瞰图。<br/>
--当状态转换逻辑已经易于理解的时候，会增加设计的复杂度。</p>
-
-<h4>用Composite替换隐含树</h4>
-
-<p>有一些逻辑用原生表示法隐含的形成了树结构。可以使用Composite来进行重构。 <br/>
-优缺点： <br/>
-+封装重复的指令，如格式化、添加或删除结点。 <br/>
-+提供了处理相似逻辑增长的一般性方法。 <br/>
-+简化了客户代码的构造职责。  <br/>
--当构造隐式树更简单的时候，会增加设计的复杂度。</p>
-
-<h4>用Command替换条件调度程序</h4>
-
-<p>许多系统会收到，发送并处理请求。条件调度程序是一条条条件语句，它用来执行请求的发送和处理。可以使用Command模式来实现。  <br/>
-优缺点： <br/>
-+提供了用统一方法执行不同行为的简单机制。 <br/>
-+允许在运行时改变所处理的请求，以及如何处理请求。 <br/>
-+仅仅需要很少的代码实现。 <br/>
--当条件调度程序已经足够的时候，会增加设计的复杂度。</p>
-
-<h3>泛化</h3>
-
-<h4>形成Template Method</h4>
-
-<p>借助Template设计模式，将算法的不变部分全部由父类实现，而可变的行为留给子类来实现。去掉所有子类的不变部分，如果仍有共同的部分，则继续重构。  <br/>
-优点与缺点： <br/>
-+通过把不变行为搬移到超类，去除子类中的重复代码  <br/>
-+简化并有效地表达了一个通用算法的步骤。 <br/>
-+允许子类很容易的定制一个算法  <br/>
--当为了生成算法、子类必须实现很多方法的时候，会增加设计的复杂度。</p>
-
-<h4>提取Composite</h4>
-
-<p>在处于同一层次的子类中，如果存在完全重复的方法或者部分重复的方法，就可以考虑将这个方法上移到超类。完全重复的方法，直接提取上移。对于部分重复的方法，可以先提取出重复的部分，然后上移。  <br/>
-优缺点： <br/>
-+去除重复的类存储逻辑和类处理逻辑。  <br/>
-+能够有效的表达类处理逻辑的可继承性。</p>
-
-<h4>用Composite替换一/多之分</h4>
-
-<p>这个名字，翻译的貌似有点问题。不知道原文是如何写的。简单说，它处理了以下问题： <br/>
-如果一个类含有2个几乎一样的方法，唯一的区别就是一个用来处理单一对象，一个用来处理对象的集合。那么这个就称为一/多之分。这个时候，我们可以使用Composite进行替换。  <br/>
-使用Composite扩展出And，Or等条件，简化客户端的处理。  <br/>
-优缺点： <br/>
-+去除与处理一个或多个对象相关联的重复代码。 <br/>
-+提供了处理一个或多个对象的同一方法。 <br/>
-+支持处理多个对象的更丰富的方法。（如OR表达式） <br/>
--可能会在Composite的构造过程中要求类型安全的运行时检查。</p>
-
-<h4>用Observer替换硬编码的通知</h4>
-
-<p>拒绝使用硬编码的通知，考虑使用Observer模式。 <br/>
-优缺点： <br/>
-+使主题及其观察者访问松散耦合 <br/>
-+支持一个或多个观察者  <br/>
--当硬编码的通知已经足够的时候，会增加设计复杂度  <br/>
--当出现串联通知的时候，会增加代码的复杂度      <br/>
--当观察者没有从他们的主题中被删除的时候，可能会造成内存泄漏。</p>
-
-<h4>通过Adapter统一接口</h4>
-
-<p>全部满足以下条件，考虑使用Adapter:</p>
-
-<ul>
-<li>2个类所做的事情相同或者相似，但是具有不同的接口。</li>
-<li>如果类共享同一个接口，客户代码会更简单、更直接、更紧凑。</li>
-<li>无法轻易改变其中一个类的接口，因为它是第三方类库的一部分，或者它是一个已经被其他客户代码广泛使用的框架的一部分，或者无法获得源代码。</li>
-</ul>
-
-
-<p>比如slf4j，就是通过各种Adapter实现了各种日志系统的大一统，并提供统一的接口。 <br/>
-优缺点： <br/>
-+使得客户代码可以通过相同的接口与不同的类交互，从而去除或减少了重复代码。 <br/>
-+使客户代码可以通过公共的接口与多个对象交互，从而简化了客户代码。  <br/>
-+统一了客户代码与不同的类的交互方式。  <br/>
--当类的接口可以改变的时候，会增加设计的复杂度。</p>
-
-<h4>提取Adapter</h4>
-
-<p>当一个类适配了多个版本的组件，类库，API或其他实体。这个时候，应该为组件，类库，API或其他实体的每个版本提取一个Adapter。  <br/>
-优缺点：<br/>
-+隔离了不同版本的组件，类库或API之间的不同之处。 <br/>
-+使类只负责适配代码的一个版本。  <br/>
-+避免频繁地修改代码   <br/>
--如果某个重要行为在Adapter中不可用的话，那么客户代码将无法执行这一重要行为。</p>
-
-<h4>用Interpreter替换隐式语言</h4>
-
-<p>在前面“用Composite替换一/多之分”部分，提到了使用Composite的问题。但是使用了Composite后，是需要对Composite进行翻译的。否则是不知道如何查询的。  <br/>
-优缺点： <br/>
-+比隐式语言更好的支持语言元素的组合。 <br/>
-+不需要新的代码来支持语言元素的新组合。<br/>
-+允许行为的运行时配置。
--会产生定义语法和修改客户代码的开销。 <br/>
--如果语言很复杂，则需要很多的编程工作。 <br/>
--如果语言本身就很简单，则会增加设计的复杂度。</p>
-
-<h3>保护</h3>
-
-<h4>用类替换类型代码</h4>
-
-<p>字段的类型（如，String或int）无法保护它免受不正确的赋值和非法的等同性比较。使用类进行替代，从而可以限制赋值和等同性比较。  <br/>
-优缺点：  <br/>
-+更好的避免非法赋值和比较。  <br/>
--比使用不安全类型要求更多的代码。</p>
-
-<h4>用Singleton限制实例化</h4>
-
-<p>有时间，遇到创建了一个对象的多个实例，导致内存使用过多和系统性能下降。可以使用单例模式。慎用。 <br/>
-优缺点：  <br/>
-+改进性能。  <br/>
--从任何地方都可以很容易的访问。在很多情况下，这可能是设计的缺点。 <br/>
--当对象含有不能共享的状态的时候，本重构就无效了。</p>
-
-<h4>引入Null Object</h4>
-
-<p>代码中到处都是处理null字段或变量的重复逻辑。而使用Null Object可以进行改善。  <br/>
-优缺点：   <br/>
-+不需要重复的null逻辑就可以避免null错误。 <br/>
-+通过最小化null测试简化了代码。  <br/>
--当系统不太需要null测试的时候，会增加设计的复杂度。 <br/>
--如果程序员不知道Null Object的存在，就会产生多余的null测试。 <br/>
--使维护变得复杂。拥有超类的Null Object必须重写所有新继承到的公共方法。</p>
-
-<h3>聚集操作</h3>
-
-<h4>将聚集操作搬移到Collecting Parameter</h4>
-
-<p>有一个很大的方法将信息聚集到一个局部变量中，那么可以把结果聚集到一个Collecting Parameter中，将它传入被提炼出的方法。  <br/>
-优缺点：   <br/>
-+帮助我们把很大的方法转换成更小的，更简单的多个方法。  <br/>
--使结果代码运行得更快。</p>
-
-<h4>将聚集操作搬移到Visitor</h4>
-
-<p>如果一个方法需要从不同的类中聚集信息，可以考虑把聚集工作搬移到一个能够访问每个类以便聚集信息的Visitor中。   <br/>
-优缺点：  <br/>
-+调节多个算法，使其适用于不同的对象结构。 <br/>
-+访问相同或不同继承结构中的类。 <br/>
-+调用不同类上的类型特定方法，无需类型转换。  <br/>
--当可以使用通用接口把互不相同的类变成相似类的时候，会增加代码的复杂度。  <br/>
--新的可访问类需要新的接受方法，每个Visitor中需要新的访问方法。  <br/>
--可能会破坏被访问类的封装性。</p>
 ]]></content>
   </entry>
   

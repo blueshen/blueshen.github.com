@@ -113,6 +113,121 @@
       ﻿
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2012/11/02/strategy-in-java/">设计模式：策略（strategy） in Java</a></h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-02T20:11:00+08:00" pubdate data-updated="true">2012年11月02日 20:11:00</time>
+        
+         | <a href="/blog/2012/11/02/strategy-in-java/#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+  <div class="entry-content"><p><strong>定义：</strong>策略模式（Strategy Pattern）是一种比较简单的模式，也叫做政策模式（Policy Pattern）。定义一组算法，将每个算法都封装起来，并且使他们之间可以互换。</p>
+
+<p>策略模式有3个角色：</p>
+
+<ul>
+<li>Context封装角色  <br/>
+它叫上下文角色，起承上启下封装的作用，屏蔽高层模块对策略、算法的直接访问，封装可能存在的变化。</li>
+<li>Strategy抽象策略角色  <br/>
+策略、算法的家族的抽象，通常为接口。</li>
+<li>ConcreteStrategy具体策略角色  <br/>
+实现抽象策略中的操作，该类含有具体的算法。</li>
+</ul>
+
+
+<p>下面借用刘备江东娶亲，诸葛亮给赵云3个妙计的故事来说明这个问题。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/11/02/strategy-in-java/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
+      <h1 class="entry-title"><a href="/blog/2012/11/02/state-in-java/">设计模式：状态（state） in Java</a></h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-02T20:11:00+08:00" pubdate data-updated="true">2012年11月02日 20:11:00</time>
+        
+         | <a href="/blog/2012/11/02/state-in-java/#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+  <div class="entry-content"><p><strong>定义：</strong>当一个对象内在状态改变时允许其改变行为，这个对象看起来想改变了其类。  <br/>
+状态模式的核心是封装，状态的变更引起了行为的变更，从外部看起来就好像这个对象对应的类发生了改变一样。</p>
+
+<p>状态模式有3个角色：</p>
+
+<ul>
+<li>State抽象状态角色    <br/>
+接口或抽象类，负责对象状态定义，并且封装环境角色以实现状态转换。</li>
+<li>ConcreteState具体状态角色  <br/>
+每一个具体状态必须完成2个职责：本状态的行为管理以及趋向状态处理。简单说，就是本状态下要做的事情，以及本状态如何过渡到其他状态。</li>
+<li>Context环境角色   <br/>
+定义客户端需要的接口，并且负责具体状态的切换。</li>
+</ul>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/11/02/state-in-java/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2012/11/02/null-object-in-java/">设计模式：空对象（null Object） in Java</a></h1>
     
 	<p class="meta">
@@ -274,112 +389,6 @@ if (book != null) {
 
     </article>
   
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/11/02/chain-of-responsibility-in-java/">设计模式：责任链（chain of Responsibility） in Java</a></h1>
-    
-	<p class="meta">
-    
-
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-02T20:09:00+08:00" pubdate data-updated="true">2012年11月02日 20:11:00</time>
-        
-         | <a href="/blog/2012/11/02/chain-of-responsibility-in-java/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content"><p><strong>定义：</strong>使多个对象都有机会处理请求，从而避免了请求的发送者和接受者之间的耦合关系。将这些对象连成一条链，并沿着这条链传递该请求，直到有对象处理它为止。</p>
-
-<p>责任链由2个角色组成：</p>
-
-<ul>
-<li>Handler抽象处理者角色  <br/>
-它定义了一个处理请求的接口。当然对于链子的不同实现，也可以在这个角色中实现后继链。</li>
-<li>Concrete Handler具体处理者角色  <br/>
-实现抽象角色中定义的接口，并处理它所负责的请求。如果不能处理则访问它的后继者。</li>
-</ul>
-
-
-<p>比如Filter就类似这种，每个Filter都对请求进行处理，如果解决不了，则交给下一个进行处理。</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/11/02/flyweight-in-java/">设计模式：享元（flyweight） in Java</a></h1>
-    
-	<p class="meta">
-    
-
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-02T20:07:00+08:00" pubdate data-updated="true">2012年11月02日 20:11:00</time>
-        
-         | <a href="/blog/2012/11/02/flyweight-in-java/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content"><p><strong>定义：</strong>享元模式（Flyweight Pattern）是池技术的重要实现方式。使用共享对象可有效地支持大量的细粒度的对象。</p>
-
-<p>享元模式提出了2个要求：细粒度的对象和共享对象。  <br/>
-要求细粒度对象，那么不可避免地使用对象数量多且性质相近。可以将这些对象分为2个部分：</p>
-
-<ul>
-<li>内部状态（intrinsic）  <br/>
-内部状态是对象可共享出来的信息，存储在享元对象内部并且不会随环境改变而改变。它们可以作为一个对象的动态附加信息，不必直接储存在具体的某个对象中，属于可以共享的部分。</li>
-<li>外部状态（extrinsic） <br/>
-外部状态是对象得以依赖的一个标记，是随环境改变而改变的，不可以共享的状态。</li>
-</ul>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/11/02/flyweight-in-java/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <ul class="pager">
     
     <li class="previous"><a href="/blog/page/15/">&larr; 上一页</a></li>
@@ -402,6 +411,14 @@ if (book != null) {
     <li class="nav-header">最近更新</li>
     
       <li class="post">
+        <a href="/blog/2014/11/14/use-mahout-to-classify-sogou-corpus/">使用mahout对Sogou语料库进行分类</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/11/13/encode-convert-in-linux/">Linux中文件编码转换</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/11/13/install-hadoop/">Hadoop1.2.1安装部署</a>
       </li>
     
@@ -413,20 +430,12 @@ if (book != null) {
         <a href="/blog/2014/11/07/intellij-idea-keygen/">Intellij IDEA keygen</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/10/22/tie-breaker-in-solr/">solr中的tie breaker</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/08/27/java-new-feature/">Java新特性</a>
-      </li>
-    
   </ul>
 </section>
 <section class="well">
 	<ul id="tags-cloud" class="nav nav-list">
 	<li class="nav-header">分类云</li>
-    <span id="tag-cloud"><a href='/blog/categories/apache' style='font-size: 102.4%'>apache(1)</a> <a href='/blog/categories/checkstyle' style='font-size: 102.4%'>checkstyle(1)</a> <a href='/blog/categories/encode' style='font-size: 109.6%'>encode(4)</a> <a href='/blog/categories/git' style='font-size: 104.8%'>git(2)</a> <a href='/blog/categories/hadoop' style='font-size: 102.4%'>hadoop(1)</a> <a href='/blog/categories/http' style='font-size: 104.8%'>HTTP(2)</a> <a href='/blog/categories/idea' style='font-size: 102.4%'>IDEA(1)</a> <a href='/blog/categories/java' style='font-size: 109.6%'>java(4)</a> <a href='/blog/categories/java' style='font-size: 107.2%'>Java(3)</a> <a href='/blog/categories/java-encode' style='font-size: 102.4%'>Java,encode(1)</a> <a href='/blog/categories/javascript' style='font-size: 102.4%'>javascript(1)</a> <a href='/blog/categories/jenkins' style='font-size: 102.4%'>jenkins(1)</a> <a href='/blog/categories/jmeter' style='font-size: 104.8%'>jmeter(2)</a> <a href='/blog/categories/jvm' style='font-size: 104.8%'>JVM(2)</a> <a href='/blog/categories/linux' style='font-size: 104.8%'>linux(2)</a> <a href='/blog/categories/markdown' style='font-size: 104.8%'>markdown(2)</a> <a href='/blog/categories/maven' style='font-size: 119.2%'>maven(8)</a> <a href='/blog/categories/mysql' style='font-size: 104.8%'>mysql(2)</a> <a href='/blog/categories/nodejs' style='font-size: 116.8%'>nodejs(7)</a> <a href='/blog/categories/oryx' style='font-size: 102.4%'>oryx(1)</a> <a href='/blog/categories/selenium' style='font-size: 121.6%'>selenium(9)</a> <a href='/blog/categories/selenium-wiki' style='font-size: 107.2%'>selenium-wiki(3)</a> <a href='/blog/categories/selenium官方文档' style='font-size: 109.6%'>selenium官方文档(4)</a> <a href='/blog/categories/solr' style='font-size: 102.4%'>solr(1)</a> <a href='/blog/categories/testng' style='font-size: 102.4%'>testng(1)</a> <a href='/blog/categories/ubuntu' style='font-size: 102.4%'>ubuntu(1)</a> <a href='/blog/categories/ut' style='font-size: 104.8%'>ut(2)</a> <a href='/blog/categories/velocity' style='font-size: 102.4%'>velocity(1)</a> <a href='/blog/categories/个人' style='font-size: 104.8%'>个人(2)</a> <a href='/blog/categories/开发' style='font-size: 102.4%'>开发(1)</a> <a href='/blog/categories/测试' style='font-size: 107.2%'>测试(3)</a> <a href='/blog/categories/设计模式' style='font-size: 160.0%'>设计模式(25)</a> <a href='/blog/categories/调优' style='font-size: 102.4%'>调优(1)</a> </span>
+    <span id="tag-cloud"><a href='/blog/categories/apache' style='font-size: 102.4%'>apache(1)</a> <a href='/blog/categories/checkstyle' style='font-size: 102.4%'>checkstyle(1)</a> <a href='/blog/categories/encode' style='font-size: 109.6%'>encode(4)</a> <a href='/blog/categories/git' style='font-size: 104.8%'>git(2)</a> <a href='/blog/categories/hadoop' style='font-size: 102.4%'>hadoop(1)</a> <a href='/blog/categories/http' style='font-size: 104.8%'>HTTP(2)</a> <a href='/blog/categories/idea' style='font-size: 102.4%'>IDEA(1)</a> <a href='/blog/categories/java' style='font-size: 107.2%'>Java(3)</a> <a href='/blog/categories/java' style='font-size: 109.6%'>java(4)</a> <a href='/blog/categories/java-encode' style='font-size: 102.4%'>Java,encode(1)</a> <a href='/blog/categories/javascript' style='font-size: 102.4%'>javascript(1)</a> <a href='/blog/categories/jenkins' style='font-size: 102.4%'>jenkins(1)</a> <a href='/blog/categories/jmeter' style='font-size: 104.8%'>jmeter(2)</a> <a href='/blog/categories/jvm' style='font-size: 104.8%'>JVM(2)</a> <a href='/blog/categories/linux' style='font-size: 107.2%'>linux(3)</a> <a href='/blog/categories/mahout' style='font-size: 102.4%'>mahout(1)</a> <a href='/blog/categories/markdown' style='font-size: 104.8%'>markdown(2)</a> <a href='/blog/categories/maven' style='font-size: 119.2%'>maven(8)</a> <a href='/blog/categories/mysql' style='font-size: 104.8%'>mysql(2)</a> <a href='/blog/categories/nodejs' style='font-size: 116.8%'>nodejs(7)</a> <a href='/blog/categories/oryx' style='font-size: 102.4%'>oryx(1)</a> <a href='/blog/categories/selenium' style='font-size: 121.6%'>selenium(9)</a> <a href='/blog/categories/selenium-wiki' style='font-size: 107.2%'>selenium-wiki(3)</a> <a href='/blog/categories/selenium官方文档' style='font-size: 109.6%'>selenium官方文档(4)</a> <a href='/blog/categories/solr' style='font-size: 102.4%'>solr(1)</a> <a href='/blog/categories/testng' style='font-size: 102.4%'>testng(1)</a> <a href='/blog/categories/ubuntu' style='font-size: 102.4%'>ubuntu(1)</a> <a href='/blog/categories/ut' style='font-size: 104.8%'>ut(2)</a> <a href='/blog/categories/velocity' style='font-size: 102.4%'>velocity(1)</a> <a href='/blog/categories/个人' style='font-size: 104.8%'>个人(2)</a> <a href='/blog/categories/开发' style='font-size: 102.4%'>开发(1)</a> <a href='/blog/categories/测试' style='font-size: 107.2%'>测试(3)</a> <a href='/blog/categories/设计模式' style='font-size: 160.0%'>设计模式(25)</a> <a href='/blog/categories/调优' style='font-size: 102.4%'>调优(1)</a> </span>
   </ul>
 </section>﻿<section class="well">
 <ul class="nav nav-list">
