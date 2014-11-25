@@ -1,0 +1,2392 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0066)http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/ -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"><!--
+	generated 104 seconds ago
+	generated in 1.005 seconds
+	served from batcache in 0.004 seconds
+	expires in 196 seconds
+--><head profile="http://gmpg.org/xfn/11"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Better synonym handling in Solr | Read the Tea Leaves</title>
+<!--[if IE 6]><link rel="stylesheet" href="http://s0.wp.com/wp-content/themes/pub/springloaded/ie6.css?m=1252654158g" type="text/css" media="screen" /><![endif]-->
+<link rel="pingback" href="http://nolanlawson.com/xmlrpc.php">
+<!--[if lt IE 7.]>
+<script defer type="text/javascript" src="http://s0.wp.com/wp-content/themes/pub/springloaded/pngfix.js?m=1323834278g"></script>
+<![endif]-->
+		<script src="./Better synonym handling in Solr   Read the Tea Leaves_files/remote-login.php" type="text/javascript"></script>
+		<script type="text/javascript">
+		/* <![CDATA[ */
+			if ( 'function' === typeof WPRemoteLogin ) {
+				document.cookie = "wordpress_test_cookie=test; path=/";
+				if ( document.cookie.match( /(;|^)\s*wordpress_test_cookie\=/ ) ) {
+					WPRemoteLogin();
+				}
+			}
+		/* ]]> */
+		</script>
+		<link rel="alternate" type="application/rss+xml" title="Read the Tea Leaves » Feed" href="http://nolanlawson.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="Read the Tea Leaves » Comments Feed" href="http://nolanlawson.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Read the Tea Leaves » Better synonym handling in Solr Comments Feed" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/feed/">
+<script type="text/javascript">
+/* <![CDATA[ */
+function addLoadEvent(func){var oldonload=window.onload;if(typeof window.onload!='function'){window.onload=func;}else{window.onload=function(){oldonload();func();}}}
+/* ]]> */
+</script>
+<link rel="stylesheet" id="all-css-0" href="http://s0.wp.com/_static/??-eJx9keFuwyAMhF9ozKrW9t+0ZyHgELcGo+Ao6tvX2bQtW1XEnzt0Hz4ZWKsLUhSLQl5c5SVRacB0xQYX1OrD1X2619DaC+ziA0v6BSQljLKoG4VZVlgpJtQHaDdjRvaK0VVp+s/1MCojFdIb6ITZStZlgFZnKonFR4w9NsiMdp+r1y2RMZJHtmdKt2mu529qk5Pt5LHikzrQ9Mb4lSYoomRA+xG9sQnFsQSvJOWPcSN7mvu73X7HZAJL7eyz2tMRrPDgeQt85PfD8XA62zm9Xe5jk809" type="text/css" media="all">
+<link rel="stylesheet" id="print-css-0" href="http://s0.wp.com/wp-content/mu-plugins/global-print/global-print.css?m=1387483371g" type="text/css" media="print">
+<script type="text/javascript">
+/* <![CDATA[ */
+var LoggedOutFollow = {"invalid_email":"Your subscription did not succeed, please try again with a valid email address."};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Better synonym handling in Solr   Read the Tea Leaves_files/saved_resource"></script>
+<link rel="stylesheet" id="all-css-0" href="./Better synonym handling in Solr   Read the Tea Leaves_files/style.css" type="text/css" media="all">
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='highlander-comments-ie7-css'  href='http://s2.wp.com/wp-content/mu-plugins/highlander-comments/style-ie7.css?m=1351637563g&#038;ver=20110606' type='text/css' media='all' />
+<![endif]-->
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://nolanwlawson.wordpress.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://s1.wp.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="KeepScore version 1.2: more style, more substance" href="http://nolanlawson.com/2012/09/25/keepscore-version-1-2-more-style-more-substance/">
+<link rel="next" title="Make your workplace more fun with a Jenkins alarm system" href="http://nolanlawson.com/2012/11/18/make-your-workplace-more-fun-with-a-jenkins-alarm-system/">
+<meta name="generator" content="WordPress.com">
+<link rel="canonical" href="./Better synonym handling in Solr   Read the Tea Leaves_files/Better synonym handling in Solr   Read the Tea Leaves.html">
+<link rel="shortlink" href="http://wp.me/p1t8Ca-wg">
+<link rel="alternate" type="application/json+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=json&url=http%3A%2F%2Fnolanlawson.com%2F2012%2F10%2F31%2Fbetter-synonym-handling-in-solr%2F&for=wpcom-auto-discovery"><link rel="alternate" type="application/xml+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=xml&url=http%3A%2F%2Fnolanlawson.com%2F2012%2F10%2F31%2Fbetter-synonym-handling-in-solr%2F&for=wpcom-auto-discovery">
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Better synonym handling in Solr">
+<meta property="og:url" content="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/">
+<meta property="og:description" content="Update: Download the plugin on Github. It&#39;s a pretty common scenario when working with a Solr-powered search engine: you have a list of synonyms, and you want user queries to match documents with s...">
+<meta property="article:published_time" content="2012-10-31T17:22:21+00:00">
+<meta property="article:modified_time" content="2013-10-23T00:42:59+00:00">
+<meta property="article:author" content="http://nolanlawson.com/author/nolanwlawson/">
+<meta property="og:site_name" content="Read the Tea Leaves">
+<meta property="og:image" content="http://nolanwlawson.files.wordpress.com/2012/10/graph33.png">
+<meta property="og:image" content="http://nolanwlawson.files.wordpress.com/2012/10/graph22.png">
+<meta property="og:image" content="http://nolanwlawson.files.wordpress.com/2012/10/graph11.png">
+<meta property="og:image" content="http://nolanwlawson.files.wordpress.com/2012/10/breast_cancer_highlighting2.png">
+<meta name="twitter:site" content="@wordpressdotcom">
+<meta name="twitter:image" content="http://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Licking_the_staffy_pup.JPG/640px-Licking_the_staffy_pup.JPG?w=240">
+<meta name="twitter:card" content="summary">
+<meta property="article:publisher" content="https://www.facebook.com/WordPresscom">
+<link rel="shortcut icon" type="image/x-icon" href="http://1.gravatar.com/blavatar/12d020f83152fd3a8d4af6ef58688dfe?s=16" sizes="16x16">
+<link rel="icon" type="image/x-icon" href="http://1.gravatar.com/blavatar/12d020f83152fd3a8d4af6ef58688dfe?s=16" sizes="16x16">
+<link rel="apple-touch-icon-precomposed" href="http://0.gravatar.com/blavatar/05fe10051fba594f6b52244216ef2bc7?s=114">
+<link rel="openid.server" href="http://nolanwlawson.wordpress.com/?openidserver=1">
+<link rel="openid.delegate" href="http://nolanwlawson.wordpress.com/">
+<link rel="search" type="application/opensearchdescription+xml" href="http://nolanlawson.com/osd.xml" title="Read the Tea Leaves">
+<link rel="search" type="application/opensearchdescription+xml" href="http://wordpress.com/opensearch.xml" title="WordPress.com">
+<style type="text/css">
+.widget_twitter li {
+	word-wrap: break-word;
+}
+</style>
+<meta name="application-name" content="Read the Tea Leaves"><meta name="msapplication-window" content="width=device-width;height=device-height"><meta name="msapplication-tooltip" content="Software development, UI design, and the dark art of coding"><meta name="msapplication-task" content="name=Subscribe;action-uri=http://nolanlawson.com/feed/;icon-uri=http://1.gravatar.com/blavatar/12d020f83152fd3a8d4af6ef58688dfe?s=16"><meta name="msapplication-task" content="name=Sign up for a free blog;action-uri=http://wordpress.com/signup/;icon-uri=http://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=http://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=http://s2.wp.com/i/favicon.ico"><meta name="title" content="Better synonym handling in Solr | Read the Tea Leaves on WordPress.com">
+<meta name="description" content="Update: Download the plugin on Github. It&#39;s a pretty common scenario when working with a Solr-powered search engine: you have a list of synonyms, and you want user queries to match documents with synonymous terms. Sounds easy, right? Why shouldn&#39;t queries for &quot;dog&quot; also match documents containing &quot;hound&quot; and &quot;pooch&quot;? Or even &quot;Rover&quot; and &quot;canis…">
+<link rel="stylesheet" type="text/css" href="http://s0.wp.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCore.css?m=1395343499g&amp;ver=3.0.83c"><link rel="stylesheet" type="text/css" href="http://s0.wp.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeDefault.css?m=1363304414g&amp;ver=3.0.83c"><style type="text/css" id="syntaxhighlighteranchor"></style>
+		<link rel="stylesheet" id="custom-css-css" type="text/css" href="./Better synonym handling in Solr   Read the Tea Leaves_files/saved_resource(1)">
+		</head>
+<body class="single single-post postid-2000 single-format-standard mp6 typekit-enabled highlander-enabled highlander-light">
+
+<div id="header">
+	<div class="sleeve">
+	<h1><a href="http://nolanlawson.com/">Read the Tea Leaves</a> <span>Software development, UI design, and the dark art of coding</span></h1>
+
+	<div class="search-bar">
+		<form method="get" id="searchform" action="http://nolanlawson.com/">
+			<p><input type="text" name="s" onblur="this.value=(this.value==&#39;&#39; ) ? &#39;Search this Blog&#39; : this.value;" onfocus="this.value=(this.value==&#39;Search this Blog&#39; ) ? &#39;&#39; : this.value;" value="Search this Blog" id="s">
+			<button type="submit" id="top-search-submit"><img src="./Better synonym handling in Solr   Read the Tea Leaves_files/search-btn.gif" alt="Search"></button></p>
+		</form>
+	</div>
+	</div>
+</div><!-- /header -->
+
+
+<div id="wrapper">
+<div id="main">
+
+<ul id="navigation">
+	<li class="page_item "><a href="http://nolanlawson.com/">Home</a></li>
+	<li class="page_item page-item-219"><a href="http://nolanlawson.com/apps/">Apps</a></li>
+<li class="page_item page-item-3272"><a href="http://nolanlawson.com/code/">Code</a></li>
+<li class="page_item page-item-2"><a href="http://nolanlawson.com/about/">About</a></li>
+<li class="page_item page-item-376"><a href="http://nolanlawson.com/donate/">Donate</a></li>
+</ul>
+
+<div id="single-content">
+
+	
+		<div class="post-2000 post type-post status-publish format-standard hentry category-nlp-2 tag-information-retrieval tag-lucene tag-nlp tag-query-expansion tag-solr tag-synonyms" id="post-2000">
+		<div class="navigation">
+			<div class="alignleft">« <a href="http://nolanlawson.com/2012/09/25/keepscore-version-1-2-more-style-more-substance/" rel="prev">KeepScore version 1.2: more style, more&nbsp;substance</a></div>
+			<div class="alignright"><a href="http://nolanlawson.com/2012/11/18/make-your-workplace-more-fun-with-a-jenkins-alarm-system/" rel="next">Make your workplace more fun with a Jenkins alarm&nbsp;system</a> »</div>
+			<div class="clear"></div>
+		</div>
+
+			<p class="post-date" title="October 31, 2012 at 6:22 PM">
+				<span class="date-day">31</span>
+				<span class="date-month">Oct</span>
+			</p>
+			<h2 class="entry-title">Better synonym handling in&nbsp;Solr</h2>
+			<p class="metadata">
+			Posted October 31, 2012 by Nolan Lawson in <a href="http://nolanlawson.com/category/nlp-2/" rel="category tag">NLP</a>.			Tagged: <a href="http://nolanlawson.com/tag/information-retrieval/" rel="tag">information retrieval</a>, <a href="http://nolanlawson.com/tag/lucene/" rel="tag">lucene</a>, <a href="http://nolanlawson.com/tag/nlp/" rel="tag">nlp</a>, <a href="http://nolanlawson.com/tag/query-expansion/" rel="tag">query expansion</a>, <a href="http://nolanlawson.com/tag/solr/" rel="tag">solr</a>, <a href="http://nolanlawson.com/tag/synonyms/" rel="tag">synonyms</a>.			<span class="feedback"><a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comments" title="Comment on Better synonym handling in Solr">65 Comments</a></span></p>
+			<div class="entry">
+				<p><em><strong>Update</strong>: <a href="http://github.com/healthonnet/hon-lucene-synonyms">Download the plugin on Github</a>.</em></p>
+<p>It’s a pretty common scenario when working with a <a href="http://lucene.apache.org/solr/" target="_blank">Solr</a>-powered search engine: you have a list of synonyms, and you want user queries to match documents with synonymous terms.  Sounds easy, right?  Why shouldn’t queries for “dog” also match documents containing “hound” and “pooch”?  Or even “Rover” and “canis familiaris”?</p>
+<div style="width: 410px" class="wp-caption aligncenter"><a target="_blank" title="By Adam.J.W.C. (Own work) [GFDL (http://www.gnu.org/copyleft/fdl.html) or CC-BY-SA-3.0 (http://creativecommons.org/licenses/by-sa/3.0/)], via Wikimedia Commons" href="http://commons.wikimedia.org/wiki/File%3ALicking_the_staffy_pup.JPG"><img alt="" src="./Better synonym handling in Solr   Read the Tea Leaves_files/640px-Licking_the_staffy_pup.JPG" title="A Rover by any other name." width="400" height="300"></a><p class="wp-caption-text">A Rover by any other name would taste just as sweet.</p></div>
+<p>As it turns out, though, Solr doesn’t make synonym expansion as easy as you might like. And there are lots of good ways to shoot yourself in the foot.</p>
+<h3>The SynonymFilterFactory</h3>
+<p>Solr provides a cool-sounding <a href="http://wiki.apache.org/solr/AnalyzersTokenizersTokenFilters#solr.SynonymFilterFactory" target="_blank">SynonymFilterFactory</a>, which can be a fed a simple text file containing comma-separated synonyms.  You can even choose whether to expand your synonyms reciprocally or to specify a particular directionality.</p>
+<p>For instance, you can make “dog,” “hound,” and “pooch” all expand to “dog | hound | pooch,” or you can specify that “dog” maps to “hound” but not vice-versa, or you can make them all collapse to “dog.”  This part of the synonym handling is very flexible and works quite well.</p>
+<p>Where it gets complicated is when you have to decide where to fit the SynonymFilterFactory: into the query analyzer or the index analyzer?</p>
+<h3>Index-time vs. query-time</h3>
+<p>The graphic below summarizes the basic differences between index-time and query-time expansion.  Our problem is specific to Solr, but the choice between these two approaches can apply to any information retrieval system.</p>
+<div id="attachment_2040" style="width: 301px" class="wp-caption aligncenter"><a href="http://nolanwlawson.files.wordpress.com/2012/10/index_vs_query_expansion2.png"><img src="./Better synonym handling in Solr   Read the Tea Leaves_files/index_vs_query_expansion2.png" alt="" title="index_vs_query_expansion2" class="size-medium wp-image-2040"></a><p class="wp-caption-text">Index-time vs. query-time expansion.</p></div>
+<p>Your first, intuitive choice might be to put the SynonymFilterFactory in the query analyzer.  In theory, this should have several advantages:</p>
+<ol>
+<li>Your index stays the same size.</li>
+<li>Your synonyms can be swapped out at any time, without having to update the index.</li>
+<li>Synonyms work instantly; there’s no need to re-index.</li>
+</ol>
+<p>However, according to <a href="http://wiki.apache.org/solr/AnalyzersTokenizersTokenFilters#solr.SynonymFilterFactory" target="_blank">the Solr docs</a>, this is a Very Bad Thing to Do(™), and apparently you should put the SynonymFilterFactory into the index analyzer instead, despite what your instincts would tell you.  They explain that query-time synonym expansion has two negative side effects:</p>
+<ol>
+<li>Multi-word synonyms won’t work as phrase queries.</li>
+<li>The IDF of rare synonyms will be boosted, causing unintuitive results.</li>
+<li>Multi-word synonyms won’t be matched in queries.</li>
+</ol>
+<p>This is kind of complicated, so it’s worth stepping through each of these problems in turn.</p>
+<h3>Multi-word synonyms won’t work as phrase queries</h3>
+<p>At <a href="http://www.hon.ch/" target="_blank">Health On the Net</a>, our search engine uses <a href="http://www.ncbi.nlm.nih.gov/mesh" target="_blank">MeSH</a> terms for query expansion.  MeSH is a medical ontology that works pretty well to provide some sensible synonyms for the health domain.  Consider, for example, the synonyms for “breast cancer”:</p>
+<pre>breast neoplasm
+breast neoplasms
+breast tumor
+breast tumors
+cancer of breast
+cancer of the breast
+</pre>
+<p>&nbsp;</p>
+<p>So in a normal SynonymFilterFactory setup with <font face="monospace">expand=”true”</font>, a query for “breast cancer” becomes:</p>
+<pre style="white-space:normal;">+((breast breast breast breast breast cancer cancer) (cancer neoplasm neoplasms tumor tumors) breast breast)
+</pre>
+<p>&nbsp;</p>
+<p>…which matches documents containing “breast neoplasms,” “cancer of the breast,” etc.</p>
+<p>However, this also means that, if you’re doing a phrase query (i.e. “breast cancer” with the quotes), your document must literally match something like “breast cancer breast breast” in order to work.</p>
+<p>Huh? What’s going on here?  Well, it turns out that the SynonymFilterFactory isn’t expanding your multi-word synonyms the way you might think.  Intuitively, if we were to represent this as a <a href="http://en.wikipedia.org/wiki/Finite-state_machine" target="_blank">finite-state automaton</a>, you might think that Solr is building up something like this (ignoring plurals):</p>
+<div id="attachment_2090" style="width: 310px" class="wp-caption aligncenter"><a href="http://nolanwlawson.files.wordpress.com/2012/10/graph11.png"><img src="./Better synonym handling in Solr   Read the Tea Leaves_files/graph11.png" alt="" title="graph1" class="size-medium wp-image-2090"></a><p class="wp-caption-text">What you reasonably expect.</p></div>
+<p>But really it’s building up this:</p>
+<div id="attachment_2091" style="width: 310px" class="wp-caption aligncenter"><a href="http://nolanwlawson.files.wordpress.com/2012/10/graph22.png"><img src="./Better synonym handling in Solr   Read the Tea Leaves_files/graph22.png" alt="" title="graph2" class="size-medium wp-image-2091"></a><p class="wp-caption-text">The spaghetti you actually get.</p></div>
+<p>And your poor, unlikely document must match all four terms in sequence.  Yikes.</p>
+<p>Similarly, the <font face="monospace">mm</font> parameter (<a href="http://wiki.apache.org/solr/DisMaxQParserPlugin#mm_.28Minimum_.27Should.27_Match.29" target="_blank">minimum “should” match</a>) in the DisMax and EDisMax query parsers will not work as expected.  In the example above, setting <font face="monospace">mm=100%</font> will require that all four terms be matched:</p>
+<pre style="white-space:normal;">+((breast breast breast breast breast cancer cancer) (cancer neoplasm neoplasms tumor tumors) breast breast)~4
+</pre>
+<p>&nbsp;</p>
+<h3>The IDF of rare synonyms will be boosted</h3>
+<p>Even if you don’t have multi-word synonyms, the Solr docs mention a second good reason to avoid query-time expansion: unintuitive IDF boosting.  Consider our “dog,” “hound,” and “pooch” example.  In this case, a query for any one of the three will be expanded into:</p>
+<pre>+(dog hound pooch)
+</pre>
+<p>&nbsp;</p>
+<p>Since “hound” and “pooch” are much less common words, though, this means that documents containing them will always be artificially high in the search results, <em>regardless of the query</em>.  This could create havoc for your poor users, who may be wondering why weird documents about hounds and pooches are appearing so high in their search for “dog.”</p>
+<p>Index-time expansion supposedly fixes this problem by giving the same IDF values for “dog,” “hound,” and “pooch,” regardless of what the document originally said.</p>
+<h3>Multi-word synonyms won’t be matched in queries</h3>
+<p>Finally, and most seriously, the SynonymFilterFactory will simply not match multi-word synonyms in user queries if you do any kind of tokenization.  This is because the tokenizer breaks up the input before the SynonymFilterFactory can transform it.</p>
+<p>For instance, the query “cancer of the breast” will be tokenized by the StandardTokenizationFactory into [“cancer”, “of”, “the”, “breast”], and only the individual terms will pass through the SynonymFilterFactory.  So in this case no expansion will take place at all, assuming there are no synonyms for the individual terms “cancer” and “breast.”</p>
+<p><em>Edit: <a href="https://issues.apache.org/jira/browse/LUCENE-4499?focusedCommentId=13507307&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-13507307" target="_blank">I’ve been corrected on this</a>.  Apparently, the bug is in the Lucene query parser (<a href="https://issues.apache.org/jira/browse/LUCENE-2605" target="_blank">LUCENE-2605</a>) rather than the SynonymFilterFactory.</em></p>
+<h3>Other problems</h3>
+<p>I initially followed Solr’s suggestions, but I found that index-time synonym expansion created its own issues.  Obviously there’s the problem of ballooning index sizes, but besides that, I also discovering an interesting bug in the highlighting system.</p>
+<p>When I searched for “breast cancer,” I found that the highlighter would mysteriously highlight “breast cancer X Y,” where “X” and “Y” could be any two words that followed “breast cancer” in the document.  For instance, it might highlight “breast cancer frauds are” or “breast cancer is to.”</p>
+<div id="attachment_2045" style="width: 310px" class="wp-caption aligncenter"><a href="http://nolanwlawson.files.wordpress.com/2012/10/breast_cancer_highlighting2.png"><img src="./Better synonym handling in Solr   Read the Tea Leaves_files/breast_cancer_highlighting2.png" alt="" title="breast_cancer_highlighting2" class="size-medium wp-image-2045"></a><p class="wp-caption-text">Highlighting bug.</p></div>
+<p>After reading through <a href="https://issues.apache.org/jira/browse/SOLR-3390" target="_blank">this Solr bug</a>, I discovered it’s because of the same issue above concerning how Solr expands multi-word synonyms.</p>
+<p>With query-time expansion, it’s weird enough that your query is logically transformed into the spaghettified graph above.  But picture what happens with <em>index-time expansion</em>, if your document contains e.g. “breast cancer treatment options”:</p>
+<div id="attachment_2092" style="width: 310px" class="wp-caption aligncenter"><a href="http://nolanwlawson.files.wordpress.com/2012/10/graph33.png"><img src="./Better synonym handling in Solr   Read the Tea Leaves_files/graph33.png" alt="" title="graph3" class="size-medium wp-image-2092"></a><p class="wp-caption-text">Your mangled document.</p></div>
+<p>This is literally what Lucene thinks your document looks like.  Synonym expansion has bought you more than you bargained for, with some Dada-esque results!  “Breast tumor the options” indeed.</p>
+<p>Essentially, Lucene now believes that a query for “cancer of the breast” (4 tokens) is the same as “breast cancer treatment options” (4 tokens) in your original document.  This is because the tokens are just stacked one on top of the other, losing any information about which term should be followed by which other term.</p>
+<p>Query-time expansion does not trigger this bug, because Solr is only expanding the query, not the document.  So Lucene still thinks “cancer of the breast” in the query only matches “breast cancer” in the document.</p>
+<p><em>Update: there’s a name for this phenomenon! It’s called <a href="http://blog.mikemccandless.com/2012/04/lucenes-tokenstreams-are-actually.html">“sausagization.”</a></em></p>
+<h3>Back to the drawing board</h3>
+<p>All of this wackiness led me to the conclusion that Solr’s built-in mechanism for synonym expansion was seriously flawed.  I had to figure out a better way to get Solr to do what I wanted.</p>
+<p>In summary, index-time expansion and query-time expansion were both unfeasible using the standard SynonymFilterFactory, since they each had separate problems:</p>
+<p><strong>Index-time</strong></p>
+<ul>
+<li>Index size balloons.</li>
+<li>Synonyms don’t work instantly; documents must be re-indexed.</li>
+<li>Synonyms cannot be instantly replaced.</li>
+<li>Multi-word synonyms cause arbitrary words to be highlighted.</li>
+</ul>
+<p><strong>Query-time</strong></p>
+<ul>
+<li>Phrase queries do not work.</li>
+<li>IDF values for rare synonyms are artificially boosted.</li>
+<li>Multi-word synonyms won’t be matched in queries.</li>
+</ul>
+<p>I began with the assumption that the ideal synonym-expansion system should be query-based, due to the inherent downsides of index-based expansion listed above.  I also realized there’s a more fundamental problem with how Solr has implemented synonym expansion that should be addressed first.</p>
+<p>Going back to the “dog”/”hound”/”pooch” example, there’s a big issue usability-wise with treating all three terms as equivalent.  A “dog” is not exactly the same thing as a “pooch” or a “hound,” and certain queries might really be looking for that exact term (e.g. “The Hound of the Baskervilles,” “The Itchy &amp; Scratchy &amp; Poochy Show”).  Treating all three as equivalent feels wrong.</p>
+<p>Also, even with the recommended approach of index-time expansion, IDF weights are thrown out of whack.  Every document that contains “dog” now also contains “pooch”, which means we have permanently lost information about the true IDF value for “pooch”.</p>
+<p>In an ideal system, a search for “dog” should include documents containing “hound” and “pooch,” but <em>it should still prefer documents containing the actual query term</em>, which is “dog.”  Similarly, searches for “hound” should prefer “hound,” and searches for “pooch” should prefer “pooch.”  (I hope I’m not saying anything controversial here.)  All three should match the same document set, but deliver the results in a different order.</p>
+<h3>Solution</h3>
+<p>My solution was to move the synonym expansion from the analyzer’s tokenizer chain to the query parser.  So instead of expanding queries into the crazy intercrossing graphs shown above, I split it into two parts: the main query and the synonym query.  Then I combine the two with separate, configurable weights, specify each one as “should occur,” and then wrap them both in a “must occur” boolean query.</p>
+<p>So a search for “dog” is parsed as:</p>
+<pre>+((dog)^1.2 (hound pooch)^1.1)
+</pre>
+<p>&nbsp;</p>
+<p>The 1.2 and the 1.1 are the independent boosts, which can be configured as input parameters.  The document <em>must</em> contain one of “dog”, “hound,” or “pooch”, but “dog” is preferred.</p>
+<p>Handling synonyms in this way also has another interesting side effect: it eliminates the problem of phrase queries not working.  In the case of “breast cancer” (with the quotes), the query is parsed as:</p>
+<pre style="white-space:normal;">+(("breast cancer")^1.2 (("breast neoplasm") ("breast tumor") ("cancer ? breast") ("cancer ? ? breast"))^1.1)
+</pre>
+<p>&nbsp;</p>
+<p>(The question marks appear because of the stopwords “of” and “the.”)</p>
+<p>This means that a query for “breast cancer” (with the quotes) will also match documents containing the exact sequence “breast neoplasm,” “breast tumor,” “cancer of the breast,” and “cancer of breast.”</p>
+<p>I also went one step beyond the original SynonymFilterFactory and built up <em>all</em> possible synonym combinations for a given query.  So, for instance, if the query is “dog bite” and the synonyms file contains:</p>
+<pre>dog,hound,pooch
+bite,nibble
+</pre>
+<p>&nbsp;</p>
+<p>… then the query will be expanded into:</p>
+<pre>dog bite
+hound bite
+pooch bite
+dog nibble
+hound nibble
+pooch nibble
+</pre>
+<p>&nbsp;</p>
+<h3>Try it yourself!</h3>
+<p>The code I wrote is a simple extension of the ExtendedDisMaxQueryParserPlugin, called the SynonymExpandingExtendedDisMaxQueryParserPlugin (long enough name?).  I’ve only tested it to work with Solr 3.5.0, but it ought to work with any version that has <a href="http://wiki.apache.org/solr/ExtendedDisMax" target="_blank">EDisMax</a>.</p>
+<p><strong>Edit: the instructions below are deprecated.  Please follow the <a href="https://github.com/healthonnet/hon-lucene-synonyms#getting-started">“Getting Started” guide</a> on the Github page instead.</strong> </p>
+<p>Here’s how you can use the parser:</p>
+<ol>
+<li>Drop <a href="https://github.com/downloads/healthonnet/hon-lucene-synonyms/hon-lucene-synonyms-1.0.jar" target="_blank">this jar</a> into your Solr’s lib/ directory.</li>
+<li>Add this definition to your <font face="monospace">solrconfig.xml</font>:</li>
+<pre class="brush: xml; title: ; notranslate" title="">&lt;queryParser name="synonym_edismax" class="solr.SynonymExpandingExtendedDismaxQParserPlugin"&gt;
+  &lt;!-- TODO: figure out how we wouldn't have to define this twice --&gt;
+  &lt;str name="luceneMatchVersion"&gt;LUCENE_34&lt;/str&gt;
+  &lt;lst name="synonymAnalyzers"&gt;
+    &lt;lst name="myCoolAnalyzer"&gt;
+      &lt;lst name="tokenizer"&gt;
+        &lt;str name="class"&gt;solr.StandardTokenizerFactory&lt;/str&gt;
+      &lt;/lst&gt;
+      &lt;lst name="filter"&gt;
+        &lt;str name="class"&gt;solr.ShingleFilterFactory&lt;/str&gt;
+        &lt;str name="outputUnigramsIfNoShingles"&gt;true&lt;/str&gt;
+        &lt;str name="outputUnigrams"&gt;true&lt;/str&gt;
+        &lt;str name="minShingleSize"&gt;2&lt;/str&gt;
+        &lt;str name="maxShingleSize"&gt;4&lt;/str&gt;
+      &lt;/lst&gt;
+      &lt;lst name="filter"&gt;
+        &lt;str name="class"&gt;solr.SynonymFilterFactory&lt;/str&gt;
+        &lt;str name="tokenizerFactory"&gt;solr.KeywordTokenizerFactory&lt;/str&gt;
+        &lt;str name="synonyms"&gt;my_synonyms_file.txt&lt;/str&gt;
+        &lt;str name="expand"&gt;true&lt;/str&gt;
+        &lt;str name="ignoreCase"&gt;true&lt;/str&gt;
+      &lt;/lst&gt;
+    &lt;/lst&gt;
+    &lt;!-- add more analyzers here, if you want --&gt;
+  &lt;/lst&gt;
+&lt;/queryParser&gt;
+</pre>
+<p>The analyzer you see defined above is the one used to split the query into all possible alternative synonyms.  Synonyms that are exactly the same as the original query will be ignored, so feel free to use <font face="monospace">expand=true</font> if you like.</p>
+<p>This particular configuration (StandardTokenizerFactory + ShingleFilterFactory + SynonymFilterFactory) is just the one that I found worked the best for me.  Feel free to try a different configuration, but something really fancy might break the code, so I don’t recommend going too far.</p>
+<p>For instance, you can configure the ShingleFilterFactory to output shingles (i.e. word N-grams) of any size you want, but I chose shingles of size 1-4 because my synonyms typically aren’t longer than 4 words.  If you don’t have any multi-word synonyms, you can get rid of the ShingleFilterFactory entirely.</p>
+<p>(I know that this XML format is different from the typical one found in <font face="monospace">schema.xml</font>, since it uses <font face="monospace">lst</font> and <font face="monospace">str</font> tags to configure the tokenizer and filters.  Also, you must define the <font face="monospace">luceneMatchVersion</font> a second time.  I’ll try to find a way to fix these problems in a future release.)</p>
+<li>Add <font face="monospace">defType=synonym_edismax</font> to your query URL parameters, or set it as the default in <font face="monospace">solrconfig.xml</font>.</li>
+<li>Add the following query parameters.  The first one is required:</li>
+<p>
+</p><table border="0" style="border-width:1px;border-color:#999999;border-collapse:collapse;border-style:solid;">
+<tbody><tr style="background:gray;color:white;">
+<td style="padding:0 1em;" align="center"><strong>Param</strong></td>
+<td style="padding:0 1em;" align="center"><strong>Type</strong></td>
+<td style="padding:0 1em;" align="center"><strong>Default</strong></td>
+<td style="padding:0 1em;" align="center"><strong>Summary</strong></td>
+</tr>
+<tr>
+<td style="padding:0 1em;"><strong><font face="monospace" size="-1">synonyms</font></strong></td>
+<td style="padding:0 1em;"><font size="-1">boolean</font></td>
+<td style="padding:0 1em;"><font size="-1">false</font></td>
+<td style="padding:0 1em;"><font size="-1">Enable or disable synonym expansion entirely. Enabled if true.</font></td>
+</tr>
+<tr style="background:#DDDDDD;">
+<td style="padding:0 1em;"><strong><font face="monospace" size="-1">synonyms.analyzer</font></strong></td>
+<td style="padding:0 1em;"><font size="-1">String</font></td>
+<td style="padding:0 1em;"><font size="-1">null</font></td>
+<td style="padding:0 1em;"><font size="-1">Name of the analyzer defined in <font face="monospace">solrconfig.xml</font> to use. (E.g. in the example above, it’s <font face="monospace">myCoolAnalyzer</font>). This <em>must</em> be non-null, if you define more than one analyzer.</font></td>
+</tr>
+<tr>
+<td style="padding:0 1em;"><strong><font face="monospace" size="-1">synonyms.originalBoost</font></strong></td>
+<td style="padding:0 1em;"><font size="-1">float</font></td>
+<td style="padding:0 1em;"><font size="-1">1.0</font></td>
+<td style="padding:0 1em;"><font size="-1">Boost value applied to the original (non-synonym) part of the query.</font></td>
+</tr>
+<tr style="background:#DDDDDD;">
+<td style="padding:0 1em;"><strong><font face="monospace" size="-1">synonyms.synonymBoost</font></strong></td>
+<td style="padding:0 1em;"><font size="-1">float</font></td>
+<td style="padding:0 1em;"><font size="-1">1.0</font></td>
+<td style="padding:0 1em;"><font size="-1">Boost value applied to the synonym part of the query.</font></td>
+</tr>
+<tr>
+<td style="padding:0 1em;"><strong><font face="monospace" size="-1">synonyms.disablePhraseQueries</font></strong></td>
+<td style="padding:0 1em;"><font size="-1">boolean</font></td>
+<td style="padding:0 1em;"><font size="-1">false</font></td>
+<td style="padding:0 1em;"><font size="-1">Enable or disable synonym expansion when the user input contains a phrase query (i.e. a quoted query).</font></td>
+</tr>
+</tbody></table>
+</ol>
+<h3>Future work</h3>
+<p>Note that the parser does not currently expand synonyms if the user input contains complex query operators (i.e. <font face="monospace">AND</font>, <font face="monospace">OR</font>, <font face="monospace">+</font>, and <font face="monospace">-</font>).  This is a TODO for a future release.</p>
+<p>I also plan on getting in contact with the Solr/Lucene folks to see if they would be interested in including my changes in an upcoming version of Solr.  So hopefully patching won’t be necessary in the future.</p>
+<p>In general, I think my approach to synonyms is more principled and less error-prone than the built-in solution.  If nothing else, though, I hope I’ve demonstrated that making synonyms work in Solr isn’t as cut-and-dried as one might think.</p>
+<p>As usual, you can <a href="https://github.com/healthonnet/hon-lucene-synonyms" target="_blank">fork this code on GitHub!</a></p>
+<div id="jp-post-flair" class="sharedaddy sd-like-enabled"><div class="sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-unloaded" id="like-post-wrapper-21720966-2000-547419129533d" data-src="//widgets.wp.com/likes/#blog_id=21720966&amp;post_id=2000&amp;origin=nolanwlawson.wordpress.com&amp;obj_id=21720966-2000-547419129533d" data-name="like-post-frame-21720966-2000-547419129533d"><h3 class="sd-title">Like this:</h3><div class="likes-widget-placeholder post-likes-widget-placeholder" style="height:55px"><span class="button"><span>Like</span></span> <span class="loading">Loading...</span></div><span class="sd-text-color"></span><a class="sd-link-color"></a></div>
+<div id="jp-relatedposts" class="jp-relatedposts">
+	<h3 class="jp-relatedposts-headline"><em>Related</em></h3>
+</div></div>							</div>
+		</div>
+
+		
+<!-- You can start editing here. -->
+<div class="comments-show">
+
+
+	<h3 id="comments">65 responses to this post.</h3>
+
+	<ol class="commentlist">
+
+	<li class="comment even thread-even depth-1 highlander-comment" id="comment-612">
+			<div class="comment-gravatar">
+				<img alt="" src="http://1.gravatar.com/avatar/7b1433a1c1837d244db9ea4c09bad146?s=30&d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D30&r=G" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by lulucas on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-612">December 10, 2012 at 3:39 PM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Hello,</p>
+<p>Thank you very much for your nice work !</p>
+<p>I try to run your class but I get the following error:<br>
+GRAVE: java.lang.IllegalAccessError: class org.apache.solr.search.SynonymExpandingExtendedDismaxQParser cannot access its superclass org.apache.solr.search.ExtendedDismaxQParser<br>
+        at java.lang.ClassLoader.defineClass1(Native Method)<br>
+        at java.lang.ClassLoader.defineClass(ClassLoader.java:634)</p>
+<p>This message is the same on a solr server 3.5.0 and 3.6.1.</p>
+<p>Do you have any idea about the problem?</p>
+<p>Thanks in advance.</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=612#respond" onclick="return addComment.moveForm( &quot;comment-612&quot;, &quot;612&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to lulucas">Reply</a></p>
+				</div>
+			</div>
+<ul class="children">
+<li class="comment byuser comment-author-nolanwlawson bypostauthor odd alt depth-2 highlander-comment" id="comment-613">
+			<div class="comment-gravatar">
+				<img alt="" src="./Better synonym handling in Solr   Read the Tea Leaves_files/c436dec61b906e27c963518d0ef1d972" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by <a href="http://nolanwlawson.wordpress.com/" rel="external nofollow" class="url">Nolan Lawson</a> on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-613">December 10, 2012 at 7:09 PM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Hi there,</p>
+<p>Could you provide some more info about your situation?  Full stacktrace, servlet container you’re running (e.g. Tomcat, Jetty), your Java version, etc.</p>
+<p>I found <a href="http://frazedjava.blogspot.fr/2011_05_01_archive.html" rel="nofollow">this page</a>, which says it may be a problem with Tomcat 7.  Let me know if modifying your web.xml fixed the problem for you.</p>
+<p>For the record, I used Java 6, Tomcat 6, and Solr 3.5.0.</p>
+<p>Cheers,<br>
+Nolan</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=613#respond" onclick="return addComment.moveForm( &quot;comment-613&quot;, &quot;613&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to Nolan Lawson">Reply</a></p>
+				</div>
+			</div>
+<ul class="children">
+<li class="comment even depth-3 highlander-comment" id="comment-616">
+			<div class="comment-gravatar">
+				<img alt="" src="http://1.gravatar.com/avatar/7b1433a1c1837d244db9ea4c09bad146?s=30&d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D30&r=G" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by lulucas on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-616">December 11, 2012 at 9:10 AM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Thank you for your reply,</p>
+<p>My environment :<br>
+JAVA : java version “1.6.0_18″ (OpenJDK Runtime Environment (IcedTea6 1.8.7) (6b18-1.8.7-2~squeeze1))<br>
+TOMCAT : 7.0.23<br>
+SOLR : 3.6.1</p>
+<p>I then added the tag metadata in the /opt/tomcat-master-dev/conf/web.xml file :</p>
+<p>The full Java stack Trace :<br>
+11 dÃ©c. 2012 08:54:31 org.apache.solr.common.SolrException log<br>
+GRAVE: java.lang.IllegalAccessError: class org.apache.solr.search.SynonymExpandingExtendedDismaxQParser cannot access its superclass org.apache.solr.search.ExtendedDismaxQParser<br>
+        at java.lang.ClassLoader.defineClass1(Native Method)<br>
+        at java.lang.ClassLoader.defineClass(ClassLoader.java:634)<br>
+        at java.security.SecureClassLoader.defineClass(SecureClassLoader.java:142)<br>
+        at java.net.URLClassLoader.defineClass(URLClassLoader.java:277)<br>
+        at java.net.URLClassLoader.access$000(URLClassLoader.java:73)<br>
+        at java.net.URLClassLoader$1.run(URLClassLoader.java:212)<br>
+        at java.security.AccessController.doPrivileged(Native Method)<br>
+        at java.net.URLClassLoader.findClass(URLClassLoader.java:205)<br>
+        at java.lang.ClassLoader.loadClass(ClassLoader.java:321)<br>
+        at java.net.FactoryURLClassLoader.loadClass(URLClassLoader.java:615)<br>
+        at java.lang.ClassLoader.loadClass(ClassLoader.java:266)<br>
+        at java.lang.ClassLoader.loadClassInternal(ClassLoader.java:334)<br>
+        at java.lang.Class.forName0(Native Method)<br>
+        at java.lang.Class.forName(Class.java:264)<br>
+        at org.apache.solr.core.SolrResourceLoader.findClass(SolrResourceLoader.java:388)<br>
+        at org.apache.solr.core.SolrCore.createInstance(SolrCore.java:419)<br>
+        at org.apache.solr.core.SolrCore.createInitInstance(SolrCore.java:441)<br>
+        at org.apache.solr.core.SolrCore.initPlugins(SolrCore.java:1612)<br>
+        at org.apache.solr.core.SolrCore.initPlugins(SolrCore.java:1606)<br>
+        at org.apache.solr.core.SolrCore.initPlugins(SolrCore.java:1639)<br>
+        at org.apache.solr.core.SolrCore.initQParsers(SolrCore.java:1556)<br>
+        at org.apache.solr.core.SolrCore.(SolrCore.java:555)<br>
+        at org.apache.solr.core.CoreContainer.create(CoreContainer.java:480)<br>
+        at org.apache.solr.core.CoreContainer.load(CoreContainer.java:332)<br>
+        at org.apache.solr.core.CoreContainer.load(CoreContainer.java:216)<br>
+        at org.apache.solr.core.CoreContainer$Initializer.initialize(CoreContainer.java:161)<br>
+        at org.apache.solr.servlet.SolrDispatchFilter.init(SolrDispatchFilter.java:96)<br>
+        at org.apache.catalina.core.ApplicationFilterConfig.initFilter(ApplicationFilterConfig.java:277)<br>
+        at org.apache.catalina.core.ApplicationFilterConfig.getFilter(ApplicationFilterConfig.java:258)<br>
+        at org.apache.catalina.core.ApplicationFilterConfig.setFilterDef(ApplicationFilterConfig.java:382)<br>
+        at org.apache.catalina.core.ApplicationFilterConfig.(ApplicationFilterConfig.java:103)<br>
+        at org.apache.catalina.core.StandardContext.filterStart(StandardContext.java:4624)<br>
+        at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5281)<br>
+        at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)<br>
+        at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:866)<br>
+        at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:842)<br>
+        at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:615)<br>
+        at org.apache.catalina.startup.HostConfig.deployDescriptor(HostConfig.java:649)<br>
+        at org.apache.catalina.startup.HostConfig$DeployDescriptor.run(HostConfig.java:1581)<br>
+        at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)<br>
+        at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:334)<br>
+        at java.util.concurrent.FutureTask.run(FutureTask.java:166)<br>
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110)<br>
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)<br>
+        at java.lang.Thread.run(Thread.java:636)</p>
+<p>The problem is still there…</p>
+					<p></p>
+				</div>
+			</div>
+</li><!-- #comment-## -->
+<li class="comment byuser comment-author-nolanwlawson bypostauthor odd alt depth-3 highlander-comment" id="comment-617">
+			<div class="comment-gravatar">
+				<img alt="" src="./Better synonym handling in Solr   Read the Tea Leaves_files/c436dec61b906e27c963518d0ef1d972" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by <a href="http://nolanwlawson.wordpress.com/" rel="external nofollow" class="url">Nolan Lawson</a> on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-617">December 11, 2012 at 10:52 AM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>I think I’ve found the culprit.  It looks like in Solr 3.5.0, ExtendedDismaxQParserPlugin defines “queryFields” to be package-private, whereas in Solr 3.6.1, it becomes private.  So my code fails because I try to access the superclass’s “queryFields” (<a href="http://github.com/healthonnet/hon-lucene-synonyms/blob/master/src/main/java/org/apache/solr/search/SynonymExpandingExtendedDismaxQParserPlugin.java#L488" rel="nofollow">here</a>).</p>
+<p>I’ve filed this as <a href="http://github.com/healthonnet/hon-lucene-synonyms/issues/1" rel="nofollow">a bug on the GitHub page</a>, and I’ll try to address it as soon as I can.  Unfortunately this seems like a pretty nasty problem, and I don’t know if there’s any way I can make it work without gutting the offending lines of code. But I’ll look into it.</p>
+					<p></p>
+				</div>
+			</div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1 highlander-comment" id="comment-619">
+			<div class="comment-gravatar">
+				<img alt="" src="http://1.gravatar.com/avatar/7b1433a1c1837d244db9ea4c09bad146?s=30&d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D30&r=G" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by lulucas on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-619">December 11, 2012 at 12:25 PM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>I also think the problem is at this private access to the field “queryFields”.<br>
+I hope you can find a solution (My java skills stops here, sorry).<br>
+Thank you very much for your promptness !</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=619#respond" onclick="return addComment.moveForm( &quot;comment-619&quot;, &quot;619&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to lulucas">Reply</a></p>
+				</div>
+			</div>
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1 highlander-comment" id="comment-637">
+			<div class="comment-gravatar">
+				<img alt="" src="http://1.gravatar.com/avatar/a1670001afa438480d8df6e5bd9bf7ea?s=30&d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D30&r=G" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by <a href="http://samwald.info/" rel="external nofollow" class="url">Matthias Samwald</a> on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-637">December 21, 2012 at 4:20 PM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>I was just about to start experimenting with this when I found your blog via Google (small world? well maybe not that many people are playing with Solr and MeSH after all). Very helpful post!</p>
+<p> – Matthias (working in the same project as Nolan)</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=637#respond" onclick="return addComment.moveForm( &quot;comment-637&quot;, &quot;637&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to Matthias Samwald">Reply</a></p>
+				</div>
+			</div>
+<ul class="children">
+<li class="comment byuser comment-author-nolanwlawson bypostauthor even depth-2 highlander-comment" id="comment-642">
+			<div class="comment-gravatar">
+				<img alt="" src="./Better synonym handling in Solr   Read the Tea Leaves_files/c436dec61b906e27c963518d0ef1d972" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by <a href="http://nolanwlawson.wordpress.com/" rel="external nofollow" class="url">Nolan Lawson</a> on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-642">December 23, 2012 at 9:33 PM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Fancy meeting you here!  I think you’re right that it’s just our field of semantically-advanced, health-related search engines that’s small.  :)</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=642#respond" onclick="return addComment.moveForm( &quot;comment-642&quot;, &quot;642&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to Nolan Lawson">Reply</a></p>
+				</div>
+			</div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1 highlander-comment" id="comment-649">
+			<div class="comment-gravatar">
+				<img alt="" src="http://1.gravatar.com/avatar/d39f605ba2161b93bb9b38710a931f1d?s=30&d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D30&r=G" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by Kannan on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-649">January 4, 2013 at 10:30 PM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Thanks much for the nice work.<br>
+We also were not happy with the solr synonym handling and were thinking along the lines of writing a query parser and glad that we found this post.</p>
+<p>We are using solr 4.0. I got the source code for the SynonymExpandingExtendedDismaxQParserPlugin from github and fixed few package imports (from solr to lucene — modeled after ExtendedDismaxQParserPlugin) and fixed couple of issues because of the new ResourceLoaderAware class, but hit into the private  queryFields error.</p>
+<p>Would appreciate if you have any update on this issue.</p>
+<p>Also curious to find out if you contacted solr/lucene folks and<br>
+their reaction.</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=649#respond" onclick="return addComment.moveForm( &quot;comment-649&quot;, &quot;649&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to Kannan">Reply</a></p>
+				</div>
+			</div>
+<ul class="children">
+<li class="comment byuser comment-author-nolanwlawson bypostauthor even depth-2 highlander-comment" id="comment-651">
+			<div class="comment-gravatar">
+				<img alt="" src="./Better synonym handling in Solr   Read the Tea Leaves_files/c436dec61b906e27c963518d0ef1d972" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by <a href="http://nolanwlawson.wordpress.com/" rel="external nofollow" class="url">Nolan Lawson</a> on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-651">January 5, 2013 at 8:49 PM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>I actually was able to fix the queryFields problem, but I just hadn’t merged my changes into the master branch yet, because during my testing of Solr 3.6.1 I ran into a (probably) unrelated issue.  It’s committed to the master branch now.</p>
+<p>If you have other changes for Solr 4.0, though, then please merge your code with mine (up to <a href="https://github.com/healthonnet/hon-lucene-synonyms/commit/42a5f1bc81fa6e052c25ded79b0ab79ab7844bf8" rel="nofollow">the latest commit</a>), test it, and if it works in Solr 4.0, then please send me a pull request in GitHub.  Hopefully we can make this work for Solr 3.5, 3.6, 3.6.1, and 4.0 in one fell swoop!</p>
+<p><a href="https://issues.apache.org/jira/browse/LUCENE-4499" rel="nofollow">I did contact the Lucene/Solr folks.</a>  It remains to be seen if they will integrate my changes, but if not, then I’m also happy to just consider this as a separate plug-in.</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=651#respond" onclick="return addComment.moveForm( &quot;comment-651&quot;, &quot;651&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to Nolan Lawson">Reply</a></p>
+				</div>
+			</div>
+<ul class="children">
+<li class="comment odd alt depth-3 highlander-comment" id="comment-654">
+			<div class="comment-gravatar">
+				<img alt="" src="http://1.gravatar.com/avatar/d39f605ba2161b93bb9b38710a931f1d?s=30&d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D30&r=G" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by Kannan on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-654">January 8, 2013 at 9:31 PM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Thanks.   Once we have working version of the code with solr 4.0, will send the code to you.</p>
+					<p></p>
+				</div>
+			</div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1 highlander-comment" id="comment-655">
+			<div class="comment-gravatar">
+				<img alt="" src="./Better synonym handling in Solr   Read the Tea Leaves_files/f8ddb0e6e64cb69d75f56636bbd2fae1" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by AB on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-655">January 9, 2013 at 5:23 AM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>hi Nolan</p>
+<p>I set out with great anticipation to use your jar since we have clients of various industries that run into the need for exactly this kind of parser.  I built the jar from your github source with this environment: </p>
+<p>Apache Maven 3.0.4 (r1232337; 2012-01-17 00:44:56-0800)<br>
+Maven home: C:\apache\apache-maven-3.0.4<br>
+Java version: 1.7.0_07, vendor: Oracle Corporation<br>
+Java home: C:\Program Files\Java\jdk1.7.0_07\jre<br>
+Default locale: en_US, platform encoding: Cp1252<br>
+OS name: “windows 7″, version: “6.1”, arch: “amd64″, family: “windows”</p>
+<p>Solr 3.5  </p>
+<p>but I keep hitting that error running with Jetty:<br>
+————————————————-<br>
+Jan 08, 2013 4:43:47 PM org.apache.solr.common.SolrException log<br>
+SEVERE: java.lang.IllegalAccessError: class org.apache.solr.search.SynonymExpand<br>
+ingExtendedDismaxQParser cannot access its superclass org.apache.solr.search.Ext<br>
+endedDismaxQParser<br>
+————————————————-</p>
+<p>And now for the good news, it runs fine with Tomcat 6 apparently<br>
+————————————————-<br>
+Jan 08, 2013 4:50:54 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader<br>
+INFO: Adding ‘file:/C:/apache/solr350/contrib/querytimesynonymparser/hon-lucene-synonyms-1.0.jar’ to classloader<br>
+Jan 08, 2013 4:50:54 PM org.apache.solr.core.SolrConfig<br>
+————————————————-</p>
+<p>Thank you for creating this little gem :)</p>
+<p>AB</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=655#respond" onclick="return addComment.moveForm( &quot;comment-655&quot;, &quot;655&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to AB">Reply</a></p>
+				</div>
+			</div>
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1 highlander-comment" id="comment-658">
+			<div class="comment-gravatar">
+				<img alt="" src="./Better synonym handling in Solr   Read the Tea Leaves_files/f8ddb0e6e64cb69d75f56636bbd2fae1" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by AB on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-658">January 9, 2013 at 10:56 PM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Sadly, I rejoiced a little too soon.  Tomcat loads it really nicely, but as soon as you open up your solr in the browser, back to square one with a fat HTTP500 error</p>
+<p>HTTP Status 500 – Severe errors in solr configuration. Check your log files for more detailed information on what may be wrong. If you want solr to continue after configuration errors, change: false in solr.xml<br>
+————————— java.lang.IllegalAccessError: class org.apache.solr.search.SynonymExpandingExtendedDismaxQParser cannot access its superclass org.apache.solr.search.ExtendedDismaxQParser at java.lang.ClassLoader.defineClass1(Native Method) at java.lang.ClassLoader.defineClass(Unknown Source) at java.security.SecureClassLoader.defineClass(Unknown Source) at java.net.URLClassLoader.defineClass(Unknown Source) at java.net.URLClassLoader.access$100(Unknown Source) at </p>
+<p>etc …</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=658#respond" onclick="return addComment.moveForm( &quot;comment-658&quot;, &quot;658&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to AB">Reply</a></p>
+				</div>
+			</div>
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1 highlander-comment" id="comment-668">
+			<div class="comment-gravatar">
+				<img alt="" src="http://1.gravatar.com/avatar/a07c686baf62e1dfd53a16a1096a2256?s=30&d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D30&r=G" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by <a href="http://sematext.com/" rel="external nofollow" class="url">Otis Gospodnetic</a> on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-668">January 14, 2013 at 5:02 PM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>@Nolan:</p>
+<p>&gt; I did contact the Lucene/Solr folks. It remains to be seen if they will integrate my<br>
+&gt; changes, but if not, then I’m also happy to just consider this as a separate plug-in.</p>
+<p>Please do file the JIRA issue with your patch and set Fix Version to 4.2.  Thanks.</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=668#respond" onclick="return addComment.moveForm( &quot;comment-668&quot;, &quot;668&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to Otis Gospodnetic">Reply</a></p>
+				</div>
+			</div>
+</li><!-- #comment-## -->
+<li class="comment byuser comment-author-tandula odd alt thread-odd thread-alt depth-1 highlander-comment" id="comment-669">
+			<div class="comment-gravatar">
+				<img alt="" src="http://1.gravatar.com/avatar/d2d862caaa641c40029d79a155a0d4b2?s=30&d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D30&r=G" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by tandula on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-669">January 15, 2013 at 12:01 AM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>By placing the files apache-solr-solrj-3.5.0.jar &amp; apache-solr-core-3.5.0.jar    in /example/lib ,  I was able to get it past the original complaints.</p>
+<p>Now the compile error is the following.</p>
+<p>SEVERE: org.apache.solr.common.SolrException: Error Instantiating QParserPlugin,<br>
+	solr.SynonymExpandingExtendedDismaxQParserPlugin is not a org.apache.solr.search.QParserPlugin<br>
+        at org.apache.solr.core.SolrCore.createInstance(SolrCore.java:421)<br>
+        at org.apache.solr.core.SolrCore.createInitInstance(SolrCore.java:441)<br>
+        at org.apache.solr.core.SolrCore.initPlugins(SolrCore.java:1612)<br>
+        at org.apache.solr.core.SolrCore.initPlugins(SolrCore.java:1606)<br>
+        at org.apache.solr.core.SolrCore.initPlugins(SolrCore.java:1639)<br>
+        at org.apache.solr.core.SolrCore.initQParsers(SolrCore.java:1556)<br>
+        at org.apache.solr.core.SolrCore.(SolrCore.java:555)</p>
+<p>QUESTION:  Nolan, which exact solr version did  you write this jar against?  Perhaps I’m using a version of QParser that is different than yours :)   I’ll get this thing to work</p>
+<p>AB</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=669#respond" onclick="return addComment.moveForm( &quot;comment-669&quot;, &quot;669&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to tandula">Reply</a></p>
+				</div>
+			</div>
+</li><!-- #comment-## -->
+<li class="comment byuser comment-author-nolanwlawson bypostauthor even thread-even depth-1 highlander-comment" id="comment-675">
+			<div class="comment-gravatar">
+				<img alt="" src="./Better synonym handling in Solr   Read the Tea Leaves_files/c436dec61b906e27c963518d0ef1d972" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by <a href="http://nolanwlawson.wordpress.com/" rel="external nofollow" class="url">Nolan Lawson</a> on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-675">January 18, 2013 at 10:53 AM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Hi guys,</p>
+<p>I think this discussion is starting to outgrow WordPress.  I’d prefer for us to document this in GitHub, so I created <a href="https://github.com/healthonnet/hon-lucene-synonyms/issues/2" rel="nofollow">a new GitHub issue</a> to track all the compatibility problems with Solr 3.6.0, 3.6.1, and 4.0.</p>
+<p>I can confirm seeing the same errors myself.  And I would greatly appreciate any Solr guru who could help shed some light on these problems.  :)</p>
+<p>– Nolan</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=675#respond" onclick="return addComment.moveForm( &quot;comment-675&quot;, &quot;675&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to Nolan Lawson">Reply</a></p>
+				</div>
+			</div>
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1 highlander-comment" id="comment-676">
+			<div class="comment-gravatar">
+				<img alt="" src="http://1.gravatar.com/avatar/7791248dece6fcd03fa723364ed61dc7?s=30&d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D30&r=G" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by Okke Klein on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-676">January 18, 2013 at 12:47 PM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>If you need help, I suggest you make a Jira issue in the Solr project like Otis also suggested. You can upload none working patches so others can try to fix them.</p>
+<p>Good luck. Looking forward to testing this feature.</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=676#respond" onclick="return addComment.moveForm( &quot;comment-676&quot;, &quot;676&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to Okke Klein">Reply</a></p>
+				</div>
+			</div>
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1 highlander-comment" id="comment-678">
+			<div class="comment-gravatar">
+				<img alt="" src="http://2.gravatar.com/avatar/528e45e350eead5f9f51de62e070d809?s=30&d=http%3A%2F%2F2.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D30&r=G" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by Kevin Schaper on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-678">January 18, 2013 at 8:26 PM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Thanks for the blog post!   It’s nice to have a confirmation of the strange behavior I’m getting with edismax, q.op=AND and synonym expansion of multi-word ontology terms.  </p>
+<p>An option I’ve considered is to move the term expansion out of Solr and into the application layer – that way I can carry forward your idea of a reduced boost for synonyms and also reduce the boost score based on how far down the DAG tree a child ontology term is.   </p>
+<p>I’m working with Solr for a model organism database – always nice to find more bio/med search people!</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=678#respond" onclick="return addComment.moveForm( &quot;comment-678&quot;, &quot;678&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to Kevin Schaper">Reply</a></p>
+				</div>
+			</div>
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1 highlander-comment" id="comment-684">
+			<div class="comment-gravatar">
+				<img alt="" src="./Better synonym handling in Solr   Read the Tea Leaves_files/f8ddb0e6e64cb69d75f56636bbd2fae1" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by AB on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-684">January 29, 2013 at 1:37 AM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Nolan<br>
+I got it to work in run-time, and I want to just compliment you on how stunningly it works. I tested it with 3 word phrases and it broke it into single words, and then to ensure it finds the phrases exactly, I added quotes in the synonyms_extended.txt file.  It worked like a charm.</p>
+<p>How you ask?<br>
+I put the code for your synonym parser in with the rest of the actual Solr 3.5 source, and compiled the entire Solr source.  Then I took that solr.war file and replaced my old one.</p>
+<p>The issues that we keep seeing here, has to do with how Jetty, and Tomcat for that matter load the solr.war file, who is the envelope to the jars, and since the war file had no previous knowledge of the synonym parser being an extension of the QParser, well, you see the picture.</p>
+<p>My next project is how to write it without needing to recompile solr.war, so that it’s just a synonymexpander.jar file I can drop into the lib folder, restart solr and be done and ready to go with the stock solr.war.</p>
+<p>Oh yes, I also added a requestHandler to do the work, so my solr queries are clean like this localhost:8983/solr/ab/?q=shoes</p>
+<p>			explicit<br>
+			xml<br>
+			Hon Synonyms</p>
+<p>			synonym_edismax<br>
+			*:*<br>
+			30<br>
+			*,score<br>
+			2&lt;-1 5&lt;-2 6&lt;90%<br>
+			text^0.5 features^1.0 name^1.2 sku^1.5 id^10.0 manu^1.1 cat^1.4<br>
+			text^0.5 features^1.0 name^1.2 sku^1.5 id^10.0 manu^1.1 cat^1.4</p>
+<p>			<!-- Synonym Expander --><br>
+			true<br>
+			myCoolAnalyzer<br>
+			1.0<br>
+			1.2<br>
+			false</p>
+<p>hope this helps<br>
+AB</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=684#respond" onclick="return addComment.moveForm( &quot;comment-684&quot;, &quot;684&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to AB">Reply</a></p>
+				</div>
+			</div>
+<ul class="children">
+<li class="comment byuser comment-author-nolanwlawson bypostauthor even depth-2 highlander-comment" id="comment-686">
+			<div class="comment-gravatar">
+				<img alt="" src="./Better synonym handling in Solr   Read the Tea Leaves_files/c436dec61b906e27c963518d0ef1d972" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by <a href="http://nolanwlawson.wordpress.com/" rel="external nofollow" class="url">Nolan Lawson</a> on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-686">January 29, 2013 at 2:13 PM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Hi there,</p>
+<p>Yes, this helps a ton.  Unfortunately, until we find a solution using a drop-in JAR file, it sounds like your “compile along with Solr” solution is the only reasonable one.  Since this is the case, though, and since I’ve gotten so much positive feedback on this code, I will file an issue in the Solr JIRA itself to add my code as a patch.</p>
+<p>I’m also taking the liberty of adding your comments to <a href="https://github.com/healthonnet/hon-lucene-synonyms/issues/2" rel="nofollow">the GitHub issue</a>.  Please, folks, restrict your comments/bugfixes/me-too’s to GitHub!  :)  Thanks.</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=686#respond" onclick="return addComment.moveForm( &quot;comment-686&quot;, &quot;686&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to Nolan Lawson">Reply</a></p>
+				</div>
+			</div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment byuser comment-author-nolanwlawson bypostauthor odd alt thread-even depth-1 highlander-comment" id="comment-687">
+			<div class="comment-gravatar">
+				<img alt="" src="./Better synonym handling in Solr   Read the Tea Leaves_files/c436dec61b906e27c963518d0ef1d972" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by <a href="http://nolanwlawson.wordpress.com/" rel="external nofollow" class="url">Nolan Lawson</a> on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-687">January 30, 2013 at 12:26 AM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>All right, <a href="https://github.com/healthonnet/hon-lucene-synonyms/issues/2" rel="nofollow">compatibility bug fixed</a>, <a href="https://github.com/healthonnet/hon-lucene-synonyms#getting-started" rel="nofollow">documentation improved</a>, and <a href="https://issues.apache.org/jira/browse/SOLR-4381" rel="nofollow">JIRA issue filed</a>.  Let’s see if this code can make it into an upcoming version of Solr.</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=687#respond" onclick="return addComment.moveForm( &quot;comment-687&quot;, &quot;687&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to Nolan Lawson">Reply</a></p>
+				</div>
+			</div>
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1 highlander-comment" id="comment-742">
+			<div class="comment-gravatar">
+				<img alt="" src="http://1.gravatar.com/avatar/18be82255c9df1813fcc861288469b80?s=30&d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D30&r=G" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by <a href="http://www.inbenta.com/" rel="external nofollow" class="url">Philippe Lequerre</a> on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-742">February 25, 2013 at 9:33 PM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Interesting post.<br>
+How does Solr handle synonyms when the term is ambiguous? Let’s take “book” which can be both a noun and a verb. Is Solr going to return synonyms of both meanings?</p>
+<p>Unless Solr fully disambiguates in context, which, to the best of my knowledge, it doesn’t, expanding query terms to synonyms will, in this case return even more irrelevant results than just using the query term.</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=742#respond" onclick="return addComment.moveForm( &quot;comment-742&quot;, &quot;742&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to Philippe Lequerre">Reply</a></p>
+				</div>
+			</div>
+<ul class="children">
+<li class="comment odd alt depth-2 highlander-comment" id="comment-743">
+			<div class="comment-gravatar">
+				<img alt="" src="./Better synonym handling in Solr   Read the Tea Leaves_files/f8ddb0e6e64cb69d75f56636bbd2fae1" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by AB on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-743">February 25, 2013 at 9:44 PM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Dear Philippe</p>
+<p>Do you know of an algorithm that deals with slang and words in context like you describe?   as an example, Google returns results for Books, when searching for Book. and Booking sites, when you search for “Book It” or Booking.</p>
+<p>Solr has a well oiled Protected Words factory to deal with cases such as “Book It” and Booking. Enter what you need into the protected words file, ensure the Type of the field is using the Protected words factory, and voilla, Solr won’t stem and dismember the terms, but it has to appear as is in your data for this to work.   Then, you can make synonyms between booking, book it, booking it, making a booking etc.</p>
+<p>HTH<br>
+AB</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=743#respond" onclick="return addComment.moveForm( &quot;comment-743&quot;, &quot;743&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to AB">Reply</a></p>
+				</div>
+			</div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1 highlander-comment" id="comment-744">
+			<div class="comment-gravatar">
+				<img alt="" src="http://1.gravatar.com/avatar/18be82255c9df1813fcc861288469b80?s=30&d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D30&r=G" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by <a href="http://www.inbenta.com/" rel="external nofollow" class="url">Philippe Lequerre</a> on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-744">February 26, 2013 at 1:28 PM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Our own semantic platform (Inbenta) handles disambiguation in context and it does it for several languages. Your example of “booking”, “book it”, “booking it” is fine but it is, pardon my French, trivial. In all these instances “book” has only one meaning, the meaning of “reserve”, so there’s no need to disambiguate. What if the Content has documents containing expressions like “ship a book” and “book a ship”?</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=744#respond" onclick="return addComment.moveForm( &quot;comment-744&quot;, &quot;744&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to Philippe Lequerre">Reply</a></p>
+				</div>
+			</div>
+<ul class="children">
+<li class="comment byuser comment-author-nimnio odd alt depth-2 highlander-comment" id="comment-746">
+			<div class="comment-gravatar">
+				<img alt="" src="http://0.gravatar.com/avatar/3798fee71522049317927bc8053c0599?s=30&d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D30&r=G" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by nimnio on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-746">February 27, 2013 at 12:27 AM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Neither Solr nor Nolan’s open-source improvement deals with synonym semantics, nor do they claim to. Your “constructive criticism” seems no more than advertising.</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=746#respond" onclick="return addComment.moveForm( &quot;comment-746&quot;, &quot;746&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to nimnio">Reply</a></p>
+				</div>
+			</div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1 highlander-comment" id="comment-749">
+			<div class="comment-gravatar">
+				<img alt="" src="http://1.gravatar.com/avatar/18be82255c9df1813fcc861288469b80?s=30&d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D30&r=G" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by <a href="http://www.inbenta.com/" rel="external nofollow" class="url">Philippe Lequerre</a> on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-749">February 27, 2013 at 2:11 PM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>??? I am sorry but I responded to a post by AB asking for an algorithm doing what I describe. It’s not advertising, it’s answering a question.</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=749#respond" onclick="return addComment.moveForm( &quot;comment-749&quot;, &quot;749&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to Philippe Lequerre">Reply</a></p>
+				</div>
+			</div>
+<ul class="children">
+<li class="comment byuser comment-author-nimnio odd alt depth-2 highlander-comment" id="comment-752">
+			<div class="comment-gravatar">
+				<img alt="" src="http://0.gravatar.com/avatar/3798fee71522049317927bc8053c0599?s=30&d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D30&r=G" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by nimnio on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-752">February 27, 2013 at 5:30 PM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Oh, I see now. Sorry, Philippe. The indentation didn’t make it clear that your comment was a reply, so I thought you were commenting on the overall blog post. Once again, sorry.</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=752#respond" onclick="return addComment.moveForm( &quot;comment-752&quot;, &quot;752&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to nimnio">Reply</a></p>
+				</div>
+			</div>
+<ul class="children">
+<li class="comment even depth-3 highlander-comment" id="comment-753">
+			<div class="comment-gravatar">
+				<img alt="" src="http://1.gravatar.com/avatar/18be82255c9df1813fcc861288469b80?s=30&d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D30&r=G" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by <a href="http://www.inbenta.com/" rel="external nofollow" class="url">Philippe Lequerre</a> on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-753">February 27, 2013 at 5:33 PM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>No problem. We’re cool.</p>
+					<p></p>
+				</div>
+			</div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1 highlander-comment" id="comment-757">
+			<div class="comment-gravatar">
+				<img alt="" src="http://0.gravatar.com/avatar/0242e561d61fc4770ccc5728fe02666d?s=30&d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D30&r=G" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by <a href="http://na/" rel="external nofollow" class="url">Jim</a> on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-757">February 28, 2013 at 12:04 AM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Have you been able to do any work on the below statement?</p>
+<p>“Note that the parser does not currently expand synonyms if the user input contains complex query operators (i.e. AND, OR, +, and -). This is a TODO for a future release.”</p>
+<p>I am interested in using the Synonym handler you have created, but I need to add some additional information to the query to get the correct results. I have your code setup and it works as described thanks… just need a little more.</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=757#respond" onclick="return addComment.moveForm( &quot;comment-757&quot;, &quot;757&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to Jim">Reply</a></p>
+				</div>
+			</div>
+<ul class="children">
+<li class="comment byuser comment-author-nolanwlawson bypostauthor even depth-2 highlander-comment" id="comment-761">
+			<div class="comment-gravatar">
+				<img alt="" src="./Better synonym handling in Solr   Read the Tea Leaves_files/c436dec61b906e27c963518d0ef1d972" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by <a href="http://nolanwlawson.wordpress.com/" rel="external nofollow" class="url">Nolan Lawson</a> on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-761">March 4, 2013 at 12:29 PM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>I currently don’t have any intention to solve the complex query operator problem (if you’re using complex operators, you’re probably not a naïve end-user who needs synonym expansion in the first place!), but you are welcome to submit a patch on GitHub if you’d like.  :)</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=761#respond" onclick="return addComment.moveForm( &quot;comment-761&quot;, &quot;761&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to Nolan Lawson">Reply</a></p>
+				</div>
+			</div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1 highlander-comment" id="comment-765">
+			<div class="comment-gravatar">
+				<img alt="" src="http://2.gravatar.com/avatar/bf6a123b877d32265e37c0fb592d5965?s=30&d=http%3A%2F%2F2.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D30&r=G" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by <a href="http://thatjavathing.blogspot.com/" rel="external nofollow" class="url">veggen</a> on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-765">March 23, 2013 at 6:32 PM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Thanks a lot for the great work!<br>
+Is it safe to use your lib with Solr 4.2?</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=765#respond" onclick="return addComment.moveForm( &quot;comment-765&quot;, &quot;765&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to veggen">Reply</a></p>
+				</div>
+			</div>
+<ul class="children">
+<li class="comment byuser comment-author-nolanwlawson bypostauthor even depth-2 highlander-comment" id="comment-775">
+			<div class="comment-gravatar">
+				<img alt="" src="./Better synonym handling in Solr   Read the Tea Leaves_files/c436dec61b906e27c963518d0ef1d972" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by <a href="http://nolanwlawson.wordpress.com/" rel="external nofollow" class="url">Nolan Lawson</a> on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-775">May 5, 2013 at 11:36 PM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Yep, I just confirmed that the branch I wrote for Solr 4.1 also works fine in Solr 4.2.  I.e. the unit tests pass.</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=775#respond" onclick="return addComment.moveForm( &quot;comment-775&quot;, &quot;775&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to Nolan Lawson">Reply</a></p>
+				</div>
+			</div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1 highlander-comment" id="comment-818">
+			<div class="comment-gravatar">
+				<img alt="" src="http://0.gravatar.com/avatar/6ae76dbc679b5a41de621aea944932fa?s=30&d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D30&r=G" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by <a href="http://vossberg/" rel="external nofollow" class="url">art</a> on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-818">June 7, 2013 at 6:34 PM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Could you explain what the effect of back pack=&gt;backpack is?</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=818#respond" onclick="return addComment.moveForm( &quot;comment-818&quot;, &quot;818&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to art">Reply</a></p>
+				</div>
+			</div>
+<ul class="children">
+<li class="comment byuser comment-author-nolanwlawson bypostauthor even depth-2 highlander-comment" id="comment-827">
+			<div class="comment-gravatar">
+				<img alt="" src="./Better synonym handling in Solr   Read the Tea Leaves_files/c436dec61b906e27c963518d0ef1d972" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by <a href="http://nolanwlawson.wordpress.com/" rel="external nofollow" class="url">Nolan Lawson</a> on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-827">June 12, 2013 at 9:19 AM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>It transforms all instances of “back pack” to “backpack,” but not the opposite direction.</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=827#respond" onclick="return addComment.moveForm( &quot;comment-827&quot;, &quot;827&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to Nolan Lawson">Reply</a></p>
+				</div>
+			</div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1 highlander-comment" id="comment-837">
+			<div class="comment-gravatar">
+				<img alt="" src="http://0.gravatar.com/avatar/fa8c943a20127f8499b70ce374d2d933?s=30&d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D30&r=G" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by jhsuh on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-837">June 25, 2013 at 2:08 AM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>This is the very one I want and find for my search system.<br>
+But I have one question and problem for this.<br>
+This query parser uses raw query itself twice.<br>
+For example, I search the query “ny” which has synonyms. And I check the query phrase, I find the “ny” twice on that.<br>
+The query “new york” is same to that. When I check the score of matched documents, those get advantages.<br>
+I think, raw query doesn’t need to be searched in the synonym search phrase. Please consider about it.</p>
+<p>$ tail synonyms.txt<br>
+Television, Televisions, TV, TVs<br>
+#notice we use “gib” instead of “GiB” so any WordDelimiterFilter coming<br>
+#after us won’t split it into two words.</p>
+<p>#Synonym mappings can be used for spelling correction too<br>
+pixima =&gt; pixma<br>
+new york, nyc,ny, new york city<br>
+dog =&gt; hound, pooch, canis familiaris, man’s best friend<br>
+fc =&gt; football club<br>
+ml =&gt; major league</p>
+<p><a href="http://127.0.0.1:8983/solr/select?qf=Title_t&q=ny%20beaches&defType=synonym_edismax&synonyms=true&debugQuery=true&q.op=AND&synonyms.constructPhrases=true" rel="nofollow">http://127.0.0.1:8983/solr/select?qf=Title_t&amp;q=ny%20beaches&amp;defType=synonym_edismax&amp;synonyms=true&amp;debugQuery=true&amp;q.op=AND&amp;synonyms.constructPhrases=true</a></p>
+<p>+((((Title_t:ny) (Title_t:beaches))~2) ((+(((Title_t:”new york city”) (Title_t:beaches))~2)) (+(((Title_t:”new york”) (Title_t:beaches))~2)) (+(((Title_t:ny) (Title_t:beaches))~2)) (+(((Title_t:nyc) (Title_t:beaches))~2))))</p>
+<p><a href="http://127.0.0.1:8983/solr/select?qf=Title_t&q=new%20york%20beaches&defType=synonym_edismax&synonyms=true&debugQuery=true&synonyms.originalBoost=1.1&synonyms.synonymBoost=0.9&q.op=AND&synonyms.constructPhrases=true" rel="nofollow">http://127.0.0.1:8983/solr/select?qf=Title_t&amp;q=new%20york%20beaches&amp;defType=synonym_edismax&amp;synonyms=true&amp;debugQuery=true&amp;synonyms.originalBoost=1.1&amp;synonyms.synonymBoost=0.9&amp;q.op=AND&amp;synonyms.constructPhrases=true</a></p>
+<p>+((((Title_t:new) (Title_t:york) (Title_t:beaches))~3^1.1) (((+(((Title_t:”new york city”) (Title_t:beaches))~2)) (+(((Title_t:”new york”) (Title_t:beaches))~2)) (+(((Title_t:ny) (Title_t:beaches))~2)) (+(((Title_t:nyc) (Title_t:beaches))~2)))^0.9))</p>
+<p>7.8 = (MATCH) sum of:</p>
+<p>3.3000002 = (MATCH) sum of:</p>
+<p>1.1 = (MATCH) weight(Title_t:new in 10044) [MinimalScoreDefaultSimilarity],<br>
+result of: 1.1 = score(doc=10044,freq=1.0 = termFreq=1.0),<br>
+product of: 1.1 = queryWeight, product of: 1.0 = idf(docFreq=83, maxDocs=144370) 1.1 = queryNorm 1.0 = fieldWeight in 10044,<br>
+product of: 1.0 = tf(freq=1.0),<br>
+with freq of: 1.0 = termFreq=1.0 1.0 = idf(docFreq=83, maxDocs=144370) 1.0 = fieldNorm(doc=10044)</p>
+<p>1.1 = (MATCH) weight(Title_t:york in 10044) [MinimalScoreDefaultSimilarity],<br>
+result of: 1.1 = score(doc=10044,freq=1.0 = termFreq=1.0),<br>
+product of: 1.1 = queryWeight, product of: 1.0 = idf(docFreq=46, maxDocs=144370) 1.1 = queryNorm 1.0 = fieldWeight in 10044, product of: 1.0 = tf(freq=1.0),<br>
+with freq of: 1.0 = termFreq=1.0 1.0 = idf(docFreq=46, maxDocs=144370) 1.0 = fieldNorm(doc=10044)</p>
+<p>1.1 = (MATCH) weight(Title_t:beaches in 10044) [MinimalScoreDefaultSimilarity],<br>
+result of: 1.1 = score(doc=10044,freq=1.0 = termFreq=1.0),<br>
+product of: 1.1 = queryWeight,<br>
+product of: 1.0 = idf(docFreq=5, maxDocs=144370) 1.1 = queryNorm 1.0 = fieldWeight in 10044,<br>
+product of: 1.0 = tf(freq=1.0), with freq of: 1.0 = termFreq=1.0 1.0 = idf(docFreq=5, maxDocs=144370) 1.0 = fieldNorm(doc=10044)</p>
+<p>4.5 = (MATCH) sum of:</p>
+<p>4.5 = (MATCH) sum of:</p>
+<p>3.6 = (MATCH) weight(Title_t:”new york” in 10044) [MinimalScoreDefaultSimilarity],<br>
+result of: 3.6 = score(doc=10044,freq=1.0 = phraseFreq=1.0),<br>
+product of: 1.8 = queryWeight,<br>
+product of: 2.0 = idf(),<br>
+sum of: 1.0 = idf(docFreq=83, maxDocs=144370) 1.0 = idf(docFreq=46, maxDocs=144370) 0.9 = queryNorm 2.0 = fieldWeight in 10044,<br>
+product of: 1.0 = tf(freq=1.0), with freq of: 1.0 = phraseFreq=1.0 2.0 = idf(), sum of: 1.0 = idf(docFreq=83, maxDocs=144370) 1.0 = idf(docFreq=46, maxDocs=144370) 1.0 = fieldNorm(doc=10044)</p>
+<p>0.9 = (MATCH) weight(Title_t:beaches in 10044) [MinimalScoreDefaultSimilarity],<br>
+result of: 0.9 = score(doc=10044,freq=1.0 = termFreq=1.0),<br>
+product of: 0.9 = queryWeight,<br>
+product of: 1.0 = idf(docFreq=5, maxDocs=144370) 0.9 = queryNorm 1.0 = fieldWeight in 10044, product of: 1.0 = tf(freq=1.0),<br>
+with freq of: 1.0 = termFreq=1.0 1.0 = idf(docFreq=5, maxDocs=144370) 1.0 = fieldNorm(doc=10044)</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=837#respond" onclick="return addComment.moveForm( &quot;comment-837&quot;, &quot;837&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to jhsuh">Reply</a></p>
+				</div>
+			</div>
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1 highlander-comment" id="comment-838">
+			<div class="comment-gravatar">
+				<img alt="" src="http://0.gravatar.com/avatar/fa8c943a20127f8499b70ce374d2d933?s=30&d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D30&r=G" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by jhsuh on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-838">June 25, 2013 at 6:45 AM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>I have one more question about synonym_edismax.<br>
+Actually we set the field types in schema.xml just like below and when we index/query for each field, just solr can work with those setting.</p>
+<p>But for synonym_edismax, I can set the only one tokenizer. How shall I do synonym search for each field which has diffrent type(diffrent tokenized)?</p>
+<p>…</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=838#respond" onclick="return addComment.moveForm( &quot;comment-838&quot;, &quot;838&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to jhsuh">Reply</a></p>
+				</div>
+			</div>
+</li><!-- #comment-## -->
+<li class="comment byuser comment-author-nellaivijay odd alt thread-odd thread-alt depth-1 highlander-comment" id="comment-843">
+			<div class="comment-gravatar">
+				<img alt="" src="http://2.gravatar.com/avatar/bc9a24ee5430e8e806a2cf593fb8fca3?s=30&d=http%3A%2F%2F2.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D30&r=G" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by <a href="http://nellaivijay.wordpress.com/" rel="external nofollow" class="url">nellaivijay</a> on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-843">July 5, 2013 at 3:01 AM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Reblogged this on <a href="http://nellaivijay.wordpress.com/2013/07/05/better-synonym-handling-in-solr/" rel="nofollow">My Blog</a>.</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=843#respond" onclick="return addComment.moveForm( &quot;comment-843&quot;, &quot;843&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to nellaivijay">Reply</a></p>
+				</div>
+			</div>
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1 highlander-comment" id="comment-853">
+			<div class="comment-gravatar">
+				<img alt="" src="http://0.gravatar.com/avatar/90e9dd4218cc61a664ec33e804e93a00?s=30&d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D30&r=G" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by <a href="http://runtothebeat.blogspot.fr/" rel="external nofollow" class="url">Niki</a> on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-853">August 9, 2013 at 3:55 PM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Great post.  Have you read the post from Mike McCandless ‘Lucene’s TokenStreams are actually graphs!’  at <a href="http://blog.mikemccandless.com/2012/04/lucenes-tokenstreams-are-actually.html" rel="nofollow">http://blog.mikemccandless.com/2012/04/lucenes-tokenstreams-are-actually.html</a>. I think the problem you are having with the highlighting extra terms is a effect of a problem he called sausagization! LOL I have a similar situation to this, we are adding semantic tags that can span terms, and like you and I came to almost the exact same solution, although I didn’t think to play around with the boost.  That’s a great idea.</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=853#respond" onclick="return addComment.moveForm( &quot;comment-853&quot;, &quot;853&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to Niki">Reply</a></p>
+				</div>
+			</div>
+<ul class="children">
+<li class="comment byuser comment-author-nolanwlawson bypostauthor odd alt depth-2 highlander-comment" id="comment-901">
+			<div class="comment-gravatar">
+				<img alt="" src="./Better synonym handling in Solr   Read the Tea Leaves_files/c436dec61b906e27c963518d0ef1d972" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by <a href="http://nolanwlawson.wordpress.com/" rel="external nofollow" class="url">Nolan Lawson</a> on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-901">October 22, 2013 at 11:38 PM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Thanks for the link.  “Sausagization” perfectly describes the highlighting problem I mentioned above.</p>
+<p>Since the author says that fixing this problem would require some fairly low-level changes in Lucene’s indexer, it sounds like my solution is still pretty useful for the time being!</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=901#respond" onclick="return addComment.moveForm( &quot;comment-901&quot;, &quot;901&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to Nolan Lawson">Reply</a></p>
+				</div>
+			</div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1 highlander-comment" id="comment-892">
+			<div class="comment-gravatar">
+				<img alt="" src="http://2.gravatar.com/avatar/53180a5f65ffc8377bb190bd4efa04c8?s=30&d=http%3A%2F%2F2.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D30&r=G" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by aowen on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-892">September 30, 2013 at 4:13 PM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>i’m using solr 4.3.1 and want to use your solution. unfortunately i get the following output with <a href="http://localhost:8983/solr/select/?q=dog&debugQuery=on&qf=text&defType=synonym_edismax&synonyms=true" rel="nofollow">http://localhost:8983/solr/select/?q=dog&amp;debugQuery=on&amp;qf=text&amp;defType=synonym_edismax&amp;synonyms=true</a></p>
+<p>dog<br>
+dog</p>
+<p>(+(() (((+())/no_coord) ((+())/no_coord) ((+())/no_coord) ((+())/no_coord))))/no_coord</p>
+<p>+(() ((+()) (+()) (+()) (+())))</p>
+<p>SynonymExpandingExtendedDismaxQParser</p>
+<p>why isn’t it something like:  +(DisjunctionMaxQuery((text:dog))…….</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=892#respond" onclick="return addComment.moveForm( &quot;comment-892&quot;, &quot;892&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to aowen">Reply</a></p>
+				</div>
+			</div>
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1 highlander-comment" id="comment-893">
+			<div class="comment-gravatar">
+				<img alt="" src="http://2.gravatar.com/avatar/53180a5f65ffc8377bb190bd4efa04c8?s=30&d=http%3A%2F%2F2.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D30&r=G" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by aowen on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-893">September 30, 2013 at 4:45 PM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>sorry, everything is fine. it was a typo in the request</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=893#respond" onclick="return addComment.moveForm( &quot;comment-893&quot;, &quot;893&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to aowen">Reply</a></p>
+				</div>
+			</div>
+<ul class="children">
+<li class="comment even depth-2 highlander-comment" id="comment-13134">
+			<div class="comment-gravatar">
+				<img alt="" src="http://0.gravatar.com/avatar/3026247ed8672c9fe1b9d3ab93fdf381?s=30&d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D30&r=G" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by phranco on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-13134">April 25, 2014 at 8:37 AM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>I am getting the same kind of result, what was the typo in the request?</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=13134#respond" onclick="return addComment.moveForm( &quot;comment-13134&quot;, &quot;13134&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to phranco">Reply</a></p>
+				</div>
+			</div>
+<ul class="children">
+<li class="comment byuser comment-author-nolanwlawson bypostauthor odd alt depth-3 highlander-comment" id="comment-13139">
+			<div class="comment-gravatar">
+				<img alt="" src="./Better synonym handling in Solr   Read the Tea Leaves_files/c436dec61b906e27c963518d0ef1d972" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by <a href="http://nolanlawson.com/" rel="external nofollow" class="url">Nolan Lawson</a> on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-13139">April 25, 2014 at 9:09 AM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Not sure, but there are instructions in the readme on running the Python tests. It will build up the config and query automatically.</p>
+					<p></p>
+				</div>
+			</div>
+</li><!-- #comment-## -->
+<li class="comment byuser comment-author-nolanwlawson bypostauthor even depth-3 highlander-comment" id="comment-13140">
+			<div class="comment-gravatar">
+				<img alt="" src="./Better synonym handling in Solr   Read the Tea Leaves_files/c436dec61b906e27c963518d0ef1d972" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by <a href="http://nolanlawson.com/" rel="external nofollow" class="url">Nolan Lawson</a> on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-13140">April 25, 2014 at 9:10 AM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Ah, it could be qf=text. I think I used the name field instead.</p>
+					<p></p>
+				</div>
+			</div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1 highlander-comment" id="comment-895">
+			<div class="comment-gravatar">
+				<img alt="" src="http://1.gravatar.com/avatar/4784dc952a461cba2591ff0500bd4515?s=30&d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D30&r=G" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by Aaron on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-895">October 10, 2013 at 9:21 PM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Hi Nolan,</p>
+<p>First of all, thanks for the great job done! Your synonyms expanding parser is very helpful and definitely a big step forward for the synonym handling in Solr. Were you able to make stemming work with your parser? What if you want “dogs” to be expanded without explicitly specifying plural form in the synonyms list?</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=895#respond" onclick="return addComment.moveForm( &quot;comment-895&quot;, &quot;895&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to Aaron">Reply</a></p>
+				</div>
+			</div>
+<ul class="children">
+<li class="comment byuser comment-author-nolanwlawson bypostauthor even depth-2 highlander-comment" id="comment-899">
+			<div class="comment-gravatar">
+				<img alt="" src="./Better synonym handling in Solr   Read the Tea Leaves_files/c436dec61b906e27c963518d0ef1d972" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by <a href="http://nolanwlawson.wordpress.com/" rel="external nofollow" class="url">Nolan Lawson</a> on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-899">October 22, 2013 at 11:29 PM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Unfortunately, since the synonym expansion occurs before the query is processed by the query analyzer, plurals aren’t handled automatically.  You’d have to either:</p>
+<p>1) manually include plurals in your synonyms file, or</p>
+<p>2) tweak the <a href="https://github.com/healthonnet/hon-lucene-synonyms/blob/f2dc303fe32ddedc3f518bf34f630d82017c109a/run_solr_for_unit_tests.py#L85" rel="nofollow">“synonym analyzer”</a> and add a stemmer in the tokenization/analysis chain.  (Your mileage may vary; I’ve never experimented with it myself.)</p>
+<p>Hope that helps!</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=899#respond" onclick="return addComment.moveForm( &quot;comment-899&quot;, &quot;899&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to Nolan Lawson">Reply</a></p>
+				</div>
+			</div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1 highlander-comment" id="comment-898">
+			<div class="comment-gravatar">
+				<img alt="" src="http://2.gravatar.com/avatar/8b981547ddc4cf500142351db4969df5?s=30&d=http%3A%2F%2F2.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D30&r=G" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by Peter Robsen on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-898">October 17, 2013 at 8:44 PM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Hi, great job for us, now im trying get the synonyms from a web service that already we have, can you help me to achieve?</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=898#respond" onclick="return addComment.moveForm( &quot;comment-898&quot;, &quot;898&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to Peter Robsen">Reply</a></p>
+				</div>
+			</div>
+<ul class="children">
+<li class="comment byuser comment-author-nolanwlawson bypostauthor even depth-2 highlander-comment" id="comment-900">
+			<div class="comment-gravatar">
+				<img alt="" src="./Better synonym handling in Solr   Read the Tea Leaves_files/c436dec61b906e27c963518d0ef1d972" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by <a href="http://nolanwlawson.wordpress.com/" rel="external nofollow" class="url">Nolan Lawson</a> on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-900">October 22, 2013 at 11:30 PM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Because of the way the SynonymFilterFactory is designed, I believe you’d have to download all the synonyms from your web service and save them as a text file (as described in the <a href="http://wiki.apache.org/solr/AnalyzersTokenizersTokenFilters#solr.SynonymFilterFactory" rel="nofollow">SynonymFilterFactory</a> documentation).</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=900#respond" onclick="return addComment.moveForm( &quot;comment-900&quot;, &quot;900&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to Nolan Lawson">Reply</a></p>
+				</div>
+			</div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1 highlander-comment" id="comment-1459">
+			<div class="comment-gravatar">
+				<img alt="" src="http://2.gravatar.com/avatar/b39be4acfc6b1a2ec1aa4b40909490b0?s=30&d=http%3A%2F%2F2.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D30&r=G" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by Steve on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-1459">December 20, 2013 at 8:06 AM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Nolan,<br>
+Nice work, thanks.  Do you know whether anyone’s tried applying a similar design for a raw Lucene environment/repository (i.e. subclassing QueryParser)?<br>
+Thanks!</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=1459#respond" onclick="return addComment.moveForm( &quot;comment-1459&quot;, &quot;1459&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to Steve">Reply</a></p>
+				</div>
+			</div>
+<ul class="children">
+<li class="comment byuser comment-author-nolanwlawson bypostauthor even depth-2 highlander-comment" id="comment-1468">
+			<div class="comment-gravatar">
+				<img alt="" src="./Better synonym handling in Solr   Read the Tea Leaves_files/c436dec61b906e27c963518d0ef1d972" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by <a href="http://nolanlawson.com/" rel="external nofollow" class="url">Nolan Lawson</a> on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-1468">December 22, 2013 at 6:03 PM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>No, although if you wanted to replicate what I did, the code itself would be pretty straightforward.  Basically, I just built up a lattice, expanding the query into every possible synonym combination (e.g. dog bites -&gt; dog nibbles, pooch bites, pooch nibbles).</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=1468#respond" onclick="return addComment.moveForm( &quot;comment-1468&quot;, &quot;1468&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to Nolan Lawson">Reply</a></p>
+				</div>
+			</div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1 highlander-comment" id="comment-1512">
+			<div class="comment-gravatar">
+				<img alt="" src="http://0.gravatar.com/avatar/fbc13aa26205d4485838133231ae694c?s=30&d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D30&r=G" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by <a href="http://gravatar.com/rimazzas" rel="external nofollow" class="url">Rimas</a> on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-1512">January 3, 2014 at 4:22 AM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Hi Nolan,<br>
+Very nice tool, thanks. Is it possible to integrate synonyms in other way rather than save them as a text file as described in the SynonymFilterFactory documentation? For example: if synonyms or other related concepts are in xml files (as thesaurus). If yes, where reading of such synonyms source can be done?</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=1512#respond" onclick="return addComment.moveForm( &quot;comment-1512&quot;, &quot;1512&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to Rimas">Reply</a></p>
+				</div>
+			</div>
+<ul class="children">
+<li class="comment byuser comment-author-nolanwlawson bypostauthor even depth-2 highlander-comment" id="comment-2246">
+			<div class="comment-gravatar">
+				<img alt="" src="./Better synonym handling in Solr   Read the Tea Leaves_files/c436dec61b906e27c963518d0ef1d972" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by <a href="http://nolanlawson.com/" rel="external nofollow" class="url">Nolan Lawson</a> on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-2246">February 10, 2014 at 1:02 AM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Sorry, this plugin is really pretty tightly coupled to the SynonymFilterFactory file format.</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=2246#respond" onclick="return addComment.moveForm( &quot;comment-2246&quot;, &quot;2246&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to Nolan Lawson">Reply</a></p>
+				</div>
+			</div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment byuser comment-author-tandula odd alt thread-odd thread-alt depth-1 highlander-comment" id="comment-1618">
+			<div class="comment-gravatar">
+				<img alt="" src="http://1.gravatar.com/avatar/d2d862caaa641c40029d79a155a0d4b2?s=30&d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D30&r=G" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by tandula on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-1618">January 23, 2014 at 4:20 PM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>hi Nolan</p>
+<p>It’s Jan 2014, Solr 4.6 is out, and in the Wiki, yours is the first mentioned and recognized 3rd party Query parser extension.</p>
+<p><a href="http://wiki.apache.org/solr/QueryParser" rel="nofollow">http://wiki.apache.org/solr/QueryParser</a></p>
+<p>Way to go Nolan!<br>
+AB – Anria Billavara</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=1618#respond" onclick="return addComment.moveForm( &quot;comment-1618&quot;, &quot;1618&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to tandula">Reply</a></p>
+				</div>
+			</div>
+<ul class="children">
+<li class="comment byuser comment-author-nolanwlawson bypostauthor even depth-2 highlander-comment" id="comment-1626">
+			<div class="comment-gravatar">
+				<img alt="" src="./Better synonym handling in Solr   Read the Tea Leaves_files/c436dec61b906e27c963518d0ef1d972" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by <a href="http://nolanlawson.com/" rel="external nofollow" class="url">Nolan Lawson</a> on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-1626">January 24, 2014 at 8:50 AM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>That’s great! It’s nice to see folks getting so much use out of the plugin.</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=1626#respond" onclick="return addComment.moveForm( &quot;comment-1626&quot;, &quot;1626&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to Nolan Lawson">Reply</a></p>
+				</div>
+			</div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1 highlander-comment" id="comment-2318">
+			<div class="comment-gravatar">
+				<img alt="" src="http://2.gravatar.com/avatar/88b4d95f5ff075dfea74337158268393?s=30&d=http%3A%2F%2F2.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D30&r=G" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by Alexander on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-2318">February 10, 2014 at 3:45 PM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Hello,</p>
+<p>This plugin gives the following error<br>
+maxClauseCount is set to 5100org.apache.lucene.search.BooleanQuery$TooManyClauses: maxClauseCount is set to 5100<br>
+    at org.apache.lucene.search.BooleanQuery.add(BooleanQuery.java:142)<br>
+    at org.apache.lucene.search.BooleanQuery.add(BooleanQuery.java:133)<br>
+    at org.apache.solr.search.SynonymExpandingExtendedDismaxQParser.applySynonymQueries(SynonymExpandingExtendedDismaxQParserPlugin.java:416)<br>
+    at org.apache.solr.search.SynonymExpandingExtendedDismaxQParser.attemptToApplySynonymsToQuery(SynonymExpandingExtendedDismaxQParserPlugin.java:379)<br>
+    at org.apache.solr.search.SynonymExpandingExtendedDismaxQParser.parse(SynonymExpandingExtendedDismaxQParserPlugin.java:351)<br>
+    at org.apache.solr.search.QParser.getQuery(QParser.java:142)<br>
+    at org.apache.solr.handler.component.QueryComponent.prepare(QueryComponent.java:142)<br>
+    at org.apache.solr.handler.component.SearchHandler.handleRequestBody(SearchHandler.java:194)<br>
+    at org.apache.solr.handler.RequestHandlerBase.handleRequest(RequestHandlerBase.java:135)<br>
+    at org.apache.solr.core.SolrCore.execute(SolrCore.java:1859)<br>
+    at org.apache.solr.servlet.SolrDispatchFilter.execute(SolrDispatchFilter.java:710)<br>
+    at org.apache.solr.servlet.SolrDispatchFilter.doFilter(SolrDispatchFilter.java:413)<br>
+    at org.apache.solr.servlet.SolrDispatchFilter.doFilter(SolrDispatchFilter.java:197)<br>
+    at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1419)<br>
+    at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:455)<br>
+    at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:137)<br>
+    at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:557)<br>
+    at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:231)<br>
+    at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1075)<br>
+    at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:384)<br>
+    at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:193)<br>
+    at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:1009)<br>
+    at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:135)<br>
+    at org.eclipse.jetty.server.handler.ContextHandlerCollection.handle(ContextHandlerCollection.java:255)<br>
+    at org.eclipse.jetty.server.handler.HandlerCollection.handle(HandlerCollection.java:154)<br>
+    at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:116)<br>
+    at org.eclipse.jetty.server.Server.handle(Server.java:368)<br>
+    at org.eclipse.jetty.server.AbstractHttpConnection.handleRequest(AbstractHttpConnection.java:489)<br>
+    at org.eclipse.jetty.server.BlockingHttpConnection.handleRequest(BlockingHttpConnection.java:53)<br>
+    at org.eclipse.jetty.server.AbstractHttpConnection.headerComplete(AbstractHttpConnection.java:942)<br>
+    at org.eclipse.jetty.server.AbstractHttpConnection$RequestHandler.headerComplete(AbstractHttpConnection.java:1004)<br>
+    at org.eclipse.jetty.http.HttpParser.parseNext(HttpParser.java:640)<br>
+    at org.eclipse.jetty.http.HttpParser.parseAvailable(HttpParser.java:235)<br>
+    at org.eclipse.jetty.server.BlockingHttpConnection.handle(BlockingHttpConnection.java:72)<br>
+    at org.eclipse.jetty.server.bio.SocketConnector$ConnectorEndPoint.run(SocketConnector.java:264)<br>
+    at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:608)<br>
+    at org.eclipse.jetty.util.thread.QueuedThreadPool$3.run(QueuedThreadPool.java:543)<br>
+    at java.lang.Thread.run(Thread.java:744)<br>
+500</p>
+<p>I think this is because the synonym list is too big. Is it possible to use this kind of expanding in index time to avoid this error?</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=2318#respond" onclick="return addComment.moveForm( &quot;comment-2318&quot;, &quot;2318&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to Alexander">Reply</a></p>
+				</div>
+			</div>
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1 highlander-comment" id="comment-3020">
+			<div class="comment-gravatar">
+				<img alt="" src="http://0.gravatar.com/avatar/fdacd6e092983901477ad0b43699484a?s=30&d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D30&r=G" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by Manuel Le Normand on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-3020">February 18, 2014 at 8:46 AM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Hi Nolan,<br>
+I’m thinking of adapting your queryParser for dealing with word similarities. These are quasi-synonyms with different similarity scores determined by many hierarchies separate these terms (that are their boosts). It has a hierarchical structure built of bag of words (marked by {}) and terms, for example</p>
+<p>{countries} =&gt; {countries in europe}, {countries in asia}, australia, usa<br>
+{countries in europe} =&gt; france, england<br>
+{countries in asia} =&gt; china, japan, israel<br>
+{celebrity} =&gt; britney spears, madonna</p>
+<p>we expect a following query: q={!synonym_edismax}(countries or celebrity) ==&gt; q=max( (australia usa)^2 OR (france, england)^1 OR (china, japan, israel)^1) OR max(britney spears or madonna)</p>
+<p>Before I deep dive into the code, I wanted to know wether this queryParser would be adaptable for this need.</p>
+<p>Second of all, what do you think of contributing the code to solr project so you wouldn’t have to worry for maintaining the code?</p>
+<p>Thanks</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=3020#respond" onclick="return addComment.moveForm( &quot;comment-3020&quot;, &quot;3020&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to Manuel Le Normand">Reply</a></p>
+				</div>
+			</div>
+<ul class="children">
+<li class="comment byuser comment-author-nolanwlawson bypostauthor odd alt depth-2 highlander-comment" id="comment-6419">
+			<div class="comment-gravatar">
+				<img alt="" src="./Better synonym handling in Solr   Read the Tea Leaves_files/c436dec61b906e27c963518d0ef1d972" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by <a href="http://nolanlawson.com/" rel="external nofollow" class="url">Nolan Lawson</a> on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-6419">March 16, 2014 at 1:54 PM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Unfortunately, the synonym plugin wasn’t really designed for hierarchical synonyms or meronyms/holonyms as you describe. You can attach different synonym files to different fields in order to achieve what your want, but it’d be kinda hacky.</p>
+<p>As for Solr, apparently it’ll be included in 4.8! <a href="https://issues.apache.org/jira/browse/SOLR-4381" rel="nofollow">https://issues.apache.org/jira/browse/SOLR-4381</a></p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=6419#respond" onclick="return addComment.moveForm( &quot;comment-6419&quot;, &quot;6419&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to Nolan Lawson">Reply</a></p>
+				</div>
+			</div>
+<ul class="children">
+<li class="comment even depth-3 highlander-comment" id="comment-10619">
+			<div class="comment-gravatar">
+				<img alt="" src="http://0.gravatar.com/avatar/fbc13aa26205d4485838133231ae694c?s=30&d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D30&r=G" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by Rimas on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-10619">April 16, 2014 at 6:39 AM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Can you explain how different synonym files can be attached to different fields using your synonim plugin?</p>
+					<p></p>
+				</div>
+			</div>
+</li><!-- #comment-## -->
+<li class="comment byuser comment-author-nolanwlawson bypostauthor odd alt depth-3 highlander-comment" id="comment-10814">
+			<div class="comment-gravatar">
+				<img alt="" src="./Better synonym handling in Solr   Read the Tea Leaves_files/c436dec61b906e27c963518d0ef1d972" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by <a href="http://nolanlawson.com/" rel="external nofollow" class="url">Nolan Lawson</a> on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-10814">April 16, 2014 at 9:33 AM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Check out <a href="https://raw.github.com/healthonnet/hon-lucene-synonyms/master/examples/example_config.xml" rel="nofollow">the example config</a>.  Where it says “myCoolAnalyzer”, you can add multiple tags with whatever analyzers you want, e.g. “myCoolAnalyzer2″, “myCoolAnalyzer3″, etc.  Then when you query, you just specify the analyzer you want to use with the synonyms.analyzer option.  Unfortunately you’ll have to do a separate query for each analyzer, though.</p>
+					<p></p>
+				</div>
+			</div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1 highlander-comment" id="comment-34840">
+			<div class="comment-gravatar">
+				<img alt="" src="http://2.gravatar.com/avatar/e11f6fd28bdc9f9695ac050a21e5878d?s=30&d=http%3A%2F%2F2.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D30&r=G" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by Bernd Wölfel on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-34840">July 28, 2014 at 9:06 AM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Hi Nolan,</p>
+<p>this is an awesome plugin, exactly what I need for my project. Unfortunately I am not able to get it to run with the example config from GitHub. I’m using sole-4.6.1 with your latest plugin version (on a Sun-Java6 VM)</p>
+<p>The configuration besides that is pretty simple, the plugin itself works nicely, but it cannot find the one and only “MyCoolAnalyzer” with it’s defined values from solrconfig. It always gives me NoAnalyzerSpecified/AnalyzerNotFound no matter what I do (even got the Java source and set the name to look for statically to “MyCoolAnalyzer”. The Collection just stays empty.</p>
+<p>I guess it is a pretty dumb mistake, but if anyone could give me a pointer in the right direction I’d appreciate it very much.</p>
+<p>Thank you!</p>
+<p>Best,<br>
+Bernd</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=34840#respond" onclick="return addComment.moveForm( &quot;comment-34840&quot;, &quot;34840&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to Bernd Wölfel">Reply</a></p>
+				</div>
+			</div>
+<ul class="children">
+<li class="comment odd alt depth-2 highlander-comment" id="comment-36033">
+			<div class="comment-gravatar">
+				<img alt="" src="http://2.gravatar.com/avatar/e11f6fd28bdc9f9695ac050a21e5878d?s=30&d=http%3A%2F%2F2.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D30&r=G" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by Bernd Wölfel on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-36033">July 31, 2014 at 7:56 AM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Sorry, I figured my issue out as well (misallocated synonyms file) – Thank you so much for the great Plugin!</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=36033#respond" onclick="return addComment.moveForm( &quot;comment-36033&quot;, &quot;36033&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to Bernd Wölfel">Reply</a></p>
+				</div>
+			</div>
+</li><!-- #comment-## -->
+<li class="comment byuser comment-author-nolanwlawson bypostauthor even depth-2 highlander-comment" id="comment-38363">
+			<div class="comment-gravatar">
+				<img alt="" src="./Better synonym handling in Solr   Read the Tea Leaves_files/c436dec61b906e27c963518d0ef1d972" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by <a href="http://nolanlawson.com/" rel="external nofollow" class="url">Nolan Lawson</a> on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-38363">August 9, 2014 at 2:03 PM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Hi Bernd, if you check out the code you will see that there are Python scripts to set up a little Solr server and run the tests automatically. It even downloads the Solr binaries for you, so you don’t have to do anything except have Python and Java installed. If you compare that setup to yours, I’m sure you’ll see what the issue is!  Cheers.</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=38363#respond" onclick="return addComment.moveForm( &quot;comment-38363&quot;, &quot;38363&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to Nolan Lawson">Reply</a></p>
+				</div>
+			</div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment byuser comment-author-ashutoshdtu odd alt thread-odd thread-alt depth-1 highlander-comment" id="comment-35841">
+			<div class="comment-gravatar">
+				<img alt="" src="http://1.gravatar.com/avatar/40bd0f16a97b6cb5855278e56ed98257?s=30&d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D30&r=G" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by <a href="http://visiontoai.wordpress.com/" rel="external nofollow" class="url">Ashutosh</a> on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-35841">July 31, 2014 at 2:33 AM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Hi Nolan,</p>
+<p>Thanks for great plugin. I tried your parser. Its expanding the queries as expected but I’m getting zero responses. Also I must mention that I’m just starting with solr and lucene.</p>
+<p>Here’s a part of the result for the query <a href="http://127.0.0.1:3898/solr-webapp/collection1/select?q=crowd%20finance&qf=text&defType=synonym_edismax&synonyms=true&wt=json&synonyms.originalBoost=1.2&synonyms.synonymBoost=1.1&debugQuery=on" rel="nofollow">http://127.0.0.1:3898/solr-webapp/collection1/select?q=crowd%20finance&amp;qf=text&amp;defType=synonym_edismax&amp;synonyms=true&amp;wt=json&amp;synonyms.originalBoost=1.2&amp;synonyms.synonymBoost=1.1&amp;debugQuery=on</a></p>
+<p>{<br>
+responseHeader: {<br>
+status: 0,<br>
+QTime: 18,<br>
+params: {<br>
+debugQuery: “on”,<br>
+synonyms.synonymBoost: “1.1”,<br>
+q: “crowd finance”,<br>
+qf: “text”,<br>
+synonyms: “true”,<br>
+wt: “json”,<br>
+synonyms.originalBoost: “1.2”,<br>
+defType: “synonym_edismax”<br>
+}<br>
+},<br>
+response: {<br>
+numFound: 0,<br>
+start: 0,<br>
+docs: [ ]<br>
+},<br>
+debug: {<br>
+rawquerystring: “crowd finance”,<br>
+querystring: “crowd finance”,<br>
+parsedquery: “SynonymExpandingExtendedDismaxQuery(custom(boost(+(((text:crowd) (text:finance))~2) (title:”crowd finance”~10^25.0) (concept_tags:”crowd finance”~10^25.0) (content:”crowd finance”~10),product(pow(int(share_count),const(1.5)),0.08/(3.16E-8<em>float(ms(const(1406797200000),date(earliest_known_date)))+0.05)))))”,<br>
+parsedquery_toString: “custom(boost(+(((text:crowd) (text:finance))~2) (title:”crowd finance”~10^25.0) (concept_tags:”crowd finance”~10^25.0) (content:”crowd finance”~10),product(pow(int(share_count),const(1.5)),0.08/(3.16E-8</em>float(ms(const(1406797200000),date(earliest_known_date)))+0.05))))”,<br>
+explain: { },<br>
+queryToHighlight: [<br>
+“org.apache.lucene.search.BooleanClause:((text:crowd) (text:finance))~2^1.2″,<br>
+“org.apache.lucene.search.BooleanClause:((+(((text:crowd) +(text:business) +(text:finance))~1) (title:”crowd business and finance”~10^25.0) (concept_tags:”crowd business and finance”~10^25.0) (content:”crowd business and finance”~10)))^1.1″,<br>
+“org.apache.lucene.search.BooleanClause:((+(((text:crowd) (text:funding))~2) (title:”crowd funding”~10^25.0) (concept_tags:”crowd funding”~10^25.0) (content:”crowd funding”~10)))^1.1″,<br>
+“org.apache.lucene.search.BooleanClause:((+(((text:crowd) (text:business) (text:finance))~3) (title:”crowd business finance”~10^25.0) (concept_tags:”crowd business finance”~10^25.0) (content:”crowd business finance”~10)))^1.1″,<br>
+“org.apache.lucene.search.BooleanClause:((+(((text:crowd) (text:financial))~2) (title:”crowd financial”~10^25.0) (concept_tags:”crowd financial”~10^25.0) (content:”crowd financial”~10)))^1.1″<br>
+],<br>
+expandedSynonyms: [<br>
+“crowd business and finance”,<br>
+“crowd business finance”,<br>
+“crowd finance”,<br>
+“crowd finance”,<br>
+“crowd financial”,<br>
+“crowd funding”<br>
+],<br>
+mainQueryParser: [<br>
+“QParser”,<br>
+“ExtendedDismaxQParser”,<br>
+“altquerystring”,<br>
+null,<br>
+“boost_queries”,<br>
+null,<br>
+“parsed_boost_queries”,<br>
+[ ],<br>
+“boostfuncs”,<br>
+null<br>
+],<br>
+synonymQueryParser: [<br>
+“QParser”,<br>
+“ExtendedDismaxQParser”,<br>
+“altquerystring”,<br>
+null,<br>
+“boost_queries”,<br>
+null,<br>
+“parsed_boost_queries”,<br>
+[ ],<br>
+“boostfuncs”,<br>
+null<br>
+],<br>
+…</p>
+<p>Am I missing something obvious?</p>
+<p>Thanks.</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=35841#respond" onclick="return addComment.moveForm( &quot;comment-35841&quot;, &quot;35841&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to Ashutosh">Reply</a></p>
+				</div>
+			</div>
+<ul class="children">
+<li class="comment byuser comment-author-ashutoshdtu even depth-2 highlander-comment" id="comment-35958">
+			<div class="comment-gravatar">
+				<img alt="" src="http://1.gravatar.com/avatar/40bd0f16a97b6cb5855278e56ed98257?s=30&d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D30&r=G" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by <a href="http://visiontoai.wordpress.com/" rel="external nofollow" class="url">Ashutosh</a> on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-35958">July 31, 2014 at 5:36 AM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Sorry, found the culprit. It seems I hadn’t set the parameters of edismax correctly.</p>
+<p>Thanks a ton.</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=35958#respond" onclick="return addComment.moveForm( &quot;comment-35958&quot;, &quot;35958&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to Ashutosh">Reply</a></p>
+				</div>
+			</div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1 highlander-comment" id="comment-43894">
+			<div class="comment-gravatar">
+				<img alt="" src="http://1.gravatar.com/avatar/112431c4af3b543f0cb411c8b292beec?s=30&d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D30&r=G" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by Frédéric on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-43894">August 29, 2014 at 10:00 AM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Hey Nolan, long time no see!!!</p>
+<p>Guess what… I m currently working on my medical thesis which concerns some kind of search engine in the patients documentation. The thing is supposed to be well suited to in-hosp physicians (whose effectiveness on EHRs is quite poor in general, I must admit… ).</p>
+<p>Anyways i was running some query on google with “mesh lucene semantic” (i think) and I ended up here! And i very much enjoyed it, I mut say!!! ;)</p>
+<p>I m gonna delve into  it right away so thanks for the work!</p>
+<p>I hope we ll see each other again! Cheers</p>
+<p>Frédéric (HUG)</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=43894#respond" onclick="return addComment.moveForm( &quot;comment-43894&quot;, &quot;43894&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to Frédéric">Reply</a></p>
+				</div>
+			</div>
+<ul class="children">
+<li class="comment byuser comment-author-nolanwlawson bypostauthor even depth-2 highlander-comment" id="comment-53362">
+			<div class="comment-gravatar">
+				<img alt="" src="./Better synonym handling in Solr   Read the Tea Leaves_files/c436dec61b906e27c963518d0ef1d972" class="avatar avatar-30" height="30" width="30">			</div>
+			<div class="comment-body">
+				<div class="comment-head">
+					<p>Posted by <a href="http://nolanlawson.com/" rel="external nofollow" class="url">Nolan Lawson</a> on <a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-53362">October 4, 2014 at 8:15 AM</a></p>
+									</div>
+				<div class="comment-text">
+					<p>Salut Fréd! That’s awesome; glad to know you’re still doing well at the HUG. :)</p>
+<p>The synonyms project is still going strong, and still the most popular project on the HON’s GitHub page. So yeah, it filled a neat little void in the Solr ecosystem.</p>
+<p>Take care; hope your thesis goes well!</p>
+					<p><a class="comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/?replytocom=53362#respond" onclick="return addComment.moveForm( &quot;comment-53362&quot;, &quot;53362&quot;, &quot;respond&quot;, &quot;2000&quot; )" aria-label="Reply to Nolan Lawson">Reply</a></p>
+				</div>
+			</div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+
+	</ol>
+
+	<div class="prev-next">
+		<div class="alignleft"></div>
+		<div class="alignright"></div>
+	</div>
+
+
+
+			<!-- If comments are open, but there are no comments. -->
+
+	 
+
+								<div id="respond" class="comment-respond">
+				<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="http://nolanlawson.com/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+																										
+
+
+												<input type="hidden" id="highlander_comment_nonce" name="highlander_comment_nonce" value="1686d0664d"><input type="hidden" name="_wp_http_referer" value="/2012/10/31/better-synonym-handling-in-solr/">
+<input type="hidden" name="hc_post_as" id="hc_post_as" value="guest">
+
+<div class="comment-form-field comment-textarea">
+	<label for="comment">Enter your comment here...</label>
+	<div id="comment-form-comment"><textarea id="comment" name="comment" title="Enter your comment here..."></textarea></div>
+</div>
+
+<div id="comment-form-identity">
+
+	<div id="comment-form-nascar">
+		<p>Fill in your details below or click an icon to log in:</p>
+		<ul>
+			<li class="selected" style="display:none;">
+				<a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-form-guest" id="postas-guest" title="Guest">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-form-load-service:WordPress.com" id="postas-wordpress" title="WordPress.com">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-form-load-service:Twitter" id="postas-twitter" title="Twitter">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#comment-form-load-service:Facebook" id="postas-facebook" title="Facebook">
+					<span></span>
+				</a>
+			</li>
+			<li>
+		</li></ul>
+	</div>
+
+	<div id="comment-form-guest" class="comment-form-service selected">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+<a href="https://gravatar.com/site/signup/" target="_blank">				<img src="http://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25" alt="Gravatar" width="25" class="no-grav">
+</a>			</div>
+
+				<div class="comment-form-fields">
+				<div class="comment-form-field comment-form-email">
+					<label for="email">Email <span class="required">(required)</span> <span class="nopublish">(Address never made public)</span></label>
+					<div class="comment-form-input"><input id="email" name="email" type="email" value=""></div>
+				</div>
+				<div class="comment-form-field comment-form-author">
+					<label for="author">Name <span class="required">(required)</span></label>
+					<div class="comment-form-input"><input id="author" name="author" type="text" value=""></div>
+				</div>
+				<div class="comment-form-field comment-form-url">
+					<label for="url">Website</label>
+					<div class="comment-form-input"><input id="url" name="url" type="text" value=""></div>
+				</div>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-wordpress" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="http://s2.wp.com/wp-content/mu-plugins/highlander-comments/images/wplogo.png?m=1391188133g" alt="WordPress.com Logo" width="25" class="no-grav">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="wp_avatar" id="wordpress-avatar" class="comment-meta-wordpress" value="">
+				<input type="hidden" name="wp_user_id" id="wordpress-user_id" class="comment-meta-wordpress" value="">
+				<input type="hidden" name="wp_access_token" id="wordpress-access_token" class="comment-meta-wordpress" value="">
+				<p class="comment-form-posting-as pa-wordpress"><strong></strong> You are commenting using your WordPress.com account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'wordpress' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-twitter" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="http://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25" alt="Twitter picture" width="25" class="no-grav">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="twitter_avatar" id="twitter-avatar" class="comment-meta-twitter" value="">
+				<input type="hidden" name="twitter_user_id" id="twitter-user_id" class="comment-meta-twitter" value="">
+				<input type="hidden" name="twitter_access_token" id="twitter-access_token" class="comment-meta-twitter" value="">
+				<p class="comment-form-posting-as pa-twitter"><strong></strong> You are commenting using your Twitter account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'twitter' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-facebook" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="http://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25" alt="Facebook photo" width="25" class="no-grav">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="fb_avatar" id="facebook-avatar" class="comment-meta-facebook" value="">
+				<input type="hidden" name="fb_user_id" id="facebook-user_id" class="comment-meta-facebook" value="">
+				<input type="hidden" name="fb_access_token" id="facebook-access_token" class="comment-meta-facebook" value="">
+				<p class="comment-form-posting-as pa-facebook"><strong></strong> You are commenting using your Facebook account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'facebook' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-googleplus" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="http://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25" alt="Google+ photo" width="25" class="no-grav">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="googleplus_avatar" id="googleplus-avatar" class="comment-meta-googleplus" value="">
+				<input type="hidden" name="googleplus_user_id" id="googleplus-user_id" class="comment-meta-googleplus" value="">
+				<input type="hidden" name="googleplus_access_token" id="googleplus-access_token" class="comment-meta-googleplus" value="">
+				<p class="comment-form-posting-as pa-googleplus"><strong></strong> You are commenting using your Google+ account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'googleplus' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+
+	<div id="comment-form-load-service" class="comment-form-service">
+		<div class="comment-form-posting-as-cancel"><a href="javascript:HighlanderComments.cancelExternalWindow();">Cancel</a></div>
+		<p>Connecting to %s</p>
+	</div>
+
+	
+</div>
+
+<script type="text/javascript">
+var highlander_expando_javascript = function(){
+	var input = document.createElement( 'input' ),
+	    comment = jQuery( '#comment' );
+
+	if ( 'placeholder' in input ) {
+		comment.attr( 'placeholder', jQuery( '.comment-textarea label' ).remove().text() );
+	}
+
+	// Expando Mode: start small, then auto-resize on first click + text length
+	jQuery( '#comment-form-identity' ).hide();
+	jQuery( '#comment-form-subscribe' ).hide();
+	jQuery( '#commentform .form-submit' ).hide();
+
+	comment.css( { 'height':'10px' } ).one( 'focus', function() {
+		var timer = setInterval( HighlanderComments.resizeCallback, 10 )
+		jQuery( this ).animate( { 'height': HighlanderComments.initialHeight } ).delay( 100 ).queue( function(n) { clearInterval( timer ); HighlanderComments.resizeCallback(); n(); } );
+		jQuery( '#comment-form-identity' ).slideDown();
+		jQuery( '#comment-form-subscribe' ).slideDown();
+		jQuery( '#commentform .form-submit' ).slideDown();
+	});
+}
+jQuery(document).ready( highlander_expando_javascript );
+</script>
+
+<div id="comment-form-subscribe">
+	<p class="comment-subscription-form"><input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" tabindex="6"> <label class="subscribe-label" id="subscribe-label" for="subscribe" style="display: inline;">Notify me of new comments via email.</label></p><p class="post-subscription-form"><input type="checkbox" name="subscribe_blog" id="subscribe_blog" value="subscribe" style="width: auto;" tabindex="7"> <label class="subscribe-label" id="subscribe-blog-label" for="subscribe_blog" style="display: inline;">Notify me of new posts via email.</label></p></div>
+
+												<p class="form-submit">
+							<input name="submit" type="submit" id="comment-submit" class="submit" value="Post Comment">
+							<input type="hidden" name="comment_post_ID" value="2000" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+						</p>
+						<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="5440c27d55"></p>
+<input type="hidden" name="genseq" value="1416894738">
+<p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="46"></p>					</form>
+							</div><!-- #respond -->
+			<div style="clear: both"></div>
+</div>
+	
+</div><!-- /content -->
+
+</div><!-- /main -->
+
+<div id="sidebar">
+
+		<div class="side-widget widget_recent_entries"><div class="side-widget-wrap">		<h3>Recent Posts</h3>		<ul>
+					<li>
+				<a href="http://nolanlawson.com/2014/11/22/the-state-of-browser-storage-in-2014/">Protected: The state of browser storage in&nbsp;2014</a>
+						</li>
+					<li>
+				<a href="http://nolanlawson.com/2014/10/03/offline-first-is-people-first/">Offline-first is people-first</a>
+						</li>
+					<li>
+				<a href="http://nolanlawson.com/2014/09/01/the-limitations-of-semantic-versioning/">The limitations of semantic&nbsp;versioning</a>
+						</li>
+					<li>
+				<a href="http://nolanlawson.com/2014/04/26/web-sql-database-in-memoriam/">Web SQL Database: In&nbsp;Memoriam</a>
+						</li>
+					<li>
+				<a href="http://nolanlawson.com/2014/03/25/what-happened-to-pouchdroid/">What happened to&nbsp;PouchDroid?</a>
+						</li>
+				</ul>
+		</div></div><div class="side-widget widget_image"><div class="side-widget-wrap"><h3>About Me</h3><div style="overflow:hidden;"><div style="width: 210px" class="wp-caption aligncenter"><a href="http://www.coroflot.com/mrs_muffins"><img src="./Better synonym handling in Solr   Read the Tea Leaves_files/nolan_sushi_octopus_icon2.png" alt="Artwork by Nanda Wilson" title="Artwork by Nanda Wilson" width="200" height="225"></a><p class="wp-caption-text">Hi, I'm Nolan. I write apps for Android and the world wide web, and this is where I talk about programming.</p></div></div>
+</div></div><div class="side-widget widget_twitter"><div class="side-widget-wrap"><h3><a href="http://twitter.com/nolanlawson">Twitter</a></h3><ul class="tweets">
+			<li>
+				Protip: if you want GPU-accelerated CSS animations, use "translate3d" and "scale3d" (yes, you want the "3D") <a href="http://www.youtube.com/watch?v=zrkCr1FThn0"> youtube.com/watch?v=zrkCr1…</a> Tweeted 				<a href="http://twitter.com/nolanlawson/statuses/537065042458705920" class="timesince">3&nbsp;hours&nbsp;ago</a>
+			</li>
+
+			
+			<li>
+				It's been awhile, so I put together a quick @<a href="http://twitter.com/PouchDB">PouchDB</a> performance report: <a href="https://github.com/nolanlawson/pouchdb-perf-report-3.10"> github.com/nolanlawson/po…</a> Tweeted 				<a href="http://twitter.com/nolanlawson/statuses/536690141012971522" class="timesince">1&nbsp;day&nbsp;ago</a>
+			</li>
+
+			
+			<li>
+				RT @<a href="http://twitter.com/yathit">yathit</a>: <a href="https://github.com/google/lovefield"> github.com/google/lovefie…</a> Tweeted 				<a href="http://twitter.com/nolanlawson/statuses/536559622304595968" class="timesince">1&nbsp;day&nbsp;ago</a>
+			</li>
+
+			
+			<li>
+				Restarting the Travis tests is the programmer equivalent of banging on the TV until the picture comes in clear. Tweeted 				<a href="http://twitter.com/nolanlawson/statuses/536436467485380608" class="timesince">1&nbsp;day&nbsp;ago</a>
+			</li>
+
+			
+			<li>
+				Chart of PouchDB issues filed per month, May 2011 to present <a href="https://docs.google.com/spreadsheets/d/1v2tohjNRVcVxTiNTyYVrzfDpdZACP8wm-yme7SCrAY4/edit?usp=sharing"> docs.google.com/spreadsheets/d…</a> <a href="http://t.co/MtGminONfA" rel="nofollow">http://t.co/MtGminONfA</a> Tweeted 				<a href="http://twitter.com/nolanlawson/statuses/536336316909506560" class="timesince">2&nbsp;days&nbsp;ago</a>
+			</li>
+
+			</ul><a href="http://twitter.com/nolanlawson" class="twitter-follow-button" data-show-count="false" data-link-color="#9c4617" data-text-color="#000000">Follow @nolanlawson</a></div></div><div class="side-widget widget_archive"><div class="side-widget-wrap"><h3>Archives</h3>		<ul>
+	<li><a href="http://nolanlawson.com/2014/11/">November 2014</a>&nbsp;(1)</li>
+	<li><a href="http://nolanlawson.com/2014/10/">October 2014</a>&nbsp;(1)</li>
+	<li><a href="http://nolanlawson.com/2014/09/">September 2014</a>&nbsp;(1)</li>
+	<li><a href="http://nolanlawson.com/2014/04/">April 2014</a>&nbsp;(1)</li>
+	<li><a href="http://nolanlawson.com/2014/03/">March 2014</a>&nbsp;(1)</li>
+	<li><a href="http://nolanlawson.com/2013/12/">December 2013</a>&nbsp;(2)</li>
+	<li><a href="http://nolanlawson.com/2013/11/">November 2013</a>&nbsp;(3)</li>
+	<li><a href="http://nolanlawson.com/2013/08/">August 2013</a>&nbsp;(1)</li>
+	<li><a href="http://nolanlawson.com/2013/05/">May 2013</a>&nbsp;(3)</li>
+	<li><a href="http://nolanlawson.com/2013/01/">January 2013</a>&nbsp;(1)</li>
+	<li><a href="http://nolanlawson.com/2012/12/">December 2012</a>&nbsp;(1)</li>
+	<li><a href="http://nolanlawson.com/2012/11/">November 2012</a>&nbsp;(1)</li>
+	<li><a href="http://nolanlawson.com/2012/10/">October 2012</a>&nbsp;(1)</li>
+	<li><a href="http://nolanlawson.com/2012/09/">September 2012</a>&nbsp;(3)</li>
+	<li><a href="http://nolanlawson.com/2012/06/">June 2012</a>&nbsp;(2)</li>
+	<li><a href="http://nolanlawson.com/2012/03/">March 2012</a>&nbsp;(3)</li>
+	<li><a href="http://nolanlawson.com/2012/02/">February 2012</a>&nbsp;(1)</li>
+	<li><a href="http://nolanlawson.com/2012/01/">January 2012</a>&nbsp;(1)</li>
+	<li><a href="http://nolanlawson.com/2011/11/">November 2011</a>&nbsp;(1)</li>
+	<li><a href="http://nolanlawson.com/2011/08/">August 2011</a>&nbsp;(1)</li>
+	<li><a href="http://nolanlawson.com/2011/07/">July 2011</a>&nbsp;(1)</li>
+	<li><a href="http://nolanlawson.com/2011/06/">June 2011</a>&nbsp;(3)</li>
+	<li><a href="http://nolanlawson.com/2011/05/">May 2011</a>&nbsp;(2)</li>
+	<li><a href="http://nolanlawson.com/2011/04/">April 2011</a>&nbsp;(4)</li>
+	<li><a href="http://nolanlawson.com/2011/03/">March 2011</a>&nbsp;(1)</li>
+		</ul>
+</div></div><div class="side-widget wp_widget_tag_cloud"><div class="side-widget-wrap"><h3>Tags</h3><div style="overflow:hidden"><a href="http://nolanlawson.com/tag/alogcat/" class="tag-link-58487629" title="2 topics" style="font-size: 10.52pt;">alogcat</a>
+<a href="http://nolanlawson.com/tag/android-2/" class="tag-link-15948407" title="19 topics" style="font-size: 22pt;">android</a>
+<a href="http://nolanlawson.com/tag/android-market/" class="tag-link-10462233" title="3 topics" style="font-size: 12.2pt;">android market</a>
+<a href="http://nolanlawson.com/tag/app-tracker/" class="tag-link-48450182" title="1 topic" style="font-size: 8pt;">app tracker</a>
+<a href="http://nolanlawson.com/tag/boost/" class="tag-link-214632" title="1 topic" style="font-size: 8pt;">boost</a>
+<a href="http://nolanlawson.com/tag/bootstrap/" class="tag-link-114042" title="1 topic" style="font-size: 8pt;">bootstrap</a>
+<a href="http://nolanlawson.com/tag/bug-reports/" class="tag-link-108395" title="1 topic" style="font-size: 8pt;">bug reports</a>
+<a href="http://nolanlawson.com/tag/catlog/" class="tag-link-483713" title="4 topics" style="font-size: 13.6pt;">catlog</a>
+<a href="http://nolanlawson.com/tag/chord-reader/" class="tag-link-82615853" title="1 topic" style="font-size: 8pt;">chord reader</a>
+<a href="http://nolanlawson.com/tag/code/" class="tag-link-656" title="2 topics" style="font-size: 10.52pt;">code</a>
+<a href="http://nolanlawson.com/tag/contacts/" class="tag-link-25129" title="1 topic" style="font-size: 8pt;">contacts</a>
+<a href="http://nolanlawson.com/tag/continuous-integration/" class="tag-link-163615" title="1 topic" style="font-size: 8pt;">continuous integration</a>
+<a href="http://nolanlawson.com/tag/copyright/" class="tag-link-9386" title="3 topics" style="font-size: 12.2pt;">copyright</a>
+<a href="http://nolanlawson.com/tag/couch-apps/" class="tag-link-200816929" title="1 topic" style="font-size: 8pt;">couch apps</a>
+<a href="http://nolanlawson.com/tag/couchdb/" class="tag-link-1786871" title="3 topics" style="font-size: 12.2pt;">couchdb</a>
+<a href="http://nolanlawson.com/tag/couchdroid/" class="tag-link-203748873" title="1 topic" style="font-size: 8pt;">couchdroid</a>
+<a href="http://nolanlawson.com/tag/developers/" class="tag-link-20054" title="1 topic" style="font-size: 8pt;">developers</a>
+<a href="http://nolanlawson.com/tag/development/" class="tag-link-780" title="2 topics" style="font-size: 10.52pt;">development</a>
+<a href="http://nolanlawson.com/tag/grails/" class="tag-link-215429" title="2 topics" style="font-size: 10.52pt;">grails</a>
+<a href="http://nolanlawson.com/tag/indexeddb/" class="tag-link-48234874" title="1 topic" style="font-size: 8pt;">indexeddb</a>
+<a href="http://nolanlawson.com/tag/information-retrieval/" class="tag-link-57493" title="2 topics" style="font-size: 10.52pt;">information retrieval</a>
+<a href="http://nolanlawson.com/tag/japanese-name-converter/" class="tag-link-54238601" title="1 topic" style="font-size: 8pt;">japanese name converter</a>
+<a href="http://nolanlawson.com/tag/javascript/" class="tag-link-457" title="1 topic" style="font-size: 8pt;">javascript</a>
+<a href="http://nolanlawson.com/tag/jenkins/" class="tag-link-351789" title="1 topic" style="font-size: 8pt;">jenkins</a>
+<a href="http://nolanlawson.com/tag/keepscore/" class="tag-link-59179896" title="6 topics" style="font-size: 15.7pt;">keepscore</a>
+<a href="http://nolanlawson.com/tag/listview/" class="tag-link-1354780" title="1 topic" style="font-size: 8pt;">listview</a>
+<a href="http://nolanlawson.com/tag/logcat/" class="tag-link-27414758" title="4 topics" style="font-size: 13.6pt;">logcat</a>
+<a href="http://nolanlawson.com/tag/logviewer/" class="tag-link-58487631" title="1 topic" style="font-size: 8pt;">logviewer</a>
+<a href="http://nolanlawson.com/tag/lucene/" class="tag-link-161367" title="3 topics" style="font-size: 12.2pt;">lucene</a>
+<a href="http://nolanlawson.com/tag/nginx/" class="tag-link-697649" title="1 topic" style="font-size: 8pt;">nginx</a>
+<a href="http://nolanlawson.com/tag/nlp/" class="tag-link-47433" title="2 topics" style="font-size: 10.52pt;">nlp</a>
+<a href="http://nolanlawson.com/tag/node/" class="tag-link-1211379" title="1 topic" style="font-size: 8pt;">node</a>
+<a href="http://nolanlawson.com/tag/nodejs/" class="tag-link-31896918" title="1 topic" style="font-size: 8pt;">nodejs</a>
+<a href="http://nolanlawson.com/tag/npm/" class="tag-link-962177" title="1 topic" style="font-size: 8pt;">npm</a>
+<a href="http://nolanlawson.com/tag/offline/" class="tag-link-13235" title="1 topic" style="font-size: 8pt;">offline</a>
+<a href="http://nolanlawson.com/tag/offline-first/" class="tag-link-204018240" title="1 topic" style="font-size: 8pt;">offline-first</a>
+<a href="http://nolanlawson.com/tag/open-source/" class="tag-link-25" title="2 topics" style="font-size: 10.52pt;">open source</a>
+<a href="http://nolanlawson.com/tag/passwords/" class="tag-link-78192" title="1 topic" style="font-size: 8pt;">passwords</a>
+<a href="http://nolanlawson.com/tag/pokedroid/" class="tag-link-34876009" title="6 topics" style="font-size: 15.7pt;">pokedroid</a>
+<a href="http://nolanlawson.com/tag/pouchdb/" class="tag-link-96483773" title="4 topics" style="font-size: 13.6pt;">pouchdb</a>
+<a href="http://nolanlawson.com/tag/pouchdroid/" class="tag-link-205588379" title="2 topics" style="font-size: 10.52pt;">pouchdroid</a>
+<a href="http://nolanlawson.com/tag/query-expansion/" class="tag-link-6392942" title="1 topic" style="font-size: 8pt;">query expansion</a>
+<a href="http://nolanlawson.com/tag/relatedness-calculator/" class="tag-link-111169403" title="1 topic" style="font-size: 8pt;">relatedness calculator</a>
+<a href="http://nolanlawson.com/tag/relatedness-coefficient/" class="tag-link-96432653" title="1 topic" style="font-size: 8pt;">relatedness coefficient</a>
+<a href="http://nolanlawson.com/tag/s3/" class="tag-link-133339" title="1 topic" style="font-size: 8pt;">s3</a>
+<a href="http://nolanlawson.com/tag/safari/" class="tag-link-139" title="1 topic" style="font-size: 8pt;">safari</a>
+<a href="http://nolanlawson.com/tag/sectioned-listview/" class="tag-link-202738208" title="1 topic" style="font-size: 8pt;">sectioned listview</a>
+<a href="http://nolanlawson.com/tag/security/" class="tag-link-801" title="1 topic" style="font-size: 8pt;">security</a>
+<a href="http://nolanlawson.com/tag/semver/" class="tag-link-57508967" title="1 topic" style="font-size: 8pt;">semver</a>
+<a href="http://nolanlawson.com/tag/socket-io/" class="tag-link-35327983" title="1 topic" style="font-size: 8pt;">socket.io</a>
+<a href="http://nolanlawson.com/tag/software-development/" class="tag-link-2301" title="5 topics" style="font-size: 14.72pt;">software development</a>
+<a href="http://nolanlawson.com/tag/solr/" class="tag-link-631724" title="3 topics" style="font-size: 12.2pt;">solr</a>
+<a href="http://nolanlawson.com/tag/supersaiyanscrollview/" class="tag-link-202738209" title="1 topic" style="font-size: 8pt;">supersaiyanscrollview</a>
+<a href="http://nolanlawson.com/tag/synonyms/" class="tag-link-473588" title="1 topic" style="font-size: 8pt;">synonyms</a>
+<a href="http://nolanlawson.com/tag/ui-design/" class="tag-link-38941" title="7 topics" style="font-size: 16.4pt;">ui design</a>
+<a href="http://nolanlawson.com/tag/ultimate-crossword/" class="tag-link-200816931" title="1 topic" style="font-size: 8pt;">ultimate crossword</a>
+<a href="http://nolanlawson.com/tag/w3c/" class="tag-link-2872" title="1 topic" style="font-size: 8pt;">w3c</a>
+<a href="http://nolanlawson.com/tag/webapp/" class="tag-link-76551" title="1 topic" style="font-size: 8pt;">webapp</a>
+<a href="http://nolanlawson.com/tag/webapps-2/" class="tag-link-48035926" title="1 topic" style="font-size: 8pt;">webapps</a>
+<a href="http://nolanlawson.com/tag/web-sockets/" class="tag-link-29378369" title="1 topic" style="font-size: 8pt;">web sockets</a>
+<a href="http://nolanlawson.com/tag/websql/" class="tag-link-58985557" title="1 topic" style="font-size: 8pt;">websql</a></div></div></div>
+</div><!-- /sidebar -->
+
+<div id="footer">
+	<p class="wpcom-credits">
+		<a href="https://wordpress.com/?ref=footer_blog">Blog at WordPress.com</a>.
+		<a href="https://wordpress.com/themes/springloaded/" title="Learn more about this theme">The Spring Loaded Theme</a>.	</p>
+</div><!-- /footer -->
+
+</div><!-- /wrapper -->
+
+<script type="text/javascript" src="./Better synonym handling in Solr   Read the Tea Leaves_files/gprofiles.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Better synonym handling in Solr   Read the Tea Leaves_files/wpgroho.js"></script>
+
+	<script>
+		//initialize and attach hovercards to all gravatars
+		jQuery( document ).ready( function( $ ) {
+			if ( typeof Gravatar.init !== "function" ) {
+				return;
+			}			
+
+			Gravatar.profile_cb = function( hash, id ) {
+				WPGroHo.syncProfileData( hash, id );
+			};
+			Gravatar.my_hash = WPGroHo.my_hash;
+			Gravatar.init( 'body', '#wp-admin-bar-my-account' );
+		});
+	</script>
+
+		<div style="display:none">
+	<div class="grofile-hash-map-7b1433a1c1837d244db9ea4c09bad146">
+	</div>
+	<div class="grofile-hash-map-c436dec61b906e27c963518d0ef1d972">
+	</div>
+	<div class="grofile-hash-map-a1670001afa438480d8df6e5bd9bf7ea">
+	</div>
+	<div class="grofile-hash-map-d39f605ba2161b93bb9b38710a931f1d">
+	</div>
+	<div class="grofile-hash-map-f8ddb0e6e64cb69d75f56636bbd2fae1">
+	</div>
+	<div class="grofile-hash-map-a07c686baf62e1dfd53a16a1096a2256">
+	</div>
+	<div class="grofile-hash-map-d2d862caaa641c40029d79a155a0d4b2">
+	</div>
+	<div class="grofile-hash-map-7791248dece6fcd03fa723364ed61dc7">
+	</div>
+	<div class="grofile-hash-map-528e45e350eead5f9f51de62e070d809">
+	</div>
+	<div class="grofile-hash-map-18be82255c9df1813fcc861288469b80">
+	</div>
+	<div class="grofile-hash-map-3798fee71522049317927bc8053c0599">
+	</div>
+	<div class="grofile-hash-map-0242e561d61fc4770ccc5728fe02666d">
+	</div>
+	<div class="grofile-hash-map-bf6a123b877d32265e37c0fb592d5965">
+	</div>
+	<div class="grofile-hash-map-6ae76dbc679b5a41de621aea944932fa">
+	</div>
+	<div class="grofile-hash-map-fa8c943a20127f8499b70ce374d2d933">
+	</div>
+	<div class="grofile-hash-map-bc9a24ee5430e8e806a2cf593fb8fca3">
+	</div>
+	<div class="grofile-hash-map-90e9dd4218cc61a664ec33e804e93a00">
+	</div>
+	<div class="grofile-hash-map-53180a5f65ffc8377bb190bd4efa04c8">
+	</div>
+	<div class="grofile-hash-map-3026247ed8672c9fe1b9d3ab93fdf381">
+	</div>
+	<div class="grofile-hash-map-4784dc952a461cba2591ff0500bd4515">
+	</div>
+	<div class="grofile-hash-map-8b981547ddc4cf500142351db4969df5">
+	</div>
+	<div class="grofile-hash-map-b39be4acfc6b1a2ec1aa4b40909490b0">
+	</div>
+	<div class="grofile-hash-map-fbc13aa26205d4485838133231ae694c">
+	</div>
+	<div class="grofile-hash-map-88b4d95f5ff075dfea74337158268393">
+	</div>
+	<div class="grofile-hash-map-fdacd6e092983901477ad0b43699484a">
+	</div>
+	<div class="grofile-hash-map-e11f6fd28bdc9f9695ac050a21e5878d">
+	</div>
+	<div class="grofile-hash-map-40bd0f16a97b6cb5855278e56ed98257">
+	</div>
+	<div class="grofile-hash-map-112431c4af3b543f0cb411c8b292beec">
+	</div>
+	</div>
+<script type="text/javascript">
+/* <![CDATA[ */
+var HighlanderComments = {"loggingInText":"Logging In\u2026","submittingText":"Posting Comment\u2026","postCommentText":"Post Comment","connectingToText":"Connecting to %s","commentingAsText":"%1$s: You are commenting using your %2$s account.","logoutText":"Log Out","loginText":"Log In","connectURL":"http:\/\/nolanwlawson.wordpress.com\/public.api\/connect\/?action=request","logoutURL":"https:\/\/nolanwlawson.wordpress.com\/wp-login.php?action=logout&_wpnonce=171a3561e6","homeURL":"http:\/\/nolanlawson.com\/","postID":"2000","gravDefault":"mystery","enterACommentError":"Please enter a comment","enterEmailError":"Please enter your email address here","invalidEmailError":"Invalid email address","enterAuthorError":"Please enter your name here","gravatarFromEmail":"This picture will show whenever you leave a comment. Click to customize it.","logInToExternalAccount":"Log in to use details from one of these accounts.","change":"Change","changeAccount":"Change Account","comment_registration":"","userIsLoggedIn":"","isJetpack":"0"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Better synonym handling in Solr   Read the Tea Leaves_files/saved_resource(2)"></script>
+
+	<div id="bit" class="loggedout-follow-normal">
+		<a class="bsub" href="javascript:void(0)"><span id="bsub-text">Follow</span></a>
+		<div id="bitsubscribe">
+
+					<h3><label for="loggedout-follow-field">Follow “Read the Tea Leaves”</label></h3>
+
+			<form action="https://subscribe.wordpress.com/" method="post" accept-charset="utf-8" id="loggedout-follow">
+			<p>Get every new post delivered to your Inbox.</p>
+
+			<p id="loggedout-follow-error" style="display: none;"></p>
+
+						<p class="bit-follow-count">Join 828 other followers</p>
+			<p><input type="email" name="email" value="Enter your email address" onfocus="this.value=(this.value==&quot;Enter your email address&quot;) ? &quot;&quot; : this.value;" onblur="this.value=(this.value==&quot;&quot;) ? &quot;Enter your email address&quot; : this.value;" id="loggedout-follow-field"></p>
+
+			<input type="hidden" name="action" value="subscribe">
+			<input type="hidden" name="blog_id" value="21720966">
+			<input type="hidden" name="source" value="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/">
+			<input type="hidden" name="sub-type" value="loggedout-follow">
+
+			<input type="hidden" id="_wpnonce" name="_wpnonce" value="4c4d920bb8"><input type="hidden" name="_wp_http_referer" value="/2012/10/31/better-synonym-handling-in-solr/">
+			<p id="bsub-subscribe-button"><input type="submit" value="Sign me up"></p>
+			</form>
+					<div id="bsub-credit"><a href="https://wordpress.com/?ref=lof">Build a website with WordPress.com</a></div>
+		</div><!-- #bitsubscribe -->
+	</div><!-- #bit -->
+		<iframe src="./Better synonym handling in Solr   Read the Tea Leaves_files/saved_resource.html" scrolling="no" id="likes-master" name="likes-master" style="display:none;"></iframe>
+		<div id="likes-other-gravatars"><div class="likes-text"><span>%d</span> bloggers like this:</div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+		<script type="text/javascript">
+		//<![CDATA[
+			var jetpackLikesWidgetQueue = [];
+			var jetpackLikesWidgetBatch = [];
+			var jetpackLikesMasterReady = false;
+
+			function JetpackLikespostMessage( message, target ) {
+				if ( "string" === typeof message ){
+					try{
+						message = JSON.parse( message );
+					}
+					catch(e) {
+						return;
+					}
+				}
+
+				pm( {
+					target: target,
+					type: 'likesMessage',
+					data: message,
+					origin: '*'
+				} );
+			}
+
+			function JetpackLikesBatchHandler() {
+				var requests = [];
+				jQuery( 'div.jetpack-likes-widget-unloaded' ).each( function( i ) {
+					if ( jetpackLikesWidgetBatch.indexOf( this.id ) > -1 )
+						return;
+					jetpackLikesWidgetBatch.push( this.id );
+					var regex = /like-(post|comment)-wrapper-(\d+)-(\d+)-(\w+)/;
+					var match = regex.exec( this.id );
+					if ( ! match || match.length != 5 )
+						return;
+
+					var info = {
+						blog_id: match[2],
+						width:   this.width
+					};
+
+					if ( 'post' == match[1] ) {
+						info.post_id = match[3];
+					} else if ( 'comment' == match[1] ) {
+						info.comment_id = match[3];
+					}
+
+					info.obj_id = match[4];
+
+					requests.push( info );
+				});
+
+				if ( requests.length > 0 ) {
+					JetpackLikespostMessage( { event: 'initialBatch', requests: requests }, window.frames['likes-master'] );
+				}
+			}
+
+			function JetpackLikesMessageListener( event ) {
+				if ( "undefined" == typeof event.event )
+					return;
+
+				if ( 'masterReady' == event.event ) {
+					jQuery( document ).ready( function() {
+						jetpackLikesMasterReady = true;
+
+						var stylesData = {
+								event: 'injectStyles'
+						};
+
+						if ( jQuery( 'iframe.admin-bar-likes-widget' ).length > 0 ) {
+							JetpackLikespostMessage( { event: 'adminBarEnabled' }, window.frames[ 'likes-master' ] );
+
+							stylesData.adminBarStyles = {
+								background: jQuery( '#wpadminbar .quicklinks li#wp-admin-bar-wpl-like > a' ).css( 'background' ),
+								isRtl: ( 'rtl' == jQuery( '#wpadminbar' ).css( 'direction' ) )
+							};
+						}
+
+						if ( !window.addEventListener )
+							jQuery( '#wp-admin-bar-admin-bar-likes-widget' ).hide();
+
+						stylesData.textStyles = {
+							color: jQuery( '.sd-text-color').css( 'color' ),
+							fontFamily: jQuery( '.sd-text-color' ).css( 'font-family' ),
+							fontSize: jQuery( '.sd-text-color' ).css( 'font-size' ),
+							direction: jQuery( '.sd-text-color' ).css( 'direction' ),
+							fontWeight: jQuery( '.sd-text-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-text-color' ).css( 'font-style' ),
+							textDecoration: jQuery( '.sd-text-color' ).css('text-decoration')
+						};
+
+						stylesData.linkStyles = {
+							color: jQuery( '.sd-link-color' ).css('color'),
+							fontFamily: jQuery( '.sd-link-color' ).css('font-family'),
+							fontSize: jQuery( '.sd-link-color' ).css('font-size'),
+							textDecoration: jQuery( '.sd-link-color' ).css('text-decoration'),
+							fontWeight: jQuery( '.sd-link-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-link-color' ).css( 'font-style' )
+						};
+
+						JetpackLikespostMessage( stylesData, window.frames[ 'likes-master' ] );
+
+						JetpackLikesBatchHandler();
+
+						jQuery( document ).on( 'inview', 'div.jetpack-likes-widget-unloaded', function() {
+							jetpackLikesWidgetQueue.push( this.id );
+						});
+					});
+				}
+
+				if ( 'showLikeWidget' == event.event ) {
+					jQuery( '#' + event.id + ' .post-likes-widget-placeholder'  ).fadeOut( 'fast', function() {
+						jQuery( '#' + event.id + ' .post-likes-widget' ).fadeIn( 'fast', function() {
+							JetpackLikespostMessage( { event: 'likeWidgetDisplayed', blog_id: event.blog_id, post_id: event.post_id, obj_id: event.obj_id }, window.frames['likes-master'] );
+						});
+					});
+				}
+
+				if ( 'clickReblogFlair' == event.event ) {
+					wpcom_reblog.toggle_reblog_box_flair( event.obj_id );
+				}
+
+				if ( 'showOtherGravatars' == event.event ) {
+					var $container = jQuery( '#likes-other-gravatars' );
+					var $list = $container.find( 'ul' );
+
+					$container.hide();
+					$list.html( '' );
+
+					$container.find( '.likes-text span' ).text( event.total );
+
+					jQuery.each( event.likers, function( i, liker ) {
+						$list.append( '<li class="' + liker.css_class + '"><a href="' + liker.profile_URL + '" class="wpl-liker" rel="nofollow" target="_parent"><img src="' + liker.avatar_URL + '" alt="' + liker.name + '" width="30" height="30" style="padding-right: 3px;" /></a></li>');
+					} );
+
+					var offset = jQuery( "[name='" + event.parent + "']" ).offset();
+
+					$container.css( 'left', offset.left + event.position.left - 10 + 'px' );
+					$container.css( 'top', offset.top + event.position.top - 33 + 'px' );
+
+					var rowLength = Math.floor( event.width / 37 );
+					var height = ( Math.ceil( event.likers.length / rowLength ) * 37 ) + 13;
+					if ( height > 204 ) {
+						height = 204;
+					}
+
+					$container.css( 'height', height + 'px' );
+					$container.css( 'width', rowLength * 37 - 7 + 'px' );
+
+					$list.css( 'width', rowLength * 37 + 'px' );
+
+					$container.fadeIn( 'slow' );
+
+					var scrollbarWidth = $list[0].offsetWidth - $list[0].clientWidth;
+					if ( scrollbarWidth > 0 ) {
+						$container.width( $container.width() + scrollbarWidth );
+						$list.width( $list.width() + scrollbarWidth );
+					}
+				}
+			}
+
+			pm.bind( 'likesMessage', function(e) { JetpackLikesMessageListener(e); } );
+
+			jQuery( document ).click( function( e ) {
+				var $container = jQuery( '#likes-other-gravatars' );
+
+				if ( $container.has( e.target ).length === 0 ) {
+					$container.fadeOut( 'slow' );
+				}
+			});
+
+			function JetpackLikesWidgetQueueHandler() {
+				var wrapperID;
+				if ( ! jetpackLikesMasterReady ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				if ( jetpackLikesWidgetQueue.length > 0 ) {
+					// We may have a widget that needs creating now
+					var found = false;
+					while( jetpackLikesWidgetQueue.length > 0 ) {
+						// Grab the first member of the queue that isn't already loading.
+						wrapperID = jetpackLikesWidgetQueue.splice( 0, 1 )[0];
+						if ( jQuery( '#' + wrapperID ).hasClass( 'jetpack-likes-widget-unloaded' ) ) {
+							found = true;
+							break;
+						}
+					}
+					if ( ! found ) {
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				} else if ( jQuery( 'div.jetpack-likes-widget-unloaded' ).length > 0 ) {
+					// Grab any unloaded widgets for a batch request
+					JetpackLikesBatchHandler();
+
+					// Get the next unloaded widget
+					wrapperID = jQuery( 'div.jetpack-likes-widget-unloaded' ).first()[0].id;
+					if ( ! wrapperID ) {
+						// Everything is currently loaded
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				}
+
+				if ( 'undefined' === typeof wrapperID ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				var $wrapper = jQuery( '#' + wrapperID );
+				$wrapper.find( 'iframe' ).remove();
+
+				if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='22px' width='68px' frameBorder='0' scrolling='no' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				} else {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='55px' width='100%' frameBorder='0' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				}
+
+				$wrapper.removeClass( 'jetpack-likes-widget-unloaded' ).addClass( 'jetpack-likes-widget-loading' );
+
+				$wrapper.find( 'iframe' ).load( function( e ) {
+					var $iframe = jQuery( e.target );
+					$wrapper.removeClass( 'jetpack-likes-widget-loading' ).addClass( 'jetpack-likes-widget-loaded' );
+
+					JetpackLikespostMessage( { event: 'loadLikeWidget', name: $iframe.attr( 'name' ), width: $iframe.width() }, window.frames[ 'likes-master' ] );
+
+					if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+						$wrapper.find( 'iframe' ).Jetpack( 'resizeable' );
+					}
+				});
+				setTimeout( JetpackLikesWidgetQueueHandler, 250 );
+			}
+			JetpackLikesWidgetQueueHandler();
+		//]]>
+		</script>
+<script type="text/javascript" src="http://s1.wp.com/wp-content/mu-plugins/akismet-3.0/_inc/form.js?m=1404442431g"></script>
+<script type="text/javascript" src="./Better synonym handling in Solr   Read the Tea Leaves_files/widgets.js"></script>
+<script type="text/javascript" src="http://s0.wp.com/_static/??-eJzTLy/QTc7PK0nNK9EvyClNz8wr1i+uzCtJrMjITM/IAeKS1CJMEWP94uSizIISoOIM5/yiVL2sYh19yo1yKiotzojIzQEaZ59ra2hsaW5uZmRqZJgFAJBwP7k="></script>
+<script type="text/javascript">
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "http://s0.wp.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCore.css?m=1395343499g&amp;ver=3.0.83c";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
+		var themecssurl = "http://s0.wp.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeDefault.css?m=1363304414g&amp;ver=3.0.83c";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.all();
+</script>
+<script type="text/javascript" src="http://s0.wp.com/_static/??/wp-content/js/devicepx.js,/wp-includes/js/comment-reply.min.js?m=1399919068j"></script>
+<script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script><script src="./Better synonym handling in Solr   Read the Tea Leaves_files/w.js" type="text/javascript"></script>
+<script type="text/javascript">
+_tkq = window._tkq || [];
+_tkq.push(['storeContext', {'blog_id':'21720966','blog_tz':'-8','user_lang':'en','blog_lang':'en','user_id':'0'}]);
+st_go({'blog':'21720966','v':'wpcom','tz':'-8','user_id':'0','post':'2000','subd':'nolanwlawson'});
+ex_go({'crypt':'UE40eW5QN0p8M2Y/RE1TaVhzUzFMbjdWNHpwZGhTayxPSUFCMGNrd29+Smw0TDhnZmRTK0hlRi9QSGh6bi9GXVhBJWIlZlR5U1JMLU8/MkNtblkvY1dDWk14VkxIcWxsa2RLcFdsb0hoSzk/eTM2Ml01R2JJWkdici8lX3cuYXlNL2p8alhxekl8MU9QRnYtTWhCWzNdblt8bkcmSl1GMklSRl1RX3U5JmlTZTBxa2dBcUVPZmglcjJ5ZzZfOTNjWjdvQ2xyT0hwR2FmWE9Gbm9sTXxFWC85MC5hLXIrazRyLltyS25mcmowX0w4ZG5oQ1ZWdEF2Ljk/VUNKZkxxX2ZKJmlrVF8yRVdvUEgwU0xhdTlhaVU9ckRSMjloc3gza1hLaV0zRzFTSkE0UGsrWl1SdW43MkxhTW1HUF8lTk81VjdbQ0NiUGQ4PSxYSDVmTW5tR10mLnA4LjNDMw=='});
+addLoadEvent(function(){linktracker_init('21720966',2000);});
+	</script><img id="wpstats" src="./Better synonym handling in Solr   Read the Tea Leaves_files/g.gif" alt=""><img id="wpstats2" src="./Better synonym handling in Solr   Read the Tea Leaves_files/g(1).gif" alt="" style="display:none">
+<noscript>&lt;img src="http://pixel.wp.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /&gt;</noscript>
+<script>
+if ( 'object' === typeof wpcom_mobile_user_agent_info ) {
+
+	wpcom_mobile_user_agent_info.init();
+	var mobileStatsQueryString = "";
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedPlatformName )
+		mobileStatsQueryString += "&x_" + 'mobile_platforms' + '=' + wpcom_mobile_user_agent_info.matchedPlatformName;
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedUserAgentName )
+		mobileStatsQueryString += "&x_" + 'mobile_devices' + '=' + wpcom_mobile_user_agent_info.matchedUserAgentName;
+	
+	if( wpcom_mobile_user_agent_info.isIPad() )
+		mobileStatsQueryString += "&x_" + 'ipad_views' + '=' + 'views';
+
+	if( "" != mobileStatsQueryString ) {
+		new Image().src = document.location.protocol + '//pixel.wp.com/g.gif?v=wpcom-no-pv' + mobileStatsQueryString + '&baba=' + Math.random();
+	}
+	
+}
+</script>
+</body></html>
