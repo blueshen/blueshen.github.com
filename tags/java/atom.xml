@@ -4,7 +4,7 @@
   <title><![CDATA[Tag: java | Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/tags/java/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2014-11-14T17:46:50+08:00</updated>
+  <updated>2014-11-25T12:56:14+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -12,6 +12,100 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[又见Java乱码]]></title>
+    <link href="http://www.shenyanchao.cn/blog/2014/03/27/java-encode-error-again/"/>
+    <updated>2014-03-27T21:43:00+08:00</updated>
+    <id>http://www.shenyanchao.cn/blog/2014/03/27/java-encode-error-again</id>
+    <content type="html"><![CDATA[<h3>dom4j解析xml</h3>
+
+<p>dom4j提供了一个<code>DocumentHelper</code>来解析xml内容，此处的内容是String类型的。下面是其源码：</p>
+
+<pre><code>    public static Document parseText(String text) throws DocumentException {
+        Document result = null;
+
+        SAXReader reader = new SAXReader();
+        String encoding = getEncoding(text);
+
+        InputSource source = new InputSource(new StringReader(text));
+        source.setEncoding(encoding);
+
+        result = reader.read(source);
+
+        // if the XML parser doesn't provide a way to retrieve the encoding,
+        // specify it manually
+        if (result.getXMLEncoding() == null) {
+            result.setXMLEncoding(encoding);
+        }
+
+        return result;
+    }
+
+    private static String getEncoding(String text) {
+        String result = null;
+
+        String xml = text.trim();
+
+        if (xml.startsWith("&lt;?xml")) {
+            int end = xml.indexOf("?&gt;");
+            String sub = xml.substring(0, end);
+            StringTokenizer tokens = new StringTokenizer(sub, " =\"\'");
+
+            while (tokens.hasMoreTokens()) {
+                String token = tokens.nextToken();
+
+                if ("encoding".equals(token)) {
+                    if (tokens.hasMoreTokens()) {
+                        result = tokens.nextToken();
+                    }
+
+                    break;
+                }
+            }
+        }
+
+        return result;
+    }
+</code></pre>
+
+<p>从以上的代码中可以看出，解析过程中是使用XML的头<code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;</code>来获取编码信息的。</p>
+
+<!--more-->
+
+
+<h3>如何读取文件到String</h3>
+
+<pre><code>    public String loadXmlRule() {
+        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("file.xml");
+        String xmlContent = null;
+        try {
+            xmlContent = IOUtils.toString(inputStream);
+        } catch (IOException e) {
+            LOG.error("read xml:{} io error", e);
+        } finally {
+            IOUtils.closeQuietly(inputStream);
+        }
+        return xmlContent;
+    }
+</code></pre>
+
+<p><a href="http://stackoverflow.com/questions/5590451/getresourceasstream-what-encoding-is-it-read-as">getResourceAsStream将文件读为字节流</a>，不牵涉到字符编码问题。但是当你把这个inputStream转为String的时候，就需要指定字符编码了。否则不知道按什么编码规则解析字节流到字符。不知道什么编码的情况下，程序可能就会从系统变量取默认的字符编码，也就是LANG值。这个时候在LINUX，WINDOWS下表现的可能就不一致。因此必须显式的指明编码。</p>
+
+<pre><code>xmlContent = IOUtils.toString(inputStream);
+
+转换为：
+
+xmlContent = IOUtils.toString(inputStream，"UTF-8);//假设文件是UTF-8
+</code></pre>
+
+<p>由此，一定要慎重使用编码。<strong>永远不要相信默认编码</strong>。</p>
+
+<h3>Jenkins/Hudson中shell command的编码</h3>
+
+<p>遇到这样的情况，在jenkins的机器上直接执行shell命令，与在jenkins job中执行shell的默认编码是不一样的。机器上直接执行默认从环境变量里取的，但是jenkins job的编码是走的jenkins node上的默认编码配置。为了防止出现类似的问题，可以在jenkins job中提前指定特定的编码。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[设计模式：中介者（mediator） in java]]></title>
