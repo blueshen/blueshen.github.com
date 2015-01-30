@@ -4,7 +4,7 @@
   <title><![CDATA[Tag: 同义词 | Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/tags/同义词/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2014-11-25T17:41:09+08:00</updated>
+  <updated>2015-01-30T12:30:06+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -209,13 +209,43 @@ hound nibble
 pooch nibble
 </code></pre>
 
-<h3>尝试一下</h3>
+<!--
 
-<p>使用步骤见<a href="https://github.com/blueshen/hon-lucene-synonyms">https://github.com/blueshen/hon-lucene-synonyms</a></p>
+###尝试一下
 
-<hr />
+使用步骤见<https://github.com/blueshen/hon-lucene-synonyms>
 
-<p>原文：<a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/">Better synonym handling in Solr</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
+原文：[Better synonym handling in Solr](http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/)
+
+-->
+
 ]]></content>
   </entry>
   
