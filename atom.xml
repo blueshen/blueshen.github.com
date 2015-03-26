@@ -4,7 +4,7 @@
   <title><![CDATA[Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2015-01-30T12:30:06+08:00</updated>
+  <updated>2015-03-26T13:14:42+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -12,6 +12,74 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[c3p0 config]]></title>
+    <link href="http://www.shenyanchao.cn/blog/2015/03/26/c3p0-config/"/>
+    <updated>2015-03-26T13:07:00+08:00</updated>
+    <id>http://www.shenyanchao.cn/blog/2015/03/26/c3p0-config</id>
+    <content type="html"><![CDATA[<h3>关于C3P0容错和自动重连特性的研究</h3>
+
+<p>最近常有数据库和网络设备升级和搬迁等事情，而各个应用都是基于数据库连接池做的，大部分都是基于C3P0，数据库或网络状况的变动都会导致客户端连接池中的connection失效，如何剔除这些blocked connection就和C3P0的各个配置息息相关。</p>
+
+<h4>1）C3P0容错和自动重连与以下配置参数有关：</h4>
+
+<p><code>breakAfterAcquireFailure</code> ：true表示pool向数据库请求连接失败后标记整个pool为block并close，就算后端数据库恢复正常也不进行重连，客户端对pool的请求都拒绝掉。false表示不会标记 pool为block，新的请求都会尝试去数据库请求connection。默认为false。因此，如果想让数据库和网络故障恢复之后，pool能继续请求正常资源必须把此项配置设为false</p>
+
+<p><code>idleConnectionTestPeriod</code> ：C3P0会有一个Task检测pool内的连接是否正常，此参数就是Task运行的频率。默认值为0，表示不进行检测。</p>
+
+<p><code>testConnectionOnCheckout</code> ：true表示在每次从pool内checkout连接的时候测试其有效性，这是个同步操作，因此应用端的每次数据库调用，都会先通过测试sql测试其有效性，如果连接无效，会关闭此连接并剔除出pool，并尝试从pool内取其他连接，默认为false，此特性要慎用，会造成至少多一倍的数据库调用。</p>
+
+<p><code>testConnectionOnCheckin</code> ：true表示每次把连接checkin到pool里的时候测试其有效性，因为是个事后操作，所以是异步的，应用端不需要等待测试结果，但同样会造成至少多一倍的数据库调用。</p>
+
+<p><code>acquireRetryAttempts 和acquireRetryDelay</code> ：pool请求取连接失败后重试的次数和重试的频率。请求连接会发生在pool内连接少于min值或则等待请求数>池内能提供的连接数</p>
+
+<p><code>automaticTestTable 、connectionTesterClassName 、preferredTestQuery</code> ：表示测试方式，默认是采用DatabaseMetaData.getTables()来测试connection的有效性，但可以通过以上配置来定制化测试语句，通过其名字就很好理解其含义，无需过多解释</p>
+
+<p><code>maxIdleTime 和 maxConnectionAge</code> ：表示connection的时效性，maxIdleTime和maxConnectionAge不同之处在于， maxIdleTime表示idle状态的connection能存活的最大时间，而 maxConnectionAge表示connection能存活的绝对时间</p>
+
+<h4>2）应用端getConnection抛出exception时， C3P0会测试其connection的有效性，并根据状态处理此connection，但应用端不会重调。</h4>
+
+<h4>3）无论是网络问题还是远端数据库服务器，就算恢复正常后，客户端pool内其已存在的connection都会失效，要保证应用端调用无误，必须在checkout到应用端之前刷新这些无效connection</h4>
+
+<h4>4）breakAfterAcquireFailure=false是关键。</h4>
+
+<p>如果 breakAfterAcquireFailure=true ，一旦pool向数据库请求连接失败，就会标记pool block并关闭pool，这样无论数据库是否恢复正常，应用端都无法从pool拿到连接</p>
+
+<h4>5）要想保证网络和数据库瞬间的失效100%不会造成应用端getConnection失败必须开启testConnectionOnCheckout。但此特性的代价巨大，建议在应用端做容错。</h4>
+
+<h4>6）推荐使用 idleConnectionTestPeriod。可以根据应用调用频率权衡一个检查pool的频率，这样可以在保证性能损耗不大情况下，尽可能的保证pool内connection的有效性</h4>
+
+<h4>7）若嫌DatabaseMetaData.getTables()性能不好，可以尝试通过配置automaticTestTable、connectionTesterClassName、preferredTestQuery来找到一个性能最好的测试语句，只要能验证connection有效就行</h4>
+
+<p>综上所述，要想保证性能的前提下，本人推荐的配置组合如下：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>breakAfterAcquireFailure: false
+</span><span class='line'>testConnectionOnCheckout: false
+</span><span class='line'>testConnectionOnCheckin: false
+</span><span class='line'>idleConnectionTestPeriod: 60
+</span><span class='line'>acquireRetryAttempts: 10
+</span><span class='line'>acquireRetryDelay: 1000</span></code></pre></td></tr></table></div></figure>
+
+
+<p>但需要注意的是以上的配置不能保证100%应用端getConnection无误，如果应用端不能发生getConnection错误，需要自行考虑容错和重试机制。</p>
+
+<p>在以上配置下，当网络或数据库发生瞬间变动的情况下，会有如下事情发生：</p>
+
+<ul>
+<li><p>1）自动测试idleConnection的 task轮训检测pool，对每个connction通过DatabaseMetaData.getTables()来测试有效性，并剔除无效连接。</p></li>
+<li><p>2）根据请求情况和配置，pool向数据库请求新连接并加入池内</p></li>
+<li><p>3）应用端getConnection->是否发生异常->如果发生异常，检验其有效性，并剔除出pool->如果没有发生异常（自动检查task之前已检测），调用成功</p></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[如何在Solr中更好的处理同义词]]></title>
@@ -4889,278 +4957,6 @@ public class ConcatStringCheck extends Check {
 
 }
 </code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Web系统性能调优常用技巧]]></title>
-    <link href="http://www.shenyanchao.cn/blog/2013/09/24/performance-tuning-in-web-test/"/>
-    <updated>2013-09-24T18:02:00+08:00</updated>
-    <id>http://www.shenyanchao.cn/blog/2013/09/24/performance-tuning-in-web-test</id>
-    <content type="html"><![CDATA[<h4>目标Web系统</h4>
-
-<p>apache + tomcat + mysql + linux, 介绍如何定位瓶颈与调优</p>
-
-<h4>Tomcat</h4>
-
-<p>按照官方默认配置。 <br/>
-并发150正常;达到210时，报connection refuse</p>
-
-<p>$TOMCAT_HOME/conf/server.xml中</p>
-
-<pre><code>&lt;Connector port="8080" protocol="HTTP/1.1"      connectionTimeout="20000" 
-               redirectPort="8443" URIEncoding="UTF-8"/&gt;
-</code></pre>
-
-<p>maxThreads 默认值是200
-acceptCount 默认值是100</p>
-
-<p>解决方法：显式指明以上2项，并提高数值。并可配合min/maxSpareThreads</p>
-
-<p>参数文档： <a href="http://tomcat.apache.org/tomcat-6.0-doc/config/http.html">http://tomcat.apache.org/tomcat-6.0-doc/config/http.html</a></p>
-
-<!--more-->
-
-
-<p>继续增加并发数，出现以下现象：</p>
-
-<ul>
-<li>420并发，观察到Jmeter的聚合报告有明显卡顿现象。</li>
-<li><p>Noah监控，显示CPU使用率下降。大锯齿出现。</p>
-
-<p>问题分析：</p>
-
-<pre><code>  在加压过程中，对tomcat的JVM情况进行监控。出现FullGC,每次大概4s .
-</code></pre></li>
-</ul>
-
-
-<p>如何监控GC吗？</p>
-
-<pre><code>jstat -gcutil 3950 3000 5
-
-  S0     S1         E          O      P       YGC     YGCT    FGC       FGCT     GCT   
-  0.00  47.86  66.10   6.55  99.92      7       0.087     0         0.000    0.087
-  0.00  47.86  66.90   6.55  99.94      7       0.087     0         0.000    0.087
-  0.00  47.86  67.30   6.55  99.94      7       0.087     0         0.000    0.087
-  0.00  47.86  67.30   6.55  99.94      7       0.087     0         0.000    0.087
-  0.00  47.86  67.30   6.55  99.94      7       0.087     0         0.000    0.087
-</code></pre>
-
-<p>解决方法：</p>
-
-<pre><code>     $TOMCAT_HOME/bin/catalina.sh   第一行添加
-    export CATALINA_OPTS="-Xmx3500m -Xms2048m -XX:PermSize=256m XX:MaxPermSize=512m -Xss128k"
-</code></pre>
-
-<p>JAVA_OPTS   VS   CATALINA_OPTS（推荐使用）   <br/>
-<strong>差别</strong>：JAVA_OPTS start run stop   适用所有JVM</p>
-
-<pre><code>           CATALINA_OPTS   start run    专门配置tomcat    
-</code></pre>
-
-<p>tomcat默认-client ，production环境加-server</p>
-
-<p>JVM参数文档：<a href="http://kenwublog.com/docs/java6-jvm-options-chinese-edition.htm">http://kenwublog.com/docs/java6-jvm-options-chinese-edition.htm</a></p>
-
-<h5>Tomcat executor</h5>
-
-<p>据信使用executor后，能在实际中有更好的性能以及稳定性！更为重要的是能在多个connector之间共用。</p>
-
-<pre><code>&lt;Executor name="tomcatThreadPool" namePrefix="catalina-exec-" maxThreads="1000" minSpareThreads="25"/&gt;
-
-&lt;Connector executor="tomcatThreadPool"  port="8080" protocol="HTTP/1.1"   connectionTimeout="20000"  redirectPort="8443" /&gt;  
-</code></pre>
-
-<p>此时，connector再使用maxThreads等属性将被忽略。</p>
-
-<h5>Tomcat Connector protocol</h5>
-
-<ul>
-<li><p>bio   默认模式，性能低下，无任何优化，阻塞IO模式</p>
-
-<p>  protocol = &#8220;org.apache.coyote.http11.Http11Protocol&#8221; or HTTP/1.1(for http connector)
-  protocol = &#8220;org.apache.jk.server.JkCoyoteHandler&#8221; or AJP/1.3(for ajp connector)</p></li>
-<li><p>nio   Java的异步io技术，非阻塞 IO</p>
-
-<p>  protocol = &#8220;org.apache.coyote.http11.Http11NioProtocol&#8221;(for http connector)
-  protocol = &#8220;org.apache.coyote.ajp.AjpProtocol&#8221;(for ajp connector)</p></li>
-<li><p>apr  需要安装apr(Apache Portable Runtime)和Native。</p>
-
-<p>  protocol = &#8220;org.apache.coyote.http11.Http11AprProtocol&#8221;(for http connector)
-  protocol = &#8220;org.apache.coyote.ajp.AjpAprProtocol&#8221;  (for ajp connector)</p></li>
-</ul>
-
-
-<p>参考文档：  <br/>
-&lt;http://tomcat.apache.org/tomcat-6.0-doc/config/http.html#Connector Comparison></p>
-
-<p><a href="http://tomcat.apache.org/tomcat-6.0-doc/config/ajp.html">http://tomcat.apache.org/tomcat-6.0-doc/config/ajp.html</a></p>
-
-<h5>MySQL</h5>
-
-<p>大并发下，响应时间如何提高，绝大部分瓶颈都处于数据库端。</p>
-
-<p>与数据库的连接，使用JDBC连接池</p>
-
-<p>slow query监控：   <br/>
-1. 开启慢查询 my.cnf</p>
-
-<pre><code>long_query_time = 2
-log-slow-queries =  slow.log
-</code></pre>
-
-<p>2.使用mysqldumpslow分析log</p>
-
-<pre><code>mysqldumpslow -t 10 -s t  slow.log
-</code></pre>
-
-<p>解决：</p>
-
-<ul>
-<li>1.SQL调优   （http://coolshell.cn/articles/1846.html）</li>
-<li>2.走类似lucene索引，空间换时间（idea实际测试中，吞吐提升7倍）</li>
-<li>3.使用NoSQL?</li>
-</ul>
-
-
-<p>$MYSQL_HOME/etc/my.cnf  或者 my.ini（windows）</p>
-
-<p>主要影响性能参数：</p>
-
-<pre><code>max-connections = 3000     会话数上限
-max_connect_errors = 10000    允许的最大连接错误量
-query_cache_size =128M    查询缓存
-query_cache_limit = 2M   小于这么大的才缓存，保护查询缓存
-sort_buffer_size =256M    排序order by 或 group by 使用
-</code></pre>
-
-<p>参考：<a href="http://www.ha97.com/4110.html">http://www.ha97.com/4110.html</a></p>
-
-<h4>Apache</h4>
-
-<p>处理静态资源，无法处理动态（需要应用服务器支持）</p>
-
-<p>静态资源直接交给apache处理</p>
-
-<p>ab 命令进行测试，达到1000并发很easy</p>
-
-<pre><code>ab -k -c 1000  -n 1000000  http://hostname:port/path
-</code></pre>
-
-<p>参考：<a href="http://httpd.apache.org/docs/2.2/programs/ab.html">http://httpd.apache.org/docs/2.2/programs/ab.html</a></p>
-
-<h5>开启MPM支持大并发</h5>
-
-<table border="1px">
-<thead>
-<th>Mpm模式</th><th>并发方式</th><th>内存占用</th><th>并发性能</th>
-</thead>
-<tbody>
-<tr>
-<td>prefork</td><td>进程</td><td>高</td><td>低并发下，吞吐率高</td>
-</tr>
-<tr>
-<td>worker</td><td>进程+线程</td><td>低</td><td>支持海量并发</td>
-</tr>
-</tbody>
-</table>
-
-
-<p>确定apache模式命令：</p>
-
-<pre><code>./httpd –l
-</code></pre>
-
-<p>输出：</p>
-
-<pre><code>Compiled in modules:
-core.c
-worker.c
-http_core.c
-mod_so.c
-</code></pre>
-
-<p>修改httpd-mpm.conf</p>
-
-<pre><code>&lt;IfModule mpm_worker_module&gt;
-    StartServers          2
-    MaxClients          150
-    MinSpareThreads      25
-    MaxSpareThreads      75
-    ThreadsPerChild      25
-    MaxRequestsPerChild   0
-&lt;/IfModule&gt;
-</code></pre>
-
-<p>上面的配置需要满足以下公式：</p>
-
-<pre><code>     ThreadLimit &gt;= ThreadsPerChild    
-     MaxClients &lt;= ServerLimit * ThreadsPerChild 必须是ThreadsPerChild的倍数     
-     MaxSpareThreads &gt;= MinSpareThreads+ThreadsPerChild    
-</code></pre>
-
-<h4>Linux</h4>
-
-<h5>too many open files error</h5>
-
-<p><code>ulimit -a</code>进行查看
-修改<code>vi /etc/security/limits.conf</code></p>
-
-<p>添加：</p>
-
-<pre><code>*    -     nofile    65535
-</code></pre>
-
-<p>参考文档： <br/>
- <a href="http://blog.csdn.net/lifeibo/article/details/5972356">http://blog.csdn.net/lifeibo/article/details/5972356</a></p>
-
-<p>Http连接是基于TCP的，这个时候需要对linux服务器进行优化。 <br/>
-<strong>三次握手</strong></p>
-
-<p><img src="http://www.shenyanchao.cn/images/blog/2013/three-times-handshake.png" alt="三次握手" /></p>
-
-<p><strong>四次挥手</strong></p>
-
-<p><img src="http://www.shenyanchao.cn/images/blog/2013/four-wave.png" alt="四次挥手" /></p>
-
-<p>如何查看服务器TCP状态？  <br/>
-命令：</p>
-
-<pre><code>netstat -n | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}'
-</code></pre>
-
-<p>输出：</p>
-
-<pre><code>ESTABLISHED 1423
-FIN_WAIT1 1
-FIN_WAIT2 262
-SYN_SENT 1
-TIME_WAIT 962
-</code></pre>
-
-<p>优化TCP连接相关参数：</p>
-
-<p><code>vi /etc/sysctl.conf</code></p>
-
-<pre><code>net.ipv4.tcp_fin_timeout = 30  保持在FIN-WAIT-2的时间。默认60秒。2.2内核是180秒
-net.ipv4.tcp_keepalive_time = 1200     长连接keepalive打开，发送的频率。默认7200（2H）
-net.ipv4.tcp_tw_reuse = 1     默认0，处于TIME-WAIT状态的socket可以用于新的TCP连接
-net.ipv4.tcp_tw_recycle = 1   默认0，TIME-WAIT状态的sockets快速回收
-net.ipv4.ip_local_port_range = 1024    65000 向外连接的端口范围，默认32768~61000
-net.ipv4.tcp_max_syn_backlog = 8192  默认1024/128,未获得客户端连接请求并保存在队列中的最大数目。
-net.ipv4.tcp_max_tw_buckets = 5000   默认180000，系统处理的最大TIME_WAIT数目。
-net.ipv4.route.gc_timeout = 100  路由缓存刷新频率，失败多长时间跳到另一个。默认300.
-net.ipv4.tcp_syncookies = 1 默认0，SYN队列溢出，启用cookies处理。
-net.ipv4.tcp_syn_retries = 1       新建连接发送SYN次数，默认5，180秒
-net.ipv4.tcp_synack_retries = 1    3次握手的第二步，重试几次。默认5.
-</code></pre>
-
-<p><code>/sbin/sysctl -p</code>   生效</p>
-
-<p>参考文档：<a href="http://www.itlearner.com/article/4792">http://www.itlearner.com/article/4792</a></p>
-
-<p>备注：此文由本人在公司内做的PPT分享制作而成，内容有些省略以及跳跃。欢迎留言。</p>
 ]]></content>
   </entry>
   

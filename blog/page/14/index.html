@@ -113,6 +113,59 @@
       ﻿
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2012/11/02/mediator-in-java/">设计模式：中介者（mediator） in Java</a></h1>
+    
+	<p class="meta">
+    
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-02T20:50:00+08:00" pubdate data-updated="true">2012年11月02日 20:11:00</time>
+        
+         | <a href="/blog/2012/11/02/mediator-in-java/#disqus_thread">我要评论</a>
+        
+    
+ </p>
+  </header>
+
+
+  <div class="entry-content"><p><strong>定义</strong>:中介者模式,用一个中介对象封装一系列的对象交互,中介者使各对象不需要显式的相互作用,从而使其耦合松散,而且可以独立地改变它们之间的交互.</p>
+
+<p><strong>相关角色</strong></p>
+
+<ul>
+<li>Mediator抽象中介者角色 <br/>
+抽象中介者角色定义统一的接口,用于各个角色之间的通信.</li>
+<li>Concrete Mediator具体中介者 <br/>
+具体中介者角色通过协调各同事角色实现协作行为,因此它必须依赖于各个同事角色.</li>
+<li>Colleague同事角色  <br/>
+每一个同事角色都知道中介者角色,而且与其他的同事角色通信的时候,一定要通过中介者角色协作.</li>
+</ul>
+
+
+<p>士大夫撒</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      ﻿
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2012/11/02/visitor-in-java/">设计模式：访问者（visitor） in Java</a></h1>
     
 	<p class="meta">
@@ -341,62 +394,6 @@ if (book != null) {
 
     </article>
   
-  
-    <article>
-      ﻿
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2012/11/02/memento-in-java/">设计模式:备忘录（memento） in Java</a></h1>
-    
-	<p class="meta">
-    
-
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-02T20:10:00+08:00" pubdate data-updated="true">2012年11月02日 20:11:00</time>
-        
-         | <a href="/blog/2012/11/02/memento-in-java/#disqus_thread">我要评论</a>
-        
-    
- </p>
-  </header>
-
-
-  <div class="entry-content"><p><strong>定义：</strong>在不破坏封装性的前提下，捕获一个对象的内部状态，并在该对象之外保存这个状态。这样以后就可将该对象恢复到原先保存的状态。</p>
-
-<p>备忘录模式有以下三个角色：</p>
-
-<ul>
-<li>Originator发起人角色  <br/>
-记录当前时刻的内部状态，负责定义哪些属于备份范围的状态，负责创建和恢复备忘录数据。</li>
-<li>Memento备忘录角色   <br/>
-负责存储Originator发起人对象的内部状态，在需要的时候提供发起人需要的内部状态。</li>
-<li>Caretaker备忘录管理员角色  <br/>
-对备忘录进行管理、保存和提供备忘录。</li>
-</ul>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/11/02/memento-in-java/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <ul class="pager">
     
     <li class="previous"><a href="/blog/page/15/">&larr; 上一页</a></li>
@@ -419,6 +416,10 @@ if (book != null) {
     <li class="nav-header">最近更新</li>
     
       <li class="post">
+        <a href="/blog/2015/03/26/c3p0-config/">c3p0 config</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/11/25/better-synonym-handling-in-solr/">如何在Solr中更好的处理同义词</a>
       </li>
     
@@ -434,16 +435,12 @@ if (book != null) {
         <a href="/blog/2014/11/13/install-hadoop/">Hadoop1.2.1安装部署</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/11/11/introduce-oryx/">oryx介绍</a>
-      </li>
-    
   </ul>
 </section>
 <section class="well">
 	<ul id="tags-cloud" class="nav nav-list">
 	<li class="nav-header">分类云</li>
-    <span id="tag-cloud"><a href='/blog/categories/apache' style='font-size: 102.4%'>apache(1)</a> <a href='/blog/categories/checkstyle' style='font-size: 102.4%'>checkstyle(1)</a> <a href='/blog/categories/encode' style='font-size: 112.0%'>encode(5)</a> <a href='/blog/categories/git' style='font-size: 104.8%'>git(2)</a> <a href='/blog/categories/hadoop' style='font-size: 102.4%'>hadoop(1)</a> <a href='/blog/categories/http' style='font-size: 104.8%'>HTTP(2)</a> <a href='/blog/categories/idea' style='font-size: 102.4%'>IDEA(1)</a> <a href='/blog/categories/java' style='font-size: 107.2%'>Java(3)</a> <a href='/blog/categories/java' style='font-size: 109.6%'>java(4)</a> <a href='/blog/categories/javascript' style='font-size: 102.4%'>javascript(1)</a> <a href='/blog/categories/jenkins' style='font-size: 102.4%'>jenkins(1)</a> <a href='/blog/categories/jmeter' style='font-size: 104.8%'>jmeter(2)</a> <a href='/blog/categories/jvm' style='font-size: 104.8%'>JVM(2)</a> <a href='/blog/categories/linux' style='font-size: 107.2%'>linux(3)</a> <a href='/blog/categories/mahout' style='font-size: 102.4%'>mahout(1)</a> <a href='/blog/categories/markdown' style='font-size: 104.8%'>markdown(2)</a> <a href='/blog/categories/maven' style='font-size: 119.2%'>maven(8)</a> <a href='/blog/categories/mysql' style='font-size: 104.8%'>mysql(2)</a> <a href='/blog/categories/nodejs' style='font-size: 116.8%'>nodejs(7)</a> <a href='/blog/categories/oryx' style='font-size: 102.4%'>oryx(1)</a> <a href='/blog/categories/selenium' style='font-size: 121.6%'>selenium(9)</a> <a href='/blog/categories/selenium-wiki' style='font-size: 107.2%'>selenium-wiki(3)</a> <a href='/blog/categories/selenium官方文档' style='font-size: 109.6%'>selenium官方文档(4)</a> <a href='/blog/categories/solr' style='font-size: 104.8%'>solr(2)</a> <a href='/blog/categories/testng' style='font-size: 102.4%'>testng(1)</a> <a href='/blog/categories/ubuntu' style='font-size: 102.4%'>ubuntu(1)</a> <a href='/blog/categories/ut' style='font-size: 104.8%'>ut(2)</a> <a href='/blog/categories/velocity' style='font-size: 102.4%'>velocity(1)</a> <a href='/blog/categories/个人' style='font-size: 104.8%'>个人(2)</a> <a href='/blog/categories/开发' style='font-size: 102.4%'>开发(1)</a> <a href='/blog/categories/测试' style='font-size: 107.2%'>测试(3)</a> <a href='/blog/categories/设计模式' style='font-size: 160.0%'>设计模式(25)</a> <a href='/blog/categories/调优' style='font-size: 102.4%'>调优(1)</a> </span>
+    <span id="tag-cloud"><a href='/blog/categories/apache' style='font-size: 102.4%'>apache(1)</a> <a href='/blog/categories/c3p0' style='font-size: 102.4%'>c3p0(1)</a> <a href='/blog/categories/checkstyle' style='font-size: 102.4%'>checkstyle(1)</a> <a href='/blog/categories/encode' style='font-size: 112.0%'>encode(5)</a> <a href='/blog/categories/git' style='font-size: 104.8%'>git(2)</a> <a href='/blog/categories/hadoop' style='font-size: 102.4%'>hadoop(1)</a> <a href='/blog/categories/http' style='font-size: 104.8%'>HTTP(2)</a> <a href='/blog/categories/idea' style='font-size: 102.4%'>IDEA(1)</a> <a href='/blog/categories/java' style='font-size: 109.6%'>java(4)</a> <a href='/blog/categories/java' style='font-size: 107.2%'>Java(3)</a> <a href='/blog/categories/javascript' style='font-size: 102.4%'>javascript(1)</a> <a href='/blog/categories/jenkins' style='font-size: 102.4%'>jenkins(1)</a> <a href='/blog/categories/jmeter' style='font-size: 104.8%'>jmeter(2)</a> <a href='/blog/categories/jvm' style='font-size: 104.8%'>JVM(2)</a> <a href='/blog/categories/linux' style='font-size: 107.2%'>linux(3)</a> <a href='/blog/categories/mahout' style='font-size: 102.4%'>mahout(1)</a> <a href='/blog/categories/markdown' style='font-size: 104.8%'>markdown(2)</a> <a href='/blog/categories/maven' style='font-size: 119.2%'>maven(8)</a> <a href='/blog/categories/mysql' style='font-size: 104.8%'>mysql(2)</a> <a href='/blog/categories/nodejs' style='font-size: 116.8%'>nodejs(7)</a> <a href='/blog/categories/oryx' style='font-size: 102.4%'>oryx(1)</a> <a href='/blog/categories/selenium' style='font-size: 121.6%'>selenium(9)</a> <a href='/blog/categories/selenium-wiki' style='font-size: 107.2%'>selenium-wiki(3)</a> <a href='/blog/categories/selenium官方文档' style='font-size: 109.6%'>selenium官方文档(4)</a> <a href='/blog/categories/solr' style='font-size: 104.8%'>solr(2)</a> <a href='/blog/categories/testng' style='font-size: 102.4%'>testng(1)</a> <a href='/blog/categories/ubuntu' style='font-size: 102.4%'>ubuntu(1)</a> <a href='/blog/categories/ut' style='font-size: 104.8%'>ut(2)</a> <a href='/blog/categories/velocity' style='font-size: 102.4%'>velocity(1)</a> <a href='/blog/categories/个人' style='font-size: 104.8%'>个人(2)</a> <a href='/blog/categories/开发' style='font-size: 102.4%'>开发(1)</a> <a href='/blog/categories/测试' style='font-size: 107.2%'>测试(3)</a> <a href='/blog/categories/设计模式' style='font-size: 160.0%'>设计模式(25)</a> <a href='/blog/categories/调优' style='font-size: 102.4%'>调优(1)</a> </span>
   </ul>
 </section>﻿<section class="well">
 <ul class="nav nav-list">
