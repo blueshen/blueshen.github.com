@@ -4,7 +4,7 @@
   <title><![CDATA[分类：c3p0 | Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/blog/categories/c3p0/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2015-03-26T13:14:42+08:00</updated>
+  <updated>2015-03-26T13:20:13+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -25,6 +25,9 @@
 <h4>1）C3P0容错和自动重连与以下配置参数有关：</h4>
 
 <p><code>breakAfterAcquireFailure</code> ：true表示pool向数据库请求连接失败后标记整个pool为block并close，就算后端数据库恢复正常也不进行重连，客户端对pool的请求都拒绝掉。false表示不会标记 pool为block，新的请求都会尝试去数据库请求connection。默认为false。因此，如果想让数据库和网络故障恢复之后，pool能继续请求正常资源必须把此项配置设为false</p>
+
+<!--more-->
+
 
 <p><code>idleConnectionTestPeriod</code> ：C3P0会有一个Task检测pool内的连接是否正常，此参数就是Task运行的频率。默认值为0，表示不进行检测。</p>
 
@@ -54,14 +57,13 @@
 
 <p>综上所述，要想保证性能的前提下，本人推荐的配置组合如下：</p>
 
-<p><code>
-breakAfterAcquireFailure: false
+<pre><code>breakAfterAcquireFailure: false
 testConnectionOnCheckout: false
 testConnectionOnCheckin: false
 idleConnectionTestPeriod: 60
 acquireRetryAttempts: 10
 acquireRetryDelay: 1000
-</code></p>
+</code></pre>
 
 <p>但需要注意的是以上的配置不能保证100%应用端getConnection无误，如果应用端不能发生getConnection错误，需要自行考虑容错和重试机制。</p>
 
