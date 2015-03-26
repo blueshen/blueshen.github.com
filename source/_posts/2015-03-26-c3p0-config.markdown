@@ -1,19 +1,18 @@
 ---
 layout: post
-title: "c3p0 config"
+title: "关于C3P0容错和自动重连特性的研究"
 date: 2015-03-26 13:07
 comments: true
 categories: c3p0
 tags: [ c3p0, dhcp]
 ---
-###关于C3P0容错和自动重连特性的研究
 
 最近常有数据库和网络设备升级和搬迁等事情，而各个应用都是基于数据库连接池做的，大部分都是基于C3P0，数据库或网络状况的变动都会导致客户端连接池中的connection失效，如何剔除这些blocked connection就和C3P0的各个配置息息相关。
 
 ####1）C3P0容错和自动重连与以下配置参数有关：
 
 `breakAfterAcquireFailure` ：true表示pool向数据库请求连接失败后标记整个pool为block并close，就算后端数据库恢复正常也不进行重连，客户端对pool的请求都拒绝掉。false表示不会标记 pool为block，新的请求都会尝试去数据库请求connection。默认为false。因此，如果想让数据库和网络故障恢复之后，pool能继续请求正常资源必须把此项配置设为false
-
+<!--more-->
 `idleConnectionTestPeriod` ：C3P0会有一个Task检测pool内的连接是否正常，此参数就是Task运行的频率。默认值为0，表示不进行检测。
 
 `testConnectionOnCheckout` ：true表示在每次从pool内checkout连接的时候测试其有效性，这是个同步操作，因此应用端的每次数据库调用，都会先通过测试sql测试其有效性，如果连接无效，会关闭此连接并剔除出pool，并尝试从pool内取其他连接，默认为false，此特性要慎用，会造成至少多一倍的数据库调用。
@@ -41,14 +40,14 @@ tags: [ c3p0, dhcp]
 
 综上所述，要想保证性能的前提下，本人推荐的配置组合如下：
 
-```
-breakAfterAcquireFailure: false
-testConnectionOnCheckout: false
-testConnectionOnCheckin: false
-idleConnectionTestPeriod: 60
-acquireRetryAttempts: 10
-acquireRetryDelay: 1000
-```
+
+    breakAfterAcquireFailure: false
+    testConnectionOnCheckout: false
+    testConnectionOnCheckin: false
+    idleConnectionTestPeriod: 60
+    acquireRetryAttempts: 10
+    acquireRetryDelay: 1000
+
 
 但需要注意的是以上的配置不能保证100%应用端getConnection无误，如果应用端不能发生getConnection错误，需要自行考虑容错和重试机制。
 
