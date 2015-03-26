@@ -4,7 +4,7 @@
   <title><![CDATA[Blues 小站]]></title>
   <link href="http://www.shenyanchao.cn/atom.xml" rel="self"/>
   <link href="http://www.shenyanchao.cn/"/>
-  <updated>2015-03-26T13:20:13+08:00</updated>
+  <updated>2015-03-26T13:21:32+08:00</updated>
   <id>http://www.shenyanchao.cn/</id>
   <author>
     <name><![CDATA[ShenYanchao]]></name>
@@ -14,13 +14,11 @@
 
   
   <entry>
-    <title type="html"><![CDATA[c3p0 config]]></title>
+    <title type="html"><![CDATA[关于C3P0容错和自动重连特性的研究]]></title>
     <link href="http://www.shenyanchao.cn/blog/2015/03/26/c3p0-config/"/>
     <updated>2015-03-26T13:07:00+08:00</updated>
     <id>http://www.shenyanchao.cn/blog/2015/03/26/c3p0-config</id>
-    <content type="html"><![CDATA[<h3>关于C3P0容错和自动重连特性的研究</h3>
-
-<p>最近常有数据库和网络设备升级和搬迁等事情，而各个应用都是基于数据库连接池做的，大部分都是基于C3P0，数据库或网络状况的变动都会导致客户端连接池中的connection失效，如何剔除这些blocked connection就和C3P0的各个配置息息相关。</p>
+    <content type="html"><![CDATA[<p>最近常有数据库和网络设备升级和搬迁等事情，而各个应用都是基于数据库连接池做的，大部分都是基于C3P0，数据库或网络状况的变动都会导致客户端连接池中的connection失效，如何剔除这些blocked connection就和C3P0的各个配置息息相关。</p>
 
 <h4>1）C3P0容错和自动重连与以下配置参数有关：</h4>
 
