@@ -178,6 +178,8 @@ Solr提供了一个听起来很酷的SynonymFilterFactory,它可以接收一个�
     pooch nibble
 
 
+<!--
+
 ###尝试一下
 
 使用步骤见<https://github.com/blueshen/hon-lucene-synonyms>
@@ -210,3 +212,5 @@ Solr提供了一个听起来很酷的SynonymFilterFactory,它可以接收一个�
 
 ---
 原文：[Better synonym handling in Solr](http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/)
+
+-->
