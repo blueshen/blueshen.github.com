@@ -1,7 +1,7 @@
 # Site settings
-title: Blues
+title: Blues小站
 email: zhiyi.shen@gmail.com
-description: 没事就写写，总结下
+description: 技术是一种信仰
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://www.shenyanchao.cn" # the base hostname & protocol for your site
 # twitter_username: jekyllrb
@@ -15,4 +15,7 @@ paginate_path: "/blog/page/:num"
 timezone: Asia
 
 # Build settings
-markdown: kramdown
+markdown: redcarpet
+
+kramdown:
+  input: GFM

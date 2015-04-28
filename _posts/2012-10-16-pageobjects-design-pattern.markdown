@@ -23,6 +23,7 @@ tags: [ webdriver, selenium, PageObjects, PageFactory ]
 相信这是一个很容易理解的场景吧！  
 Java Code可能类似如下：   
 
+```java
 	public class LoginPage {
 		//用户名录入框
 		private WebElement usernameBox;
@@ -45,7 +46,8 @@ Java Code可能类似如下：
     	public String getErrorMessage() {
         // 获取错误信息
     	}
-	}   
+	}  
+``` 
 从上面可以看出，同时封装了元素以及功能。此处样例，元素是没有初始化的。可以通过类似于`driver.findElement()`的函数来直接进行初始化，另外WebDriver提供了一个PageFactory用于对PageObjects设计模式进行支持，下面将会讲到。  
 通过上面的这段代码，也展现出了一个重要的问题，那就是assertion不应该在Page Objects内部，而应该由tests进行处理。Page Objects只是返回需要验证的信息即可。
 
