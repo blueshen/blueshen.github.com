@@ -1,7 +1,7 @@
 # Site settings
-title: Blues小站
+title: Blues
 email: zhiyi.shen@gmail.com
-description: 技术博客~~~~
+description: 没事就写写，总结下
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://www.shenyanchao.cn" # the base hostname & protocol for your site
 # twitter_username: jekyllrb
@@ -10,7 +10,9 @@ github_username:  blueshen
 permalink: /blog/:year/:month/:day/:title/
 
 paginate: 5
-paginate_path: "/blog/page:num/"
+paginate_path: "/blog/page/:num"
+
+timezone: Asia
 
 # Build settings
 markdown: kramdown
