@@ -1,5 +1,3 @@
-www.shenyanchao.cn
-
 ---
 layout: post
 title: "Java新特性"
