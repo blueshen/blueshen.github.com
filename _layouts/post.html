@@ -5,6 +5,7 @@ layout: default
 
   <header class="post-header">
     <h1 class="post-title">{{ page.title }}</h1>
+    <p> 标签：{% for tag in page.tags %}{{ tag }}&nbsp;{% endfor %}</p>
     <p>{% include baidu_share.html %}</p>
     <p class="post-meta">{{ page.date | date: "%Y-%m-%d %H:%m" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}</p>
   </header>
@@ -12,6 +13,7 @@ layout: default
   <article class="post-content">
     {{ content }}
   </article>
+
 </div>
 
      {% include disqus.html %}
