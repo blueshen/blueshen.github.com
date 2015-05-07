@@ -9,10 +9,12 @@ github_username:  blueshen
 
 permalink: /blog/:year/:month/:day/:title/
 
-paginate: 5
+paginate: 10 
 paginate_path: "/blog/page/:num"
 
-timezone: Asia
+excerpt_separator: "<!--more-->"
+
+timezone: Asia/Shanghai
 
 # Build settings
 markdown: redcarpet
