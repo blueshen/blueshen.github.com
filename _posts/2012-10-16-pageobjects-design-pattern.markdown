@@ -60,6 +60,7 @@ Java Code可能类似如下：
 * 一样的操作，不同的结果应该分开（正确登录，错误登录）   
 
 ##样例##
+```java	
 	public class LoginPage {
 		private final WebDriver driver;
 		// 用户名录入框
@@ -86,11 +87,13 @@ Java Code可能类似如下：
 			return new HomePage(driver);
 		}
 	}
-
+```
 ##PageFactory##
 从上面的样例中，有没有发现每个元素都要进行`driver.findElement()`这样的操作，写起来好累啊，一堆重复性的代码。有没有更好的，更优雅的处理方法呢？**`org.openqa.selenium.support.PageFactory`**就是用来负责处理这个的，真Happy!   
-下面以[百度搜索](http://www.baidu.com)作为样例场景，搜索一个关键字：	
+下面以[百度搜索](http://www.baidu.com)作为样例场景，搜索一个关键字
 
+	
+```java
 	import org.openqa.selenium.WebDriver;
 	import org.openqa.selenium.WebElement;
 	import org.openqa.selenium.htmlunit.HtmlUnitDriver;
@@ -122,12 +125,16 @@ Java Code可能类似如下：
 			LOG.info("after search url is:{}",driver.getCurrentUrl());
 		}
 	}
+```
 运行以上代码，发现已经可以正常运行，结果如下：
 
+```
 	......
 	before search url is:http://www.baidu.com/
 	......
 	after search url is:http://www.baidu.com/s?wd=blueshen&rsv_bp=0&rsv_spt=3
+```
+
 可见，搜索后，已经转向了正确的搜索结果页面。然而WebElement是如何初始化的呢？玄机就在`BaiduSearchPage baiduPage = PageFactory.initElements(driver,BaiduSearchPage.class);`这行代码。PageFactory负责初始化了Page里的元素，amazing，用起来就是这么的优雅。   
 那么下来，我就要问了：PageFactory是怎么定位元素的呢？   
 >原来PageFactory初始化元素有一个惯例，样例中将WebElement的名称定为wd,那么PageFactory将按类似以下的形式对其进行初始化：    
@@ -136,6 +143,7 @@ PageFactory认为wd是HTML元素的id或者name字段的值,并且优先从id开
 
 随着项目的变大，以及使用的更加深入，HTML元素的id，name字段并不一定唯一，并且Java Class的属性看起来都是一堆无意义的名称。这些要求我们必须要进行改进。幸好PageFactory已经提前考虑到了这一切，它支持annotations来显式定位元素。那么上述的百度搜索样例，可以修改为如下形式：   
 
+```java
 	public class BaiduSearchPage {
 		public static final Logger LOG = LoggerFactory
 			.getLogger(BaiduSearchPage.class);
@@ -149,14 +157,18 @@ PageFactory认为wd是HTML元素的id或者name字段的值,并且优先从id开
 		}
 	......
 	}
+```
 明确的指定HOW.NAME,using="wd",意为查找name="wd"的元素，并将其初始化赋值给searchBox这一有意义的属性名。其中@CacheLookup用于标识其只初始化一次，然后缓存起来备用。   
 
-感觉还不够简洁吗？继续修改：  
-
+感觉还不够简洁吗？继续修改： 
+  
+```java
  	@FindBy(name = "wd")
   	private WebElement searchBox;
+```
 这是其简略模式，还支持各种定位方式。   
 
+```java
 		@FindBy(id="...")
 		@FindBy(className="...")
 		@FindBy(name="...")
@@ -165,6 +177,7 @@ PageFactory认为wd是HTML元素的id或者name字段的值,并且优先从id开
 		@FindBy(partialLinkText="...")
 		@FindBy(tagName="...")
 		@FindBy(css="...")
+```
 同时支持`@FindBys`用于支持列表元素查找定位，返回`List<WebElement>`类型。
 
 **总之，利用PageObjects设计模式并且配合PageFactory使用，将使你的自动化测试优雅、易懂、易维护。**

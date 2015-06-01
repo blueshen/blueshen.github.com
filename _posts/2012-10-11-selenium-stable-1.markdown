@@ -12,6 +12,7 @@ tags: [ webdriver, selenium , stable  ]
 >3.在实际人工操作中，点击出第一个框后，点击一下空白区域，在点击出现第二个框。因此，可以考虑一个点击空白区域的方法
 
 ##实现方法如下    
+```java   
     /**
 	 * 点击空白区域：坐标（0，0）
 	 */
@@ -19,5 +20,5 @@ tags: [ webdriver, selenium , stable  ]
 		Actions actions = new Actions(driver);
 		actions.moveByOffset(0, 0).click().build().perform();
 	}
-
+```
 让driver先移动到一个空白位置（此处设为(0,0)坐标点），做一下点击操作即可
