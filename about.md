@@ -1,8 +1,9 @@
 ---
 layout: page
-title: 关于
+title: 关于我
 permalink: /about/
 ---
+
 # 申艳超
 ## 高级Java研发工程师
 
