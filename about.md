@@ -1,17 +1,18 @@
 ---
 layout: page
 title: 关于我
+comments: false
 permalink: /about/
 ---
 
 # 申艳超
 
-## 高级Java研发工程师.T5
+## 高级Java研发工程师.__T5__
 
 > 北京，男，1985年  
-> [zhiyi.shen@gmail.com](zhiyi.shen@gmail.com)  
 > (+86) **151-1025-0314**   
-> **5年**工作经验
+> **5年**工作经验   
+> [zhiyi.shen@gmail.com](mailto:zhiyi.shen@gmail.com)  
 
 -------
 
@@ -49,7 +50,7 @@ permalink: /about/
 >主要工作：优化速度与用户体验、百度Hackathon活动支持、代码重构  
 >涉及技术：spring,spring-data-jpa,hibernate-search
 
---
+---
 
 #### 中国电子口岸数据中心(Eport)
 >*Java开发工程师*
