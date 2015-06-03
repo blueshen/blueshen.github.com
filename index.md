@@ -1,7 +1,8 @@
 ---
 layout: page
-title: Home
-tagline: 欢迎来到Blues小站！
+title: 欢迎来到Blues小站！
+tagline: 
+comments: false
 ---
 {% include JB/setup %}
 <ul class="posts">
