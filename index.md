@@ -1,7 +1,7 @@
 ---
 layout: page
 title: 欢迎来到Blues小站！
-tagline: 
+tagline: "~~~"
 comments: false
 ---
 {% include JB/setup %}
