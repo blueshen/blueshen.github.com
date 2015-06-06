@@ -18,10 +18,10 @@ permalink: /about/
 ###工作经历   
 
 ####百度(Baidu)
->*高级Java研发工程师*  __2012.03月至今__
+>*高级Java研发工程师*  __2012.03至今__     
 
 ####中国电子口岸数据中心(Eport)
->*Java开发工程师* __2010.07月~2012.03月__  
+>*Java开发工程师* __2010.07~2012.03__  
  
 ---
 
@@ -30,8 +30,8 @@ permalink: /about/
 - 框架：Spring, Hibernate
 - 搜索：Solr/SolrCloud,Lucene
 - 构建：Maven,Jenkins/Hudson
-- VCS: Svn,Git
-- Linux: 3年ubuntu桌面经验
+- VCS: SVN,Git
+- Linux: ubuntu桌面
 - 数据库: MySQL
 - IDE: IDEA, Eclipse
 
@@ -43,7 +43,7 @@ permalink: /about/
 >**主要工作**：内搜阿拉丁、通讯录搜索优化、后台管理、接口人搜索等  
 >**解决难点**：用户搜索意图识别、搜索同义词支持、solrcloud升级   
 >**效果**：api调用翻番，PV增加50%  
->**涉及技术**：Solr, Lucene, Spring, ActiveMQ, memcache, apache shiro
+>**涉及技术**：Solr/SolrCloud, Lucene, Spring, ActiveMQ, memcache, apache shiro
 
 ####百度Hi用户搜索:百度hi搜索支持  
 >**主要工作**：hi海量（近2亿用户，100亿用户关系）数据入索引。SolrCloud实施方案以及性能调优。hi用户，陌生人，好友搜索。   
@@ -51,10 +51,10 @@ permalink: /about/
 >**涉及技术**：SolrCloud,Solrj,zookeeper,jvm调优
 
 ####创意汇:百度内部的创意平台
->主要工作：优化速度与用户体验、百度Hackathon活动支持、代码重构  
->涉及技术：spring,spring-data-jpa,hibernate-search,apache shiro
+>主要工作：百度Hackathon专区模块开发，代码重构、优化速度与用户体验  
+>涉及技术：Spring,spring-data-jpa,hibernate-search,apache shiro
  
-####JC2006(稽查管理系统)四期 > **主要工作**：海关对进出口企业进行管理的一个业务系统，涉及企业注册管理，报关员管理等业务。    > **涉及技术**：Spring,iBatis,Spring Security####公路舱单管理系统 > **主要工作**：海关针对公路口岸进行报关的一个预录入系统。采用是单位内部一个成型的SuperPass框架进行开发，并发布为WebService服务供客户端调用。   
+####JC2006(稽查管理系统)四期 > **主要工作**：海关对进出口企业进行管理的一个业务系统，主要包括企业注册管理，报关员管理等业务。    > **涉及技术**：Spring,iBatis,Spring Security####公路舱单管理系统 > **主要工作**：海关针对公路口岸进行报关的一个预录入系统。采用是单位内部一个成型的SuperPass框架进行开发，并发布为WebService服务供客户端调用。   
 >**涉及技术**： Spring,iBatis
 
 ---
@@ -65,9 +65,9 @@ permalink: /about/
 
 ---
 
-###开源
+###开源相关
 Github: [https://github.com/blueshen](https://github.com/blueshen)  
-技术博客: [http://www.shenyanchao.cn](http://www.shenyanchao.cn)
+个人博客: [http://www.shenyanchao.cn](http://www.shenyanchao.cn)
 
 ---
 
