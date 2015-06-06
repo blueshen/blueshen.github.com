@@ -16,7 +16,6 @@ permalink: /about/
 ---
 
 ###工作经历
-
 ####百度(Baidu)
 >*高级Java研发工程师*  __2012.03月至今__
 
@@ -26,7 +25,6 @@ permalink: /about/
 ---
 
 ###个人技能
-
 - 语言：Java
 - 框架：Spring, Hibernate
 - 搜索：Solr/SolrCloud,Lucene
@@ -39,7 +37,6 @@ permalink: /about/
 ---
 
 ###项目经验
-  
 #####百度内搜：公司内部的百度，同时提供搜索服务支持
 >**主要工作**：内搜阿拉丁、通讯录搜索优化、后台管理、接口人搜索等  
 >**解决难点**：用户搜索意图识别、搜索同义词支持、solrcloud升级   
@@ -61,13 +58,11 @@ permalink: /about/
 ---
 
 ###教育背景
-
 北京理工大学 *计算机科学与技术专业* 自然语言处理方向 工学硕士
 
 ---
 
 ###开源
-
 Github: [https://github.com/blueshen](https://github.com/blueshen)  
 技术博客: [http://www.shenyanchao.cn](http://www.shenyanchao.cn)
 
