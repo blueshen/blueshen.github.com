@@ -14,6 +14,7 @@ permalink: /about/
 > [zhiyi.shen@gmail.com](mailto:zhiyi.shen@gmail.com)  
 
 ---
+
 ###工作经历
 
 ####百度(Baidu)
@@ -58,11 +59,13 @@ permalink: /about/
 >**涉及技术**： Spring,iBatis
 
 ---
+
 ###教育背景
 
 北京理工大学 *计算机科学与技术专业* 自然语言处理方向 工学硕士
 
 ---
+
 ###开源
 
 Github: [https://github.com/blueshen](https://github.com/blueshen)  
