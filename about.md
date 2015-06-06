@@ -15,6 +15,7 @@ permalink: /about/
 
 ---
 ###工作经历
+
 ####百度(Baidu)
 >*高级Java研发工程师*  __2012.03月至今__
 
@@ -22,6 +23,7 @@ permalink: /about/
 >*Java开发工程师* __2010.07月~2012.03月__  
  
 ---
+
 ###个人技能
 
 - 语言：Java
@@ -33,7 +35,8 @@ permalink: /about/
 - 数据库: MySQL
 - IDE: IDEA, Eclipse
 
---- 
+---
+
 ###项目经验
   
 #####百度内搜：公司内部的百度，同时提供搜索服务支持
@@ -56,10 +59,12 @@ permalink: /about/
 
 ---
 ###教育背景
+
 北京理工大学 *计算机科学与技术专业* 自然语言处理方向 工学硕士
 
 ---
-###开源 
+###开源
+
 Github: [https://github.com/blueshen](https://github.com/blueshen)  
 技术博客: [http://www.shenyanchao.cn](http://www.shenyanchao.cn)
 
