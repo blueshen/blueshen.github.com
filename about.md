@@ -5,24 +5,24 @@ comments: false
 permalink: /about/
 ---
 
-# 申艳超（ShenYanchao）
+#申艳超（ShenYanchao）
 
-## 高级Java研发工程师.__T5__
+##高级Java研发工程师.__T5__
 > 北京，男，1985年  
 > (+86) **151-1025-0314**   
 > **5年**工作经验   
 > [zhiyi.shen@gmail.com](mailto:zhiyi.shen@gmail.com)  
 
 ---
-### 工作经历
-#### 百度(Baidu)
+###工作经历
+####百度(Baidu)
 >*高级Java研发工程师*  __2012.03月至今__
 
-#### 中国电子口岸数据中心(Eport)
+####中国电子口岸数据中心(Eport)
 >*Java开发工程师* __2010.07月~2012.03月__  
  
 ---
-### 个人技能
+###个人技能
 
 - 语言：Java
 - 框架：Spring, Hibernate
@@ -34,7 +34,7 @@ permalink: /about/
 - IDE: IDEA, Eclipse
 
 --- 
-### 项目经验
+###项目经验
   
 #####百度内搜：公司内部的百度，同时提供搜索服务支持
 >**主要工作**：内搜阿拉丁、通讯录搜索优化、后台管理、接口人搜索等  
@@ -51,17 +51,15 @@ permalink: /about/
 >主要工作：优化速度与用户体验、百度Hackathon活动支持、代码重构  
 >涉及技术：spring,spring-data-jpa,hibernate-search,apache shiro
  
-##### JC2006(稽查管理系统)四期 > **主要工作**：海关对进出口企业进行管理的一个业务系统，涉及企业注册管理，报关员管理等业务。    > **涉及技术**：Spring,iBatis,Spring Security##### 公路舱单管理系统 > **主要工作**：海关针对公路口岸进行报关的一个预录入系统。采用是单位内部一个成型的SuperPass框架进行开发，并发布为WebService服务供客户端调用。   
+#####JC2006(稽查管理系统)四期 > **主要工作**：海关对进出口企业进行管理的一个业务系统，涉及企业注册管理，报关员管理等业务。    > **涉及技术**：Spring,iBatis,Spring Security#####公路舱单管理系统 > **主要工作**：海关针对公路口岸进行报关的一个预录入系统。采用是单位内部一个成型的SuperPass框架进行开发，并发布为WebService服务供客户端调用。   
 >**涉及技术**： Spring,iBatis
 
 ---
-### 教育背景
-
+###教育背景
 北京理工大学 *计算机科学与技术专业* 自然语言处理方向 工学硕士
 
 ---
-### 开源 
-
+###开源 
 Github: [https://github.com/blueshen](https://github.com/blueshen)  
 技术博客: [http://www.shenyanchao.cn](http://www.shenyanchao.cn)
 
