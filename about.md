@@ -16,19 +16,6 @@ permalink: /about/
 
 -------
 
-### 技能
-
-- 语言：Java
-- 框架：Spring, Hibernate
-- 搜索：Solr/SolrCloud,Lucene
-- 构建：Maven,Jenkins/Hudson
-- VCS: Svn,Git
-- Linux: 3年ubuntu桌面经验
-- 数据库: MySQL
-- JavaIDE: Intellij IDEA, Eclipse
-
-------
-
 ### 工作经历
 
 #### 百度（Baidu）
@@ -40,6 +27,19 @@ permalink: /about/
   __2010.7月~2012.3月__  
  
  ---
+ 
+### 个人技能
+
+- 语言：Java
+- 框架：Spring, Hibernate
+- 搜索：Solr/SolrCloud,Lucene
+- 构建：Maven,Jenkins/Hudson
+- VCS: Svn,Git
+- Linux: 3年ubuntu桌面经验
+- 数据库: MySQL
+- JavaIDE: Intellij IDEA, Eclipse
+
+------
  
 ### 项目经验
   
