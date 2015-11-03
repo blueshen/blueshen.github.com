@@ -1,10 +1,10 @@
 ---
 layout: post
 title: Restful Spring MVC
-date: 2014-11-25 13:53
+date: 2015-11-03 13:53
 comments: true
-categories: solr
-tags: [ 同义词, solr, lucene]
+categories: spring
+tags: [ restful, spring, mvc]
 ---
 
 
