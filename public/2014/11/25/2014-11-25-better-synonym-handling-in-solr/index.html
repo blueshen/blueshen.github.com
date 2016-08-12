@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>如何在Solr中更好的处理同义词 | Blues小站</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="当使用Solr来构建搜索引擎的时候，你可能经常会遇到这样的场景：你有一个同义词列表，并且你想用户查询也能够命中到同义词。听起来很简单不是吗？为什么搜索“dog”的时候，不能命中包含“hound(猎犬)”或者“pooch(狗)”的文档呢？甚至包含“Rover(流浪者)”和“canis familiaris(犬)”?
+
+叫Rover或者其他名字，可能只是为了让小狗听起来很可爱。
+事实证明，Solr的同">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何在Solr中更好的处理同义词">
+<meta property="og:url" content="http://www.shenyanchao.cn/2014/11/25/2014-11-25-better-synonym-handling-in-solr/index.html">
+<meta property="og:site_name" content="Blues小站">
+<meta property="og:description" content="当使用Solr来构建搜索引擎的时候，你可能经常会遇到这样的场景：你有一个同义词列表，并且你想用户查询也能够命中到同义词。听起来很简单不是吗？为什么搜索“dog”的时候，不能命中包含“hound(猎犬)”或者“pooch(狗)”的文档呢？甚至包含“Rover(流浪者)”和“canis familiaris(犬)”?
+
+叫Rover或者其他名字，可能只是为了让小狗听起来很可爱。
+事实证明，Solr的同">
+<meta property="og:image" content="http://www.shenyanchao.cn/images/blog/2014/File-Licking_the_staffy_pup.JPG">
+<meta property="og:image" content="http://www.shenyanchao.cn/images/blog/2014/index_vs_query_expansion2.png">
+<meta property="og:image" content="http://www.shenyanchao.cn/images/blog/2014/graph11.png">
+<meta property="og:image" content="http://www.shenyanchao.cn/images/blog/2014/graph22.png">
+<meta property="og:image" content="http://www.shenyanchao.cn/images/blog/2014/breast_cancer_highlighting2.png">
+<meta property="og:image" content="http://www.shenyanchao.cn/images/blog/2014/graph33.png">
+<meta property="og:updated_time" content="2016-08-12T09:29:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何在Solr中更好的处理同义词">
+<meta name="twitter:description" content="当使用Solr来构建搜索引擎的时候，你可能经常会遇到这样的场景：你有一个同义词列表，并且你想用户查询也能够命中到同义词。听起来很简单不是吗？为什么搜索“dog”的时候，不能命中包含“hound(猎犬)”或者“pooch(狗)”的文档呢？甚至包含“Rover(流浪者)”和“canis familiaris(犬)”?
+
+叫Rover或者其他名字，可能只是为了让小狗听起来很可爱。
+事实证明，Solr的同">
+<meta name="twitter:image" content="http://www.shenyanchao.cn/images/blog/2014/File-Licking_the_staffy_pup.JPG">
+  
+    <link rel="alternate" href="/atom.xml" title="Blues小站" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Blues小站</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.shenyanchao.cn"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2014-11-25-better-synonym-handling-in-solr" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/11/25/2014-11-25-better-synonym-handling-in-solr/" class="article-date">
+  <time datetime="2014-11-25T05:53:00.000Z" itemprop="datePublished">2014-11-25</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/solr/">solr</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      如何在Solr中更好的处理同义词
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>当使用Solr来构建搜索引擎的时候，你可能经常会遇到这样的场景：你有一个同义词列表，并且你想用户查询也能够命中到同义词。听起来很简单不是吗？为什么搜索“dog”的时候，不能命中包含“hound(猎犬)”或者“pooch(狗)”的文档呢？甚至包含“Rover(流浪者)”和“canis familiaris(犬)”?</p>
+<p><img src="/images/blog/2014/File-Licking_the_staffy_pup.JPG" alt="小狗"></p>
+<p>叫Rover或者其他名字，可能只是为了让小狗听起来很可爱。</p>
+<p>事实证明，Solr的同义词扩展没有你想象的那么简单。但是我们有很多好的方法来搬石头砸自己的脚。</p>
+<a id="more"></a>
+<p>###The SynonymFilterFactory</p>
+<p>Solr提供了一个听起来很酷的SynonymFilterFactory,它可以接收一个逗号分割的同义词文本。你甚至可以选择同义词是相互扩展还是特定方向的替换。   </p>
+<p>举例来说，你可以让“dog”，“hound”和“pooch”都扩展为“dog|hound|pooch”，或者你可以指定“dog”映射到“hound”，反过来却不可以，或者你可以把所有的词都转化为”dog“,Solr处理这部分是非常灵活的并且做的很棒。</p>
+<p>当你考虑是把SynonymFilterFactory放在查询分析器还是索引分析器时，这个问题就变得很复杂啦。</p>
+<p>###Index-time vs. query-time</p>
+<p>下图总结了查询时（query-time）和索引时（index-time）同义词扩展的基本差异。当然我们是为了解决solr中使用的问题，但是这2种方法适用于任何信息检索系统。</p>
+<p><img src="/images/blog/2014/index_vs_query_expansion2.png" alt="Index-time vs. query-time expansion."></p>
+<p>你的直观选择可能是将SynonymFilterFactory放在查询分析器内。理论上，这样做有以下优点：</p>
+<ul>
+<li>索引大小不会变化</li>
+<li>同义词可以随时更换，不用更新索引</li>
+<li>同义词实时生效，不需要重新索引</li>
+</ul>
+<p>然而，按<a href="http://wiki.apache.org/solr/AnalyzersTokenizersTokenFilters#solr.SynonymFilterFactory" target="_blank" rel="external">Solr Docs</a>所说，这是一个Very Bad Thing to Do(™)，显然的你应该把SynonymFilterFactory放在索引分析器里，而不是简单的依靠你的直觉来判断。文档里说，查询时的同义词扩展有以下的缺点：</p>
+<ul>
+<li>多字同义词并不能识别为短语查询</li>
+<li>罕见同义词的IDF会被加权，导致不可想象的搜索结果</li>
+<li>多字同义词不会匹配查询</li>
+</ul>
+<p>这有点复杂，因此也值得我们一一解决这些问题。</p>
+<p>###多字同义词并不能识别为短语查询</p>
+<p>在Health On the Net,我们的搜索引擎使用MeSH来做查询扩展，MeSH是一个为健康领域提供优质同义词的医疗本体。例如”breast cancer“的同义词： </p>
+<pre><code>breast neoplasm
+breast neoplasms
+breast tumor
+breast tumors
+cancer of breast
+cancer of the breast
+</code></pre><p>因此在正常情况下，如果SynonymFilterFactory配置了<code>expand=&quot;true&quot;</code>,查询”breast cancer“就变成了： </p>
+<pre><code>+((breast breast breast breast breast cancer cancer) (cancer neoplasm neoplasms tumor tumors) breast breast)
+</code></pre><p>这将命中包含”breast neoplasms“,”cancer of the breast”等等的文档。</p>
+<p>然而，这也意味着，如果你正在做一个短语查询（比如”breast cancer“）,如果想生效，你的文档必须字面上匹配类似”breast cancer breast breast“这样的字符。</p>
+<p>啊？这里到底发生了什么？事实证明SynonymFilterFactory并没有按你所想来扩展多字同义词。直觉上，可能认为它表现为一个有限自动机，Solr构建出的结果可能类似这样(忽略复数)：</p>
+<p><img src="/images/blog/2014/graph11.png" alt=""></p>
+<p>但是，它真正构建的是下面这样的：   </p>
+<p><img src="/images/blog/2014/graph22.png" alt=""></p>
+<p>简直是一碗意大利面。</p>
+<p>你可怜的文档必须依序包含所有的4个部分。让人惊讶。</p>
+<p>同样，DisMax和EDisMax查询分析器的mm(最小匹配)参数，并不能像你所想的那样工作。在上面的例子中，设置<code>mm=100%</code>将需要所有4个部分都匹配。</p>
+<pre><code>+((breast breast breast breast breast cancer cancer) (cancer neoplasm neoplasms tumor tumors) breast breast)~4
+</code></pre><h3 id="罕见同义词的IDF会被加权"><a href="#罕见同义词的IDF会被加权" class="headerlink" title="罕见同义词的IDF会被加权"></a>罕见同义词的IDF会被加权</h3><p>即使你没有多字同义词，Solr Docs也提到了第二个避免查询时扩展的原因：不正常的IDF加权。考虑我们的”dog”,”hound”,”pooch”例子，查询3个里面的任意一个都会被扩展为：</p>
+<pre><code>+(dog hound pooch)
+</code></pre><p>由于“hound”和”pooch“是比较少见的字，因此无论查询什么，包含这些字的文档会在查询结果中排名特别高。这对可怜的用户来说，简直是一个浩劫，为什么搜索”dog“的时候，会有那么多包含”hound“和”pooch“的怪异文档排名那么高。</p>
+<p>索引时扩展通过给”dog”,”hound”,”pooch”赋予相同的IDF值，而不管原始文档是什么。</p>
+<p>###多字同义词不会匹配查询<br>最后，也是最严重的是，如果你对用户查询做任意类型的分词，SynonymFilterFactory并不会匹配多字同义词。这是因为分词器会将用户输入分开，然后才交给SynonymFilterFactory来转换。  </p>
+<p>比如，查询“cancer of the breast”会被StandardTokenizationFactory分词为[“cancer”,”of”,”the”,”breast]，并且只有独立的词才会传给SynonymFilterFactory。因此，在这种情况下，如果分词后的单个词，比如‘cancer“和”breast“都没有同义词的情况下，同义词扩展就压根不会发生。</p>
+<p>###其他问题<br>最初，我按照Solr的建议，使用索引时扩展，但是我发现索引时同义词扩展有它自己的问题。显然，除了有索引爆炸的问题，我还发现一个关于高亮的有趣的bug。   </p>
+<p>当我搜索”breast cancer“的时候，我发现高亮器会很神奇的把”breast cancer X Y“给高亮了，其中”X“和”Y“是文档中任何跟在”breast cancer“后面的2个字符。例如，它可能会高亮”breast cancer frauds are“或者”breast cancer is to“。</p>
+<p><img src="/images/blog/2014/breast_cancer_highlighting2.png" alt=""></p>
+<p>看完这个<a href="https://issues.apache.org/jira/browse/SOLR-3390" target="_blank" rel="external">solr bug</a>,这和前面提到的Solr多字同义词扩展是一个原因。</p>
+<p>使用查询时扩展，你的查询被转换为像意大利面般的图已经足够的怪异了。但是在索引时扩展，假如你的文档包含”breast cancer treatment options“,会变成什么样子呢。</p>
+<p><img src="/images/blog/2014/graph33.png" alt=""></p>
+<p>这就是Lucene认为的你文档的样子。同义词扩展给你带来了比你要求更多的东西，类似”Dada-esque“的结果！”Breast tumor the options“确实是这样的。</p>
+<p>从根本上来说，Lucene认为一个查询”cancer of the breast“(4个Token)和你原始文档里的”breast cancer treatment options“(4个Token)是一样的。这是因为Tokens只是一个叠加另一个上面而已，丢失任何信息的部分都可以由它后面的部门来替代。</p>
+<p>查询时扩展不会引起这个问题，因为Solr只扩展了查询，而不是文档。因此Lucene仍然认为查询的”cancer of the breast“只会匹配文档里的”breast cancer“。</p>
+<p>###总结</p>
+<p>所有这些古怪的问题，让我得出这样的结论：Solr内建的同义词扩展机制是及其糟糕的。我必须找出一个更好的方法来让Solr按我想的来运行。</p>
+<p>总之，无论是索引时扩展还是查询时扩展使用标准的SynonymFilterFactory都是不可行的，因为它们都有各自不同的问题。   </p>
+<p><strong>Index-time</strong></p>
+<ul>
+<li>索引爆炸</li>
+<li>同义词不能立即生效，所有文档需重新索引</li>
+<li>同义词不能立即删除</li>
+<li>多字同义词导致多余的文字被高亮</li>
+</ul>
+<p><strong>Query-time</strong></p>
+<ul>
+<li>短语查询不支持</li>
+<li>罕见同义词被认为加权了</li>
+<li>多字同义词不匹配查询</li>
+</ul>
+<p>我开始假设理想的同义词扩展系统应该是基于查询时的，由于基于索引的扩展有那么多固有的缺点。同时，我也意识到在Solr实现同义词扩展之前，有一个更加根本的问题需要解决。</p>
+<p>回到”dog“/“hound”/“pooch”的例子，对待3个词对等的是不明智的。在特定的查询中，”dog“可能并不与”hound“和”pooch“是一样的，比如 (e.g. “The Hound of the Baskervilles,” “The Itchy &amp; Scratchy &amp; Poochy Show”). 一视同仁感觉是错误的。</p>
+<p>同样的，即使使用官方推荐的索引时扩展，IDF权重也被抛弃了。每个包含”dog“的文章现在也都包含”pooch“，这意味着我们将永久的丢失关于”pooch“的真实IDF值。  </p>
+<p>在一个理想的系统里，搜索”dog“，返回的结果应该包含所有存在”hound“和”pooch“的文档，但是应该将所有包含真实查询的文档排的更靠前面，包含”dog“的应该得到更高的分。同样的，搜索“hound”应该把包含“hound”的排的更靠前面，搜索“pooch”就应该将包含“pooch”的更靠前。所有的3个搜索都返回相同的文档集，但是结果排序不一样。 </p>
+<p>###Solution</p>
+<p>我的解决方法是，把同义词扩展从分析器的Tokenizer链移动到QueryParser。不是把查询变成如上面的纵横交错的图，而是把它分为2个部分：主查询和同义词查询。然后我为每个部分独立配置权重，指定每个部分内部为“should occur”。最后将二者使用“must occur”的布尔查询包装起来。</p>
+<p>因此，搜索“dog”为被解析为类似这样：   </p>
+<pre><code>+((dog)^1.2 (hound pooch)^1.1)
+</code></pre><p>1.2和1.1是独立的权重，可以配置。文档必须包含“dog”,”hound”或者“pooch”，但是“dog”更优先显示。</p>
+<p>这样来处理同义词，带来了另一个有趣的副作用：它消除了短语查询不支持的问题。如果是“breast cancer”(带引号)，将会被解析为这样：   </p>
+<pre><code>+((&quot;breast cancer&quot;)^1.2 ((&quot;breast neoplasm&quot;) (&quot;breast tumor&quot;) (&quot;cancer ? breast&quot;) (&quot;cancer ? ? breast&quot;))^1.1)
+</code></pre><p>(问号?的出现是由于停用词“of”和“the”)</p>
+<p>这意味着查询带引号的“breast cancer”会匹配所有包含“breast neoplasm,” “breast tumor,” “cancer of the breast,” and “cancer of breast.“字符的文档。  </p>
+<p>我比原始的SynonymFilterFactory更进一步，针对一个特定的查询构建了所有可能的同义词组合查询。比如查询”dog bite“,同义词文件是：</p>
+<pre><code>dog,hound,pooch
+bite,nibble
+</code></pre><p>… then the query will be expanded into:</p>
+<p>查询将会被扩展为：</p>
+<pre><code>dog bite
+hound bite
+pooch bite
+dog nibble
+hound nibble
+pooch nibble
+</code></pre><a href="!--
+
+###尝试一下
+
+使用步骤见&lt;https://github.com/blueshen/hon-lucene-synonyms">!--
+
+###尝试一下
+
+使用步骤见&lt;https://github.com/blueshen/hon-lucene-synonyms</a><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>—<br>原文：<a href="http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/" target="_blank" rel="external">Better synonym handling in Solr</a><br><br>–&gt;
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.shenyanchao.cn/2014/11/25/2014-11-25-better-synonym-handling-in-solr/" data-id="cirrm99wm0092f1fyn1o6f3mr" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lucene/">lucene</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/solr/">solr</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/同义词/">同义词</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/03/26/2015-03-26-c3p0-config/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          关于C3P0容错和自动重连特性的研究
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/11/14/2014-11-14-use-mahout-to-classify-sogou-corpus/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">使用mahout对Sogou语料库进行分类</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/HTTP/">HTTP</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JVM/">JVM</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/apache/">apache</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/c3p0/">c3p0</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/checkstyle/">checkstyle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/encode/">encode</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/encode-Java/">encode Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hadoop/">hadoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jenkins/">jenkins</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jmeter/">jmeter</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mahout/">mahout</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/markdown/">markdown</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/maven/">maven</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/oryx/">oryx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/selenium/">selenium</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/selenium-wiki/">selenium-wiki</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/selenium官方文档/">selenium官方文档</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/solr/">solr</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/testng/">testng</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ubuntu/">ubuntu</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ut/">ut</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/velocity/">velocity</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/个人/">个人</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/开发/">开发</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/测试/">测试</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/调优/">调优</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Adapter/">Adapter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BOM/">BOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Chrome/">Chrome</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Clone/">Clone</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DOM/">DOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Driver/">Driver</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FAQ/">FAQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Facade/">Facade</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Factory/">Factory</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Firefox/">Firefox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GC/">GC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IO/">IO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Iterator/">Iterator</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JDK/">JDK</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JsTestDriver/">JsTestDriver</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LifeCycle/">LifeCycle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MarkDownPad/">MarkDownPad</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NodeJS/">NodeJS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Observable/">Observable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Observer/">Observer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PageFactory/">PageFactory</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PageObjects/">PageObjects</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/">String</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Testacular/">Testacular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tomcat/">Tomcat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UTF/">UTF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UTF8/">UTF8</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XML/">XML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/alert/">alert</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ant/">ant</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/antlr/">antlr</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apache/">apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apache-poi/">apache poi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/archetype/">archetype</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ast/">ast</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bridge/">bridge</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/builder/">builder</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c3p0/">c3p0</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cglib/">cglib</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chain/">chain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/checkstyle/">checkstyle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ci/">ci</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/class/">class</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloudera/">cloudera</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cobertura/">cobertura</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/command/">command</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/composite/">composite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/config/">config</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/config-xml/">config.xml</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/connection/">connection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/convmv/">convmv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coverage/">coverage</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dbunit/">dbunit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/decorator/">decorator</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/design-pattern/">design pattern</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dhcp/">dhcp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dom4j/">dom4j</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dump/">dump</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eclipse/">eclipse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/el/">el</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/enca/">enca</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/encode/">encode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/excel/">excel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/express/">express</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/findbugs/">findbugs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flyweight/">flyweight</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/generate/">generate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/grid/">grid</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/h2database/">h2database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/header/">header</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hudson/">hudson</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iconv/">iconv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/idea/">idea</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ik-analyzer/">ik-analyzer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/install/">install</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interface/">interface</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interpreter/">interpreter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jXLS/">jXLS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jar/">jar</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jasmine/">jasmine</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java7/">java7</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java8/">java8</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javaparser/">javaparser</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jenkins/">jenkins</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jmeter/">jmeter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jquery/">jquery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jsTestDriver/">jsTestDriver</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jstl/">jstl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/junit/">junit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jxl/">jxl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/karma/">karma</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lucene/">lucene</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mahout/">mahout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mediator/">mediator</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/memento/">memento</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mocha/">mocha</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mock/">mock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mockito/">mockito</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/monitor/">monitor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mpm/">mpm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvc/">mvc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/myrrix/">myrrix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/object/">object</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/octopress/">octopress</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oryx/">oryx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/package/">package</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pattern/">pattern</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/perfork/">perfork</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/plugin/">plugin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/plugins/">plugins</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pmd/">pmd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/policy/">policy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/powermock/">powermock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prototype/">prototype</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/proxy/">proxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/quartz/">quartz</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/qunit/">qunit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/request/">request</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/response/">response</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/restful/">restful</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/selenium/">selenium</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/singleton/">singleton</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/slf4j/">slf4j</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/slowquery/">slowquery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sogou/">sogou</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solr/">solr</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sonar/">sonar</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sonatype/">sonatype</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/source/">source</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/">ssh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stable/">stable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/state/">state</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/story/">story</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/strategy/">strategy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stub/">stub</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/syntax/">syntax</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/template-method/">template method</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/test-runner/">test-runner</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/testacular/">testacular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/testng/">testng</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tie/">tie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tomcat/">tomcat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ut/">ut</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ut-maven-plugin/">ut-maven-plugin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ut，sql-maven-plugin/">ut，sql-maven-plugin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/velocity/">velocity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/visitor/">visitor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wait/">wait</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/war/">war</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webdriver/">webdriver</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/worker/">worker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xpath/">xpath</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/中文/">中文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/云南/">云南</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/享元/">享元</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/压力测试/">压力测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/同义词/">同义词</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/备忘录/">备忘录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/探索测试/">探索测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/旅游/">旅游</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/模式/">模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/漫游/">漫游</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/状态/">状态</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生命周期/">生命周期</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编码/">编码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/解释器/">解释器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/访问者/">访问者</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读书笔记/">读书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/调优/">调优</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/责任链/">责任链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/配置/">配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/重构/">重构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/集群/">集群</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/静态代码扫描/">静态代码扫描</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Adapter/" style="font-size: 10px;">Adapter</a> <a href="/tags/BOM/" style="font-size: 10px;">BOM</a> <a href="/tags/Chrome/" style="font-size: 10px;">Chrome</a> <a href="/tags/Clone/" style="font-size: 10px;">Clone</a> <a href="/tags/DOM/" style="font-size: 10px;">DOM</a> <a href="/tags/Driver/" style="font-size: 10px;">Driver</a> <a href="/tags/FAQ/" style="font-size: 10px;">FAQ</a> <a href="/tags/Facade/" style="font-size: 10px;">Facade</a> <a href="/tags/Factory/" style="font-size: 10px;">Factory</a> <a href="/tags/Firefox/" style="font-size: 10px;">Firefox</a> <a href="/tags/GC/" style="font-size: 10px;">GC</a> <a href="/tags/HTTP/" style="font-size: 11.25px;">HTTP</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/Iterator/" style="font-size: 10px;">Iterator</a> <a href="/tags/JDK/" style="font-size: 11.25px;">JDK</a> <a href="/tags/JVM/" style="font-size: 11.25px;">JVM</a> <a href="/tags/Java/" style="font-size: 18.75px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/JsTestDriver/" style="font-size: 10px;">JsTestDriver</a> <a href="/tags/LifeCycle/" style="font-size: 10px;">LifeCycle</a> <a href="/tags/MarkDownPad/" style="font-size: 10px;">MarkDownPad</a> <a href="/tags/NodeJS/" style="font-size: 10px;">NodeJS</a> <a href="/tags/Observable/" style="font-size: 10px;">Observable</a> <a href="/tags/Observer/" style="font-size: 10px;">Observer</a> <a href="/tags/PageFactory/" style="font-size: 10px;">PageFactory</a> <a href="/tags/PageObjects/" style="font-size: 10px;">PageObjects</a> <a href="/tags/String/" style="font-size: 10px;">String</a> <a href="/tags/Testacular/" style="font-size: 10px;">Testacular</a> <a href="/tags/Tomcat/" style="font-size: 10px;">Tomcat</a> <a href="/tags/UTF/" style="font-size: 10px;">UTF</a> <a href="/tags/UTF8/" style="font-size: 10px;">UTF8</a> <a href="/tags/XML/" style="font-size: 10px;">XML</a> <a href="/tags/alert/" style="font-size: 10px;">alert</a> <a href="/tags/ant/" style="font-size: 10px;">ant</a> <a href="/tags/antlr/" style="font-size: 10px;">antlr</a> <a href="/tags/apache/" style="font-size: 11.25px;">apache</a> <a href="/tags/apache-poi/" style="font-size: 10px;">apache poi</a> <a href="/tags/archetype/" style="font-size: 11.25px;">archetype</a> <a href="/tags/ast/" style="font-size: 12.5px;">ast</a> <a href="/tags/bridge/" style="font-size: 10px;">bridge</a> <a href="/tags/builder/" style="font-size: 10px;">builder</a> <a href="/tags/c3p0/" style="font-size: 10px;">c3p0</a> <a href="/tags/cglib/" style="font-size: 10px;">cglib</a> <a href="/tags/chain/" style="font-size: 10px;">chain</a> <a href="/tags/checkstyle/" style="font-size: 12.5px;">checkstyle</a> <a href="/tags/ci/" style="font-size: 10px;">ci</a> <a href="/tags/class/" style="font-size: 10px;">class</a> <a href="/tags/cloudera/" style="font-size: 10px;">cloudera</a> <a href="/tags/cobertura/" style="font-size: 10px;">cobertura</a> <a href="/tags/command/" style="font-size: 11.25px;">command</a> <a href="/tags/composite/" style="font-size: 10px;">composite</a> <a href="/tags/config/" style="font-size: 10px;">config</a> <a href="/tags/config-xml/" style="font-size: 10px;">config.xml</a> <a href="/tags/connection/" style="font-size: 10px;">connection</a> <a href="/tags/convmv/" style="font-size: 10px;">convmv</a> <a href="/tags/coverage/" style="font-size: 10px;">coverage</a> <a href="/tags/dbunit/" style="font-size: 10px;">dbunit</a> <a href="/tags/decorator/" style="font-size: 10px;">decorator</a> <a href="/tags/design-pattern/" style="font-size: 10px;">design pattern</a> <a href="/tags/dhcp/" style="font-size: 10px;">dhcp</a> <a href="/tags/dom4j/" style="font-size: 10px;">dom4j</a> <a href="/tags/dump/" style="font-size: 10px;">dump</a> <a href="/tags/eclipse/" style="font-size: 12.5px;">eclipse</a> <a href="/tags/el/" style="font-size: 10px;">el</a> <a href="/tags/enca/" style="font-size: 10px;">enca</a> <a href="/tags/encode/" style="font-size: 13.75px;">encode</a> <a href="/tags/excel/" style="font-size: 10px;">excel</a> <a href="/tags/express/" style="font-size: 10px;">express</a> <a href="/tags/findbugs/" style="font-size: 11.25px;">findbugs</a> <a href="/tags/flyweight/" style="font-size: 10px;">flyweight</a> <a href="/tags/generate/" style="font-size: 10px;">generate</a> <a href="/tags/git/" style="font-size: 11.25px;">git</a> <a href="/tags/github/" style="font-size: 11.25px;">github</a> <a href="/tags/grid/" style="font-size: 10px;">grid</a> <a href="/tags/h2database/" style="font-size: 10px;">h2database</a> <a href="/tags/hadoop/" style="font-size: 10px;">hadoop</a> <a href="/tags/header/" style="font-size: 10px;">header</a> <a href="/tags/hudson/" style="font-size: 10px;">hudson</a> <a href="/tags/iconv/" style="font-size: 10px;">iconv</a> <a href="/tags/idea/" style="font-size: 10px;">idea</a> <a href="/tags/ik-analyzer/" style="font-size: 10px;">ik-analyzer</a> <a href="/tags/install/" style="font-size: 10px;">install</a> <a href="/tags/interface/" style="font-size: 10px;">interface</a> <a href="/tags/interpreter/" style="font-size: 10px;">interpreter</a> <a href="/tags/jXLS/" style="font-size: 10px;">jXLS</a> <a href="/tags/jar/" style="font-size: 10px;">jar</a> <a href="/tags/jasmine/" style="font-size: 10px;">jasmine</a> <a href="/tags/java/" style="font-size: 11.25px;">java</a> <a href="/tags/java7/" style="font-size: 10px;">java7</a> <a href="/tags/java8/" style="font-size: 10px;">java8</a> <a href="/tags/javaparser/" style="font-size: 10px;">javaparser</a> <a href="/tags/jenkins/" style="font-size: 13.75px;">jenkins</a> <a href="/tags/jmeter/" style="font-size: 11.25px;">jmeter</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/jsTestDriver/" style="font-size: 10px;">jsTestDriver</a> <a href="/tags/jstl/" style="font-size: 10px;">jstl</a> <a href="/tags/junit/" style="font-size: 10px;">junit</a> <a href="/tags/jxl/" style="font-size: 10px;">jxl</a> <a href="/tags/karma/" style="font-size: 11.25px;">karma</a> <a href="/tags/linux/" style="font-size: 12.5px;">linux</a> <a href="/tags/lucene/" style="font-size: 11.25px;">lucene</a> <a href="/tags/mahout/" style="font-size: 10px;">mahout</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/maven/" style="font-size: 17.5px;">maven</a> <a href="/tags/mediator/" style="font-size: 10px;">mediator</a> <a href="/tags/memento/" style="font-size: 10px;">memento</a> <a href="/tags/mocha/" style="font-size: 10px;">mocha</a> <a href="/tags/mock/" style="font-size: 10px;">mock</a> <a href="/tags/mockito/" style="font-size: 10px;">mockito</a> <a href="/tags/monitor/" style="font-size: 10px;">monitor</a> <a href="/tags/mpm/" style="font-size: 10px;">mpm</a> <a href="/tags/mvc/" style="font-size: 10px;">mvc</a> <a href="/tags/myrrix/" style="font-size: 10px;">myrrix</a> <a href="/tags/mysql/" style="font-size: 12.5px;">mysql</a> <a href="/tags/nodejs/" style="font-size: 12.5px;">nodejs</a> <a href="/tags/object/" style="font-size: 10px;">object</a> <a href="/tags/octopress/" style="font-size: 11.25px;">octopress</a> <a href="/tags/oryx/" style="font-size: 10px;">oryx</a> <a href="/tags/package/" style="font-size: 10px;">package</a> <a href="/tags/pattern/" style="font-size: 17.5px;">pattern</a> <a href="/tags/perfork/" style="font-size: 10px;">perfork</a> <a href="/tags/plugin/" style="font-size: 10px;">plugin</a> <a href="/tags/plugins/" style="font-size: 10px;">plugins</a> <a href="/tags/pmd/" style="font-size: 12.5px;">pmd</a> <a href="/tags/policy/" style="font-size: 10px;">policy</a> <a href="/tags/powermock/" style="font-size: 10px;">powermock</a> <a href="/tags/prototype/" style="font-size: 10px;">prototype</a> <a href="/tags/proxy/" style="font-size: 10px;">proxy</a> <a href="/tags/quartz/" style="font-size: 10px;">quartz</a> <a href="/tags/qunit/" style="font-size: 10px;">qunit</a> <a href="/tags/request/" style="font-size: 10px;">request</a> <a href="/tags/response/" style="font-size: 10px;">response</a> <a href="/tags/restful/" style="font-size: 11.25px;">restful</a> <a href="/tags/selenium/" style="font-size: 20px;">selenium</a> <a href="/tags/singleton/" style="font-size: 10px;">singleton</a> <a href="/tags/slf4j/" style="font-size: 10px;">slf4j</a> <a href="/tags/slowquery/" style="font-size: 10px;">slowquery</a> <a href="/tags/sogou/" style="font-size: 10px;">sogou</a> <a href="/tags/solr/" style="font-size: 11.25px;">solr</a> <a href="/tags/sonar/" style="font-size: 10px;">sonar</a> <a href="/tags/sonatype/" style="font-size: 10px;">sonatype</a> <a href="/tags/source/" style="font-size: 10px;">source</a> <a href="/tags/spring/" style="font-size: 13.75px;">spring</a> <a href="/tags/ssh/" style="font-size: 11.25px;">ssh</a> <a href="/tags/stable/" style="font-size: 11.25px;">stable</a> <a href="/tags/state/" style="font-size: 10px;">state</a> <a href="/tags/story/" style="font-size: 10px;">story</a> <a href="/tags/strategy/" style="font-size: 10px;">strategy</a> <a href="/tags/stub/" style="font-size: 10px;">stub</a> <a href="/tags/syntax/" style="font-size: 10px;">syntax</a> <a href="/tags/template-method/" style="font-size: 10px;">template method</a> <a href="/tags/test-runner/" style="font-size: 10px;">test-runner</a> <a href="/tags/testacular/" style="font-size: 11.25px;">testacular</a> <a href="/tags/testng/" style="font-size: 10px;">testng</a> <a href="/tags/tie/" style="font-size: 10px;">tie</a> <a href="/tags/tomcat/" style="font-size: 10px;">tomcat</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/ut/" style="font-size: 10px;">ut</a> <a href="/tags/ut-maven-plugin/" style="font-size: 10px;">ut-maven-plugin</a> <a href="/tags/ut，sql-maven-plugin/" style="font-size: 10px;">ut，sql-maven-plugin</a> <a href="/tags/velocity/" style="font-size: 10px;">velocity</a> <a href="/tags/visitor/" style="font-size: 10px;">visitor</a> <a href="/tags/wait/" style="font-size: 10px;">wait</a> <a href="/tags/war/" style="font-size: 10px;">war</a> <a href="/tags/webdriver/" style="font-size: 16.25px;">webdriver</a> <a href="/tags/worker/" style="font-size: 10px;">worker</a> <a href="/tags/xpath/" style="font-size: 10px;">xpath</a> <a href="/tags/中文/" style="font-size: 10px;">中文</a> <a href="/tags/云南/" style="font-size: 10px;">云南</a> <a href="/tags/享元/" style="font-size: 10px;">享元</a> <a href="/tags/分布式/" style="font-size: 10px;">分布式</a> <a href="/tags/压力测试/" style="font-size: 10px;">压力测试</a> <a href="/tags/同义词/" style="font-size: 10px;">同义词</a> <a href="/tags/备忘录/" style="font-size: 10px;">备忘录</a> <a href="/tags/探索测试/" style="font-size: 10px;">探索测试</a> <a href="/tags/旅游/" style="font-size: 11.25px;">旅游</a> <a href="/tags/模式/" style="font-size: 10px;">模式</a> <a href="/tags/漫游/" style="font-size: 10px;">漫游</a> <a href="/tags/状态/" style="font-size: 10px;">状态</a> <a href="/tags/生命周期/" style="font-size: 10px;">生命周期</a> <a href="/tags/编码/" style="font-size: 11.25px;">编码</a> <a href="/tags/解释器/" style="font-size: 10px;">解释器</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/访问者/" style="font-size: 10px;">访问者</a> <a href="/tags/读书笔记/" style="font-size: 15px;">读书笔记</a> <a href="/tags/调优/" style="font-size: 10px;">调优</a> <a href="/tags/责任链/" style="font-size: 10px;">责任链</a> <a href="/tags/配置/" style="font-size: 10px;">配置</a> <a href="/tags/重构/" style="font-size: 10px;">重构</a> <a href="/tags/集群/" style="font-size: 10px;">集群</a> <a href="/tags/静态代码扫描/" style="font-size: 10px;">静态代码扫描</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">十一月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">十月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">八月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">六月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">三月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">十二月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">十一月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">九月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06/">六月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">五月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">四月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">三月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">一月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">十二月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">十一月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/10/">十月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">九月 2012</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/08/12/2015-11-04-about-interface-define/">关于接口定义的一些想法</a>
+          </li>
+        
+          <li>
+            <a href="/2015/11/03/2015-11-03-restful-springmvc/">Restful Spring MVC</a>
+          </li>
+        
+          <li>
+            <a href="/2015/03/26/2015-03-26-c3p0-config/">关于C3P0容错和自动重连特性的研究</a>
+          </li>
+        
+          <li>
+            <a href="/2014/11/25/2014-11-25-better-synonym-handling-in-solr/">如何在Solr中更好的处理同义词</a>
+          </li>
+        
+          <li>
+            <a href="/2014/11/14/2014-11-14-use-mahout-to-classify-sogou-corpus/">使用mahout对Sogou语料库进行分类</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 shenyanchao<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
