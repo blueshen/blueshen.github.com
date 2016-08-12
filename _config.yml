@@ -70,7 +70,7 @@ theme: landscape
 deploy:
   type: git
   repo: https://github.com/blueshen/blueshen.github.com.git
-  branch: master
+  branch: gh-pages
 
 ##comment
 comments :

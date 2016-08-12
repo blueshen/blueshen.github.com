@@ -107,7 +107,7 @@ if (book != null) {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.shenyanchao.cn/2012/11/02/2012-11-02-null-object-in-java/" data-id="cirrm99sv0036f1fylzq2e0h2" class="article-share-link">Share</a>
+      <a data-url="http://www.shenyanchao.cn/2012/11/02/2012-11-02-null-object-in-java/" data-id="cirrnpyzu00366rfy15dessb2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/object/">object</a></li></ul>
@@ -160,10 +160,59 @@ if (book != null) {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.shenyanchao.cn/2012/11/02/2012-11-02-memento-in-java/" data-id="cirrm99su0032f1fyhad09xke" class="article-share-link">Share</a>
+      <a data-url="http://www.shenyanchao.cn/2012/11/02/2012-11-02-memento-in-java/" data-id="cirrnpyzs00326rfycwvbbmum" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/memento/">memento</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pattern/">pattern</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/备忘录/">备忘录</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2012-11-02-chain-of-responsibility-in-java" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/11/02/2012-11-02-chain-of-responsibility-in-java/" class="article-date">
+  <time datetime="2012-11-02T12:09:00.000Z" itemprop="datePublished">2012-11-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/设计模式/">设计模式</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/11/02/2012-11-02-chain-of-responsibility-in-java/">设计模式：责任链（chain of responsibility） in java</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>定义：</strong>使多个对象都有机会处理请求，从而避免了请求的发送者和接受者之间的耦合关系。将这些对象连成一条链，并沿着这条链传递该请求，直到有对象处理它为止。    </p>
+<p>责任链由2个角色组成：   </p>
+<ul>
+<li>Handler抽象处理者角色<br>它定义了一个处理请求的接口。当然对于链子的不同实现，也可以在这个角色中实现后继链。    </li>
+<li>Concrete Handler具体处理者角色<br>实现抽象角色中定义的接口，并处理它所负责的请求。如果不能处理则访问它的后继者。  </li>
+</ul>
+<p>比如Filter就类似这种，每个Filter都对请求进行处理，如果解决不了，则交给下一个进行处理。    </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.shenyanchao.cn/2012/11/02/2012-11-02-chain-of-responsibility-in-java/" data-id="cirrnpyz600266rfy53y1x475" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/chain/">chain</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pattern/">pattern</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/责任链/">责任链</a></li></ul>
 
     </footer>
   </div>
@@ -210,59 +259,10 @@ if (book != null) {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.shenyanchao.cn/2012/11/02/2012-11-02-interpreter-in-java/" data-id="cirrm99sm002rf1fyztf1m9v3" class="article-share-link">Share</a>
+      <a data-url="http://www.shenyanchao.cn/2012/11/02/2012-11-02-interpreter-in-java/" data-id="cirrnpyzl002r6rfyab4n5nvv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/interpreter/">interpreter</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pattern/">pattern</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/解释器/">解释器</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2012-11-02-chain-of-responsibility-in-java" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2012/11/02/2012-11-02-chain-of-responsibility-in-java/" class="article-date">
-  <time datetime="2012-11-02T12:09:00.000Z" itemprop="datePublished">2012-11-02</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/设计模式/">设计模式</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2012/11/02/2012-11-02-chain-of-responsibility-in-java/">设计模式：责任链（chain of responsibility） in java</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>定义：</strong>使多个对象都有机会处理请求，从而避免了请求的发送者和接受者之间的耦合关系。将这些对象连成一条链，并沿着这条链传递该请求，直到有对象处理它为止。    </p>
-<p>责任链由2个角色组成：   </p>
-<ul>
-<li>Handler抽象处理者角色<br>它定义了一个处理请求的接口。当然对于链子的不同实现，也可以在这个角色中实现后继链。    </li>
-<li>Concrete Handler具体处理者角色<br>实现抽象角色中定义的接口，并处理它所负责的请求。如果不能处理则访问它的后继者。  </li>
-</ul>
-<p>比如Filter就类似这种，每个Filter都对请求进行处理，如果解决不了，则交给下一个进行处理。    </p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.shenyanchao.cn/2012/11/02/2012-11-02-chain-of-responsibility-in-java/" data-id="cirrm99s20026f1fyewsy2uq5" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/chain/">chain</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pattern/">pattern</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/责任链/">责任链</a></li></ul>
 
     </footer>
   </div>
@@ -311,7 +311,7 @@ if (book != null) {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.shenyanchao.cn/2012/11/02/2012-11-02-composite-in-java/" data-id="cirrm99s8002cf1fyav1mdf52" class="article-share-link">Share</a>
+      <a data-url="http://www.shenyanchao.cn/2012/11/02/2012-11-02-composite-in-java/" data-id="cirrnpyzb002c6rfytt0cq9wq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/composite/">composite</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pattern/">pattern</a></li></ul>
@@ -363,7 +363,7 @@ if (book != null) {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.shenyanchao.cn/2012/11/02/2012-11-02-flyweight-in-java/" data-id="cirrm99si002jf1fygdue4fj6" class="article-share-link">Share</a>
+      <a data-url="http://www.shenyanchao.cn/2012/11/02/2012-11-02-flyweight-in-java/" data-id="cirrnpyzi002j6rfy3nwatxsb" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/flyweight/">flyweight</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pattern/">pattern</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/享元/">享元</a></li></ul>
@@ -412,7 +412,7 @@ if (book != null) {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.shenyanchao.cn/2012/11/02/2012-11-02-bridge-in-java/" data-id="cirrm99ry001yf1fykinz9liy" class="article-share-link">Share</a>
+      <a data-url="http://www.shenyanchao.cn/2012/11/02/2012-11-02-bridge-in-java/" data-id="cirrnpyyz001y6rfyzo7401ob" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bridge/">bridge</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pattern/">pattern</a></li></ul>
@@ -460,7 +460,7 @@ if (book != null) {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.shenyanchao.cn/2012/11/02/2012-11-02-singleton-in-java/" data-id="cirrm99td003jf1fy7vwppnie" class="article-share-link">Share</a>
+      <a data-url="http://www.shenyanchao.cn/2012/11/02/2012-11-02-singleton-in-java/" data-id="cirrnpz03003j6rfymriv3w0s" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/singleton/">singleton</a></li></ul>
@@ -507,7 +507,7 @@ if (book != null) {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.shenyanchao.cn/2012/11/02/2012-11-02-how-webdriver-works/" data-id="cirrm99sk002nf1fyhc5wgrp0" class="article-share-link">Share</a>
+      <a data-url="http://www.shenyanchao.cn/2012/11/02/2012-11-02-how-webdriver-works/" data-id="cirrnpyzk002n6rfygsdv9d5i" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/selenium/">selenium</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webdriver/">webdriver</a></li></ul>
@@ -557,7 +557,7 @@ if (book != null) {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.shenyanchao.cn/2012/11/02/2012-11-02-proxy-in-java/" data-id="cirrm99tb003ff1fys6hhj9sc" class="article-share-link">Share</a>
+      <a data-url="http://www.shenyanchao.cn/2012/11/02/2012-11-02-proxy-in-java/" data-id="cirrnpz01003f6rfysjwg3cwj" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cglib/">cglib</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/proxy/">proxy</a></li></ul>
