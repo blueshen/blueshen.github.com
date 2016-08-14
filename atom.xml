@@ -2970,9 +2970,9 @@ service ssh restart
       <category term="linux" scheme="http://www.shenyanchao.cn/categories/linux/"/>
     
     
-      <category term="linux" scheme="http://www.shenyanchao.cn/tags/linux/"/>
-    
       <category term="ssh" scheme="http://www.shenyanchao.cn/tags/ssh/"/>
+    
+      <category term="linux" scheme="http://www.shenyanchao.cn/tags/linux/"/>
     
   </entry>
   

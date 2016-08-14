@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://www.shenyanchao.cn/2013/01/17/2013-01-17-most-rated-20-software-in-ubuntu-softcenter/</loc>
+    <loc>http://www.shenyanchao.cn/2013/01/10/2013-01-10-selenium-grid2-config/</loc>
     
     <lastmod>2016-08-14T08:56:22.000Z</lastmod>
     
@@ -135,13 +135,6 @@
   </url>
   
   <url>
-    <loc>http://www.shenyanchao.cn/2012/10/23/2012-10-23-bom-in-utf8-text/</loc>
-    
-    <lastmod>2016-08-14T08:56:22.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://www.shenyanchao.cn/2012/10/22/2012-10-22-http-header/</loc>
     
     <lastmod>2016-08-14T08:56:22.000Z</lastmod>
@@ -150,6 +143,13 @@
   
   <url>
     <loc>http://www.shenyanchao.cn/2012/10/22/2012-10-22-word-charset/</loc>
+    
+    <lastmod>2016-08-14T08:56:22.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.shenyanchao.cn/2012/10/23/2012-10-23-bom-in-utf8-text/</loc>
     
     <lastmod>2016-08-14T08:56:22.000Z</lastmod>
     
@@ -205,14 +205,14 @@
   </url>
   
   <url>
-    <loc>http://www.shenyanchao.cn/2012/11/08/2012-11-02-command-in-java/</loc>
+    <loc>http://www.shenyanchao.cn/2012/11/02/2012-11-02-composite-in-java/</loc>
     
     <lastmod>2016-08-14T08:56:22.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://www.shenyanchao.cn/2012/11/02/2012-11-02-composite-in-java/</loc>
+    <loc>http://www.shenyanchao.cn/2012/11/08/2012-11-02-command-in-java/</loc>
     
     <lastmod>2016-08-14T08:56:22.000Z</lastmod>
     
@@ -226,14 +226,14 @@
   </url>
   
   <url>
-    <loc>http://www.shenyanchao.cn/2012/11/02/2012-11-02-flyweight-in-java/</loc>
+    <loc>http://www.shenyanchao.cn/2012/11/07/2012-11-02-factory-in-java/</loc>
     
     <lastmod>2016-08-14T08:56:22.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://www.shenyanchao.cn/2012/11/07/2012-11-02-factory-in-java/</loc>
+    <loc>http://www.shenyanchao.cn/2012/11/02/2012-11-02-flyweight-in-java/</loc>
     
     <lastmod>2016-08-14T08:56:22.000Z</lastmod>
     
@@ -254,13 +254,6 @@
   </url>
   
   <url>
-    <loc>http://www.shenyanchao.cn/2012/11/08/2012-11-02-iterator-in-java/</loc>
-    
-    <lastmod>2016-08-14T08:56:22.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://www.shenyanchao.cn/2012/11/02/2012-11-02-mediator-in-java/</loc>
     
     <lastmod>2016-08-14T08:56:22.000Z</lastmod>
@@ -269,6 +262,13 @@
   
   <url>
     <loc>http://www.shenyanchao.cn/2012/11/02/2012-11-02-memento-in-java/</loc>
+    
+    <lastmod>2016-08-14T08:56:22.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.shenyanchao.cn/2012/11/08/2012-11-02-iterator-in-java/</loc>
     
     <lastmod>2016-08-14T08:56:22.000Z</lastmod>
     
@@ -310,21 +310,14 @@
   </url>
   
   <url>
-    <loc>http://www.shenyanchao.cn/2012/11/02/2012-11-02-strategy-in-java/</loc>
-    
-    <lastmod>2016-08-14T08:56:22.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.shenyanchao.cn/2012/11/07/2012-11-02-template-method-in-java/</loc>
-    
-    <lastmod>2016-08-14T08:56:22.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://www.shenyanchao.cn/2012/11/02/2012-11-02-singleton-in-java/</loc>
+    
+    <lastmod>2016-08-14T08:56:22.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.shenyanchao.cn/2012/11/02/2012-11-02-strategy-in-java/</loc>
     
     <lastmod>2016-08-14T08:56:22.000Z</lastmod>
     
@@ -338,14 +331,7 @@
   </url>
   
   <url>
-    <loc>http://www.shenyanchao.cn/2012/12/04/2012-12-04-mysqldump/</loc>
-    
-    <lastmod>2016-08-14T08:56:22.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.shenyanchao.cn/2012/12/31/2012-12-31-build-jmeter-from-sources/</loc>
+    <loc>http://www.shenyanchao.cn/2012/11/07/2012-11-02-template-method-in-java/</loc>
     
     <lastmod>2016-08-14T08:56:22.000Z</lastmod>
     
@@ -359,6 +345,20 @@
   </url>
   
   <url>
+    <loc>http://www.shenyanchao.cn/2012/12/31/2012-12-31-build-jmeter-from-sources/</loc>
+    
+    <lastmod>2016-08-14T08:56:22.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.shenyanchao.cn/2012/12/04/2012-12-04-mysqldump/</loc>
+    
+    <lastmod>2016-08-14T08:56:22.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.shenyanchao.cn/2013/01/10/2013-01-10-mysql-monitor/</loc>
     
     <lastmod>2016-08-14T08:56:22.000Z</lastmod>
@@ -366,7 +366,7 @@
   </url>
   
   <url>
-    <loc>http://www.shenyanchao.cn/2013/01/10/2013-01-10-selenium-grid2-config/</loc>
+    <loc>http://www.shenyanchao.cn/2013/01/17/2013-01-17-most-rated-20-software-in-ubuntu-softcenter/</loc>
     
     <lastmod>2016-08-14T08:56:22.000Z</lastmod>
     
@@ -471,13 +471,6 @@
   </url>
   
   <url>
-    <loc>http://www.shenyanchao.cn/2013/05/30/2013-05-30-selenium-doc-introduction/</loc>
-    
-    <lastmod>2016-08-14T08:56:22.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://www.shenyanchao.cn/2013/05/30/2013-05-30-selenium-doc-selenium-grid/</loc>
     
     <lastmod>2016-08-14T08:56:22.000Z</lastmod>
@@ -513,6 +506,13 @@
   </url>
   
   <url>
+    <loc>http://www.shenyanchao.cn/2013/05/30/2013-05-30-selenium-doc-introduction/</loc>
+    
+    <lastmod>2016-08-14T08:56:22.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.shenyanchao.cn/2013/05/30/2013-05-30-selenium-wiki-web-driver-js/</loc>
     
     <lastmod>2016-08-14T08:56:22.000Z</lastmod>
@@ -541,6 +541,13 @@
   </url>
   
   <url>
+    <loc>http://www.shenyanchao.cn/2013/06/05/2013-06-05-deep-in-testng/</loc>
+    
+    <lastmod>2016-08-14T08:56:22.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.shenyanchao.cn/2013/06/19/2013-06-19-use-eclipse-ast-to-parser-java/</loc>
     
     <lastmod>2016-08-14T08:56:22.000Z</lastmod>
@@ -555,21 +562,7 @@
   </url>
   
   <url>
-    <loc>http://www.shenyanchao.cn/2013/06/05/2013-06-05-deep-in-testng/</loc>
-    
-    <lastmod>2016-08-14T08:56:22.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://www.shenyanchao.cn/2013/06/27/2013-06-27-usage-dbunit/</loc>
-    
-    <lastmod>2016-08-14T08:56:22.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.shenyanchao.cn/2013/06/28/2013-06-28-refactoring-to-patterns-reading-notes/</loc>
     
     <lastmod>2016-08-14T08:56:22.000Z</lastmod>
     
@@ -583,13 +576,6 @@
   </url>
   
   <url>
-    <loc>http://www.shenyanchao.cn/2013/09/24/2013-09-24-performance-tuning-in-web-test/</loc>
-    
-    <lastmod>2016-08-14T08:56:22.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://www.shenyanchao.cn/2013/09/16/2013-09-16-git-ssh-connection/</loc>
     
     <lastmod>2016-08-14T08:56:22.000Z</lastmod>
@@ -597,7 +583,14 @@
   </url>
   
   <url>
-    <loc>http://www.shenyanchao.cn/2013/09/25/2013-09-25-custome-checkstyle-rule/</loc>
+    <loc>http://www.shenyanchao.cn/2013/06/28/2013-06-28-refactoring-to-patterns-reading-notes/</loc>
+    
+    <lastmod>2016-08-14T08:56:22.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.shenyanchao.cn/2013/09/24/2013-09-24-performance-tuning-in-web-test/</loc>
     
     <lastmod>2016-08-14T08:56:22.000Z</lastmod>
     
@@ -660,6 +653,13 @@
   </url>
   
   <url>
+    <loc>http://www.shenyanchao.cn/2013/09/25/2013-09-25-custome-checkstyle-rule/</loc>
+    
+    <lastmod>2016-08-14T08:56:22.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.shenyanchao.cn/2014/06/24/2014-06-24-quartz-cluster-with-spring/</loc>
     
     <lastmod>2016-08-14T08:56:22.000Z</lastmod>
@@ -674,14 +674,14 @@
   </url>
   
   <url>
-    <loc>http://www.shenyanchao.cn/2014/11/11/2014-11-11-introduce-oryx/</loc>
+    <loc>http://www.shenyanchao.cn/2014/08/27/2014-08-27-java-new-feature/</loc>
     
     <lastmod>2016-08-14T08:56:22.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://www.shenyanchao.cn/2014/08/27/2014-08-27-java-new-feature/</loc>
+    <loc>http://www.shenyanchao.cn/2014/11/11/2014-11-11-introduce-oryx/</loc>
     
     <lastmod>2016-08-14T08:56:22.000Z</lastmod>
     
@@ -723,14 +723,14 @@
   </url>
   
   <url>
-    <loc>http://www.shenyanchao.cn/2016/08/14/2015-11-04-about-interface-define/</loc>
+    <loc>http://www.shenyanchao.cn/2015/11/03/2015-11-03-restful-springmvc/</loc>
     
     <lastmod>2016-08-14T08:56:22.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://www.shenyanchao.cn/2015/11/03/2015-11-03-restful-springmvc/</loc>
+    <loc>http://www.shenyanchao.cn/2016/08/14/2015-11-04-about-interface-define/</loc>
     
     <lastmod>2016-08-14T08:56:22.000Z</lastmod>
     
