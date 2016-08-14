@@ -10,4 +10,4 @@ Thumbs.db
 .rvmrc
 
 .sass-cache
-public
+public*
