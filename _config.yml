@@ -7,7 +7,7 @@ title: Blues小站
 subtitle: 搜索引擎与NLP
 description:
 author: shenyanchao
-language: zh-CN
+language: zh-Hans
 timezone: Asia/Shanghai
 
 # URL
@@ -63,7 +63,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape
+theme: next
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
@@ -72,7 +72,15 @@ deploy:
   repo: https://github.com/blueshen/blueshen.github.com.git
   branch: master
 
+
+##analytics
+
+baidu_analytics: 81c9612f8fdceca45435ef7f5404d7b2
 ##comment
+
+disqus:
+  short_name: blueshen
+
 comments :
     provider : disqus
     disqus :
