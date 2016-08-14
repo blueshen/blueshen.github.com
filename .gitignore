@@ -11,3 +11,4 @@ Thumbs.db
 
 .sass-cache
 public*
+.deploy_git*
