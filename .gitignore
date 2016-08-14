@@ -12,3 +12,4 @@ Thumbs.db
 .sass-cache
 public*
 .deploy_git*
+db.json
