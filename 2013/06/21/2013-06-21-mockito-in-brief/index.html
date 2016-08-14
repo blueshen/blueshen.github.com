@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Mockito简介 | Blues小站</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Mockito 是目前 java 单测中使用比较流行的 mock 工具。其他还有 EasyMock，JMock，MockCreator，Mockrunner，MockMaker 及 PowerMock。   
+项目地址:https://code.google.com/p/mockito/
+##powermock 简介##EasyMock 以及 Mockito 都因为可以极大地简化单元测试的书写过程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mockito简介">
+<meta property="og:url" content="http://www.shenyanchao.cn/2013/06/21/2013-06-21-mockito-in-brief/index.html">
+<meta property="og:site_name" content="Blues小站">
+<meta property="og:description" content="Mockito 是目前 java 单测中使用比较流行的 mock 工具。其他还有 EasyMock，JMock，MockCreator，Mockrunner，MockMaker 及 PowerMock。   
+项目地址:https://code.google.com/p/mockito/
+##powermock 简介##EasyMock 以及 Mockito 都因为可以极大地简化单元测试的书写过程">
+<meta property="og:updated_time" content="2016-08-14T08:56:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mockito简介">
+<meta name="twitter:description" content="Mockito 是目前 java 单测中使用比较流行的 mock 工具。其他还有 EasyMock，JMock，MockCreator，Mockrunner，MockMaker 及 PowerMock。   
+项目地址:https://code.google.com/p/mockito/
+##powermock 简介##EasyMock 以及 Mockito 都因为可以极大地简化单元测试的书写过程">
+  
+    <link rel="alternate" href="/atom.xml" title="Blues小站" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Blues小站</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.shenyanchao.cn"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2013-06-21-mockito-in-brief" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/06/21/2013-06-21-mockito-in-brief/" class="article-date">
+  <time datetime="2013-06-21T13:29:00.000Z" itemprop="datePublished">2013-06-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/ut/">ut</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Mockito简介
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Mockito 是目前 java 单测中使用比较流行的 mock 工具。其他还有 EasyMock，JMock，MockCreator，Mockrunner，MockMaker 及 PowerMock。   </p>
+<p>项目地址:<a href="https://code.google.com/p/mockito/" target="_blank" rel="external">https://code.google.com/p/mockito/</a></p>
+<p>##powermock 简介##<br>EasyMock 以及 Mockito 都因为可以极大地简化单元测试的书写过程而被许多人应用在自己的工作中，但是这两种 Mock 工具都不可以实现对静态函数、构造函数、私有函数、Final 函数以及系统函数的模拟，但是这些方法往往是我们在大型系统中需要的功能。PowerMock 是在 EasyMock 以及 Mockito 基础上的扩展，通过定制类加载器等技术，PowerMock 实现了之前提到的所有模拟功能，使其成为大型系统上单元测试中的必备工具。缺点是缺少文档。   </p>
+<p>项目地址:<a href="https://code.google.com/p/powermock/" target="_blank" rel="external">https://code.google.com/p/powermock/</a><br><a id="more"></a></p>
+<p>##Mock 和Stub##</p>
+<p>###Mock###<br>所谓的mock，即模拟，模仿的意思。Mock 技术的主要作用是使用mock工具模拟一些在应用中不容易构造或者比较复杂的对象，从而把测试目标与测试边界以外的对象隔离开。</p>
+<p>###Stub###<br>Stub,桩。单元测试过程中，对于在应用中不容易构造或者比较复杂的对象，用一个虚拟的对象来代替它。从类的实现方式上看，stub有一个显式的类实现，按照stub类的复用层次可以实现为普通类(被多个测试案例复用)，内部类(被同一个测试案例的多个测试方法复用)乃至内部匿名类(只用于当前测试方法)。stub的方法也会有具体的实现，哪怕简单到只有一个简单的return语句。</p>
+<p>###Stub 与 Mock 的区别###<br>Stub 是在单元测试过程中去代替某些对象来提供所需的测试数据，适用于基于状态的（state-based）测试，关注的是输入和输出。而Mock适用于基于交互的（interaction-based）测试，关注的是交互过程，不只是模拟状态，还能够模拟模块或对象的行为逻辑并能验证其正确性，Mock不需要类的显示实现，直接用工具模拟。</p>
+<p>##Mockito 的使用##</p>
+<p>###Maven###<br>通过Maven管理的，需要在项目的Pom.xml中增加如下的依赖：</p>
+<pre><code>&lt;dependencies&gt;
+&lt;dependency&gt;
+&lt;groupId&gt;org.mockito&lt;/groupId&gt;
+&lt;artifactId&gt;mockito-all&lt;/artifactId&gt;
+&lt;version&gt;1.9.0&lt;/version&gt;
+&lt;scope&gt;test&lt;/scope&gt;
+&lt;/dependency&gt;
+&lt;/dependencies&gt;
+</code></pre><p>在程序中可以<code>import org.mockito.Mockito</code>，然后调用它的static方法。</p>
+<p>###Maven 程序###</p>
+<p>####1.模拟对象####<br>创建 Mock 对象的语法为 mock(class or interface)。</p>
+<p>####2.设置对象调用的预期返回值####<br>通过 when(mock.someMethod()).thenReturn(value) 来设定 Mock 对象某个方法调用时的返回值。或者使用 when(mock.someMethod()).thenThrow(new RuntimeException) 的方式来设定当调用某个方法时抛出的异常。</p>
+<p>####3.验证被测试类方法####<br>Mock 对象一旦建立便会自动记录自己的交互行为，所以我们可以有选择的对它的 交互行为进行验证。在 Mockito 中验证 Mock 对象交互行为的方法是 verify(mock).someMethod(…)。最后 Assert() 验证返回值是否和预期一样。</p>
+<p>###Demo###</p>
+<p>##Mock 对象的创建##<br>    mock(Class<t> classToMock);<br>    mock(Class<t> classToMock, String name)<br>    mock(Class<t> classToMock, Answer defaultAnswer)<br>    mock(Class<t> classToMock, MockSettings mockSettings)<br>    mock(Class<t> classToMock, ReturnValues returnValues)</t></t></t></t></t></p>
+<p>可以对类和接口进行mock对象的创建，创建时可以为mock对象命名。对mock对象命名的好处是调试的时候容易辨认mock对象。</p>
+<p>##Mock对象的期望行为和返回值设定##<br>假设我们创建了LinkedList类的mock对象：</p>
+<pre><code>LinkedList mockedList = mock(LinkedList.class);
+</code></pre><p>###对方法进行设定返回值和异常###</p>
+<p>####对包含返回值的方法的设定####</p>
+<pre><code>when(mockedList.get(0)).thenReturn(&quot;first&quot;);
+when(mockedList.get(1)).thenThrow(new RuntimeException());   
+</code></pre><p>Mockito支持迭代风格的返回值设定</p>
+<pre><code>when(mockedList.get(anyInt()).thenReturn(&quot;first&quot;).thenThrow(new RuntimeException());
+when(mockedList.get(anyInt()).thenReturn(&quot;first&quot;,&quot;second&quot;);
+</code></pre><p>Stubbing的另一种风格   </p>
+<pre><code>doReturn(&quot;Hello&quot;).when(mockedList).get(0);
+doReturn(&quot;Hello&quot;).doReturn(&quot;world&quot;).when(mockedList).get(anyInt());
+</code></pre><p>抛出异常   </p>
+<pre><code>doThrow(new RuntimeException()).when(mockedList).get(0);
+</code></pre><p>####对void方法进行方法预期设定####</p>
+<pre><code>doNothing().when(mockedClass).SomeVoidMethod();
+ doThrow(new RuntimeException()).when(mockedClass).SomeVoidMethod();
+</code></pre><p>迭代风格</p>
+<pre><code>doNothing().doThrow(new RuntimeException()).when(mockedClass).SomeVoidMethod();
+</code></pre><p>##参数匹配器##<br>在Stubbing和Verify的时候，有时需要更加灵活的参数需求。参数匹配器(Argument Matcher)能够满足需求。   </p>
+<pre><code>//stubbing using anyInt() argument matcher
+when(mockedList.get(anyInt())).thenReturn(&quot;element&quot;);
+
+//following prints &quot;element&quot;
+System.out.println(mockedList.get(999));
+
+//you can also verify using argument matcher
+verify(mockedList).get(anyInt());   
+</code></pre><p>需要注意的是，如果使用了参数匹配器，所有的参数都需要由匹配器提供。如下eq(“third argument”)，直接修改为“third argument”会报错。   </p>
+<pre><code>verify(mockedClass).someMethod(anyObject(), anyString(), eq(&quot;third argument&quot;));
+</code></pre><p>##Mock对象行为的验证##<br>Mock 对象行为的验证，关注其交互行为，如mock对象调用的参数，调用次数，调用顺序等。   </p>
+<p>###调用次数验证###<br>    public static <t> T verify(T mock).someMethod()<br>    public static <t> T verify(T mock, VerificationMode mode).someMethod()</t></t></p>
+<pre><code>Parameters:
+    mock - to be verified
+    mode - times(M), atLeastOnce() , atLeast(N) , atMost(X) , never() 
+Returns:
+    mock object itself
+</code></pre><p>###调用顺序验证 ###<br>    public static InOrder inOrder(java.lang.Object… mocks)</p>
+<p>创建mock对象  </p>
+<pre><code>// Multiple mocks that must be used in a particular order
+List firstMock = mock(List.class);
+List secondMock = mock(List.class);
+</code></pre><p>调用mock对象的方法   </p>
+<pre><code>//using mocks
+firstMock.add(&quot;was called first&quot;);
+secondMock.add(&quot;was called second&quot;);
+</code></pre><p>创建InOrder对象   </p>
+<pre><code>//create inOrder object passing any mocks that need to be verified in order
+InOrder inOrder = inOrder(firstMock, secondMock);
+</code></pre><p>验证方法调用   </p>
+<pre><code>//following will make sure that firstMock was called before secondMock
+inOrder.verify(firstMock).add(&quot;was called first&quot;);
+inOrder.verify(secondMock).add(&quot;was called second&quot;);
+</code></pre><p>##<code>RETURN_SMART_NULLS和RETURN_DEEP_STUBS</code>##<br><code>RETURN_SMART_NULLS</code> 是实现了Answer 接口的对象，它是创建mock对象时的一个可选参数， <code>mock(class,answer)</code>。在创建mock对象时，使用该参数，调用没有stubbed的方法会返回 SmartNull 。如返回类型为String的，会返回空””, int 会返回 0,List 会返回 null。   </p>
+<p>mock对象使用RETURN_DEEP_STUBS 参数，会自动mock该对象中包含的对象。   </p>
+<p>##注解##<br>Mockito支持对变量进行注解，如将mock对象设为测试类的属性，然后通过注解的方式@Mock来定义它，可以减少重复代码，增强可维护性。Mockito支持的注解有@Mock，@Spy，@Captor，@InjectMocks   </p>
+<p>###Annotation 的初始化 ###<br>初始化方法为调用MockitoAnnotations.initMocks(testClass)，可以放到@Before中。</p>
+<pre><code>public class ArticleManagerTest {
+
+    @Mock private ArticleCalculator calculator;
+    @Mock private ArticleDatabase database;
+    @Mock private UserProvider userProvider;
+
+     @Before public void setup() {
+        MockitoAnnotations.initMocks(testClass);
+    }
+}
+</code></pre><p>使用Mockito提供的Junit Runner可以省略上述步骤。</p>
+<pre><code>@RunWith(MockitoJUnitRunner.class)
+public class ExampleTest {
+    @Mock private List list;
+
+    @Test public void shouldDoSomething() {
+        list.add(100);
+    }
+}
+</code></pre><h2 id="powermock-的使用"><a href="#powermock-的使用" class="headerlink" title="powermock 的使用"></a>powermock 的使用</h2><p>###Maven配置###<br>    <dependency><br>        <groupid>org.powermock</groupid><br>        <artifactid>powermock-module-junit4</artifactid><br>        <version>1.4.10</version><br>        <scope>test</scope><br>    </dependency><br>    <dependency><br>        <groupid>org.powermock</groupid><br>        <artifactid>powermock-api-mockito</artifactid><br>        <version>1.4.10</version><br>        <scope>test</scope><br>    </dependency></p>
+<p>##PowerMock 在单元测试中的应用##</p>
+<p>###模拟 Static 方法###<br>在任何需要用到 PowerMock 的类开始之前，首先我们要做如下声明：   </p>
+<pre><code>@RunWith(PowerMockRunner.class)   
+</code></pre><p>然后，还需要用注释的形式将需要测试的静态方法提供给 PowerMock：   </p>
+<pre><code>@PrepareForTest( { YourClassWithEgStaticMethod.class })   
+</code></pre><p>然后就可以开始写测试代码：</p>
+<pre><code>1，首先，需要有一个含有 static 方法的代码 , 如
+public class IdGenerator { 
+    ... 
+    public static long generateNewId() { 
+        ... 
+    } 
+    ... 
+ } 
+2，然后，在被测代码中，引用了以上方法
+public class ClassUnderTest { 
+    ... 
+    public void methodToTest() { 
+    .. 
+    final long id = IdGenerator.generateNewId(); 
+    .. 
+     } 
+    ... 
+ } 
+
+3，为了达到单元测试的目的，需要让静态方法 generateNewId()返回各种值
+来达到对被测试方法 methodToTest()的覆盖测试，实现方式如下：
+
+ @RunWith(PowerMockRunner.class) 
+ @PrepareForTest(IdGenerator.class) 
+ public class MyTestClass { 
+    @Test 
+    public void demoStaticMethodMocking() throws Exception { 
+        PowerMockito.mockStatic(IdGenerator.class);  
+        when(IdGenerator.generateNewId()).thenReturn(2L); 
+
+        new ClassUnderTest().methodToTest(); 
+
+        verifyStatic(); 
+        IdGenerator.generateNewId(); 
+    } 
+ }
+</code></pre><p>###模拟构造函数###<br>有时候，能模拟构造函数，从而使被测代码中 new 操作返回的对象可以被随意定制，会很大程度的提高单元测试的效率，考虑如下：</p>
+<pre><code>public class DirectoryStructure { 
+    public boolean create(String directoryPath) { 
+        File directory = new File(directoryPath); 
+
+        if (directory.exists()) { 
+            throw new IllegalArgumentException(
+            &quot;\&quot;&quot; + directoryPath + &quot;\&quot; already exists.&quot;); 
+        } 
+
+        return directory.mkdirs(); 
+    } 
+ }    
+</code></pre><p>为了充分测试 create()函数，我们需要被 new 出来的 File 对象返回文件存在和不存在两种结果。在 PowerMock 出现之前，实现这个单元测试的方式通常都会需要在实际的文件系统中去创建对应的路径以及文件。然而，在 PowerMock 的帮助下，本函数的测试可以和实际的文件系统彻底独立开来：使用 PowerMock 来模拟 File 类的构造函数，使其返回指定的模拟 File 对象而不是实际的 File 对象，然后只需要通过修改指定的模拟 File 对象的实现，即可实现对被测试代码的覆盖测试，参考如下：   </p>
+<pre><code>@RunWith(PowerMockRunner.class) 
+@PrepareForTest(DirectoryStructure.class) 
+public class DirectoryStructureTest { 
+   @Test 
+   public void createDirectoryStructureWhenPathDoesntExist() 
+   throws Exception { 
+       final String directoryPath = &quot;mocked path&quot;; 
+
+       File directoryMock = mock(File.class); 
+
+       //File的初始化函数的mock
+       whenNew(File.class).withArguments(directoryPath)
+           .thenReturn(directoryMock); 
+
+       // Standard expectations 
+       when(directoryMock.exists()).thenReturn(false); 
+       when(directoryMock.mkdirs()).thenReturn(true); 
+
+       assertTrue(new NewFileExample()
+           .createDirectoryStructure(directoryPath)); 
+
+       // Optionally verify that a new File was &quot;created&quot;. 
+       verifyNew(File.class).withArguments(directoryPath); 
+   } 
+} 
+</code></pre><p>使用 whenNew().withArguments().thenReturn() 语句即可实现对具体类的构造函数的模拟操作。然后对于之前创建的模拟对象 directoryMock使用 When().thenReturn() 语句，即可实现需要的所有功能，从而实现对被测对象的覆盖测试。在本测试中，因为实际的模拟操作是在类 DirectoryStructureTest 中实现，所以需要指定的 @PrepareForTest 对象是 DirectoryStructureTest.class。</p>
+<p>###模拟私有以及 Final 方法###<br>为了实现对类的私有方法或者是 Final 方法的模拟操作，需要 PowerMock 提供的另外一项技术：局部模拟。   </p>
+<p>在之前的介绍的模拟操作中，我们总是去模拟一整个类或者对象，然后使用 When().thenReturn()语句去指定其中值得关心的部分函数的返回值，从而达到搭建各种测试环境的目标。对于没有使用 When().thenReturn()方法指定的函数，系统会返回各种类型的默认值。</p>
+<p>局部模拟则提供了另外一种方式，在使用局部模拟时，被创建出来的模拟对象依然是原系统对象，虽然可以使用方法 When().thenReturn()来指定某些具体方法的返回值，但是没有被用此函数修改过的函数依然按照系统原始类的方式来执行。   </p>
+<p>这种局部模拟的方式的强大之处在于，除开一般方法可以使用之外，Final 方法和私有方法一样可以使用。<br>参考如下所示的被测代码：</p>
+<pre><code>public final class PrivatePartialMockingExample { 
+   public String methodToTest() { 
+       return methodToMock(&quot;input&quot;); 
+   } 
+
+   private String methodToMock(String input) { 
+       return &quot;REAL VALUE = &quot; + input; 
+   } 
+} 
+</code></pre><p>为了保持单元测试的纯洁性，在测试方法 methodToTest()时，我们不希望受到私有函数 methodToMock()实现的干扰，为了达到这个目的，我们使用刚提到的局部模拟方法来实现 , 实现方式如下：   </p>
+<pre><code>@RunWith(PowerMockRunner.class) 
+@PrepareForTest(PrivatePartialMockingExample.class) 
+public class PrivatePartialMockingExampleTest { 
+   @Test 
+   public void demoPrivateMethodMocking() throws Exception { 
+       final String expected = &quot;TEST VALUE&quot;; 
+       final String nameOfMethodToMock = &quot;methodToMock&quot;; 
+       final String input = &quot;input&quot;; 
+
+       PrivatePartialMockingExample underTest = spy(new PrivatePartialMockingExample()); 
+
+       /* 
+        * Setup the expectation to the private method using the method name 
+        */ 
+       when(underTest, nameOfMethodToMock, input).thenReturn(expected); 
+
+       assertEquals(expected, underTest.methodToTest()); 
+
+       // Optionally verify that the private method was actually called 
+       verifyPrivate(underTest).invoke(nameOfMethodToMock, input); 
+   } 
+} 
+</code></pre><p>可以发现，为了实现局部模拟操作，用来创建模拟对象的函数从 mock() 变成了 spy()，操作对象也从类本身变成了一个具体的对象。同时，When() 函数也使用了不同的版本：在模拟私有方法或者是 Final 方法时，When() 函数需要依次指定模拟对象、被指定的函数名字以及针对该函数的输入参数列表。</p>
+<p>参考文献:<a href="http://www.ibm.com/developerworks/cn/java/j-lo-powermock/" target="_blank" rel="external">http://www.ibm.com/developerworks/cn/java/j-lo-powermock/</a></p>
+<hr>
+<p>Thanks to：lizejun</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.shenyanchao.cn/2013/06/21/2013-06-21-mockito-in-brief/" data-id="cirudqijc006x2hw3vle3hf9r" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mock/">mock</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mockito/">mockito</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/powermock/">powermock</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stub/">stub</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ut/">ut</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2013/06/27/2013-06-27-usage-dbunit/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          DbUnit使用入门
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/06/19/2013-06-19-publishing-from-github-to-maven-central/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">从Github发布jar包到Maven Central</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/HTTP/">HTTP</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JVM/">JVM</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/apache/">apache</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/c3p0/">c3p0</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/checkstyle/">checkstyle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/encode/">encode</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/encode-Java/">encode Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hadoop/">hadoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jenkins/">jenkins</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jmeter/">jmeter</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mahout/">mahout</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/markdown/">markdown</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/maven/">maven</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/oryx/">oryx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/selenium/">selenium</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/selenium-wiki/">selenium-wiki</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/selenium官方文档/">selenium官方文档</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/solr/">solr</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/testng/">testng</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ubuntu/">ubuntu</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ut/">ut</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/velocity/">velocity</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/个人/">个人</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/开发/">开发</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/测试/">测试</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/调优/">调优</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Adapter/">Adapter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BOM/">BOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Chrome/">Chrome</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Clone/">Clone</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DOM/">DOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Driver/">Driver</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FAQ/">FAQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Facade/">Facade</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Factory/">Factory</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Firefox/">Firefox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GC/">GC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IO/">IO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Iterator/">Iterator</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JDK/">JDK</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JsTestDriver/">JsTestDriver</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LifeCycle/">LifeCycle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MarkDownPad/">MarkDownPad</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NodeJS/">NodeJS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Observable/">Observable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Observer/">Observer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PageFactory/">PageFactory</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PageObjects/">PageObjects</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/">String</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Testacular/">Testacular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tomcat/">Tomcat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UTF/">UTF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UTF8/">UTF8</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XML/">XML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/alert/">alert</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ant/">ant</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/antlr/">antlr</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apache/">apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apache-poi/">apache poi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/archetype/">archetype</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ast/">ast</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bridge/">bridge</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/builder/">builder</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c3p0/">c3p0</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cglib/">cglib</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chain/">chain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/checkstyle/">checkstyle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ci/">ci</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/class/">class</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloudera/">cloudera</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cobertura/">cobertura</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/command/">command</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/composite/">composite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/config/">config</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/config-xml/">config.xml</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/connection/">connection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/convmv/">convmv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coverage/">coverage</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dbunit/">dbunit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/decorator/">decorator</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/design-pattern/">design pattern</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dhcp/">dhcp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dom4j/">dom4j</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dump/">dump</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eclipse/">eclipse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/el/">el</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/enca/">enca</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/encode/">encode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/excel/">excel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/express/">express</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/findbugs/">findbugs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flyweight/">flyweight</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/generate/">generate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/grid/">grid</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/h2database/">h2database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/header/">header</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hudson/">hudson</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iconv/">iconv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/idea/">idea</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ik-analyzer/">ik-analyzer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/install/">install</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interface/">interface</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interpreter/">interpreter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jXLS/">jXLS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jar/">jar</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jasmine/">jasmine</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java7/">java7</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java8/">java8</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javaparser/">javaparser</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jenkins/">jenkins</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jmeter/">jmeter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jquery/">jquery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jsTestDriver/">jsTestDriver</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jstl/">jstl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/junit/">junit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jxl/">jxl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/karma/">karma</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lucene/">lucene</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mahout/">mahout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mediator/">mediator</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/memento/">memento</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mocha/">mocha</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mock/">mock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mockito/">mockito</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/monitor/">monitor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mpm/">mpm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvc/">mvc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/myrrix/">myrrix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/object/">object</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/octopress/">octopress</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oryx/">oryx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/package/">package</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pattern/">pattern</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/perfork/">perfork</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/plugin/">plugin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/plugins/">plugins</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pmd/">pmd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/policy/">policy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/powermock/">powermock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prototype/">prototype</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/proxy/">proxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/quartz/">quartz</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/qunit/">qunit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/request/">request</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/response/">response</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/restful/">restful</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/selenium/">selenium</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/singleton/">singleton</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/slf4j/">slf4j</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/slowquery/">slowquery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sogou/">sogou</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solr/">solr</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sonar/">sonar</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sonatype/">sonatype</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/source/">source</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/">ssh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stable/">stable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/state/">state</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/story/">story</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/strategy/">strategy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stub/">stub</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/syntax/">syntax</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/template-method/">template method</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/test-runner/">test-runner</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/testacular/">testacular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/testng/">testng</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tie/">tie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tomcat/">tomcat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ut/">ut</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ut-maven-plugin/">ut-maven-plugin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ut，sql-maven-plugin/">ut，sql-maven-plugin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/velocity/">velocity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/visitor/">visitor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wait/">wait</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/war/">war</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webdriver/">webdriver</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/worker/">worker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xpath/">xpath</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/中文/">中文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/云南/">云南</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/享元/">享元</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/压力测试/">压力测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/同义词/">同义词</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/备忘录/">备忘录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/探索测试/">探索测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/旅游/">旅游</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/模式/">模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/漫游/">漫游</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/状态/">状态</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生命周期/">生命周期</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编码/">编码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/解释器/">解释器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/访问者/">访问者</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读书笔记/">读书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/调优/">调优</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/责任链/">责任链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/配置/">配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/重构/">重构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/集群/">集群</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/静态代码扫描/">静态代码扫描</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Adapter/" style="font-size: 10px;">Adapter</a> <a href="/tags/BOM/" style="font-size: 10px;">BOM</a> <a href="/tags/Chrome/" style="font-size: 10px;">Chrome</a> <a href="/tags/Clone/" style="font-size: 10px;">Clone</a> <a href="/tags/DOM/" style="font-size: 10px;">DOM</a> <a href="/tags/Driver/" style="font-size: 10px;">Driver</a> <a href="/tags/FAQ/" style="font-size: 10px;">FAQ</a> <a href="/tags/Facade/" style="font-size: 10px;">Facade</a> <a href="/tags/Factory/" style="font-size: 10px;">Factory</a> <a href="/tags/Firefox/" style="font-size: 10px;">Firefox</a> <a href="/tags/GC/" style="font-size: 10px;">GC</a> <a href="/tags/HTTP/" style="font-size: 11.25px;">HTTP</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/Iterator/" style="font-size: 10px;">Iterator</a> <a href="/tags/JDK/" style="font-size: 11.25px;">JDK</a> <a href="/tags/JVM/" style="font-size: 11.25px;">JVM</a> <a href="/tags/Java/" style="font-size: 18.75px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/JsTestDriver/" style="font-size: 10px;">JsTestDriver</a> <a href="/tags/LifeCycle/" style="font-size: 10px;">LifeCycle</a> <a href="/tags/MarkDownPad/" style="font-size: 10px;">MarkDownPad</a> <a href="/tags/NodeJS/" style="font-size: 10px;">NodeJS</a> <a href="/tags/Observable/" style="font-size: 10px;">Observable</a> <a href="/tags/Observer/" style="font-size: 10px;">Observer</a> <a href="/tags/PageFactory/" style="font-size: 10px;">PageFactory</a> <a href="/tags/PageObjects/" style="font-size: 10px;">PageObjects</a> <a href="/tags/String/" style="font-size: 10px;">String</a> <a href="/tags/Testacular/" style="font-size: 10px;">Testacular</a> <a href="/tags/Tomcat/" style="font-size: 10px;">Tomcat</a> <a href="/tags/UTF/" style="font-size: 10px;">UTF</a> <a href="/tags/UTF8/" style="font-size: 10px;">UTF8</a> <a href="/tags/XML/" style="font-size: 10px;">XML</a> <a href="/tags/alert/" style="font-size: 10px;">alert</a> <a href="/tags/ant/" style="font-size: 10px;">ant</a> <a href="/tags/antlr/" style="font-size: 10px;">antlr</a> <a href="/tags/apache/" style="font-size: 11.25px;">apache</a> <a href="/tags/apache-poi/" style="font-size: 10px;">apache poi</a> <a href="/tags/archetype/" style="font-size: 11.25px;">archetype</a> <a href="/tags/ast/" style="font-size: 12.5px;">ast</a> <a href="/tags/bridge/" style="font-size: 10px;">bridge</a> <a href="/tags/builder/" style="font-size: 10px;">builder</a> <a href="/tags/c3p0/" style="font-size: 10px;">c3p0</a> <a href="/tags/cglib/" style="font-size: 10px;">cglib</a> <a href="/tags/chain/" style="font-size: 10px;">chain</a> <a href="/tags/checkstyle/" style="font-size: 12.5px;">checkstyle</a> <a href="/tags/ci/" style="font-size: 10px;">ci</a> <a href="/tags/class/" style="font-size: 10px;">class</a> <a href="/tags/cloudera/" style="font-size: 10px;">cloudera</a> <a href="/tags/cobertura/" style="font-size: 10px;">cobertura</a> <a href="/tags/command/" style="font-size: 11.25px;">command</a> <a href="/tags/composite/" style="font-size: 10px;">composite</a> <a href="/tags/config/" style="font-size: 10px;">config</a> <a href="/tags/config-xml/" style="font-size: 10px;">config.xml</a> <a href="/tags/connection/" style="font-size: 10px;">connection</a> <a href="/tags/convmv/" style="font-size: 10px;">convmv</a> <a href="/tags/coverage/" style="font-size: 10px;">coverage</a> <a href="/tags/dbunit/" style="font-size: 10px;">dbunit</a> <a href="/tags/decorator/" style="font-size: 10px;">decorator</a> <a href="/tags/design-pattern/" style="font-size: 10px;">design pattern</a> <a href="/tags/dhcp/" style="font-size: 10px;">dhcp</a> <a href="/tags/dom4j/" style="font-size: 10px;">dom4j</a> <a href="/tags/dump/" style="font-size: 10px;">dump</a> <a href="/tags/eclipse/" style="font-size: 12.5px;">eclipse</a> <a href="/tags/el/" style="font-size: 10px;">el</a> <a href="/tags/enca/" style="font-size: 10px;">enca</a> <a href="/tags/encode/" style="font-size: 13.75px;">encode</a> <a href="/tags/excel/" style="font-size: 10px;">excel</a> <a href="/tags/express/" style="font-size: 10px;">express</a> <a href="/tags/findbugs/" style="font-size: 11.25px;">findbugs</a> <a href="/tags/flyweight/" style="font-size: 10px;">flyweight</a> <a href="/tags/generate/" style="font-size: 10px;">generate</a> <a href="/tags/git/" style="font-size: 11.25px;">git</a> <a href="/tags/github/" style="font-size: 11.25px;">github</a> <a href="/tags/grid/" style="font-size: 10px;">grid</a> <a href="/tags/h2database/" style="font-size: 10px;">h2database</a> <a href="/tags/hadoop/" style="font-size: 10px;">hadoop</a> <a href="/tags/header/" style="font-size: 10px;">header</a> <a href="/tags/hudson/" style="font-size: 10px;">hudson</a> <a href="/tags/iconv/" style="font-size: 10px;">iconv</a> <a href="/tags/idea/" style="font-size: 10px;">idea</a> <a href="/tags/ik-analyzer/" style="font-size: 10px;">ik-analyzer</a> <a href="/tags/install/" style="font-size: 10px;">install</a> <a href="/tags/interface/" style="font-size: 10px;">interface</a> <a href="/tags/interpreter/" style="font-size: 10px;">interpreter</a> <a href="/tags/jXLS/" style="font-size: 10px;">jXLS</a> <a href="/tags/jar/" style="font-size: 10px;">jar</a> <a href="/tags/jasmine/" style="font-size: 10px;">jasmine</a> <a href="/tags/java/" style="font-size: 11.25px;">java</a> <a href="/tags/java7/" style="font-size: 10px;">java7</a> <a href="/tags/java8/" style="font-size: 10px;">java8</a> <a href="/tags/javaparser/" style="font-size: 10px;">javaparser</a> <a href="/tags/jenkins/" style="font-size: 13.75px;">jenkins</a> <a href="/tags/jmeter/" style="font-size: 11.25px;">jmeter</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/jsTestDriver/" style="font-size: 10px;">jsTestDriver</a> <a href="/tags/jstl/" style="font-size: 10px;">jstl</a> <a href="/tags/junit/" style="font-size: 10px;">junit</a> <a href="/tags/jxl/" style="font-size: 10px;">jxl</a> <a href="/tags/karma/" style="font-size: 11.25px;">karma</a> <a href="/tags/linux/" style="font-size: 12.5px;">linux</a> <a href="/tags/lucene/" style="font-size: 11.25px;">lucene</a> <a href="/tags/mahout/" style="font-size: 10px;">mahout</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/maven/" style="font-size: 17.5px;">maven</a> <a href="/tags/mediator/" style="font-size: 10px;">mediator</a> <a href="/tags/memento/" style="font-size: 10px;">memento</a> <a href="/tags/mocha/" style="font-size: 10px;">mocha</a> <a href="/tags/mock/" style="font-size: 10px;">mock</a> <a href="/tags/mockito/" style="font-size: 10px;">mockito</a> <a href="/tags/monitor/" style="font-size: 10px;">monitor</a> <a href="/tags/mpm/" style="font-size: 10px;">mpm</a> <a href="/tags/mvc/" style="font-size: 10px;">mvc</a> <a href="/tags/myrrix/" style="font-size: 10px;">myrrix</a> <a href="/tags/mysql/" style="font-size: 12.5px;">mysql</a> <a href="/tags/nodejs/" style="font-size: 12.5px;">nodejs</a> <a href="/tags/object/" style="font-size: 10px;">object</a> <a href="/tags/octopress/" style="font-size: 11.25px;">octopress</a> <a href="/tags/oryx/" style="font-size: 10px;">oryx</a> <a href="/tags/package/" style="font-size: 10px;">package</a> <a href="/tags/pattern/" style="font-size: 17.5px;">pattern</a> <a href="/tags/perfork/" style="font-size: 10px;">perfork</a> <a href="/tags/plugin/" style="font-size: 10px;">plugin</a> <a href="/tags/plugins/" style="font-size: 10px;">plugins</a> <a href="/tags/pmd/" style="font-size: 12.5px;">pmd</a> <a href="/tags/policy/" style="font-size: 10px;">policy</a> <a href="/tags/powermock/" style="font-size: 10px;">powermock</a> <a href="/tags/prototype/" style="font-size: 10px;">prototype</a> <a href="/tags/proxy/" style="font-size: 10px;">proxy</a> <a href="/tags/quartz/" style="font-size: 10px;">quartz</a> <a href="/tags/qunit/" style="font-size: 10px;">qunit</a> <a href="/tags/request/" style="font-size: 10px;">request</a> <a href="/tags/response/" style="font-size: 10px;">response</a> <a href="/tags/restful/" style="font-size: 11.25px;">restful</a> <a href="/tags/selenium/" style="font-size: 20px;">selenium</a> <a href="/tags/singleton/" style="font-size: 10px;">singleton</a> <a href="/tags/slf4j/" style="font-size: 10px;">slf4j</a> <a href="/tags/slowquery/" style="font-size: 10px;">slowquery</a> <a href="/tags/sogou/" style="font-size: 10px;">sogou</a> <a href="/tags/solr/" style="font-size: 11.25px;">solr</a> <a href="/tags/sonar/" style="font-size: 10px;">sonar</a> <a href="/tags/sonatype/" style="font-size: 10px;">sonatype</a> <a href="/tags/source/" style="font-size: 10px;">source</a> <a href="/tags/spring/" style="font-size: 13.75px;">spring</a> <a href="/tags/ssh/" style="font-size: 11.25px;">ssh</a> <a href="/tags/stable/" style="font-size: 11.25px;">stable</a> <a href="/tags/state/" style="font-size: 10px;">state</a> <a href="/tags/story/" style="font-size: 10px;">story</a> <a href="/tags/strategy/" style="font-size: 10px;">strategy</a> <a href="/tags/stub/" style="font-size: 10px;">stub</a> <a href="/tags/syntax/" style="font-size: 10px;">syntax</a> <a href="/tags/template-method/" style="font-size: 10px;">template method</a> <a href="/tags/test-runner/" style="font-size: 10px;">test-runner</a> <a href="/tags/testacular/" style="font-size: 11.25px;">testacular</a> <a href="/tags/testng/" style="font-size: 10px;">testng</a> <a href="/tags/tie/" style="font-size: 10px;">tie</a> <a href="/tags/tomcat/" style="font-size: 10px;">tomcat</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/ut/" style="font-size: 10px;">ut</a> <a href="/tags/ut-maven-plugin/" style="font-size: 10px;">ut-maven-plugin</a> <a href="/tags/ut，sql-maven-plugin/" style="font-size: 10px;">ut，sql-maven-plugin</a> <a href="/tags/velocity/" style="font-size: 10px;">velocity</a> <a href="/tags/visitor/" style="font-size: 10px;">visitor</a> <a href="/tags/wait/" style="font-size: 10px;">wait</a> <a href="/tags/war/" style="font-size: 10px;">war</a> <a href="/tags/webdriver/" style="font-size: 16.25px;">webdriver</a> <a href="/tags/worker/" style="font-size: 10px;">worker</a> <a href="/tags/xpath/" style="font-size: 10px;">xpath</a> <a href="/tags/中文/" style="font-size: 10px;">中文</a> <a href="/tags/云南/" style="font-size: 10px;">云南</a> <a href="/tags/享元/" style="font-size: 10px;">享元</a> <a href="/tags/分布式/" style="font-size: 10px;">分布式</a> <a href="/tags/压力测试/" style="font-size: 10px;">压力测试</a> <a href="/tags/同义词/" style="font-size: 10px;">同义词</a> <a href="/tags/备忘录/" style="font-size: 10px;">备忘录</a> <a href="/tags/探索测试/" style="font-size: 10px;">探索测试</a> <a href="/tags/旅游/" style="font-size: 11.25px;">旅游</a> <a href="/tags/模式/" style="font-size: 10px;">模式</a> <a href="/tags/漫游/" style="font-size: 10px;">漫游</a> <a href="/tags/状态/" style="font-size: 10px;">状态</a> <a href="/tags/生命周期/" style="font-size: 10px;">生命周期</a> <a href="/tags/编码/" style="font-size: 11.25px;">编码</a> <a href="/tags/解释器/" style="font-size: 10px;">解释器</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/访问者/" style="font-size: 10px;">访问者</a> <a href="/tags/读书笔记/" style="font-size: 15px;">读书笔记</a> <a href="/tags/调优/" style="font-size: 10px;">调优</a> <a href="/tags/责任链/" style="font-size: 10px;">责任链</a> <a href="/tags/配置/" style="font-size: 10px;">配置</a> <a href="/tags/重构/" style="font-size: 10px;">重构</a> <a href="/tags/集群/" style="font-size: 10px;">集群</a> <a href="/tags/静态代码扫描/" style="font-size: 10px;">静态代码扫描</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">十一月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">十月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">八月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">六月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">三月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">十二月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">十一月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">九月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06/">六月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">五月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">四月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">三月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">一月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">十二月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">十一月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/10/">十月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">九月 2012</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/08/14/2015-11-04-about-interface-define/">关于接口定义的一些想法</a>
+          </li>
+        
+          <li>
+            <a href="/2015/11/03/2015-11-03-restful-springmvc/">Restful Spring MVC</a>
+          </li>
+        
+          <li>
+            <a href="/2015/03/26/2015-03-26-c3p0-config/">关于C3P0容错和自动重连特性的研究</a>
+          </li>
+        
+          <li>
+            <a href="/2014/11/25/2014-11-25-better-synonym-handling-in-solr/">如何在Solr中更好的处理同义词</a>
+          </li>
+        
+          <li>
+            <a href="/2014/11/14/2014-11-14-use-mahout-to-classify-sogou-corpus/">使用mahout对Sogou语料库进行分类</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 shenyanchao<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

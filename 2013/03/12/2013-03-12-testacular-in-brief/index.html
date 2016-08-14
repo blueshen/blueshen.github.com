@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Karma  or Testacular 简介 | Blues小站</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="##Karma/Testacular是什么？##在2012年11月，Google开源了Testacular，一个基于Node.js的JavaScript测试执行过程管理工具（Test Runner）。该工具可用于测试所有主流Web浏览器，也可集成到CI（Continuous integration）工具，也可和其他代码编辑器一起使用。   
+Testacular可以在不同的桌面或移动设备浏览器上，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Karma  or Testacular 简介">
+<meta property="og:url" content="http://www.shenyanchao.cn/2013/03/12/2013-03-12-testacular-in-brief/index.html">
+<meta property="og:site_name" content="Blues小站">
+<meta property="og:description" content="##Karma/Testacular是什么？##在2012年11月，Google开源了Testacular，一个基于Node.js的JavaScript测试执行过程管理工具（Test Runner）。该工具可用于测试所有主流Web浏览器，也可集成到CI（Continuous integration）工具，也可和其他代码编辑器一起使用。   
+Testacular可以在不同的桌面或移动设备浏览器上，">
+<meta property="og:image" content="http://www.shenyanchao.cn/images/blog/testacular-run-in-firefox.png">
+<meta property="og:updated_time" content="2016-08-14T08:56:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Karma  or Testacular 简介">
+<meta name="twitter:description" content="##Karma/Testacular是什么？##在2012年11月，Google开源了Testacular，一个基于Node.js的JavaScript测试执行过程管理工具（Test Runner）。该工具可用于测试所有主流Web浏览器，也可集成到CI（Continuous integration）工具，也可和其他代码编辑器一起使用。   
+Testacular可以在不同的桌面或移动设备浏览器上，">
+<meta name="twitter:image" content="http://www.shenyanchao.cn/images/blog/testacular-run-in-firefox.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Blues小站" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Blues小站</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.shenyanchao.cn"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2013-03-12-testacular-in-brief" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/03/12/2013-03-12-testacular-in-brief/" class="article-date">
+  <time datetime="2013-03-12T07:12:00.000Z" itemprop="datePublished">2013-03-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/nodejs/">nodejs</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Karma  or Testacular 简介
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>##Karma/Testacular是什么？##<br>在2012年11月，Google开源了<a href="http://testacular.github.com/" target="_blank" rel="external">Testacular</a>，一个基于Node.js的JavaScript测试执行过程管理工具（Test Runner）。该工具可用于测试所有主流Web浏览器，也可集成到CI（Continuous integration）工具，也可和其他代码编辑器一起使用。   </p>
+<p>Testacular可以在不同的桌面或移动设备浏览器上，或在持续集成的服务器上测试JavaScript代码。Testacular支持chrome、ChromeCanary、 Safari、Firefox、IE、Opera、PhantomJS，知道如何捕获浏览器正使用的默认路径，这些路径可能在启动器配置文件被忽视（overridden）。Testacular就是一个可以和多重测试框架协作的测试执行过程管理工具，它有针对Jasmine、Mocha和AngularJS的适配器，它也可以与<a href="http://jenkins-ci.org/" target="_blank" rel="external">Jenkins</a>或<a href="https://travis-ci.org/" target="_blank" rel="external">Travis</a>整合，用于执行持续集成测试。  </p>
+<a id="more"></a>
+<p>这个测试工具的一个强大特性就是，它可以监控一套文件的变换，并立即开始测试已保存的文件，用户无需离开文本编辑器。测试结果通常显示在命令行中，而非代码编辑器。这也就让Testacular基本可以和任何JS编辑器一起使用。为更好结果，它可以整合到<a href="http://www.jetbrains.com/webstorm/" target="_blank" rel="external">WebStorm</a>中，而WebStorm持错误栈追踪和单元测试调试。  </p>
+<p>为更好运行，Testacular需要Node.js和一个配置文件，该配置文件包括：待测试的文件、需忽略的文件、基本路径、web服务器端口、日子等级等。（配置文件样例）  </p>
+<p>说到Testacular的性能，Google工程师Vojta Jína在Chrome Canary和Chrome做了一个演示，用WebStorm大约执行了1500个AngularJS测试，在5秒之内完成。</p>
+<p>Jína也说到Testacular是受<a href="http://code.google.com/p/js-test-driver/" target="_blank" rel="external">JS Test Driver(JSTD)</a>的启发，但他们决定写一个完全不同的测试执行过程管理工具，因为JSTD有很多问题，他们想要一个能稳定并快速执行Javascript测试的工具。所以他们用了Socket.io库和Node.js。  </p>
+<p>##Vojta Jína原版视频##<br>youtube(凸墙):<br><a href="http://www.youtube.com/watch?v=5mHjJ4xf_K0" target="_blank" rel="external">http://www.youtube.com/watch?v=5mHjJ4xf_K0</a><br><a href="http://www.youtube.com/watch?v=MVw8N3hTfCI" target="_blank" rel="external">http://www.youtube.com/watch?v=MVw8N3hTfCI</a><br>youku[个人转录]:    </p>
+<iframe height="498" width="510" src="http://player.youku.com/embed/XNTI2NTg0Nzky" frameborder="0" allowfullscreen></iframe>
+
+<p><iframe height="498" width="510" src="http://player.youku.com/embed/XNTI2NTg0Mzc2" frameborder="0" allowfullscreen></iframe></p>
+<p>##Karma/Testacular 安装##<br>首先，保证已经有Node.js环境以及NPM。然后执行以下命令即可：   </p>
+<pre><code>npm install -g karma/testacular
+</code></pre><p>安装成功后，可以查看其支持的命令。   </p>
+<pre><code>testacular --help
+Testacular - Spectacular Test Runner for JavaScript.
+
+Usage:
+  testacular &lt;command&gt;
+
+Commands:
+  start [&lt;configFile&gt;] [&lt;options&gt;] Start the server / do single run.
+  init [&lt;configFile&gt;] Initialize a config file.
+  run [&lt;options&gt;] Trigger a test run.
+
+Run --help with particular command to see its description and     available options.
+
+Options:
+  --help     Print usage and options.
+  --version  Print current version.   
+</code></pre><p>简单来看，就只有start,init,run这几个命令。start用于启动浏览器server,init用于辅助的生成配置文件，run用于驱动Test执行。<br>下面就来看以下，最主要的部分，那就是配置文件了。</p>
+<p>##Karma/Testacular配置文件##<br>这个配置文件，定义了Test执行所需要的各种选项，testacular正是通过这个文件来进行测试执行的。<br>在GitHub上可以看到一个官方提供的默认样例<a href="https://github.com/testacular/testacular/blob/master/test/client/testacular.conf.js" target="_blank" rel="external">https://github.com/testacular/testacular/blob/master/test/client/testacular.conf.js</a>,可以看出里面有相当多的配置，还要里面都有一些注释的了，都大概能看懂一点。<br>同样的，使用<code>karma/testacular init</code>命令也可以帮助你自动的生成一个配置文件。init后可以跟文件名，如果不写，默认的文件名就是karma/testacular.conf.js。对应的<code>karma/testacular start</code>也会默认搜索当前目录下的karma/testacular.conf.js来启动。<br>下面，我们来生成一个看看：   </p>
+<pre><code>karma/testacular init my.conf.js
+
+Which testing framework do you want to use ?
+Press tab to list possible options. Enter to move to the next     question.
+&gt; mocha
+
+Do you want to use Require.js ?
+This will add Require.js adapter into files.
+Press tab to list possible options. Enter to move to the next question.
+&gt; no
+
+Do you want to capture a browser automatically ?
+Press tab to list possible options. Enter empty string to move to the next question.
+&gt; Firefox
+......
+
+Config file generated at &quot;/home/shenyanchao/tmp/my.conf.js&quot;.
+</code></pre><p>这样就生成了一个my.conf.js文件。其中要我们自己要做的就是选择一下而已。需要注意的是，正如提示所说，选择切换使用的是<strong>Tab</strong>。<br>此时，执行<code>testacular start my.conf.js</code>,可以发现，浏览器已经启动了。   </p>
+<p><img src="/images/blog/testacular-run-in-firefox.png" alt="Testacular启动">     </p>
+<p><strong>配置文件参数：</strong><br>    autoWatch</p>
+<pre><code>类型: Boolean
+默认: false
+命令行: --auto-watch, --no-auto-watch
+详细介绍:当检测到文件内容变化的时候，是不是自动的重新运行Test
+
+basePath
+
+类型: String
+默认: &apos;&apos;
+详细介绍: 基本路径，用来解决相对路径问题。
+
+browsers
+
+类型: Array
+默认: []
+命令行: --browsers Chrome,Firefox
+取值:
+Chrome
+ChromeCanary
+Firefox
+Opera
+Safari
+PhantomJS
+IE
+详细介绍: 定义一组需要启动的浏览器，那么所有测试将分别在各个浏览器运行并给出结果。关闭的时候也同时全部关闭。
+
+captureTimeout
+
+类型: Number
+默认: 60000
+详细介绍: 捕获浏览器的超时时间 (单位 ms)。超时后，testacular会关闭然后重新尝试。  
+
+colors
+
+类型: Boolean
+默认: true
+命令行: --colors, --no-colors
+详细介绍: 在reporters和logs里面是否启用色彩。
+exclude
+
+类型: Array
+默认: []
+详细介绍: 排除在外的文件列表或者正则表达式
+
+files
+
+类型: Array
+默认: []
+详细介绍: 要加载的文件列表或者正则表达式
+
+hostname
+
+类型: String
+默认: &apos;localhost&apos;
+详细介绍: 启动的浏览器主机名
+
+logLevel
+
+类型: Constant
+默认: LOG_INFO
+命令行: --log-level debug
+取值:
+LOG_DISABLE
+LOG_ERROR
+LOG_WARN
+LOG_INFO
+LOG_DEBUG
+详细介绍: 日志级别.
+
+loggers
+
+类型: Array
+默认: [{type: &apos;console&apos;}]
+详细介绍: 定义日志目标。比如log4js
+
+port
+
+类型: Number
+默认: 9876
+命令行: --port 9876
+详细介绍: web服务的监听端口
+
+preprocessors
+
+类型: Object
+默认: {&apos;**/*.coffee&apos;: &apos;coffee&apos;}
+详细介绍: 前置处理器的MAP
+
+proxies
+
+类型: Object
+默认: {}
+详细介绍: 路径代理的映射MAP
+例如:
+  proxies =  {
+    &apos;/static&apos;: &apos;http://gstatic.com&apos;,
+    &apos;/web&apos;: &apos;http://localhost:9000&apos;
+  };
+
+reportSlowerThan
+
+类型: Number
+默认: 0
+详细介绍: 这时一个以ms为单位的数值，如果test执行超过这个时间，那么Testacular会进行记录。 
+
+reporters
+
+类型: Array
+默认: [&apos;progress&apos;]
+命令行: --reporters progress,growl
+取值:
+dots
+progress
+junit
+growl
+coverage
+详细介绍: 使用的报表列表
+
+runnerPort
+
+类型: Number
+默认: 9100
+命令行: --runner-port 9100
+详细介绍: 使用testacular run时，服务器的监听端口
+
+singleRun
+
+类型: Boolean
+默认: false
+命令行: --single-run, no-single-run
+详细介绍: CI模式。如为true，就会在所有浏览器运行，运行结束后关闭浏览器，返回码0，失败返回1.
+
+urlRoot
+
+类型: String
+默认: &apos;/&apos;
+详细介绍: 基本URL，相当于一个URL默认的前缀。尤其在使用proxies时有用。
+</code></pre><p>##browser无法启动？##<br>当在karma/testacular.conf.js中配置完browsersCanary，有可能会出现无法启动浏览器的情况。testacular会在一套默认的路径下进行尝试加载启动浏览器，而在不同的操作系统下默认位置是不同的。<br>如果无法找到，可以通过覆盖<code>&lt;BROWSER&gt;_BIN</code>来解决。<br>比如：   </p>
+<pre><code>export CHROME_BIN=/usr/local/bin/my-chrome-build
+export CHROME_CANARY_BIN=/usr/local/bin/my-chrome-build
+ export PHANTOMJS_BIN=$HOME/local/bin/phantomjs
+</code></pre><p>就是要设置相应的变量。在windows下自然就是添加相应的环境变量了。这样配置后，testacular就直到从哪儿加载启动浏览器了。   </p>
+<p>##写在Testacular学习之后##<br>Testacular应该是Google<a href="http://angularjs.org/" target="_blank" rel="external">AngularJS</a>的副产品。出于CommonJS的规范，以及对产品质量的保证。AngularJS只身需要进行单元测试，而在测试过程中遇到了种种的问题。也许他们最开始就是使用JsTestDriver来驱动测试的，后来发现不能满足需求，或者能更好。因此Testacular出现了，并开源了出来。<br>以上，存在一定的个人猜测，但是其产生的过程值得好好学习。   </p>
+<p>##改名为Karma##<br>2013年3月18日，Testacular更名为Karma，版本从V0.6.0直接升为V0.8.0，并在GitHub上提交时评论为<code>chore: rename this shit to Karma</code>。具体什么原因，不得而知。也许是因为令人诟病的Testacular名字不好听吧。不过功能都是一样的，只是使用的时候，testacular变为karma了。所以上面文档中的操作，只需要全部替换即可。    </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.shenyanchao.cn/2013/03/12/2013-03-12-testacular-in-brief/" data-id="cirudqihz004r2hw3wsotjkfe" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JsTestDriver/">JsTestDriver</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Testacular/">Testacular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jenkins/">jenkins</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2013/03/18/2013-03-18-mocha-in-brief/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Mocha简介
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/03/11/2013-03-11-node-dot-js-develop-guide-reading-note/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">《Node.js开发指南》读书笔记</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/HTTP/">HTTP</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JVM/">JVM</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/apache/">apache</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/c3p0/">c3p0</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/checkstyle/">checkstyle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/encode/">encode</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/encode-Java/">encode Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hadoop/">hadoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jenkins/">jenkins</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jmeter/">jmeter</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mahout/">mahout</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/markdown/">markdown</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/maven/">maven</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/oryx/">oryx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/selenium/">selenium</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/selenium-wiki/">selenium-wiki</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/selenium官方文档/">selenium官方文档</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/solr/">solr</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/testng/">testng</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ubuntu/">ubuntu</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ut/">ut</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/velocity/">velocity</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/个人/">个人</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/开发/">开发</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/测试/">测试</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/调优/">调优</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Adapter/">Adapter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BOM/">BOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Chrome/">Chrome</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Clone/">Clone</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DOM/">DOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Driver/">Driver</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FAQ/">FAQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Facade/">Facade</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Factory/">Factory</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Firefox/">Firefox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GC/">GC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IO/">IO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Iterator/">Iterator</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JDK/">JDK</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JsTestDriver/">JsTestDriver</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LifeCycle/">LifeCycle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MarkDownPad/">MarkDownPad</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NodeJS/">NodeJS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Observable/">Observable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Observer/">Observer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PageFactory/">PageFactory</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PageObjects/">PageObjects</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/">String</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Testacular/">Testacular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tomcat/">Tomcat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UTF/">UTF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UTF8/">UTF8</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XML/">XML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/alert/">alert</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ant/">ant</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/antlr/">antlr</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apache/">apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apache-poi/">apache poi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/archetype/">archetype</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ast/">ast</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bridge/">bridge</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/builder/">builder</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c3p0/">c3p0</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cglib/">cglib</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chain/">chain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/checkstyle/">checkstyle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ci/">ci</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/class/">class</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloudera/">cloudera</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cobertura/">cobertura</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/command/">command</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/composite/">composite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/config/">config</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/config-xml/">config.xml</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/connection/">connection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/convmv/">convmv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coverage/">coverage</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dbunit/">dbunit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/decorator/">decorator</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/design-pattern/">design pattern</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dhcp/">dhcp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dom4j/">dom4j</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dump/">dump</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eclipse/">eclipse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/el/">el</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/enca/">enca</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/encode/">encode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/excel/">excel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/express/">express</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/findbugs/">findbugs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flyweight/">flyweight</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/generate/">generate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/grid/">grid</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/h2database/">h2database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/header/">header</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hudson/">hudson</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iconv/">iconv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/idea/">idea</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ik-analyzer/">ik-analyzer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/install/">install</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interface/">interface</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interpreter/">interpreter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jXLS/">jXLS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jar/">jar</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jasmine/">jasmine</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java7/">java7</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java8/">java8</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javaparser/">javaparser</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jenkins/">jenkins</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jmeter/">jmeter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jquery/">jquery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jsTestDriver/">jsTestDriver</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jstl/">jstl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/junit/">junit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jxl/">jxl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/karma/">karma</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lucene/">lucene</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mahout/">mahout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mediator/">mediator</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/memento/">memento</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mocha/">mocha</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mock/">mock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mockito/">mockito</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/monitor/">monitor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mpm/">mpm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvc/">mvc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/myrrix/">myrrix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/object/">object</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/octopress/">octopress</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oryx/">oryx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/package/">package</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pattern/">pattern</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/perfork/">perfork</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/plugin/">plugin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/plugins/">plugins</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pmd/">pmd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/policy/">policy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/powermock/">powermock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prototype/">prototype</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/proxy/">proxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/quartz/">quartz</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/qunit/">qunit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/request/">request</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/response/">response</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/restful/">restful</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/selenium/">selenium</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/singleton/">singleton</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/slf4j/">slf4j</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/slowquery/">slowquery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sogou/">sogou</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solr/">solr</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sonar/">sonar</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sonatype/">sonatype</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/source/">source</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/">ssh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stable/">stable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/state/">state</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/story/">story</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/strategy/">strategy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stub/">stub</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/syntax/">syntax</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/template-method/">template method</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/test-runner/">test-runner</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/testacular/">testacular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/testng/">testng</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tie/">tie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tomcat/">tomcat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ut/">ut</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ut-maven-plugin/">ut-maven-plugin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ut，sql-maven-plugin/">ut，sql-maven-plugin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/velocity/">velocity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/visitor/">visitor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wait/">wait</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/war/">war</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webdriver/">webdriver</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/worker/">worker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xpath/">xpath</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/中文/">中文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/云南/">云南</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/享元/">享元</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/压力测试/">压力测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/同义词/">同义词</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/备忘录/">备忘录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/探索测试/">探索测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/旅游/">旅游</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/模式/">模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/漫游/">漫游</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/状态/">状态</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生命周期/">生命周期</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编码/">编码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/解释器/">解释器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/访问者/">访问者</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读书笔记/">读书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/调优/">调优</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/责任链/">责任链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/配置/">配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/重构/">重构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/集群/">集群</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/静态代码扫描/">静态代码扫描</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Adapter/" style="font-size: 10px;">Adapter</a> <a href="/tags/BOM/" style="font-size: 10px;">BOM</a> <a href="/tags/Chrome/" style="font-size: 10px;">Chrome</a> <a href="/tags/Clone/" style="font-size: 10px;">Clone</a> <a href="/tags/DOM/" style="font-size: 10px;">DOM</a> <a href="/tags/Driver/" style="font-size: 10px;">Driver</a> <a href="/tags/FAQ/" style="font-size: 10px;">FAQ</a> <a href="/tags/Facade/" style="font-size: 10px;">Facade</a> <a href="/tags/Factory/" style="font-size: 10px;">Factory</a> <a href="/tags/Firefox/" style="font-size: 10px;">Firefox</a> <a href="/tags/GC/" style="font-size: 10px;">GC</a> <a href="/tags/HTTP/" style="font-size: 11.25px;">HTTP</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/Iterator/" style="font-size: 10px;">Iterator</a> <a href="/tags/JDK/" style="font-size: 11.25px;">JDK</a> <a href="/tags/JVM/" style="font-size: 11.25px;">JVM</a> <a href="/tags/Java/" style="font-size: 18.75px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/JsTestDriver/" style="font-size: 10px;">JsTestDriver</a> <a href="/tags/LifeCycle/" style="font-size: 10px;">LifeCycle</a> <a href="/tags/MarkDownPad/" style="font-size: 10px;">MarkDownPad</a> <a href="/tags/NodeJS/" style="font-size: 10px;">NodeJS</a> <a href="/tags/Observable/" style="font-size: 10px;">Observable</a> <a href="/tags/Observer/" style="font-size: 10px;">Observer</a> <a href="/tags/PageFactory/" style="font-size: 10px;">PageFactory</a> <a href="/tags/PageObjects/" style="font-size: 10px;">PageObjects</a> <a href="/tags/String/" style="font-size: 10px;">String</a> <a href="/tags/Testacular/" style="font-size: 10px;">Testacular</a> <a href="/tags/Tomcat/" style="font-size: 10px;">Tomcat</a> <a href="/tags/UTF/" style="font-size: 10px;">UTF</a> <a href="/tags/UTF8/" style="font-size: 10px;">UTF8</a> <a href="/tags/XML/" style="font-size: 10px;">XML</a> <a href="/tags/alert/" style="font-size: 10px;">alert</a> <a href="/tags/ant/" style="font-size: 10px;">ant</a> <a href="/tags/antlr/" style="font-size: 10px;">antlr</a> <a href="/tags/apache/" style="font-size: 11.25px;">apache</a> <a href="/tags/apache-poi/" style="font-size: 10px;">apache poi</a> <a href="/tags/archetype/" style="font-size: 11.25px;">archetype</a> <a href="/tags/ast/" style="font-size: 12.5px;">ast</a> <a href="/tags/bridge/" style="font-size: 10px;">bridge</a> <a href="/tags/builder/" style="font-size: 10px;">builder</a> <a href="/tags/c3p0/" style="font-size: 10px;">c3p0</a> <a href="/tags/cglib/" style="font-size: 10px;">cglib</a> <a href="/tags/chain/" style="font-size: 10px;">chain</a> <a href="/tags/checkstyle/" style="font-size: 12.5px;">checkstyle</a> <a href="/tags/ci/" style="font-size: 10px;">ci</a> <a href="/tags/class/" style="font-size: 10px;">class</a> <a href="/tags/cloudera/" style="font-size: 10px;">cloudera</a> <a href="/tags/cobertura/" style="font-size: 10px;">cobertura</a> <a href="/tags/command/" style="font-size: 11.25px;">command</a> <a href="/tags/composite/" style="font-size: 10px;">composite</a> <a href="/tags/config/" style="font-size: 10px;">config</a> <a href="/tags/config-xml/" style="font-size: 10px;">config.xml</a> <a href="/tags/connection/" style="font-size: 10px;">connection</a> <a href="/tags/convmv/" style="font-size: 10px;">convmv</a> <a href="/tags/coverage/" style="font-size: 10px;">coverage</a> <a href="/tags/dbunit/" style="font-size: 10px;">dbunit</a> <a href="/tags/decorator/" style="font-size: 10px;">decorator</a> <a href="/tags/design-pattern/" style="font-size: 10px;">design pattern</a> <a href="/tags/dhcp/" style="font-size: 10px;">dhcp</a> <a href="/tags/dom4j/" style="font-size: 10px;">dom4j</a> <a href="/tags/dump/" style="font-size: 10px;">dump</a> <a href="/tags/eclipse/" style="font-size: 12.5px;">eclipse</a> <a href="/tags/el/" style="font-size: 10px;">el</a> <a href="/tags/enca/" style="font-size: 10px;">enca</a> <a href="/tags/encode/" style="font-size: 13.75px;">encode</a> <a href="/tags/excel/" style="font-size: 10px;">excel</a> <a href="/tags/express/" style="font-size: 10px;">express</a> <a href="/tags/findbugs/" style="font-size: 11.25px;">findbugs</a> <a href="/tags/flyweight/" style="font-size: 10px;">flyweight</a> <a href="/tags/generate/" style="font-size: 10px;">generate</a> <a href="/tags/git/" style="font-size: 11.25px;">git</a> <a href="/tags/github/" style="font-size: 11.25px;">github</a> <a href="/tags/grid/" style="font-size: 10px;">grid</a> <a href="/tags/h2database/" style="font-size: 10px;">h2database</a> <a href="/tags/hadoop/" style="font-size: 10px;">hadoop</a> <a href="/tags/header/" style="font-size: 10px;">header</a> <a href="/tags/hudson/" style="font-size: 10px;">hudson</a> <a href="/tags/iconv/" style="font-size: 10px;">iconv</a> <a href="/tags/idea/" style="font-size: 10px;">idea</a> <a href="/tags/ik-analyzer/" style="font-size: 10px;">ik-analyzer</a> <a href="/tags/install/" style="font-size: 10px;">install</a> <a href="/tags/interface/" style="font-size: 10px;">interface</a> <a href="/tags/interpreter/" style="font-size: 10px;">interpreter</a> <a href="/tags/jXLS/" style="font-size: 10px;">jXLS</a> <a href="/tags/jar/" style="font-size: 10px;">jar</a> <a href="/tags/jasmine/" style="font-size: 10px;">jasmine</a> <a href="/tags/java/" style="font-size: 11.25px;">java</a> <a href="/tags/java7/" style="font-size: 10px;">java7</a> <a href="/tags/java8/" style="font-size: 10px;">java8</a> <a href="/tags/javaparser/" style="font-size: 10px;">javaparser</a> <a href="/tags/jenkins/" style="font-size: 13.75px;">jenkins</a> <a href="/tags/jmeter/" style="font-size: 11.25px;">jmeter</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/jsTestDriver/" style="font-size: 10px;">jsTestDriver</a> <a href="/tags/jstl/" style="font-size: 10px;">jstl</a> <a href="/tags/junit/" style="font-size: 10px;">junit</a> <a href="/tags/jxl/" style="font-size: 10px;">jxl</a> <a href="/tags/karma/" style="font-size: 11.25px;">karma</a> <a href="/tags/linux/" style="font-size: 12.5px;">linux</a> <a href="/tags/lucene/" style="font-size: 11.25px;">lucene</a> <a href="/tags/mahout/" style="font-size: 10px;">mahout</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/maven/" style="font-size: 17.5px;">maven</a> <a href="/tags/mediator/" style="font-size: 10px;">mediator</a> <a href="/tags/memento/" style="font-size: 10px;">memento</a> <a href="/tags/mocha/" style="font-size: 10px;">mocha</a> <a href="/tags/mock/" style="font-size: 10px;">mock</a> <a href="/tags/mockito/" style="font-size: 10px;">mockito</a> <a href="/tags/monitor/" style="font-size: 10px;">monitor</a> <a href="/tags/mpm/" style="font-size: 10px;">mpm</a> <a href="/tags/mvc/" style="font-size: 10px;">mvc</a> <a href="/tags/myrrix/" style="font-size: 10px;">myrrix</a> <a href="/tags/mysql/" style="font-size: 12.5px;">mysql</a> <a href="/tags/nodejs/" style="font-size: 12.5px;">nodejs</a> <a href="/tags/object/" style="font-size: 10px;">object</a> <a href="/tags/octopress/" style="font-size: 11.25px;">octopress</a> <a href="/tags/oryx/" style="font-size: 10px;">oryx</a> <a href="/tags/package/" style="font-size: 10px;">package</a> <a href="/tags/pattern/" style="font-size: 17.5px;">pattern</a> <a href="/tags/perfork/" style="font-size: 10px;">perfork</a> <a href="/tags/plugin/" style="font-size: 10px;">plugin</a> <a href="/tags/plugins/" style="font-size: 10px;">plugins</a> <a href="/tags/pmd/" style="font-size: 12.5px;">pmd</a> <a href="/tags/policy/" style="font-size: 10px;">policy</a> <a href="/tags/powermock/" style="font-size: 10px;">powermock</a> <a href="/tags/prototype/" style="font-size: 10px;">prototype</a> <a href="/tags/proxy/" style="font-size: 10px;">proxy</a> <a href="/tags/quartz/" style="font-size: 10px;">quartz</a> <a href="/tags/qunit/" style="font-size: 10px;">qunit</a> <a href="/tags/request/" style="font-size: 10px;">request</a> <a href="/tags/response/" style="font-size: 10px;">response</a> <a href="/tags/restful/" style="font-size: 11.25px;">restful</a> <a href="/tags/selenium/" style="font-size: 20px;">selenium</a> <a href="/tags/singleton/" style="font-size: 10px;">singleton</a> <a href="/tags/slf4j/" style="font-size: 10px;">slf4j</a> <a href="/tags/slowquery/" style="font-size: 10px;">slowquery</a> <a href="/tags/sogou/" style="font-size: 10px;">sogou</a> <a href="/tags/solr/" style="font-size: 11.25px;">solr</a> <a href="/tags/sonar/" style="font-size: 10px;">sonar</a> <a href="/tags/sonatype/" style="font-size: 10px;">sonatype</a> <a href="/tags/source/" style="font-size: 10px;">source</a> <a href="/tags/spring/" style="font-size: 13.75px;">spring</a> <a href="/tags/ssh/" style="font-size: 11.25px;">ssh</a> <a href="/tags/stable/" style="font-size: 11.25px;">stable</a> <a href="/tags/state/" style="font-size: 10px;">state</a> <a href="/tags/story/" style="font-size: 10px;">story</a> <a href="/tags/strategy/" style="font-size: 10px;">strategy</a> <a href="/tags/stub/" style="font-size: 10px;">stub</a> <a href="/tags/syntax/" style="font-size: 10px;">syntax</a> <a href="/tags/template-method/" style="font-size: 10px;">template method</a> <a href="/tags/test-runner/" style="font-size: 10px;">test-runner</a> <a href="/tags/testacular/" style="font-size: 11.25px;">testacular</a> <a href="/tags/testng/" style="font-size: 10px;">testng</a> <a href="/tags/tie/" style="font-size: 10px;">tie</a> <a href="/tags/tomcat/" style="font-size: 10px;">tomcat</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/ut/" style="font-size: 10px;">ut</a> <a href="/tags/ut-maven-plugin/" style="font-size: 10px;">ut-maven-plugin</a> <a href="/tags/ut，sql-maven-plugin/" style="font-size: 10px;">ut，sql-maven-plugin</a> <a href="/tags/velocity/" style="font-size: 10px;">velocity</a> <a href="/tags/visitor/" style="font-size: 10px;">visitor</a> <a href="/tags/wait/" style="font-size: 10px;">wait</a> <a href="/tags/war/" style="font-size: 10px;">war</a> <a href="/tags/webdriver/" style="font-size: 16.25px;">webdriver</a> <a href="/tags/worker/" style="font-size: 10px;">worker</a> <a href="/tags/xpath/" style="font-size: 10px;">xpath</a> <a href="/tags/中文/" style="font-size: 10px;">中文</a> <a href="/tags/云南/" style="font-size: 10px;">云南</a> <a href="/tags/享元/" style="font-size: 10px;">享元</a> <a href="/tags/分布式/" style="font-size: 10px;">分布式</a> <a href="/tags/压力测试/" style="font-size: 10px;">压力测试</a> <a href="/tags/同义词/" style="font-size: 10px;">同义词</a> <a href="/tags/备忘录/" style="font-size: 10px;">备忘录</a> <a href="/tags/探索测试/" style="font-size: 10px;">探索测试</a> <a href="/tags/旅游/" style="font-size: 11.25px;">旅游</a> <a href="/tags/模式/" style="font-size: 10px;">模式</a> <a href="/tags/漫游/" style="font-size: 10px;">漫游</a> <a href="/tags/状态/" style="font-size: 10px;">状态</a> <a href="/tags/生命周期/" style="font-size: 10px;">生命周期</a> <a href="/tags/编码/" style="font-size: 11.25px;">编码</a> <a href="/tags/解释器/" style="font-size: 10px;">解释器</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/访问者/" style="font-size: 10px;">访问者</a> <a href="/tags/读书笔记/" style="font-size: 15px;">读书笔记</a> <a href="/tags/调优/" style="font-size: 10px;">调优</a> <a href="/tags/责任链/" style="font-size: 10px;">责任链</a> <a href="/tags/配置/" style="font-size: 10px;">配置</a> <a href="/tags/重构/" style="font-size: 10px;">重构</a> <a href="/tags/集群/" style="font-size: 10px;">集群</a> <a href="/tags/静态代码扫描/" style="font-size: 10px;">静态代码扫描</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">十一月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">十月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">八月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">六月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">三月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">十二月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">十一月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">九月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06/">六月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">五月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">四月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">三月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">一月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">十二月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">十一月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/10/">十月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">九月 2012</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/08/14/2015-11-04-about-interface-define/">关于接口定义的一些想法</a>
+          </li>
+        
+          <li>
+            <a href="/2015/11/03/2015-11-03-restful-springmvc/">Restful Spring MVC</a>
+          </li>
+        
+          <li>
+            <a href="/2015/03/26/2015-03-26-c3p0-config/">关于C3P0容错和自动重连特性的研究</a>
+          </li>
+        
+          <li>
+            <a href="/2014/11/25/2014-11-25-better-synonym-handling-in-solr/">如何在Solr中更好的处理同义词</a>
+          </li>
+        
+          <li>
+            <a href="/2014/11/14/2014-11-14-use-mahout-to-classify-sogou-corpus/">使用mahout对Sogou语料库进行分类</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 shenyanchao<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
