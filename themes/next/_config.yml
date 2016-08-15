@@ -27,7 +27,7 @@ since: 2012
 menu:
   home: /
   categories: /categories
-  #about: /about
+  about: /about
   archives: /archives
   tags: /tags
   commonweal: /404.html
@@ -262,7 +262,7 @@ disqus_shortname: blueshen
 
 
 # Google Analytics
-#google_analytics:
+google_analytics: UA-123-12
 
 # CNZZ count
 #cnzz_siteid:

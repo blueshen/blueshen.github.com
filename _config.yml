@@ -4,7 +4,7 @@
 
 # Site
 title: Blues小站
-subtitle: 搜索引擎与NLP
+subtitle: 搜索引擎与自然语言处理
 description:
 author: shenyanchao
 language: zh-Hans
@@ -72,35 +72,3 @@ deploy:
   repo: https://github.com/blueshen/blueshen.github.com.git
   branch: master
 
-
-##analytics
-
-baidu_analytics: 81c9612f8fdceca45435ef7f5404d7b2
-##comment
-
-disqus:
-  short_name: blueshen
-
-comments :
-    provider : disqus
-    disqus :
-      short_name : blueshen
-    livefyre :
-      site_id : 123
-    intensedebate :
-      account : 123abc
-    facebook :
-      appid : 123
-      num_posts: 5
-      width: 580
-      colorscheme: light
-    duoshuo :
-      short_name : jekyllbootstrap
-
-  #        
-analytics :
-    provider : baidu
-    google : 
-        tracking_id : 'UA-123-12'
-    baidu : 
-        tracking_id : '81c9612f8fdceca45435ef7f5404d7b2'
