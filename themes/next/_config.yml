@@ -31,6 +31,7 @@ menu:
   archives: /archives
   tags: /tags
   commonweal: /404.html
+  douban: /douban
 
 
 # Enable/Disable menu icons.
@@ -198,7 +199,7 @@ custom_logo:
 # Available value:
 #    normal | night | night eighties | night blue | night bright
 # https://github.com/chriskempson/tomorrow-theme
-highlight_theme: night
+highlight_theme: normal
 
 
 # Automatically scroll page to section which is under <!-- more --> mark.

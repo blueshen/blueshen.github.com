@@ -4,7 +4,7 @@
 
 # Site
 title: Blues小站
-subtitle: 搜索引擎与自然语言处理
+subtitle: 搜索引擎、自然语言处理
 description:
 author: shenyanchao
 language: zh-Hans
@@ -71,4 +71,8 @@ deploy:
   type: git
   repo: https://github.com/blueshen/blueshen.github.com.git
   branch: master
+
+
+douban:
+  user: shenyanchao
 
