@@ -247,8 +247,8 @@ disqus_shortname: blueshen
 # Baidu Share
 # Available value:
 #    button | slide
-#baidushare:
-##  type: button
+baidushare:
+  type: button
 
 # Share
 #jiathis:
@@ -263,7 +263,7 @@ disqus_shortname: blueshen
 
 
 # Google Analytics
-google_analytics: UA-123-12
+#google_analytics: UA-123-12
 
 # CNZZ count
 #cnzz_siteid:
