@@ -34,6 +34,7 @@ The @PathVariable method parameter annotation is used to indicate that a method 
 >
 method parameters that are decorated with the @PathVariable annotation can be of any simple type such as int, long, Date... Spring automatically converts to the appropriate type and throws a TypeMismatchException if the type is not correct.
 
+<!-- more-->
 
 ### 3. `@RequestParam`
 
@@ -45,19 +46,19 @@ method parameters that are decorated with the @PathVariable annotation can be of
     public String processImageUpload(@RequestParam("name") String name,
                     @RequestParam("description") String description,
                     @RequestParam("image") MultipartFile image) throws IOException {
-        this.imageDatabase.storeImage(name, image.getInputStream(), 
+        this.imageDatabase.storeImage(name, image.getInputStream(),
                                         (int) image.getSize(), description);
         return "redirect:imageList";
     }
 
-    
+
 还可以设置defaultValue：
 
     @RequestMapping("/imageUpload")
     public String processImageUpload(@RequestParam(value="name", defaultValue="arganzheng") String name,
                     @RequestParam("description") String description,
                     @RequestParam("image") MultipartFile image) throws IOException {
-        this.imageDatabase.storeImage(name, image.getInputStream(), 
+        this.imageDatabase.storeImage(name, image.getInputStream(),
                                         (int) image.getSize(), description);
         return "redirect:imageList";
     }
@@ -69,7 +70,7 @@ method parameters that are decorated with the @PathVariable annotation can be of
 与`@RequestParam`不同，`@RequestBody`和`@ResponseBody`是针对整个HTTP请求或者返回消息的。前者只是针对HTTP请求消息中的一个 name=value 键值对(名称很贴切)。
 
 `HtppMessageConverter`负责将HTTP请求消息(HTTP request message)转化为对象，或者将对象转化为HTTP响应体(HTTP response body)。
-    
+
     public interface HttpMessageConverter<T> {
 
         // Indicate whether the given class is supported by this converter.
@@ -79,16 +80,16 @@ method parameters that are decorated with the @PathVariable annotation can be of
         List<MediaType> getSupportedMediaTypes();
 
         // Read an object of the given type form the given input message, and returns it.
-        T read(Class<T> clazz, HttpInputMessage inputMessage) throws IOException, 
+        T read(Class<T> clazz, HttpInputMessage inputMessage) throws IOException,
                                                                         HttpMessageNotReadableException;
 
         // Write an given object to the given output message.
-        void write(T t, HttpOutputMessage outputMessage) throws IOException, 
+        void write(T t, HttpOutputMessage outputMessage) throws IOException,
                                                                 HttpMessageNotWritableException;
 
-    }        
-    
-    
+    }
+
+
 Spring MVC对`HttpMessageConverter`有多种默认实现，基本上不需要自己再自定义`HttpMessageConverter`
 >
 + StringHttpMessageConverter - converts strings
@@ -107,7 +108,7 @@ Spring MVC对`HttpMessageConverter`有多种默认实现，基本上不需要自
     implements HandlerAdapter, Ordered, BeanFactoryAware {
 
         ...
-        
+
         public AnnotationMethodHandlerAdapter() {
             // no restriction of HTTP methods by default
             super(false);
@@ -118,10 +119,10 @@ Spring MVC对`HttpMessageConverter`有多种默认实现，基本上不需要自
             this.messageConverters = new HttpMessageConverter[]{new ByteArrayHttpMessageConverter(), stringHttpMessageConverter,
             new SourceHttpMessageConverter(), new XmlAwareFormHttpMessageConverter()};
         }
-    }   
+    }
 
 如上：默认的`HttpMessageConverter`是`ByteArrayHttpMessageConverter`、`stringHttpMessageConverter`、`SourceHttpMessageConverter`和`XmlAwareFormHttpMessageConverter`转换器。所以需要配置一下：
-        
+
     <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
         <property name="messageConverters">
         <list>
@@ -191,9 +192,9 @@ Spring MVC对`HttpMessageConverter`有多种默认实现，基本上不需要自
         if(jsonpCallback != null){
             new PrintStream(outputMessage.getBody()).print(jsonpCallback + "(");
         }
-        
+
         super.writeInternal(o, outputMessage);
-        
+
         if(jsonpCallback != null){
             new PrintStream(outputMessage.getBody()).println(");");
         }
@@ -212,13 +213,13 @@ http://open.buy.qq.com/meta/api/1.xhtml?jsonpCallback=clientFunction。
     public String test(@CookieValue(value="JSESSIONID", defaultValue="") String sessionId){
         ...
     }
-    
+
 如上配置将自动将JSESSIONID值入参到sessionId参数上，defaultValue表示Cookie中没有JSESSIONID时默认为空。
-    
+
     public String test2(@CookieValue(value="JSESSIONID", defaultValue="") Cookie sessionId){
         ...
     }
-    
+
 传入参数类型也可以是javax.servlet.http.Cookie类型。
 
 **TIPS** 如果是使用cookies值来保持回话状态的话，推荐使用Spring的[Bean Scopes](http://docs.spring.io/spring/docs/3.0.0.M3/reference/html/ch04s04.html)机制，具体参见笔者的另一篇文章：[Spring的Bean Scopes](http://blog.arganzheng.me/posts/spring-bean-scopes.html)。非常方便。
@@ -227,11 +228,11 @@ http://open.buy.qq.com/meta/api/1.xhtml?jsonpCallback=clientFunction。
 
 `@RequestHeader`用于将请求的头信息区数据映射到功能处理方法的参数上。
 
-    @RequestMapping(value="/header")  
-    public String test(  
-       @RequestHeader("User-Agent") String userAgent,  
-       @RequestHeader(value="Accept") String[] accepts)  
-          
+    @RequestMapping(value="/header")
+    public String test(
+       @RequestHeader("User-Agent") String userAgent,
+       @RequestHeader(value="Accept") String[] accepts)
+
 如上配置将自动将请求头“User-Agent”值入参到userAgent参数上，并将“Accept”请求头值入参到accepts参数上。
 
 
@@ -244,49 +245,49 @@ http://open.buy.qq.com/meta/api/1.xhtml?jsonpCallback=clientFunction。
 1. 使用不同URI来表示同个资源的不同表现形式。一般使用不同的文件拓展名。如http://blog.arganzheng.me/users/argan.xml表示返回xml格式数据，而http://blog.arganzheng.me/users/aganzheng.json表示返回json格式.
 2. 使用一个请求参数告诉服务器希望得到的资源格式。如format=json。
 3. 使用同个URI，但是通过Accept HTTP request header来告诉server它理解的media types。例如同样请求http://blog.arganzheng.me/users/argan，如果带上`text/xml` accept header表示请求一个XML资源，带上`application/pdf`则表示期望收到pdf格式资源。
- 
+
 这其实就是Spring MVC默认的三个`ContentNegotiationStrategy`，即所谓的PPA Strategy（path extension, then parameter, then Accept header) ，顺序也是先path extension，然后parameter(默认是format参数)，然后才是accept头。
 
 Spring提供了[`ContentNegotiatingViewResolver`](http://static.springsource.org/spring/docs/3.0.x/javadoc-api/org/springframework/web/servlet/view/ContentNegotiatingViewResolver.html)来解决这个问题：
 
-  
+
     public class ContentNegotiatingViewResolver extends WebApplicationObjectSupport implements ViewResolver, Ordered {
 
         private static final Log logger = LogFactory.getLog(ContentNegotiatingViewResolver.class);
-    
+
         private static final String ACCEPT_HEADER = "Accept";
-    
+
         private static final boolean jafPresent =
             ClassUtils.isPresent("javax.activation.FileTypeMap", ContentNegotiatingViewResolver.class.getClassLoader());
-    
+
         private static final UrlPathHelper urlPathHelper = new UrlPathHelper();
-    
-    
+
+
         private int order = Ordered.HIGHEST_PRECEDENCE;
-    
+
         private boolean favorPathExtension = true;
-    
+
         private boolean favorParameter = false;
-    
+
         private String parameterName = "format";
-    
+
         private boolean useNotAcceptableStatusCode = false;
-    
+
         private boolean ignoreAcceptHeader = false;
-    
+
         private boolean useJaf = true;
-    
+
         private ConcurrentMap<String, MediaType> mediaTypes = new ConcurrentHashMap<String, MediaType>();
-    
+
         private List<View> defaultViews;
-    
+
         private MediaType defaultContentType;
-    
+
         private List<ViewResolver> viewResolvers;
-    
-    
-        // ignore some setter and getter...    
-        
+
+
+        // ignore some setter and getter...
+
         public void setMediaTypes(Map<String, String> mediaTypes) {
           Assert.notNull(mediaTypes, "'mediaTypes' must not be null");
           for (Map.Entry<String, String> entry : mediaTypes.entrySet()) {
@@ -295,20 +296,20 @@ Spring提供了[`ContentNegotiatingViewResolver`](http://static.springsource.org
             this.mediaTypes.put(extension, mediaType);
           }
         }
-    
+
         public void setDefaultViews(List<View> defaultViews) {
           this.defaultViews = defaultViews;
         }
-    
+
         public void setDefaultContentType(MediaType defaultContentType) {
           this.defaultContentType = defaultContentType;
         }
-        
+
         public void setViewResolvers(List<ViewResolver> viewResolvers) {
           this.viewResolvers = viewResolvers;
         }
-    
-    
+
+
         @Override
         protected void initServletContext(ServletContext servletContext) {
           if (this.viewResolvers == null) {
@@ -327,7 +328,7 @@ Spring提供了[`ContentNegotiatingViewResolver`](http://static.springsource.org
           }
           OrderComparator.sort(this.viewResolvers);
         }
-    
+
         public View resolveViewName(String viewName, Locale locale) throws Exception {
           RequestAttributes attrs = RequestContextHolder.getRequestAttributes();
           Assert.isInstanceOf(ServletRequestAttributes.class, attrs);
@@ -350,8 +351,8 @@ Spring提供了[`ContentNegotiatingViewResolver`](http://static.springsource.org
             return null;
           }
         }
-    
-        
+
+
         protected List<MediaType> getMediaTypes(HttpServletRequest request) {
           if (this.favorPathExtension) {
             String requestUri = urlPathHelper.getRequestUri(request);
@@ -407,8 +408,8 @@ Spring提供了[`ContentNegotiatingViewResolver`](http://static.springsource.org
             return Collections.emptyList();
           }
         }
-    
-        
+
+
         protected MediaType getMediaTypeFromFilename(String filename) {
           String extension = StringUtils.getFilenameExtension(filename);
           if (!StringUtils.hasText(extension)) {
@@ -424,15 +425,15 @@ Spring提供了[`ContentNegotiatingViewResolver`](http://static.springsource.org
           }
           return mediaType;
         }
-    
-        
+
+
         protected MediaType getMediaTypeFromParameter(String parameterValue) {
           return this.mediaTypes.get(parameterValue.toLowerCase(Locale.ENGLISH));
         }
-    
+
         private List<View> getCandidateViews(String viewName, Locale locale, List<MediaType> requestedMediaTypes)
             throws Exception {
-    
+
           List<View> candidateViews = new ArrayList<View>();
           for (ViewResolver viewResolver : this.viewResolvers) {
             View view = viewResolver.resolveViewName(viewName, locale);
@@ -448,7 +449,7 @@ Spring提供了[`ContentNegotiatingViewResolver`](http://static.springsource.org
                   candidateViews.add(view);
                 }
               }
-    
+
             }
           }
           if (!CollectionUtils.isEmpty(this.defaultViews)) {
@@ -456,7 +457,7 @@ Spring提供了[`ContentNegotiatingViewResolver`](http://static.springsource.org
           }
           return candidateViews;
         }
-    
+
         private List<String> getExtensionsForMediaType(MediaType requestedMediaType) {
           List<String> result = new ArrayList<String>();
           for (Entry<String, MediaType> entry : this.mediaTypes.entrySet()) {
@@ -466,7 +467,7 @@ Spring提供了[`ContentNegotiatingViewResolver`](http://static.springsource.org
           }
           return result;
         }
-    
+
         private View getBestView(List<View> candidateViews, List<MediaType> requestedMediaTypes) {
           MediaType bestRequestedMediaType = null;
           View bestView = null;
@@ -490,11 +491,11 @@ Spring提供了[`ContentNegotiatingViewResolver`](http://static.springsource.org
             }
           }
           return bestView;
-    
+
         }
-        
+
         ...
-        
+
     }
 
 
@@ -510,7 +511,7 @@ Spring提供了[`ContentNegotiatingViewResolver`](http://static.springsource.org
 2. If the request contains a parameter defining the extension and if the setFavorParameter(boolean) property is true, the mediaTypes property is inspected for a matching media type. The default name of the parameter is format and it can be configured using the parameterName property.
 3. If there is no match in the mediaTypes property and if the Java Activation Framework (JAF) is both enabled and present on the classpath, FileTypeMap.getContentType(String) is used instead.
 4. If the previous steps did not result in a media type, and ignoreAcceptHeader is false, the request Accept header is used.
->   
+>
 Once the requested media type has been determined, this resolver queries each delegate view resolver for a View and determines if the requested media type is compatible with the view's content type). The most compatible view is returned.
 
 这个就是上面提到的Spring MVC默认的三个`ContentNegotiationStrategy`，即所谓的PPA Strategy（path extension, then parameter, then Accept header) ，顺序也是先path extension，然后parameter(默认是format参数)，然后才是accept头。
@@ -518,9 +519,9 @@ Once the requested media type has been determined, this resolver queries each de
 关于`ContentNegotiationStrategy`，可以参考笔者的另一篇文章：[content negotiation using spring mvc](http://blog.arganzheng.me/posts/content-negotiation-using-spring-mvc.html)。有具体的实际案例。
 
 ##### 2. 供选择的SingleViewResolver
->    
+>
 1. The ContentNegotiatingViewResolver does not resolve views itself, but delegates to other ViewResolvers. By default, these other view resolvers are picked up automatically from the application context, though they can also be set explicitly by using the viewResolvers property. Note that in order for this view resolver to work properly, the order property needs to be set to a higher precedence than the others (the default is Ordered.HIGHEST_PRECEDENCE.)
-> 
+>
     说明：即`private List<ViewResolver> viewResolvers;`属性。需要注意的是Spring会自动加载和注册所有其他的ViewResolver到`ContentNegotiationViewResolover`的`viewResolvers`属性。但是你需要告诉Spring MVC，你希望controller返回的view都是由`ContentNegotiationViewResolover`来解析，而不是其他定义的ViewResolver。这是通过order配置项来决定。你应该给`ContentNegotiationViewResolover`配置最高的order(其实默认就是最高了)。
 >
 2. Additionally, this view resolver exposes the defaultViews property, allowing you to override the views provided by the view resolvers. Note that these default views are offered as candicates, and still need have the content type requested (via file extension, parameter, or Accept header, described above). You can also set the default content type directly, which will be returned when the other mechanisms (Accept header, file extension or parameter) do not result in a match.
@@ -541,15 +542,15 @@ Once the requested media type has been determined, this resolver queries each de
 Spring MVC不仅大大的简化了服务端RESTful服务的开发和开放，还提供了一些辅助类来方便客户端调用REST服务。
 
 以前Client如果要调用REST服务，一般是使用HttpClient来发送HTTP请求：
-    
+
     String uri = "http://example.com/hotels/1/bookings";
-    
+
     PostMethod post = new PostMethod(uri);
     String request = // create booking request content
     post.setRequestEntity(new StringRequestEntity(request));
-    
+
     httpClient.executeMethod(post);
-    
+
     if (HttpStatus.SC_CREATED == post.getStatusCode()) {
       Header location = post.getRequestHeader("Location");
       if (location != null) {
@@ -587,15 +588,15 @@ RestTemplate默认使用`java.net`包下的基础类来创建HTTP请求。你可
 另外，每个方法的第一个参数都是一个url string，但是这个URI可以带有变量(还记得`@PathVariable`吗:)哦。参数有两种方式绑定值：
 
 1. 作为字符串变量数组(String variable arguments array)
-    
+
         String result = restTemplate.getForObject("http://example.com/hotels/{hotel}/bookings/{booking}", String.class, "42", "21");
-        
+
     会转换为一个对`http://example.com/hotels/42/bookings/21`的GET请求。
-    
+
 2. 或者Map对象(Map)
 
    The map variant expands the template based on variable name, and is therefore more useful when using many variables, or when a single variable is used multiple times.
-        
+
         Map<String, String> vars = new HashMap<String, String>();
         vars.put("hotel", "42");
         vars.put("booking", "21");
@@ -604,17 +605,17 @@ RestTemplate默认使用`java.net`包下的基础类来创建HTTP请求。你可
 
 关于RestTemplate使用的具体例子可以参考这篇文章[
 REST IN SPRING 3: RESTTEMPLATE](http://blog.springsource.org/2009/03/27/rest-in-spring-3-resttemplate/)。写的非常好，强烈推荐！
-    
+
 ### 9. 支持RESTful的URL
 
 在开发功能模块之前，应该先把URL设计好。比查对 **消息** 这个资源的操作URL可以这么设计：
-    
+
     http://arganzheng.me/messages/show/123456
     http://arganzheng.me/messages/preview/123456
     http://arganzheng.me/messages/delete/123456
     http://arganzheng.me/messages/new
     http://arganzheng.me/message/update
-    
+
 说明：可以看到我们的URL中有动作在里面，事实上纯粹的RESTful URL是把动作隐含在HTTP头中：GET、PUT、DELETE、POST。。不过这样对用户编码有要求，这个相对简单点。
 
 要支持这种URL，web.xml需要这么配置：
@@ -624,16 +625,16 @@ REST IN SPRING 3: RESTTEMPLATE](http://blog.springsource.org/2009/03/27/rest-in-
     	<servlet-name>DispatcherServlet<srvlet-name>
     	<url-pattern>/</url-pattern>
     <srvlet-mapping>
-	
+
 但是这样的话有个问题，就是静态文件也被mapping了，会导致找不到资源。Spring提供了一个resources配置项支持静态文件的处理[16.14.5 Configuring Serving of Resources](http://static.springsource.org/spring/docs/3.1.x/spring-framework-reference/html/mvc.html#mvc-config-static-resources)：
 
     <!-- Forwards requests to the "/" resource to the "welcome" view -->
   	<mvc:view-controller path="/" view-name="index"/>
-  	
+
   	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources/ directory -->
   	<mvc:resources mapping="/resources/**" location="/resources/" />
-  	<!-- 注意：配置了mvc:resources就必须配置这个选项，否则handler mapping都失效了 
-  		@see  http://stackoverflow.com/questions/7910845/the-handler-mapping-from-the-mvcresource-override-other-mappings-which-defined 
+  	<!-- 注意：配置了mvc:resources就必须配置这个选项，否则handler mapping都失效了
+  		@see  http://stackoverflow.com/questions/7910845/the-handler-mapping-from-the-mvcresource-override-other-mappings-which-defined
   	-->
   	<mvc:annotation-driven />
 
@@ -652,5 +653,5 @@ REST IN SPRING 3: RESTTEMPLATE](http://blog.springsource.org/2009/03/27/rest-in-
 
 
 
-   
+
 

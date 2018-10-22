@@ -6,7 +6,7 @@ comments: true
 categories: selenium官方文档
 tags: [ selenium ]
 ---
-# Selenium 1 (Selenium RC)¶
+# Selenium 1 (Selenium RC)
 
 ## 介绍
 
@@ -644,6 +644,11 @@ Selenium API 支持在多个浏览器中运行，包括 ie 和 Firefox。请从 
 - IE and Style Attributes
 - Error encountered - “Cannot convert object to primitive value” with shut down of *googlechrome browser
 - Where can I Ask Questions that Aren’t Answered Here?
+
+
+## About TestNG + Selenium
+
+Please Read: <https://www.guru99.com/all-about-testng-and-selenium.html>
 
 
 
