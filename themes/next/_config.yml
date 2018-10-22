@@ -250,6 +250,8 @@ disqus_shortname: blueshen
 baidushare:
   type: button
 
+theme:
+  baidu_site_verification: zhN7aHjbkR
 # Share
 #jiathis:
 #add_this_id:
