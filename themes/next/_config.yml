@@ -80,7 +80,6 @@ font:
   global:
     # external: true will load this font family from host.
     external: true
-    family: Lato
 
   # Font settings for Headlines (h1, h2, h3, h4, h5, h6)
   # Fallback to `global` font settings.
@@ -242,7 +241,7 @@ baidu_analytics: 81c9612f8fdceca45435ef7f5404d7b2
 #duoshuo_shortname:
 
 # Disqus
-disqus_shortname: blueshen
+#disqus_shortname: blueshen
 
 # Baidu Share
 # Available value:

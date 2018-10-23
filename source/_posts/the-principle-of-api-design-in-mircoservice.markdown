@@ -3,7 +3,7 @@ layout: post
 title: "微服务下的API设计原则"
 date: 2018-08-23 17:05
 comments: true
-categories: encode
+categories: 微服务 
 tags: [ 微服务, API, 设计 ]
 ---
 

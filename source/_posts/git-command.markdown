@@ -6,8 +6,8 @@ comments: true
 categories: git
 tags: [ git, command ]
 ---
-##Git 命令结构图：  
- 
+## Git 命令结构图：
+
 <!--more-->
 
 ![git command](/images/blog/git-command.png)

@@ -116,14 +116,19 @@ var filters = {
     },
 
     escape: function(str) {
-        if(typeof str === 'string') {
-            return r.markSafe(lib.escape(str));
+        if(str instanceof r.SafeString) {
+            return str;
         }
-        return str;
+        str = (str === null || str === undefined) ? '' : str;
+        return r.markSafe(lib.escape(str.toString()));
     },
 
     safe: function(str) {
-        return r.markSafe(str);
+        if (str instanceof r.SafeString) {
+            return str;
+        }
+        str = (str === null || str === undefined) ? '' : str;
+        return r.markSafe(str.toString());
     },
 
     first: function(arr) {
@@ -182,6 +187,10 @@ var filters = {
             ) {
                 // ECMAScript 2015 Maps and Sets
                 return value.size;
+            }
+            if(lib.isObject(value) && !(value instanceof r.SafeString)) {
+                // Objects (besides SafeStrings), non-primative Arrays
+                return Object.keys(value).length;
             }
             return value.length;
         }

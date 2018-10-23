@@ -1,6 +1,51 @@
 Changelog
 =========
 
+2.5.2 (Sep 14 2016)
+----------------
+
+* Call `.toString` in safe filter.
+  Merge of [#849](https://github.com/mozilla/nunjucks/pull/849).
+
+
+2.5.1 (Sep 13 2016)
+----------------
+
+* Fix `undefined` and `null` behavior in escape and safe filter.
+  Merge of [#843](https://github.com/mozilla/nunjucks/pull/843).
+
+
+2.5.0 (Sep 7 2016)
+----------------
+
+* Add `elseif` as an alias of `elif` for parity with Twig. Thanks kswedberg.
+  Merge of [#826](https://github.com/mozilla/nunjucks/pull/826).
+
+* Add nunjucks env to express app settings as `nunjucksEnv`.
+  Merge of [#829](https://github.com/mozilla/nunjucks/pull/829).
+
+* Add support for finding an object's "length" in length filter.
+  Merge of [#813](https://github.com/mozilla/nunjucks/pull/813).
+
+* Ensure that precompiling on Windows still outputs POSIX-style path
+  separators. Merge of [#761](https://github.com/mozilla/nunjucks/pull/761).
+
+* Add support for strict type check comparisons (=== and !===). Thanks
+  oughter. Merge of [#746](https://github.com/mozilla/nunjucks/pull/746).
+
+* Allow full expressions (incl. filters) in import and from tags. Thanks legutierr.
+  Merge of [#710](https://github.com/mozilla/nunjucks/pull/710).
+
+* OS agnostic file paths in precompile. Merge of [#825](https://github.com/mozilla/nunjucks/pull/825).
+
+
+2.4.3 (Sep 7 2016)
+----------------
+
+* Fix potential cast-related XSS vulnerability in autoescape mode, and with `escape` filter.
+  Thanks Matt Austin for the report and Thomas Hunkapiller for the fix.
+  [#836](https://github.com/mozilla/nunjucks/pull/836)
+
 
 2.4.2 (Apr 15 2016)
 -------------------

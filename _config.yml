@@ -68,10 +68,23 @@ theme: next
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type: git
-  repo: https://github.com/blueshen/blueshen.github.com.git
-  branch: master
+  - type: git
+    repo:
+      github: https://github.com/blueshen/blueshen.github.com.git
+      coding: https://git.coding.net/shenyanchao/shenyanchao.git
+    branch: master
+  - type: baidu_url_submitter
 
+baidu_url_submit:
+  count: 10
+  host: www.shenyanchao.cn
+  token: yPxKQaNfopIGzVXK
+  path: baidu_urls.txt
+
+sitemap:
+  path: sitemap.xml
+baidusitemap:
+  path: baidusitemap.xml
 
 douban:
   user: shenyanchao

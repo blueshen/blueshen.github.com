@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "关于接口定义的一些想法"
+date: 2016-3-20 10:43
 description: ""
 category: java
 tags: [ spring, restful, interface]

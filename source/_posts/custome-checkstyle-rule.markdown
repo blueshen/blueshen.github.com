@@ -6,7 +6,7 @@ comments: true
 categories: checkstyle
 tags: [ checkstyle, antlr ]
 ---
-###CheckStyle基于antlr对源码进行处理
+### CheckStyle基于antlr对源码进行处理
 
 - antlr对AST解析
 - 使用Visitor模式
@@ -14,23 +14,23 @@ tags: [ checkstyle, antlr ]
 主要是通过：
 
     public int[] getDefaultTokens()
-    
-指定要访问的节点类型。   
+
+指定要访问的节点类型。
 
     public void visitToken(DetailAST assignAST)
-    
+
 指定如何处理节点，并进行规则校验。
 
 <!--more-->
 ####参数不可在方法内重新赋值
-    
+
     import com.puppycrawl.tools.checkstyle.api.Check;
     import com.puppycrawl.tools.checkstyle.api.DetailAST;
     import com.puppycrawl.tools.checkstyle.api.TokenTypes;
-    
+
     import java.util.ArrayList;
     import java.util.List;
-    
+
     /**
      * Date:  13-8-26
      * Time:  下午4:34
@@ -39,7 +39,7 @@ tags: [ checkstyle, antlr ]
      * @author shenyanchao
      */
     public class ParameterNoAssignCheck extends Check {
-    
+
         private int[] assignTokenTypes = {
                 TokenTypes.ASSIGN,
                 TokenTypes.PLUS_ASSIGN,
@@ -54,13 +54,13 @@ tags: [ checkstyle, antlr ]
                 TokenTypes.BXOR_ASSIGN,
                 TokenTypes.BOR_ASSIGN
         };
-    
+
         @Override
         public int[] getDefaultTokens() {
             return assignTokenTypes;
         }
-    
-    
+
+
         @Override
         public void visitToken(DetailAST assignAST) {
             if (null == assignAST) {
@@ -79,8 +79,8 @@ tags: [ checkstyle, antlr ]
                 }
             }
         }
-    
-    
+
+
         private List<String> findMethodParameterNames(DetailAST methodDefAST) {
             List<String> parameters = new ArrayList<String>();
             if (null != methodDefAST) {
@@ -98,8 +98,8 @@ tags: [ checkstyle, antlr ]
             }
             return parameters;
         }
-    
-    
+
+
         /**
          * @param aAST aAST
          * @return ancestor METHOD_DEF or null
@@ -111,16 +111,16 @@ tags: [ checkstyle, antlr ]
                 return findParentMethodDefBy(aAST.getParent());
             }
         }
-    
+
     }
-    
+
 ####控制使用String连+的数量
 
 
     import com.puppycrawl.tools.checkstyle.api.Check;
     import com.puppycrawl.tools.checkstyle.api.DetailAST;
     import com.puppycrawl.tools.checkstyle.api.TokenTypes;
-    
+
     /**
      * Date:  13-8-26
      * Time:  下午1:29
@@ -128,15 +128,15 @@ tags: [ checkstyle, antlr ]
      * @author shenyanchao
      */
     public class ConcatStringCheck extends Check {
-    
+
         private static final int DEFAULT_MAX = 10;
         private int max = DEFAULT_MAX;
-    
+
         @Override
         public int[] getDefaultTokens() {
             return new int[]{TokenTypes.EXPR};
         }
-    
+
         @Override
         public void visitToken(DetailAST ast) {
             int plusCount = findAllSubNodeIn(ast, TokenTypes.PLUS);
@@ -145,12 +145,12 @@ tags: [ checkstyle, antlr ]
                         "instead");
             }
         }
-    
-    
+
+
         public void setMax(int limit) {
             max = limit;
         }
-    
+
         private int findAllSubNodeIn(DetailAST ast, int tokenTypes) {
             if (ast.getChildCount() == 0) {
                 return 0;
@@ -165,5 +165,5 @@ tags: [ checkstyle, antlr ]
                 return count;
             }
         }
-    
+
     }
