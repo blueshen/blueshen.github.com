@@ -8,9 +8,9 @@ tags: [ octopress, github, config.xml, 中文 ]
 keywords: 关键字
 description: 测试octopress是否成功了
 ---
-#吐槽
+# 吐槽
 这个OCTOPRESS真是难搞啊，最主要是_config.xml里面的格式校验也太严格了</center>
-#正文
+# 正文
 在这里写一些内容。
 链接<http://www.baidu.com>
 ***

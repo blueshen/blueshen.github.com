@@ -5,14 +5,14 @@ date: 2013-03-18 20:44
 comments: true
 categories: nodejs
 ---
-##Mocha##
-Mocha作为一种咖啡名，应该是广为人知的，中文翻译为**摩卡**。在这里，我们介绍的是一个JavaScript Test Framework，它用于对NodeJS、JavaScript进行单元测试。  
-Mocha是一个功能丰富的Javascript测试框架，能够运行在node和浏览器上，并且有丰富的报表支持。   
-项目主页：<http://visionmedia.github.com/mocha/>    
-##安装##
+## Mocha
+Mocha作为一种咖啡名，应该是广为人知的，中文翻译为**摩卡**。在这里，我们介绍的是一个JavaScript Test Framework，它用于对NodeJS、JavaScript进行单元测试。
+Mocha是一个功能丰富的Javascript测试框架，能够运行在node和浏览器上，并且有丰富的报表支持。
+项目主页：<http://visionmedia.github.com/mocha/>
+## 安装
 	npm install -g mocha
 
-##一个简单的样例##
+## 一个简单的样例
 
 	$ mkdir test
 	$ cd ..
@@ -34,7 +34,7 @@ Mocha是一个功能丰富的Javascript测试框架，能够运行在node和浏�
 
  	 ✔ 1 test complete (1ms)
 <!--more-->
-##Assertions##
+## Assertions
 在Java Unit Test中类似JUNIT，TestNG提供了不少的Assert函数。同样的，mocha也有很多选择。而这些并不属于mocha的一部分。
 
 * [should.js](http://github.com/visionmedia/should.js)
@@ -42,7 +42,7 @@ Mocha是一个功能丰富的Javascript测试框架，能够运行在node和浏�
 * [chai](http://chaijs.com/)
 * [better-assert](https://github.com/visionmedia/better-assert)
 
-##测试同步代码##
+## 测试同步代码
 
 	describe('Array', function(){
   	describe('#indexOf()', function(){
@@ -52,7 +52,7 @@ Mocha是一个功能丰富的Javascript测试框架，能够运行在node和浏�
     	})
   	})
 	})
-##测试异步代码##
+## 测试异步代码
 添加一个回调函数，通常称为done,给it。mocha就会知道应该等待操作完成。
 
 	describe('User', function(){
@@ -64,14 +64,14 @@ Mocha是一个功能丰富的Javascript测试框架，能够运行在node和浏�
   	})
 	})
 
-##类似与JUNIT的函数
+## 类似与JUNIT的函数
 
 * before : 在所有测试执行之前
 * after ： 在所有测试执行之后
 * beforeEach ： 每个测试之前
 * afterEach ：每个测试之后
 
-##mocha指令##
+## mocha指令
 
 	Usage: mocha [debug] [options] [files]
 
@@ -106,7 +106,7 @@ Mocha是一个功能丰富的Javascript测试框架，能够运行在node和浏�
   	--compilers <ext>:<module>,...  使用指定的module来编译文件
 
 
-##报表##
+## 报表
 
 	dot - dot matrix
     	doc - html documentation

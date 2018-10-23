@@ -7,7 +7,7 @@ categories: maven
 tags: [ maven, checkstyle, pmd, findbugs, 静态代码扫描 ]
 ---
 
-在pom.xml里添加以下maven插件配置：   
+在pom.xml里添加以下maven插件配置：
 
         <!-- 静态代码检查 -->
     <plugin>
@@ -35,7 +35,7 @@ tags: [ maven, checkstyle, pmd, findbugs, 静态代码扫描 ]
              </execution>
          </executions>-->
     </plugin>
-    
+
     <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
@@ -85,17 +85,17 @@ tags: [ maven, checkstyle, pmd, findbugs, 静态代码扫描 ]
             </execution>
         </executions>-->
     </plugin>
-            
+
 这些配置集成了checkstyle,pmd,findbugs的插件。并指明了要使用的规则集合（checkstyle.xml,pmd.xml,findbugs.xml）。
-<!--more-->  
-#####那么能否指定只扫描特定的包或者文件呢？
-上面checkstyle用的是：  
+<!--more-->
+##### 那么能否指定只扫描特定的包或者文件呢？
+上面checkstyle用的是：
 
     <includes>
         **\/package\/**.java,**\/otherpackage\/**.java
     </includes>
-     
-pmd是：    
+
+pmd是：
 
     <includes>
         <include>**\/package\/**.java</include>
@@ -103,14 +103,14 @@ pmd是：
     </includes>
 
 findbugs则使用的是：
-     
+
     <onlyAnalyze>
         cn.shenyanchao.package.*,
         cn.shenyanchao.otherpackage.*,
     </onlyAnalyze>
-      
-   
-#####如何在编译期间或打包期间执行检查？
+
+
+##### 如何在编译期间或打包期间执行检查？
 
 如上所示的注释掉部分，添加就可以了：
 
@@ -122,6 +122,6 @@ findbugs则使用的是：
              </goals>
          </execution>
      </executions>
-这里的意思是在mvn 执行打包package的时候进行check操作。因此如果check不通过，那么将不会编译打包成功。   
+这里的意思是在mvn 执行打包package的时候进行check操作。因此如果check不通过，那么将不会编译打包成功。
 
 

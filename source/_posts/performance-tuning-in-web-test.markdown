@@ -6,24 +6,24 @@ comments: true
 categories: 调优
 tags: [ apache, tomcat, mysql, linux, 调优 ]
 ---
-####目标Web系统
+#### 目标Web系统
 apache + tomcat + mysql + linux, 介绍如何定位瓶颈与调优
 
-####Tomcat
-按照官方默认配置。   
+#### Tomcat
+按照官方默认配置。
 并发150正常;达到210时，报connection refuse
 
-$TOMCAT_HOME/conf/server.xml中   
+$TOMCAT_HOME/conf/server.xml中
 
-    <Connector port="8080" protocol="HTTP/1.1"      connectionTimeout="20000" 
+    <Connector port="8080" protocol="HTTP/1.1"      connectionTimeout="20000"
                    redirectPort="8443" URIEncoding="UTF-8"/>
 
 maxThreads 默认值是200
 acceptCount 默认值是100
 
-解决方法：显式指明以上2项，并提高数值。并可配合min/maxSpareThreads 
+解决方法：显式指明以上2项，并提高数值。并可配合min/maxSpareThreads
 
-参数文档： <http://tomcat.apache.org/tomcat-6.0-doc/config/http.html>     
+参数文档： <http://tomcat.apache.org/tomcat-6.0-doc/config/http.html>
 
 <!--more-->
 继续增加并发数，出现以下现象：
@@ -34,24 +34,24 @@ acceptCount 默认值是100
   问题分析：
         在加压过程中，对tomcat的JVM情况进行监控。出现FullGC,每次大概4s .
 
-如何监控GC吗？    
+如何监控GC吗？
 
 	jstat -gcutil 3950 3000 5
 
-      S0     S1         E          O      P       YGC     YGCT    FGC       FGCT     GCT   
+      S0     S1         E          O      P       YGC     YGCT    FGC       FGCT     GCT
       0.00  47.86  66.10   6.55  99.92      7       0.087     0         0.000    0.087
       0.00  47.86  66.90   6.55  99.94      7       0.087     0         0.000    0.087
       0.00  47.86  67.30   6.55  99.94      7       0.087     0         0.000    0.087
       0.00  47.86  67.30   6.55  99.94      7       0.087     0         0.000    0.087
       0.00  47.86  67.30   6.55  99.94      7       0.087     0         0.000    0.087
-      
-解决方法：    
+
+解决方法：
          $TOMCAT_HOME/bin/catalina.sh   第一行添加
     	export CATALINA_OPTS="-Xmx3500m -Xms2048m -XX:PermSize=256m XX:MaxPermSize=512m -Xss128k"
 
-JAVA_OPTS   VS   CATALINA_OPTS（推荐使用）     
-**差别**：JAVA_OPTS start run stop   适用所有JVM    
-               CATALINA_OPTS   start run    专门配置tomcat    
+JAVA_OPTS   VS   CATALINA_OPTS（推荐使用）
+**差别**：JAVA_OPTS start run stop   适用所有JVM
+               CATALINA_OPTS   start run    专门配置tomcat
 
 tomcat默认-client ，production环境加-server
 
@@ -61,12 +61,12 @@ JVM参数文档：<http://kenwublog.com/docs/java6-jvm-options-chinese-edition.h
 据信使用executor后，能在实际中有更好的性能以及稳定性！更为重要的是能在多个connector之间共用。
 
     <Executor name="tomcatThreadPool" namePrefix="catalina-exec-" maxThreads="1000" minSpareThreads="25"/>
-    
-    <Connector executor="tomcatThreadPool"  port="8080" protocol="HTTP/1.1"   connectionTimeout="20000"  redirectPort="8443" />  
+
+    <Connector executor="tomcatThreadPool"  port="8080" protocol="HTTP/1.1"   connectionTimeout="20000"  redirectPort="8443" />
 
 此时，connector再使用maxThreads等属性将被忽略。
 
-#####Tomcat Connector protocol
+##### Tomcat Connector protocol
 
 - bio   默认模式，性能低下，无任何优化，阻塞IO模式
 
@@ -83,18 +83,18 @@ JVM参数文档：<http://kenwublog.com/docs/java6-jvm-options-chinese-edition.h
     protocol = "org.apache.coyote.http11.Http11AprProtocol"(for http connector)
     protocol = "org.apache.coyote.ajp.AjpAprProtocol"  (for ajp connector)
 
-参考文档：    
-<http://tomcat.apache.org/tomcat-6.0-doc/config/http.html#Connector Comparison>   
- 
+参考文档：
+<http://tomcat.apache.org/tomcat-6.0-doc/config/http.html#Connector Comparison>
+
 <http://tomcat.apache.org/tomcat-6.0-doc/config/ajp.html>
 
-#####MySQL
+##### MySQL
 
-大并发下，响应时间如何提高，绝大部分瓶颈都处于数据库端。   
+大并发下，响应时间如何提高，绝大部分瓶颈都处于数据库端。
 
-与数据库的连接，使用JDBC连接池    
+与数据库的连接，使用JDBC连接池
 
-slow query监控：     
+slow query监控：
 1. 开启慢查询 my.cnf
 
     long_query_time = 2
@@ -104,15 +104,15 @@ slow query监控：
 
 	mysqldumpslow -t 10 -s t  slow.log
 
-解决： 
+解决：
 
-- 1.SQL调优   （http://coolshell.cn/articles/1846.html）   
+- 1.SQL调优   （http://coolshell.cn/articles/1846.html）
 - 2.走类似lucene索引，空间换时间（idea实际测试中，吞吐提升7倍）
 - 3.使用NoSQL?
 
 $MYSQL_HOME/etc/my.cnf  或者 my.ini（windows）
 
-主要影响性能参数：   
+主要影响性能参数：
 
     max-connections = 3000     会话数上限
     max_connect_errors = 10000    允许的最大连接错误量
@@ -122,7 +122,7 @@ $MYSQL_HOME/etc/my.cnf  或者 my.ini（windows）
 
 参考：<http://www.ha97.com/4110.html>
 
-####Apache
+#### Apache
 
 处理静态资源，无法处理动态（需要应用服务器支持）
 
@@ -151,16 +151,16 @@ ab 命令进行测试，达到1000并发很easy
 确定apache模式命令：
 
 	./httpd –l
-输出：  
+输出：
 
     Compiled in modules:
     core.c
     worker.c
     http_core.c
     mod_so.c
- 
+
 修改httpd-mpm.conf
-    
+
     <IfModule mpm_worker_module>
         StartServers          2
         MaxClients          150
@@ -170,13 +170,13 @@ ab 命令进行测试，达到1000并发很easy
         MaxRequestsPerChild   0
     </IfModule>
 
-上面的配置需要满足以下公式：    
-         ThreadLimit >= ThreadsPerChild    
-         MaxClients <= ServerLimit * ThreadsPerChild 必须是ThreadsPerChild的倍数     
-         MaxSpareThreads >= MinSpareThreads+ThreadsPerChild    
+上面的配置需要满足以下公式：
+         ThreadLimit >= ThreadsPerChild
+         MaxClients <= ServerLimit * ThreadsPerChild 必须是ThreadsPerChild的倍数
+         MaxSpareThreads >= MinSpareThreads+ThreadsPerChild
 
-####Linux
-#####too many open files error
+#### Linux
+##### too many open files error
 `ulimit -a `进行查看
 修改`vi /etc/security/limits.conf`
 
@@ -184,23 +184,23 @@ ab 命令进行测试，达到1000并发很easy
 
     *    -     nofile    65535
 
-参考文档：   
+参考文档：
  <http://blog.csdn.net/lifeibo/article/details/5972356>
 
-Http连接是基于TCP的，这个时候需要对linux服务器进行优化。   
+Http连接是基于TCP的，这个时候需要对linux服务器进行优化。
 **三次握手**
 
-![三次握手](/images/blog/2013/three-times-handshake.png)    
+![三次握手](/images/blog/2013/three-times-handshake.png)
 
 **四次挥手**
 
-![四次挥手](/images/blog/2013/four-wave.png)  
+![四次挥手](/images/blog/2013/four-wave.png)
 
-如何查看服务器TCP状态？    
-命令：    
+如何查看服务器TCP状态？
+命令：
 
     netstat -n | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}'
-输出：    
+输出：
 
     ESTABLISHED 1423
     FIN_WAIT1 1
@@ -208,7 +208,7 @@ Http连接是基于TCP的，这个时候需要对linux服务器进行优化。
     SYN_SENT 1
     TIME_WAIT 962
 
-优化TCP连接相关参数：   
+优化TCP连接相关参数：
 
 `vi /etc/sysctl.conf`
 
@@ -229,4 +229,4 @@ Http连接是基于TCP的，这个时候需要对linux服务器进行优化。
 
 参考文档：<http://www.itlearner.com/article/4792>
 
-备注：此文由本人在公司内做的PPT分享制作而成，内容有些省略以及跳跃。欢迎留言。     
+备注：此文由本人在公司内做的PPT分享制作而成，内容有些省略以及跳跃。欢迎留言。

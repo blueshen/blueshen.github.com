@@ -6,34 +6,34 @@ comments: true
 categories: java
 tags: [ jstl, el ]
 ---
-###EL 表达式
+### EL 表达式
 在JSP页面中，使用标签库代替传统的Java片段语言来实现页面的显示逻辑已经不是新技术了，然而，由自定义标签很容易造成重复定义和非标准的实现。鉴于此，出现了JSTL（JSP Standard Tag Library），为大多数JSP页面逻辑提供了实现的JSTL技术，该技术本身就是一个标签库。
-      
+
 Sun公司Java规范标准的JSTL由apache jakarta组织负责维护。作为开源的标准技术，它一直在不断地完善。JSTL的发布包有两个版本：Standard-1.0 Taglib、Standard-1.1 Taglib，它们在使用时是不同的。
-      
+
 Standard-1.0 Taglib（JSTL1.0）支持Servlet2.3和JSP1.2规范，Web应用服务器Tomcat4支持这些规范，而它的发布也在Tomcat 4.1.24测试通过了。
-      
+
 Standard-1.1 Taglib（JSTL1.1）支持Servlet2.4和JSP2.0规范，Web应用服务器Tomcat5支持这些规范，它的发布在Tomcat 5.0.3测试通过了。
-      
+
 本文将以由Sun发布的Standard-1.1 Taglib标签库为主，而apache jakarta组织发布的开源标签库，可以从http://jakarta.apache.org/taglibs/找到所需要的帮助。Sun发布的标准JSTL1.1标签库有以下几个标签：
-      
+
  - 核心标签库：包含Web应用的常见工作，比如：循环、表达式赋值、基本输入输出等。
  - 国际化标签库：用来格式化显示数据的工作，比如：对不同区域的日期格式化等。
  - 数据库标签库：可以做访问数据库的工作。
  - XML标签库：用来访问XML文件的工作，这是JSTL标签库的一个特点。
  - 函数标签库：用来读取已经定义的某个函数。
- 
+
 此外，JSTL还提供了EL表达式语言（Expression Language）来进行辅助的工作。
-      
+
 JSTL标签库由标签库和EL表达式语言两个部分组成。EL在JSTL 1.0规范中被引入，当时用来作为Java表达式来工作，而该表达式必须配合JSTL的标签库才能得到需要的结果。
-      
+
 说明：在JSTL 1.1规范中，JSP2.0容器已经能够独立的理解任何EL表达式。EL可以独立出现在JSP页面的任何角落。本文随后的内容将以JSTL 1.1规范作为介绍的重点。
-      
+
 <!--more-->
 
-####9.2.1JSTL EL 表达式语言简介
+#### 9.2.1JSTL EL 表达式语言简介
 EL是从JavaScript脚本语言得到启发的一种表达式语言，它借鉴了JavaScript多类型转换无关性的特点。在使用EL从scope中得到参数时可以自动转换类型，因此对于类型的限制更加宽松。Web服务器对于request请求参数通常会以String类型来发送，在得到时使用的Java语言脚本就应该是request.getParameter(“XXX”)，这样的话，对于实际应用还必须进行强制类型转换。而EL就将用户从这种类型转换的繁琐工作脱离出来，允许用户直接使用EL表达式取得的值，而不用关心它是什么类型。
-      
+
 下面的示例就是一个EL表达式，见例9.1。
 
 例9.1：简单EL表达式
@@ -43,10 +43,10 @@ EL是从JavaScript脚本语言得到启发的一种表达式语言，它借鉴�
       <html>
        <body> ${sampleValue + 1} <br> </body>
       </html>
-      
-这个示例将在JSP页面显示为“1”，EL表达式必须以“${XXX}”来表示，其中“XXX”部分就是具体表达式内容，“${}”将这个表达式内容包含在其中作为EL表达式的定义。本示例可以在满足JSP2.0规范的任何Web应用服务器中使用。   
 
-####9.2.2 EL 表达式的默认变量 
+这个示例将在JSP页面显示为“1”，EL表达式必须以“${XXX}”来表示，其中“XXX”部分就是具体表达式内容，“${}”将这个表达式内容包含在其中作为EL表达式的定义。本示例可以在满足JSP2.0规范的任何Web应用服务器中使用。
+
+#### 9.2.2 EL 表达式的默认变量
 一个EL表达式包含变量和操作符两个内容。任何存在于JSP作用范围的JavaBean都可以被转化成EL表达式来使用，它所包含的默认变量如下：
 
 1．默认变量pageScope、requestScope、sessionScope、applicationScope
@@ -107,9 +107,9 @@ EL是从JavaScript脚本语言得到启发的一种表达式语言，它借鉴�
 
 等价于page环境类javax.servlet.jsp.PageContext的实例，用来提供访问不同的请求参数。
 11个默认变量几乎包含了Web应用的所有基本操作，若一个表达式不使用这些变量而直接使用参数名，那么就采用就近原则。该表达式将使用最近取得的参数值。
- 
 
-###表达式的操作符
+
+### 表达式的操作符
 EL表达式中还有许多操作符可以帮助完成各种所需的操作，之前的示例中“.”、“[]”就是其中的两个，下面将用表9.1来展示所有操作符及它们各自的功能。
 
 表9.1 EL表达式的操作符
@@ -301,7 +301,7 @@ EL表达式中还有许多操作符可以帮助完成各种所需的操作，之
 
 可以看到，对于这些示例，程序设计者完全无需管理它们的类型转换，在表达式内部都已经处理了。有了EL表达式，在JSP页面的编程变得更灵活，也更容易。
 
-###标签库介绍
+### 标签库介绍
 在JSTL1.1中有以下这些标签库是被支持的：Core标签库、XML processing标签库、I18N formatting标签库、Database access标签库、Functions标签库。
 对应的标识符见表9.2所示：
 
@@ -392,9 +392,9 @@ EL表达式中还有许多操作符可以帮助完成各种所需的操作，之
      </body>
     </html>
 
-在该示例的JSP页面中声明了将使用Core标签库，它的URI为“http://java.sun.com/jsp/jstl/core”，前缀为“c”。之后，页面中<c:forEach>标签就是使用了JSTL的标签进行了工作。对于该标签的功能，这里暂时不作具体讲解，只是让读者能够有个简单的概念，了解怎样定义和使用标签库。 
+在该示例的JSP页面中声明了将使用Core标签库，它的URI为“http://java.sun.com/jsp/jstl/core”，前缀为“c”。之后，页面中<c:forEach>标签就是使用了JSTL的标签进行了工作。对于该标签的功能，这里暂时不作具体讲解，只是让读者能够有个简单的概念，了解怎样定义和使用标签库。
 
-###标签库
+### 标签库
 Core标签库，又被称为核心标签库，该标签库的工作是对于JSP页面一般处理的封装。在该标签库中的标签一共有14个，被分为了四类，分别是：
 
 - 多用途核心标签：<c:out>、<c:set>、<c:remove>、<c:catch>。
@@ -404,7 +404,7 @@ Core标签库，又被称为核心标签库，该标签库的工作是对于JSP�
 
 以下是各个标签的用途和属性以及简单示例。
 
-###用于显示的` <c:out>` 标签 
+### 用于显示的` <c:out>` 标签
 `<c:out>`标签是一个最常用的标签，用于在JSP中显示数据。它的属性和描述如表9.3所示：
 
 表9.3　`<c:out>`标签属性和说明
@@ -453,9 +453,9 @@ Core标签库，又被称为核心标签库，该标签库的工作是对于JSP�
 
 该示例将从Session查找名为“anyValue”的参数，并显示在页面，若没有找到则显示“no value”。
 
-###`<c: >` 标签 
+### `<c: >` 标签
 
-####用于赋值的<c:set>标签
+#### 用于赋值的<c:set>标签
 `<c:set>`标签用于为变量或JavaBean中的变量属性赋值的工作。它的属性和描述如表9.4所示：
 
 表9.4　`<c:set>`标签属性和说明
@@ -521,7 +521,7 @@ Core标签库，又被称为核心标签库，该标签库的工作是对于JSP�
 
 该示例将为名为“oneString”的变量赋值为“this is andy”，其作用范围为page。
 
-####9.3.3 用于删除的 `<c:remove> `标签 
+#### 9.3.3 用于删除的 `<c:remove> `标签
 `<c:remove>`标签用于删除存在于scope中的变量。它的属性和描述如表9.5所示：
 
 表9.5　`<c:remove>`标签属性和说明
@@ -563,15 +563,15 @@ Core标签库，又被称为核心标签库，该标签库的工作是对于JSP�
 
 该示例将存在于Session中名为“sampleValue”的变量删除。下一句EL表达式显示该变量时，该变量已经不存在了。
 
-####9.3.4 用于异常捕获的 `<c:catch>` 标签 
+#### 9.3.4 用于异常捕获的 `<c:catch>` 标签
 `<c:catch>`标签允许在JSP页面中捕捉异常。它包含一个var属性，是一个描述异常的变量，改变量可选。若没有var属性的定义，那么仅仅捕捉异常而不做任何事情，若定义了var属性，则可以利用var所定义的异常变量进行判断转发到其他页面或提示报错信息。看一个示例。
 
     <c:catch var="err"> ${param.sampleSingleValue[9] == 3}</c:catch>
     ${err}
-    
+
 当“${param.sampleSingleValue[9] == 3}”表达式有异常时，可以从var属性“err”得到异常的内容，通常判断“err”是否为null来决定错误信息的提示。
 
-####9.3.5 用于判断的 `<c:if>` 标签 
+#### 9.3.5 用于判断的 `<c:if>` 标签
 `<c:if>`标签用于简单的条件语句。它的属性和描述如表9.6所示：
 
 表9.6　`<c:if>`标签属性和说明
@@ -621,7 +621,7 @@ Core标签库，又被称为核心标签库，该标签库的工作是对于JSP�
 
 该示例将判断request请求提交的传入控件数组参数中，下标为“2”的控件内容是否为“12”，若为12则显示“It is 12”。判断结果被保存在page范围中的“visits”变量中。
 
-####9.3.6 用于复杂判断的 `<c:choose> 、 <c:when> 、 <c:otherwise>` 标签 
+#### 9.3.6 用于复杂判断的 `<c:choose> 、 <c:when> 、 <c:otherwise>` 标签
 这三个标签用于实现复杂条件判断语句，类似“if,elseif”的条件语句。
 
 `<c:choose>`标签没有属性，可以被认为是父标签，`<c:when>、<c:otherwise>`将作为其子标签来使用。
@@ -647,7 +647,7 @@ Core标签库，又被称为核心标签库，该标签库的工作是对于JSP�
 
 该示例将判断request请求提交的传入控件数组参数中，下标为“2”控件内容是否为“11”或“12”或“13”，并根据判断结果显示各自的语句，若都不是则显示“not 11 、12、13”。
 
-####9.3.7 用于循环的 `<c:forEach>` 标签
+#### 9.3.7 用于循环的 `<c:forEach>` 标签
 `<c:forEach>`为循环控制标签。它的属性和描述如表9.7所示：
 
 表9.7　`<c:forEach>`标签属性和说明
@@ -734,7 +734,7 @@ Core标签库，又被称为核心标签库，该标签库的工作是对于JSP�
 
 该示例从“1”循环到“10”，并将循环中变量“i”显示在页面上。
 
-####9.3.8 用于分隔字符的 `<c:forTokens>` 标签 
+#### 9.3.8 用于分隔字符的 `<c:forTokens>` 标签
 `<c:forTokens>`标签可以根据某个分隔符分隔指定字符串，相当于java.util.StringTokenizer类。它的属性和描述如表9.8所示：
 
 表9.8　`<c:forTokens>`标签属性和说明
@@ -819,9 +819,9 @@ Core标签库，又被称为核心标签库，该标签库的工作是对于JSP�
 
 ###`<x: >` 标签
 
- 
 
-####9.3.9 用于包含页面的`<c:import>` 
+
+#### 9.3.9 用于包含页面的`<c:import>`
 `<c:import>`标签允许包含另一个JSP页面到本页面来。它的属性和描述如表9.9所示：
 
 表9.9　`<c:import>`标签属性和说明
@@ -895,7 +895,7 @@ Core标签库，又被称为核心标签库，该标签库的工作是对于JSP�
 
 该示例演示了三种不同的导入方法，第一种是在同一 Context 下的导入，第二种是在不同的 Context 下导入，第三种是导入任意一个 URL 。
 
-####9.3.10 用于得到URL地址的`<c:url>`标签
+#### 9.3.10 用于得到URL地址的`<c:url>`标签
 `<c:url>` 标签用于得到一个 URL 地址。它的属性和描述如表 9.10 所示：
 
 表9.10 `<c:url>`标签属性和说明
@@ -961,14 +961,14 @@ Core标签库，又被称为核心标签库，该标签库的工作是对于JSP�
 
 得到了一个 URL 后，以 EL 表达式放入` <a>` 标签的 href 属性，达到链接的目的。
 
-####9.3.11 用于页面重定向的`<c:redirect>`标签
+#### 9.3.11 用于页面重定向的`<c:redirect>`标签
 `<c:redirect>` 用于页面的重定向，该标签的作用相当于 `response.setRedirect` 方法的工作。它包含 url 和 context 两个属性，属性含义和 `<c:url>` 标签相同。下面看一个示例。
 
     <c:redirect url="/MyHtml.html"/>
 
 该示例若出现在 JSP 中，则将重定向到当前 Web Context 下的“ MyHtml.html ”页面，一般会与 `<c:if>` 等标签一起使用。
 
-####9.3.12 用于包含传递参数的`<c:param>`标签
+#### 9.3.12 用于包含传递参数的`<c:param>`标签
  `<c:param>` 用来为包含或重定向的页面传递参数。它的属性和描述如表 9.11 所示：
 
 表9.11　`<c:param>`标签属性和说明
@@ -1011,7 +1011,7 @@ Core标签库，又被称为核心标签库，该标签库的工作是对于JSP�
 
 该示例将为重定向的“ MyHtml.jsp ”传递指定参数“ userName=’RW’ ”。
 
-###9.4 JSTL XML processing标签库 
+### 9.4 JSTL XML processing标签库
 在企业级应用越来越依赖 XML 的今天， XML 格式的数据被作为信息交换的优先选择。 XML processing 标签库为程序设计者提供了基本的对 XML 格式文件的操作。在该标签库中的标签一共有 10 个，被分为了三类，分别是：
 
 - XML核心标签：`<x:parse>、<x:out>、<x:set>`。
@@ -1020,7 +1020,7 @@ Core标签库，又被称为核心标签库，该标签库的工作是对于JSP�
 
 由于该组标签库专注于对某一特定领域的实现，因此本书将只选择其中常见的一些标签和属性进行介绍。
 
-####9.4.1 用于解析XML文件的`<x:parse>`标签
+#### 9.4.1 用于解析XML文件的`<x:parse>`标签
 `<x:parse>` 标签是该组标签库的核心，从其标签名就可以知道，它是作为解析 XML 文件而存在的。它的属性和描述如表 9.12 所示：
 
 表9.12　`<x:parse>`标签属性和说明
@@ -1118,7 +1118,7 @@ Core标签库，又被称为核心标签库，该标签库的工作是对于JSP�
     <c:import var="xmlFile" url="http://localhost:8080/booksamplejstl/SampleXml.xml"/>
     <x:parse var="xmlFileValue" doc="${xmlFile}"/>
 
-###`<fmt: >` 标签 
+### `<fmt: >` 标签
 
 看到I18N就应该想到知识“国际化”，I18N formatting标签库就是用于在JSP页面中做国际化的动作。在该标签库中的标签一共有12个，被分为了两类，分别是：
 
@@ -1127,7 +1127,7 @@ Core标签库，又被称为核心标签库，该标签库的工作是对于JSP�
 
 下面只选择其中常见的一些标签和属性进行介绍。
 
-####9.5.1 用于设置本地化环境的`<fmt:setLocale>`标签
+#### 9.5.1 用于设置本地化环境的`<fmt:setLocale>`标签
     `<fmt:setLocale>`标签用于设置Locale环境。它的属性和描述如表9.17所示：
 
 表9.17　`<fmt:setLocale>`标签属性和说明
@@ -1165,14 +1165,14 @@ Core标签库，又被称为核心标签库，该标签库的工作是对于JSP�
 
     <fmt:setLocale value="zh_TW"/>
 
-表示设置本地环境为繁体中文。      
+表示设置本地环境为繁体中文。
 
-####9.5.2 用于资源文件绑定的`<fmt:bundle>、<fmt:setBundle>`标签
- 
+#### 9.5.2 用于资源文件绑定的`<fmt:bundle>、<fmt:setBundle>`标签
+
 这两组标签用于资源配置文件的绑定，唯一不同的是`<fmt:bundle>`标签将资源配置文件绑定于它标签体中的显示，`<fmt:setBundle>`标签则允许将资源配置文件保存为一个变量，在之后的工作可以根据该变量来进行。
 
 根据Locale环境的不同将查找不同后缀的资源配置文件，这点在国际化的任何技术上都是一致的，通常来说，这两种标签单独使用是没有意义的，它们都会与I18N formatting标签库中的其他标签配合使用。它们的属性和描述如表9.18所示：
-        
+
 
 表9.18　`<fmt:bundle>、<fmt:setBundle>`标签属性和说明
 
@@ -1218,10 +1218,10 @@ Core标签库，又被称为核心标签库，该标签库的工作是对于JSP�
 
     <fmt:setLocale value="zh_CN"/>
     <fmt:setBundle basename="applicationMessage" var="applicationBundle"/>
-    
+
 该示例将会查找一个名为applicationMessage_zh_CN.properties的资源配置文件，来作为显示的Resource绑定。
 
-####9.5.3  用于显示资源配置文件信息的`<fmt:message>`标签
+#### 9.5.3  用于显示资源配置文件信息的`<fmt:message>`标签
 用于信息显示的标签，将显示资源配置文件中定义的信息。它的属性和描述如表9.19所示：
 
 表9.19　`<fmt:message>`标签属性和说明
@@ -1273,7 +1273,7 @@ Core标签库，又被称为核心标签库，该标签库的工作是对于JSP�
 
 
 下面看一个示例：
-    
+
     <fmt:setBundle basename="applicationMessage" var="applicationBundle"/>
     <fmt:bundle basename="applicationAllMessage">
              <fmt:message key="userName" />
@@ -1290,10 +1290,10 @@ Core标签库，又被称为核心标签库，该标签库的工作是对于JSP�
 `<fmt:param>`标签应该位于`<fmt:message>`标签内，将为该消息标签提供参数值。它只有一个属性value。
 `<fmt:param>`标签有两种使用版本，一种是直接将参数值写在value属性中，另一种是将参数值写在标签体内。
 
-####9.5.6  用于为请求设置字符编码的`<fmt:requestEncoding>`标签
+#### 9.5.6  用于为请求设置字符编码的`<fmt:requestEncoding>`标签
 `<fmt:requestEncoding>`标签用于为请求设置字符编码。它只有一个属性value，在该属性中可以定义字符编码。
 
-####9.5.7  用于设定时区的`<fmt:timeZone>、<fmt:setTimeZone>`标签
+#### 9.5.7  用于设定时区的`<fmt:timeZone>、<fmt:setTimeZone>`标签
 这两组标签都用于设定一个时区。唯一不同的是`<fmt:timeZone>`标签将使得在其标签体内的工作可以使用该时区设置，`<fmt:setBundle>`标签则允许将时区设置保存为一个变量，在之后的工作可以根据该变量来进行。它们的属性和描述如表9.20所示：
 
 表9.20　`<fmt:timeZone>、<fmt:setTimeZone>`标签属性和说明
@@ -1508,7 +1508,7 @@ Core标签库，又被称为核心标签库，该标签库的工作是对于JSP�
 
 解析之后的结果为“ 0.15 ”。
 
-####9.5.10  用于格式化日期的`<fmt:formatDate>`标签
+#### 9.5.10  用于格式化日期的`<fmt:formatDate>`标签
 `<fmt:formatDate>`标签用于格式化日期。它的属性和描述如表9.23所示：
 
 表9.23　`<fmt:formatDate>`标签属性和说明
@@ -1654,9 +1654,9 @@ Core标签库，又被称为核心标签库，该标签库的工作是对于JSP�
 
 `<fmt:parseNumber>`和`<fmt:parseDate>`两组标签都实现解析字符串为一个具体对象实例的工作，因此，这两组解析标签对var属性的字符串参数要求非常严格。就JSP页面的表示层前段来说，处理这种解析本不属于份内之事，因此`<fmt:parseNumber>`和`<fmt:parseDate>`两组标签应该尽量少用，替代工作的地方应该在服务器端表示层的后段，比如在Servlet中。
 
- `<sql:>`标签 
+ `<sql:>`标签
 
-###9.6  Database access 标签库
+### 9.6  Database access 标签库
 
 Database access标签库中的标签用来提供在JSP页面中可以与数据库进行交互的功能，虽然它的存在对于早期纯JSP开发的应用以及小型的开发有着意义重大的贡献，但是对于MVC模型来说，它却是违反规范的。因为与数据库交互的工作本身就属于业务逻辑层的工作，所以不应该在JSP页面中出现，而是应该在模型层中进行。
 
@@ -1664,7 +1664,7 @@ Database access标签库中的标签用来提供在JSP页面中可以与数据�
 
 Database access标签库有以下6组标签来进行工作：`<sql:setDataSource>、<sql:query>、<sql:update>、<sql:transaction>、<sql:setDataSource>、<sql:param>、<sql:dateParam>`。
 
-####9.6.1 用于设置数据源的 `<sql:setDataSource>` 标签
+#### 9.6.1 用于设置数据源的 `<sql:setDataSource>` 标签
 `<sql:setDataSource>`标签用于设置数据源，下面看一个示例：
 
     <sql:setDataSource
@@ -1676,7 +1676,7 @@ Database access标签库有以下6组标签来进行工作：`<sql:setDataSource
 
 该示例定义一个数据源并保存在“ dataSrc ”变量内。
 
-####9.6.2 用于查询的 `<sql:query>`标签
+#### 9.6.2 用于查询的 `<sql:query>`标签
 
 `<sql:query>`标签用于查询数据库，它标签体内可以是一句查询SQL。下面看一个示例：
 
@@ -1695,19 +1695,19 @@ Database access标签库有以下6组标签来进行工作：`<sql:setDataSource
 
 “ rows ”是javax.servlet.jsp.jstl.sql.Result实例的变量属性之一，用来表示数据库表中的“列”集合，循环时，通过“ ${row.XXX} ”表达式可以取得每一列的数据，“ XXX ”是表中的列名。
 
-####9.6.3 用于更新的 `<sql:update>` 标签
+#### 9.6.3 用于更新的 `<sql:update>` 标签
 `<sql:update>`标签用于更新数据库，它的标签体内可以是一句更新的SQL语句。其使用和`<sql:query>`标签没有什么不同。
 
-####9.6.4 用于事务处理的` <sql:transaction> `标签
+#### 9.6.4 用于事务处理的` <sql:transaction> `标签
 `<sql:transaction>`标签用于数据库的事务处理，在该标签体内可以使用`<sql:update>`标签和`<sql:query>`标签，而`<sql:transaction>`标签的事务管理将作用于它们之上。
 `<sql:transaction>`标签对于事务处理定义了read_committed、read_uncommitted、repeatable_read、serializable4个隔离级别。
 
-####9.6.5 用于事务处理的` <sql:param> 、 <sql:dateParam>` 标签
+#### 9.6.5 用于事务处理的` <sql:param> 、 <sql:dateParam>` 标签
 这两个标签用于向SQL语句提供参数，就好像程序中预处理SQL的“ ? ”一样。`<sql:param>`标签传递除java.util.Date类型以外的所有相融参数，`<sql:dateParam>`标签则指定必须传递java.util.Date类型的参数。
 
-###`<fn:>` 标签 
+### `<fn:>` 标签
 
-###9.7 Functions 标签库
+### 9.7 Functions 标签库
        称呼Functions标签库为标签库，倒不如称呼其为函数库来得更容易理解些。因为Functions标签库并没有提供传统的标签来为JSP页面的工作服务，而是被用于EL表达式语句中。在JSP2.0规范下出现的Functions标签库为EL表达式语句提供了许多更为有用的功能。Functions标签库分为两大类，共16个函数。
 
        长度函数：fn:length
@@ -1715,7 +1715,7 @@ Database access标签库有以下6组标签来进行工作：`<sql:setDataSource
 
 以下是各个函数的用途和属性以及简单示例。
 
-####9.7.1 长度函数 fn:length 函数
+#### 9.7.1 长度函数 fn:length 函数
        长度函数fn:length的出现有重要的意义。在JSTL1.0中，有一个功能被忽略了，那就是对集合的长度取值。虽然java.util.Collection接口定义了size方法，但是该方法不是一个标准的JavaBean属性方法（没有get,set方法），因此，无法通过EL表达式“ ${collection.size} ”来轻松取得。
 
 fn:length函数正是为了解决这个问题而被设计出来的。它的参数为input，将计算通过该属性传入的对象长度。该对象应该为集合类型或String类型。其返回结果是一个int类型的值。下面看一个示例。
@@ -1724,14 +1724,14 @@ fn:length函数正是为了解决这个问题而被设计出来的。它的参�
                                 arrayList1.add("aa");
                                 arrayList1.add("bb");
                                 arrayList1.add("cc");
-    
+
     %>
     <%request.getSession().setAttribute("arrayList1", arrayList1);%>
     ${fn:length(sessionScope.arrayList1)}
 
 假设一个ArrayList类型的实例“ arrayList1 ”，并为其添加三个字符串对象，使用fn:length函数后就可以取得返回结果为“ 3 ”。
 
-####9.7.2 判断函数 fn:contains 函数
+#### 9.7.2 判断函数 fn:contains 函数
        fn:contains函数用来判断源字符串是否包含子字符串。它包括string和substring两个参数，它们都是String类型，分布表示源字符串和子字符串。其返回结果为一个boolean类型的值。下面看一个示例。
 
     ${fn:contains("ABC", "a")}<br>
@@ -1739,7 +1739,7 @@ fn:length函数正是为了解决这个问题而被设计出来的。它的参�
 
 前者返回“ false ”，后者返回“ true ”。
 
-####9.7.3 fn:containsIgnoreCase函数 
+#### 9.7.3 fn:containsIgnoreCase函数
       fn:containsIgnoreCase函数与fn:contains函数的功能差不多，唯一的区别是fn:containsIgnoreCase函数对于子字符串的包含比较将忽略大小写。它与fn:contains函数相同，包括string和substring两个参数，并返回一个boolean类型的值。下面看一个示例。
 
     ${fn:containsIgnoreCase("ABC", "a")}<br>
@@ -1748,7 +1748,7 @@ fn:length函数正是为了解决这个问题而被设计出来的。它的参�
 前者和后者都会返回“ true ”。
 
 
-####9.7.4 词头判断函数 fn:startsWith 函数
+#### 9.7.4 词头判断函数 fn:startsWith 函数
        fn:startsWith函数用来判断源字符串是否符合一连串的特定词头。它除了包含一个string参数外，还包含一个subffx参数，表示词头字符串，同样是String类型。该函数返回一个boolean类型的值。下面看一个示例。
 
     ${fn:startsWith ("ABC", "ab")}<br>
@@ -1757,7 +1757,7 @@ fn:length函数正是为了解决这个问题而被设计出来的。它的参�
 前者返回“ false ”，后者返回“ true ”。
 
 
-####9.7.5 词尾判断函数 fn:endsWith 函数
+#### 9.7.5 词尾判断函数 fn:endsWith 函数
        fn:endsWith函数用来判断源字符串是否符合一连串的特定词尾。它与fn:startsWith函数相同，包括string和subffx两个参数，并返回一个boolean类型的值。下面看一个示例。
 
     ${fn:endsWith("ABC", "bc")}<br>
@@ -1766,11 +1766,11 @@ fn:length函数正是为了解决这个问题而被设计出来的。它的参�
 前者返回“ false ”，后者返回“ true ”。
 
 
-####9.7.6 字符实体转换函数 fn:escapeXml 函数
+#### 9.7.6 字符实体转换函数 fn:escapeXml 函数
 fn:escapeXml函数用于将所有特殊字符转化为字符实体码。它只包含一个string参数，返回一个String类型的值。
 
 
-####9.7.8 字符匹配函数 fn:indexOf 函数
+#### 9.7.8 字符匹配函数 fn:indexOf 函数
        fn:indexOf函数用于取得子字符串与源字符串匹配的开始位置，若子字符串与源字符串中的内容没有匹配成功将返回“ -1 ”。它包括string和substring两个参数，返回结果为int类型。下面看一个示例。
 
     ${fn:indexOf("ABCD","aBC")}<br>
@@ -1778,7 +1778,7 @@ fn:escapeXml函数用于将所有特殊字符转化为字符实体码。它只�
 
 前者由于没有匹配成功，所以返回-1，后者匹配成功将返回位置的下标，为1。
 
-####9.7.9 分隔符函数 fn:join 函数
+#### 9.7.9 分隔符函数 fn:join 函数
        fn:join函数允许为一个字符串数组中的每一个字符串加上分隔符，并连接起来。它的参数、返回结果和描述如表9.25所示：
 
 表9.25　fn:join函数
@@ -1830,7 +1830,7 @@ fn:escapeXml函数用于将所有特殊字符转化为字符实体码。它只�
 定义数组并放置到Session中，然后通过Session得到该字符串数组，使用fn:join函数并传入分隔符“ ; ”，得到的结果为“ a;b;c ”。
 
 
-####9.7.10 替换函数 fn:replace 函数
+#### 9.7.10 替换函数 fn:replace 函数
        fn:replace函数允许为源字符串做替换的工作。它的参数、返回结果和描述如表9.26所示：
 
 表9.26　fn:replace函数
@@ -1888,7 +1888,7 @@ ${fn:replace("ABC","A","B")}<br>
 将“ ABC ”字符串替换为“ BBC ”，在“ ABC ”字符串中用“ B ”替换了“ A ”。
 
 
-####9.7.11 分隔符转换数组函数 fn:split 函数
+#### 9.7.11 分隔符转换数组函数 fn:split 函数
 fn:split函数用于将一组由分隔符分隔的字符串转换成字符串数组。它的参数、返回结果和描述如表9.27所示：
 
 表9.27　fn:split函数
@@ -1938,7 +1938,7 @@ ${fn:split("A,B,C",",")}<br>
 将“ A,B,C ”字符串转换为数组{A,B,C}。
 
 
-####9.7.12 字符串截取函数 fn:substring 函数
+#### 9.7.12 字符串截取函数 fn:substring 函数
 fn:substring函数用于截取字符串。它的参数、返回结果和描述如表9.28所示：
 
 表9.28　fn:substring函数
@@ -1996,7 +1996,7 @@ ${fn:substring("ABC","1","2")}<br>
 截取结果为“ B ”。
 
 
-####9.7.14 起始到定位截取字符串函数 fn:substringBefore 函数
+#### 9.7.14 起始到定位截取字符串函数 fn:substringBefore 函数
 fn:substringBefore函数允许截取源字符从开始到某个字符串。它的参数和fn:substringAfter函数相同，不同的是substring表示的是结束字符串。下面看一个示例。
 
     ${fn:substringBefore("ABCD","BC")}<br>
@@ -2004,7 +2004,7 @@ fn:substringBefore函数允许截取源字符从开始到某个字符串。它�
 截取的结果为“ A ”。
 
 
-####9.7.15 小写转换函数 fn:toLowerCase 函数
+#### 9.7.15 小写转换函数 fn:toLowerCase 函数
 fn:toLowerCase函数允许将源字符串中的字符全部转换成小写字符。它只有一个表示源字符串的参数string，函数返回一个String类型的值。下面看一个示例。
 
     ${fn:toLowerCase("ABCD")}<br>
@@ -2012,7 +2012,7 @@ fn:toLowerCase函数允许将源字符串中的字符全部转换成小写字符
 转换的结果为“ abcd ”。
 
 
-####9.7.16大写转换函数 fn:toUpperCase 函数
+#### 9.7.16大写转换函数 fn:toUpperCase 函数
 fn:toUpperCase函数允许将源字符串中的字符全部转换成大写字符。它与fn:toLowerCase函数相同，也只有一个String参数，并返回一个String类型的值。下面看一个示例。
 
     ${fn:toUpperCase("abcd")}<br>
@@ -2020,7 +2020,7 @@ fn:toUpperCase函数允许将源字符串中的字符全部转换成大写字符
 转换的结果为“ ABCD ”。
 
 
-####9.7.17空格删除函数 fn:trim 函数
+#### 9.7.17空格删除函数 fn:trim 函数
 fn:trim函数将删除源字符串中结尾部分的“空格”以产生一个新的字符串。它与fn:toLowerCase函数相同，只有一个String参数，并返回一个String类型的值。下面看一个示例。
 
     ${fn:trim("AB C ")}D<br>

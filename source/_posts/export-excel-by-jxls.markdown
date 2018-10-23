@@ -6,14 +6,14 @@ comments: true
 categories: Java
 tags: [ apache poi, excel, jXLS, jxl ]
 ---
-###常用的excel操作工具
+### 常用的excel操作工具
 
 - Apache POI
 - jexcelApi
 
 它们都提供了完善的API来支持EXCEL的读写。
 
-###jXLS是什么？
+### jXLS是什么？
 
 jXLS是基于apache poi的一个扩展。它的功能就类似于jstl在servlet中的作用，你可以自定义一个模板，然后往里面放数据就OK了。
 
@@ -30,7 +30,7 @@ jXLS的基本功能：
                <artifactId>jxls-core</artifactId>
                <version>1.0.5</version>
         </dependency>
-        
+
 <!--more-->
 jXLS的API也很简单：
 
@@ -38,7 +38,7 @@ jXLS的API也很简单：
                 beans.put("department", department);
                 XLSTransformer transformer = new XLSTransformer();
                 transformer.transformXLS(xlsTemplateFileName, beans, outputFileName);
-###jXLS是如何解析模板生成数据的？
+### jXLS是如何解析模板生成数据的？
 
 查看`net.sf.jxls.transformer.CellTransformer`可以看到：
 
@@ -58,7 +58,7 @@ jXLS的API也很简单：
     }
 从而可以看出，数据的获得是通过JEXL来实现的。换句话说，模板内可以使用任何的JEXL标签。
 
-###让jXLS支持hyperlink
+### 让jXLS支持hyperlink
 
 业务上有这么一个需求，想在单元格内显示一个链接，而链接是动态生成的。通过模板设置单元格为链接始终无法生效，但是如果链接是固定的是可以生效的。如何实现动态的呢，改源码net.sf.jxls.transformer.CellTransformer 82行：
 

@@ -7,7 +7,7 @@ categories: velocity
 tags: [ velocity, spring ]
 ---
 
-###velocity在spring项目中的使用
+### velocity在spring项目中的使用
 本文，不是讲velocityResolver来渲染页面的只从最原始的使用方式如何使用。
 首先，可以交给Spring来初始化velocityEngine:
 
@@ -20,15 +20,15 @@ tags: [ velocity, spring ]
         </property>
     </bean>
 
-其中的`configLocation`指明了velocity的配置文件路径。也就是说一些个性化的配置都可以直接在velocity.properties进行操作了。比如下面的例子：   
-    
+其中的`configLocation`指明了velocity的配置文件路径。也就是说一些个性化的配置都可以直接在velocity.properties进行操作了。比如下面的例子：
+
     resource.loader  =  file
-    
+
     file.resource.loader.description =  Velocity  File Resource Loader
     file.resource.loader.class = org.apache.velocity.runtime.resource.loader.FileResourceLoader
     file.resource.loader.cache =  true
     file.resource.loader.modificationCheckInterval =  100
-    
+
     input.encoding = utf-8
     output.encoding = utf-8
 
@@ -38,11 +38,11 @@ tags: [ velocity, spring ]
 - class加载存在弊端，在生产环境classpath里的内容一旦加载就被缓存起来了，这导致velocity模板加载的cache机制失效。
 
 
-###关于Velocity使用的坑
+### 关于Velocity使用的坑
 
 - 关于减号（-）的问题
->请注意下面的2中写法    
-`#set($maxIndex=$DOC_COUNT-1)`报错    
+>请注意下面的2中写法
+`#set($maxIndex=$DOC_COUNT-1)`报错
 `#set($maxIndex=$DOC_COUNT - 1)`正确，区别仅在于-两侧的空格
 
 - 关于Range类型的问题
