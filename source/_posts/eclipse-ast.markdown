@@ -17,7 +17,7 @@ Eclipse AST 采用工厂方法模式和访问者模式   (见 2.7节)来设计�
 AST 的访问者抽象类,类中声明了一组访问各类 AST 节点的 visit( )方法、endVisit( )方法和 preVisit( )方法。
 
 <!--more-->
-####AST 节点类
+#### AST 节点类
 在 Eclipse AST 中,Java 源程序中的每个语法结构对应为一个 AST 节点,所有的 AST节点按其在语法上的关系连接形成一棵 AST 树。类 ASTNode 是 AST 树中各类节点的抽象基类,其余的 AST 节点类都由它派生。在 ASTNode 类中声明有各个具体的 AST 节点类所对应的类型标识,如 ASTNode.COMPILATION_UNIT 代表 Compilation_Unit 节点类,这类节点用来表示一个 Java 源程序文件。
 为便于自顶向下(从父节点到子节点)或者自底向上(从子节点到父节点)访问 AST树,AST 节点含有指向其父节点的 parent 域以及若干关联的子节点域。在 AST 节点类中,以属性(property)来统一处理子节点以及用户自定义的节点属性,属性的访问方法有:
 
@@ -47,7 +47,7 @@ AST 的访问者抽象类,类中声明了一组访问各类 AST 节点的 visit(
 
     void accept(ASTVisitor visitor)
 用于统一表示对当前节点访问时所要执行的任务,这个任务由参数 visitor 来给定。你可以进一步了解 ASTVisitor 类以及访问者模式(见 2.7.2 节)来了解对 AST 树的访问。
-####AST 类
+#### AST 类
 org.eclipse.jdt.core.dom.AST 是 AST 节点的工厂类,即它提供一系列形如
 
     TYPE newTYPE( )
@@ -61,7 +61,7 @@ org.eclipse.jdt.core.dom.AST 是 AST 节点的工厂类,即它提供一系列形
 其中,参数 AST.JLS3 指示所生成的 ast 包含处理 JLS3(Java 语言规范第 3 版)的 AST API。
 JLS3 是 Java 语言所有早期版本的超集,JLS3 API 可以用来处理直到 Java SE 6(即 JDK1.6)
 的 Java 程序。
-####ASTVisitor 类
+#### ASTVisitor 类
 org.eclipse.jdt.core.dom.ASTVisitor 是 AST 树的访问者类,它提供一套方法来实现对给定节点的访问。
 这套方法中有两组是与具体的 AST 节点类 T 相关的,即 visit 方法和 endVisit方法,有两个是与具体的 AST 节点类无关的,即 preVisit 方法和 postVisit 方法。这些方法都通过参数接收一个 AST 节点 node,然后对这个节点进行访问以执行一些操作。
 
@@ -117,7 +117,7 @@ ASTNode 类中的 accept0 方法是一个抽象的方法:
 基于上述的实现机制,当你需要对 AST 树实现特定的访问功能时,你只需要结合实际需求设计和实现 ASTVisitor 类的子类就可以了。例如,在本章的课程设计中,你需要实现ASTVisitor 类的派生类 InterpVisitor,在其中重写(override)与需要解释执行的语法结构相对应的 visit( )方法。
 #### SimpleMiniJOOL 语言涉及的 AST 节点类
 虽然 Eclipse AST 有为数众多的 AST 节点类,但是为表示 SimpleMiniJOOL 语言只会用到其中的一小部分,下面简要描述 SimpleMiniJOOL 语言所涉及到的 AST 节点类,重点介绍在使用这些类时所关注的成员。
-#####整体结构
+##### 整体结构
 1、CompilationUnit 类(编译单元)
 它用来表示一个 Java 源程序文件,本书中用来表示一个 MiniJOOL 语言或其子语言程序的全部,是所对应的 AST 树的根节点。虽然这类节点有 package 声明、import 声明列表和类型声明列表等基本属性,但是在表示 SimpleMiniJOOL 程序时就只有一个类声明子节点。
 **主要成员**
@@ -310,7 +310,7 @@ Expression 类是所有 Eclipse AST 中表达式节点类的基类,由它派生�
     void setName(SimpleName name ) // 设置受限名中的名字部分
     Name getQualifier( ) // 返回受限名中的受限部分
     void setQualifier(Name qualifier) // 设置受限名中的受限部分
-####Eclipse AST 使用示例
+#### Eclipse AST 使用示例
 在这一节中,我们将演示如何利用 Eclipse AST 手工构建如下的 SimpleMiniJOOL 程序的 AST 中间表示。
     class Program {
     static void main() {

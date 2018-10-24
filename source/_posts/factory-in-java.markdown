@@ -204,7 +204,7 @@ tags: [ Java, Factory ]
 		product4.sayColor();
 
 这样两个工厂分别开工了，一个出的产品都是红色的，一个都是蓝色的。这就是**抽象工厂**了。
-##工厂模式 in JDK##
+## 工厂模式 in JDK
 
 
 	Class.forName(String className);

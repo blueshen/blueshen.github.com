@@ -53,7 +53,7 @@ tags: [ Java, proxy, JDK, cglib ]
 	IAdd add = new AddProxy(new Add());
 	int result = add.add(3, 14);
 此为**静态代理**也。
-##动态代理##
+## 动态代理
 动态代理，是指运行时动态的生成代理类，完成功能。静态代理中，显然AddProxy是编译期已知的了。实现方式，主要有两种：
 
 * JDK Proxy
@@ -95,7 +95,7 @@ Java自身提供了相关的类，来实现动态代理。
 				addHandler);
 	int jdkResult = addProxy.add(3, 14);
 从代码可见，主要是通过`Proxy.newProxyInstance`来在运行时生成代理类。需要注意的是，第二个参数必须使用具体实现类Add来获得interfaces，也就是说其代理的类必须实现了接口。`addHandler`负责绑定要代理的target类，并调用invoke来增强Add功能。
-###Cglib Proxy###
+### Cglib Proxy
 JDK的动态代理机制只能代理实现了接口的类，而不能实现接口的类就不能实现JDK的动态代理，cglib是针对类来实现代理的，他的原理是对指定的目标类生成一个子类，并覆盖其中方法实现增强，但因为采用的是继承，所以不能对final修饰的类进行代理。
 要使用CgLib，首先要实现一个CallBack接口的类，由于本例是为了实现method的拦截，因此直接实现MethodInterceptor即可：
 

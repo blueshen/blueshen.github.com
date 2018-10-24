@@ -20,7 +20,7 @@ tags: [ bridge, pattern ]
 
 ![方案2](/images/blog/bridge-pattern-2.png)
 
-###桥接模式的角色和职责
+### 桥接模式的角色和职责
 
 - Client
     Bridge模式的使用者

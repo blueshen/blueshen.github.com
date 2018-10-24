@@ -57,7 +57,7 @@ tomcat默认-client ，production环境加-server
 
 JVM参数文档：<http://kenwublog.com/docs/java6-jvm-options-chinese-edition.htm>
 
-#####Tomcat executor
+##### Tomcat executor
 据信使用executor后，能在实际中有更好的性能以及稳定性！更为重要的是能在多个connector之间共用。
 
     <Executor name="tomcatThreadPool" namePrefix="catalina-exec-" maxThreads="1000" minSpareThreads="25"/>
@@ -133,7 +133,7 @@ ab 命令进行测试，达到1000并发很easy
 	ab -k -c 1000  -n 1000000  http://hostname:port/path
 
 参考：<http://httpd.apache.org/docs/2.2/programs/ab.html>
-#####开启MPM支持大并发
+##### 开启MPM支持大并发
 <table border="1px">
 <thead>
 <th>Mpm模式</th><th>并发方式</th><th>内存占用</th><th>并发性能</th>

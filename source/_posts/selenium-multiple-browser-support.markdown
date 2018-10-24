@@ -6,7 +6,7 @@ comments: true
 categories: selenium
 tags: [ webdriver, selenium, Firefox, Chrome, Driver ]
 ---
-##Selenium WebDriver支持哪儿些浏览器？
+## Selenium WebDriver支持哪儿些浏览器？
 按照官方文档的说法，现阶段有以下的drivers:
 >* ChromeDriver
 >* InternetExplorerDriver

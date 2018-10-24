@@ -146,13 +146,13 @@ repositories:仓库托管地址数组,每个元素要包含 type(仓库的类型
 
 	npm install -g mocha
 那么，npm将会依据json提供的信息来进行管理。
-####4.npm的本地模式与全局模式
+#### 4.npm的本地模式与全局模式
 npm默认会从http://npmjs.org上搜索并下载包，并将包安装在当前目录的node_modules子目录下。这种就称为本地模式。也就意味着只能在当前目录使用。如果想在全部地方可用，那就用`-g`参数。这样包就会安装到NODE_PATH里了，在任何目录都可以使用了。g应该就是global的缩写，很容易记。
 
 ### 模块（modules）的加载机制
 前面，已经知道模块加载是通过require来进行的。NodeJS的模块可以分为2大类，一类是核心模块、一类是文件模块。核心模块有最高的优先级，如有模块命名冲突，NodeJS总是优先加载核心模块。
 那么，文件模块是如何加载的呢？
-####按路径加载模块####
+#### 按路径加载模块
 1.如果require按“/”开头，那就是绝对路径进行加载。如require('/home/shenyanchao/module'),将会按照以下优先级尝试加载 /home/shenyanchao/module.js、/home/shenyanchao/module.json、/home/shenyanchao/module.node。
 2.如果require按“./”或者“../”开头，则是依相对路径来查找模块，这种较为常见。
 3.对于核心模块,比如require('http')，nodeJS是怎么找到的呢，自然是通过NODE_PATH目录加载的。那么对于文件模块，如果不用绝对路径已经相对路径，那么该如何查找呢？
@@ -166,7 +166,7 @@ npm默认会从http://npmjs.org上搜索并下载包，并将包安装在当前�
 
 这个时候，明白了加载机制，就可以返回来，看一下模块的本地模式于全局模式来。当以本地模式`npm install mocha`的时候，会在当前目录建立一个node_modules目录，这就保证了系统内使用require('mocha')时，能够直接使用。而`npm install -g mocha`相当于把mocha安装到NODE_PATH，这样就使用类似于加载核心模块的形式进行加载了。
 
-### express: JS的MVC框架###
+### express: JS的MVC框架
 这里介绍来一个强大的Web application Framework for Node。用于进行WEB项目的开发。类似于Java的SpringFramework。很轻量级，简单易用。
 express将NodeJS的开发，推向了一个新的高度。很有兴趣，待研究！
 express主页：<http://expressjs.com/>

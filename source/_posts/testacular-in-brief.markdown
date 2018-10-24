@@ -28,7 +28,7 @@ youku[个人转录]:
 <iframe height=498 width=510 src="http://player.youku.com/embed/XNTI2NTg0Nzky" frameborder=0 allowfullscreen></iframe>
 
 <iframe height=498 width=510 src="http://player.youku.com/embed/XNTI2NTg0Mzc2" frameborder=0 allowfullscreen></iframe>
-##Karma/Testacular 安装##
+## Karma/Testacular 安装
 首先，保证已经有Node.js环境以及NPM。然后执行以下命令即可：
 
 	npm install -g karma/testacular

@@ -22,7 +22,7 @@ tags: [ checkstyle, antlr ]
 指定如何处理节点，并进行规则校验。
 
 <!--more-->
-####参数不可在方法内重新赋值
+#### 参数不可在方法内重新赋值
 
     import com.puppycrawl.tools.checkstyle.api.Check;
     import com.puppycrawl.tools.checkstyle.api.DetailAST;
@@ -114,7 +114,7 @@ tags: [ checkstyle, antlr ]
 
     }
 
-####控制使用String连+的数量
+#### 控制使用String连+的数量
 
 
     import com.puppycrawl.tools.checkstyle.api.Check;

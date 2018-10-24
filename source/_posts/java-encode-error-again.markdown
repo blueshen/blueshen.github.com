@@ -58,7 +58,7 @@ dom4j提供了一个`DocumentHelper`来解析xml内容，此处的内容是Strin
 
 从以上的代码中可以看出，解析过程中是使用XML的头`<?xml version="1.0" encoding="UTF-8"?>`来获取编码信息的。
 <!--more-->
-###如何读取文件到String
+### 如何读取文件到String
 
         public String loadXmlRule() {
             InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("file.xml");

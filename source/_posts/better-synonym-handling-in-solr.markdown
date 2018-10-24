@@ -46,7 +46,7 @@ Solr提供了一个听起来很酷的SynonymFilterFactory,它可以接收一个�
 这有点复杂，因此也值得我们一一解决这些问题。
 
 
-###多字同义词并不能识别为短语查询
+### 多字同义词并不能识别为短语查询
 
 在Health On the Net,我们的搜索引擎使用MeSH来做查询扩展，MeSH是一个为健康领域提供优质同义词的医疗本体。例如”breast cancer“的同义词：
 
@@ -91,12 +91,12 @@ Solr提供了一个听起来很酷的SynonymFilterFactory,它可以接收一个�
 
 索引时扩展通过给”dog","hound","pooch"赋予相同的IDF值，而不管原始文档是什么。
 
-###多字同义词不会匹配查询
+### 多字同义词不会匹配查询
 最后，也是最严重的是，如果你对用户查询做任意类型的分词，SynonymFilterFactory并不会匹配多字同义词。这是因为分词器会将用户输入分开，然后才交给SynonymFilterFactory来转换。
 
 比如，查询“cancer of the breast”会被StandardTokenizationFactory分词为["cancer","of","the","breast]，并且只有独立的词才会传给SynonymFilterFactory。因此，在这种情况下，如果分词后的单个词，比如‘cancer“和”breast“都没有同义词的情况下，同义词扩展就压根不会发生。
 
-###其他问题
+### 其他问题
 最初，我按照Solr的建议，使用索引时扩展，但是我发现索引时同义词扩展有它自己的问题。显然，除了有索引爆炸的问题，我还发现一个关于高亮的有趣的bug。
 
 当我搜索”breast cancer“的时候，我发现高亮器会很神奇的把”breast cancer X Y“给高亮了，其中”X“和”Y“是文档中任何跟在”breast cancer“后面的2个字符。例如，它可能会高亮”breast cancer frauds are“或者”breast cancer is to“。
@@ -115,7 +115,7 @@ Solr提供了一个听起来很酷的SynonymFilterFactory,它可以接收一个�
 
 查询时扩展不会引起这个问题，因为Solr只扩展了查询，而不是文档。因此Lucene仍然认为查询的”cancer of the breast“只会匹配文档里的”breast cancer“。
 
-###总结
+### 总结
 
 所有这些古怪的问题，让我得出这样的结论：Solr内建的同义词扩展机制是及其糟糕的。我必须找出一个更好的方法来让Solr按我想的来运行。
 
@@ -142,7 +142,7 @@ Solr提供了一个听起来很酷的SynonymFilterFactory,它可以接收一个�
 同样的，即使使用官方推荐的索引时扩展，IDF权重也被抛弃了。每个包含”dog“的文章现在也都包含”pooch“，这意味着我们将永久的丢失关于”pooch“的真实IDF值。
 
 在一个理想的系统里，搜索”dog“，返回的结果应该包含所有存在”hound“和”pooch“的文档，但是应该将所有包含真实查询的文档排的更靠前面，包含”dog“的应该得到更高的分。同样的，搜索“hound”应该把包含“hound”的排的更靠前面，搜索“pooch”就应该将包含“pooch”的更靠前。所有的3个搜索都返回相同的文档集，但是结果排序不一样。
-###Solution
+### Solution
 
 我的解决方法是，把同义词扩展从分析器的Tokenizer链移动到QueryParser。不是把查询变成如上面的纵横交错的图，而是把它分为2个部分：主查询和同义词查询。然后我为每个部分独立配置权重，指定每个部分内部为“should occur”。最后将二者使用“must occur”的布尔查询包装起来。
 
@@ -177,40 +177,3 @@ Solr提供了一个听起来很酷的SynonymFilterFactory,它可以接收一个�
     hound nibble
     pooch nibble
 
-
-<!--
-
-###尝试一下
-
-使用步骤见<https://github.com/blueshen/hon-lucene-synonyms>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
----
-原文：[Better synonym handling in Solr](http://nolanlawson.com/2012/10/31/better-synonym-handling-in-solr/)
-
--->
