@@ -86,6 +86,3 @@ sitemap:
 baidusitemap:
   path: baidusitemap.xml
 
-douban:
-  user: shenyanchao
-
