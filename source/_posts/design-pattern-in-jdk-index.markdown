@@ -9,7 +9,7 @@ tags: [ JDK, design pattern ]
 
 下面是JDK中有关23个经典设计模式的示例：
 
-<!--more-->
+
 
 ## Structural（结构模式）
 
@@ -30,6 +30,8 @@ tags: [ JDK, design pattern ]
 
 ● AWT (提供了抽象层映射于实际的操作系统)
 ● JDBC
+
+<!--more-->
 
 **Composite:**
 

@@ -9,7 +9,7 @@ tags: [ sonar, pmd, checkstyle, findbugs, maven ]
 ### 什么是Sonar？
 [Sonar](http://www.sonarqube.org/)是一个开源的代码质量管理平台。它能对代码进行如下7个维度的管理。
 
-![](http://www.sonarqube.org/wp-content/themes/sonar/images/7axes.png)
+![sonar](http://www.sonarqube.org/wp-content/themes/sonar/images/7axes.png)
 使用插件，它可以对20多种语言进行代码质量管理，这其中包括Java，C#，C/C++,PL/SQL等等。
 
 ### 安装Sonar
@@ -20,31 +20,35 @@ tags: [ sonar, pmd, checkstyle, findbugs, maven ]
 
 这个时候，Sonar已经运行啦。但是在生产环境是不行的。上面跑起来的只是一个样例，使用的是h2内存数据库。我们可不想重启服务后，生产环境的数据都没了。
 <!--more-->
+
 ### 配置Sonar数据库
 1.首先新建一个数据库。
 
-    CREATE DATABASE sonar CHARACTER SET utf8 COLLATE utf8_general_ci;
-    grant all privileges on sonar.* to 'sonar'@'%' identified by '你的密码';
-    flush privileges;
+```mysql
+CREATE DATABASE sonar CHARACTER SET utf8 COLLATE utf8_general_ci;
+grant all privileges on sonar.* to 'sonar'@'%' identified by '你的密码';
+flush privileges;
+```
 这样就准备好了数据库sonar,并授权给sonar这个用户。
 
 2.找到$SONAR_HOME/conf/sonar.properties。
 注释掉默认的数据库配置，然后配上自己的数据库信息即可。这里以mysql为例。
 
-    # Comment the following line to deactivate the default embedded database.
-    #sonar.jdbc.url:                            jdbc:h2:tcp://localhost:9092/sonar
-    #sonar.jdbc.driverClassName:                org.h2.Driver
-
-    -------------------
-    # The schema must be created first.
+```shell
+# Comment the following line to deactivate the default embedded database.
+#sonar.jdbc.url:                            jdbc:h2:tcp://localhost:9092/sonar
+#sonar.jdbc.driverClassName:                org.h2.Driver
+-------------------
+# The schema must be created first.
 sonar.jdbc.username:                       sonar
 sonar.jdbc.password:                       sonar
-    #----- MySQL 5.x
-    # Comment the embedded database and uncomment the following line to use MySQL
-    sonar.jdbc.url:                            jdbc:mysql://localhost:3306/sonar?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true
+#----- MySQL 5.x
+# Comment the embedded database and uncomment the following line to use MySQL
+sonar.jdbc.url: jdbc:mysql://localhost:3306/sonar?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true
 
-    # Optional properties
-    sonar.jdbc.driverClassName:                com.mysql.jdbc.Driver
+# Optional properties
+sonar.jdbc.driverClassName: com.mysql.jdbc.Driver
+```
 配置好之后，这样所有的数据都会存放到mysql内啦。不用再担心数据问题啦。要添加其他数据库，同理。
 
 ### 把Sonar变为中文
@@ -60,26 +64,30 @@ Sonar在经过上面几步的配置后，已经满足了基本的需求。接下
 ### 如何对源码进行检测
 1.配置maven的settings.xml,添加一下内容：
 
-        <profile>
-             <id>sonar</id>
-             <activation>
-                 <activeByDefault>true</activeByDefault>
-             </activation>
-             <properties>
-                  <sonar.jdbc.url>
-                  jdbc:mysql://localhost:3306/sonar?useUnicode=true&amp;characterEncoding=utf8
-                  </sonar.jdbc.url>
-                  <sonar.jdbc.driver>com.mysql.jdbc.Driver</sonar.jdbc.driver>
-                  <sonar.jdbc.username>sonar</sonar.jdbc.username>
-                  <sonar.jdbc.password>sonar</sonar.jdbc.password>
-                 <sonar.host.url>http://localhost:9000/sonar</sonar.host.url>
-             </properties>
-          </profile>
+```xml
+    <profile>
+         <id>sonar</id>
+         <activation>
+             <activeByDefault>true</activeByDefault>
+         </activation>
+         <properties>
+              <sonar.jdbc.url>
+              jdbc:mysql://localhost:3306/sonar?useUnicode=true&amp;characterEncoding=utf8
+              </sonar.jdbc.url>
+              <sonar.jdbc.driver>com.mysql.jdbc.Driver</sonar.jdbc.driver>
+              <sonar.jdbc.username>sonar</sonar.jdbc.username>
+              <sonar.jdbc.password>sonar</sonar.jdbc.password>
+             <sonar.host.url>http://localhost:9000/sonar</sonar.host.url>
+         </properties>
+      </profile>
+```
 其中的数据库配置以及sonar主机地址都依据实际进行修改即可。
 2.在maven项目种执行
 
-    mvn clean install
-    mvn sonar:sonar
+```shell
+mvn clean install
+mvn sonar:sonar
+```
 3.打开sonar主页，就可以看到结果了。
 
 ### Sonar与Jenkins的集成。

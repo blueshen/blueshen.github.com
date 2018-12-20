@@ -146,8 +146,10 @@ Linux代码
 ```
 硬性公式：
 
-         ThreadLimit >= ThreadsPerChild
-         MaxClients <= ServerLimit * ThreadsPerChild 必须是ThreadsPerChild的倍数
-         MaxSpareThreads >= MinSpareThreads+ThreadsPerChild
+```shell
+     ThreadLimit >= ThreadsPerChild
+     MaxClients <= ServerLimit * ThreadsPerChild 必须是ThreadsPerChild的倍数
+     MaxSpareThreads >= MinSpareThreads+ThreadsPerChild
+```
 ServerLimit默认是16,最大20000;ThreadLimit默认是64,最大20000。
 通过上面的叙述，可以了解到Apache 2.0中prefork和worker这两个重要MPM的工作原理，并可根据实际情况来配置Apache相关的核心参数，以获得最大的性能和稳定性。

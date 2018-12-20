@@ -11,26 +11,30 @@ tags: [ velocity, spring ]
 本文，不是讲velocityResolver来渲染页面的只从最原始的使用方式如何使用。
 首先，可以交给Spring来初始化velocityEngine:
 
-    <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
-        <property name="configLocation">
-            <value>classpath:velocity.properties</value>
-        </property>
-        <property name="resourceLoaderPath">
-            <value>/WEB-INF/velocity/</value>
-        </property>
-    </bean>
+```xml
+<bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+    <property name="configLocation">
+        <value>classpath:velocity.properties</value>
+    </property>
+    <property name="resourceLoaderPath">
+        <value>/WEB-INF/velocity/</value>
+    </property>
+</bean>
+```
 
 其中的`configLocation`指明了velocity的配置文件路径。也就是说一些个性化的配置都可以直接在velocity.properties进行操作了。比如下面的例子：
 
-    resource.loader  =  file
+```properties
+resource.loader  =  file
 
-    file.resource.loader.description =  Velocity  File Resource Loader
-    file.resource.loader.class = org.apache.velocity.runtime.resource.loader.FileResourceLoader
-    file.resource.loader.cache =  true
-    file.resource.loader.modificationCheckInterval =  100
+file.resource.loader.description =  Velocity  File Resource Loader
+file.resource.loader.class = org.apache.velocity.runtime.resource.loader.FileResourceLoader
+file.resource.loader.cache =  true
+file.resource.loader.modificationCheckInterval =  100
 
-    input.encoding = utf-8
-    output.encoding = utf-8
+input.encoding = utf-8
+output.encoding = utf-8
+```
 
 需要注意的是，resource.loader可能有多种选择，最常用的是file，class.当然也有webapp,jar等类型。file要求指明具体的路径，而在WEB应用里这块常常就会出现问题。因此，我们倾向于认为从classpath来加载模板。但是，为什么此处仍然推荐使用file而不是class呢。那是因为：
 
@@ -47,6 +51,3 @@ tags: [ velocity, spring ]
 
 - 关于Range类型的问题
 >`#set($array = [0..$maxIndex])` 这个里面$maxIndex应该只是一个变量，不能是一个表达式。比如这样`#set($array = [0..$maxIndex+1])`也是错误的。
-
-
-

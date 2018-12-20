@@ -33,14 +33,14 @@ WebDriver 的 JavaScript 绑定（WebDriverJS），可以使 JavaScript 开发�
 虽然 WebDriverJS 可以在 Node 中运行，但它至今还没有实现本地驱动的支持（也就是说，你的测试必须使用一个远程的 WebDriver 服务）。并且，你必须编译 Selenium 服务端，将其添加到 WebDriverJS 模块。进入 Selenium 客户端的根目录，执行：
 
     $ ./go selenium-server-standalone //javascript/node:webdriver
-    
+
 当两个目标都被编译好以后，启动服务和 Node，开始编写测试代码：
 
     $ java -jar build/java/server/src/org/openqa/grid/selenium/selenium-standalone.jar &
     $ node
-    
+
     var webdriver = require('./build/javascript/node/webdriver');
-    
+
     var driver = new webdriver.Builder().
         usingServer('http://localhost:4444/wd/hub').
         withCapabilities({
@@ -50,15 +50,15 @@ WebDriver 的 JavaScript 绑定（WebDriverJS），可以使 JavaScript 开发�
           'javascriptEnabled': true
         }).
         build();
-    
+
     driver.get('http://www.google.com');
     driver.findElement(webdriver.By.name('q')).sendKeys('webdriver');
     driver.findElement(webdriver.By.name('btnG')).click();
     driver.getTitle().then(function(title) {
       require('assert').equal('webdriver - Google Search', title);
-    
+
     });
-    
+
     driver.quit();
 
 ### 在浏览器中运行
@@ -74,7 +74,7 @@ WebDriver 的 JavaScript 绑定（WebDriverJS），可以使 JavaScript 开发�
     <script>
       var client = new webdriver.http.CorsClient('http://localhost:4444/wd/hub');
       var executor = new webdriver.http.Executor(client);
-    
+
       // 启动一个新浏览器，这个浏览器可以被这段脚本控制
       var driver = webdriver.WebDriver.createSession(executor, {
         'browserName': 'chrome',
@@ -82,7 +82,7 @@ WebDriver 的 JavaScript 绑定（WebDriverJS），可以使 JavaScript 开发�
         'platform': 'ANY',
         'javascriptEnabled': true
       });
-    
+
       driver.get('http://www.google.com');
       driver.findElement(webdriver.By.name('q')).sendKeys('webdriver');
       driver.findElement(webdriver.By.name('btnG')).click();
@@ -92,7 +92,7 @@ WebDriver 的 JavaScript 绑定（WebDriverJS），可以使 JavaScript 开发�
               'Expected "webdriver - Google Search", but was "' + title + '"');
         }
       });
-    
+
       driver.quit();
     </script>
 
@@ -107,7 +107,7 @@ WebDriver 的 JavaScript 绑定（WebDriverJS），可以使 JavaScript 开发�
     <script>
       // Attaches to the server and session controlling this browser.
       var driver = new webdriver.Builder().build();
-    
+
       var input = driver.findElement(webdriver.By.tagName('input'));
       input.sendKeys('foo bar baz').then(function() {
         assertEquals('foo bar baz',
@@ -127,12 +127,12 @@ WebDriver 的 JavaScript 绑定（WebDriverJS），可以使 JavaScript 开发�
     <script src="webdriver.js"></script>
     <script>
       var testWindow = window.open('', 'slave');
-    
+
       var driver = new webdriver.Builder().build();
       driver.switchTo().window('slave');
       driver.get('http://www.google.com');
       driver.findElement(webdriver.By.name('q')).sendKeys('webdriver');
-      driver.findElement(webdriver.By.name('btnG')).click(); 
+      driver.findElement(webdriver.By.name('btnG')).click();
     </script>
 
 #### 调试 Tests
@@ -158,7 +158,7 @@ WebDriver 的 JavaScript 绑定（WebDriverJS），可以使 JavaScript 开发�
 
 ### 管理异步 API
 
-不同于其他那些提供了阻塞式 API 的语言绑定，WebDriverJS 完全是异步的。为了追踪每个命令的执行状态， WebDriverJS 对 “promise” 进行了扩展。promise 是一个这样的对象，它包含了在未来某一点可用的一个值。JavaScript 有几个 promise 的实现，WebDriverJS 的 promise 是基于 CommonJS 的 [Promise/A](http://www.google.com/url?q=http%3A%2F%2Fwiki.commonjs.org%2Fwiki%2FPromises%2FA&sa=D&sntz=1&usg=AFQjCNGC0NMXO-81exam-S5HjTuOxaV_mw) 提议，它定义了 promise 是任意对象上的 then 函数属性。 
+不同于其他那些提供了阻塞式 API 的语言绑定，WebDriverJS 完全是异步的。为了追踪每个命令的执行状态， WebDriverJS 对 “promise” 进行了扩展。promise 是一个这样的对象，它包含了在未来某一点可用的一个值。JavaScript 有几个 promise 的实现，WebDriverJS 的 promise 是基于 CommonJS 的 [Promise/A](http://www.google.com/url?q=http%3A%2F%2Fwiki.commonjs.org%2Fwiki%2FPromises%2FA&sa=D&sntz=1&usg=AFQjCNGC0NMXO-81exam-S5HjTuOxaV_mw) 提议，它定义了 promise 是任意对象上的 then 函数属性。
 
     /**
      * Registers listeners for when this instance is resolved.
@@ -199,13 +199,13 @@ WebDriver 的 JavaScript 绑定（WebDriverJS），可以使 JavaScript 开发�
 
     var driver = new webdriver.Builder().build();
     driver.get('http://www.google.com');
-    
+
     var searchBox = driver.findElement(webdriver.By.name('q'));
     searchBox.sendKeys('webdriver');
-    
+
     var submitButton = driver.findElement(webdriver.By.name('btnG'));
     submitButton.click();
-    
+
     driver.getTitle().then(function(title) {
       assertEquals('webdriver - Google Search', title);
     });
@@ -246,7 +246,7 @@ WebDriver 的 JavaScript 绑定（WebDriverJS），可以使 JavaScript 开发�
         on('uncaughtException', function(e) {
           console.error('There was an uncaught exception: ' + e.message);
         });
-    
+
     driver.switchTo().window('foo').then(null, function(e) {
       // 忽略 NoSuchWindow 错误，让其他类型的错误继续向上冒泡
       if (e.code !== bot.ErrorCode.NO_SUCH_WINDOW) {
@@ -298,24 +298,24 @@ WebDriver 的 JavaScript 绑定（WebDriverJS），可以使 JavaScript 开发�
     Accept: application/json
     Content-Type: application/json
     Content-Length: 94
-    
+
     {"method":"POST","path":"/session/123/element/0a/element","data":{"using":"id","value":"foo"}}
-    
+
 服务端将编码这个命令并重新分发：
 
     POST /session/123/element/0a/element HTTP/1.1
     Accept: application/json
     Content-Type: application/json
     Content-Length: 28
-    
+
     {"using":"id","value":"foo"}
-    
+
 不管是否成功，命令的执行结果都将作为一个标准的 JSON 返回：
 
     HTTP/1.1 200 OK
     Content-Type: application/json
     Content-Length: 60
-    
+
     {"status":7,"value":{"message":"Unable to locate element."}}
 
 ## 未来计划

@@ -20,9 +20,11 @@ Java是跨平台的一种语言，这一概念想必已经深入人心。Java是
 ## Java中如何实现字符编码转换？
 String类提供了三个重要的函数：
 
-	getBytes(String charsetName)
-	getBytes()
-	new String(byte[],String charsetName)
+```java
+getBytes(String charsetName)
+getBytes()
+new String(byte[],String charsetName)
+```
 `getBytes(String charset)`的作用是将字符串按照指定的charset编码，返回其字节方式的表示。具体来说，实现的是从unicode-->charset的转变。比如“中文”，在JVM内存储为“4e2d 6587”,如果设置charset为GBK,则被编码为“d6d0 cec4”。如果charset=UTF-8,那么结果是“e4 b8 ad e6 96 87”。如果charset=ISO-8859-1,由于无法编码，将返回“3f 3f”,这是两个问号。这是因为Unicode->ISO-8859-1不能完成这两个字符集之间的映射，因此使用时需要注意，这也为乱码提供了存在的可能性。
 
 `getBytes()`与上面这个功能一致，只不过charset是采用的系统默认的。系统默认的charset是什么呢？恐怕在不同的机器上有不同的charset。当前环境的默认charset可以通过`Charset.defaultCharset()`来查看，据个人测试，eclipse内是“UTF-8”,windows中文环境默认是“GBK”。因此当你写下getBytes()的时候，乱码的祸根已经种下，当程序在不同的环境运行时，结果可能就不一样，乱码就这样铺天盖地扑面而来了。哭吧！
@@ -37,27 +39,35 @@ String类提供了三个重要的函数：
 也就是在InputStream时，指定源字符编码格式，这样Java会自动转换为JVM内部的Unicode格式。而在OutputStream时，指定目标编码格式，Java会自动从Unicode转化为目标编码。Unicode是一个桥梁，而这种转换是不需认为控制的。
 以OutputStream为例：
 
-	String str = "123中文";
-	System.out.println(str);
-	System.out.println("默认字符:" +Charset.defaultCharset());
-	BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("e://encode.txt")),"GBK"));
-	writer.write(str);
-	writer.close();
+```java
+String str = "123中文";
+System.out.println(str);
+System.out.println("默认字符:" +Charset.defaultCharset());
+BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("e://encode.txt")),"GBK"));
+writer.write(str);
+writer.close();
+```
 在eclipse内，源文件是以UTF-8进行编码的，默认字符也为UTF-8,运行后encode.txt,内容正确显示，编码格式正确。
 
 在windows cmd下进行javac,java进行执行。控制台输出“123 涓  .. ”等乱码。总之中文字符不能显示啊。查看encode.txt，内容倒是无乱码，编码格式怎么是UTF-8呢。我又一次纠结了？`System.out.println()`是不受环境影响的啊，它总能够以Unicode方式进行显示的啊。Java不至于这么弱吧。
 好吧，继续GOOGLE.BAIDU,找到了原因所在。javac 有这样一个参数`-encoding`来指定.java的编码格式。如果没有指定，那么编译时，认为编码格式为`Charset.defaultCharset()`,显然本例源码是以UTF-8进行编码的，直接javac是以GBK来读取的，那么在读到JVM成为UNICODE编码时，已经是乱码状态，不再是“123中文”了。`System.out.println()`只是按照实际情况进行了输出，因此在编译时，必须指定源文件的编码格式，保证了在Java文件内的常量字符的正常显示。
 
-	javac -encoding utf-8 *.java
+```shell
+javac -encoding utf-8 *.java
+```
 这也就可以理解，maven中pom.xml定义编码的原因了：
 
-	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+```xml
+<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+```
 同样Ant的build.xml中，也有相应的编码配置选项：
 
-	<javac destdir="${build.dir}" encoding="UTF-8">
-		<src path="${src.dir}" />
-		<classpath refid="project.classpath" />
-	</javac>
+```xml
+<javac destdir="${build.dir}" encoding="UTF-8">
+	<src path="${src.dir}" />
+	<classpath refid="project.classpath" />
+</javac>
+```
 ## HTTP的request与response乱码问题
 1.HTTP请求主要分为POST,GET两种情况。
 > POST的情况下，如何设置数据的编码格式呢。首先可以通过`<form accept-charset= "UTF-8">`来设置表单的编码格式。如果不设置，浏览器会直接使用网页的编码。JSP的网页编码一般通过`<%@page pageEncoding="UTF-8"%>`来指定JSP文件的**存储编码**。而通过`<%@ page contentType="text/html; charset=UTF-8" %>`来指定**输出内容编码**。`<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">`这一meta设置，用来指定**网页编码**，这一设置同样使用于静态页面。
@@ -68,32 +78,36 @@ String类提供了三个重要的函数：
 这一函数用来设置HTTP请求与相应的编码。前面提到过，通过`getParameter()`获得的字符串默认是以ISO-8859-1编码的。然而，如果使用了`request.setCharacterEncoding()`,则改变了其默认编码。同理，使用了`response.setCharacterEncoding`则保证了页面输出内容的编码，告诉浏览器输出内容采用什么编码。
 在spring的WEB项目中，有这样一个常用的filter：
 
-	<filter>
-		<filter-name>encodingFilter</filter-name>
-		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-		<init-param>
-			<param-name>encoding</param-name>
-			<param-value>UTF-8</param-value>
-		</init-param>
-		<init-param>
-			<param-name>forceEncoding</param-name>
-			<param-value>true</param-value>
-		</init-param>
-	</filter>
+```xml
+<filter>
+	<filter-name>encodingFilter</filter-name>
+	<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+	<init-param>
+		<param-name>encoding</param-name>
+		<param-value>UTF-8</param-value>
+	</init-param>
+	<init-param>
+		<param-name>forceEncoding</param-name>
+		<param-value>true</param-value>
+	</init-param>
+</filter>
+```
 这个filter，一看就知道是给编码有关，但是它具体做了哪些操作呢？源码来了：
 
-	protected void doFilterInternal(
-			HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-			throws ServletException, IOException {
+```java
+protected void doFilterInternal(
+		HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+		throws ServletException, IOException {
 
-		if (this.encoding != null && (this.forceEncoding || request.getCharacterEncoding() == null)) {
-			request.setCharacterEncoding(this.encoding);**
-			if (this.forceEncoding) {
-				response.setCharacterEncoding(this.encoding);
-			}
+	if (this.encoding != null && (this.forceEncoding || request.getCharacterEncoding() == null)) {
+		request.setCharacterEncoding(this.encoding);
+		if (this.forceEncoding) {
+			response.setCharacterEncoding(this.encoding);
 		}
-		filterChain.doFilter(request, response);
 	}
+	filterChain.doFilter(request, response);
+}
+```
 可以看出，就是做了request、response的setCharacterEncoding()操作，防止乱码的问题出现。
 ## 数据库乱码
 前面讲到过，乱码的原因是JVM内可能会读到外界的未知编码字符，导致在内存中的Unicode编码为乱码。显然数据库就是其中之一，并且是经常遇到的问题。

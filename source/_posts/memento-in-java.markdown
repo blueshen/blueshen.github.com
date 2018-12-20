@@ -20,66 +20,74 @@ tags: [ memento, pattern, 备忘录 ]
 <!--more-->
 发起人角色：    
 
-    public class Originator{
-        //内部状态
-        private String state = "";
-        
-        public String getState(){
-            return state;
-        }
-        
-        public void setState(String state){
-            this.state = state;
-        }
-        
-        //创建一个备忘录
-        public Memento createMemento(){
-            return new Memento(this.state);
-        }
-        //恢复一个备忘录
-        public void restoreMemento(Memento _memento){
-            this.setState(_memento.getState());
-        }
+```java
+public class Originator{
+    //内部状态
+    private String state = "";
+    
+    public String getState(){
+        return state;
     }
     
+    public void setState(String state){
+        this.state = state;
+    }
+    
+    //创建一个备忘录
+    public Memento createMemento(){
+        return new Memento(this.state);
+    }
+    //恢复一个备忘录
+    public void restoreMemento(Memento _memento){
+        this.setState(_memento.getState());
+    }
+}
+```
+
 备忘录角色：    
 
-    public class Memento{
-        //发起人的内部状态
-        private String state = "";
-        //构造函数传递参数
-        public Memento(String _state){
-            this.state = _state;
-        }  
-        public String getState(){
-            return state;
-        }
-        
-        public void setState(String state){
-            this.state = state;
-        }
+```java
+public class Memento{
+    //发起人的内部状态
+    private String state = "";
+    //构造函数传递参数
+    public Memento(String _state){
+        this.state = _state;
+    }  
+    public String getState(){
+        return state;
     }
     
+    public void setState(String state){
+        this.state = state;
+    }
+}
+```
+
 备忘录管理员角色：   
 
-    public class Caretaker{
-        //备忘录对象
-        private Memento memento;
-        public Memento getMemento(){
-            return memento;
-        }
-        public void setMemento(Memento memento){
-            this.memento = memento;
-        }
+```java
+public class Caretaker{
+    //备忘录对象
+    private Memento memento;
+    public Memento getMemento(){
+        return memento;
     }
-    
+    public void setMemento(Memento memento){
+        this.memento = memento;
+    }
+}
+```
+
 现在看看是如何使用的：     
 
-    public class Client{
-        public static void main(String[] args){
-            Originator originator = new Originator();
-            Caretaker caretaker = new Caretaker();
-            caretaker.setMemento(originator.createMemento()); 
-            originator.restoreMemento(caretaker.getMemento);
-        }
+```java
+public class Client{
+    public static void main(String[] args){
+        Originator originator = new Originator();
+        Caretaker caretaker = new Caretaker();
+        caretaker.setMemento(originator.createMemento()); 
+        originator.restoreMemento(caretaker.getMemento);
     }
+}
+```

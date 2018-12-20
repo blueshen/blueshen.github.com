@@ -55,7 +55,7 @@ Mock 对象一旦建立便会自动记录自己的交互行为，所以我们可
 ## Mock 对象的创建
 	mock(Class<T> classToMock);
 	mock(Class<T> classToMock, String name)
-    mock(Class<T> classToMock, Answer defaultAnswer)
+	mock(Class<T> classToMock, Answer defaultAnswer)
 	mock(Class<T> classToMock, MockSettings mockSettings)
 	mock(Class<T> classToMock, ReturnValues returnValues)
 
@@ -99,10 +99,10 @@ Stubbing的另一种风格
 
 	//stubbing using anyInt() argument matcher
 	when(mockedList.get(anyInt())).thenReturn("element");
-
+	
 	//following prints "element"
 	System.out.println(mockedList.get(999));
-
+	
 	//you can also verify using argument matcher
 	verify(mockedList).get(anyInt());
 
@@ -116,7 +116,7 @@ Mock 对象行为的验证，关注其交互行为，如mock对象调用的参�
 ### 调用次数验证
 	public static <T> T verify(T mock).someMethod()
 	public static <T> T verify(T mock, VerificationMode mode).someMethod()
-
+	
 	Parameters:
 		mock - to be verified
 		mode - times(M), atLeastOnce() , atLeast(N) , atMost(X) , never()
@@ -159,32 +159,33 @@ Mockito支持对变量进行注解，如将mock对象设为测试类的属性，
 
 ### Annotation 的初始化
 初始化方法为调用MockitoAnnotations.initMocks(testClass)，可以放到@Before中。
-
+```java
 	public class ArticleManagerTest {
-
+	
 	    @Mock private ArticleCalculator calculator;
 	    @Mock private ArticleDatabase database;
 	    @Mock private UserProvider userProvider;
-
+	
 	 	@Before public void setup() {
 			MockitoAnnotations.initMocks(testClass);
 	    }
 	}
-
+```
 使用Mockito提供的Junit Runner可以省略上述步骤。
-
+```java
 	@RunWith(MockitoJUnitRunner.class)
 	public class ExampleTest {
 	    @Mock private List list;
-
+	
 	    @Test public void shouldDoSomething() {
 	        list.add(100);
 	    }
 	}
-
+```
 ## powermock 的使用
 ### Maven配置
-	<dependency>
+```xml
+<dependency>
 		<groupId>org.powermock</groupId>
 		<artifactId>powermock-module-junit4</artifactId>
 		<version>1.4.10</version>
@@ -196,19 +197,25 @@ Mockito支持对变量进行注解，如将mock对象设为测试类的属性，
 		<version>1.4.10</version>
 		<scope>test</scope>
 	</dependency>
+```
 ## PowerMock 在单元测试中的应用
 ### 模拟 Static 方法
 在任何需要用到 PowerMock 的类开始之前，首先我们要做如下声明：
 
-	@RunWith(PowerMockRunner.class)
+```java
+@RunWith(PowerMockRunner.class)
+```
 
 然后，还需要用注释的形式将需要测试的静态方法提供给 PowerMock：
 
-	@PrepareForTest( { YourClassWithEgStaticMethod.class })
+```java
+@PrepareForTest( { YourClassWithEgStaticMethod.class })
+```
 
 然后就可以开始写测试代码：
 
-	1，首先，需要有一个含有 static 方法的代码 , 如
+1，首先，需要有一个含有 static 方法的代码 , 如
+```java
 	public class IdGenerator {
 	    ...
 	    public static long generateNewId() {
@@ -216,20 +223,22 @@ Mockito支持对变量进行注解，如将mock对象设为测试类的属性，
 	    }
 	    ...
 	 }
-	2，然后，在被测代码中，引用了以上方法
-    public class ClassUnderTest {
-    	...
-    	public void methodToTest() {
-        ..
-        final long id = IdGenerator.generateNewId();
-        ..
-     	}
-    	...
+```
+2，然后，在被测代码中，引用了以上方法
+```	java
+	public class ClassUnderTest {
+		...
+		public void methodToTest() {
+	    ..
+	    final long id = IdGenerator.generateNewId();
+	    ..
+	 	}
+		...
  	}
-
-	3，为了达到单元测试的目的，需要让静态方法 generateNewId()返回各种值
-	来达到对被测试方法 methodToTest()的覆盖测试，实现方式如下：
-
+```
+3，为了达到单元测试的目的，需要让静态方法 generateNewId()返回各种值
+​	来达到对被测试方法 methodToTest()的覆盖测试，实现方式如下：
+```	
 	 @RunWith(PowerMockRunner.class)
 	 @PrepareForTest(IdGenerator.class)
 	 public class MyTestClass {
@@ -237,57 +246,59 @@ Mockito支持对变量进行注解，如将mock对象设为测试类的属性，
 	    public void demoStaticMethodMocking() throws Exception {
 	        PowerMockito.mockStatic(IdGenerator.class);
 	        when(IdGenerator.generateNewId()).thenReturn(2L);
-
+	
 	        new ClassUnderTest().methodToTest();
-
+	
 	        verifyStatic();
 	        IdGenerator.generateNewId();
 	    }
 	 }
-
+```
 ### 模拟构造函数
 有时候，能模拟构造函数，从而使被测代码中 new 操作返回的对象可以被随意定制，会很大程度的提高单元测试的效率，考虑如下：
-
+```
 	public class DirectoryStructure {
 	    public boolean create(String directoryPath) {
 	        File directory = new File(directoryPath);
-
+	
 	        if (directory.exists()) {
 	            throw new IllegalArgumentException(
 	            "\"" + directoryPath + "\" already exists.");
 	        }
-
+	
 	        return directory.mkdirs();
 	    }
 	 }
-
+```
 为了充分测试 create()函数，我们需要被 new 出来的 File 对象返回文件存在和不存在两种结果。在 PowerMock 出现之前，实现这个单元测试的方式通常都会需要在实际的文件系统中去创建对应的路径以及文件。然而，在 PowerMock 的帮助下，本函数的测试可以和实际的文件系统彻底独立开来：使用 PowerMock 来模拟 File 类的构造函数，使其返回指定的模拟 File 对象而不是实际的 File 对象，然后只需要通过修改指定的模拟 File 对象的实现，即可实现对被测试代码的覆盖测试，参考如下：
 
-	 @RunWith(PowerMockRunner.class)
-	 @PrepareForTest(DirectoryStructure.class)
-	 public class DirectoryStructureTest {
-	    @Test
-	    public void createDirectoryStructureWhenPathDoesntExist()
-		throws Exception {
-	        final String directoryPath = "mocked path";
+```java
+ @RunWith(PowerMockRunner.class)
+ @PrepareForTest(DirectoryStructure.class)
+ public class DirectoryStructureTest {
+    @Test
+    public void createDirectoryStructureWhenPathDoesntExist()
+	throws Exception {
+        final String directoryPath = "mocked path";
 
-	        File directoryMock = mock(File.class);
+        File directoryMock = mock(File.class);
 
-	        //File的初始化函数的mock
-	        whenNew(File.class).withArguments(directoryPath)
-				.thenReturn(directoryMock);
+        //File的初始化函数的mock
+        whenNew(File.class).withArguments(directoryPath)
+			.thenReturn(directoryMock);
 
-	        // Standard expectations
-	        when(directoryMock.exists()).thenReturn(false);
-	        when(directoryMock.mkdirs()).thenReturn(true);
+        // Standard expectations
+        when(directoryMock.exists()).thenReturn(false);
+        when(directoryMock.mkdirs()).thenReturn(true);
 
-	        assertTrue(new NewFileExample()
-				.createDirectoryStructure(directoryPath));
+        assertTrue(new NewFileExample()
+			.createDirectoryStructure(directoryPath));
 
-	        // Optionally verify that a new File was "created".
-	        verifyNew(File.class).withArguments(directoryPath);
-	    }
-	 }
+        // Optionally verify that a new File was "created".
+        verifyNew(File.class).withArguments(directoryPath);
+    }
+ }
+```
 使用 whenNew().withArguments().thenReturn() 语句即可实现对具体类的构造函数的模拟操作。然后对于之前创建的模拟对象 directoryMock使用 When().thenReturn() 语句，即可实现需要的所有功能，从而实现对被测对象的覆盖测试。在本测试中，因为实际的模拟操作是在类 DirectoryStructureTest 中实现，所以需要指定的 @PrepareForTest 对象是 DirectoryStructureTest.class。
 
 ### 模拟私有以及 Final 方法
@@ -300,39 +311,43 @@ Mockito支持对变量进行注解，如将mock对象设为测试类的属性，
 这种局部模拟的方式的强大之处在于，除开一般方法可以使用之外，Final 方法和私有方法一样可以使用。
 参考如下所示的被测代码：
 
-	 public final class PrivatePartialMockingExample {
-	    public String methodToTest() {
-	        return methodToMock("input");
-	    }
+```java
+ public final class PrivatePartialMockingExample {
+    public String methodToTest() {
+        return methodToMock("input");
+    }
 
-	    private String methodToMock(String input) {
-	        return "REAL VALUE = " + input;
-	    }
-	 }
+    private String methodToMock(String input) {
+        return "REAL VALUE = " + input;
+    }
+ }
+```
 为了保持单元测试的纯洁性，在测试方法 methodToTest()时，我们不希望受到私有函数 methodToMock()实现的干扰，为了达到这个目的，我们使用刚提到的局部模拟方法来实现 , 实现方式如下：
 
-	 @RunWith(PowerMockRunner.class)
-	 @PrepareForTest(PrivatePartialMockingExample.class)
-	 public class PrivatePartialMockingExampleTest {
-	    @Test
-	    public void demoPrivateMethodMocking() throws Exception {
-	        final String expected = "TEST VALUE";
-	        final String nameOfMethodToMock = "methodToMock";
-	        final String input = "input";
+```java
+ @RunWith(PowerMockRunner.class)
+ @PrepareForTest(PrivatePartialMockingExample.class)
+ public class PrivatePartialMockingExampleTest {
+    @Test
+    public void demoPrivateMethodMocking() throws Exception {
+        final String expected = "TEST VALUE";
+        final String nameOfMethodToMock = "methodToMock";
+        final String input = "input";
 
-	        PrivatePartialMockingExample underTest = spy(new PrivatePartialMockingExample());
+        PrivatePartialMockingExample underTest = spy(new PrivatePartialMockingExample());
 
-	        /*
-	         * Setup the expectation to the private method using the method name
-	         */
-	        when(underTest, nameOfMethodToMock, input).thenReturn(expected);
+        /*
+         * Setup the expectation to the private method using the method name
+         */
+        when(underTest, nameOfMethodToMock, input).thenReturn(expected);
 
-	        assertEquals(expected, underTest.methodToTest());
+        assertEquals(expected, underTest.methodToTest());
 
-	        // Optionally verify that the private method was actually called
-	        verifyPrivate(underTest).invoke(nameOfMethodToMock, input);
-	    }
-	 }
+        // Optionally verify that the private method was actually called
+        verifyPrivate(underTest).invoke(nameOfMethodToMock, input);
+    }
+ }
+```
 可以发现，为了实现局部模拟操作，用来创建模拟对象的函数从 mock() 变成了 spy()，操作对象也从类本身变成了一个具体的对象。同时，When() 函数也使用了不同的版本：在模拟私有方法或者是 Final 方法时，When() 函数需要依次指定模拟对象、被指定的函数名字以及针对该函数的输入参数列表。
 
 参考文献:<http://www.ibm.com/developerworks/cn/java/j-lo-powermock/>

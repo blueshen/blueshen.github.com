@@ -30,74 +30,80 @@ tags: [ flyweight, pattern, 享元 ]
 
 抽象享元角色：   
 
-    public abstract class Flyweight{
-        //内部状态
-        private String intrinstic;
-        //外部状态
-        protected final String Extrinsic;
-        //要求享元角色必须接受外部状态
-        public Flyweight(String _Extrinsic){
-            this.Extrinsic = _Extrinsic;
-        }
-        //定义业务操作
-        public abstract void operate();
-        
-        //内部状态的getter/setter
-        public String getIntrinsic(){
-            return intrinsic;
-        }
-        public void setIntrinsic(String intrinsic){
-            this.intrinsic = intrinsic
-        }
+```java
+public abstract class Flyweight{
+    //内部状态
+    private String intrinstic;
+    //外部状态
+    protected final String Extrinsic;
+    //要求享元角色必须接受外部状态
+    public Flyweight(String _Extrinsic){
+        this.Extrinsic = _Extrinsic;
     }
+    //定义业务操作
+    public abstract void operate();
+    
+    //内部状态的getter/setter
+    public String getIntrinsic(){
+        return intrinsic;
+    }
+    public void setIntrinsic(String intrinsic){
+        this.intrinsic = intrinsic
+    }
+}
+```
 
 具体享元角色：   
 
-    public class ConcreteFlyweight1 extends Flyweight{
-        //接受外部状态
-        public ConcreteFlyweight1(String _Extrinsic){
-            super(_Extrinsic);
-        }
-        //根据外部状态进行逻辑处理
-        public void operate(){
-            //todo
-        }    
+```java
+public class ConcreteFlyweight1 extends Flyweight{
+    //接受外部状态
+    public ConcreteFlyweight1(String _Extrinsic){
+        super(_Extrinsic);
     }
-    
-    public class ConcreteFlyweight2 extends Flyweight{
-        //接受外部状态
-        public ConcreteFlyweight1(String _Extrinsic){
-            super(_Extrinsic);
-        }
-        //根据外部状态进行逻辑处理
-        public void operate(){
-            //todo
-        }    
+    //根据外部状态进行逻辑处理
+    public void operate(){
+        //todo
+    }    
+}
+
+public class ConcreteFlyweight2 extends Flyweight{
+    //接受外部状态
+    public ConcreteFlyweight1(String _Extrinsic){
+        super(_Extrinsic);
     }
-    
+    //根据外部状态进行逻辑处理
+    public void operate(){
+        //todo
+    }    
+}
+```
+
 享元工厂：    
 
-    public class FlyweightFactory{
-        //定义一个池容器
-        private static HashMap<String,Flyweight> pool = new HashMap<>(String,Flyweight);
-        //享元工厂
-        public static Flyweight getFlyweight(String Extrinsic){
-            //需要返回的对象
-            Flyweight flyweight = null;
-            //在池中没有该对象
-            if(pool.containsKey(Extrinsic)){
-                flyweight = pool.get(Extrinsic);
-            }else{
-                //根据外部状态创建享元对象
-                flyweight = new ConcreteFlyweight1(Extrinsic);
-                //放置到池中
-                pool.put(Extrinsic,flyweight);
-            }
-            return flyweight;
+```java
+public class FlyweightFactory{
+    //定义一个池容器
+    private static HashMap<String,Flyweight> pool = new HashMap<>(String,Flyweight);
+    //享元工厂
+    public static Flyweight getFlyweight(String Extrinsic){
+        //需要返回的对象
+        Flyweight flyweight = null;
+        //在池中没有该对象
+        if(pool.containsKey(Extrinsic)){
+            flyweight = pool.get(Extrinsic);
+        }else{
+            //根据外部状态创建享元对象
+            flyweight = new ConcreteFlyweight1(Extrinsic);
+            //放置到池中
+            pool.put(Extrinsic,flyweight);
         }
-        
+        return flyweight;
     }
     
+}
+```
+
 享元模式的使用场景：   
 （1）系统中存在大量的相似对象     
 （2）细粒度的对象都具备较接近的外部状态，而且内部状态与环境无关，也就是说对象没有特定身份。       

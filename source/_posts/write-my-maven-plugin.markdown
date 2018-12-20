@@ -7,8 +7,11 @@ categories: maven
 tags: [ maven, plugin, archetype ]
 ---
 
-mvn archetype:generate -DgroupId=cn.shenyanchao.ut -DartifactId=ut-maven-plugin -DarchetypeGroupId=org.apache.maven.archetypes -DarchetypeArtifactId=maven-archetype-plugin
+使用方式：
 
+```shell
+mvn archetype:generate -DgroupId=cn.shenyanchao.ut -DartifactId=ut-maven-plugin -DarchetypeGroupId=org.apache.maven.archetypes -DarchetypeArtifactId=maven-archetype-plugin
+```
 
 
 

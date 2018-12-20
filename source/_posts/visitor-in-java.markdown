@@ -25,86 +25,98 @@ tags: [ visitor, pattern, 访问者 ]
 下面看看各个部分是如何实现的。    
 抽象元素：    
 
-    public abstract class Element {
-        //业务逻辑
-        public abstract void doSomething();
-        //允许谁来访问
-        public abstract void accept(IVisitor visitor);
-    }
+```java
+public abstract class Element {
+    //业务逻辑
+    public abstract void doSomething();
+    //允许谁来访问
+    public abstract void accept(IVisitor visitor);
+}
+```
 具体元素：    
 
-    public class ConcreteElement1 extends Element {
-    
-        @Override
-        public void doSomething() {
-            //todo
-        }
-    
-        @Override
-        public void accept(IVisitor visitor) {
-            visitor.visit(this);
-        }
+```java
+public class ConcreteElement1 extends Element {
+
+    @Override
+    public void doSomething() {
+        //todo
     }
-    
-    public class ConcreteElement2 extends Element {
-    
-        @Override
-        public void doSomething() {
-            //todo
-        }
-    
-        @Override
-        public void accept(IVisitor visitor) {
-            visitor.visit(this);
-        }
-    }  
+
+    @Override
+    public void accept(IVisitor visitor) {
+        visitor.visit(this);
+    }
+}
+
+public class ConcreteElement2 extends Element {
+
+    @Override
+    public void doSomething() {
+        //todo
+    }
+
+    @Override
+    public void accept(IVisitor visitor) {
+        visitor.visit(this);
+    }
+}  
+```
 
 抽象访问者：    
 
-    public interface IVisitor {
-    
-        public void visit(ConcreteElement1 el1);
-    
-        public void visit(ConcreteElement2 el2);
-    }
+```java
+public interface IVisitor {
+
+    public void visit(ConcreteElement1 el1);
+
+    public void visit(ConcreteElement2 el2);
+}
+```
 具体访问者：    
 
-    public class Visitor implements IVisitor {
-    
-        @Override
-        public void visit(ConcreteElement1 el1) {
-            el1.doSomething();
-        }
-    
-        @Override
-        public void visit(ConcreteElement2 el2) {
-            el2.doSomething();
-        }
+```java
+public class Visitor implements IVisitor {
+
+    @Override
+    public void visit(ConcreteElement1 el1) {
+        el1.doSomething();
     }
+
+    @Override
+    public void visit(ConcreteElement2 el2) {
+        el2.doSomething();
+    }
+}
+```
 
 结构对象：   
 
-    public class ObjectStruture {
-    
-        public static Element createElment(){
-            Random random = new Random();
-            if (random.nextInt(100) > 50){
-                return new ConcreteElement1();
-            }else{
-                return new ConcreteElement2();
-            }
+```java
+public class ObjectStruture {
+
+    public static Element createElment(){
+        Random random = new Random();
+        if (random.nextInt(100) > 50){
+            return new ConcreteElement1();
+        }else{
+            return new ConcreteElement2();
         }
-    
     }
-    
+
+}
+```
+
 下面看下具体场景类是怎么使用的：   
 
-    public class Client {
-    
-        public static void main(String[] args) {
-            for (int i = 0; i < 10; i++) {
-                Element el = ObjectStruture.createElment();
-                el.accept(new Visitor());
-            }
+```java
+public class Client {
+
+    public static void main(String[] args) {
+        for (int i = 0; i < 10; i++) {
+            Element el = ObjectStruture.createElment();
+            el.accept(new Visitor());
         }
     }
+}
+```

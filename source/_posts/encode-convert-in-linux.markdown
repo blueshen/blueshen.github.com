@@ -24,43 +24,61 @@ Enca用法
 <!--more-->
 转换单个文件的编码
 
-    $ enca -L none -x utf-8  index.html
+```shell
+$ enca -L none -x utf-8  index.html
+```
 转换多个文件的编码
 
-    $ enca -x utf-8 *
+```shell
+$ enca -x utf-8 *
+```
 Linux文件名编码批量转换--convmv
 
 Convmv语法
 
-    $ convmv -f 源编码 -t 新编码 [选项] 文件名
+```shell
+$ convmv -f 源编码 -t 新编码 [选项] 文件名
+```
 Convmv 常用参数
 
-    -r 递归处理子文件夹
-    –notest 真正进行操作，请注意在默认情况下是不对文件进行真实操作的，而只是试验。
-    –list 显示所有支持的编码
-    –unescap 可以做一下转义，比如把%20变成空格
+```shell
+-r 递归处理子文件夹
+–notest 真正进行操作，请注意在默认情况下是不对文件进行真实操作的，而只是试验。
+–list 显示所有支持的编码
+–unescap 可以做一下转义，比如把%20变成空格
+```
 示例
 
 转换一个文件由GBK转换成UTF-8
 
-    convmv -f GBK -t UTF-8 --notest utf8 filename
+```shell
+convmv -f GBK -t UTF-8 --notest utf8 filename
+```
 GBK->UTF-8文件编码批量转换脚本
 
-    $ find default -type f -exec convmv -f GBK -t UTF-8 --notest utf8 {} -o utf/{} \;
+```shell
+$ find default -type f -exec convmv -f GBK -t UTF-8 --notest utf8 {} -o utf/{} \;
+```
 使用iconv 转换
 
 Iconv语法
 
-    iconv -f encoding -t encoding inputfile
+```shell
+iconv -f encoding -t encoding inputfile
+```
 示例
 
 单个文件转换
 
-    $ iconv -f GBK -t UTF-8 file1 -o file2
+```shell
+$ iconv -f GBK -t UTF-8 file1 -o file2
+```
 批量转换
 
-    $ find default -type d -exec mkdir -p utf/{} \;
-    $ find default -type f -exec iconv -f GBK -t UTF-8 {} -o utf/{} \;
+```shell
+$ find default -type d -exec mkdir -p utf/{} \;
+$ find default -type f -exec iconv -f GBK -t UTF-8 {} -o utf/{} \;
+```
 这两行命令将default目录下的文件由GBK编码转换为UTF-8编码，目录结构不变，转码后的文件保存在utf/default目录下。
 
 ---

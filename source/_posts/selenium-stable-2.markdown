@@ -21,6 +21,7 @@ tags: [ webdriver , selenium , stable, wait  ]
 这种方法，用于直接的让thread进行等待指定的seconds。
 <!--more-->
 ### 2.使用selenium webdriver提供的等待方法
+
 ```java
 driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 ```

@@ -41,12 +41,14 @@ tags: [ c3p0, dhcp]
 综上所述，要想保证性能的前提下，本人推荐的配置组合如下：
 
 
-    breakAfterAcquireFailure: false
-    testConnectionOnCheckout: false
-    testConnectionOnCheckin: false
-    idleConnectionTestPeriod: 60
-    acquireRetryAttempts: 10
-    acquireRetryDelay: 1000
+```sh
+breakAfterAcquireFailure: false
+testConnectionOnCheckout: false
+testConnectionOnCheckin: false
+idleConnectionTestPeriod: 60
+acquireRetryAttempts: 10
+acquireRetryDelay: 1000
+```
 
 
 但需要注意的是以上的配置不能保证100%应用端getConnection无误，如果应用端不能发生getConnection错误，需要自行考虑容错和重试机制。

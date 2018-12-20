@@ -4,7 +4,7 @@ title: "ut-maven-plugin"
 date: 2013-12-14 21:31
 comments: true
 categories: 测试
-tags: [ ut-maven-plugin, ast, javaparser ]
+tags: [ unittest, ast, javaparser ]
 ---
 ### ut-maven-plugin简介
 
@@ -30,96 +30,104 @@ Eclipse（以及其它IDE）中就提供了AST的解析功能，比如Eclipse里
 这个插件一个被我放到了[Maven Central](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22ut-maven-plugin%22)上，因此，你可以直接在pom.xml里添加上这个插件就可以了。同时建议你使用最新的版本。
 比如：
 
-    <plugin>
-    <groupId>cn.shenyanchao.ut</groupId>
-    <artifactId>ut-maven-plugin</artifactId>
-    <version>0.2.9</version>
-    <executions>
-        <execution>
-            <id>source2test</id>
-            <phase>process-test-sources</phase>
-            <goals>
-                <goal>source2test</goal>
-            </goals>
-        </execution>
-    </executions>
-    </plugin>
+```xml
+<plugin>
+<groupId>cn.shenyanchao.ut</groupId>
+<artifactId>ut-maven-plugin</artifactId>
+<version>0.2.9</version>
+<executions>
+    <execution>
+        <id>source2test</id>
+        <phase>process-test-sources</phase>
+        <goals>
+            <goal>source2test</goal>
+        </goals>
+    </execution>
+</executions>
+</plugin>
+```
 
 ### 解决了什么问题？
 以[spring-petclinic](https://github.com/spring-projects/spring-petclinic)中的代码为例。
 
 下面的Service代码：
 
-    package org.springframework.samples.petclinic.service;
+```java
+package org.springframework.samples.petclinic.service;
 
-    import org.springframework.beans.factory.annotation.Autowired;
-    import org.springframework.dao.DataAccessException;
-    import org.springframework.samples.petclinic.model.Pet;
-    import org.springframework.samples.petclinic.model.PetType;
-    import org.springframework.samples.petclinic.repository.PetRepository;
-    import org.springframework.stereotype.Service;
-    import org.springframework.transaction.annotation.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.samples.petclinic.model.Pet;
+import org.springframework.samples.petclinic.model.PetType;
+import org.springframework.samples.petclinic.repository.PetRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-    import java.util.Collection;
+import java.util.Collection;
 
-    @Service
-    public class ClinicServiceImpl implements ClinicService {
+@Service
+public class ClinicServiceImpl implements ClinicService {
 
-        @Autowired
-        private PetRepository petRepository;
-        //省略
-        ......
+    @Autowired
+    private PetRepository petRepository;
+    //省略
+    ......
 
-        @Override
-        @Transactional(readOnly = true)
-        public Pet findPetById(int id) throws DataAccessException {
-            return petRepository.findById(id);
-        }
-        //省略
-        ......
-
+    @Override
+    @Transactional(readOnly = true)
+    public Pet findPetById(int id) throws DataAccessException {
+        return petRepository.findById(id);
     }
+    //省略
+    ......
+
+}
+```
 
 那么，我们自己手工写的单元测试代码有可能是这样的：
 
-    package org.springframework.samples.petclinic.service.test;
+```java
+package org.springframework.samples.petclinic.service.test;
 
-    import org.junit.Assert;
-    import org.junit.Before;
-    import org.junit.Test;
-    import org.mockito.InjectMocks;
-    import org.mockito.Mock;
-    import org.mockito.MockitoAnnotations;
-    import org.springframework.samples.petclinic.model.Pet;
-    import org.springframework.samples.petclinic.repository.PetRepository;
-    import org.springframework.samples.petclinic.service.ClinicServiceImpl;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.samples.petclinic.model.Pet;
+import org.springframework.samples.petclinic.repository.PetRepository;
+import org.springframework.samples.petclinic.service.ClinicServiceImpl;
 
-    import static org.mockito.Matchers.anyInt;
-    import static org.mockito.Mockito.when;
+import static org.mockito.Matchers.anyInt;
+import static org.mockito.Mockito.when;
 
-    public class ClinicServiceImplTest {
+public class ClinicServiceImplTest {
 
-        @InjectMocks
-        private ClinicServiceImpl clinicService = new ClinicServiceImpl();
+    @InjectMocks
+    private ClinicServiceImpl clinicService = new ClinicServiceImpl();
 
-        @Mock
-        private PetRepository petRepository;
+    @Mock
+    private PetRepository petRepository;
 
-        @Before
-        public void initMocks() {
-            MockitoAnnotations.initMocks(this);
-        }
+    @Before
+    public void initMocks() {
+        MockitoAnnotations.initMocks(this);
+    }
 
-        @Test
-        public void findPetByIdTest() {
-            when(petRepository.findById(anyInt())).thenReturn(new Pet());
-            Pet pet = clinicService.findPetById(1);
-            Assert.assertNotNull(pet);
-        }
+    @Test
+    public void findPetByIdTest() {
+        when(petRepository.findById(anyInt())).thenReturn(new Pet());
+        Pet pet = clinicService.findPetById(1);
+        Assert.assertNotNull(pet);
+    }
+```
 如果，有很多个类需要写单元测试，那么我们会发现有很多代码是具有共性的，或者是有一定规律的。但从这个类来说，我们认为大部分代码都是可以通过对源代码进行分析得到的，除了以下的业务逻辑部分：
 
-            when(petRepository.findById(anyInt())).thenReturn(new Pet());
-            Pet pet = clinicService.findPetById(1);
+```java
+        when(petRepository.findById(anyInt())).thenReturn(new Pet());
+        Pet pet = clinicService.findPetById(1);
+```
 因此余下的代码都可以由插件来完成，使得程序员直接关注于业务逻辑部分的编写。大大的提高了程序员单元测试的编写效率，甚至使程序员们爱上单测。
 
 当然，这里只是一个例子，如果能抽象出更多的共性，本插件就可以进行不断的扩展。简单的来说，有共性有规律就可以自动生成出来。随着不断的扩展，ut-maven-plugin将越来越智能化。

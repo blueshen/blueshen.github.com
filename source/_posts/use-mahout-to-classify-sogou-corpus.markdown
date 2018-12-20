@@ -57,7 +57,7 @@ mahout vectordump -i sogou-vectors/tfidf-vectors/part-r-00000 | more
 ### 使用测试集来查看效果
 
     mahout testnb -i sogou-test-vectors -m sogou-model -l sogou-labelindex -ow -o sogou-testing -c
-![](/images/blog/2014/sogou-result.png)
+![mahout](/images/blog/2014/sogou-result.png)
 
 可以看出87%的正确率还是不错的。
 

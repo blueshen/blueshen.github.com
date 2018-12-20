@@ -24,14 +24,20 @@ Node: 负责执行Tests,调用浏览器。
 
 启动Hub（10.81.14.180）:
 
-	java  -jar  selenium-server-standalone-2.27.0.jar -role hub
+```shell
+java  -jar  selenium-server-standalone-2.27.0.jar -role hub
+```
 在浏览器内打开：<http://10.81.14.180:4444/grid/console>可以查看Hub状态。也就是说Grid默认启动端口是4444，如果想切换为其他端口，则加`-port`参数。比如要切换为8888：
 
-	java  -jar  selenium-server-standalone-2.27.0.jar -role hub  -port 8888
+```shell
+java  -jar  selenium-server-standalone-2.27.0.jar -role hub  -port 8888
+```
 
 启动Node（10.81.14.170）:
 
-	java -jar selenium-server-standalone-2.27.0.jar -role node -hub http://10.81.14.180:8888/grid/register
+```shell
+java -jar selenium-server-standalone-2.27.0.jar -role node -hub http://10.81.14.180:8888/grid/register
+```
 同样的，也可以使用`-port`切换node端口，默认端口是5555.
 此处的node节点，也可以作为一个单机的远程节点存在，并同时支持RC,WebDriver。浏览器输入<http://10.81.14.180:8877/wd/hub>可以看到session信息。
 
@@ -47,35 +53,46 @@ Node: 负责执行Tests,调用浏览器。
 Selenium Grid2是向后兼容的，同时支持RC,WebDriver。
 如果使用RC,即Selenium1，使用以下的方法：
 
-	Selenium selenium = new DefaultSelenium(“10.81.14.180”, 8888, “*firefox”, “http://www.baidu.com”);
+```java
+Selenium selenium = new DefaultSelenium(“10.81.14.180”, 8888, “*firefox”, “http://www.baidu.com”);
+```
 使用WebDriver的话，使用以下的方法：
 
-	DesiredCapabilities capability = DesiredCapabilities.firefox();
-	WebDriver driver = new RemoteWebDriver(new URL("http://10.81.14.180:8888/wd/hub"), capability);
+```java
+DesiredCapabilities capability = DesiredCapabilities.firefox();
+WebDriver driver = new RemoteWebDriver(new URL("http://10.81.14.180:8888/wd/hub"), capability);
+```
 
 可以看出所有的请求都发给了Hub,然后由Hub分配给匹配的节点来执行。
 那么，Hub是如何来分配的呢？往下看
+
 ### Node配置
 默认，Node会启动11个浏览器实例:5 Firefox,5 Chrome, 1 Internet Explorer. 从Grid Console界面看出来，为什么每个机器上有22个实例呢？是这样的，Node为了同时支持RC与WebDriver两种协议，所以就是2＊11了。把鼠标放到各个浏览器图标上，就可以看出里面的配置区别了。
 内容类似：
 
-	{
-          "browserName": "*firefox",
-          "maxInstances": 5,
-          "seleniumProtocol": "Selenium"
-        }
+```json
+{
+      "browserName": "*firefox",
+      "maxInstances": 5,
+      "seleniumProtocol": "Selenium"
+    }
+```
 或者
 
-	 {
-          "browserName": "firefox",
-          "maxInstances": 5,
-          "seleniumProtocol": "WebDriver"
-        }
+```json
+ {
+      "browserName": "firefox",
+      "maxInstances": 5,
+      "seleniumProtocol": "WebDriver"
+    }
+```
 其中，seleniumProtocol就是定义的不同协议了。
 
 如何修改Driver配置呢？可以从启动参数里操作。
 
-	-browser browserName=firefox,version=3.6,maxInstances=5,platform=LINUX
+```shell
+-browser browserName=firefox,version=3.6,maxInstances=5,platform=LINUX
+```
 
 那Node默认启动的配置是什么呢？
 由于如果从启动参数里，配置这个多东西，很难写的。因此，官方很人性化的提供了JSON文件来配置。也就是说默认启动的配置如下：
@@ -85,11 +102,15 @@ Selenium Grid2是向后兼容的，同时支持RC,WebDriver。
 
 如果想自定义配置，直接对json文件修改，启动时，指定配置文件就可以了。
 
-	java -jar selenium-server-standalone.jar -role hub -hubConfig hubconfig.json
+```shell
+java -jar selenium-server-standalone.jar -role hub -hubConfig hubconfig.json
+```
 
 仅仅就这样就行了？从博文<http://www.shenyanchao.cn/blog/2012/10/12/selenium-multiple-browser-support/>知道，浏览器的启动是要制定一些driver位置的，否则Node不知道怎么启动浏览器实例。因此需要进行指定：
 
-	java -jar selenium-server-standalone-2.27.0.jar -port 8877 -role node -hub http://10.81.14.180:8888/grid/register  -nodeConfig nodeconfig.json -Dwebdriver.chrome.driver="E:/selenium/chromedriver.exe" -Dwebdriver.ie.driver="E:/selenium/IEDriverServer.exe"
+```shell
+java -jar selenium-server-standalone-2.27.0.jar -port 8877 -role node -hub http://10.81.14.180:8888/grid/register  -nodeConfig nodeconfig.json -Dwebdriver.chrome.driver="E:/selenium/chromedriver.exe" -Dwebdriver.ie.driver="E:/selenium/IEDriverServer.exe"
+```
 
 
 参考文档：

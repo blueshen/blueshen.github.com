@@ -59,13 +59,13 @@ Code Coverage结果：
 ![](/images/blog/karma-jenkins-codecoverage.png)
 
 点击进入后，可以看到具体的覆盖率情况：
-![](/images/blog/karma-jenkins-codecoverage-detail.png)
+![karma](/images/blog/karma-jenkins-codecoverage-detail.png)
 
 JUnit结果：
-![](/images/blog/karma-jenkins-junit-report.png)
+![karma junit](/images/blog/karma-jenkins-junit-report.png)
 
 点进去后可以查看详细信息：
-![](/images/blog/karma-jenkins-junit-report-detail.png)
+![karma](/images/blog/karma-jenkins-junit-report-detail.png)
 
 ### 关于Coverage
 coverageReporter的类型有以下几种：

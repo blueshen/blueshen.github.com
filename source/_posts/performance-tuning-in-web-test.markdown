@@ -15,8 +15,10 @@ apache + tomcat + mysql + linux, 介绍如何定位瓶颈与调优
 
 $TOMCAT_HOME/conf/server.xml中
 
-    <Connector port="8080" protocol="HTTP/1.1"      connectionTimeout="20000"
-                   redirectPort="8443" URIEncoding="UTF-8"/>
+```xml
+<Connector port="8080" protocol="HTTP/1.1"      connectionTimeout="20000"
+               redirectPort="8443" URIEncoding="UTF-8"/>
+```
 
 maxThreads 默认值是200
 acceptCount 默认值是100
@@ -32,26 +34,26 @@ acceptCount 默认值是100
 - Noah监控，显示CPU使用率下降。大锯齿出现。
 
   问题分析：
-        在加压过程中，对tomcat的JVM情况进行监控。出现FullGC,每次大概4s .
+  ​      在加压过程中，对tomcat的JVM情况进行监控。出现FullGC,每次大概4s .
 
 如何监控GC吗？
 
 	jstat -gcutil 3950 3000 5
-
-      S0     S1         E          O      P       YGC     YGCT    FGC       FGCT     GCT
-      0.00  47.86  66.10   6.55  99.92      7       0.087     0         0.000    0.087
-      0.00  47.86  66.90   6.55  99.94      7       0.087     0         0.000    0.087
-      0.00  47.86  67.30   6.55  99.94      7       0.087     0         0.000    0.087
-      0.00  47.86  67.30   6.55  99.94      7       0.087     0         0.000    0.087
-      0.00  47.86  67.30   6.55  99.94      7       0.087     0         0.000    0.087
+	
+	  S0     S1         E          O      P       YGC     YGCT    FGC       FGCT     GCT
+	  0.00  47.86  66.10   6.55  99.92      7       0.087     0         0.000    0.087
+	  0.00  47.86  66.90   6.55  99.94      7       0.087     0         0.000    0.087
+	  0.00  47.86  67.30   6.55  99.94      7       0.087     0         0.000    0.087
+	  0.00  47.86  67.30   6.55  99.94      7       0.087     0         0.000    0.087
+	  0.00  47.86  67.30   6.55  99.94      7       0.087     0         0.000    0.087
 
 解决方法：
-         $TOMCAT_HOME/bin/catalina.sh   第一行添加
-    	export CATALINA_OPTS="-Xmx3500m -Xms2048m -XX:PermSize=256m XX:MaxPermSize=512m -Xss128k"
+​         $TOMCAT_HOME/bin/catalina.sh   第一行添加
+​    	export CATALINA_OPTS="-Xmx3500m -Xms2048m -XX:PermSize=256m XX:MaxPermSize=512m -Xss128k"
 
 JAVA_OPTS   VS   CATALINA_OPTS（推荐使用）
 **差别**：JAVA_OPTS start run stop   适用所有JVM
-               CATALINA_OPTS   start run    专门配置tomcat
+​               CATALINA_OPTS   start run    专门配置tomcat
 
 tomcat默认-client ，production环境加-server
 
@@ -60,9 +62,11 @@ JVM参数文档：<http://kenwublog.com/docs/java6-jvm-options-chinese-edition.h
 ##### Tomcat executor
 据信使用executor后，能在实际中有更好的性能以及稳定性！更为重要的是能在多个connector之间共用。
 
-    <Executor name="tomcatThreadPool" namePrefix="catalina-exec-" maxThreads="1000" minSpareThreads="25"/>
+```xml
+<Executor name="tomcatThreadPool" namePrefix="catalina-exec-" maxThreads="1000" minSpareThreads="25"/>
 
-    <Connector executor="tomcatThreadPool"  port="8080" protocol="HTTP/1.1"   connectionTimeout="20000"  redirectPort="8443" />
+<Connector executor="tomcatThreadPool"  port="8080" protocol="HTTP/1.1"   connectionTimeout="20000"  redirectPort="8443" />
+```
 
 此时，connector再使用maxThreads等属性将被忽略。
 
@@ -102,7 +106,9 @@ slow query监控：
 
 2.使用mysqldumpslow分析log
 
-	mysqldumpslow -t 10 -s t  slow.log
+```shell
+mysqldumpslow -t 10 -s t  slow.log
+```
 
 解决：
 
@@ -133,7 +139,9 @@ ab 命令进行测试，达到1000并发很easy
 	ab -k -c 1000  -n 1000000  http://hostname:port/path
 
 参考：<http://httpd.apache.org/docs/2.2/programs/ab.html>
+
 ##### 开启MPM支持大并发
+
 <table border="1px">
 <thead>
 <th>Mpm模式</th><th>并发方式</th><th>内存占用</th><th>并发性能</th>
@@ -161,19 +169,21 @@ ab 命令进行测试，达到1000并发很easy
 
 修改httpd-mpm.conf
 
-    <IfModule mpm_worker_module>
-        StartServers          2
-        MaxClients          150
-        MinSpareThreads      25
-        MaxSpareThreads      75
-        ThreadsPerChild      25
-        MaxRequestsPerChild   0
-    </IfModule>
+```xml
+<IfModule mpm_worker_module>
+    StartServers          2
+    MaxClients          150
+    MinSpareThreads      25
+    MaxSpareThreads      75
+    ThreadsPerChild      25
+    MaxRequestsPerChild   0
+</IfModule>
+```
 
 上面的配置需要满足以下公式：
-         ThreadLimit >= ThreadsPerChild
-         MaxClients <= ServerLimit * ThreadsPerChild 必须是ThreadsPerChild的倍数
-         MaxSpareThreads >= MinSpareThreads+ThreadsPerChild
+​         ThreadLimit >= ThreadsPerChild
+​         MaxClients <= ServerLimit * ThreadsPerChild 必须是ThreadsPerChild的倍数
+​         MaxSpareThreads >= MinSpareThreads+ThreadsPerChild
 
 #### Linux
 ##### too many open files error

@@ -10,76 +10,83 @@ tags: [ dom4j, jenkins, java, 编码 ]
 
 dom4j提供了一个`DocumentHelper`来解析xml内容，此处的内容是String类型的。下面是其源码：
 
-        public static Document parseText(String text) throws DocumentException {
-            Document result = null;
+```java
+    public static Document parseText(String text) throws DocumentException {
+        Document result = null;
 
-            SAXReader reader = new SAXReader();
-            String encoding = getEncoding(text);
+        SAXReader reader = new SAXReader();
+        String encoding = getEncoding(text);
 
-            InputSource source = new InputSource(new StringReader(text));
-            source.setEncoding(encoding);
+        InputSource source = new InputSource(new StringReader(text));
+        source.setEncoding(encoding);
 
-            result = reader.read(source);
+        result = reader.read(source);
 
-            // if the XML parser doesn't provide a way to retrieve the encoding,
-            // specify it manually
-            if (result.getXMLEncoding() == null) {
-                result.setXMLEncoding(encoding);
-            }
-
-            return result;
+        // if the XML parser doesn't provide a way to retrieve the encoding,
+        // specify it manually
+        if (result.getXMLEncoding() == null) {
+            result.setXMLEncoding(encoding);
         }
 
-        private static String getEncoding(String text) {
-            String result = null;
+        return result;
+    }
 
-            String xml = text.trim();
+    private static String getEncoding(String text) {
+        String result = null;
 
-            if (xml.startsWith("<?xml")) {
-                int end = xml.indexOf("?>");
-                String sub = xml.substring(0, end);
-                StringTokenizer tokens = new StringTokenizer(sub, " =\"\'");
+        String xml = text.trim();
 
-                while (tokens.hasMoreTokens()) {
-                    String token = tokens.nextToken();
+        if (xml.startsWith("<?xml")) {
+            int end = xml.indexOf("?>");
+            String sub = xml.substring(0, end);
+            StringTokenizer tokens = new StringTokenizer(sub, " =\"\'");
 
-                    if ("encoding".equals(token)) {
-                        if (tokens.hasMoreTokens()) {
-                            result = tokens.nextToken();
-                        }
+            while (tokens.hasMoreTokens()) {
+                String token = tokens.nextToken();
 
-                        break;
+                if ("encoding".equals(token)) {
+                    if (tokens.hasMoreTokens()) {
+                        result = tokens.nextToken();
                     }
+
+                    break;
                 }
             }
-
-            return result;
         }
+
+        return result;
+    }
+```
 
 从以上的代码中可以看出，解析过程中是使用XML的头`<?xml version="1.0" encoding="UTF-8"?>`来获取编码信息的。
 <!--more-->
+
 ### 如何读取文件到String
 
-        public String loadXmlRule() {
-            InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("file.xml");
-            String xmlContent = null;
-            try {
-                xmlContent = IOUtils.toString(inputStream);
-            } catch (IOException e) {
-                LOG.error("read xml:{} io error", e);
-            } finally {
-                IOUtils.closeQuietly(inputStream);
-            }
-            return xmlContent;
+```java
+    public String loadXmlRule() {
+        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("file.xml");
+        String xmlContent = null;
+        try {
+            xmlContent = IOUtils.toString(inputStream);
+        } catch (IOException e) {
+            LOG.error("read xml:{} io error", e);
+        } finally {
+            IOUtils.closeQuietly(inputStream);
         }
+        return xmlContent;
+    }
+```
 
 [getResourceAsStream将文件读为字节流](<http://stackoverflow.com/questions/5590451/getresourceasstream-what-encoding-is-it-read-as>)，不牵涉到字符编码问题。但是当你把这个inputStream转为String的时候，就需要指定字符编码了。否则不知道按什么编码规则解析字节流到字符。不知道什么编码的情况下，程序可能就会从系统变量取默认的字符编码，也就是LANG值。这个时候在LINUX，WINDOWS下表现的可能就不一致。因此必须显式的指明编码。
 
-    xmlContent = IOUtils.toString(inputStream);
+```java
+xmlContent = IOUtils.toString(inputStream);
 
-    转换为：
+转换为：
 
-    xmlContent = IOUtils.toString(inputStream，"UTF-8);//假设文件是UTF-8
+xmlContent = IOUtils.toString(inputStream，"UTF-8);//假设文件是UTF-8
+```
 
 由此，一定要慎重使用编码。**永远不要相信默认编码**。
 

@@ -15,7 +15,7 @@ RESTFul接口作为一个通行的标准，当然是优先使用的。项目都�
 
 ### 解决接口联调的苦难
 作为一个技术人员，写文档是一大令人头疼的事情。况且即使把文档写好了，也可能导致在以后的修修补补中，导致不一致的情况。
-因此，考虑采用文档自动生成的方式。最终选用了Swagger<wwww.swagger.io>来自动为Spring MVC生成文档。
+因此，考虑采用文档自动生成的方式。最终选用了[Swagger](www.swagger.io)来自动为Spring MVC生成文档。
 
 - swagger-maven-plugin
 - swagger-ui

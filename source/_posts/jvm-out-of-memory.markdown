@@ -7,9 +7,9 @@ categories: JVM
 tags: [ JVM, Tomcat, GC ]
 ---
 
- 
+
 一、常见的Java内存溢出有以下三种：
- 
+
 1. `java.lang.OutOfMemoryError: Java heap space` ----JVM Heap（堆）溢出
 JVM在启动的时候会自动设置JVM Heap的值，其初始空间(即-Xms)是物理内存的1/64，最大空间(-Xmx)不可超过物理内存。
 可以利用JVM提供的-Xmn -Xms -Xmx等选项可进行设置。Heap的大小是Young Generation 和Tenured Generaion 之和。
@@ -20,47 +20,49 @@ JVM在启动的时候会自动设置JVM Heap的值，其初始空间(即-Xms)是
 PermGen space的全称是Permanent Generation space，是指内存的永久保存区域。
 为什么会内存溢出，这是由于这块内存主要是被JVM存放Class和Meta信 息的，Class在被Load的时候被放入PermGen space区域，它和存放Instance的Heap区域不同,sun的 GC不会在主程序运行期对PermGen space进行清理，所以如果你的APP会载入很多CLASS的话，就很可能出现PermGen space溢出。
 解决方法： 手动设置MaxPermSize大小
- 
+
 3. `java.lang.StackOverflowError `  ---- 栈溢出
 栈溢出了，JVM依然是采用栈式的虚拟机，这个和C和Pascal都是一样的。函数的调用过程都体现在堆栈和退栈上了。
 调用构造函数的 “层”太多了，以致于把栈区溢出了。
 通常来讲，一般栈区远远小于堆区的，因为函数调用过程往往不会多于上千层，而即便每个函数调用需要 1K的空间(这个大约相当于在一个C函数内声明了256个int类型的变量)，那么栈区也不过是需要1MB的空间。通常栈的大小是1－2MB的。
 通常递归也不要递归的层次过多，很容易溢出。
 解决方法：修改程序。
- 
- 
+
+
 二、解决方法
- 
+
 在生产环境中tomcat内存设置不好很容易出现jvm内存溢出。
- 
+
 1、 linux下的tomcat：  
 修改TOMCAT_HOME/bin/catalina.sh 
 在“echo "Using CATALINA_BASE: $CATALINA_BASE"”上面加入以下行： 
 `JAVA_OPTS="-server -Xms256m -Xmx512m -XX:PermSize=64M -XX:MaxPermSize=128m`" 
- 
+
 2、 如果tomcat 5 注册成了windows服务，以services方式启动的，则需要修改注册表中的相应键值。
 修改注册表HKEY_LOCAL_MACHINE\SOFTWARE\Apache Software Foundation\Tomcat Service Manager\Tomcat5\Parameters\Java，右侧的Options
 原值为
 
-	-Dcatalina.home="C:\ApacheGroup\Tomcat 5.0"
-	-Djava.endorsed.dirs="C:\ApacheGroup\Tomcat 5.0\common\endorsed"
+```shell
+-Dcatalina.home="C:\ApacheGroup\Tomcat 5.0"
+-Djava.endorsed.dirs="C:\ApacheGroup\Tomcat 5.0\common\endorsed"
+```
 -Xrs
 加入 -Xms256m -Xmx512m 
 重起tomcat服务,设置生效
- 
+
 3、 如果tomcat 6 注册成了windows服务，或者windows2003下用tomcat的安装版，
 在/bin/tomcat6w.exe里修改就可以了 。
+
  
- 
- 
+
 4、 如果要在myeclipse中启动tomcat，上述的修改就不起作用了，可如下设置：
 Myeclipse->preferences->myeclipse->servers->tomcat->tomcat×.×->JDK面板中的
 Optional Java VM arguments中添加：`-Xms256m -Xmx512m -XX:PermSize=64M -XX:MaxPermSize=128m`
+
  
- 
- 
+
 三、jvm参数说明：
- 
+
 -server:一定要作为第一个参数，在多个CPU时性能佳    
 -Xms：java Heap初始大小。 默认是物理内存的1/64。   
 -Xmx：java heap最大值。建议均设为物理内存的一半。不可超过物理内存。  

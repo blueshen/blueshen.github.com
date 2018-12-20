@@ -24,40 +24,46 @@ tags: [ Java, Iterator ]
 为了方便，下面就直接以ArrayList为例，来看看迭代器是如何实现的吧。  
 在使用时，通常这样对ArrayList进行遍历：
 
-		List<String> list = new ArrayList<String>();
-		list.add("first");
-		list.add("second");
-		Iterator<String> itr = list.iterator();
-		while (itr.hasNext()) {
-			String element = itr.next();
-			System.out.println(element);
-		}
+```java
+	List<String> list = new ArrayList<String>();
+	list.add("first");
+	list.add("second");
+	Iterator<String> itr = list.iterator();
+	while (itr.hasNext()) {
+		String element = itr.next();
+		System.out.println(element);
+	}
+```
 从这里，我们可以看出来，这就是完全的迭代器模式。  
 首先来看，Iterator接口（java.util.Iterator）：  
 
+```java
 	public interface Iterator<E> {
-  
-   		boolean hasNext();
-  
+
+      boolean hasNext();
+
     	E next();
-  
+      
     	void remove();
-	}
+    }
+```
 然后是Iterator的具体实现类(java.util.AbstractList<E>$Itr)：  
-	private class Itr implements Iterator<E> {
+
+```java
+private class Itr implements Iterator<E> {
 	
 		int cursor = 0;
-
+	
 		int lastRet = -1;
 	
 		int expectedModCount = modCount;
-
+	
 		public boolean hasNext() {
-            return cursor != size();
+	        return cursor != size();
 		}
-
+	
 		public E next() {
-            checkForComodification();
+	        checkForComodification();
 	    	try {
 			E next = get(cursor);
 			lastRet = cursor++;
@@ -67,12 +73,12 @@ tags: [ Java, Iterator ]
 				throw new NoSuchElementException();
 	    	}
 		}
-
+	
 		public void remove() {
 	    	if (lastRet == -1)
 			throw new IllegalStateException();
-            	checkForComodification();
-
+	        	checkForComodification();
+	
 	    	try {
 				AbstractList.this.remove(lastRet);
 			if (lastRet < cursor)
@@ -83,15 +89,17 @@ tags: [ Java, Iterator ]
 				throw new ConcurrentModificationException();
 	    	}
 		}
-
+	
 		final void checkForComodification() {
 	    	if (modCount != expectedModCount)
 				throw new ConcurrentModificationException();
 		}
-    }
+	}
+```
 这个就是具体的Iterator了，当然还有另外一个ListItr extends Itr，这个是专门针对List进行操作的。   
 那么Aggregate接口对应的是哪个呢？就是`java.util.AbstractCollection<E>` ，它里面定义了这样的一个接口：   
 
+```java
 	...
   	/**
      * Returns an iterator over the elements contained in this collection.
@@ -100,11 +108,14 @@ tags: [ Java, Iterator ]
      */
     public abstract Iterator<E> iterator();
 	...
+```
 那么具体实现是在哪儿？`java.util.AbstractList<E>`做了实现。
 
-	    public Iterator<E> iterator() {
-			return new Itr();
-    	}
+```java
+    public Iterator<E> iterator() {
+		return new Itr();
+	}
+```
 返回了一个具体的迭代器实例。而ArrayList,LinkedList都是继承AbstractList的，因此自动具有了返回迭代器实例的功能。  
 
 因此，Java种的容器类只负责元素的的维护就好了。访问就教给迭代器吧，Java做的如此完善，以至于我们都不必再自己写Iterator了。    

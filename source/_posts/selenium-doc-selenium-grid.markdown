@@ -85,7 +85,9 @@ Grid 由一个中心和一到多个节点组成。两者都是通过 selenium-se
 
 通过指定 `-role hub` 即以默认设置启动中心：
 
-    java -jar selenium-server-standalone-2.21.0.jar -role hub
+```shell
+java -jar selenium-server-standalone-2.21.0.jar -role hub
+```
 
 你将看到以下日志输出：
 
@@ -104,14 +106,18 @@ Grid 由一个中心和一到多个节点组成。两者都是通过 selenium-se
 
 如果看到这个信息，你可以关掉在使用端口 4444 的进程，或者告诉 Selenium-Grid 使用一个别的端口来启动中心。`-port` 选项用于修改中心的端口：
 
-    java -jar selenium-server-standalone-2.21.0.jar -role hub -port 4441
+```shell
+java -jar selenium-server-standalone-2.21.0.jar -role hub -port 4441
+```
 
 即使已经有一个中心运行在这台机器上，只要它们不使用同一个端口，就能正常工作。
 
 你可能想知道哪个进程使用了 4444 端口，这样你就可以让中心使用这个默认端口。使用以下命令可以查看你机器上所有运行程序使用的端口：
 
-    netstat -a
-    
+```shell
+netstat -a
+```
+
 Unix/Linux, MacOs 和 Windows 均支持此命令，只是在 Windows 中 -a 参数为必须的。基本上，你需要显示进程 id 和端口。在 Unix 中，你可以通过管道 “grep” 输出那些你关心的端口相关的条目。
 
 ## 节点配置
@@ -126,11 +132,15 @@ Selenium-Server 提供了两种不同的功能，Selenium-RC server 和 Selenium
 
 如果你仅传递一个 `-h` 选项，你将看到 Selenium-RC Server 的可选项而不是 Selenium-Grid 的。
 
-    java -jar selenium-server-standalone-2.21.0.jar -h
+```shell
+java -jar selenium-server-standalone-2.21.0.jar -h
+```
 
 上述代码将显示 Selenium-RC server 选项。如果你想看到 Selenium-Grid 的命令行帮助，你需要先使用 `-hub` 或 `-node` 选项告诉 Selenium-Server 你想看的是关于 Selenium-Grid 的，然后再追加 `-h` 选项。
 
-    java -jar selenium-server-standalone-2.21.0.jar -role node -h
+```shell
+java -jar selenium-server-standalone-2.21.0.jar -role node -h
+```
 
 对于这个问题，你还可以给 `-role node` 传递一个垃圾参数：
 
@@ -138,22 +148,24 @@ Selenium-Server 提供了两种不同的功能，Selenium-RC server 和 Selenium
 
 你将先看到 “INFO...” 和一个 “ERROR”，在其后你将看到 Selenium-Grid 的命令行选项。我们没有列出这个命令的所有输出，因为它实在太长了，这个输出的最初几行看起来如下：
 
-    Jul 19, 2012 10:10:39 AM org.openqa.grid.selenium.GridLauncher main
-    INFO: Launching a selenium grid node
-    org.openqa.grid.common.exception.GridConfigurationException: You need to specify a hub to register to using -hubHost X -hubPort 5555. The specified config was -hubHost null -hubPort 4444
-            at org.openqa.grid.common.RegistrationRequest.validate(RegistrationRequest.java:610)
-            at org.openqa.grid.internal.utils.SelfRegisteringRemote.startRemoteServer(SelfRegisteringRemote.java:88)
-            at org.openqa.grid.selenium.GridLauncher.main(GridLauncher.java:72)
-    Error building the config :You need to specify a hub to register to using -hubHost X -hubPort 5555. The specified config was -hubHost null -hubPort 4444
-    Usage :
-      -hubConfig:
-            (hub) a JSON file following grid2 format.
-    
-     -nodeTimeout:
-            (node) <XXXX>  the timeout in seconds before the hub
-              automatically ends a test that hasn't had aby activity than XX
-              sec.The browser will be released for another test to use.This
-              typically takes care of the client crashes.
+```shell
+Jul 19, 2012 10:10:39 AM org.openqa.grid.selenium.GridLauncher main
+INFO: Launching a selenium grid node
+org.openqa.grid.common.exception.GridConfigurationException: You need to specify a hub to register to using -hubHost X -hubPort 5555. The specified config was -hubHost null -hubPort 4444
+        at org.openqa.grid.common.RegistrationRequest.validate(RegistrationRequest.java:610)
+        at org.openqa.grid.internal.utils.SelfRegisteringRemote.startRemoteServer(SelfRegisteringRemote.java:88)
+        at org.openqa.grid.selenium.GridLauncher.main(GridLauncher.java:72)
+Error building the config :You need to specify a hub to register to using -hubHost X -hubPort 5555. The specified config was -hubHost null -hubPort 4444
+Usage :
+  -hubConfig:
+        (hub) a JSON file following grid2 format.
+
+ -nodeTimeout:
+        (node) <XXXX>  the timeout in seconds before the hub
+          automatically ends a test that hasn't had aby activity than XX
+          sec.The browser will be released for another test to use.This
+          typically takes care of the client crashes.
+```
 
 ## 常见错误
 

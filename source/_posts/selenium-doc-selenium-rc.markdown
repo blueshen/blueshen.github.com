@@ -66,7 +66,7 @@ Selenium RC 服务端是一个简单的 jar 包 (selenium-server-standalone-<ver
 在开始任何测试之前，你必须先启动服务。进到 Selenium RC 服务端所在的目录，并在命令行中运行以下命令：
 
     java -jar selenium-server-standalone-<version-number>.jar
-    
+
 
 你也可以简单的创建一个包含上述命令的批处理或shell文件（Windows 中扩展名为 .bat，Linux 中扩展名为 .sh）。然后在你的桌面上创建一个该可执行文件的快捷方式，通过双击图标来启动服务。
 
@@ -129,26 +129,28 @@ Selenium RC 服务端是一个简单的 jar 包 (selenium-server-standalone-<ver
 
 以下为使用支持的多种编程序言从 Selenium-IDE 中导出的测试脚本。如果你有一些面向对象编程的基础知识，你就可以通过阅读以下代码理解 Selenium 如何运行 Selenese 命令。
 
-    /** Add JUnit framework to your classpath if not already there
-     *  for this example to work
-     */
-    package com.example.tests;
-    
-    import com.thoughtworks.selenium.*;
-    import java.util.regex.Pattern;
-    
-    public class NewTest extends SeleneseTestCase {
-        public void setUp() throws Exception {
-            setUp("http://www.google.com/", "*firefox");
-        }
-          public void testNew() throws Exception {
-              selenium.open("/");
-              selenium.type("q", "selenium rc");
-              selenium.click("btnG");
-              selenium.waitForPageToLoad("30000");
-              assertTrue(selenium.isTextPresent("Results * for selenium rc"));
-        }
+```java
+/** Add JUnit framework to your classpath if not already there
+ *  for this example to work
+ */
+package com.example.tests;
+
+import com.thoughtworks.selenium.*;
+import java.util.regex.Pattern;
+
+public class NewTest extends SeleneseTestCase {
+    public void setUp() throws Exception {
+        setUp("http://www.google.com/", "*firefox");
     }
+      public void testNew() throws Exception {
+          selenium.open("/");
+          selenium.type("q", "selenium rc");
+          selenium.click("btnG");
+          selenium.waitForPageToLoad("30000");
+          assertTrue(selenium.isTextPresent("Results * for selenium rc"));
+    }
+}
+```
 
 在接下来的章节中，我们将介绍如何通过生成的代码创建你的测试程序。
 
@@ -173,35 +175,37 @@ Selenium RC 服务端是一个简单的 jar 包 (selenium-server-standalone-<ver
 
 使用 Selenium-IDE 创建的代码看起来大致如下。为了使代码更清晰易读，我们手工加入了注释。
 
-    
-    package com.example.tests;
-    // 我们指定了这个文件的包
-    
-    import com.thoughtworks.selenium.*;
-    // 导入驱动。
-    // 你将使用它来初始化浏览器并执行一些任务。
-    
-    import java.util.regex.Pattern;
-    // 加入正则表达式模块，因为有些我们需要使用它进行校验。
-    // 如果你的代码不需要它，完全可以移除掉。 
-    
-    public class NewTest extends SeleneseTestCase {
-    // 创建 Selenium 测试用例
-    
-          public void setUp() throws Exception {
-            setUp("http://www.google.com/", "*firefox");
-                 // 初始化并启动浏览器
-          }
-    
-          public void testNew() throws Exception {
-               selenium.open("/");
-               selenium.type("q", "selenium rc");
-               selenium.click("btnG");
-               selenium.waitForPageToLoad("30000");
-               assertTrue(selenium.isTextPresent("Results * for selenium rc"));
-               // 以上为真实的测试步骤
-         }
-    }
+
+```java
+package com.example.tests;
+// 我们指定了这个文件的包
+
+import com.thoughtworks.selenium.*;
+// 导入驱动。
+// 你将使用它来初始化浏览器并执行一些任务。
+
+import java.util.regex.Pattern;
+// 加入正则表达式模块，因为有些我们需要使用它进行校验。
+// 如果你的代码不需要它，完全可以移除掉。 
+
+public class NewTest extends SeleneseTestCase {
+// 创建 Selenium 测试用例
+
+      public void setUp() throws Exception {
+        setUp("http://www.google.com/", "*firefox");
+             // 初始化并启动浏览器
+      }
+
+      public void testNew() throws Exception {
+           selenium.open("/");
+           selenium.type("q", "selenium rc");
+           selenium.click("btnG");
+           selenium.waitForPageToLoad("30000");
+           assertTrue(selenium.isTextPresent("Results * for selenium rc"));
+           // 以上为真实的测试步骤
+     }
+}
+```
 
 ## 学习使用 API
 
@@ -370,7 +374,7 @@ Logging Selenium 可以用于为你的测试创建一个含有所有 Selenium �
 
     // Java
     selenium.type("q", "selenium " +s);
-    
+
 如果元素“q”不在页面上将会抛出一个异常：
 
     com.thoughtworks.selenium.SeleniumException: ERROR: Element q not found
@@ -395,30 +399,32 @@ Logging Selenium 可以用于为你的测试创建一个含有所有 Selenium �
 考虑一个应用中的没有静态 id 的多选框。在这种情况下，你可以通过使用 Selenium RC 对 JavaScript 语句进行求值（evaluate）来找到所有的多选框并处理它们。
 
 
-    // Java
-    public static String[] getAllCheckboxIds () {
-         String script = "var inputId  = new Array();";// Create array in java script.
-                script += "var cnt = 0;"; // Counter for check box ids.
-                script += "var inputFields  = new Array();"; // Create array in java script.
-                script += "inputFields = window.document.getElementsByTagName('input');"; // Collect input elements.
-                script += "for(var i=0; i<inputFields.length; i++) {"; // Loop through the collected elements.
-                script += "if(inputFields[i].id !=null " +
-                          "&& inputFields[i].id !='undefined' " +
-                          "&& inputFields[i].getAttribute('type') == 'checkbox') {"; // If input field is of type check box and input id is not null.
-                script += "inputId[cnt]=inputFields[i].id ;" + // Save check box id to inputId array.
-                          "cnt++;" + // increment the counter.
-                          "}" + // end of if.
-                          "}"; // end of for.
-                script += "inputId.toString();" ;// Convert array in to string.
-         String[] checkboxIds = selenium.getEval(script).split(","); // Split the string.
-         return checkboxIds;
-     }
- 
+```java
+// Java
+public static String[] getAllCheckboxIds () {
+     String script = "var inputId  = new Array();";// Create array in java script.
+            script += "var cnt = 0;"; // Counter for check box ids.
+            script += "var inputFields  = new Array();"; // Create array in java script.
+            script += "inputFields = window.document.getElementsByTagName('input');"; // Collect input elements.
+            script += "for(var i=0; i<inputFields.length; i++) {"; // Loop through the collected elements.
+            script += "if(inputFields[i].id !=null " +
+                      "&& inputFields[i].id !='undefined' " +
+                      "&& inputFields[i].getAttribute('type') == 'checkbox') {"; // If input field is of type check box and input id is not null.
+            script += "inputId[cnt]=inputFields[i].id ;" + // Save check box id to inputId array.
+                      "cnt++;" + // increment the counter.
+                      "}" + // end of if.
+                      "}"; // end of for.
+            script += "inputId.toString();" ;// Convert array in to string.
+     String[] checkboxIds = selenium.getEval(script).split(","); // Split the string.
+     return checkboxIds;
+ }
+```
+
 如果要计算页面中的图片数，你可以：
 
     // Java
     selenium.getEval("window.document.images.length;");
-    
+
 记住要调用 window 对象，以防在 DOM 表达式中其默认指向 Selenium 窗口而不是测试窗口。
 
 ## 服务端选项
@@ -428,11 +434,11 @@ Logging Selenium 可以用于为你的测试创建一个含有所有 Selenium �
 回想一下，我们是这样启动服务的：
 
     $ java -jar selenium-server-standalone-<version-number>.jar
-    
+
 你可以使用 -h 来查看所有的配置项：
 
     $ java -jar selenium-server-standalone-<version-number>.jar -h
-    
+
 你将看到所有配置项列表，每个配置项附带间断描述。这里提供的描述并不总是足够禽畜，所以接下来我们将对一些重要的配置项进行补充描述。
 
 ### 代理配置
@@ -454,7 +460,7 @@ Logging Selenium 可以用于为你的测试创建一个含有所有 Selenium �
 对于老版本的 Selenium 来说，你必须通过下面的配置项明确指定多窗口模式：
 
     -multiwindow
-    
+
 在 Selenium 1 以及更新的版本中，如果你希望在单窗口中运行你的测试，你可以使用以下配置项：
 
     -singlewindow
@@ -466,7 +472,7 @@ Firefox 不会同时运行两个实例，除非你为每一个指定单独的配
 首先，穿加你一个单独的 Firefox 配置，根据以下步骤。打开 Windows 的开始菜单，选择 “run”，然后键入以下内容：
 
     firefox.exe -profilemanager
-
+    
     firefox.exe -P
 
 使用对话框来创建新配置。当你运行 Selenium 服务时，你需要使用命令行选项 -firefoxProfileTemplate 告诉它使用新的 Firefox 配置，并且指定要使用的配置的路径。
@@ -486,7 +492,7 @@ Firefox 不会同时运行两个实例，除非你为每一个指定单独的配
     java -jar selenium-server-standalone-<version-number>.jar -htmlSuite "*firefox"
     "http://www.google.com" "c:\absolute\path\to\my\HTMLSuite.html"
     "c:\absolute\path\to\my\results.html"
-    
+
 这个例子将自动加载你的 html 测试套件，运行所有的测试并生成一份 html 格式的测试报告。
 
 **注意**
@@ -517,7 +523,7 @@ Firefox 不会同时运行两个实例，除非你为每一个指定单独的配
 在浏览器端的 javascript （Selenium Core）也将记录重要的日志信息。在很多时候，对最终用户而言，这比常规的 Selenium 服务端日志有用的多。为了访问浏览器端日志，将 -browserSideLog 参数传递给 Selenium 服务。
 
     java -jar selenium-server-standalone-<version-number>.jar -browserSideLog
-    
+
 为了将所有浏览器端的日志保存到一个文件中，-browserSideLog 必须和 -log 配置项联合使用。
 
 ### 指定特定浏览器路径
@@ -617,7 +623,7 @@ Selenium API 支持在多个浏览器中运行，包括 ie 和 Firefox。请从 
 例如，你使用如下自定义配置启动 Firefox：
 
     cmd=getNewBrowserSession&1=*custom c:\Program Files\Mozilla Firefox\firefox.exe&2=http://www.google.com
-    
+
 注意，当使用这种方法启动浏览器时，我们必须手工配置浏览器使用 Selenium 服务端作为代理。通常这意味这你需要打开你的浏览器选项，指定 “localhost:4444” 作为 http 代理，但是每种浏览器的设置方式可能不太一样。
 
 注意 Mozilla 浏览器的启动和停止不太一样。你需要设置 MOZ_NO_REMOTE 环境变量确保它表现如预期。Unix 用户应该避免使用 shell 脚本来启动它，直接使用一个二进制可执行文（如：firefox-bin）会更好。

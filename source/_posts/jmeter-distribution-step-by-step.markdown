@@ -38,7 +38,7 @@ jmeter.bat (windows)
 jmeter.sh (linux)
 用来打开GUI界面。
 点开运行->远程启动，将会看到这样的界面：
-![Jmeter远程启动](/images/blog/jmeter-remote.png)
+![Jmeter](/images/blog/jmeter-remote.png)
 从这里就可以指定哪台slave来发压力了。当然也可以选择远程全部启动了。
 
 ### 为什么要分布式发压力？

@@ -50,16 +50,20 @@ Solr提供了一个听起来很酷的SynonymFilterFactory,它可以接收一个�
 
 在Health On the Net,我们的搜索引擎使用MeSH来做查询扩展，MeSH是一个为健康领域提供优质同义词的医疗本体。例如”breast cancer“的同义词：
 
-    breast neoplasm
-    breast neoplasms
-    breast tumor
-    breast tumors
-    cancer of breast
-    cancer of the breast
+```shell
+breast neoplasm
+breast neoplasms
+breast tumor
+breast tumors
+cancer of breast
+cancer of the breast
+```
 
 因此在正常情况下，如果SynonymFilterFactory配置了`expand="true"`,查询”breast cancer“就变成了：
 
-    +((breast breast breast breast breast cancer cancer) (cancer neoplasm neoplasms tumor tumors) breast breast)
+```latex
++((breast breast breast breast breast cancer cancer) (cancer neoplasm neoplasms tumor tumors) breast breast)
+```
 
 这将命中包含”breast neoplasms“,"cancer of the breast"等等的文档。
 

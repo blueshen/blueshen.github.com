@@ -17,7 +17,7 @@ Mocha是一个功能丰富的Javascript测试框架，能够运行在node和浏�
 	$ mkdir test
 	$ cd ..
 	$ mocha test/test.js
-
+```	javascript
 	var assert = require("assert")
 	describe('Array', function(){
   	describe('#indexOf()', function(){
@@ -27,12 +27,14 @@ Mocha是一个功能丰富的Javascript测试框架，能够运行在node和浏�
     	})
   	})
 	})
-
+```
+```
 	$  mocha
 
  	 .
 
  	 ✔ 1 test complete (1ms)
+```
 <!--more-->
 ## Assertions
 在Java Unit Test中类似JUNIT，TestNG提供了不少的Assert函数。同样的，mocha也有很多选择。而这些并不属于mocha的一部分。
@@ -43,27 +45,28 @@ Mocha是一个功能丰富的Javascript测试框架，能够运行在node和浏�
 * [better-assert](https://github.com/visionmedia/better-assert)
 
 ## 测试同步代码
-
-	describe('Array', function(){
+```
+describe('Array', function(){
   	describe('#indexOf()', function(){
     	it('should return -1 when the value is not present', function(){
       	[1,2,3].indexOf(5).should.equal(-1);
       	[1,2,3].indexOf(0).should.equal(-1);
     	})
   	})
-	})
+})
+```
 ## 测试异步代码
 添加一个回调函数，通常称为done,给it。mocha就会知道应该等待操作完成。
-
-	describe('User', function(){
+```
+describe('User', function(){
   	describe('#save()', function(){
     	it('should save without error', function(done){
       	var user = new User('Luna');
       	user.save(done);
     	})
   	})
-	})
-
+})
+```
 ## 类似与JUNIT的函数
 
 * before : 在所有测试执行之前
@@ -73,8 +76,9 @@ Mocha是一个功能丰富的Javascript测试框架，能够运行在node和浏�
 
 ## mocha指令
 
+```
 	Usage: mocha [debug] [options] [files]
-
+	
 	Commands:
 
   	init <path>
@@ -104,23 +108,24 @@ Mocha是一个功能丰富的Javascript测试框架，能够运行在node和浏�
   	--interfaces                    显示可用的接口
   	--reporters                     显示可用的报表列表
   	--compilers <ext>:<module>,...  使用指定的module来编译文件
-
+```
 
 ## 报表
-
-	dot - dot matrix
-    	doc - html documentation
-    	spec - hierarchical spec list
-    	json - single json object
-    	progress - progress bar
-    	list - spec-style listing
-    	tap - test-anything-protocol
-    	landing - unicode landing strip
-    	xunit - xunit reportert
-    	teamcity - teamcity ci support
-    	html-cov - HTML test coverage
-    	json-cov - JSON test coverage
-    	min - minimal reporter (great with --watch)
-    	json-stream - newline delimited json events
-    	markdown - markdown documentation (github flavour)
-    	nyan - nyan cat!
+```
+	    dot - dot matrix
+		doc - html documentation
+		spec - hierarchical spec list
+		json - single json object
+		progress - progress bar
+		list - spec-style listing
+		tap - test-anything-protocol
+		landing - unicode landing strip
+		xunit - xunit reportert
+		teamcity - teamcity ci support
+		html-cov - HTML test coverage
+		json-cov - JSON test coverage
+		min - minimal reporter (great with --watch)
+		json-stream - newline delimited json events
+		markdown - markdown documentation (github flavour)
+		nyan - nyan cat!
+```

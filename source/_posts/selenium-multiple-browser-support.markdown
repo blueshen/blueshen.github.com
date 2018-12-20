@@ -52,8 +52,8 @@ WebDriver是通过调用native浏览器来操作的，浏览器之间的差异�
 参考<http://code.google.com/p/selenium/wiki/FirefoxDriver>
 #### Chrome:
 chrome要求条件如下：
->1.Chrome应当安装在默认路径下（如果是从官方下载的，安装后直接都是默认路径）。
-><table border=”1px">
+1.Chrome应当安装在默认路径下（如果是从官方下载的，安装后直接都是默认路径）。
+<table border=”1px">
 <tbody>
 <tr><td>OS</td><td>默认位置</td></tr>
 <tr><td>Linux</td><td>/usr/bin/google-chrome</td></tr>
@@ -62,11 +62,14 @@ chrome要求条件如下：
 <tr><td>Windwos Vista</td><td>C:\Users\%USERNAME%\AppData\Local\Google\Chrome\Application\chrome.exe</td></tr>
 </tbody>
 </table>
->2.需要下载相应版本的[chromedriver](http://code.google.com/p/chromedriver/downloads/list)，用来架起chrome浏览器与webdriver之间的桥梁。
->3.与FirefoxDriver差不多，需要设置chromedriver的路径。key值为：webdriver.chrome.driver.
->4.Java代码如下：
-	System.setProperty("webdriver.chrome.driver", "C://drivers/chromedriver.exe");
-    WebDriver driver = new ChromeDriver();
+2.需要下载相应版本的[chromedriver](http://code.google.com/p/chromedriver/downloads/list)，用来架起chrome浏览器与webdriver之间的桥梁。
+3.与FirefoxDriver差不多，需要设置chromedriver的路径。key值为：webdriver.chrome.driver.
+4.Java代码如下：
+
+```java
+System.setProperty("webdriver.chrome.driver", "C://drivers/chromedriver.exe");
+  WebDriver driver = new ChromeDriver();
+```
 需要注意的是，chrome浏览器会自动更新，而[chromedriver](http://code.google.com/p/chromedriver/downloads/list)也是不断更新的。如果chrome版本太新，而chromedriver没有相应的更换，会造成只是打开chrome浏览器，而不进行任何操作的问题。另外，ChromeDriver只适用于chrome 12.0.712.0+,如果需要使用更老的版本，见参考页面的详细描述。
 
 参考<http://code.google.com/p/selenium/wiki/ChromeDriver>

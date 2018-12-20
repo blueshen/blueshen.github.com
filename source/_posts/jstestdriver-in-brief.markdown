@@ -10,6 +10,7 @@ tags: [ jsTestDriver, nodejs, test-runner]
 jsTestDriver是一个JavaScript单元测试工具，易于与持续构建系统相集成并能够在多个浏览器上执行运行测试，轻松实现TDD（测试驱动开发）风格的开发。当在项目中配置好js-test-driver以后，如同junit测试java文件一般，js-test-driver可以直接通过直接运行js文件，来对js文件单元测试。
 ![alt jsTestDriver框架](/images/blog/jsTestDriver-framework.jpg)
 <!--more-->
+
 ##### 在Intellij IDEA中安装JsTestDriver
 * 打开IDEA编辑器，点击**File**，点击下拉列表中的**setting**，进入IDEA设置对话框
 * 在搜索框中键入**plugins**，在搜索结果中选择**plugins**这一项
@@ -19,34 +20,42 @@ jsTestDriver是一个JavaScript单元测试工具，易于与持续构建系统�
 ![alt jsTestDriver插件安装](/images/blog/idea-install-jstestdriver-plugin-dialog.png)
 ##### 在IDEA中使用jsTestDriver运行js测试代码
 * 在IDEA中新建一个空的工程，在工程目录下新建代码包test
+
 * 在src代码包中新建Greeter.js代码如下：
 
+```javascript
     myapp = {};
     myapp.Greeter = function() { };
     myapp.Greeter.prototype.greet = function(name) {
     return "Hello " + name + "!";
     };
-* 在test代码包中新建GreeterTest.js,代码如下
+```
 
+* 在test代码包中新建GreeterTest.js,代码如下
+```javascript
     GGdTestCase("GreeterTest", {
     "test greet": function() {
-        var greeter = new myapp.Greeter();
-        assertEquals("Hello World!", greeter.greet("World"));
+    ​    var greeter = new myapp.Greeter();
+    ​    assertEquals("Hello World!", greeter.greet("World"));
     },
     "test greet null": function() {
-        var greeter = new myapp.Greeter();
-        //assertNull(greeter.greet(null));
-        assertTrue(true);
+    ​    var greeter = new myapp.Greeter();
+    ​    //assertNull(greeter.greet(null));
+    ​    assertTrue(true);
     }
     });
+```
 * 在项目主文件夹中新建配置文件greeter.jstd,文件内容如下：
 
     load:
-  -- src/Greeter.js
-  --test/GreeterTest.js
+      -- src/Greeter.js
+      --test/GreeterTest.js
+
 * 启动jsTestDriver Server
   ![alt jsTestDriver server](/images/blog/jsTestDriver-server.jpg)
+
 * 打开本地浏览器，访问url http://localhost:9876/capture
+
 * 运行greeter.jstd
 
 ##### 在Eclipse中安装jsTestDriver

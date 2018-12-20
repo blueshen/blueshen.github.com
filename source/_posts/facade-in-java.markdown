@@ -14,11 +14,11 @@ tags: [ Java, Facade, slf4j ]
 
 在无接待员的时候，病人要做业务，好复杂啊，好累！
 
-![无接待员](/images/blog/facade-hospital1.png)
+![门面模式](/images/blog/facade-hospital1.png)
 
 有了接待员，各种就医流程好流畅的说。因为有接待员与各个部门打交道。
 
-![有接待员](/images/blog/facade-hospital2.png)
+![门面模式](/images/blog/facade-hospital2.png)
 
 这个例子很好的说出了facade的作用。甚至都不需要代码来表达了。
 
@@ -37,6 +37,7 @@ tags: [ Java, Facade, slf4j ]
 　　通过合理使用Facade，可以帮助我们更好地划分访问的层次。有些方法是对系统外的，有些方法是系统内部使用的。把需要暴露给外部的功能集中到门面中，这样既方便客户端使用，也很好地隐藏了内部的细节
 
 ## 门面模式 in JDK
+
 这个具体的例子，我首先想到的就是[slf4j](http://www.slf4j.org/)这个日志框架。通过名字Simple Logging Facade for Java (SLF4J)就知道是采用的Facade模式了。下面是其官方的介绍：
 The Simple Logging Facade for Java or (SLF4J) serves as a simple facade or abstraction for various logging frameworks, e.g. java.util.logging, log4j and logback, allowing the end user to plug in the desired logging framework at deployment time.
 也就是说，他屏蔽了各种日志框架的差异，提供了一个统一的日志接口给用户使用。不得不说，[slf4j](http://www.slf4j.org/)很好用，推荐！

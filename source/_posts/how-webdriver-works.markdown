@@ -22,33 +22,35 @@ WebDriver的工作原理图：
 
 关于WebDriver Wire协议的细节，比如希望了解这套Web Service能够做哪些事情，可以阅读Selenium官方的协议文档， 在Selenium的源码中，我们可以找到一个HttpCommandExecutor这个类，里面维护了一个Map<String, CommandInfo>，它负责将一个个代表命令的简单字符串key，转化为相应的URL，因为REST的理念是将所有的操作视作一个个状态，每一个状态对应一个URI。所以当我们以特定的URL发送HTTP request给这个RESTful web service之后，它就能解析出需要执行的操作。截取一段源码如下：   
 
-	nameToUrl = ImmutableMap.<String, CommandInfo>builder()  
-        .put(NEW_SESSION, post("/session"))  
-        .put(QUIT, delete("/session/:sessionId"))  
-        .put(GET_CURRENT_WINDOW_HANDLE, get("/session/:sessionId/window_handle"))  
-        .put(GET_WINDOW_HANDLES, get("/session/:sessionId/window_handles"))  
-        .put(GET, post("/session/:sessionId/url"))  
+```java
+nameToUrl = ImmutableMap.<String, CommandInfo>builder()  
+    .put(NEW_SESSION, post("/session"))  
+    .put(QUIT, delete("/session/:sessionId"))  
+    .put(GET_CURRENT_WINDOW_HANDLE, get("/session/:sessionId/window_handle"))  
+    .put(GET_WINDOW_HANDLES, get("/session/:sessionId/window_handles"))  
+    .put(GET, post("/session/:sessionId/url"))  
   			// The Alert API is still experimental and should not be used.  
-        .put(GET_ALERT, get("/session/:sessionId/alert"))  
-        .put(DISMISS_ALERT, post("/session/:sessionId/dismiss_alert"))  
-        .put(ACCEPT_ALERT, post("/session/:sessionId/accept_alert"))  
-        .put(GET_ALERT_TEXT, get("/session/:sessionId/alert_text"))  
-        .put(SET_ALERT_VALUE, post("/session/:sessionId/alert_text"))  
-
+    .put(GET_ALERT, get("/session/:sessionId/alert"))           	         .put(DISMISS_ALERT, post("/session/:sessionId/dismiss_alert"))  
+    .put(ACCEPT_ALERT, post("/session/:sessionId/accept_alert"))  
+    .put(GET_ALERT_TEXT, get("/session/:sessionId/alert_text"))  
+    .put(SET_ALERT_VALUE, post("/session/:sessionId/alert_text"))  
+```
 可以看到实际发送的URL都是相对路径，后缀多以/session/:sessionId开头，这也意味着WebDriver每次启动浏览器都会分配一个独立的sessionId，多线程并行的时候彼此之间不会有冲突和干扰。例如我们最常用的一个WebDriver的API，findWebElement在这里就会转化为/session/:sessionId/element这个URL，然后在发出的HTTP request body内再附上具体的参数比如by ID还是CSS还是Xpath，各自的值又是什么。收到并执行了这个操作之后，也会回复一个HTTP response。内容也是JSON，会返回找到的WebElement的各种细节，比如text、CSS selector、tag name、class name等等。以下是解析我们说的HTTP response的代码片段：
 
-	try {  
-        response = new JsonToBeanConverter().convert(Response.class, responseAsText);  
-      } catch (ClassCastException e) {  
-        if (responseAsText != null && "".equals(responseAsText)) {  
-          // The remote server has died, but has already set some headers.  
-          // Normally this occurs when the final window of the firefox driver  
-          // is closed on OS X. Return null, as the return value _should_ be  
-          // being ignored. This is not an elegant solution.  
-          return null;  
-        }  
-        throw new WebDriverException("Cannot convert text to response: " + responseAsText, e);  
-      } //...  
+```java
+try {  
+    response = new JsonToBeanConverter().convert(Response.class, responseAsText);  
+  } catch (ClassCastException e) {  
+    if (responseAsText != null && "".equals(responseAsText)) {  
+      // The remote server has died, but has already set some headers.  
+      // Normally this occurs when the final window of the firefox driver  
+      // is closed on OS X. Return null, as the return value _should_ be  
+      // being ignored. This is not an elegant solution.  
+      return null;  
+    }  
+    throw new WebDriverException("Cannot convert text to response: " + responseAsText, e);  
+  } //...  
+```
 
 相信总结到这里，应该对WebDriver的运行原理应该清楚了。Server端就是一个RESTFul的WebService，客户端代码只需调用就可以了。这也解释了为什么WebDriver能支持那么多语言了，只要能发HTTP请求就可以实现，甚至自己封装一套API都是可以的。Github上的WebDriverJS就是一套JS版的WebDriver。    
 
