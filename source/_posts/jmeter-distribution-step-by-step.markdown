@@ -25,20 +25,28 @@ tags: [ jmeter, 分布式, 压力测试 ]
 假设这3台机器都作为slave，那么分别在各个机器上，
 进入%JMETER HOME%/bin/目录
 运行:
+```shell
 jmeter-server.bat（windows）
 jmeter-server.sh (linux)
-
+```
 ### Master配置
 这里，我们以10.81.14.170作为Master,
 进入%JMETER HOME%/bin/ 目录
-找到jmeter.properties文件，打开并找到remote_hosts=127.0.0.1这一行，修改为remote_hosts=127.0.0.1,10.81.14.180,10.81.14.190
+找到jmeter.properties文件，打开并找到remote_hosts=127.0.0.1这一行，修改为:
+```properties
+remote_hosts=127.0.0.1,10.81.14.180,10.81.14.190
+```
 其中，IP部分指向slave,并以逗号分割。由于170这台机器同时也是slave而存在，因此直接写为127.0.0.1了。
 在目录下执行：
+```shell
 jmeter.bat (windows)
 jmeter.sh (linux)
+```
 用来打开GUI界面。
 点开运行->远程启动，将会看到这样的界面：
-![Jmeter](/images/blog/jmeter-remote.png)
+
+![Jmeter远程启动](/images/blog/jmeter-remote.png)
+
 从这里就可以指定哪台slave来发压力了。当然也可以选择远程全部启动了。
 
 ### 为什么要分布式发压力？
@@ -57,3 +65,7 @@ jmeter.sh (linux)
 <http://jmeter.apache.org/usermanual/jmeter_distributed_testing_step_by_step.pdf>
 
 
+
+```
+
+```

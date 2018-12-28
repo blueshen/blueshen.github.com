@@ -37,5 +37,5 @@ ant install /ant clean install
 
 
 ### 运行Jmeter
-进入bin目录，执行jmeter.bat（windows）或者 ./jmeter（linux）,Jmeter的界面打开了，开始体验吧。
+进入bin目录，执行jmeter.bat（windows）或者 ./jmeter（linux），Jmeter的界面打开了，开始体验吧。
 

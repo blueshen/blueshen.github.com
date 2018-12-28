@@ -15,8 +15,7 @@ public interface Operation{
 }  
 ```
 
-开发人员在了解这个接口的定义后，发现一个第三方类，里面有一个方法能实现他们期望的功能，其代码如下：    
-Java代码    
+开发人员在了解这个接口的定义后，发现一个第三方类，里面有一个方法能实现他们期望的功能，其代码如下：    Java代码    
 
 ```java
 public class OtherOperation{  

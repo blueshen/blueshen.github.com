@@ -7,7 +7,9 @@ categories: selenium
 tags: [ webdriver , selenium  ]
 ---
 WebDriver与之前Selenium的JS注入实现不同，直接利用了浏览器native support来操作浏览器。所以对于不同平台，不同的浏览器，必须依赖一个特定的浏览器的native component来实现把WebDriver API的调用转化为浏览器的native invoke。   
+
 Selenium采用Javascript的合成事件来处理操作，比如要点击某个元素，JS会定位到这个元素然后触发onclick事件。而WebDriver使用的是系统的原生支持，首先是找到这个元素，然后找到它的location,并在这个座标点触发一个左键点击操作。因此，可以看出WebDriver能更好的模拟真实的环境。也正因为这个区别，有些hidden的元素是可以使用Selenium操作的，但是WebDriver缺不行，会报一个cannot clickable类似的错误。    
+
 <!--more-->
 
 在我们新建一个WebDriver的过程中，Selenium首先会确认浏览器的native component是否存在可用而且版本匹配。接着就在目标浏览器里启动一整套Web Service，这套Web Service使用了Selenium自己设计定义的协议，名字叫做The WebDriver Wire Protocol。这套协议非常之强大，几乎可以操作浏览器做任何事情，包括打开、关闭、最大化、最小化、元素定位、元素点击、上传文件等等。
@@ -16,7 +18,7 @@ WebDriver Wire协议是通用的，也就是说不管是FirefoxDriver还是Chrom
 
 WebDriver的工作原理图：
 
-![WebDriver工作原理图](/images/blog/webdriver-works.png)
+![WebDriver 工作原理图](/images/blog/webdriver-works.png)
 
 从上图中我们可以看出，不同浏览器的WebDriver子类，都需要依赖特定的浏览器原生组件，例如Firefox就需要一个add-on名字叫webdriver.xpi，这个是直接集成在jar包内的，我猜想selenium IDE也是需要这个来支持的。而IE的话就需要用到一个dll文件来转化Web Service的命令为浏览器native的调用，以及IEDriver来保证32-64的支持。另外，图中还标明了WebDriver Wire协议是一套基于RESTful的web service。
 
@@ -35,7 +37,9 @@ nameToUrl = ImmutableMap.<String, CommandInfo>builder()
     .put(GET_ALERT_TEXT, get("/session/:sessionId/alert_text"))  
     .put(SET_ALERT_VALUE, post("/session/:sessionId/alert_text"))  
 ```
-可以看到实际发送的URL都是相对路径，后缀多以/session/:sessionId开头，这也意味着WebDriver每次启动浏览器都会分配一个独立的sessionId，多线程并行的时候彼此之间不会有冲突和干扰。例如我们最常用的一个WebDriver的API，findWebElement在这里就会转化为/session/:sessionId/element这个URL，然后在发出的HTTP request body内再附上具体的参数比如by ID还是CSS还是Xpath，各自的值又是什么。收到并执行了这个操作之后，也会回复一个HTTP response。内容也是JSON，会返回找到的WebElement的各种细节，比如text、CSS selector、tag name、class name等等。以下是解析我们说的HTTP response的代码片段：
+可以看到实际发送的URL都是相对路径，后缀多以/session/:sessionId开头，这也意味着WebDriver每次启动浏览器都会分配一个独立的sessionId，多线程并行的时候彼此之间不会有冲突和干扰。例如我们最常用的一个WebDriver的API，findWebElement在这里就会转化为/session/:sessionId/element这个URL，然后在发出的HTTP request body内再附上具体的参数比如by ID还是CSS还是Xpath，各自的值又是什么。收到并执行了这个操作之后，也会回复一个HTTP response。内容也是JSON，会返回找到的WebElement的各种细节，比如text、CSS selector、tag name、class name等等。
+
+以下是解析我们说的HTTP response的代码片段：
 
 ```java
 try {  
@@ -52,6 +56,10 @@ try {
   } //...  
 ```
 
-相信总结到这里，应该对WebDriver的运行原理应该清楚了。Server端就是一个RESTFul的WebService，客户端代码只需调用就可以了。这也解释了为什么WebDriver能支持那么多语言了，只要能发HTTP请求就可以实现，甚至自己封装一套API都是可以的。Github上的WebDriverJS就是一套JS版的WebDriver。    
+相信总结到这里，应该对WebDriver的运行原理应该清楚了。Server端就是一个RESTFul的WebService，客户端代码只需调用就可以了。这也解释了为什么WebDriver能支持那么多语言了，只要能发HTTP请求就可以实现，甚至自己封装一套API都是可以的。Github上的WebDriverJS就是一套JS版的WebDriver。 
+
+
+
+---
 
 参考：<http://blog.csdn.net/ant_yan/article/details/7970793>

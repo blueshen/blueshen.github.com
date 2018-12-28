@@ -21,21 +21,27 @@ AST 的访问者抽象类,类中声明了一组访问各类 AST 节点的 visit(
 在 Eclipse AST 中,Java 源程序中的每个语法结构对应为一个 AST 节点,所有的 AST节点按其在语法上的关系连接形成一棵 AST 树。类 ASTNode 是 AST 树中各类节点的抽象基类,其余的 AST 节点类都由它派生。在 ASTNode 类中声明有各个具体的 AST 节点类所对应的类型标识,如 ASTNode.COMPILATION_UNIT 代表 Compilation_Unit 节点类,这类节点用来表示一个 Java 源程序文件。
 为便于自顶向下(从父节点到子节点)或者自底向上(从子节点到父节点)访问 AST树,AST 节点含有指向其父节点的 parent 域以及若干关联的子节点域。在 AST 节点类中,以属性(property)来统一处理子节点以及用户自定义的节点属性,属性的访问方法有:
 
-    void setProperty(String propertyName, Object data) // 设置指定属性的值
-    Object getProperty(String propertyName) // 取得指定属性的值
-    Map properties( )// 返回节点的所有属性表,这个表是不可修改的
+```java
+void setProperty(String propertyName, Object data) // 设置指定属性的值
+Object getProperty(String propertyName) // 取得指定属性的值
+Map properties( )// 返回节点的所有属性表,这个表是不可修改的
+```
 在每个具体的 AST 节点类中,以类常量形式声明该类节点所拥有的基本属性(即基本的子节点)类别,并定义了存放属性值的域以及设置和访问属性的方法。例如,在一个 Java源程序文件中,有可选的 package 声明、0 个或多个 import 声明以及至少 1 个类型声明(可以是类声明或接口声明),从而在表示 Java 源程序文件(称为编译单元)的 AST 节点类CompilationUnit 中就声明有 final 类变量 PACKAGE_PROPERTY、IMPORTS_PROPERTY 和TYPES_PROPERTY,分别表示 package 属性、imports 属性和 types 属性,同时还定义有如下的访问方法:
 
-    List imports( )
-    // 该节点的所有 import 声明,按在程序中的出现次序排列List types( )
-    // 该节点的所有顶层类型声明,按在程序中的出现次序排列
-    void setPackage(PackageDeclaration pkgDecl) // 设置该节点的 package 声明
-    PackageDeclaration getPackage( )
-    // 取得该节点的 package 声明
+```java
+List imports( )
+// 该节点的所有 import 声明,按在程序中的出现次序排列List types( )
+// 该节点的所有顶层类型声明,按在程序中的出现次序排列
+void setPackage(PackageDeclaration pkgDecl) // 设置该节点的 package 声明
+PackageDeclaration getPackage( )
+// 取得该节点的 package 声明
+```
 其中,类型相同的子节点组成的序列以 java.util.List 接口类来表示,这个接口类包含 add、get、set、remove 等方法用于访问和修改序列。在实际构造和访问 AST 树时,需要注意统一所使用的 List 接口类的实现类,例如,可以统一使用类 java.util.LinkedList 或者统一使用类java.util.ArrayList 来表示序列。
 在 AST 节点类中,只提供获取父节点的方法,即
 
-    ASTNode getParent( )
+```java
+ASTNode getParent( )
+```
 而没有提供设置父节点的方法,这是因为对节点的 parent 域的设置是伴随着将该节点设置为其他节点的子节点而自动进行的。一个新创建的 AST 节点是没有设置其父节点的。当节点A 通过形如 setCHILD 方法,如 A.setPackage(B)方法,或者通过序列的 add 或 set 方法,如A.types( ).add(B)方法,将节点 B 设为自己的孩子时,B 节点的 parent 域将自动设置为对 A节点的引用;对于那些因上述操作导致不再是 A 节点的子节点来说,其 parent 域将被自动设置为 null。
 
 每个 AST 节点及其子节点只能归属于一棵 AST 树。如果将一棵 AST 树中的某个 AST节点添加到另一棵 AST 树中,则必须复制这个节点及其所有的子孙节点,以保证这些节点只属于一棵 AST 树。此外,AST 树中不能含有环,如果某些操作会导致 AST 有环,则这些操作将失败。

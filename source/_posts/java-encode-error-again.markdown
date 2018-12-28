@@ -13,7 +13,6 @@ dom4j提供了一个`DocumentHelper`来解析xml内容，此处的内容是Strin
 ```java
     public static Document parseText(String text) throws DocumentException {
         Document result = null;
-
         SAXReader reader = new SAXReader();
         String encoding = getEncoding(text);
 
@@ -82,9 +81,7 @@ dom4j提供了一个`DocumentHelper`来解析xml内容，此处的内容是Strin
 
 ```java
 xmlContent = IOUtils.toString(inputStream);
-
 转换为：
-
 xmlContent = IOUtils.toString(inputStream，"UTF-8);//假设文件是UTF-8
 ```
 

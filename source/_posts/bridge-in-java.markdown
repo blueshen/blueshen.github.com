@@ -12,14 +12,14 @@ tags: [ bridge, pattern ]
 场景：我们想绘制矩形、圆形、椭圆形、正方形，我们至少需要4个形状类。但是如果又需要绘制的图形是不同颜色的，比如白色、灰色、蓝色的。
 我们可能很快就会想到这样的方案：
 
-![桥接](/images/blog/bridge-pattern-1.png)
+![桥接模式](/images/blog/bridge-pattern-1.png)
 
 按照上面的说法，我们可能要新建4*3=12个类来完成。
 但是如果需要画更多的图形，并有更多的颜色呢。如此扩展下去很可能出现类爆炸。
 <!--more-->
 那如何解决呢？使用Bridge来组合这些方案吧。这种方案只需要4+3个类就搞定了。
 
-![桥接](/images/blog/bridge-pattern-2.png)
+![桥接模式](/images/blog/bridge-pattern-2.png)
 
 ### 桥接模式的角色和职责
 

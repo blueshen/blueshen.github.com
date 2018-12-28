@@ -9,7 +9,7 @@ tags: [ 同义词, solr, lucene]
 
 当使用Solr来构建搜索引擎的时候，你可能经常会遇到这样的场景：你有一个同义词列表，并且你想用户查询也能够命中到同义词。听起来很简单不是吗？为什么搜索“dog”的时候，不能命中包含“hound(猎犬)”或者“pooch(狗)”的文档呢？甚至包含“Rover(流浪者)”和“canis familiaris(犬)"?
 
-![小狗](/images/blog/2014/File-Licking_the_staffy_pup.JPG)
+![solr plugin 小狗](/images/blog/2014/File-Licking_the_staffy_pup.JPG)
 
 叫Rover或者其他名字，可能只是为了让小狗听起来很可爱。
 
@@ -71,11 +71,11 @@ cancer of the breast
 
 啊？这里到底发生了什么？事实证明SynonymFilterFactory并没有按你所想来扩展多字同义词。直觉上，可能认为它表现为一个有限自动机，Solr构建出的结果可能类似这样(忽略复数)：
 
-![](/images/blog/2014/graph11.png)
+![Lucene FSA](/images/blog/2014/graph11.png)
 
 但是，它真正构建的是下面这样的：
 
-![](/images/blog/2014/graph22.png)
+![Lucene FSA](/images/blog/2014/graph22.png)
 
 简直是一碗意大利面。
 
@@ -105,7 +105,7 @@ cancer of the breast
 
 当我搜索”breast cancer“的时候，我发现高亮器会很神奇的把”breast cancer X Y“给高亮了，其中”X“和”Y“是文档中任何跟在”breast cancer“后面的2个字符。例如，它可能会高亮”breast cancer frauds are“或者”breast cancer is to“。
 
-![](/images/blog/2014/breast_cancer_highlighting2.png)
+![solr highlight bug](/images/blog/2014/breast_cancer_highlighting2.png)
 
 看完这个[solr bug](https://issues.apache.org/jira/browse/SOLR-3390),这和前面提到的Solr多字同义词扩展是一个原因。
 

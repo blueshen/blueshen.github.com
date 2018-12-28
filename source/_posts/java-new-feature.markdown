@@ -41,7 +41,9 @@ public static void switchString(String s){
 
 - b. 用下划线连接整数提升其可读性，自身无含义，不可用在数字的起始和末尾：
 
-     ```long phone_nbr = 021_1111_2222;```
+     ```java
+     long phone_nbr = 021_1111_2222;
+     ```
 
 #### 3. 简化了泛型对象创建的语法 - "菱形 new"，以下两个语句等价：
 

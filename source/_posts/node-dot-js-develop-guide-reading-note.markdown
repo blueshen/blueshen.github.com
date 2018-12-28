@@ -30,25 +30,31 @@ CommonJS规范包括：
 模块（module）和包(package)是NodeJS的基本。并且都是参照CommonJS标准来实现的。如果项目有一定的规模，势必要把各种功能模块进行切分，然后再组装起来。这也正式所有服务器端的通用做法。然而，在NodeJS中怎么实现模块之间的调用呢，这里是使用require函数的。模块和包通常区分不是很明确，可以认为是一致的。
 #### 1.什么是模块？
 
-	var http = require("http");
+```javascript
+var http = require("http");
+```
 其中http就是nodeJs中的一个核心模块. 像Java中的import一样，这里是使用require来引入这个模块。
 
 #### 2.创建与发布模块
 NodeJS提供了exports和require两个对象来完成，exports用于公开模块的接口，require用于获取外部模块的接口。
 如创建一个module.js:
 
-	var name;
-	exports.setName=function(thyName){
-	     name=thyName;
-         }
-         exports.sayHello = function(){
-	    console.log('Hello '+name);
-	}
+```javascript
+var name;
+exports.setName=function(thyName){
+     name=thyName;
+     }
+     exports.sayHello = function(){
+    console.log('Hello '+name);
+}
+```
 在同一个目录下，再创建一个getmodule.js:
 
-	var mymodule = require('./module');
-	myModule.setName('shenyanchao');
-	myModule.sayHello();
+```javascript
+var mymodule = require('./module');
+myModule.setName('shenyanchao');
+myModule.sayHello();
+```
 运行后的结果：
 
 	Hello shenyanchao
@@ -66,22 +72,28 @@ NodeJS提供了exports和require两个对象来完成，exports用于公开模�
 
 模块与文件是一一对应的。文件不仅可以是 JavaScript 代码或二进制代码,还可以是一个文件夹。最简单的包,就是一个作为文件夹的模块。建立一个叫做 somepackage 的文件夹,在其中创建 index.js,内容如下:
 
-	exports.hello = function() {
-	   console.log('Hello.');
-	};
+```javascript
+exports.hello = function() {
+   console.log('Hello.');
+};
+```
 然后在 somepackage 之外建立 getpackage.js,内容如下:
 
-	var somePackage = require('./somepackage');
-	somePackage.hello();
+```javascript
+var somePackage = require('./somepackage');
+somePackage.hello();
+```
 
 运行 node getpackage.js,控制台将输出结果 Hello。
 我们使用这种方法可以把文件夹封装为一个模块,即所谓的包。包通常是一些模块的集合,在模块的基础上提供了更高层的抽象,相当于提供了一些固定接口的函数库。通过定制package.json,我们可以创建更复杂、更完善、更符合规范的包用于发布。
 **package.json**
 在somepackage 文件夹下,我们创建一个叫做 package.json 的文件,内容如下所示:
 
-	{
-	    "main" : "./lib/interface.js"
-	}
+```json
+{
+    "main" : "./lib/interface.js"
+}
+```
 然后将 index.js 重命名为 interface.js 并放入 lib 子文件夹下。以同样的方式再次调用这个包,依然可以正常使用。
 NodeJS在调用某个包时,会首先检查包中 package.json 文件的 main 字段,将其作为包的接口模块,如package.json 或 main 字段不存在,会尝试寻找 index.js 或 index.node 作为包的接口。
 package.json 是 CommonJS 规定的用来描述包的文件,完全符合规范的 package.json 文件应该含有以下字段。
@@ -96,13 +108,14 @@ licenses:许可证数组,每个元素要包含 type (许可证的名称)和 url 
 repositories:仓库托管地址数组,每个元素要包含 type(仓库的类型, git )如url (仓库的地址)和 path (相对于仓库的路径,可选)字段。
 下面是mocha的package.json:
 
-	{
+```json
+{
  	 "name": "mocha",
  	 "version": "1.8.1",
   	"description": "simple, flexible, fun test framework",
  	 "keywords": [
    	 "mocha",
-    	"test",
+     "test",
    	 "bdd",
    	 "tdd",
    	 "tap"
@@ -130,7 +143,7 @@ repositories:仓库托管地址数组,每个元素要包含 type(仓库的类型
     	"commander": "0.6.1",
     	"growl": "1.7.x",
     	"jade": "0.26.3",
-    	"diff": "1.0.2",
+     	"diff": "1.0.2",
     	"debug": "*",
     	"mkdirp": "0.3.3",
     	"ms": "0.3.0"
@@ -140,11 +153,14 @@ repositories:仓库托管地址数组,每个元素要包含 type(仓库的类型
     	"coffee-script": "1.2"
  	 },
   	"readme": "..."
-	}
+}
+```
 也就是说，这里面提供了完善的信息来告诉npm，怎么样安装、升级、传播。
 如执行：
 
-	npm install -g mocha
+```shell
+npm install -g mocha
+```
 那么，npm将会依据json提供的信息来进行管理。
 #### 4.npm的本地模式与全局模式
 npm默认会从http://npmjs.org上搜索并下载包，并将包安装在当前目录的node_modules子目录下。这种就称为本地模式。也就意味着只能在当前目录使用。如果想在全部地方可用，那就用`-g`参数。这样包就会安装到NODE_PATH里了，在任何目录都可以使用了。g应该就是global的缩写，很容易记。

@@ -26,21 +26,21 @@ jXLS的基本功能：
 - 支持图像和图表
 
 ```xml
-    <dependency>
-           <groupId>net.sf.jxls</groupId>
-           <artifactId>jxls-core</artifactId>
-           <version>1.0.5</version>
-    </dependency>
+<dependency>
+     <groupId>net.sf.jxls</groupId>
+     <artifactId>jxls-core</artifactId>
+     <version>1.0.5</version>
+</dependency>
 ```
 
 <!--more-->
 jXLS的API也很简单：
 
 ```java
-            Map beans = new HashMap();
-            beans.put("department", department);
-            XLSTransformer transformer = new XLSTransformer();
-            transformer.transformXLS(xlsTemplateFileName, beans, outputFileName);
+Map beans = new HashMap();
+beans.put("department", department);
+XLSTransformer transformer = new XLSTransformer();
+transformer.transformXLS(xlsTemplateFileName, beans, outputFileName);
 ```
 ### jXLS是如何解析模板生成数据的？
 

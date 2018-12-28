@@ -39,6 +39,8 @@ tags: [ Java, Facade, slf4j ]
 ## 门面模式 in JDK
 
 这个具体的例子，我首先想到的就是[slf4j](http://www.slf4j.org/)这个日志框架。通过名字Simple Logging Facade for Java (SLF4J)就知道是采用的Facade模式了。下面是其官方的介绍：
+```
 The Simple Logging Facade for Java or (SLF4J) serves as a simple facade or abstraction for various logging frameworks, e.g. java.util.logging, log4j and logback, allowing the end user to plug in the desired logging framework at deployment time.
+```
 也就是说，他屏蔽了各种日志框架的差异，提供了一个统一的日志接口给用户使用。不得不说，[slf4j](http://www.slf4j.org/)很好用，推荐！
 

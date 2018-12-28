@@ -55,19 +55,17 @@ tags: [ pmd, maven, eclipse ]
 ```
 ---
 ## 二 pmd在eclipse中的使用
->1.安装
->>Help -> Install New Software -> Add...
->>设置update site:<http://pmd.sourceforge.net/eclipse>
->>一路next安装成功即可
+1.安装
+>Help -> Install New Software -> Add...
+>设置update site:<http://pmd.sourceforge.net/eclipse>
+>一路next安装成功即可
 
->2.eclipse中的设置
->>Window -> Prefrences -> PMD -> Rules Configuration
->>在其中可以设置相关Rules，这里面的Rules对应maven-pmd-plugins中的pmd-rulesets.xml，可以根据自己的需求进行定制
+2.eclipse中的设置
+>Window -> Prefrences -> PMD -> Rules Configuration
+>在其中可以设置相关Rules，这里面的Rules对应maven-pmd-plugins中的pmd-rulesets.xml，可以根据自己的需求进行定制
 
->3.eclipse中的使用
->>右键选中project -> PMD -> Check Code with PMD
->>执行结束后，会打开PMD视图，会依据不同的Priority级别显示不同的颜色。其中红色标注的X是级别为错误级别的。
-
-
+3.eclipse中的使用
+>右键选中project -> PMD -> Check Code with PMD
+>执行结束后，会打开PMD视图，会依据不同的Priority级别显示不同的颜色。其中红色标注的X是级别为错误级别的。
 
 ---

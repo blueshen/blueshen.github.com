@@ -9,7 +9,9 @@ tags: [ HTTP, 读书笔记 ]
 ### URL语法
 完整的URL是建立在由以下9个部分构成的通用格式上的。
 
-    <scheme>://<user>:<password>@<host>:<port>/<path>;<params>?<query>#<frag>
+```shell
+<scheme>://<user>:<password>@<host>:<port>/<path>;<params>?<query>#<frag>
+```
 其中各个部分代表：
 
 - scheme(方案)：使用的哪种协议;默认无
@@ -25,26 +27,34 @@ tags: [ HTTP, 读书笔记 ]
 ### HTTP报文格式
 #### 1.请求报文（request message）
 
-    <method> <request-URL> <version>
-    <headers>
-    
-    <entity-body>
+```xml
+<method> <request-URL> <version>
+<headers>
+
+<entity-body>
+```
 例如：
 
-    GET /images/blog/qunit-pic.png HTTP/1.0
-    Host: www.shenyanchao.cn
+```shell
+GET /images/blog/qunit-pic.png HTTP/1.0
+Host: www.shenyanchao.cn
+```
 
 #### 2.响应报文（request message）
 
-    <version> <status-code> <reason-phrase>
-    <headers>
-    
-    <entity-body>
+```xml
+<version> <status-code> <reason-phrase>
+<headers>
+
+<entity-body>
+```
 例如：
 
-    HTTP/1.1 200 OK
-    Content-Type: image/png
-    Content-Length: 18107
+```shell
+HTTP/1.1 200 OK
+Content-Type: image/png
+Content-Length: 18107
+```
 
 以上报文格式中，各个部分的描述如下：
 
@@ -107,17 +117,5 @@ TCP数据传输的性能取决于TCP连接的使用时间。TCP连接随着时�
 | 300~399  | 300~305    | 重定向     |
 | 400~499  | 400~415    | 客户端错误 |
 | 500~599  | 500~505    | 服务器错误 |
-
-
-
-
-
-
-
-
-
-
-
-
 
 

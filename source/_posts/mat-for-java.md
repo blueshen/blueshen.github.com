@@ -7,12 +7,16 @@ tags: [ java, mat, OOM]
 
 ### 如何DUMP出堆栈
 #### 手动dump
-	jmap -dump:format=b,file=<dumpfile.hprof> <pid>
+```shell
+jmap -dump:format=b,file=<dumpfile.hprof> <pid>
+```
 
 #### JVM参数自动dump
 
-	-XX:+HeapDumpOnOutOfMemoryError
-	-XX:HeapDumpPath=${heap.dump.path}
+```properties
+-XX:+HeapDumpOnOutOfMemoryError
+-XX:HeapDumpPath=${heap.dump.path}
+```
 
 
 ### 下载并调整MAT(Eclipse Memory Analyze Tool)
@@ -44,11 +48,13 @@ tags: [ java, mat, OOM]
 ```
 
 还支持另外两个：
-
+```shell
 org.eclipse.mat.api:overview
 org.eclipse.mat.api:top_components
-
+```
 执行之后，产生多个zip版html。不过这个版本，没有直接分析出来的好用，有些功能有缺失。
+
+
 
 ---
 

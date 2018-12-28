@@ -9,15 +9,17 @@ tags: [ jenkins, hudson, ci, plugins ]
 ## 一 Jenkins插件的结构
 Jenkins插件实际上是一个按照一定规则组织的jar包，其结构如下：
 
-	xxx.hpi
-	+- META-INF
-	|	+-MANIFEST.MF
-	+- WEB-INF
-	|	+- classes
-	|		+- index.jelly
-	|		+- XXXX.class
-	|	+- lib
-	+-	(static resources)
+```xml
+xxx.hpi
++- META-INF
+|	+-MANIFEST.MF
++- WEB-INF
+|	+- classes
+|		+- index.jelly
+|		+- XXXX.class
+|	+- lib
++-	(static resources)
+```
 说明：
 
 + 1.插件的后缀为".hpi",文件名（xxx部分）是插件的简写名字，用来区分插件。
@@ -180,12 +182,16 @@ Jenkins定义了一些扩展点（Extension Points）,这些扩展点是接口�
 maven中使用`.hpl（hudson plugin link）`格式来进行插件的调试。hpl文件中只包含一个链接，链接到类似`META-INF/MANIFEST.MF`的说明文件`../path/to/your/plugin/workspace/manifest-debug.mf`。该文件其中额外定义了一些属性来指定文件目录位置,这样资源的修改可以立即生效（需要配置stapler.jelly.noCache=true），不需要重新打包安装。
 在maven中可以使用命令：
 
-	mvn hpi:hpl -DhudsonHome=/...
+```shell
+mvn hpi:hpl -DhudsonHome=/...
+```
 
 ### 2.6 使用.hpi进行测试
 在调试通过后，可以使用.hpi文件来启动jenkins,查看结果，命令如下：
 
-	mvn hpi:run -DhudsonHome=/...
+```shell
+mvn hpi:run -DhudsonHome=/...
+```
 
 说明：-DhudsonHome可以不选，默认Jenkins安装到工程的./target目录中。
 

@@ -12,14 +12,18 @@ Linux命令-enca 查看文件的编码
 
 Enca语法
 
-    Usage:  enca [-L LANGUAGE] [OPTION]... [FILE]...
-            enconv [-L LANGUAGE] [OPTION]... [FILE]...
-            Detect encoding of text files and convert them if required.
+```shell
+Usage:  enca [-L LANGUAGE] [OPTION]... [FILE]...
+        enconv [-L LANGUAGE] [OPTION]... [FILE]...
+        Detect encoding of text files and convert them if required.
+```
 Enca用法
 
-    $ enca -L zh_CN file 检查文件的编码
-    $ enca -L zh_CN -x UTF-8 file 将文件编码转换为"UTF-8"编码
-    $ enca -L zh_CN -x UTF-8 file1 file2 如果不想覆盖原文件可以这样
+```shell
+$ enca -L zh_CN file 检查文件的编码
+$ enca -L zh_CN -x UTF-8 file 将文件编码转换为"UTF-8"编码
+$ enca -L zh_CN -x UTF-8 file1 file2 如果不想覆盖原文件可以这样
+```
 除了有检查文件编码的功能以外，”enca”还有一个好处就是如果文件本来就是你要转换的那种编码，它不会报错，还是会print出结果来， 而”iconv”则会报错。这对于脚本编写是比较方便的事情。
 <!--more-->
 转换单个文件的编码
