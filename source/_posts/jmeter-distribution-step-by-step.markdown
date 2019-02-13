@@ -63,9 +63,3 @@ jmeter.sh (linux)
 参考文献：
 <http://jmeter.apache.org/usermanual/remote-test.html>
 <http://jmeter.apache.org/usermanual/jmeter_distributed_testing_step_by_step.pdf>
-
-
-
-```
-
-```

@@ -71,12 +71,12 @@ deploy:
   - type: git
     repo:
       github: https://github.com/blueshen/blueshen.github.com.git
-      coding: https://git.coding.net/shenyanchao/shenyanchao.git
+      coding: https://git.dev.tencent.com/shenyanchao/shenyanchao.git
     branch: master
   - type: baidu_url_submitter
 
 baidu_url_submit:
-  count: 10
+  count: 50
   host: www.shenyanchao.cn
   token: yPxKQaNfopIGzVXK
   path: baidu_urls.txt

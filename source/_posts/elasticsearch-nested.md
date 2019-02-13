@@ -13,7 +13,7 @@ object类型，本质上是把字段**路径打平**，最终在索引里还是�
 
 本文，我们主要关注的是elasticsearch内部是如何实现的？
 
-
+<!--more-->
 
 ### ElasticSearch的官方说法
 
@@ -25,10 +25,10 @@ Indexing a document with 100 nested fields actually indexes 101 documents as eac
 
 从这里的介绍，我们所知有限。能得到的结论如下：
 
-- nested字段在索引里是作为Document**单独存储**的
+- nested类型在索引里是作为Document**单独存储**的。nested类型可能是1个包含100数据的数组，那就是100个Document。每多1个nested类型，就多增加对应length的Document.
 - 普通的query对nested字段查询无效，必须使用**nested Query**
-- highlight高亮也需要使用专门的
-- 对于nested类型的field个数是有限制的。
+- highlight高亮也需要使用专门的Query
+- 对于nested类型的field个数是有限制的, 长度也是有限制的。
 
 ### Nested类型怎么分开存储的
 
@@ -87,7 +87,7 @@ private static ParseContext nestedContext(ParseContext context, ObjectMapper map
 总之，经过DocumentParser的处理，Nested Document多了这样的2个字段
 
 - _id，值为父Document的id，用来关联
-- _type，值为‘__’开头的，标志特定nested 类型。
+- _type，值为"__"开头的，标识特定nested 类型。
 
 ### Nested类型普通Query如何隐藏
 
@@ -141,7 +141,7 @@ protected void parseCreateField(ParseContext context, List<IndexableField> field
 public static SequenceIDFields emptySeqID() {
     return new SequenceIDFields(new LongPoint(NAME, SequenceNumbers.UNASSIGNED_SEQ_NO),
             new NumericDocValuesField(NAME, SequenceNumbers.UNASSIGNED_SEQ_NO),
-            // 主要这里把_primary_term=0复制为了primaryTerm Field
+            // 主要这里把_primary_term=0赋值给了primaryTerm Field
             new NumericDocValuesField(PRIMARY_TERM_NAME, 0), new NumericDocValuesField(TOMBSTONE_NAME, 0));
 }
 ```
@@ -152,15 +152,12 @@ public static SequenceIDFields emptySeqID() {
 
 从上可以看出，基本的正常查询都默认加了这个filter的，只有是nestedQuery才做特别的处理。
 
-
-
 **总结下如何隐藏的**：
 
-| ElasticSearch版本 | 隐藏实现方式                               |      |
-| ----------------- | ------------------------------------------ | ---- |
-| 小于6.1.0         | 过滤掉_type以“__”为前缀的nested document   |      |
-| 大于等于6.1.0     | 只获取有`__primary_term` Field的父Document |      |
-|                   |                                            |      |
+| ElasticSearch版本 | 隐藏实现方式                               |
+| ----------------- | ------------------------------------------ |
+| 小于6.1.0         | 过滤掉_type以“__”为前缀的nested document   |
+| 大于等于6.1.0     | 只获取有`__primary_term` Field的父Document |
 
 
 
@@ -172,3 +169,4 @@ public static SequenceIDFields emptySeqID() {
 
 - nested无形中增加了索引量，如果不了解具体实现，将无法很好的进行文档划分和预估。ES限制了Field个数和nested对象的size，避免无限制的扩大
 - nested Query 整体性能慢，但比parent/child Query稍快。应从业务上尽可能的避免使用NestedQuery, 对于性能要求高的场景，应该直接禁止使用。
+

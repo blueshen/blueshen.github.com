@@ -330,6 +330,7 @@
         {{ post.content }}
       {% endif  %}
     </div>
+    {{ popular_posts( {maxCount:3} , post )}}
     {#####################}
     {### END POST BODY ###}
     {#####################}
