@@ -1,7 +1,7 @@
 ---
 title: 利用MAT来分析JAVA内存泄露
 date: 2018-10-29 14:53:46
-categories: JVM
+categories: java
 tags: [ java, mat, OOM]
 ---
 

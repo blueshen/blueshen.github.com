@@ -3,7 +3,7 @@ layout: post
 title: "使用mahout对Sogou语料库进行分类"
 date: 2014-11-14 13:26
 comments: true
-categories: mahout
+categories: 自然语言处理
 tags: [ mahout, sogou, ik-analyzer, ubuntu ]
 ---
 ### 软件版本

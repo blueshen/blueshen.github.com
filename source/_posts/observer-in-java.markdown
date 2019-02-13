@@ -4,7 +4,7 @@ title: "设计模式：观察者（Observer） in java"
 date: 2012-11-08 18:50
 comments: true
 categories: 设计模式
-tags: [ Java, Observer, Observable ]
+tags: [ Java, Observer, Observable, 设计模式 ]
 ---
 **定义：**又叫发布订阅模式（Publish/subscribe），它定义了对象间的一种一对多的依赖关系，使得每当一个对象改变状态，则所有依赖于它的对象都会得到通知并自动更新。  
 >这个定义还是比较通俗易懂的。我看了一遍，发现这不就是微博吗？我发布一条微博，那么所有关注我的人，都会收到通知，然后在新鲜事里显示出来。没错，就是这样！

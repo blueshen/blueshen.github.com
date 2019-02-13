@@ -4,7 +4,7 @@ title: "设计模式:备忘录（memento） in java"
 date: 2012-11-02 20:10
 comments: true
 categories: 设计模式
-tags: [ memento, pattern, 备忘录 ]
+tags: [ memento, pattern, 备忘录, 设计模式 ]
 ---
 **定义：**在不破坏封装性的前提下，捕获一个对象的内部状态，并在该对象之外保存这个状态。这样以后就可将该对象恢复到原先保存的状态。   
 

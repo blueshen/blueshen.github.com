@@ -4,7 +4,7 @@ title: "设计模式：命令（Command） in java"
 date: 2012-11-08 15:09
 comments: true
 categories: 设计模式
-tags: [ Java, command ]
+tags: [ Java, command, 设计模式 ]
 ---
 **定义：**命令模式是一种高内聚的模式。它将一个请求封装成一个对象，从而让使用不同请求来把客户端参数化，对请求排队或者记录请求日志，可以提供命令的撤销与恢复功能。
 听起来，好复杂！

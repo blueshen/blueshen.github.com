@@ -4,6 +4,7 @@ title: "Mocha简介"
 date: 2013-03-18 20:44
 comments: true
 categories: nodejs
+tags: [ mocha, nodejs ]
 ---
 ## Mocha
 Mocha作为一种咖啡名，应该是广为人知的，中文翻译为**摩卡**。在这里，我们介绍的是一个JavaScript Test Framework，它用于对NodeJS、JavaScript进行单元测试。

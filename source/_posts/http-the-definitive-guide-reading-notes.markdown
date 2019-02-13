@@ -3,7 +3,7 @@ layout: post
 title: "《HTTP权威指南》读书笔记1"
 date: 2013-05-15 16:53
 comments: true
-categories: HTTP
+categories: 读书笔记
 tags: [ HTTP, 读书笔记 ]
 ---
 ### URL语法

@@ -1,7 +1,7 @@
 ---
 title: ElasticSearch线上故障-持续Yellow状态
 date: 2018-12-13 14:12:07
-tags: [ elasticsearch, iperf ]
+tags: [ elasticsearch, iperf, lucene ]
 categories: [ elasticsearch]
 ---
 

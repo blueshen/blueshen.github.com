@@ -3,7 +3,7 @@ layout: post
 title: "Java内存溢出详解"
 date: 2012-10-19 23:12
 comments: true
-categories: JVM
+categories: java
 tags: [ JVM, Tomcat, GC ]
 ---
 

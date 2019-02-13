@@ -3,7 +3,7 @@ layout: post
 title: "ut-maven-plugin"
 date: 2013-12-14 21:31
 comments: true
-categories: 测试
+categories: 单元测试
 tags: [ unittest, ast, javaparser ]
 ---
 ### ut-maven-plugin简介

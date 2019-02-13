@@ -45,14 +45,14 @@ Eclipse中有个Outline视图，这个视图内可以显示类的各种信息，
 #### 如何解析Java
 
     package cn.shenyanchao.ast;
-
+    
     import org.apache.commons.io.FileUtils;
     import org.eclipse.jdt.core.dom.*;
-
+    
     import java.io.File;
     import java.io.IOException;
     import java.util.List;
-
+    
     /**
      * Created with IntelliJ IDEA.
      *
@@ -62,28 +62,28 @@ Eclipse中有个Outline视图，这个视图内可以显示类的各种信息，
      */
     public class AstAnalyzer {
         public static void main(String[] args) throws IOException {
-
+    
             String javaSource = FileUtils.readFileToString(new File("/home/shenyanchao/IdeaProjects/ast/src/main/java/cn/shenyanchao/from/ShenYanChaoAST.java"));
-
+    
             ASTParser parser = ASTParser.newParser(AST.JLS3);
             parser.setSource(javaSource.toCharArray());
-
+    
             // 使用解析器进行解析并返回AST上下文结果(CompilationUnit为根节点)
             CompilationUnit result = (CompilationUnit) parser.createAST(null);
-
+    
             result.imports();
             result.getPackage();
             result.getCommentList();
             System.out.println(result.getCommentList().toString());
-
+    
             TypeDeclaration type = (TypeDeclaration) result.types().get(0);
             System.out.println("---------Type---------");
             System.out.println(type.toString());
-
+    
             MethodDeclaration method = type.getMethods()[0];
             method.parameters();
             method.isConstructor();
-
+    
             System.out.println("---------Method---------");
             System.out.println(method.toString());
             method.getName();
@@ -94,15 +94,15 @@ Eclipse中有个Outline视图，这个视图内可以显示类的各种信息，
 
             Block methodBody = method.getBody();
             List<Statement> statementList = methodBody.statements();
-
+    
             System.out.println(statementList.toString());
-
+    
             statementList.get(0);
-
+    
             ExpressionStatement ifs = (ExpressionStatement) method.getBody().statements().get(1);
             Assignment expression = (Assignment) ifs.getExpression();
             Expression exp = expression.getRightHandSide();
-
+    
             System.out.println(result.toString());
         }
     }
@@ -110,9 +110,9 @@ Eclipse中有个Outline视图，这个视图内可以显示类的各种信息，
 #### 如何创建Java
 
     package cn.shenyanchao.ast;
-
+    
     import org.eclipse.jdt.core.dom.*;
-
+    
     /**
      * Created with IntelliJ IDEA.
      *
@@ -123,55 +123,57 @@ Eclipse中有个Outline视图，这个视图内可以显示类的各种信息，
     public class AstHelloWorld {
 
 
-        public static void main(String[] args) {
-            AST ast = AST.newAST(AST.JLS3);
-            CompilationUnit compilationUnit = ast.newCompilationUnit();
+```java
+    public static void main(String[] args) {
+        AST ast = AST.newAST(AST.JLS3);
+        CompilationUnit compilationUnit = ast.newCompilationUnit();
 
-            // 创建类
-            TypeDeclaration programClass = ast.newTypeDeclaration();
-            programClass.setName(ast.newSimpleName("HelloWorld"));
-            programClass.modifiers().add(
-                    ast.newModifier(Modifier.ModifierKeyword.PUBLIC_KEYWORD));
-            compilationUnit.types().add(programClass);
+        // 创建类
+        TypeDeclaration programClass = ast.newTypeDeclaration();
+        programClass.setName(ast.newSimpleName("HelloWorld"));
+        programClass.modifiers().add(
+                ast.newModifier(Modifier.ModifierKeyword.PUBLIC_KEYWORD));
+        compilationUnit.types().add(programClass);
 
-            // 创建包
-            PackageDeclaration packageDeclaration = ast.newPackageDeclaration();
-            packageDeclaration.setName(ast.newName("cn.shenyanchao.hello"));
-            compilationUnit.setPackage(packageDeclaration);
+        // 创建包
+        PackageDeclaration packageDeclaration = ast.newPackageDeclaration();
+        packageDeclaration.setName(ast.newName("cn.shenyanchao.hello"));
+        compilationUnit.setPackage(packageDeclaration);
 
-            MethodDeclaration main = ast.newMethodDeclaration();
-            main.setName(ast.newSimpleName("main"));
-            main.modifiers().add(
-                    ast.newModifier(Modifier.ModifierKeyword.PUBLIC_KEYWORD));
-            main.modifiers().add(ast.newModifier(Modifier.ModifierKeyword.STATIC_KEYWORD));
-            main.setReturnType2(ast.newPrimitiveType(PrimitiveType.VOID));
-            programClass.bodyDeclarations().add(main);
-            Block mainBlock = ast.newBlock();
-            main.setBody(mainBlock);
+        MethodDeclaration main = ast.newMethodDeclaration();
+        main.setName(ast.newSimpleName("main"));
+        main.modifiers().add(
+                ast.newModifier(Modifier.ModifierKeyword.PUBLIC_KEYWORD));
+        main.modifiers().add(ast.newModifier(Modifier.ModifierKeyword.STATIC_KEYWORD));
+        main.setReturnType2(ast.newPrimitiveType(PrimitiveType.VOID));
+        programClass.bodyDeclarations().add(main);
+        Block mainBlock = ast.newBlock();
+        main.setBody(mainBlock);
 
-            // 给main方法定义String[]参数
-            SingleVariableDeclaration mainParameter = ast
-                    .newSingleVariableDeclaration();
-            mainParameter.setName(ast.newSimpleName("arg"));
-            mainParameter.setType(ast.newArrayType(ast.newSimpleType(ast
-                    .newName("String"))));
-            main.parameters().add(mainParameter);
+        // 给main方法定义String[]参数
+        SingleVariableDeclaration mainParameter = ast
+                .newSingleVariableDeclaration();
+        mainParameter.setName(ast.newSimpleName("arg"));
+        mainParameter.setType(ast.newArrayType(ast.newSimpleType(ast
+                .newName("String"))));
+        main.parameters().add(mainParameter);
 
-            MethodInvocation println = ast.newMethodInvocation();
-            println.setName(ast.newSimpleName("println"));
+        MethodInvocation println = ast.newMethodInvocation();
+        println.setName(ast.newSimpleName("println"));
 
-            //生成String类型的常量
-            StringLiteral s = ast.newStringLiteral();
-            s.setLiteralValue("Hello World");
-            println.arguments().add(s);
+        //生成String类型的常量
+        StringLiteral s = ast.newStringLiteral();
+        s.setLiteralValue("Hello World");
+        println.arguments().add(s);
 
-            println.setExpression(ast.newName("System.out"));
+        println.setExpression(ast.newName("System.out"));
 
-            mainBlock.statements().add(ast.newExpressionStatement(println));
+        mainBlock.statements().add(ast.newExpressionStatement(println));
 
-            System.out.println(compilationUnit.toString());
-        }
+        System.out.println(compilationUnit.toString());
     }
+}
+```
 
 具体的使用手册，参见<http://www.shenyanchao.cn/blog/2013/06/07/eclipse-ast/>
 

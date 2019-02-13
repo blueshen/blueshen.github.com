@@ -4,7 +4,7 @@ title: "设计模式：空对象（null object） in java"
 date: 2012-11-02 20:10
 comments: true
 categories: 设计模式  
-tags: [ null, object ]
+tags: [ null, object, 设计模式 ]
 ---
 相信大家一定在开发中见过并且写过类似这样的代码：    
 

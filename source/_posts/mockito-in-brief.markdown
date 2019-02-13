@@ -3,7 +3,7 @@ layout: post
 title: "Mockito简介"
 date: 2013-06-21 21:29
 comments: true
-categories: ut
+categories: 单元测试
 tags: [ mockito, ut, powermock, stub, mock]
 ---
 

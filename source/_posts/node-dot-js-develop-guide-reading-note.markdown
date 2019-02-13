@@ -3,7 +3,7 @@ layout: post
 title: "《Node.js开发指南》读书笔记"
 date: 2013-03-11 16:53
 comments: true
-categories: javascript
+categories: 读书笔记
 tags: [ NodeJS, express, 读书笔记 ]
 ---
 ### 书籍信息

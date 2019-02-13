@@ -4,7 +4,7 @@ title: "设计模式：访问者（visitor） in java"
 date: 2012-11-02 20:12
 comments: true
 categories: 设计模式
-tags: [ visitor, pattern, 访问者 ]
+tags: [ visitor, pattern, 访问者, 设计模式 ]
 ---
 **定义：**封装一些作用于某种数据结构中的各元素的操作，它可以在不改变数据结构的前提下定义作用于这些元素的新的操作。    
 

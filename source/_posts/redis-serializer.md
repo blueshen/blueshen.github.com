@@ -3,7 +3,7 @@
 
 title: 关于Redis序列化及压缩对性能的影响
 date: 2019-02-13 10:42:04
-tags: [ redis, bigkey, serializer ]
+tags: [ redis, bigkey, serializer, cache ]
 categories: redis
 ---
 

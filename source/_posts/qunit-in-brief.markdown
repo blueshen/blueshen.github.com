@@ -4,7 +4,7 @@ title: "Qunit 简介"
 date: 2013-03-22 15:21
 comments: true
 categories: nodejs
-tags: [ qunit, jquery ]
+tags: [ qunit, jquery, nodejs ]
 ---
 # QUnit
 QUnit是一个强大的JavaScript单元测试框架，用于调试代码。该框架是由jQuery团队的成员所开发，并且是jQuery的官方测试套件。任意正规JavaScript代码QUnit都能测试。
@@ -41,7 +41,7 @@ QUnit是一个强大的JavaScript单元测试框架，用于调试代码。该�
 	|  |-resources
 	|  |    |-qunit.js
 	|  |    |-qunit.css
-    |  |    |-jquery.js
+	|  |    |-jquery.js
 
 测试的结果会由`qunit.js`控制输出到页面代码中的`<div id="qunit"></div>`中。另外一个必不可少的元素是`<div id=""qunit-fixture""></div>`。在每个test执行完毕后，如果改动了该元素，会自动重置。`jquery.js`的引入是为了测试使用jQuery语法写的程序。
 在浏览器中打开sample1.html可以看到结果显示如下图所示：
@@ -59,11 +59,11 @@ QUnit是一个强大的JavaScript单元测试框架，用于调试代码。该�
 
 		ok( true, "true succeeds" );
 	    ok( NaN, "NaN fails" );
-
+	
 	    equal( 0, 0, "0, 0 : equal succeeds" );
 		equal( "", 0, "Empty, 0: equal succeeds" );
 	    equal( null, "", "null, empty: equal fails" );
-
+	
 	    var obj = { foo: "bar" };
 	    deepEqual( obj, { foo: "bar" }, "Two objects can be the same in value" );
 		equal( "", 0, "Empty, 0: equal succeeds" );
@@ -80,19 +80,19 @@ test()是常规的测试用例，并且默认是同步的，这意味着他们�
 		ok( true, "sucess" );
 		ok( false, "fail" );
 	});
-
+	
 	test( "a test", function() {
 	  expect( 2 );
-
+	
 	  function calc( x, operation ) {
 	    return operation( x );
 	  }
-
+	
 	  var result = calc( 2, function( x ) {
 	    ok( true, "calc() calls operation function" );
 	    return x * x;
 	  });
-
+	
 	  equal( result, 4, "2 square equals 4" );
 	});
 
@@ -102,7 +102,7 @@ test()是常规的测试用例，并且默认是同步的，这意味着他们�
 
 	asyncTest( "asynchronous test: one second later!", function() {
 	  expect( 1 );
-
+	
 	  setTimeout(function() {
 	     ok( true, "Passed and ready to resume!" );
 	     start();
@@ -114,11 +114,11 @@ test()是常规的测试用例，并且默认是同步的，这意味着他们�
 
 	test( "div click test", 1, function() {
 	  var $body = $( "#qunit-fixture" );
-
+	
 	  $body.bind( "click", function() {
 		ok( true, "body was clicked!" );
 	  });
-
+	
 	  $body.trigger( "click" );
 	});
 下面是Qunit中的一个demo例子，其中模拟了一个key的记录器`KeyLogger()`，在test中初始化了一个事件event，并且使触发了两次，：
@@ -129,30 +129,30 @@ test()是常规的测试用例，并且默认是同步的，这意味着他们�
 	  }
 	  this.target = target;
 	  this.log = [];
-
+	
 	  var self = this;
-
+	
 	  this.target.bind( "keydown", function( event ) {
 		self.log.push( event.keyCode );
 	  });
 	}
 	test( "keylogger api behavior", function() {
-
+	
 	  var event,
 		  $doc = $( document ),
 		  keys = KeyLogger( $doc );
-
+	
 	  // trigger event
 	  event = $.Event( "keydown" );
-
+	
 	  event.keyCode = 'A';
 	  $doc.trigger( event );
 	  $doc.trigger( event );
-
+	
 	  // verify expected behavior
 	  equal( keys.log.length, 2, "2 key was logged" );
 	  equal( keys.log[ 0 ], 'A', "correct key was logged" );
-
+	
 	});
 # 模块化
 为了使自己的用例的顺序更加富有逻辑性，可以使用module()函数对用例进行分组。对出现在某个module（）后面的所有用例都被分在该组中。
@@ -164,7 +164,7 @@ test()是常规的测试用例，并且默认是同步的，这意味着他们�
 	test( "a basic test example 2", function() {
 	  ok( true, "this test is fine" );
 	});
-
+	
 	module( "group b" );
 	test( "a basic test example 3", function() {
 	  ok( true, "this test is fine" );
@@ -206,7 +206,7 @@ test()是常规的测试用例，并且默认是同步的，这意味着他们�
 	  <script type="text/javascript" src="myProject.js"></script>
 		<!-- 测试代码 -->
 	  <script type="text/javascript" src="myTests.js"></script>
-
+	
 	</body>
 	</html>
 

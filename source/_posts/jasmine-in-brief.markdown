@@ -4,7 +4,7 @@ title: "Jasmine 简介"
 date: 2013-03-22 15:47
 comments: true
 categories: nodejs
-tags: [ nodejs, jasmine]
+tags: [ nodejs, jasmine ]
 ---
 ## jasmine测试框架简介
 **jasmine**是一种javascript测试框架，它既可以在html文件中运行，也可以和jsTestDriver整合，在jsTestDriver中运行。

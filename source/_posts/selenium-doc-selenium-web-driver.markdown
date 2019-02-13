@@ -4,7 +4,7 @@ title: "selenium文档:selenium WebDriver"
 date: 2013-05-30 19:55
 comments: true
 categories: selenium官方文档
-tags: [ selenium ]
+tags: [ selenium, webdriver ]
 ---
 # Selenium WebDriver
 
@@ -75,7 +75,7 @@ Selenium-WebDriver 直接通过浏览器自动化的本地接口来调用浏览�
             </dependencies>
         </dependencyManagement>
     </project>
-    
+
 确保你指定了最新版本。在编写本文档时，范例代码中的即为最新版本。但是，稍后 Selenium 2.0 还会不断有新发布。检查 [Maven 下载页面](http://seleniumhq.org/download/maven.html) 中的最新版本，并修改上述文件中依赖的版本。
 
 命令行进入本目录，运行如下命令：
@@ -107,7 +107,7 @@ WebDriver 是一个进行 web 应用测试自动化的工具，主要用于验�
 我们准备了一个简单的例子：在 Google 上搜索 “Cheese”，然偶输出搜索结果页的页面标题到 console。
 
     package org.openqa.selenium.example;
-
+    
     import org.openqa.selenium.By;
     import org.openqa.selenium.WebDriver;
     import org.openqa.selenium.WebElement;
@@ -289,7 +289,7 @@ Java：
 或者，你可以调用 WebDriver 为每个元素提供的 “submit” 方法。如果你对一个 form 元素调用该方法，WebDriver 将调用这个 form 的 submit 方法。如果这个元素不是一个 form，将抛出一个异常。
 
     element.submit();
-    
+
 ### 在窗口和帧(frames)之间切换
 
 有些 web 应用含有多个帧或者窗口。WebDriver 支持通过使用 “switchTo” 方法在多个帧或者窗口之间切换。
@@ -592,7 +592,7 @@ WebDriver 支持的浏览器数量没有 Selenium RC 多，所以如果希望使
 如果你希望使用本地事件功能，在命令行添加以下参数：
 
     -Dwebdriver.enable.native.events=1
-    
+
 查看帮助：
 
     java -jar <path_to>/selenium-server-standalone-<version>.jar -help

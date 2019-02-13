@@ -4,7 +4,7 @@ title: "设计模式：构建者（builder） in java"
 date: 2012-11-05 20:08
 comments: true
 categories: 设计模式
-tags: [ Java, builder ]
+tags: [ Java, builder, 设计模式 ]
 ---
 **定义：**建造者模式,又叫生成器模式，将一个复杂对象的构建与它的表示分离,使得同样的构建过程可以创建不同的表示.
 **适用性**:

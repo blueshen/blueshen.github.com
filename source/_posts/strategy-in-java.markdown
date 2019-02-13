@@ -4,7 +4,7 @@ title: "设计模式：策略（strategy） in java"
 date: 2012-11-02 20:11
 comments: true
 categories: 设计模式
-tags: [ strategy, policy, pattern ]
+tags: [ strategy, policy, pattern, 设计模式 ]
 ---
 **定义：**策略模式（Strategy Pattern）是一种比较简单的模式，也叫做政策模式（Policy Pattern）。定义一组算法，将每个算法都封装起来，并且使他们之间可以互换。    
 
@@ -30,7 +30,7 @@ tags: [ strategy, policy, pattern ]
     public interface IStrategy{
         public void operate();
     }    
-    
+
 下面来分别实现这几个妙计。   
 
     //妙计1
@@ -51,7 +51,7 @@ tags: [ strategy, policy, pattern ]
             System.out.println("孙尚香断口，挡住追兵！");
         }
     }
-    
+
 这几个妙计（算法）都写好了。那么如何使得他们之间可以互换呢。这就需要使用Context进行封装了。在本例子中锦囊就是这个作用，它承载了三种策略妙计。    
 
     public class Context{
@@ -80,9 +80,10 @@ tags: [ strategy, policy, pattern ]
         context = new Context(new BlockEnemy());
         context.operate();
     }
-    
-    
-    
+
+
+​    
+​    
 需要注意的是，策略方法提供了各种策略的互换，以及高层调用。但是具体什么条件下，使用什么策略是需要外部来判断的。本例子只是按顺序执行了。     
 
-    
+​    

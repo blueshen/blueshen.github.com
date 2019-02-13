@@ -4,7 +4,7 @@ title: "设计模式：中介者（mediator） in java"
 date: 2012-11-02 20:50
 comments: true
 categories: 设计模式
-tags: [ mediator, java ]
+tags: [ mediator, java, 设计模式 ]
 ---
 **定义**:中介者模式,用一个中介对象封装一系列的对象交互,中介者使各对象不需要显式的相互作用,从而使其耦合松散,而且可以独立地改变它们之间的交互.
 

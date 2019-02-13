@@ -3,7 +3,7 @@ layout: post
 title: "Velocity学习小结"
 date: 2014-03-31 16:24
 comments: true
-categories: velocity
+categories: spring
 tags: [ velocity, spring ]
 ---
 

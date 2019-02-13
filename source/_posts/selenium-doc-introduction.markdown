@@ -4,7 +4,7 @@ title: "selenium 文档:入门介绍"
 date: 2013-05-30 19:54
 comments: true
 categories: selenium官方文档
-tags: [ selenium ]
+tags: [ selenium, webdriver ]
 ---
 # 介绍
 

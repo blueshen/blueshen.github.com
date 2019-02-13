@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "write my maven plugin"
+title: "如何写一个自己的Maven Plugin"
 date: 2013-06-13 20:35
 comments: true
 categories: maven
@@ -15,6 +15,6 @@ mvn archetype:generate -DgroupId=cn.shenyanchao.ut -DartifactId=ut-maven-plugin 
 
 
 
-
+参考：
 
 <http://maven.apache.org/guides/plugin/guide-java-plugin-development.html>

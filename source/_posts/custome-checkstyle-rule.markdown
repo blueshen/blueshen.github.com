@@ -3,8 +3,8 @@ layout: post
 title: "自定义CheckStyle规则"
 date: 2013-09-25 13:11
 comments: true
-categories: checkstyle
-tags: [ checkstyle, antlr ]
+categories: 代码规范
+tags: [ checkstyle, antlr, ast ]
 ---
 ### CheckStyle基于antlr对源码进行处理
 

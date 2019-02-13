@@ -9,7 +9,7 @@ tags: [ sonar, pmd, checkstyle, findbugs, maven ]
 ### 什么是Sonar？
 [Sonar](http://www.sonarqube.org/)是一个开源的代码质量管理平台。它能对代码进行如下7个维度的管理。
 
-![sonar](http://www.sonarqube.org/wp-content/themes/sonar/images/7axes.png)
+![sonar](/images/sonar.png)
 使用插件，它可以对20多种语言进行代码质量管理，这其中包括Java，C#，C/C++,PL/SQL等等。
 
 ### 安装Sonar

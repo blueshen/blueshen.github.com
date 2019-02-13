@@ -4,7 +4,7 @@ title: "设计模式：装饰器（Decorator）in Java"
 date: 2012-10-30 21:25
 comments: true
 categories: 设计模式
-tags: [ Java, decorator, IO ]
+tags: [ Java, decorator, IO, 设计模式 ]
 ---
 1.认识装饰器模式
 

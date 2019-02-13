@@ -3,8 +3,8 @@ layout: post
 title: "selenium wiki:selenium常见问题"
 date: 2013-05-30 19:57
 comments: true
-categories: selenium-wiki
-tags: [ selenium ]
+categories: selenium官方文档
+tags: [ selenium, webdriver ]
 ---
 ### selenium常见问题
 ---
@@ -69,11 +69,11 @@ A：代理配置是通过`org.openqa.selenium.Proxy`类来实现的，类似下�
 
     Proxy proxy = new Proxy();
     proxy.setProxyAutoconfigUrl("http://youdomain/config");
-
+    
     // We use firefox as an example here.
     DesiredCapabilities capabilities = DesiredCapabilities.firefox();
     capabilities.setCapability(CapabilityType.PROXY, proxy);
-
+    
     // You could use any webdriver implementation here
     WebDriver driver = new FirefoxDriver(capabilities);
 #### Q：使用HtmlUnitDriver该如何实现权限验证？
@@ -83,13 +83,13 @@ A:当创建HtmlUnitDriver时，重写`modifyWebClient`方法即可。例如：
       protected WebClient modifyWebClient(WebClient client) {
         // This class ships with HtmlUnit itself
         DefaultCredentialsProvider creds = new DefaultCredentialsProvider();
-
+    
         // Set some example credentials
         creds.addCredentials("username", "password");
-
+    
         // And now add the provider to the webClient instance
         client.setCredentialsProvider(creds);
-
+    
         return client;
       }
     };
@@ -145,7 +145,7 @@ A:
 
     FirefoxProfile profile = new FirefoxProfile()
     profile.addExtension(....);
-
+    
     WebDriver driver = new FirefoxDriver(profile);
 #### Q: 要是WebDriver有...功能，我会更喜欢它。
 A: 如果你希望WebDriver有什么功能，或者发现有什么BUG。你可以添加一个issue到WebDriver主页。

@@ -4,7 +4,7 @@ title: "设计模式：状态（state） in java"
 date: 2012-11-02 20:11
 comments: true
 categories: 设计模式
-tags: [ state, pattern, 状态 ]
+tags: [ state, pattern, 状态, 设计模式 ]
 ---
 **定义：**当一个对象内在状态改变时允许其改变行为，这个对象看起来想改变了其类。    
 状态模式的核心是封装，状态的变更引起了行为的变更，从外部看起来就好像这个对象对应的类发生了改变一样。    
@@ -36,7 +36,7 @@ tags: [ state, pattern, 状态 ]
         public abstract void handle2();
     
     }
-    
+
 具体状态角色    
 
     public class ConcreteState1 extends State{

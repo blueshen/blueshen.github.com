@@ -3,8 +3,8 @@ layout: post
 title: "关于C3P0容错和自动重连特性的研究"
 date: 2015-03-26 13:07
 comments: true
-categories: c3p0
-tags: [ c3p0, dhcp]
+categories: 数据库
+tags: [ c3p0, dhcp, 数据库]
 ---
 
 最近常有数据库和网络设备升级和搬迁等事情，而各个应用都是基于数据库连接池做的，大部分都是基于C3P0，数据库或网络状况的变动都会导致客户端连接池中的connection失效，如何剔除这些blocked connection就和C3P0的各个配置息息相关。

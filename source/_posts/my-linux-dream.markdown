@@ -4,6 +4,7 @@ title: "从windows到linux"
 date: 2013-05-02 16:37
 comments: true
 categories: linux
+tags:[ linux ]
 ---
 从高中时代最早接触计算机,当初什么都不懂,能会用下email就绝对是达人了啊.最早见到OS应该是windows 95,那时候虽然已经出了windows 98,不过学校仍预装的是windows 95.   
 

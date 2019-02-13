@@ -3,8 +3,8 @@ layout: post
 title: "DbUnit使用入门"
 date: 2013-06-27 15:57
 comments: true
-categories: ut
-tags: [ dbunit, h2database, ut，sql-maven-plugin ]
+categories: 单元测试
+tags: [ dbunit, h2database, ut，sql-maven-plugin, 数据库 ]
 ---
 [DbUnit](http://www.dbunit.org/)是一个意在对使用数据库驱动项目进行测试的JUnit扩展。它使得你的数据库在各个Test之间处于一个已知的状态。这很好的解决了以下问题：当一个测试破坏了数据库时，导致其后面的所有测试失败或给出了错误的结果。
 
@@ -55,7 +55,7 @@ DataSet可以手工编写，当然也可以从已有数据库导出。以使用�
             System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_CONNECTION_URL, "jdbc:h2:~/dbunitdemo");
             System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_USERNAME, "sa");
             System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_PASSWORD, "");
-
+    
         protected IDataSet getDataSet() throws Exception
         {
             return new FlatXmlDataSetBuilder().build(new FileInputStream("dataset.xml"));
@@ -74,7 +74,7 @@ DataSet可以手工编写，当然也可以从已有数据库导出。以使用�
     {
         return DatabaseOperation.REFRESH;
     }
-
+    
     protected DatabaseOperation getTearDownOperation() throws Exception
     {
         return DatabaseOperation.NONE;
@@ -106,11 +106,11 @@ DbUnit提供了校验2个Table或者datasets是否包含相同数据的方法。
         // Fetch database data after executing your code
         IDataSet databaseDataSet = getConnection().createDataSet();
         ITable actualTable = databaseDataSet.getTable("TABLE_NAME");
-
+    
         // Load expected data from an XML dataset
         IDataSet expectedDataSet = new FlatXmlDataSetBuilder().build(new File("expectedDataSet.xml"));
         ITable expectedTable = expectedDataSet.getTable("TABLE_NAME");
-
+    
         // Assert actual database table match expected table
         Assertion.assertEquals(expectedTable, actualTable);
 ### DbUnit的运行步骤
@@ -119,7 +119,7 @@ DbUnit提供了校验2个Table或者datasets是否包含相同数据的方法。
     protected void setUp() throws Exception
     {
         logger.debug("setUp() - start");
-
+    
         super.setUp();
         final IDatabaseTester databaseTester = getDatabaseTester();
         assertNotNull( "DatabaseTester is not set", databaseTester );
@@ -128,11 +128,11 @@ DbUnit提供了校验2个Table或者datasets是否包含相同数据的方法。
         databaseTester.setOperationListener(getOperationListener());
         databaseTester.onSetup();
     }
-
+    
     protected void tearDown() throws Exception
     {
         logger.debug("tearDown() - start");
-
+    
         try {
             final IDatabaseTester databaseTester = getDatabaseTester();
             assertNotNull( "DatabaseTester is not set", databaseTester );

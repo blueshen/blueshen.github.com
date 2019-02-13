@@ -64,30 +64,34 @@ EL是从JavaScript脚本语言得到启发的一种表达式语言，它借鉴�
 
 例9.3：提交请求的页面和接受的页面
 
-    <%@ page contentType="text/html; charset=UTF-8"%>
-    <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-    <html>
-     <body>
-         <form action="SampleJsp.jsp">
-        <input type="text" name="sampleValue" value="10">
-        <input type="text" name="sampleValue" value="11">
-        <input type="text" name="sampleValue" value="12">
-        <input type="text" name="sampleSingleValue" value="SingleValue">
-        <input type="submit" value="Submit">
-        </form>
-     </body>
-    </html>
+```jsp
+<%@ page contentType="text/html; charset=UTF-8"%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+ <body>
+     <form action="SampleJsp.jsp">
+    <input type="text" name="sampleValue" value="10">
+    <input type="text" name="sampleValue" value="11">
+    <input type="text" name="sampleValue" value="12">
+    <input type="text" name="sampleSingleValue" value="SingleValue">
+    <input type="submit" value="Submit">
+    </form>
+ </body>
+</html>
+```
 
 在这个页面中定义了两组控件，控件名为“sampleValue”的是一套控件数组，控件名为“sampleSingleValue”的是单一控件，通过递交将请求参数传送到SampleJsp.jsp。
 
-    <%@ page contentType="text/html; charset=UTF-8"%>
-    <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-    <html>
-     <body>
-        ${paramValues.sampleValue[2]} <br>
-        ${param.sampleSingleValue} <br>
-     </body>
-    </html>
+```jsp
+<%@ page contentType="text/html; charset=UTF-8"%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+ <body>
+    ${paramValues.sampleValue[2]} <br>
+    ${param.sampleSingleValue} <br>
+ </body>
+</html>
+```
 
 这是请求转发到的页面，通过EL表达式的paramValues变量得到控件数组中最后一个控件的递交参数，通过EL表达式的param变量得到单一控件的递交参数。控件数组参数的EL表达式使用“[]”来指定数组下标。本示例将显示控件数组中最后一个控件的值“12”和单一控件的值“SingleValue”。
 
@@ -1709,7 +1713,7 @@ Database access标签库有以下6组标签来进行工作：`<sql:setDataSource
 
 ### 9.7 Functions 标签库
        称呼Functions标签库为标签库，倒不如称呼其为函数库来得更容易理解些。因为Functions标签库并没有提供传统的标签来为JSP页面的工作服务，而是被用于EL表达式语句中。在JSP2.0规范下出现的Functions标签库为EL表达式语句提供了许多更为有用的功能。Functions标签库分为两大类，共16个函数。
-
+    
        长度函数：fn:length
        字符串处理函数：fn:contains、fn:containsIgnoreCase、fn:endsWith、fn:escapeXml、fn:indexOf、fn:join、fn:replace、fn:split、fn:startsWith、fn:substring、fn:substringAfter、fn:substringBefore、fn:toLowerCase、fn:toUpperCase、fn:trim
 
@@ -1724,7 +1728,7 @@ fn:length函数正是为了解决这个问题而被设计出来的。它的参�
                                 arrayList1.add("aa");
                                 arrayList1.add("bb");
                                 arrayList1.add("cc");
-
+    
     %>
     <%request.getSession().setAttribute("arrayList1", arrayList1);%>
     ${fn:length(sessionScope.arrayList1)}
@@ -1733,7 +1737,7 @@ fn:length函数正是为了解决这个问题而被设计出来的。它的参�
 
 #### 9.7.2 判断函数 fn:contains 函数
        fn:contains函数用来判断源字符串是否包含子字符串。它包括string和substring两个参数，它们都是String类型，分布表示源字符串和子字符串。其返回结果为一个boolean类型的值。下面看一个示例。
-
+    
     ${fn:contains("ABC", "a")}<br>
     ${fn:contains("ABC", "A")}<br>
 
@@ -1741,7 +1745,7 @@ fn:length函数正是为了解决这个问题而被设计出来的。它的参�
 
 #### 9.7.3 fn:containsIgnoreCase函数
       fn:containsIgnoreCase函数与fn:contains函数的功能差不多，唯一的区别是fn:containsIgnoreCase函数对于子字符串的包含比较将忽略大小写。它与fn:contains函数相同，包括string和substring两个参数，并返回一个boolean类型的值。下面看一个示例。
-
+    
     ${fn:containsIgnoreCase("ABC", "a")}<br>
     ${fn:containsIgnoreCase("ABC", "A")}<br>
 
@@ -1750,7 +1754,7 @@ fn:length函数正是为了解决这个问题而被设计出来的。它的参�
 
 #### 9.7.4 词头判断函数 fn:startsWith 函数
        fn:startsWith函数用来判断源字符串是否符合一连串的特定词头。它除了包含一个string参数外，还包含一个subffx参数，表示词头字符串，同样是String类型。该函数返回一个boolean类型的值。下面看一个示例。
-
+    
     ${fn:startsWith ("ABC", "ab")}<br>
     ${fn:startsWith ("ABC", "AB")}<br>
 
@@ -1759,7 +1763,7 @@ fn:length函数正是为了解决这个问题而被设计出来的。它的参�
 
 #### 9.7.5 词尾判断函数 fn:endsWith 函数
        fn:endsWith函数用来判断源字符串是否符合一连串的特定词尾。它与fn:startsWith函数相同，包括string和subffx两个参数，并返回一个boolean类型的值。下面看一个示例。
-
+    
     ${fn:endsWith("ABC", "bc")}<br>
     ${fn:endsWith("ABC", "BC")}<br>
 
@@ -1772,7 +1776,7 @@ fn:escapeXml函数用于将所有特殊字符转化为字符实体码。它只�
 
 #### 9.7.8 字符匹配函数 fn:indexOf 函数
        fn:indexOf函数用于取得子字符串与源字符串匹配的开始位置，若子字符串与源字符串中的内容没有匹配成功将返回“ -1 ”。它包括string和substring两个参数，返回结果为int类型。下面看一个示例。
-
+    
     ${fn:indexOf("ABCD","aBC")}<br>
     ${fn:indexOf("ABCD","BC")}<br>
 

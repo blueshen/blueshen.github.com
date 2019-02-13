@@ -1,7 +1,7 @@
 ---
 title: 寻找一种易于理解的一致性算法(论文)
 date: 2018-12-27 16:48:51
-tags: [ raft, paxos, 分布式]
+tags: [ raft, paxos, 分布式 ]
 categories: raft
 ---
 

@@ -4,7 +4,7 @@ title: "设计模式：代理（Proxy） in java"
 date: 2012-11-02 16:21
 comments: true
 categories: 设计模式
-tags: [ Java, proxy, JDK, cglib ]
+tags: [ Java, proxy, JDK, cglib, 设计模式 ]
 ---
 ## 什么是代理？
 代理是指，本该有A做的工作，现在找一个代理人B，然后由B来进行实际的工作。

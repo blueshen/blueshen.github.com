@@ -3,7 +3,7 @@ layout: post
 title: "又见Java乱码"
 date: 2014-03-27 21:43
 comments: true
-categories: encode
+categories: java
 tags: [ dom4j, jenkins, java, 编码 ]
 ---
 ### dom4j解析xml

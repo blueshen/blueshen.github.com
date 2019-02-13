@@ -4,7 +4,7 @@ title: "设计模式：组合（composite） in java"
 date: 2012-11-02 20:07
 comments: true
 categories: 设计模式
-tags: [ composite, pattern ]
+tags: [ composite, pattern, 设计模式 ]
 ---
 **定义：**组合模式（Composite Pattern）也叫合成模式，有时又叫做部分-整体模式（Part-Whole），主要是用来描述部分与整体的关系。确切的定义：将对象组合成树形结构以表示“部分-整体”的层次结构，使得用户对单个对象和组合对象的使用具有一致性。   
 

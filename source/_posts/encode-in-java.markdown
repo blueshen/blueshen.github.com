@@ -3,7 +3,7 @@ layout: post
 title: "Java字符编码及其使用详解"
 date: 2012-10-23 18:58
 comments: true
-categories: encode Java
+categories: java
 tags: [ Java, class, String, encode ]
 ---
 ## Java的编译存储

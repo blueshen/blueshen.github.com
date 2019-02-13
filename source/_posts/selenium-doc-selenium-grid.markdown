@@ -4,7 +4,7 @@ title: "selenium文档:selenium Grid"
 date: 2013-05-30 19:55
 comments: true
 categories: selenium官方文档
-tags: [ selenium ] 
+tags: [ selenium, webdriver ] 
 ---
 # Selenium Grid
 

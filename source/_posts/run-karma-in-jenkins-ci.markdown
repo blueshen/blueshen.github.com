@@ -17,30 +17,36 @@ Jenkins Server上（可以是Master，也许是Slave结点，总之在那个Serv
 ### 配置Karma.conf.js文件###
 必须保证：
 
-	singleRun = true;
+```javascript
+singleRun = true;
+```
 只有这样，才能保证运行Test后，浏览器自动退出，不影响下次执行。
 在Jenkins中，也许你想查看测试结果，这个时候可以借助junit reporter。
 
-	reporters = ['junit'];
-	junitReporter = {
+```javascript
+reporters = ['junit'];
+junitReporter = {
   		outputFile: 'test-results.xml'
 	};
+```
 那么，Junit格式的测试结果就存到了test-results.xml中。
 
 另外一种情况，我可能还想查看一下代码覆盖率。Karma也是支持的，要进行以下的配置：
-
+```javascript
 	reporters = ['coverage'];
-
+	
 	preprocessors = {
-    	'src/*.js': 'coverage'
+		'src/*.js': 'coverage'
 	};
-
+	
 	coverageReporter = {
-    	type : 'cobertura',
-    	dir : 'coverage/'
+		type : 'cobertura',
+		dir : 'coverage/'
 	};
+```
 这里，reporters指出了要生成coverage报告。preprocessors指明了要统计覆盖率的源码。coverageReporter里，指明type为cobertura，dir则是报告路径。type用多种选择，其中cobertura为Jenkins专属的。
 <!--more-->
+
 ### 一个Jenkins Job
 1.新建一个自由风格（freestyle）的Job即可。
 2.Restrict where this project can be run 里面填好前提条件中的机器名。当然如果直接是在Master结点，这个可以忽略。

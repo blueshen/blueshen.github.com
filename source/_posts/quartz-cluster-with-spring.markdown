@@ -3,7 +3,7 @@ layout: post
 title: "Spring中配置quartz集群"
 date: 2014-06-24 15:10
 comments: true
-categories: Java
+categories: java
 tags: [ quartz, spring, 集群 ]
 ---
 ### 为什么使用quartz集群？
@@ -27,14 +27,14 @@ quartz集群在spring中的配置
     org.quartz.scheduler.instanceName = ClusteredScheduler
     org.quartz.scheduler.instanceId = AUTO
     org.quartz.scheduler.skipUpdateCheck = true
-
+    
     #============================================================================
     # Configure ThreadPool
     #============================================================================
     org.quartz.threadPool.class = org.quartz.simpl.SimpleThreadPool
     org.quartz.threadPool.threadCount = 5
     org.quartz.threadPool.threadPriority = 5
-
+    
     #============================================================================
     # Configure JobStore
     #============================================================================
@@ -43,7 +43,7 @@ quartz集群在spring中的配置
     org.quartz.jobStore.misfireThreshold = 60000
     org.quartz.jobStore.useProperties = false
     org.quartz.jobStore.tablePrefix = QRTZ_
-
+    
     org.quartz.jobStore.isClustered = true
     org.quartz.jobStore.clusterCheckinInterval = 15000
 
@@ -55,16 +55,16 @@ quartz集群在spring中的配置
            xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
                             http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd"
            default-lazy-init="false">
-
+    
         <description>Quartz的定时集群任务配置</description>
-
+    
         <bean id="quartzDataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
             <property name="driverClass" value="${db.driver}" />
             <property name="url" value="${db.url}" />
             <property name="username" value="${db.user}" />
             <property name="password" value="${db.pass}" />
         </bean>
-
+    
         <!-- Quartz集群Schduler -->
         <bean id="clusterQuartzScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
             <!-- Triggers集成 -->
@@ -92,12 +92,12 @@ quartz集群在spring中的配置
             <property name="jobDetail" ref="testJobDetail" />
             <property name="cronExpression" value="* 0/10 * * * ?" />
         </bean>
-
+    
         <!-- Timer JobDetail, 基于JobDetailBean实例化Job Class,可持久化到数据库实现集群 -->
         <bean id="testJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
             <property name="jobClass" value="cn.shenyanchao.quartz.TestTask" />
         </bean>
-
+    
         <!-- Timer Job的可配置属性,在job中通过applicationContext动态获取 -->
         <util:map id="timerJobConfig">
             <entry key="nodeName" value="default" />
@@ -109,13 +109,13 @@ quartz集群在spring中的配置
 另外，配置JobFactory使得QuartzJob可以@Autowired注入spring托管的实例。内容如下：
 
     public final class AutoWiringSpringBeanJobFactory extends SpringBeanJobFactory implements ApplicationContextAware {
-
+    
             private transient AutowireCapableBeanFactory beanFactory;
-
+    
             public void setApplicationContext(final ApplicationContext context) {
                 beanFactory = context.getAutowireCapableBeanFactory();
             }
-
+    
             @Override
             protected Object createJobInstance(final TriggerFiredBundle bundle) throws Exception {
                 final Object job = super.createJobInstance(bundle);
@@ -132,7 +132,7 @@ quartz集群在spring中的配置
 
         @Autowired
         private UserService userService;
-
+    
         @Override
         protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
             System.out.println(userService.findByName("shenyanchao").getEmail());

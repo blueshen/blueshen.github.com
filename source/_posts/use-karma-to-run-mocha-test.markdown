@@ -10,6 +10,7 @@ tags: [ karma, testacular, mocha, idea ]
 2013年03月18日，Testacular正式被重命名为Karma。具体原因，讲起来缺也很滑稽。这里面不含有任何的商业成分，只是因为Testacular与Testicular很相似，因此令人感觉尴尬。仅仅此而已，谁让JsTestDriver已经被别人给拿走了。
 安装：
 	npm install -g karma
+
 ## 什么时候使用Karma？
 
 * 在真实浏览器里测试。
@@ -34,7 +35,7 @@ Karma对各种Test Framework的支持是以插件的模式进行支持的。
 只需要在karma.conf.js进行以下配置（mocha为例）：
 
     frameworks = ['mocha'];
-
+    
     plugins = [
     'karma-mocha'
     ];
@@ -52,12 +53,12 @@ Karma的报告（reporter）也是以插件模式进行的。
 如果想更近一步的话，可以配置一下报告的位置。
 
 	junitReporter = {
-    	outputFile: 'junit-report/test-results.xml'
+		outputFile: 'junit-report/test-results.xml'
 	};
 报告配置完了，自然要有依赖啊。执行`npm install karma-junit-reporter`来安装。然后在加上这个plugin:
 
 	plugins = [
-    	'karma-junit-reporter'
+		'karma-junit-reporter'
 	];
 
 #### Coverage Reporter
@@ -67,8 +68,8 @@ Karma的报告（reporter）也是以插件模式进行的。
 进一步的配置coverage report:
 
 	coverageReporter = {
-    	type : 'cobertura',
-    	dir : 'coverage/'
+		type : 'cobertura',
+		dir : 'coverage/'
 	};
 其中，type用于指出报告类型；dir用于指出生成报告的存放目录。
 type包括：
@@ -82,9 +83,11 @@ type包括：
 
 下面，需要安装依赖`npm install karma-coverage`。并在配置文件内添加：
 
-	plugins = [
-    	'karma-coverage'
-	];
+```javascript
+plugins = [
+	'karma-coverage'
+];
+```
 
 
 ## 创建一个样例
@@ -93,26 +96,26 @@ type包括：
 2.创建一个src文件夹，用于存放待测试的JS代码。然后在创建一个test文件夹，用于存放自己写的单元测试代码。
 
 3.以mocha为例，将mocha集成到karma中，使用karma来驱动测试。这需要在karma.conf.js里进行如下配置：
-
+```javascript
 	// Karma configuration
 	// Generated on Tue Mar 19 2013 20:46:08 GMT+0800 (CST)
-
+	
 	// base path, that will be used to resolve files and exclude
 	basePath = './';
-
+	
 	frameworks = ['mocha'];
-
+	
 	// list of files / patterns to load in the browser
 	files = [
-    	{pattern: 'node_modules/chai/chai.js',include: true},
-    	'src/*.js',
-    	'test/*.js'
+		{pattern: 'node_modules/chai/chai.js',include: true},
+		'src/*.js',
+		'test/*.js'
 	];
 
 
 	// list of files to exclude
 	exclude = [
-    	'karma.conf.js'
+		'karma.conf.js'
 	];
 
 
@@ -120,16 +123,16 @@ type包括：
 	// possible values: 'dots', 'progress', 'junit', 'teamcity'
 	// CLI --reporters progress
 	reporters = ['progress','junit','coverage'];
-
+	
 	junitReporter = {
 	    // will be resolved to basePath (in the same way as files/exclude patterns)
 	    outputFile: 'junit-report/test-results.xml'
 	};
-
+	
 	preprocessors = {
 	    'src/*.js': 'coverage'
 	};
-
+	
 	//Code Coverage options. report type available:
 	//- html (default)
 	//- lcov (lcov and html)
@@ -193,7 +196,7 @@ type包括：
 	    'karma-junit-reporter',
 	    'karma-coverage'
 	];
-
+```
 4.放入相应的代码到src以及test目录里。执行'karma start'命令, 浏览器将会被打开，然后执行相应的Test。效果如下图：
 ![Karma in Chrome](/images/blog/karma-chrome.png)
 

@@ -3,7 +3,7 @@ layout: post
 title: "使用 jXLS导出报表"
 date: 2014-06-24 15:17
 comments: true
-categories: Java
+categories: java
 tags: [ apache poi, excel, jXLS, jxl ]
 ---
 ### 常用的excel操作工具

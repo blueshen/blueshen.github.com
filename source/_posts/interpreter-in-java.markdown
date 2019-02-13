@@ -4,7 +4,7 @@ title: "设计模式：解释器（interpreter） in java"
 date: 2012-11-02 20:09
 comments: true
 categories: 设计模式
-tags: [ interpreter, pattern, 解释器 ]
+tags: [ interpreter, pattern, 解释器, 设计模式 ]
 ---
 **定义：**解释器模式是一种按照规定语法进行解析的方案，在现在项目中使用较少。正式定义：给定一门语言，定义它的文法的一种表示，并定义一个解释器，该解释器使用该表示来解释语句中的句子。    
 
