@@ -1757,4 +1757,8 @@ TDD难以应用
 
 对于调试需求，记日志是有用的。但是，只要有一个开关能打开或关闭，绝大多数的记日志需求都能够满足了，不需要复杂的解决方案。
 
-参考文档：<http://www.cnblogs.com/rilley/archive/2012/11/09/2762818.html>
+---
+
+参考文档：
+
+<http://www.cnblogs.com/rilley/archive/2012/11/09/2762818.html>
