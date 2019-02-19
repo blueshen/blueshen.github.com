@@ -4,7 +4,7 @@ title: "设计模式：原型（prototype） in java"
 date: 2012-11-07 20:41
 comments: true
 categories: 设计模式
-tags: [ Java, prototype, Clone, 设计模式 ]
+tags: [ java, prototype, Clone, 设计模式 ]
 ---
 **定义：**用原型实例指定创建对象的种类，并通过拷贝这些原型创建新的对象。  
 基本上，可以就是一个clone方法，通过这个方法进行对象的拷贝。 

@@ -3,7 +3,7 @@ layout: post
 title: "selenium wiki:高级用户交互"
 date: 2013-05-30 19:56
 comments: true
-categories: selenium-wiki
+categories: selenium官方文档
 tags: [ selenium ]
 ---
 ### AdvancedUserInteractions(高级用户交互)

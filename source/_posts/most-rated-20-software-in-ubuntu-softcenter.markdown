@@ -3,7 +3,7 @@ layout: post
 title: "Ubuntu软件中心最受欢迎的20个软件"
 date: 2013-01-17 13:21
 comments: true
-categories: Linux
+categories: linux
 tags: [ linux, ubuntu ]
 ---
 Ubuntu软件中心以下20款软件下载次数很多并且得票很高。 

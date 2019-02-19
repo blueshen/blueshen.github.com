@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "设计模式：单例（singleton） in java"
+title: "设计模式:单例（singleton） in java"
 date: 2012-11-02 18:47
 comments: true
 categories: 设计模式
-tags: [ Java, singleton ]
+tags: [ java, singleton ]
 ---
 ### 概要
 单例模式是最简单的设计模式之一，但是对于Java的开发者来说，它却有很多缺陷。在本月的专栏中，David Geary探讨了单例模式以及在面对多线程（multithreading)、类装载器（classloaders）和序列化(serialization)时如何处理这些缺陷。
@@ -74,7 +74,7 @@ tags: [ Java, singleton ]
 	import org.apache.log4j.Logger;
 	import junit.framework.Assert;
 	import junit.framework.TestCase;
-
+	
 	public class SingletonTest extends TestCase {
    		private ClassicSingleton sone = null, stwo = null;
    		private static Logger logger = Logger.getRootLogger();
@@ -116,7 +116,7 @@ run-test-text:
      [java] INFO main: checking singletons for equality
 
      [java] Time: 0.032
-
+    
      [java] OK (1 test)
 
 
@@ -174,7 +174,7 @@ run-test-text:
 	import org.apache.log4j.Logger;
 	import junit.framework.Assert;
 	import junit.framework.TestCase;
-
+	
 	public class SingletonTest extends TestCase {
    		private static Logger logger = Logger.getRootLogger();
    		private static Singleton singleton = null;
@@ -192,7 +192,7 @@ run-test-text:
 
       threadOne.start();
       threadTwo.start();
-
+    
       threadOne.join();
       threadTwo.join();
    	}
@@ -222,7 +222,7 @@ run-test-text:
 
 	Buildfile: build.xml
 	init:
-     	[echo] Build 20030414 (14-04-2003 03:06)
+	 	[echo] Build 20030414 (14-04-2003 03:06)
 	compile:
 	run-test-text:
 	INFO Thread-1: sleeping...
@@ -260,21 +260,21 @@ run-test-text:
 在同步化getInstance()方法后，我们就可以得到例5的测试案例返回的下面的结果：
 
 	Buildfile: build.xml
-
+	
 	init:
-     	[echo] Build 20030414 (14-04-2003 03:15)
-
+	 	[echo] Build 20030414 (14-04-2003 03:15)
+	
 	compile:
-    	[javac] Compiling 2 source files
-
+		[javac] Compiling 2 source files
+	
 	run-test-text:
 	INFO Thread-1: sleeping...
 	INFO Thread-1: created singleton: Singleton@ef577d
 	INFO Thread-2: created singleton: Singleton@ef577d
-     	[java] .
-     	[java] Time: 0.513
-
-     	[java] OK (1 test)
+	 	[java] .
+	 	[java] Time: 0.513
+	
+	 	[java] OK (1 test)
 
 
 这此，这个测试案例工作正常，并且多线程的烦恼也被解决;然而，机敏的读者可能会认识到getInstance()方法只需要在第一次被调用时同步。因为同步的性能开销很昂贵（同步方法比非同步方法能降低到100次左右），或许我们可以引入一种性能改进方法，它只同步单例类的getInstance()方法中的赋值语句。
@@ -345,7 +345,7 @@ run-test-text:
 
 	import java.util.HashMap;
 	import org.apache.log4j.Logger;
-
+	
 	public class Singleton {
    		private static HashMap map = new HashMap();
    		private static Logger logger = Logger.getRootLogger();
@@ -365,7 +365,7 @@ run-test-text:
             singleton = new SingletonSubclass_One();
         else if(classname.equals("SingeltonSubclass_Two"))
             singleton = new SingletonSubclass_Two();
-
+    
       	map.put(classname, singleton);
       	logger.info("created singleton: " + singleton);
       	return singleton;
@@ -381,7 +381,7 @@ run-test-text:
 
 	import java.util.HashMap;
 	import org.apache.log4j.Logger;
-
+	
 	public class Singleton {
    		private static HashMap map = new HashMap();
    		private static Logger logger = Logger.getRootLogger();
@@ -410,7 +410,7 @@ run-test-text:
       	}
       	map.put(classname, singleton);
       	logger.info("created singleton: " + singleton);
-
+    
       	return singleton;
    		}
 	}
@@ -426,7 +426,7 @@ run-test-text:
 
 	import java.util.HashMap;
 	import org.apache.log4j.Logger;
-
+	
 	public class SingletonRegistry {
    		public static SingletonRegistry REGISTRY = new SingletonRegistry();
 
@@ -466,7 +466,7 @@ run-test-text:
 
 	import java.util.HashMap;
 	import org.apache.log4j.Logger;
-
+	
 	public class Singleton {
 
    		protected Singleton() {
@@ -485,13 +485,13 @@ run-test-text:
 在许多情况下，使用多个类载入器是很普通的--包括servlet容器--所以不管你在实现你的单例类时是多么小心你都最终可以得到多个单例类的实例。如果你想要确保你的单例类只被同一个的类载入器装入，那你就必须自己指定这个类载入器;例如：
 
 	private static Class getClass(String classname)
-                                         throws ClassNotFoundException {
-     	ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-
-      	if(classLoader == null)
-         classLoader = Singleton.class.getClassLoader();
-
-      	return (classLoader.loadClass(classname));
+	                                     throws ClassNotFoundException {
+	 	ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+	
+	  	if(classLoader == null)
+	     classLoader = Singleton.class.getClassLoader();
+	
+	  	return (classLoader.loadClass(classname));
    		}
 	}
 
@@ -504,7 +504,7 @@ run-test-text:
 例12 一个可序列化的单例类
 
 	import org.apache.log4j.Logger;
-
+	
 	public class Singleton implements java.io.Serializable {
    		public static Singleton INSTANCE = new Singleton();
 
@@ -525,7 +525,7 @@ run-test-text:
 	import org.apache.log4j.Logger;
 	import junit.framework.Assert;
 	import junit.framework.TestCase;
-
+	
 	public class SingletonTest extends TestCase {
    		private Singleton sone = null, stwo = null;
    		private static Logger logger = Logger.getRootLogger();
@@ -590,20 +590,20 @@ run-test-text:
 前面这个测试案例序列化例12中的单例类，并且两次重构它。然后这个测试案例检查看是否被重构的单例类实例是同一个对象。下面是测试案例的输出：
 
 	Buildfile: build.xml
-
+	
 	init:
-     	[echo] Build 20030422 (22-04-2003 11:32)
-
+	 	[echo] Build 20030422 (22-04-2003 11:32)
+	
 	compile:
-
+	
 	run-test-text:
-     	[java] .INFO main: testing singleton serialization...
-     	[java] .INFO main: testing singleton uniqueness...
-     	[java] INFO main: checking singletons for equality
-
-     	[java] Time: 0.1
-
-     	[java] OK (2 tests)
+	 	[java] .INFO main: testing singleton serialization...
+	 	[java] .INFO main: testing singleton uniqueness...
+	 	[java] INFO main: checking singletons for equality
+	
+	 	[java] Time: 0.1
+	
+	 	[java] OK (2 tests)
 
 
 **单例模式结束语**

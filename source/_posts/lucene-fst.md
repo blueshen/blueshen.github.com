@@ -2,7 +2,7 @@
 title: 关于Lucene的词典FST深入剖析
 date: 2018-12-04 12:35:25
 tags: [ lucene, FST, FSM, FSA ]
-categories: [ lucene ]
+categories: lucene
 ---
 
 ### 搜索引擎为什么能查询速度那么快？
@@ -119,8 +119,8 @@ FST和FSA很像，给定一个key除了能回答是否存在，还能输出一�
 那么当我们查找key:"jul"的时候，大概流程如下：
 
 - 初始状态0 
-- 输入j, FST从0->1， value=7
-- 输入u， FST从1->2， value=7+0
+- 输入j,   FST从0->1， value=7
+- 输入u,  FST从1->2， value=7+0
 - 输入l，FST从2->3, value=7+0+0
 
 此时，FST处于final状态3，所以存在jul，并且给出output是7.
@@ -342,10 +342,10 @@ Builder通过泛型T，从而可以构建包含不同类型的FST。我们重点
 
 总结以下，加入节点过程：
 
-- 1. 新插入input放入frontier，这里还没有加入FST
-- 2. 依据当前input, 对上次插入数据进行freezeTail操作, 放入FST内
-- 3. 构建input的转移（Arc）关系
-- 4. 解决Output冲突，重新分配output，保证路径统一(NO_OUTPUT,不执行)
+- 1)新插入input放入frontier，这里还没有加入FST
+- 2)依据当前input, 对上次插入数据进行freezeTail操作, 放入FST内
+- 3)构建input的转移（Arc）关系
+- 4)解决Output冲突，重新分配output，保证路径统一(NO_OUTPUT,不执行)
 
 
 最后在`finish`方法里，执行`freezeTail(0)`, 把所有的input构建进FST内。
@@ -362,7 +362,7 @@ Builder通过泛型T，从而可以构建包含不同类型的FST。我们重点
 
 完全满足我们上个部分的限制，可见就是基于之前算法的一个完整的实现。    
 
-除了在Term词典这块有应用，FST在整个lucene内部使用的也是很广泛的，基本把hashmap记性了替换。
+除了在Term词典这块有应用，FST在整个lucene内部使用的也是很广泛的，基本把hashmap进行了替换。
 场景大概有以下：  
 
 - 自动联想：suggester

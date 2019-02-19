@@ -4,7 +4,7 @@ title: "《Node.js开发指南》读书笔记"
 date: 2013-03-11 16:53
 comments: true
 categories: 读书笔记
-tags: [ NodeJS, express, 读书笔记 ]
+tags: [ nodejs, express, 读书笔记 ]
 ---
 ### 书籍信息
 Amazon: [NodeJS开发指南](http://www.amazon.cn/Node-js%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97-%E9%83%AD%E5%AE%B6%E5%AE%9D/dp/B008HN793I)
