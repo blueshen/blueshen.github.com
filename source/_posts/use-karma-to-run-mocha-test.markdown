@@ -9,8 +9,9 @@ tags: [ karma, testacular, mocha, idea ]
 ## 从Testacular到Karma的变化
 2013年03月18日，Testacular正式被重命名为Karma。具体原因，讲起来缺也很滑稽。这里面不含有任何的商业成分，只是因为Testacular与Testicular很相似，因此令人感觉尴尬。仅仅此而已，谁让JsTestDriver已经被别人给拿走了。
 安装：
-	npm install -g karma
-
+```shell
+npm install -g karma
+```
 ## 什么时候使用Karma？
 
 * 在真实浏览器里测试。
@@ -27,50 +28,67 @@ tags: [ karma, testacular, mocha, idea ]
 Karma自从出现，就是一直作为一个Test Runner而存在的，只是用来驱动测试的框架。不过到目前为止，它支持以下流行的测试框架。
 
 * Mocha
+
 * Jasmine
+
 * QUnit
+
 <!--more-->
+
 ## Karma与Test Framework集成
 Karma对各种Test Framework的支持是以插件的模式进行支持的。
 只需要在karma.conf.js进行以下配置（mocha为例）：
+```javascript
+frameworks = ['mocha'];
 
-    frameworks = ['mocha'];
-    
-    plugins = [
-    'karma-mocha'
-    ];
+plugins = [
+'karma-mocha'
+];
+```
 在此处只是配置了一下，具体支持的plugin要在当前目录下进行安装：
 
-	npm install karma-mocha
+```shell
+npm install karma-mocha
+```
 其他框架依此类推。
 
 ## Karma报告
 Karma的报告（reporter）也是以插件模式进行的。
-#### JUnit Reporter
+###  JUnit Reporter
 首先，要定义reporter类型，在karma.conf.js添加：
 
-	reporters = ['junit'];
+```javascript
+reporters = ['junit'];
+```
 如果想更近一步的话，可以配置一下报告的位置。
 
-	junitReporter = {
-		outputFile: 'junit-report/test-results.xml'
-	};
+```javascript
+junitReporter = {
+	outputFile: 'junit-report/test-results.xml'
+};
+```
 报告配置完了，自然要有依赖啊。执行`npm install karma-junit-reporter`来安装。然后在加上这个plugin:
 
-	plugins = [
-		'karma-junit-reporter'
-	];
+```javascript
+plugins = [
+	'karma-junit-reporter'
+];
+```
 
-#### Coverage Reporter
+### Coverage Reporter
 同JUnit Reporter一样，首先添加：
 
-	reporters = ['coverage'];
+```javascript
+reporters = ['coverage'];
+```
 进一步的配置coverage report:
 
-	coverageReporter = {
-		type : 'cobertura',
-		dir : 'coverage/'
-	};
+```javascript
+coverageReporter = {
+	type : 'cobertura',
+	dir : 'coverage/'
+};
+```
 其中，type用于指出报告类型；dir用于指出生成报告的存放目录。
 type包括：
 
@@ -205,8 +223,16 @@ plugins = [
 
 ## IntelliJ IDEA集成
 为了在项目中开发方便，那么在开发中集成到IDE中，会节省N多时间的。下面就先来说说于IDEA的集成。
-1.安装NodeJS插件： Settings --> IDE Settings --> Plugins --> Browse repositories --> NodeJS  选中，然后右键Download and Install进行安装。重启后成功安装。
-2.配置Karma Server: 从菜单Run --> Edit Configurations... -->点击 ‘+’新建一个Node.js类型的配置。出现以下的界面：
+
+### 1.安装NodeJS插件：
+
+ Settings --> IDE Settings --> Plugins --> Browse repositories --> NodeJS  选中，然后右键Download and Install进行安装。重启后成功安装。
+
+### 2.配置Karma Server:
+
+ 从菜单Run --> Edit Configurations... -->点击 ‘+’新建一个Node.js类型的配置。
+
+出现以下的界面：
 ![karma-node-server](/images/blog/karma-node-server.png)
 
 其中：
@@ -217,14 +243,14 @@ Path to Node App JS File: 此处为karma的可执行全路径。
 Application Parameters: 要执行的命令，此处为start
 Environment variables: 就是环境变量了。此处我定义了CHROME_BIN来指出CHROME浏览器路径。
 
-3.配置Karma run
+### 3.配置Karma run
 同Karma Server，只是修改Application Parameters为run
 ![karma-node-run](/images/blog/karma-node-run.png)
 
 
 配置成功后，运行Karma node Server可以看到浏览器就可以正常启动了。console也正确的输出。如同在terminal里执行一般。需要注意的是，本地开发时，需要将`singleRun=false`,也就是说执行完测试之后不退出。只有在CI环境下才用true。
 
-在浏览器启动之后，如果修改了源代码，Test能否自动执行呢？可以将`autoWatch=true`,这样当你修改代码后，保存后能自动执行，方便开发了。如果‘autoWatch=false’了，那么这时间就要执行Karma run了，用于在Karma Server上重新执行。
+在浏览器启动之后，如果修改了源代码，Test能否自动执行呢？可以将`autoWatch=true`,这样当你修改代码后，保存后能自动执行，方便开发了。如果`autoWatch=false`了，那么这时间就要执行Karma run了，用于在Karma Server上重新执行。
 
 
 
