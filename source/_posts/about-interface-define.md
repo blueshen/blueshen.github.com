@@ -7,7 +7,7 @@ categories: java
 tags: [ spring, restful, interface]
 ---
 
-最近公司内项目，需要开发接口给ios,android客户端去调用。因此，做了一些思考，主要是关于如何更好的定义接口以及联调。
+
 
 ### 使用RESTFul接口
 

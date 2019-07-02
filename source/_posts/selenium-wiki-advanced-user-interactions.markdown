@@ -12,20 +12,27 @@ tags: [ selenium ]
 #### 开始（short how to）
 为了生成一连串的动作，我们使用Actions来建立。首先，我们先配置操作：
 
-    Actions builder = new Actions(driver);
+```java
+Actions builder = new Actions(driver);
 
-    builder.keyDown(Keys.CONTROL)
-    .click(someElement)
-    .click(someOtherElement)
-    .keyUp(Keys.CONTROL);
+builder.keyDown(Keys.CONTROL)
+.click(someElement)
+.click(someOtherElement)
+.keyUp(Keys.CONTROL);
+```
 然后，获得操作（Action）:
 
-    Action selectMultiple = builder.build();
+```java
+Action selectMultiple = builder.build();
+```
 最后，执行这个动作：
 
-    selectMultiple.perform();
+```java
+selectMultiple.perform();
+```
 这一系列的动作应该尽量的短。在使用中最好在执行一个简短的动作后验证页面是否处于正确的状态，然后再执行下面的动作。下一节将会列出所有可用的动作（Action），并且说明它们如何进行扩展。
 <!--more-->
+
 #### 键盘交互（Keyboard interactions）
 键盘交互是发生在一个特定的页面元素的，而webdriver会确保这个页面元素在执行键盘动作时处于正确的状态。这个正确的状态，包括页面元素滚动到可视区域并定位到这个页面元素。
 既然这个新的API是面向用户（user-oriental）的接口，那么对于一个用户，在对一个元素输入文本前做显式的交互就更加的符合逻辑。这意味着，当想定位到相邻的页面元素时，可能需要点击一下元素或按下Tab（`Keys.TAB`）键。
@@ -55,12 +62,12 @@ The new interactions API will (first) support keyboard actions without a provide
 `Actions`链生成器实现了创建者模式来新建一个包含一组动作的`CompositeAction`。使用Actions生成器可以很容易的生成动作并调用`build（）`方法来获得复杂的操作。
 
     Actions builder = new Actions(driver);
-
+    
     Action dragAndDrop = builder.clickAndHold(someElement)
        .moveToElement(otherElement)
        .release(otherElement)
        .build();
-
+    
     dragAndDrop.perform();
 有一个对`Actions`进行扩展的计划，给`Actions`类添加一个方法，这个方法可以追加任何动作到其拥有的动作列表上。这将允许添加扩展的动作，而不用人工创建CompositeAction。关于扩展`Actions`,请往下看。
 #### 扩展Action接口的指导

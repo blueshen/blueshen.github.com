@@ -4,7 +4,7 @@ title: "jmeter 分布式 step by step"
 date: 2012-12-07 13:25
 comments: true
 categories: jmeter
-tags: [ jmeter, 分布式, 压力测试 ]
+tags: [ jmeter, 压力测试 ]
 ---
 ### 环境准备
 
@@ -16,7 +16,7 @@ tags: [ jmeter, 分布式, 压力测试 ]
 ### 工作原理
 1台机器做为总控机，其他机器作为节点机。总控机器，负责将JMX脚本分发到节点机上，各个节点同时独立运行，向服务发出压力，总控机可以获取并汇总报告。
 定义：
->总控机为**client**，我们（用户）只与这太机器打交道。或者称之为**Master**;
+>总控机为**client**，我们（用户）只与这台机器打交道。或者称之为**Master**;
 节点机器为**server**,它负责真正的向服务发出压力。或者称之为**Slave**;
 
 <!--more-->

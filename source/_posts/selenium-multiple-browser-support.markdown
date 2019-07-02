@@ -16,6 +16,7 @@ tags: [ webdriver, selenium, Firefox, Chrome, Driver ]
 >* AndroidDriver(mobile testing)
 >* OperaMobileDriver(mobile testing)
 >* IPhoneDriver(mobile testing)
+
 <!--more-->
 
 ## 为什么selenium自动化case在一个浏览器运行的很好，换为另外一个浏览器则不行？

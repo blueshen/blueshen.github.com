@@ -18,16 +18,20 @@ tags: [ ssh, linux ]
 ### 二、最基本的用法
 SSH主要用于远程登录。假定你要以用户名user，登录远程主机host，只要一条简单命令就可以了。
 
-    $ ssh user@host
+```shell
+$ ssh user@host
+```
 
 如果本地用户名与远程用户名一致，登录时可以省略用户名。
 
-    $ ssh host
+```shell
+$ ssh host
+```
 
 SSH的默认端口是22，也就是说，你的登录请求会送进远程主机的22端口。使用p参数，可以修改这个端口。
-
-　　$ ssh -p 2222 user@host
-
+```shell
+$ ssh -p 2222 user@host
+```
 上面这条命令表示，ssh直接连接远程主机的2222端口。
 ### 三、中间人攻击
 SSH之所以能够保证安全，原因在于它采用了公钥加密。
@@ -40,13 +44,15 @@ SSH协议是如何应对的呢？
 ### 四、口令登录
 如果你是第一次登录对方主机，系统会出现下面的提示：
 
-    $ ssh user@host
-    The authenticity of host 'host (12.18.429.21)' can't be established.
-    RSA key fingerprint is 98:2e:d7:e0:de:9f:ac:67:28:c2:42:2d:37:16:58:4d.
-    Are you sure you want to continue connecting (yes/no)?
+```shell
+$ ssh user@host
+The authenticity of host 'host (12.18.429.21)' can't be established.
+RSA key fingerprint is 98:2e:d7:e0:de:9f:ac:67:28:c2:42:2d:37:16:58:4d.
+Are you sure you want to continue connecting (yes/no)?
+```
 
 这段话的意思是，无法确认host主机的真实性，只知道它的公钥指纹，问你还想继续连接吗？
-所谓"公钥指纹"，是指公钥长度较长（这里采用RSA算法，长达1024位），很难比对，所以对其进行MD5计算，将它变成一个128位的指纹。上例中是98:2e:d7:e0:de:9f:ac:67:28:c2:42:2d:37:16:58:4d，再进行比较，就容易多了。
+所谓"公钥指纹"，是指公钥长度较长（这里采用RSA算法，长达1024位），很难比对，所以对其进行MD5计算，将它变成一个128位的指纹。上例中是`98:2e:d7:e0:de:9f:ac:67:28:c2:42:2d:37:16:58:4d`，再进行比较，就容易多了。
 很自然的一个问题就是，用户怎么知道远程主机的公钥指纹应该是多少？回答是没有好办法，远程主机必须在自己的网站上贴出公钥指纹，以便用户自行核对。
 假定经过风险衡量以后，用户决定接受这个远程主机的公钥。
 

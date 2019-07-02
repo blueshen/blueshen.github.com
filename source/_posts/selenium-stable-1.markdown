@@ -13,7 +13,7 @@ tags: [ webdriver, selenium , stable  ]
 
 ## 实现方法如下
 ```java
-    /**
+  /**
 	 * 点击空白区域：坐标（0，0）
 	 */
 	public static void clickBlankArea(WebDriver driver) {

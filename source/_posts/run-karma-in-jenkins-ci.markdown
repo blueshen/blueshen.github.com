@@ -14,7 +14,7 @@ Jenkins Server上（可以是Master，也许是Slave结点，总之在那个Serv
 * Node
 * Karma
 
-### 配置Karma.conf.js文件###
+### 配置Karma.conf.js文件
 必须保证：
 
 ```javascript
