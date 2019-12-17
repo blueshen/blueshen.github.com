@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/icon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="webdriver,selenium,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="申艳超-博客" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="Selenium 1 (Selenium RC)介绍正如你在 Selenium 项目简史里读到的，Selenium RC 在很长一段时间内都是 Selenium 的主要项目，直到 WebDriver/Selenium 合并而产生了最新和最强大的 Selenium 2。 Selenium 仍然被活跃的支持（大部分是维护工作），并且提供了一些 Selenium 2 短期不会支持的特性，包括支持多语言">
+<meta name="keywords" content="webdriver,selenium">
+<meta property="og:type" content="article">
+<meta property="og:title" content="selenium文档:selenium RC">
+<meta property="og:url" content="https://www.shenyanchao.cn/blog/2013/05/30/selenium-doc-selenium-rc/index.html">
+<meta property="og:site_name" content="申艳超-博客">
+<meta property="og:description" content="Selenium 1 (Selenium RC)介绍正如你在 Selenium 项目简史里读到的，Selenium RC 在很长一段时间内都是 Selenium 的主要项目，直到 WebDriver/Selenium 合并而产生了最新和最强大的 Selenium 2。 Selenium 仍然被活跃的支持（大部分是维护工作），并且提供了一些 Selenium 2 短期不会支持的特性，包括支持多语言">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://seleniumhq.org/docs/_images/chapt5_img01_Architecture_Diagram_Simple.png">
+<meta property="og:image" content="http://seleniumhq.org/docs/_images/chapt5_TestNGxsltReport.png">
+<meta property="og:image" content="http://seleniumhq.org/docs/_images/chapt5_img26_single_window_mode.png">
+<meta property="og:image" content="http://seleniumhq.org/docs/_images/chapt5_img27_multi_window_mode.png">
+<meta property="og:image" content="http://seleniumhq.org/docs/_images/chapt5_img02_Architecture_Diagram_1.png">
+<meta property="og:image" content="http://seleniumhq.org/docs/_images/chapt5_img02_Architecture_Diagram_2.png">
+<meta property="og:updated_time" content="2019-12-17T11:41:25.752Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="selenium文档:selenium RC">
+<meta name="twitter:description" content="Selenium 1 (Selenium RC)介绍正如你在 Selenium 项目简史里读到的，Selenium RC 在很长一段时间内都是 Selenium 的主要项目，直到 WebDriver/Selenium 合并而产生了最新和最强大的 Selenium 2。 Selenium 仍然被活跃的支持（大部分是维护工作），并且提供了一些 Selenium 2 短期不会支持的特性，包括支持多语言">
+<meta name="twitter:image" content="http://seleniumhq.org/docs/_images/chapt5_img01_Architecture_Diagram_Simple.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.shenyanchao.cn/blog/2013/05/30/selenium-doc-selenium-rc/">
+
+
+
+
+
+  <title>selenium文档:selenium RC | 申艳超-博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?81c9612f8fdceca45435ef7f5404d7b2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">申艳超-博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">搜索引擎、分布式、高性能、NLP、ElasticSearch、Solr</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.shenyanchao.cn/blog/2013/05/30/selenium-doc-selenium-rc/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="申艳超">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/shenyanchao.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="申艳超-博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">selenium文档:selenium RC</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-05-30T19:55:00+08:00">
+                2013-05-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/selenium官方文档/" itemprop="url" rel="index">
+                    <span itemprop="name">selenium官方文档</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/blog/2013/05/30/selenium-doc-selenium-rc/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/blog/2013/05/30/selenium-doc-selenium-rc/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/blog/2013/05/30/selenium-doc-selenium-rc/" class="leancloud_visitors" data-flag-title="selenium文档:selenium RC">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  8,583
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  33
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Selenium-1-Selenium-RC"><a href="#Selenium-1-Selenium-RC" class="headerlink" title="Selenium 1 (Selenium RC)"></a>Selenium 1 (Selenium RC)</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>正如你在 Selenium 项目简史里读到的，Selenium RC 在很长一段时间内都是 Selenium 的主要项目，直到 WebDriver/Selenium 合并而产生了最新和最强大的 Selenium 2。</p>
+<p>Selenium 仍然被活跃的支持（大部分是维护工作），并且提供了一些 Selenium 2 短期不会支持的特性，包括支持多语言 (Java, Javascript, Ruby, PHP, Python, Perl 和 C#) 和支持几乎所有的浏览器。 </p>
+<h2 id="Selenium-RC-如何工作"><a href="#Selenium-RC-如何工作" class="headerlink" title="Selenium RC 如何工作"></a>Selenium RC 如何工作</h2><p>首先，我们将讲述 Selenium RC 的组件如何操作，以及在测试脚本运行时各自扮演的角色。</p>
+<h3 id="RC-组件"><a href="#RC-组件" class="headerlink" title="RC 组件"></a>RC 组件</h3><p>Selenium RC 组件是：</p>
+<p>Selenium Server 能启动和杀死浏览器进程，解析并运行由测试程序传递过来的 Selenese 命令，并且可以是一个 HTTP 代理，拦截和验证浏览器和 AUT(测试中的应用)之间的 HTTP 通信。<br><a id="more"></a><br>客户端库提供了各种编程语言和 Selenium RC Server 之间的接口。   </p>
+<p>以下是一个简单的架构图：</p>
+<p><img src="http://seleniumhq.org/docs/_images/chapt5_img01_Architecture_Diagram_Simple.png" alt="架构图"></p>
+<p>上图演示了客户端和服务端进行通信以传递要执行的 Selenium 命令。然后服务端使用 Selenium-Core JavaScript 命令将 Selenium 命令传递给浏览器。浏览器则使用其内置的 JavaScript 解析器来执行 Selenium 命令。这样运行 Seleniun 动作或者验证你指定的测试脚本。</p>
+<h3 id="Selenium-服务端"><a href="#Selenium-服务端" class="headerlink" title="Selenium 服务端"></a>Selenium 服务端</h3><p>Selenium 服务端从你的测试程序接收 Selenium 命令，解析它们，并且反馈给你程序的测试执行结果。</p>
+<p>RC 服务端绑定了 Selenium Core 并且自动将其注入浏览器。这在你的测试程序打开浏览器时发生（使用客户端库的方法）。Selenium-Core 是一个 JavaScript 程序，实际上是一些利用浏览器的内置 JavaScript 解析器解析和实行 Selenese 命令 的 JavaScript 函数。</p>
+<p>Server 使用简单的 HTTP GET/POST 请求来接收你的测试程序中的 Selenese 命令。这意味这你可以使用任何可以发送 HTTP 请求的编程语言来实现 Selenium 测试在浏览器中的自动运行。</p>
+<h3 id="客户端库"><a href="#客户端库" class="headerlink" title="客户端库"></a>客户端库</h3><p>客户端库提供了能让你从自定义的程序中运行 Selenium 命令的编程支持。每种支持的语言都有一个不同的客户端库。Selenium 客户端库提供了一组接口，例如一些从你的程序中运行 Selenium 命令的方法。通过实现这些接口，我们就能得到一个支持所有 Selenese 命令的编程方法。</p>
+<p>客户端库将 Selenese 命令传递给 Selenium 服务端来处理一个特定的动作或者执行 AUT 的测试。客户端库同时接收所传递命令的执行结果，并将其返回给你的程序。你的程序可以接收这个结果并且将其存储到一个变量中，然后报告其运行结果是成功还是失败，或者当其发生错误是进行适当的处理。</p>
+<p>因此要创建一个测试程序，你仅仅需要使用客户端库的 API 来编写一个可以运行 Selenium 命令的程序。或者，如果你已经有了使用 Selenium-IDE 创建的 Selenium 测试脚本，你可以使用它来生成 Selenium RC 代码。Selenium-IDE 可以将 Selenium 命令转换（使用导出菜单）成客户端 API 的方法调用。查看 Selenium-IDE 章节中关于从 Selenium-IDE 中导出 RC 代码的细节。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>用安装这个词不是很恰当。Selenium 在你选择的编程语言中有一组组件可用。你可以从下载页面下载它们。</p>
+<p>一旦你选定了一种编程语言，你仅需要：</p>
+<ul>
+<li>安装 Selenium RC 服务端。</li>
+<li>使用特定于该语言的客户端驱动创建你的项目</li>
+</ul>
+<h3 id="安装-Selenium-服务端"><a href="#安装-Selenium-服务端" class="headerlink" title="安装 Selenium 服务端"></a>安装 Selenium 服务端</h3><p>Selenium RC 服务端是一个简单的 jar 包 (selenium-server-standalone-<version-number>.jar)，它不需要安装。只需要下载这个zip文件，并提取服务所需的目录即可。</version-number></p>
+<h3 id="运行-Selenium-服务"><a href="#运行-Selenium-服务" class="headerlink" title="运行 Selenium 服务"></a>运行 Selenium 服务</h3><p>在开始任何测试之前，你必须先启动服务。进到 Selenium RC 服务端所在的目录，并在命令行中运行以下命令：</p>
+<pre><code>java -jar selenium-server-standalone-&lt;version-number&gt;.jar
+</code></pre><p>你也可以简单的创建一个包含上述命令的批处理或shell文件（Windows 中扩展名为 .bat，Linux 中扩展名为 .sh）。然后在你的桌面上创建一个该可执行文件的快捷方式，通过双击图标来启动服务。</p>
+<p>要成功启动服务必须确保 Java 已安装，并且设置了正确的 PATH 环境变量。你可以通过下面的命令检查你的 Java 是否安装正确：</p>
+<pre><code>java -version
+</code></pre><p>如果你得到一个版本号（必须&gt;=1.5），那么你已经成功启动 Selenium RC。</p>
+<h3 id="使用-Java-客户端驱动"><a href="#使用-Java-客户端驱动" class="headerlink" title="使用 Java 客户端驱动"></a>使用 Java 客户端驱动</h3><ul>
+<li>从 SeleniumHQ 下载页面下载 Selenium java 客户端驱动 zip 包。</li>
+<li>提取 selenium-java-<version-number>.jar</version-number></li>
+<li>打开你喜欢的 Java IDE (Eclipse, NetBeans, IntelliJ, Netweaver, etc.)</li>
+<li>创建一个 java 项目。</li>
+<li>将 selenium-java-<version-number>.jar 文件作为引用添加到你的项目中。</version-number></li>
+<li>将 selenium-java-<version-number>.jar 文件添加到你项目的 classpath 中。</version-number></li>
+<li>从 Selenium-IDE 到处一个 Java 文件，并放入你的项目，或者使用 Selenium 的 Java 客户端 API 编写一个 Selenium 测试文件。这些 API 将在本章的后面部分进行讲解。你可以使用 JUnit，或者 TestNg 来运行你的测试，或者你可以简单的写一个 main() 方法。这些概念也将在本文后面进行说明。</li>
+<li>从命令行运行 Selenium 服务。</li>
+<li>从 Java IDE 或者命令行中执行你的测试。</li>
+</ul>
+<p>关于更多 Java 测试项目的配置细节，可查看本章附件：<strong>在 Eclipse 中配置 Selenium RC</strong> 和 <strong>在 Intellij 中配置 Selenium RC</strong>。</p>
+<h2 id="将-Selenese-转换成程序"><a href="#将-Selenese-转换成程序" class="headerlink" title="将 Selenese 转换成程序"></a>将 Selenese 转换成程序</h2><p>使用 Selenium RC 的主要任务就是将你的 Selenese 转换成一个编程语言。在本小结中，我们提供几种不同的语言演示。</p>
+<h3 id="测试脚本范例"><a href="#测试脚本范例" class="headerlink" title="测试脚本范例"></a>测试脚本范例</h3><p>让我们从一个 Selenese 测试脚本的例子开始. 假定我们使用 Selenium-IDE 记录了如下测试：</p>
+<table><br>    <tbody><br>        <tr><br>            <td>open</td><br>            <td>/</td><br>            <td>&nbsp;</td><br>        </tr><br>        <tr><br>            <td>type</td><br>            <td>q</td><br>            <td>selenium rc</td><br>        </tr><br>        <tr><br>            <td>clickAndWait</td><br>            <td>btnG</td><br>            <td>&nbsp;</td><br>        </tr><br>        <tr><br>            <td>assertTextPresent</td><br>            <td>Results * for selenium rc</td><br>            <td>&nbsp;</td><br>        </tr><br>    </tbody><br></table>
+
+<p>注意: 这个例子仅仅在 Google 搜索页面 <a href="http://www.google.com" target="_blank" rel="noopener">http://www.google.com</a> 工作。</p>
+<h2 id="Selenese-作为编程代码"><a href="#Selenese-作为编程代码" class="headerlink" title="Selenese 作为编程代码"></a>Selenese 作为编程代码</h2><p>以下为使用支持的多种编程序言从 Selenium-IDE 中导出的测试脚本。如果你有一些面向对象编程的基础知识，你就可以通过阅读以下代码理解 Selenium 如何运行 Selenese 命令。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** Add JUnit framework to your classpath if not already there</span></span><br><span class="line"><span class="comment"> *  for this example to work</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">package</span> com.example.tests;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.thoughtworks.selenium.*;</span><br><span class="line"><span class="keyword">import</span> java.util.regex.Pattern;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NewTest</span> <span class="keyword">extends</span> <span class="title">SeleneseTestCase</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUp</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        setUp(<span class="string">"http://www.google.com/"</span>, <span class="string">"*firefox"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testNew</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">          selenium.open(<span class="string">"/"</span>);</span><br><span class="line">          selenium.type(<span class="string">"q"</span>, <span class="string">"selenium rc"</span>);</span><br><span class="line">          selenium.click(<span class="string">"btnG"</span>);</span><br><span class="line">          selenium.waitForPageToLoad(<span class="string">"30000"</span>);</span><br><span class="line">          assertTrue(selenium.isTextPresent(<span class="string">"Results * for selenium rc"</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在接下来的章节中，我们将介绍如何通过生成的代码创建你的测试程序。</p>
+<h2 id="编写你的测试代码"><a href="#编写你的测试代码" class="headerlink" title="编写你的测试代码"></a>编写你的测试代码</h2><p>现在我们将为每种支持的语言演示如何通过上述例子编写你自己的测试代码。我们主要需要做2件事情：</p>
+<ul>
+<li>从 Selenium-IDE 导出指定语言的脚本，有选择性的修改它。</li>
+<li>编写一个 main() 方法来执行创建的代码。</li>
+</ul>
+<p>你可以选择平台支持的任意测试引擎，如 Java 的 JUnit 或 TestNG。</p>
+<p>这里我们将演示指定语言的例子。每种语言的 API 都有所不同，所以我们将单独解释每一个。</p>
+<h3 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h3><p>在 Java 中，大家通常选择 JUnit 或 TestNG 作为测试引擎。一些像 Eclipse 这样的 IDE 能通过插件直接支持它们，使得事情更简单。JUnit 和 TestNG 教学不在本文档的范围内，但是你可以通过网络找到相关资料。如果你是一个 Java 程序员，你可能已经有使用这些框架的经验了。</p>
+<p>你可能希望为 “NewTest” 测试类重命名。同时，你可能也需要修改以下语句中的浏览器打开参数。</p>
+<pre><code>selenium = new DefaultSelenium(&quot;localhost&quot;, 4444, &quot;*iehta&quot;, &quot;http://www.google.com/&quot;);
+</code></pre><p>使用 Selenium-IDE 创建的代码看起来大致如下。为了使代码更清晰易读，我们手工加入了注释。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.tests;</span><br><span class="line"><span class="comment">// 我们指定了这个文件的包</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.thoughtworks.selenium.*;</span><br><span class="line"><span class="comment">// 导入驱动。</span></span><br><span class="line"><span class="comment">// 你将使用它来初始化浏览器并执行一些任务。</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.regex.Pattern;</span><br><span class="line"><span class="comment">// 加入正则表达式模块，因为有些我们需要使用它进行校验。</span></span><br><span class="line"><span class="comment">// 如果你的代码不需要它，完全可以移除掉。 </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NewTest</span> <span class="keyword">extends</span> <span class="title">SeleneseTestCase</span> </span>&#123;</span><br><span class="line"><span class="comment">// 创建 Selenium 测试用例</span></span><br><span class="line"></span><br><span class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUp</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        setUp(<span class="string">"http://www.google.com/"</span>, <span class="string">"*firefox"</span>);</span><br><span class="line">             <span class="comment">// 初始化并启动浏览器</span></span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testNew</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">           selenium.open(<span class="string">"/"</span>);</span><br><span class="line">           selenium.type(<span class="string">"q"</span>, <span class="string">"selenium rc"</span>);</span><br><span class="line">           selenium.click(<span class="string">"btnG"</span>);</span><br><span class="line">           selenium.waitForPageToLoad(<span class="string">"30000"</span>);</span><br><span class="line">           assertTrue(selenium.isTextPresent(<span class="string">"Results * for selenium rc"</span>));</span><br><span class="line">           <span class="comment">// 以上为真实的测试步骤</span></span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="学习使用-API"><a href="#学习使用-API" class="headerlink" title="学习使用 API"></a>学习使用 API</h2><p>Selenium RC API 使用以下约定：假设你了解 Selenese，并且大部分接口是自解释的。在此，我们仅解释最具争议或者看起来不那么直接明了的部分。</p>
+<h3 id="启动浏览器"><a href="#启动浏览器" class="headerlink" title="启动浏览器"></a>启动浏览器</h3><pre><code>setUp(&quot;http://www.google.com/&quot;, &quot;*firefox&quot;);
+</code></pre><p>每个例子都打开了一个浏览器，并且将浏览器作为一个浏览器对象返回，赋值给一个变量。这个变量将用于调用浏览器方法。这些方法可以执行 Selenium 命令，例如打开、键入或者校验。</p>
+<p>创建浏览器对象所需要的参数如下：</p>
+<h4 id="host"><a href="#host" class="headerlink" title="host"></a>host</h4><p>指定服务所在的机器的 IP 地址。通常它和运行客户端的机器是同一台。所以在这个例子中我们传入 localhost。在某些客户端中，这是一个可选参数。</p>
+<h4 id="port"><a href="#port" class="headerlink" title="port"></a>port</h4><p>指定服务监听的客户端用于创建连接的 TCP/IP socket。这在某些客户端中也是可选的。</p>
+<h4 id="browser"><a href="#browser" class="headerlink" title="browser"></a>browser</h4><p>指定你希望运行测试的浏览器。该参数必选。</p>
+<h4 id="url"><a href="#url" class="headerlink" title="url"></a>url</h4><p>AUT 的基准 url。在所有的客户端中必选，并且是启动浏览器代理的 AUT 通讯的必须信息。</p>
+<p>注意，有些客户端要求调用 start() 方法来启动浏览器。</p>
+<h3 id="运行-命令"><a href="#运行-命令" class="headerlink" title="运行 命令"></a>运行 命令</h3><p>一旦你初始化了一个浏览器并且将其赋值给一个变量（通常命名为 “Selenium”），你可以使用这个变量调用各种方法来运行 Selenese 命令。例如，调用 selenium 对象的键入方法：</p>
+<pre><code>selenium.type(“field-id”,”string to type”)
+</code></pre><p>此时浏览器将真正执行指定的操作，在这个方法调用时指定了定位符和要键入的字符串，本质上就像是一个用户在浏览器中输入了这些内容。</p>
+<h2 id="报告结果"><a href="#报告结果" class="headerlink" title="报告结果"></a>报告结果</h2><p>Selenium RC 没有内置的结果报告机制。而是让你根据所选语言的特性创建符合你需求的自定义报告。这非常棒！但是你是不是希望这些事情都已经就绪，而你可以快速使用它们？其实市面上不难找到符合你需求的库或框架，这比编写你自己的测试报告代码快多了。</p>
+<h3 id="测试框架报告工具"><a href="#测试框架报告工具" class="headerlink" title="测试框架报告工具"></a>测试框架报告工具</h3><p>很多语言都有对应的测试框架。它们除了提供灵活的测试引擎执行你的测试之外，通常还包括结果报告的库。例如，Java有两个常用的测试框架，JUnit 和 TestNG. .NET 也有适合它的, NUnit。</p>
+<p>我们不会教你如何使用这些框架，那超出了本指南的范围。但我们将简单介绍一下这些框架中你可以使用的跟 Selenium 相关的特性。有很多关于学习这些测试框架的书，互联网上页有丰富的资料。</p>
+<h3 id="测试报告库"><a href="#测试报告库" class="headerlink" title="测试报告库"></a>测试报告库</h3><p>同样可以利用的是使用你所选语言编写的专门用于报告测试结果的三方库。它们通常支持多种格式，如 HTML 或 PDF。</p>
+<h3 id="最佳实践是？"><a href="#最佳实践是？" class="headerlink" title="最佳实践是？"></a>最佳实践是？</h3><p>大多数新接触测试框架的人将会从框架内置的报告功能开始。他们会检查任何可用库，这可比你自己开发的开销要小。当你开始使用 Selenium，毫无疑问你将开始在报告处理中使用你自己的 “print 语句”。这将可能导致你在使用一个库或框架的同时，逐渐开发开发你自己的报告功能。无论如何，在最初短暂的学习曲线之后，你将自然而然的开发出最适合你的报告功能。</p>
+<h3 id="测试报告范例"><a href="#测试报告范例" class="headerlink" title="测试报告范例"></a>测试报告范例</h3><p>为了进行演示，我们将直接使用 Selenium 支持的语言的特定工具。以下列出的是最常用的，而且也是最为推荐的。</p>
+<h4 id="Java-中的测试报告"><a href="#Java-中的测试报告" class="headerlink" title="Java 中的测试报告"></a>Java 中的测试报告</h4><ul>
+<li>如果 Selenium 测试用例是使用 JUnit 开发的，那么 JUnit 报告就能用于创建测试报告。了解更多 <a href="http://ant.apache.org/manual/Tasks/junitreport.html" target="_blank" rel="noopener">JUnit 报告</a> 。</li>
+<li>如果 Selenium 测试用例是使用 TestNG 开发的，那也不需要依赖外部任务来创建测试报告。TestNG 框架创建包含测试详情列表的 HTML 报告。了解更多 <a href="http://testng.org/doc/documentation-main.html#test-results" target="_blank" rel="noopener">TestNG 报告</a> 。</li>
+<li>ReportNG 是一个用于TestNG 框架的 HTML 报告插件。它的初衷是用于取代默认的 HTML 报告。ReportNG 提供了简单、彩色的测试结果显示。了解更多 <a href="http://reportng.uncommons.org/" target="_blank" rel="noopener">TestNG</a></li>
+<li><p>同时，TestNG-xslt 是一个很好的摘要报告工具。TestNG-xslt 报告看起来如下图：</p>
+<p>  <img src="http://seleniumhq.org/docs/_images/chapt5_TestNGxsltReport.png" alt="TestNG-xslt"></p>
+<p>  了解更多 <a href="">TestNG-xslt</a></p>
+</li>
+</ul>
+<h5 id="记录-Selenese-命令"><a href="#记录-Selenese-命令" class="headerlink" title="记录 Selenese 命令"></a>记录 Selenese 命令</h5><p>Logging Selenium 可以用于为你的测试创建一个含有所有 Selenium 命令及其运行结果（成功或失败）的报告。为了获得这项功能，使用 Logging Selenium 扩展你的 Java 客户端。了解更多 <a href="http://loggingselenium.sourceforge.net/index.html" target="_blank" rel="noopener">Logging Selenium</a></p>
+<h2 id="为你的测试加点料"><a href="#为你的测试加点料" class="headerlink" title="为你的测试加点料"></a>为你的测试加点料</h2><p>现在我们将获得所有使用 Selenium 的理由，它能为你的测试添加逻辑。就像任何程序一样。程序流通过条件语句和迭代控制。另外，你能使用 IO 来报告处理信息。在这一小结中，我们将演示一些可联合 Selenium 使用的编程语言构建例子，用以解决常见的测试问题。</p>
+<p>当你将页面元素是否存在的简单测试转换成涉及多个网页和数据的动态功能时，你将发现你需要编程逻辑来校验期待的结果。一般的， Selenium-IDE 不支持迭代和标准的条件语句。你可以通过将 javascript 嵌入 Selenese 参数来实现条件控制和迭代，并且大部分的条件都比真正的编程语言要简单。此外，你可能需要使用异常处理来进行错误回复。基于这些原因，我们编写了这一小结内容来演示普通编程技巧的使用，以使你在自动化测试中获得更大的校验能力。</p>
+<p>本小结例子使用 C# 和 Java 编写而成，它们非常简单，也很容易转换成其他语言。如果你有一些面向对象编程的基础知识，你将很容易掌握这个章节。</p>
+<h3 id="迭代"><a href="#迭代" class="headerlink" title="迭代"></a>迭代</h3><p>迭代是测试中最常用的功能了。例如你可能希望执行一个查询多次。或者你需要处理那些从数据库中返回的结果集以校验你的测试结果。</p>
+<p>使用同之前一样的 <a href="http://seleniumhq.org/docs/05_selenium_rc.jsp#google-search-example" target="_blank" rel="noopener">Google 搜索例子</a>，让我们来检查搜索结果。这个测试将使用 Selenese：</p>
+<table><br>    <tbody><br>        <tr><br>            <td>open</td><br>            <td>/</td><br>            <td>&nbsp;</td><br>        </tr><br>        <tr><br>            <td>type</td><br>            <td>q</td><br>            <td>selenium rc</td><br>        </tr><br>        <tr><br>            <td>clickAndWait</td><br>            <td>btnG</td><br>            <td>&nbsp;</td><br>        </tr><br>        <tr><br>            <td>assertTextPresent</td><br>            <td>Results <em> for selenium rc</em></td><br>            <td>&nbsp;</td><br>        </tr><br>        <tr><br>            <td>type</td><br>            <td>q</td><br>            <td>selenium ide</td><br>        </tr><br>        <tr><br>            <td>clickAndWait</td><br>            <td>btnG</td><br>            <td>&nbsp;</td><br>        </tr><br>        <tr><br>            <td>assertTextPresent</td><br>            <td>Results  for selenium ide</td><br>            <td>&nbsp;</td><br>        </tr><br>        <tr><br>            <td>type</td><br>            <td>q</td><br>            <td>selenium grid</td><br>        </tr><br>        <tr><br>            <td>clickAndWait</td><br>            <td>btnG</td><br>            <td>&nbsp;</td><br>        </tr><br>        <tr><br>            <td>assertTextPresent</td><br>            <td>Results * for selenium grid</td><br>            <td>&nbsp;</td><br>        </tr><br>    </tbody><br></table>
+
+<p>同样的代码重复跑了3次。将同样的代码拷贝多次运行可不是一个好的编程实践，因为维护的时候成本会很高。使用编程语言，我们可以通过迭代这一更灵活更易于维护的方式来处理搜索结果。</p>
+<h3 id="In-Csharp"><a href="#In-Csharp" class="headerlink" title="In Csharp"></a>In Csharp</h3><pre><code>// Collection of String values.
+String[] arr = {&quot;ide&quot;, &quot;rc&quot;, &quot;grid&quot;};
+
+// Execute loop for each String in array &apos;arr&apos;.
+foreach (String s in arr) {
+    sel.open(&quot;/&quot;);
+    sel.type(&quot;q&quot;, &quot;selenium &quot; +s);
+    sel.click(&quot;btnG&quot;);
+    sel.waitForPageToLoad(&quot;30000&quot;);
+    assertTrue(&quot;Expected text: &quot; +s+ &quot; is missing on page.&quot;
+    , sel.isTextPresent(&quot;Results * for selenium &quot; + s));
+}
+</code></pre><h3 id="条件语句"><a href="#条件语句" class="headerlink" title="条件语句"></a>条件语句</h3><p>我们使用一个例子来演示条件语句的使用。让运行 Selenium 测试时，如果一个原本应该存在的元素没有出现在页面上时，将会触发一个普通的错误。例如，我们运行如下 代码：</p>
+<pre><code>// Java
+selenium.type(&quot;q&quot;, &quot;selenium &quot; +s);
+</code></pre><p>如果元素“q”不在页面上将会抛出一个异常：</p>
+<pre><code>com.thoughtworks.selenium.SeleniumException: ERROR: Element q not found
+</code></pre><p>这个异常将会终止你的测试。对于某些测试来说这正是你想要的。但是更多的时候，你并不希望这样，因为还有很多后续的测试要执行。</p>
+<p>一个更好的解决办法是我们首先判定元素是否存在，然后再进行相应的处理。我们来看看 Java 的写法：</p>
+<pre><code>// 如果元素可用，则则行类型判定操作
+if(selenium.isElementPresent(&quot;q&quot;)) {
+    selenium.type(&quot;q&quot;, &quot;Selenium rc&quot;);
+} else {
+    System.out.printf(&quot;Element: &quot; +q+ &quot; is not available on page.&quot;)
+}
+</code></pre><p>这样做的好处是，即使页面上没有这个元素测试也能够继续执行。</p>
+<h3 id="在你的测试中执行-JavaScript"><a href="#在你的测试中执行-JavaScript" class="headerlink" title="在你的测试中执行 JavaScript"></a>在你的测试中执行 JavaScript</h3><p>在一个应用程序中使用 JavaScript 是非常方便的，但是 Selenium 不直接支持它。你可以在 Selenium RC 中使用 getEval 接口的方法来执行它。</p>
+<p>考虑一个应用中的没有静态 id 的多选框。在这种情况下，你可以通过使用 Selenium RC 对 JavaScript 语句进行求值（evaluate）来找到所有的多选框并处理它们。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Java</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> String[] getAllCheckboxIds () &#123;</span><br><span class="line">     String script = <span class="string">"var inputId  = new Array();"</span>;<span class="comment">// Create array in java script.</span></span><br><span class="line">            script += <span class="string">"var cnt = 0;"</span>; <span class="comment">// Counter for check box ids.</span></span><br><span class="line">            script += <span class="string">"var inputFields  = new Array();"</span>; <span class="comment">// Create array in java script.</span></span><br><span class="line">            script += <span class="string">"inputFields = window.document.getElementsByTagName('input');"</span>; <span class="comment">// Collect input elements.</span></span><br><span class="line">            script += <span class="string">"for(var i=0; i&lt;inputFields.length; i++) &#123;"</span>; <span class="comment">// Loop through the collected elements.</span></span><br><span class="line">            script += <span class="string">"if(inputFields[i].id !=null "</span> +</span><br><span class="line">                      <span class="string">"&amp;&amp; inputFields[i].id !='undefined' "</span> +</span><br><span class="line">                      <span class="string">"&amp;&amp; inputFields[i].getAttribute('type') == 'checkbox') &#123;"</span>; <span class="comment">// If input field is of type check box and input id is not null.</span></span><br><span class="line">            script += <span class="string">"inputId[cnt]=inputFields[i].id ;"</span> + <span class="comment">// Save check box id to inputId array.</span></span><br><span class="line">                      <span class="string">"cnt++;"</span> + <span class="comment">// increment the counter.</span></span><br><span class="line">                      <span class="string">"&#125;"</span> + <span class="comment">// end of if.</span></span><br><span class="line">                      <span class="string">"&#125;"</span>; <span class="comment">// end of for.</span></span><br><span class="line">            script += <span class="string">"inputId.toString();"</span> ;<span class="comment">// Convert array in to string.</span></span><br><span class="line">     String[] checkboxIds = selenium.getEval(script).split(<span class="string">","</span>); <span class="comment">// Split the string.</span></span><br><span class="line">     <span class="keyword">return</span> checkboxIds;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>如果要计算页面中的图片数，你可以：</p>
+<pre><code>// Java
+selenium.getEval(&quot;window.document.images.length;&quot;);
+</code></pre><p>记住要调用 window 对象，以防在 DOM 表达式中其默认指向 Selenium 窗口而不是测试窗口。</p>
+<h2 id="服务端选项"><a href="#服务端选项" class="headerlink" title="服务端选项"></a>服务端选项</h2><p>当服务启动时，可以使用命令行配置项来改变其默认行为。</p>
+<p>回想一下，我们是这样启动服务的：</p>
+<pre><code>$ java -jar selenium-server-standalone-&lt;version-number&gt;.jar
+</code></pre><p>你可以使用 -h 来查看所有的配置项：</p>
+<pre><code>$ java -jar selenium-server-standalone-&lt;version-number&gt;.jar -h
+</code></pre><p>你将看到所有配置项列表，每个配置项附带间断描述。这里提供的描述并不总是足够禽畜，所以接下来我们将对一些重要的配置项进行补充描述。</p>
+<h3 id="代理配置"><a href="#代理配置" class="headerlink" title="代理配置"></a>代理配置</h3><p>如果你的 AUAT 使用了一个需要授权的 HTTP 代理，你需要使用以下命令来配置 http.proxyHost, http.proxyPort, http.proxyUser 和 http.proxyPassword。</p>
+<pre><code>$ java -jar selenium-server-standalone-&lt;version-number&gt;.jar -Dhttp.proxyHost=proxy.com -Dhttp.proxyPort=8080 -Dhttp.proxyUser=username -Dhttp.proxyPassword=password
+</code></pre><h3 id="多窗口模式"><a href="#多窗口模式" class="headerlink" title="多窗口模式"></a>多窗口模式</h3><p>如果你正在使用 Selenium 1，你可以跳过这部分内容，因为多窗口模式已经是默认配置。但是在更早的版本中，AUT 默认是在子帧(sub frame)中运行的。</p>
+<p><img src="http://seleniumhq.org/docs/_images/chapt5_img26_single_window_mode.png" alt="multi-window"></p>
+<p>有些应用在子帧中不能正常运行，必须要加载到顶级帧中运行。多窗口模式允许 AUT 在两个独立的窗口中运行，而不是在默认的帧中运行，这样它就能在顶级帧中运行了。</p>
+<p><img src="http://seleniumhq.org/docs/_images/chapt5_img27_multi_window_mode.png" alt="multi-window2"></p>
+<p>对于老版本的 Selenium 来说，你必须通过下面的配置项明确指定多窗口模式：</p>
+<pre><code>-multiwindow
+</code></pre><p>在 Selenium 1 以及更新的版本中，如果你希望在单窗口中运行你的测试，你可以使用以下配置项：</p>
+<pre><code>-singlewindow
+</code></pre><h3 id="指定-Firefox-配置"><a href="#指定-Firefox-配置" class="headerlink" title="指定 Firefox 配置"></a>指定 Firefox 配置</h3><p>Firefox 不会同时运行两个实例，除非你为每一个指定单独的配置。Selenium RC 1 及其后续版本会自动运行两个单独的配置，所以如果你正在使用 Selenium 1，你可以跳过这个章节。如果你在使用更老的版本而你有需要指定单独的配置，你需要明确的指定它。</p>
+<p>首先，穿加你一个单独的 Firefox 配置，根据以下步骤。打开 Windows 的开始菜单，选择 “run”，然后键入以下内容：</p>
+<pre><code>firefox.exe -profilemanager
+
+firefox.exe -P
+</code></pre><p>使用对话框来创建新配置。当你运行 Selenium 服务时，你需要使用命令行选项 -firefoxProfileTemplate 告诉它使用新的 Firefox 配置，并且指定要使用的配置的路径。</p>
+<pre><code>-firefoxProfileTemplate &quot;path to the profile&quot;
+</code></pre><p><strong>警告</strong></p>
+<p>确保你的配置文件被存放在一个不同于默认路径的文件夹中！！！Firefox 配置管理会在你删除一个配置的时候删除该配置所在文件夹的所有内容，而不管它是不是配置文件。</p>
+<p>更多请参考 <a href="http://support.mozilla.com/zh-CN/kb/Managing+profiles" target="_blank" rel="noopener">Mozilla’s Knowledge Base</a></p>
+<h3 id="通过-htmlSuite-配置项在服务端直接运行-Selenese"><a href="#通过-htmlSuite-配置项在服务端直接运行-Selenese" class="headerlink" title="通过 -htmlSuite 配置项在服务端直接运行 Selenese"></a>通过 -htmlSuite 配置项在服务端直接运行 Selenese</h3><p>通过将 html 文件传递给服务端的命令行，你可以直接在 Selenium 服务端运行 Selenese html 文件。例如：</p>
+<pre><code>java -jar selenium-server-standalone-&lt;version-number&gt;.jar -htmlSuite &quot;*firefox&quot;
+&quot;http://www.google.com&quot; &quot;c:\absolute\path\to\my\HTMLSuite.html&quot;
+&quot;c:\absolute\path\to\my\results.html&quot;
+</code></pre><p>这个例子将自动加载你的 html 测试套件，运行所有的测试并生成一份 html 格式的测试报告。</p>
+<p><strong>注意</strong></p>
+<p>在使用这个配置项时，服务端将开始运行测试，并为测试结束等待指定的秒数，如果测试没有在指定时间内结束，命令行将以一个非0的退出码退出，并且没有报告文件生成。</p>
+<p>这个命令行非常长，所以键入它的时候需要非常小心。注意这要求你传入一个 html 测试套件，而非单个的测试。并且配置项和 -interactive 不兼容，你不能同时使用他们。</p>
+<h3 id="Selenium-服务日志"><a href="#Selenium-服务日志" class="headerlink" title="Selenium 服务日志"></a>Selenium 服务日志</h3><h4 id="服务端日志"><a href="#服务端日志" class="headerlink" title="服务端日志"></a>服务端日志</h4><p>当启动 Selenium 服务，可以使用 -log 配置项来将 Selenium 服务报告的有价值的 debug 信息记录到一个文本文件。</p>
+<pre><code>java -jar selenium-server-standalone-&lt;version-number&gt;.jar -log selenium.log
+</code></pre><p>这个日志文件相比标准的 console 日志而言要冗余的多（它包括了 debug 级别的日志信息）。它页包含了 logger name，打印日志信息的线程 id。例如：</p>
+<pre><code>20:44:25 DEBUG [12] org.openqa.selenium.server.SeleniumDriverResourceHandler -
+Browser 465828/:top frame1 posted START NEW
+</code></pre><p>该信息格式为：</p>
+<pre><code>TIMESTAMP(HH:mm:ss) LEVEL [THREAD] LOGGER - MESSAGE
+</code></pre><h4 id="浏览器端日志"><a href="#浏览器端日志" class="headerlink" title="浏览器端日志"></a>浏览器端日志</h4><p>在浏览器端的 javascript （Selenium Core）也将记录重要的日志信息。在很多时候，对最终用户而言，这比常规的 Selenium 服务端日志有用的多。为了访问浏览器端日志，将 -browserSideLog 参数传递给 Selenium 服务。</p>
+<pre><code>java -jar selenium-server-standalone-&lt;version-number&gt;.jar -browserSideLog
+</code></pre><p>为了将所有浏览器端的日志保存到一个文件中，-browserSideLog 必须和 -log 配置项联合使用。</p>
+<h3 id="指定特定浏览器路径"><a href="#指定特定浏览器路径" class="headerlink" title="指定特定浏览器路径"></a>指定特定浏览器路径</h3><p>你可以为 Selenium RC 指定一个特定浏览器的路径。如果你需要测试同一个浏览器的不同版本时，这一功能将非常有效。同时这也允许你在一个 Selenium RC 不直接支持的浏览器中运行你的测试。当指定这个运行模式，使用 *cunstom 来指定可执行的浏览器的全路径：</p>
+<pre><code>*custom &lt;path to browser&gt;
+</code></pre><h2 id="Selenium-RC-架构"><a href="#Selenium-RC-架构" class="headerlink" title="Selenium RC 架构"></a>Selenium RC 架构</h2><p><strong>注意</strong></p>
+<p>该主题尝试解释 Selenium RC 背后的运行原理。这并不是 Selnium 用户需要了解的基础知识，但是你会发现它对于了解一些问题非常有用。</p>
+<p>为了理解 Selenium RC 服务端工作的细节，以及为什么它使用代理注入和高特权模式你必须先了解 <a href="http://seleniumhq.org/docs/05_selenium_rc.jsp#the-same-origin-policy" target="_blank" rel="noopener">同源策略</a>。</p>
+<h3 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h3><p>Selenium 面临的主要约束即同源策略。市面上所有的浏览器都有这个安全约束，它的目的是确保一个网站的内容永远不会被另外一个站点的脚本访问到。同源策略规定浏览器加载的任何脚本仅能操作引入它的页面所在的域的内容。它也不能执行另一个网站中的方法。例如，如果浏览器在载入 <a href="http://www.mysite.com" target="_blank" rel="noopener">www.mysite.com</a> 时加载了一个脚本，这脚本就不能操作 <a href="http://www.mysite2.com" target="_blank" rel="noopener">www.mysite2.com</a> 的内容，即使那是另一个你自己的网站。如果这被允许，脚本将可以操作你打开的任何网站的内容，于是当你在 tab 页中打开一个银行站点时它就能读取你的银行账号信息。。我们把这叫 XSS(Cross-site Scripting) 攻击。</p>
+<p>为了在这个约束下工作，Selenium Core（包括它的 javascript 脚本）必须和 AUT 放置在同一个域下。</p>
+<p>之前，因为 Selenium core 使用 JavaScript 实现的，所以一直被这个问题困扰。但现在，这个问题已经得到解决。它使用 Selenium 服务端作为一个代理来避免这个问题。本质上来讲，Selenium RC 告诉浏览器它是运行在服务端提供的一个“被欺骗的”站点上。</p>
+<p><strong>注意</strong></p>
+<p>你可以在维基百科上找到更多关于 <a href="http://en.wikipedia.org/wiki/Same_origin_policy" target="_blank" rel="noopener">同源策略</a> 和 <a href="http://en.wikipedia.org/wiki/Cross-site_scripting" target="_blank" rel="noopener">XSS</a> 的内容</p>
+<h3 id="代理注入"><a href="#代理注入" class="headerlink" title="代理注入"></a>代理注入</h3><p>Selenium 避免同源策略约束的首选方法是代理注入。在代理注入模式，Seleniium 服务端扮演一个客户端配置[1] 的 HTTP 代理[2] 的角色，它位于浏览器和 AUT 之间。它为 AUT 伪装了一个虚假的 url（将Selenium Core 和测试注入到 AUT，就好像他们来自同一个域）。</p>
+<ol>
+<li>代理扮演一个第三方角色，在双方传递内容的过程中。它好像一个 web 服务器将 AUT 传送给浏览器。作为一个代理，使得 Selenium 服务端有能力伪装 AUT 的真实 url。</li>
+<li>浏览器加载的时候，配置文件将指定 localhost:4444 作为 http 代理，这就是为什么浏览器发起一个 http 请求将通过 Selenium 服务端并且响应页将通过它而不是来自真实的服务器。以下是结构图：</li>
+</ol>
+<p><img src="http://seleniumhq.org/docs/_images/chapt5_img02_Architecture_Diagram_1.png" alt="proxy"></p>
+<p>当测试开始时，将发生以下事情：</p>
+<ol>
+<li>客户端驱动将和 Selenium RC 服务端建立一个连接。</li>
+<li>Selenium RC 服务端启动一个打开指定 url 的浏览器（或复用一个已打开的），将 Selenium Core 的 JavaScript 代码注入的这个页面中。</li>
+<li>客户端驱动向服务端传递一个 Selenese 命令。</li>
+<li>服务端解析这个命令，然后触发 JavaScript 脚本执行浏览器中相应的命令。</li>
+<li>Selenium Core 指示浏览器在第一个指令后开始执行，典型的是打开一个 AUT 页面。</li>
+<li>浏览器收到打开页面的请求，并且从 Selenium RC 服务端询问获取页面内容（作为浏览器的 http 代理）</li>
+<li>Selenium RC 服务端和网站服务器通讯，一旦获取到页面，它就对页面的源进行伪装然后发送到浏览器，使这个页面看起来像是和 Selenium Core 来自于同一个源（这使得我们可以绕开同源策略的限制）</li>
+<li>浏览器接收到这个页面并且渲染到相应的帧或者窗口。</li>
+</ol>
+<h3 id="高特权浏览器（Heightened-Privileges-Browsers）"><a href="#高特权浏览器（Heightened-Privileges-Browsers）" class="headerlink" title="高特权浏览器（Heightened Privileges Browsers）"></a>高特权浏览器（Heightened Privileges Browsers）</h3><p>这种方法的工作流程和代理注入非常像，主要的区别是浏览器在一个叫高特权的模式下启动，这将允许网站做一些平时不被允许做的事情（例如 XSS，或者填充文件上传输入框，或者其他一些对 Selenium 非常有用的操作）。使用这种浏览器模式， Selenium Core 就可以直接打开 AUT 并且读取或操作其内容，而不需要将整个 AUT 通过 Selenium RC 服务端中转。</p>
+<p>结构图如下：</p>
+<p><img src="http://seleniumhq.org/docs/_images/chapt5_img02_Architecture_Diagram_2.png" alt="Heightened Privileges Browsers"></p>
+<p>此时，将发生以下事情：</p>
+<ol>
+<li>客户端驱动和 Selenium RC 服务端建立一个连接。</li>
+<li>Selenium RC 服务端启动一个开打指定 url 的浏览器，并且将 Selenium Core 加载到整个页面中。</li>
+<li>Selenium Core 从客户端驱动获得第一个指令（通过向 Selenium RC 服务端发起的另一个 http 请求）。</li>
+<li>Selenium Core 执行第一个指令，典型的是打开一个 AUT 页面。</li>
+<li>浏览器收到这个请求并且向站点服务器请求页面。一旦浏览器接收到页面内容，就会渲染到相应的帧或窗口。</li>
+</ol>
+<h2 id="处理-HTTPS-和安全警告弹出框"><a href="#处理-HTTPS-和安全警告弹出框" class="headerlink" title="处理 HTTPS 和安全警告弹出框"></a>处理 HTTPS 和安全警告弹出框</h2><p>当需要发送诸如密码或信用卡等加密信息时，我们往往会从 http 转为 https。这在今天的应用中非常常见。Selenium RC 也支持。</p>
+<p>为了确保这个 https 站点的真实性，浏览器需要一个安全整数。否则，当浏览器使用 https 访问 AUT 时，这个应用经常被认为是不受信任的。当遇到这种情况时，浏览器会显示安全警告弹出框，而 Selenium RC 无法关闭这个弹出框。</p>
+<p>当在 Selenium RC 测试中使用 https 时，你必须使用一个支持的运行模式，并且能为你处理安全证书。你可以在测试项目初始化 Selenium 时指定这个运行模式。</p>
+<p>在 Selenium RC 1.0 beta 2 和其后续版本中，可以使用 <em>firefox 和 </em>iexplore 运行模式。在更早期的版本中，包括 Selenium RC 1.0 beta 1 使用 <em>chrome 和 </em>iehta 运行模式。通过使用这些运行模式，你不需要安装任何特殊的安全证书，Selenium RC 将帮你处理它。</p>
+<p>在版本1中，推荐运行 <em>firefox 和 </em>iexplore 运行模式。然而，我们还提供 <em>iexploreproxy 和 </em>firefoxproxy 运行模式。它们只是用于提供向后兼容，除非遗留的测试项目，否则我们不应该使用它们。在你需要处理安全证书和运行多窗口时，它们的处理将存在局限性。</p>
+<p>在 Selenium RC 的早期版本中，<em>chrome 或 </em>iehta 是支持 https 和能处理安全警告弹出窗的运行模式。它们被认为是实验性的模式，虽然现在它们已经很稳定并且有大量用户。如果你在使用 Selenium 1，你不应该使用那些老的运行模式。</p>
+<h3 id="关于安全证书"><a href="#关于安全证书" class="headerlink" title="关于安全证书"></a>关于安全证书</h3><p>通常来来说，安装了安全证书后，浏览器将信任你测试的应用。你可以在浏览器的选项或者 Internet 属性中检查它（如果你不知道你的 AUT 的安全证书，询问你的系统管理员）。当 Selenium 启动了浏览器，它注入代码以解析浏览器和服务器之间的通讯。这时，浏览器认为这个引用是不被信任的了，并且会弹出一个安全警告。</p>
+<p>为了绕过这个问题，Selenium RC，（又需要使用支持的运行模式）将安装它自己的证书。将临时装在你的客户机上，能被浏览器访问到的地方。这将欺骗浏览器认为它在访问一个和你的 AUT 完全不同的重难点，就能成功的组织弹出框。</p>
+<p>另一个在早期的版本中解决此问题的方法是安装一个随 Selenium 安装提供的 Cybervillians 安全证书。大部分用户不需要做这件事情，但是当你在代理注入的模式下运行 Selenium RC 时，你就需要安装它了。</p>
+<h2 id="更多浏览器支持和相关配置"><a href="#更多浏览器支持和相关配置" class="headerlink" title="更多浏览器支持和相关配置"></a>更多浏览器支持和相关配置</h2><p>Selenium API 支持在多个浏览器中运行，包括 ie 和 Firefox。请从 SeleniumHQ.org 查看支持的浏览器。另外，当一个浏览器不直接被支持时，启动浏览器时，你可以使用 ”<em>custom“ 来指定一个浏览器运行你的 Selenium 测试（例如：替换 </em>firefox 或 *iexplore）。这样，你可以将这个 API 调用可执行的路径传递给浏览器。这个操作也可以在服务端的交互模式下完成。</p>
+<pre><code>cmd=getNewBrowserSession&amp;1=*custom c:\Program Files\Mozilla Firefox\MyBrowser.exe&amp;2=http://www.google.com
+</code></pre><h3 id="使用不同的浏览器配置来运行测试"><a href="#使用不同的浏览器配置来运行测试" class="headerlink" title="使用不同的浏览器配置来运行测试"></a>使用不同的浏览器配置来运行测试</h3><p>通常 Selenium RC 会自动配置浏览器, 但是如果你使用 “*custom” 运行模式启动浏览器，你必须强制 Selenium RC 启动浏览器，就像自动配置不存在一样。</p>
+<p>例如，你使用如下自定义配置启动 Firefox：</p>
+<pre><code>cmd=getNewBrowserSession&amp;1=*custom c:\Program Files\Mozilla Firefox\firefox.exe&amp;2=http://www.google.com
+</code></pre><p>注意，当使用这种方法启动浏览器时，我们必须手工配置浏览器使用 Selenium 服务端作为代理。通常这意味这你需要打开你的浏览器选项，指定 “localhost:4444” 作为 http 代理，但是每种浏览器的设置方式可能不太一样。</p>
+<p>注意 Mozilla 浏览器的启动和停止不太一样。你需要设置 MOZ_NO_REMOTE 环境变量确保它表现如预期。Unix 用户应该避免使用 shell 脚本来启动它，直接使用一个二进制可执行文（如：firefox-bin）会更好。</p>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><p><strong>译者注：</strong>这部分内容不翻译了，请参考原英文文档。</p>
+<ul>
+<li>Unable to Connect to Server</li>
+<li>Unable to Load the Browser</li>
+<li>Selenium Cannot Find the AUT</li>
+<li>Firefox Refused Shutdown While Preparing a Profile</li>
+<li>Versioning Problems</li>
+<li>Error message: “(Unsupported major.minor version 49.0)” while starting server</li>
+<li>404 error when running the getNewBrowserSession command</li>
+<li>Permission Denied Error</li>
+<li>Handling Browser Popup Windows</li>
+<li>On Linux, why isn’t my Firefox browser session closing?</li>
+<li>Firefox *chrome doesn’t work with custom profile</li>
+<li>Is it ok to load a custom pop-up as the parent page is loading (i.e., before the parent page’s javascript window.onload() function runs)?</li>
+<li>Problems With Verify Commands</li>
+<li>Safari and MultiWindow Mode</li>
+<li>Firefox on Linux</li>
+<li>IE and Style Attributes</li>
+<li>Error encountered - “Cannot convert object to primitive value” with shut down of *googlechrome browser</li>
+<li>Where can I Ask Questions that Aren’t Answered Here?</li>
+</ul>
+<h2 id="About-TestNG-Selenium"><a href="#About-TestNG-Selenium" class="headerlink" title="About TestNG + Selenium"></a>About TestNG + Selenium</h2><p>Please Read: <a href="https://www.guru99.com/all-about-testng-and-selenium.html" target="_blank" rel="noopener">https://www.guru99.com/all-about-testng-and-selenium.html</a></p>
+
+      
+    </div>
+    <ul class="popular-posts"><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2012/11/02/how-webdriver-works/" title="Selenium WebDriver 工作原理" rel="bookmark">Selenium WebDriver 工作原理</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2012/10/16/pageobjects-design-pattern/" title="PageObjects 设计模式" rel="bookmark">PageObjects 设计模式</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2013/05/30/selenium-doc-introduction/" title="selenium 文档:入门介绍" rel="bookmark">selenium 文档:入门介绍</a></h3></div></li></ul>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/qrcode_shenyanchao.jpg" alt="申艳超 wechat" style="width: 200px; max-width: 100%;">
+    <div>欢迎关注微信订阅号~</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持是我原创的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="申艳超 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="申艳超 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    申艳超
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.shenyanchao.cn/blog/2013/05/30/selenium-doc-selenium-rc/" title="selenium文档:selenium RC">https://www.shenyanchao.cn/blog/2013/05/30/selenium-doc-selenium-rc/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/webdriver/" rel="tag"># webdriver</a>
+          
+            <a href="/tags/selenium/" rel="tag"># selenium</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2013/05/30/selenium-doc-selenium-web-driver/" rel="next" title="selenium文档:selenium WebDriver">
+                <i class="fa fa-chevron-left"></i> selenium文档:selenium WebDriver
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2013/05/30/selenium-doc-selenium-grid/" rel="prev" title="selenium文档:selenium Grid">
+                selenium文档:selenium Grid <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/shenyanchao.jpeg" alt="申艳超">
+            
+              <p class="site-author-name" itemprop="name">申艳超</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">123</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">229</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/blueshen" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zhiyi.shen@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Selenium-1-Selenium-RC"><span class="nav-number">1.</span> <span class="nav-text">Selenium 1 (Selenium RC)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍"><span class="nav-number">1.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Selenium-RC-如何工作"><span class="nav-number">1.2.</span> <span class="nav-text">Selenium RC 如何工作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RC-组件"><span class="nav-number">1.2.1.</span> <span class="nav-text">RC 组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Selenium-服务端"><span class="nav-number">1.2.2.</span> <span class="nav-text">Selenium 服务端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端库"><span class="nav-number">1.2.3.</span> <span class="nav-text">客户端库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">1.3.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-Selenium-服务端"><span class="nav-number">1.3.1.</span> <span class="nav-text">安装 Selenium 服务端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行-Selenium-服务"><span class="nav-number">1.3.2.</span> <span class="nav-text">运行 Selenium 服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-Java-客户端驱动"><span class="nav-number">1.3.3.</span> <span class="nav-text">使用 Java 客户端驱动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#将-Selenese-转换成程序"><span class="nav-number">1.4.</span> <span class="nav-text">将 Selenese 转换成程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#测试脚本范例"><span class="nav-number">1.4.1.</span> <span class="nav-text">测试脚本范例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Selenese-作为编程代码"><span class="nav-number">1.5.</span> <span class="nav-text">Selenese 作为编程代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编写你的测试代码"><span class="nav-number">1.6.</span> <span class="nav-text">编写你的测试代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java"><span class="nav-number">1.6.1.</span> <span class="nav-text">Java</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#学习使用-API"><span class="nav-number">1.7.</span> <span class="nav-text">学习使用 API</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#启动浏览器"><span class="nav-number">1.7.1.</span> <span class="nav-text">启动浏览器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#host"><span class="nav-number">1.7.1.1.</span> <span class="nav-text">host</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#port"><span class="nav-number">1.7.1.2.</span> <span class="nav-text">port</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#browser"><span class="nav-number">1.7.1.3.</span> <span class="nav-text">browser</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#url"><span class="nav-number">1.7.1.4.</span> <span class="nav-text">url</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行-命令"><span class="nav-number">1.7.2.</span> <span class="nav-text">运行 命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#报告结果"><span class="nav-number">1.8.</span> <span class="nav-text">报告结果</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#测试框架报告工具"><span class="nav-number">1.8.1.</span> <span class="nav-text">测试框架报告工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试报告库"><span class="nav-number">1.8.2.</span> <span class="nav-text">测试报告库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最佳实践是？"><span class="nav-number">1.8.3.</span> <span class="nav-text">最佳实践是？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试报告范例"><span class="nav-number">1.8.4.</span> <span class="nav-text">测试报告范例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-中的测试报告"><span class="nav-number">1.8.4.1.</span> <span class="nav-text">Java 中的测试报告</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#记录-Selenese-命令"><span class="nav-number">1.8.4.1.1.</span> <span class="nav-text">记录 Selenese 命令</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为你的测试加点料"><span class="nav-number">1.9.</span> <span class="nav-text">为你的测试加点料</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#迭代"><span class="nav-number">1.9.1.</span> <span class="nav-text">迭代</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#In-Csharp"><span class="nav-number">1.9.2.</span> <span class="nav-text">In Csharp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#条件语句"><span class="nav-number">1.9.3.</span> <span class="nav-text">条件语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在你的测试中执行-JavaScript"><span class="nav-number">1.9.4.</span> <span class="nav-text">在你的测试中执行 JavaScript</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务端选项"><span class="nav-number">1.10.</span> <span class="nav-text">服务端选项</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#代理配置"><span class="nav-number">1.10.1.</span> <span class="nav-text">代理配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多窗口模式"><span class="nav-number">1.10.2.</span> <span class="nav-text">多窗口模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#指定-Firefox-配置"><span class="nav-number">1.10.3.</span> <span class="nav-text">指定 Firefox 配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过-htmlSuite-配置项在服务端直接运行-Selenese"><span class="nav-number">1.10.4.</span> <span class="nav-text">通过 -htmlSuite 配置项在服务端直接运行 Selenese</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Selenium-服务日志"><span class="nav-number">1.10.5.</span> <span class="nav-text">Selenium 服务日志</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#服务端日志"><span class="nav-number">1.10.5.1.</span> <span class="nav-text">服务端日志</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#浏览器端日志"><span class="nav-number">1.10.5.2.</span> <span class="nav-text">浏览器端日志</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#指定特定浏览器路径"><span class="nav-number">1.10.6.</span> <span class="nav-text">指定特定浏览器路径</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Selenium-RC-架构"><span class="nav-number">1.11.</span> <span class="nav-text">Selenium RC 架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#同源策略"><span class="nav-number">1.11.1.</span> <span class="nav-text">同源策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代理注入"><span class="nav-number">1.11.2.</span> <span class="nav-text">代理注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高特权浏览器（Heightened-Privileges-Browsers）"><span class="nav-number">1.11.3.</span> <span class="nav-text">高特权浏览器（Heightened Privileges Browsers）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#处理-HTTPS-和安全警告弹出框"><span class="nav-number">1.12.</span> <span class="nav-text">处理 HTTPS 和安全警告弹出框</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于安全证书"><span class="nav-number">1.12.1.</span> <span class="nav-text">关于安全证书</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更多浏览器支持和相关配置"><span class="nav-number">1.13.</span> <span class="nav-text">更多浏览器支持和相关配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用不同的浏览器配置来运行测试"><span class="nav-number">1.13.1.</span> <span class="nav-text">使用不同的浏览器配置来运行测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见问题"><span class="nav-number">1.14.</span> <span class="nav-text">常见问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#About-TestNG-Selenium"><span class="nav-number">1.15.</span> <span class="nav-text">About TestNG + Selenium</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2012 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">申艳超</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">230.5k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: false,
+        appId: 'vFAoofuVWgdHsCv6B6BtqROc-gzGzoHsz',
+        appKey: 'ANWUkmboGiNDNRmf2iVlUIGt',
+        placeholder: '开始你的评论吧!',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("vFAoofuVWgdHsCv6B6BtqROc-gzGzoHsz", "ANWUkmboGiNDNRmf2iVlUIGt");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1634 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/icon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="spring,restful,mvc,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="申艳超-博客" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="Spring MVC本身对Restful支持非常好。它的@RequestMapping、@RequestParam、@PathVariable、@ResponseBody注解很好的支持了REST。18.2 Creating RESTful services 1. @RequestMappingSpring uses the @RequestMapping method annotation to">
+<meta name="keywords" content="spring,restful,mvc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Restful Spring MVC">
+<meta property="og:url" content="https://www.shenyanchao.cn/blog/2015/11/03/restful-springmvc/index.html">
+<meta property="og:site_name" content="申艳超-博客">
+<meta property="og:description" content="Spring MVC本身对Restful支持非常好。它的@RequestMapping、@RequestParam、@PathVariable、@ResponseBody注解很好的支持了REST。18.2 Creating RESTful services 1. @RequestMappingSpring uses the @RequestMapping method annotation to">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-12-17T11:41:25.751Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Restful Spring MVC">
+<meta name="twitter:description" content="Spring MVC本身对Restful支持非常好。它的@RequestMapping、@RequestParam、@PathVariable、@ResponseBody注解很好的支持了REST。18.2 Creating RESTful services 1. @RequestMappingSpring uses the @RequestMapping method annotation to">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.shenyanchao.cn/blog/2015/11/03/restful-springmvc/">
+
+
+
+
+
+  <title>Restful Spring MVC | 申艳超-博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?81c9612f8fdceca45435ef7f5404d7b2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">申艳超-博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">搜索引擎、分布式、高性能、NLP、ElasticSearch、Solr</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.shenyanchao.cn/blog/2015/11/03/restful-springmvc/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="申艳超">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/shenyanchao.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="申艳超-博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Restful Spring MVC</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-11-03T13:53:00+08:00">
+                2015-11-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/spring/" itemprop="url" rel="index">
+                    <span itemprop="name">spring</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/blog/2015/11/03/restful-springmvc/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/blog/2015/11/03/restful-springmvc/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/blog/2015/11/03/restful-springmvc/" class="leancloud_visitors" data-flag-title="Restful Spring MVC">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4,208
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  21
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Spring MVC本身对Restful支持非常好。它的<code>@RequestMapping</code>、<code>@RequestParam</code>、<code>@PathVariable</code>、<code>@ResponseBody</code>注解很好的支持了REST。<a href="http://static.springsource.org/spring/docs/3.0.0.M3/reference/html/ch18s02.html" target="_blank" rel="noopener">18.2 Creating RESTful services</a></p>
+<h3 id="1-RequestMapping"><a href="#1-RequestMapping" class="headerlink" title="1. @RequestMapping"></a>1. <code>@RequestMapping</code></h3><p>Spring uses the @RequestMapping method annotation to define the URI Template for the request. 类似于struts的action-mapping。 可以指定POST或者GET。</p>
+<h3 id="2-PathVariable"><a href="#2-PathVariable" class="headerlink" title="2. @PathVariable"></a>2. <code>@PathVariable</code></h3><p>The @PathVariable method parameter annotation is used to indicate that a method parameter should be bound to the value of a URI template variable. 用于抽取URL中的信息作为参数。（注意，不包括请求字符串，那是<code>@RequestParam</code>做的事情。）</p>
+<pre><code>@RequestMapping(&quot;/owners/{ownerId}&quot;, method=RequestMethod.GET)
+public String findOwner(@PathVariable String ownerId, Model model) {
+        // ...
+}
+</code></pre><p>如果变量名与pathVariable名不一致，那么需要指定：</p>
+<pre><code>@RequestMapping(&quot;/owners/{ownerId}&quot;, method=RequestMethod.GET)
+public String findOwner(@PathVariable(&quot;ownerId&quot;) String theOwner, Model model) {
+    // implementation omitted
+}
+</code></pre><blockquote>
+<p><strong>Tip</strong></p>
+</blockquote>
+<p>method parameters that are decorated with the @PathVariable annotation can be of any simple type such as int, long, Date… Spring automatically converts to the appropriate type and throws a TypeMismatchException if the type is not correct.</p>
+<a id="more"></a>
+<h3 id="3-RequestParam"><a href="#3-RequestParam" class="headerlink" title="3. @RequestParam"></a>3. <code>@RequestParam</code></h3><p>官方文档居然没有对这个注解进行说明，估计是遗漏了（真不应该啊）。这个注解跟<code>@PathVariable</code>功能差不多，只是参数值的来源不一样而已。它的取值来源是请求参数（querystring或者post表单字段）。</p>
+<p>对了，因为它的来源可以是POST字段，所以它支持更丰富和复杂的类型信息。比如文件对象:</p>
+<pre><code>@RequestMapping(&quot;/imageUpload&quot;)
+public String processImageUpload(@RequestParam(&quot;name&quot;) String name,
+                @RequestParam(&quot;description&quot;) String description,
+                @RequestParam(&quot;image&quot;) MultipartFile image) throws IOException {
+    this.imageDatabase.storeImage(name, image.getInputStream(),
+                                    (int) image.getSize(), description);
+    return &quot;redirect:imageList&quot;;
+}
+</code></pre><p>还可以设置defaultValue：</p>
+<pre><code>@RequestMapping(&quot;/imageUpload&quot;)
+public String processImageUpload(@RequestParam(value=&quot;name&quot;, defaultValue=&quot;arganzheng&quot;) String name,
+                @RequestParam(&quot;description&quot;) String description,
+                @RequestParam(&quot;image&quot;) MultipartFile image) throws IOException {
+    this.imageDatabase.storeImage(name, image.getInputStream(),
+                                    (int) image.getSize(), description);
+    return &quot;redirect:imageList&quot;;
+}
+</code></pre><h3 id="4-RequestBody和-ResponseBody"><a href="#4-RequestBody和-ResponseBody" class="headerlink" title="4. @RequestBody和@ResponseBody"></a>4. <code>@RequestBody</code>和<code>@ResponseBody</code></h3><p>这两个注解其实用到了Spring的一个非常灵活的设计——<code>HttpMessageConverter</code> <a href="http://static.springsource.org/spring/docs/3.0.0.M3/reference/html/ch18s03.html#rest-message-conversion" target="_blank" rel="noopener">18.3.2 HTTP Message Conversion</a></p>
+<p>与<code>@RequestParam</code>不同，<code>@RequestBody</code>和<code>@ResponseBody</code>是针对整个HTTP请求或者返回消息的。前者只是针对HTTP请求消息中的一个 name=value 键值对(名称很贴切)。</p>
+<p><code>HtppMessageConverter</code>负责将HTTP请求消息(HTTP request message)转化为对象，或者将对象转化为HTTP响应体(HTTP response body)。</p>
+<pre><code>public interface HttpMessageConverter&lt;T&gt; {
+
+    // Indicate whether the given class is supported by this converter.
+    boolean supports(Class&lt;? extends T&gt; clazz);
+
+    // Return the list of MediaType objects supported by this converter.
+    List&lt;MediaType&gt; getSupportedMediaTypes();
+
+    // Read an object of the given type form the given input message, and returns it.
+    T read(Class&lt;T&gt; clazz, HttpInputMessage inputMessage) throws IOException,
+                                                                    HttpMessageNotReadableException;
+
+    // Write an given object to the given output message.
+    void write(T t, HttpOutputMessage outputMessage) throws IOException,
+                                                            HttpMessageNotWritableException;
+
+}
+</code></pre><p>Spring MVC对<code>HttpMessageConverter</code>有多种默认实现，基本上不需要自己再自定义<code>HttpMessageConverter</code></p>
+<blockquote>
+</blockquote>
+<ul>
+<li>StringHttpMessageConverter - converts strings</li>
+<li>FormHttpMessageConverter - converts form data to/from a MultiValueMap&lt;String, String&gt;</li>
+<li>ByteArrayMessageConverter - converts byte arrays</li>
+<li>SourceHttpMessageConverter - convert to/from a javax.xml.transform.Source</li>
+<li>RssChannelHttpMessageConverter - convert to/from RSS feeds</li>
+<li>MappingJacksonHttpMessageConverter - convert to/from JSON using Jackson’s ObjectMapper</li>
+<li>etc…</li>
+</ul>
+<p>然而对于RESTful应用，用的最多的当然是<code>MappingJacksonHttpMessageConverter</code>。</p>
+<p>但是<code>MappingJacksonHttpMessageConverter</code>不是默认的<code>HttpMessageConverter</code>：</p>
+<pre><code>public class AnnotationMethodHandlerAdapter extends WebContentGenerator
+implements HandlerAdapter, Ordered, BeanFactoryAware {
+
+    ...
+
+    public AnnotationMethodHandlerAdapter() {
+        // no restriction of HTTP methods by default
+        super(false);
+
+        // See SPR-7316
+        StringHttpMessageConverter stringHttpMessageConverter = new StringHttpMessageConverter();
+        stringHttpMessageConverter.setWriteAcceptCharset(false);
+        this.messageConverters = new HttpMessageConverter[]{new ByteArrayHttpMessageConverter(), stringHttpMessageConverter,
+        new SourceHttpMessageConverter(), new XmlAwareFormHttpMessageConverter()};
+    }
+}
+</code></pre><p>如上：默认的<code>HttpMessageConverter</code>是<code>ByteArrayHttpMessageConverter</code>、<code>stringHttpMessageConverter</code>、<code>SourceHttpMessageConverter</code>和<code>XmlAwareFormHttpMessageConverter</code>转换器。所以需要配置一下：</p>
+<pre><code>&lt;bean class=&quot;org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter&quot;&gt;
+    &lt;property name=&quot;messageConverters&quot;&gt;
+    &lt;list&gt;
+        &lt;bean class=&quot;org.springframework.http.converter.StringHttpMessageConverter&quot;&gt;
+        &lt;property name=&quot;supportedMediaTypes&quot;&gt;
+            &lt;list&gt;
+            &lt;value&gt;text/plain;charset=GBK&lt;/value&gt;
+            &lt;/list&gt;
+        &lt;/property&gt;
+        &lt;/bean&gt;
+        &lt;bean class=&quot;org.springframework.http.converter.json.MappingJacksonHttpMessageConverter&quot; /&gt;
+    &lt;/list&gt;
+    &lt;/property&gt;
+&lt;/bean&gt;
+</code></pre><p>配置好了之后，就可以享受<code>@Requestbody</code>和<code>@ResponseBody</code>对JONS转换的便利之处了：</p>
+<pre><code>@RequestMapping(value = &quot;api&quot;, method = RequestMethod.POST)
+@ResponseBody
+public boolean addApi(@RequestBody
+    Api api, @RequestParam(value = &quot;afterApiId&quot;, required = false)
+    Integer afterApiId) {
+        Integer id = apiMetadataService.addApi(api);
+        return id &gt; 0;
+}
+
+@RequestMapping(value = &quot;api/{apiId}&quot;, method = RequestMethod.GET)
+@ResponseBody
+public Api getApi(@PathVariable(&quot;apiId&quot;)
+    int apiId) {
+        return apiMetadataService.getApi(apiId, Version.primary);
+}
+</code></pre><p>一般情况下我们是不需要自定义<code>HttpMessageConverter</code>，不过对于Restful应用，有时候我们需要返回jsonp数据：</p>
+<pre><code>package me.arganzheng.study.springmvc.util;
+
+import java.io.IOException;
+import java.io.PrintStream;
+
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
+import org.springframework.http.HttpOutputMessage;
+import org.springframework.http.converter.HttpMessageNotWritableException;
+import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+public class MappingJsonpHttpMessageConverter extends MappingJacksonHttpMessageConverter {
+
+    public MappingJsonpHttpMessageConverter() {
+    ObjectMapper objectMapper = new ObjectMapper();
+    objectMapper.setSerializationConfig(objectMapper.getSerializationConfig().withSerializationInclusion(Inclusion.NON_NULL));
+    setObjectMapper(objectMapper);
+    }
+
+    @Override
+    protected void writeInternal(Object o, HttpOutputMessage outputMessage) throws IOException, HttpMessageNotWritableException {
+    String jsonpCallback = null;
+
+    RequestAttributes reqAttrs = RequestContextHolder.currentRequestAttributes();
+    if(reqAttrs instanceof ServletRequestAttributes){
+        jsonpCallback = ((ServletRequestAttributes)reqAttrs).getRequest().getParameter(&quot;jsonpCallback&quot;);
+    }
+
+    if(jsonpCallback != null){
+        new PrintStream(outputMessage.getBody()).print(jsonpCallback + &quot;(&quot;);
+    }
+
+    super.writeInternal(o, outputMessage);
+
+    if(jsonpCallback != null){
+        new PrintStream(outputMessage.getBody()).println(&quot;);&quot;);
+    }
+    }
+}
+</code></pre><p>如果请求的参数中带有<code>jsonpCallback</code>，那么会返回jsonp格式数据。比如：<br><a href="http://open.buy.qq.com/meta/api/1.xhtml?jsonpCallback=clientFunction。" target="_blank" rel="noopener">http://open.buy.qq.com/meta/api/1.xhtml?jsonpCallback=clientFunction。</a><br>会返回<code>clientFunction(…);</code></p>
+<h3 id="5-CookieValue"><a href="#5-CookieValue" class="headerlink" title="5. @CookieValue"></a>5. <code>@CookieValue</code></h3><p><code>@CookieValue</code>用于将请求的Cookie数据映射到功能处理方法的参数上。</p>
+<pre><code>public String test(@CookieValue(value=&quot;JSESSIONID&quot;, defaultValue=&quot;&quot;) String sessionId){
+    ...
+}
+</code></pre><p>如上配置将自动将JSESSIONID值入参到sessionId参数上，defaultValue表示Cookie中没有JSESSIONID时默认为空。</p>
+<pre><code>public String test2(@CookieValue(value=&quot;JSESSIONID&quot;, defaultValue=&quot;&quot;) Cookie sessionId){
+    ...
+}
+</code></pre><p>传入参数类型也可以是javax.servlet.http.Cookie类型。</p>
+<p><strong>TIPS</strong> 如果是使用cookies值来保持回话状态的话，推荐使用Spring的<a href="http://docs.spring.io/spring/docs/3.0.0.M3/reference/html/ch04s04.html" target="_blank" rel="noopener">Bean Scopes</a>机制，具体参见笔者的另一篇文章：<a href="http://blog.arganzheng.me/posts/spring-bean-scopes.html" target="_blank" rel="noopener">Spring的Bean Scopes</a>。非常方便。</p>
+<h3 id="6-RequestHeader"><a href="#6-RequestHeader" class="headerlink" title="6. @RequestHeader"></a>6. <code>@RequestHeader</code></h3><p><code>@RequestHeader</code>用于将请求的头信息区数据映射到功能处理方法的参数上。</p>
+<pre><code>@RequestMapping(value=&quot;/header&quot;)
+public String test(
+   @RequestHeader(&quot;User-Agent&quot;) String userAgent,
+   @RequestHeader(value=&quot;Accept&quot;) String[] accepts)
+</code></pre><p>如上配置将自动将请求头“User-Agent”值入参到userAgent参数上，并将“Accept”请求头值入参到accepts参数上。</p>
+<h3 id="7-返回多种表现形式-Returning-multiple-representations"><a href="#7-返回多种表现形式-Returning-multiple-representations" class="headerlink" title="7. 返回多种表现形式(Returning multiple representations)"></a>7. 返回多种表现形式(Returning multiple representations)</h3><p>对于Restful服务，一个资源往往有多种表现形式，比如最常见的就是返回xml和json格式数据，还有就是RSS和ATOM。怎样让客户端告诉Restful服务，我希望得到什么样表现形式的资源呢？</p>
+<p>一般来说client可以通过以下三者方式来通知Server它希望拿到的资源格式：</p>
+<ol>
+<li>使用不同URI来表示同个资源的不同表现形式。一般使用不同的文件拓展名。如<a href="http://blog.arganzheng.me/users/argan.xml表示返回xml格式数据，而http://blog.arganzheng.me/users/aganzheng.json表示返回json格式" target="_blank" rel="noopener">http://blog.arganzheng.me/users/argan.xml表示返回xml格式数据，而http://blog.arganzheng.me/users/aganzheng.json表示返回json格式</a>.</li>
+<li>使用一个请求参数告诉服务器希望得到的资源格式。如format=json。</li>
+<li>使用同个URI，但是通过Accept HTTP request header来告诉server它理解的media types。例如同样请求<a href="http://blog.arganzheng.me/users/argan，如果带上`text/xml`" target="_blank" rel="noopener">http://blog.arganzheng.me/users/argan，如果带上`text/xml`</a> accept header表示请求一个XML资源，带上<code>application/pdf</code>则表示期望收到pdf格式资源。</li>
+</ol>
+<p>这其实就是Spring MVC默认的三个<code>ContentNegotiationStrategy</code>，即所谓的PPA Strategy（path extension, then parameter, then Accept header) ，顺序也是先path extension，然后parameter(默认是format参数)，然后才是accept头。</p>
+<p>Spring提供了<a href="http://static.springsource.org/spring/docs/3.0.x/javadoc-api/org/springframework/web/servlet/view/ContentNegotiatingViewResolver.html" target="_blank" rel="noopener"><code>ContentNegotiatingViewResolver</code></a>来解决这个问题：</p>
+<pre><code>public class ContentNegotiatingViewResolver extends WebApplicationObjectSupport implements ViewResolver, Ordered {
+
+    private static final Log logger = LogFactory.getLog(ContentNegotiatingViewResolver.class);
+
+    private static final String ACCEPT_HEADER = &quot;Accept&quot;;
+
+    private static final boolean jafPresent =
+        ClassUtils.isPresent(&quot;javax.activation.FileTypeMap&quot;, ContentNegotiatingViewResolver.class.getClassLoader());
+
+    private static final UrlPathHelper urlPathHelper = new UrlPathHelper();
+
+
+    private int order = Ordered.HIGHEST_PRECEDENCE;
+
+    private boolean favorPathExtension = true;
+
+    private boolean favorParameter = false;
+
+    private String parameterName = &quot;format&quot;;
+
+    private boolean useNotAcceptableStatusCode = false;
+
+    private boolean ignoreAcceptHeader = false;
+
+    private boolean useJaf = true;
+
+    private ConcurrentMap&lt;String, MediaType&gt; mediaTypes = new ConcurrentHashMap&lt;String, MediaType&gt;();
+
+    private List&lt;View&gt; defaultViews;
+
+    private MediaType defaultContentType;
+
+    private List&lt;ViewResolver&gt; viewResolvers;
+
+
+    // ignore some setter and getter...
+
+    public void setMediaTypes(Map&lt;String, String&gt; mediaTypes) {
+      Assert.notNull(mediaTypes, &quot;&apos;mediaTypes&apos; must not be null&quot;);
+      for (Map.Entry&lt;String, String&gt; entry : mediaTypes.entrySet()) {
+        String extension = entry.getKey().toLowerCase(Locale.ENGLISH);
+        MediaType mediaType = MediaType.parseMediaType(entry.getValue());
+        this.mediaTypes.put(extension, mediaType);
+      }
+    }
+
+    public void setDefaultViews(List&lt;View&gt; defaultViews) {
+      this.defaultViews = defaultViews;
+    }
+
+    public void setDefaultContentType(MediaType defaultContentType) {
+      this.defaultContentType = defaultContentType;
+    }
+
+    public void setViewResolvers(List&lt;ViewResolver&gt; viewResolvers) {
+      this.viewResolvers = viewResolvers;
+    }
+
+
+    @Override
+    protected void initServletContext(ServletContext servletContext) {
+      if (this.viewResolvers == null) {
+        Map&lt;String, ViewResolver&gt; matchingBeans =
+            BeanFactoryUtils.beansOfTypeIncludingAncestors(getApplicationContext(), ViewResolver.class);
+        this.viewResolvers = new ArrayList&lt;ViewResolver&gt;(matchingBeans.size());
+        for (ViewResolver viewResolver : matchingBeans.values()) {
+          if (this != viewResolver) {
+            this.viewResolvers.add(viewResolver);
+          }
+        }
+      }
+      if (this.viewResolvers.isEmpty()) {
+        logger.warn(&quot;Did not find any ViewResolvers to delegate to; please configure them using the &quot; +
+            &quot;&apos;viewResolvers&apos; property on the ContentNegotiatingViewResolver&quot;);
+      }
+      OrderComparator.sort(this.viewResolvers);
+    }
+
+    public View resolveViewName(String viewName, Locale locale) throws Exception {
+      RequestAttributes attrs = RequestContextHolder.getRequestAttributes();
+      Assert.isInstanceOf(ServletRequestAttributes.class, attrs);
+      List&lt;MediaType&gt; requestedMediaTypes = getMediaTypes(((ServletRequestAttributes) attrs).getRequest());
+      if (requestedMediaTypes != null) {
+        List&lt;View&gt; candidateViews = getCandidateViews(viewName, locale, requestedMediaTypes);
+        View bestView = getBestView(candidateViews, requestedMediaTypes);
+        if (bestView != null) {
+          return bestView;
+        }
+      }
+      if (this.useNotAcceptableStatusCode) {
+        if (logger.isDebugEnabled()) {
+          logger.debug(&quot;No acceptable view found; returning 406 (Not Acceptable) status code&quot;);
+        }
+        return NOT_ACCEPTABLE_VIEW;
+      }
+      else {
+        logger.debug(&quot;No acceptable view found; returning null&quot;);
+        return null;
+      }
+    }
+
+
+    protected List&lt;MediaType&gt; getMediaTypes(HttpServletRequest request) {
+      if (this.favorPathExtension) {
+        String requestUri = urlPathHelper.getRequestUri(request);
+        String filename = WebUtils.extractFullFilenameFromUrlPath(requestUri);
+        MediaType mediaType = getMediaTypeFromFilename(filename);
+        if (mediaType != null) {
+          if (logger.isDebugEnabled()) {
+            logger.debug(&quot;Requested media type is &apos;&quot; + mediaType + &quot;&apos; (based on filename &apos;&quot; + filename + &quot;&apos;)&quot;);
+          }
+          return Collections.singletonList(mediaType);
+        }
+      }
+      if (this.favorParameter) {
+        if (request.getParameter(this.parameterName) != null) {
+          String parameterValue = request.getParameter(this.parameterName);
+          MediaType mediaType = getMediaTypeFromParameter(parameterValue);
+          if (mediaType != null) {
+            if (logger.isDebugEnabled()) {
+              logger.debug(&quot;Requested media type is &apos;&quot; + mediaType + &quot;&apos; (based on parameter &apos;&quot; +
+                  this.parameterName + &quot;&apos;=&apos;&quot; + parameterValue + &quot;&apos;)&quot;);
+            }
+            return Collections.singletonList(mediaType);
+          }
+        }
+      }
+      if (!this.ignoreAcceptHeader) {
+        String acceptHeader = request.getHeader(ACCEPT_HEADER);
+        if (StringUtils.hasText(acceptHeader)) {
+          try {
+                      List&lt;MediaType&gt; mediaTypes = MediaType.parseMediaTypes(acceptHeader);
+                      MediaType.sortByQualityValue(mediaTypes);
+                      if (logger.isDebugEnabled()) {
+                          logger.debug(&quot;Requested media types are &quot; + mediaTypes + &quot; (based on Accept header)&quot;);
+                      }
+                      return mediaTypes;
+          }
+          catch (IllegalArgumentException ex) {
+            if (logger.isDebugEnabled()) {
+              logger.debug(&quot;Could not parse accept header [&quot; + acceptHeader + &quot;]: &quot; + ex.getMessage());
+            }
+            return null;
+          }
+        }
+      }
+      if (this.defaultContentType != null) {
+        if (logger.isDebugEnabled()) {
+          logger.debug(&quot;Requested media types is &quot; + this.defaultContentType +
+              &quot; (based on defaultContentType property)&quot;);
+        }
+        return Collections.singletonList(this.defaultContentType);
+      }
+      else {
+        return Collections.emptyList();
+      }
+    }
+
+
+    protected MediaType getMediaTypeFromFilename(String filename) {
+      String extension = StringUtils.getFilenameExtension(filename);
+      if (!StringUtils.hasText(extension)) {
+        return null;
+      }
+      extension = extension.toLowerCase(Locale.ENGLISH);
+      MediaType mediaType = this.mediaTypes.get(extension);
+      if (mediaType == null &amp;&amp; this.useJaf &amp;&amp; jafPresent) {
+        mediaType = ActivationMediaTypeFactory.getMediaType(filename);
+        if (mediaType != null) {
+          this.mediaTypes.putIfAbsent(extension, mediaType);
+        }
+      }
+      return mediaType;
+    }
+
+
+    protected MediaType getMediaTypeFromParameter(String parameterValue) {
+      return this.mediaTypes.get(parameterValue.toLowerCase(Locale.ENGLISH));
+    }
+
+    private List&lt;View&gt; getCandidateViews(String viewName, Locale locale, List&lt;MediaType&gt; requestedMediaTypes)
+        throws Exception {
+
+      List&lt;View&gt; candidateViews = new ArrayList&lt;View&gt;();
+      for (ViewResolver viewResolver : this.viewResolvers) {
+        View view = viewResolver.resolveViewName(viewName, locale);
+        if (view != null) {
+          candidateViews.add(view);
+        }
+        for (MediaType requestedMediaType : requestedMediaTypes) {
+          List&lt;String&gt; extensions = getExtensionsForMediaType(requestedMediaType);
+          for (String extension : extensions) {
+            String viewNameWithExtension = viewName + &quot;.&quot; + extension;
+            view = viewResolver.resolveViewName(viewNameWithExtension, locale);
+            if (view != null) {
+              candidateViews.add(view);
+            }
+          }
+
+        }
+      }
+      if (!CollectionUtils.isEmpty(this.defaultViews)) {
+        candidateViews.addAll(this.defaultViews);
+      }
+      return candidateViews;
+    }
+
+    private List&lt;String&gt; getExtensionsForMediaType(MediaType requestedMediaType) {
+      List&lt;String&gt; result = new ArrayList&lt;String&gt;();
+      for (Entry&lt;String, MediaType&gt; entry : this.mediaTypes.entrySet()) {
+        if (requestedMediaType.includes(entry.getValue())) {
+          result.add(entry.getKey());
+        }
+      }
+      return result;
+    }
+
+    private View getBestView(List&lt;View&gt; candidateViews, List&lt;MediaType&gt; requestedMediaTypes) {
+      MediaType bestRequestedMediaType = null;
+      View bestView = null;
+      for (MediaType requestedMediaType : requestedMediaTypes) {
+        for (View candidateView : candidateViews) {
+          if (StringUtils.hasText(candidateView.getContentType())) {
+            MediaType candidateContentType = MediaType.parseMediaType(candidateView.getContentType());
+            if (requestedMediaType.includes(candidateContentType)) {
+              bestRequestedMediaType = requestedMediaType;
+              bestView = candidateView;
+              break;
+            }
+          }
+        }
+        if (bestView != null) {
+          if (logger.isDebugEnabled()) {
+            logger.debug(&quot;Returning [&quot; + bestView + &quot;] based on requested media type &apos;&quot; +
+                bestRequestedMediaType + &quot;&apos;&quot;);
+          }
+          break;
+        }
+      }
+      return bestView;
+
+    }
+
+    ...
+
+}
+</code></pre><p>可以看到<code>ContentNegotiationViewResolver</code>有点类似于ComposeCommand（参见Command模式 by GoF），它本身实现了ViewResolver接口，所以它是一个ViewResolver，但是它组合了一堆的ViewResolver，根据一定的规则（前面讨论的content negotiation）将视图请求转发给最match的ViewResolver。</p>
+<p>所以关键在两点：</p>
+<h4 id="1-content-negotiation策略-ContentNegotiationStrategy"><a href="#1-content-negotiation策略-ContentNegotiationStrategy" class="headerlink" title="1. content negotiation策略 (ContentNegotiationStrategy)"></a>1. content negotiation策略 (<code>ContentNegotiationStrategy</code>)</h4><blockquote>
+<p>This view resolver uses the requested media type to select a suitable View for a request. This media type is determined by using the following criteria:</p>
+</blockquote>
+<ol>
+<li>If the requested path has a file extension and if the setFavorPathExtension(boolean) property is true, the mediaTypes property is inspected for a matching media type.</li>
+<li>If the request contains a parameter defining the extension and if the setFavorParameter(boolean) property is true, the mediaTypes property is inspected for a matching media type. The default name of the parameter is format and it can be configured using the parameterName property.</li>
+<li>If there is no match in the mediaTypes property and if the Java Activation Framework (JAF) is both enabled and present on the classpath, FileTypeMap.getContentType(String) is used instead.</li>
+<li>If the previous steps did not result in a media type, and ignoreAcceptHeader is false, the request Accept header is used.<blockquote>
+</blockquote>
+Once the requested media type has been determined, this resolver queries each delegate view resolver for a View and determines if the requested media type is compatible with the view’s content type). The most compatible view is returned.</li>
+</ol>
+<p>这个就是上面提到的Spring MVC默认的三个<code>ContentNegotiationStrategy</code>，即所谓的PPA Strategy（path extension, then parameter, then Accept header) ，顺序也是先path extension，然后parameter(默认是format参数)，然后才是accept头。</p>
+<p>关于<code>ContentNegotiationStrategy</code>，可以参考笔者的另一篇文章：<a href="http://blog.arganzheng.me/posts/content-negotiation-using-spring-mvc.html" target="_blank" rel="noopener">content negotiation using spring mvc</a>。有具体的实际案例。</p>
+<h5 id="2-供选择的SingleViewResolver"><a href="#2-供选择的SingleViewResolver" class="headerlink" title="2. 供选择的SingleViewResolver"></a>2. 供选择的SingleViewResolver</h5><blockquote>
+</blockquote>
+<ol>
+<li>The ContentNegotiatingViewResolver does not resolve views itself, but delegates to other ViewResolvers. By default, these other view resolvers are picked up automatically from the application context, though they can also be set explicitly by using the viewResolvers property. Note that in order for this view resolver to work properly, the order property needs to be set to a higher precedence than the others (the default is Ordered.HIGHEST_PRECEDENCE.)<blockquote>
+</blockquote>
+ 说明：即<code>private List&lt;ViewResolver&gt; viewResolvers;</code>属性。需要注意的是Spring会自动加载和注册所有其他的ViewResolver到<code>ContentNegotiationViewResolover</code>的<code>viewResolvers</code>属性。但是你需要告诉Spring MVC，你希望controller返回的view都是由<code>ContentNegotiationViewResolover</code>来解析，而不是其他定义的ViewResolver。这是通过order配置项来决定。你应该给<code>ContentNegotiationViewResolover</code>配置最高的order(其实默认就是最高了)。<blockquote>
+</blockquote>
+</li>
+<li>Additionally, this view resolver exposes the defaultViews property, allowing you to override the views provided by the view resolvers. Note that these default views are offered as candicates, and still need have the content type requested (via file extension, parameter, or Accept header, described above). You can also set the default content type directly, which will be returned when the other mechanisms (Accept header, file extension or parameter) do not result in a match.<blockquote>
+</blockquote>
+ 说明：即<code>private List&lt;View&gt; defaultViews;</code>和<code>private MediaType defaultContentType;</code>属性。</li>
+</ol>
+<p>关于<code>ContentNegotiatingViewResolver</code>，下面两篇文章都不错，值得一看：</p>
+<ol>
+<li><a href="http://blog.eyallupu.com/2009/07/content-negotiation-using-spring-mvcs.html" target="_blank" rel="noopener">Content Negotiation using Spring MVC’s ContentNegotiatingViewResolver</a>:使用了<code>viewResolvers</code>配置。</li>
+<li><a href="http://blog.springsource.com/2009/03/16/adding-an-atom-view-to-an-application-using-springs-rest-support/" target="_blank" rel="noopener">ADDING AN ATOM VIEW TO AN APPLICATION USING SPRING’S REST SUPPORT</a>:使用了<code>ViewResolvers</code>配置。</li>
+<li><a href="http://www.mkyong.com/spring-mvc/spring-3-mvc-contentnegotiatingviewresolver-example/" target="_blank" rel="noopener">Spring 3 MVC ContentNegotiatingViewResolver Example</a>:使用了<code>defaultViews</code>配置。</li>
+</ol>
+<p>注意：<code>@ResponseBody</code>是为了单个View准备的，即它只能转换成一种格式，对于<code>ContentNegotiatingViewResolver</code>，需要多个<strong>Single</strong>ViewResolver来接收。</p>
+<h3 id="8-客户端调用-Accessing-RESTful-services-on-the-Client"><a href="#8-客户端调用-Accessing-RESTful-services-on-the-Client" class="headerlink" title="8. 客户端调用 Accessing RESTful services on the Client"></a>8. 客户端调用 <a href="http://static.springsource.org/spring/docs/3.0.0.M3/reference/html/ch18s03.html#rest-resttemplate" target="_blank" rel="noopener">Accessing RESTful services on the Client</a></h3><p>Spring MVC不仅大大的简化了服务端RESTful服务的开发和开放，还提供了一些辅助类来方便客户端调用REST服务。</p>
+<p>以前Client如果要调用REST服务，一般是使用HttpClient来发送HTTP请求：</p>
+<pre><code>String uri = &quot;http://example.com/hotels/1/bookings&quot;;
+
+PostMethod post = new PostMethod(uri);
+String request = // create booking request content
+post.setRequestEntity(new StringRequestEntity(request));
+
+httpClient.executeMethod(post);
+
+if (HttpStatus.SC_CREATED == post.getStatusCode()) {
+  Header location = post.getRequestHeader(&quot;Location&quot;);
+  if (location != null) {
+    System.out.println(&quot;Created new booking at :&quot; + location.getValue());
+  }
+}
+</code></pre><p>太过底层，而且代码比较冗长，一般都要手动封装一下（即类似于SDK，封装了签名和HTTP发送和接受细节）。我们看一下Spring MVC是怎么解决这个问题的。</p>
+<h4 id="RestTemplate"><a href="#RestTemplate" class="headerlink" title="RestTemplate"></a><a href="http://blog.springsource.org/2009/03/27/rest-in-spring-3-resttemplate/" target="_blank" rel="noopener">RestTemplate</a></h4><p>RestTemplate是client-site HTTP access的核心类。正如它的名称所示，<code>RestTemplate</code>非常类似于<code>JdbcTemplate</code>, <code>JmsTemplate</code>等XXXTemplate。这意味着<code>RestTemplate</code>是线程安全的并且可以通过callback来定制它的行为。</p>
+<p><strong>TIPS</strong> Spring提供的Template类非常灵活和好用，种类也很丰富。当你需要做一些事情的时候可以先考虑一下有没有相应的template可以用。</p>
+<p>RestTemplate默认使用<code>java.net</code>包下的基础类来创建HTTP请求。你可以实现<code>ClientHttpRequestFactory</code>接口，提供你自己的Http请求工厂类。Spring提供了<code>CommonsClientHttpRequestFactory</code>，这个工厂类使用Jakarta Commons HttpClient来创建HTTP请求。这样就可以使用HttpClient提供的认证和链接池功能了。</p>
+<p><a href="http://static.springsource.org/spring/docs/3.0.x/javadoc-api/org/springframework/web/client/RestTemplate.html" target="_blank" rel="noopener">RestTemplate提供的方法如下</a>：</p>
+<blockquote>
+<p><strong>HTTP Method</strong>    <strong>RestTemplate Method</strong></p>
+</blockquote>
+<ul>
+<li>DELETE    delete(String url, String… urlVariables)</li>
+<li>GET    getForObject(String url, Class<t> responseType, String… urlVariables)</t></li>
+<li>HEAD    headForHeaders(String url, String… urlVariables)</li>
+<li>OPTIONS    optionsForAllow(String url, String… urlVariables)</li>
+<li>POST    postForLocation(String url, Object request, String… urlVariables)</li>
+<li>PUT    put(String url, Object request, String…urlVariables)</li>
+<li>ANY    exchange(String, HttpMethod, HttpEntity, Class, Object…)<pre><code>execute(String, HttpMethod, RequestCallback, ResponseExtractor, Object...)
+</code></pre></li>
+</ul>
+<p>方法名称很有规律，都是这个pattern——<code>${HTTP Method}${WhatIsReturne}</code>。例如getForObject() will perform a GET, convert the HTTP response into an object type of your choice, and returns that object. postForLocation will do a POST, converting the given object into a HTTP request, and returns the response HTTP Location header where the newly created object can be found. As you can see, these methods try to enforce REST best practices.</p>
+<p>其中getForObject()、postForLocation()和put()方法接收或者返回的参数通过<code>HttpMessageConverter</code>来转换为Http Request或者Http Response。这点与前面介绍服务端RESTful的<code>@RequestBody</code>和<code>@ResponseBody</code>是一样的，Spring MVC默认会注册常用的Converter，你也可以自定义。</p>
+<p>另外，每个方法的第一个参数都是一个url string，但是这个URI可以带有变量(还记得<code>@PathVariable</code>吗:)哦。参数有两种方式绑定值：</p>
+<ol>
+<li><p>作为字符串变量数组(String variable arguments array)</p>
+<pre><code>String result = restTemplate.getForObject(&quot;http://example.com/hotels/{hotel}/bookings/{booking}&quot;, String.class, &quot;42&quot;, &quot;21&quot;);
+</code></pre><p> 会转换为一个对<code>http://example.com/hotels/42/bookings/21</code>的GET请求。</p>
+</li>
+<li><p>或者Map对象(Map)</p>
+<p>The map variant expands the template based on variable name, and is therefore more useful when using many variables, or when a single variable is used multiple times.</p>
+<pre><code>Map&lt;String, String&gt; vars = new HashMap&lt;String, String&gt;();
+vars.put(&quot;hotel&quot;, &quot;42&quot;);
+vars.put(&quot;booking&quot;, &quot;21&quot;);
+String result = restTemplate.getForObject(&quot;http://example.com/hotels/{hotel}/bookings/{booking}&quot;, String.class, vars);
+会转换为一个对`http://example.com/hotels/42/rooms/42`的GET请求。
+</code></pre></li>
+</ol>
+<p>关于RestTemplate使用的具体例子可以参考这篇文章<a href="http://blog.springsource.org/2009/03/27/rest-in-spring-3-resttemplate/" target="_blank" rel="noopener"><br>REST IN SPRING 3: RESTTEMPLATE</a>。写的非常好，强烈推荐！</p>
+<h3 id="9-支持RESTful的URL"><a href="#9-支持RESTful的URL" class="headerlink" title="9. 支持RESTful的URL"></a>9. 支持RESTful的URL</h3><p>在开发功能模块之前，应该先把URL设计好。比查对 <strong>消息</strong> 这个资源的操作URL可以这么设计：</p>
+<pre><code>http://arganzheng.me/messages/show/123456
+http://arganzheng.me/messages/preview/123456
+http://arganzheng.me/messages/delete/123456
+http://arganzheng.me/messages/new
+http://arganzheng.me/message/update
+</code></pre><p>说明：可以看到我们的URL中有动作在里面，事实上纯粹的RESTful URL是把动作隐含在HTTP头中：GET、PUT、DELETE、POST。。不过这样对用户编码有要求，这个相对简单点。</p>
+<p>要支持这种URL，web.xml需要这么配置：</p>
+<pre><code>&lt;!-- REST servlet-mapping --&gt;
+&lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;DispatcherServlet&lt;srvlet-name&gt;
+    &lt;url-pattern&gt;/&lt;/url-pattern&gt;
+&lt;srvlet-mapping&gt;
+</code></pre><p>但是这样的话有个问题，就是静态文件也被mapping了，会导致找不到资源。Spring提供了一个resources配置项支持静态文件的处理<a href="http://static.springsource.org/spring/docs/3.1.x/spring-framework-reference/html/mvc.html#mvc-config-static-resources" target="_blank" rel="noopener">16.14.5 Configuring Serving of Resources</a>：</p>
+<pre><code>&lt;!-- Forwards requests to the &quot;/&quot; resource to the &quot;welcome&quot; view --&gt;
+  &lt;mvc:view-controller path=&quot;/&quot; view-name=&quot;index&quot;/&gt;
+
+  &lt;!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources/ directory --&gt;
+  &lt;mvc:resources mapping=&quot;/resources/**&quot; location=&quot;/resources/&quot; /&gt;
+  &lt;!-- 注意：配置了mvc:resources就必须配置这个选项，否则handler mapping都失效了
+      @see  http://stackoverflow.com/questions/7910845/the-handler-mapping-from-the-mvcresource-override-other-mappings-which-defined
+  --&gt;
+  &lt;mvc:annotation-driven /&gt;
+</code></pre><p>这样所有请求：<code>http://arganzheng.me/resources/**</code>会映射到webapp下的resources目录，而不是找我们的controller处理。</p>
+<p>但是有个奇怪的问题，就是配置这个之后，原来动态东西就不能访问到了，提示找不到对应的handler，解决方案是增加一个<code>&lt;mvc:annotation-driven /&gt;</code>配置。具体参见<a href="http://stackoverflow.com/questions/7910845/the-handler-mapping-from-the-mvcresource-override-other-mappings-which-defined" target="_blank" rel="noopener">The handler mapping from the mvc:resource override other mappings which defined with annotation</a>。</p>
+<p>另外，静态的html页面一般不放在resources路面下，而是直接在根目录下，比如：<a href="http://arganzheng.me/index.html或者http://arganzheng.me/404.html。所以应该在web.xml中在配置一个url-mapping规则：" target="_blank" rel="noopener">http://arganzheng.me/index.html或者http://arganzheng.me/404.html。所以应该在web.xml中在配置一个url-mapping规则：</a></p>
+<pre><code>&lt;!-- 避免被Spring DispatcherServlet接管 --&gt;
+  &lt;servlet-mapping&gt;
+      &lt;servlet-name&gt;default&lt;srvlet-name&gt;
+      &lt;url-pattern&gt;*.html&lt;/url-pattern&gt;
+  &lt;srvlet-mapping&gt;
+</code></pre>
+      
+    </div>
+    <ul class="popular-posts"><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2016/03/20/about-interface-define/" title="关于接口定义的一些想法" rel="bookmark">关于接口定义的一些想法</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2014/06/24/quartz-cluster-with-spring/" title="Spring中配置quartz集群" rel="bookmark">Spring中配置quartz集群</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2018/07/23/spring-cache-redis-annotation/" title="Spring Redis 注解式Cache那些事" rel="bookmark">Spring Redis 注解式Cache那些事</a></h3></div></li></ul>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/qrcode_shenyanchao.jpg" alt="申艳超 wechat" style="width: 200px; max-width: 100%;">
+    <div>欢迎关注微信订阅号~</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持是我原创的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="申艳超 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="申艳超 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    申艳超
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.shenyanchao.cn/blog/2015/11/03/restful-springmvc/" title="Restful Spring MVC">https://www.shenyanchao.cn/blog/2015/11/03/restful-springmvc/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/spring/" rel="tag"># spring</a>
+          
+            <a href="/tags/restful/" rel="tag"># restful</a>
+          
+            <a href="/tags/mvc/" rel="tag"># mvc</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2015/03/26/c3p0-config/" rel="next" title="关于C3P0容错和自动重连特性的研究">
+                <i class="fa fa-chevron-left"></i> 关于C3P0容错和自动重连特性的研究
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2016/03/20/about-interface-define/" rel="prev" title="关于接口定义的一些想法">
+                关于接口定义的一些想法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/shenyanchao.jpeg" alt="申艳超">
+            
+              <p class="site-author-name" itemprop="name">申艳超</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">123</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">229</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/blueshen" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zhiyi.shen@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-RequestMapping"><span class="nav-number">1.</span> <span class="nav-text">1. @RequestMapping</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-PathVariable"><span class="nav-number">2.</span> <span class="nav-text">2. @PathVariable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-RequestParam"><span class="nav-number">3.</span> <span class="nav-text">3. @RequestParam</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-RequestBody和-ResponseBody"><span class="nav-number">4.</span> <span class="nav-text">4. @RequestBody和@ResponseBody</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-CookieValue"><span class="nav-number">5.</span> <span class="nav-text">5. @CookieValue</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-RequestHeader"><span class="nav-number">6.</span> <span class="nav-text">6. @RequestHeader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-返回多种表现形式-Returning-multiple-representations"><span class="nav-number">7.</span> <span class="nav-text">7. 返回多种表现形式(Returning multiple representations)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-content-negotiation策略-ContentNegotiationStrategy"><span class="nav-number">7.1.</span> <span class="nav-text">1. content negotiation策略 (ContentNegotiationStrategy)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-供选择的SingleViewResolver"><span class="nav-number">7.1.1.</span> <span class="nav-text">2. 供选择的SingleViewResolver</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-客户端调用-Accessing-RESTful-services-on-the-Client"><span class="nav-number">8.</span> <span class="nav-text">8. 客户端调用 Accessing RESTful services on the Client</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#RestTemplate"><span class="nav-number">8.1.</span> <span class="nav-text">RestTemplate</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-支持RESTful的URL"><span class="nav-number">9.</span> <span class="nav-text">9. 支持RESTful的URL</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2012 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">申艳超</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">230.5k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: false,
+        appId: 'vFAoofuVWgdHsCv6B6BtqROc-gzGzoHsz',
+        appKey: 'ANWUkmboGiNDNRmf2iVlUIGt',
+        placeholder: '开始你的评论吧!',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("vFAoofuVWgdHsCv6B6BtqROc-gzGzoHsz", "ANWUkmboGiNDNRmf2iVlUIGt");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

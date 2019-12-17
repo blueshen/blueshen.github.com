@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/icon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="webdriver,selenium,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="申艳超-博客" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="selenium常见问题 原文：https://code.google.com/p/selenium/wiki/FrequentlyAskedQuestions Q:什么是WebDriver?A:WebDriver是一个用来写网页自动化测试的工具。它致力于模拟真实用户的行为并尽可能的实现HTML上的交互。 Q:Selenium与Sahi有什么异同？A:它们的目标是一样的，都是为了测试webapp。">
+<meta name="keywords" content="webdriver,selenium">
+<meta property="og:type" content="article">
+<meta property="og:title" content="selenium wiki:selenium常见问题">
+<meta property="og:url" content="https://www.shenyanchao.cn/blog/2013/05/30/selenium-wiki-frequently-asked-questions/index.html">
+<meta property="og:site_name" content="申艳超-博客">
+<meta property="og:description" content="selenium常见问题 原文：https://code.google.com/p/selenium/wiki/FrequentlyAskedQuestions Q:什么是WebDriver?A:WebDriver是一个用来写网页自动化测试的工具。它致力于模拟真实用户的行为并尽可能的实现HTML上的交互。 Q:Selenium与Sahi有什么异同？A:它们的目标是一样的，都是为了测试webapp。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-12-17T11:41:25.753Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="selenium wiki:selenium常见问题">
+<meta name="twitter:description" content="selenium常见问题 原文：https://code.google.com/p/selenium/wiki/FrequentlyAskedQuestions Q:什么是WebDriver?A:WebDriver是一个用来写网页自动化测试的工具。它致力于模拟真实用户的行为并尽可能的实现HTML上的交互。 Q:Selenium与Sahi有什么异同？A:它们的目标是一样的，都是为了测试webapp。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.shenyanchao.cn/blog/2013/05/30/selenium-wiki-frequently-asked-questions/">
+
+
+
+
+
+  <title>selenium wiki:selenium常见问题 | 申艳超-博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?81c9612f8fdceca45435ef7f5404d7b2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">申艳超-博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">搜索引擎、分布式、高性能、NLP、ElasticSearch、Solr</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.shenyanchao.cn/blog/2013/05/30/selenium-wiki-frequently-asked-questions/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="申艳超">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/shenyanchao.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="申艳超-博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">selenium wiki:selenium常见问题</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-05-30T19:57:00+08:00">
+                2013-05-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/selenium官方文档/" itemprop="url" rel="index">
+                    <span itemprop="name">selenium官方文档</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/blog/2013/05/30/selenium-wiki-frequently-asked-questions/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/blog/2013/05/30/selenium-wiki-frequently-asked-questions/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/blog/2013/05/30/selenium-wiki-frequently-asked-questions/" class="leancloud_visitors" data-flag-title="selenium wiki:selenium常见问题">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3,111
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  12
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="selenium常见问题"><a href="#selenium常见问题" class="headerlink" title="selenium常见问题"></a>selenium常见问题</h3><hr>
+<p>原文：<a href="https://code.google.com/p/selenium/wiki/FrequentlyAskedQuestions" target="_blank" rel="noopener">https://code.google.com/p/selenium/wiki/FrequentlyAskedQuestions</a></p>
+<h4 id="Q-什么是WebDriver"><a href="#Q-什么是WebDriver" class="headerlink" title="Q:什么是WebDriver?"></a>Q:什么是WebDriver?</h4><p>A:WebDriver是一个用来写网页自动化测试的工具。它致力于模拟真实用户的行为并尽可能的实现HTML上的交互。</p>
+<h4 id="Q-Selenium与Sahi有什么异同？"><a href="#Q-Selenium与Sahi有什么异同？" class="headerlink" title="Q:Selenium与Sahi有什么异同？"></a>Q:Selenium与<a href="http://sahi.co.in/" target="_blank" rel="noopener">Sahi</a>有什么异同？</h4><p>A:它们的目标是一样的，都是为了测试webapp。但是，它们的实现是不一样的。WebDriver是直接控制浏览器的，而不是在浏览器内运行了一个Javascript应用（这牵涉到同源策略问题）。这也意味着WebDriver可以充分利用原生平台提供的任何工具。</p>
+<h4 id="Q：什么是Selenium-2-0"><a href="#Q：什么是Selenium-2-0" class="headerlink" title="Q：什么是Selenium 2.0?"></a>Q：什么是Selenium 2.0?</h4><p>A:WebDriver是Selenium的一部分。而WebDriver为其提供了强大的API以及原生的Driver。<br><a id="more"></a></p>
+<h4 id="Q：如何从原来的selenium-api迁移到新的webdriver-api"><a href="#Q：如何从原来的selenium-api迁移到新的webdriver-api" class="headerlink" title="Q：如何从原来的selenium api迁移到新的webdriver api?"></a>Q：如何从原来的selenium api迁移到新的webdriver api?</h4><p>A:参见<a href="http://seleniumhq.org/docs/appendix_migrating_from_rc_to_webdriver.html" target="_blank" rel="noopener">http://seleniumhq.org/docs/appendix_migrating_from_rc_to_webdriver.html</a></p>
+<h4 id="Q-WebDriver支持哪些浏览器？"><a href="#Q-WebDriver支持哪些浏览器？" class="headerlink" title="Q:WebDriver支持哪些浏览器？"></a>Q:WebDriver支持哪些浏览器？</h4><p>A:目前支持<a href="https://code.google.com/p/selenium/wiki/ChromeDriver" target="_blank" rel="noopener">ChromeDriver</a>,<a href="https://code.google.com/p/selenium/wiki/InternetExplorerDriver" target="_blank" rel="noopener">InternetExplorerDriver</a>,<a href="https://code.google.com/p/selenium/wiki/FirefoxDriver" target="_blank" rel="noopener">FirefoxDriver</a>,<a href="https://code.google.com/p/selenium/wiki/OperaDriver" target="_blank" rel="noopener">OperaDriver</a>,<a href="https://code.google.com/p/selenium/wiki/HtmlUnitDriver" target="_blank" rel="noopener">HtmlUnitDriver</a>。它们各有什么优缺点，可以进入相应的链接进行查看。同时，它还支持移动测试，包括<a href="https://code.google.com/p/selenium/wiki/AndroidDriver" target="_blank" rel="noopener">AndroidDriver</a>,OperaMobileDriver,IPhoneDriver。</p>
+<h4 id="Q：“developer-focused”是什么意思？"><a href="#Q：“developer-focused”是什么意思？" class="headerlink" title="Q：“developer focused”是什么意思？"></a>Q：“developer focused”是什么意思？</h4><p>A:我们认为，在一个软件开发团队内，那些能开发出别人都能使用的工具的人是真正的开发者。尽管直接使用WebDriver是很容易的，但是它也应该能作为一个构建块来产出更复杂智能的工具。正因为如此,webdriver也有一个很小的API使得你可以在你喜欢的IDE中简单的点击“autocomplete”，就能在任何浏览器内始终工作。</p>
+<h4 id="Q-如何直接执行Javascript"><a href="#Q-如何直接执行Javascript" class="headerlink" title="Q:如何直接执行Javascript?"></a>Q:如何直接执行Javascript?</h4><p>A:我们相信当你使用工具时，有可能没有触发正确的时间，有可能于页面没有正确的交互，也有可能没有对一个XmlHttpRequest进行响应，这个时候就需要执行Javascript。当然，我们更加希望改进WebDriver来使其运行的连续而正确，而不是让测试人员来通过Javascript来调用。<br>我们也感觉到有时因为种种限制，必须使用直接调用JavaScript。因此，对于支持JavaScript的浏览器，你可以直接将WebDriver实例强制转型为JavaScriptExecutor，然后执行。在Java语言中，类似于这样。</p>
+<pre><code>WebDriver driver; // Assigned elsewhere
+JavascriptExecutor js =     (JavascriptExecutor) driver;
+js.executeScript(&quot;return document.title&quot;);
+</code></pre><p>至于其他语言，都是很相似的方法。可以看一下UsingJavaScript章节。</p>
+<h4 id="Q：为什么我执行Javascript-总是返回NULL？"><a href="#Q：为什么我执行Javascript-总是返回NULL？" class="headerlink" title="Q：为什么我执行Javascript,总是返回NULL？"></a>Q：为什么我执行Javascript,总是返回NULL？</h4><p>A:你需要让你的JS脚本有返回值。所以<code>js.executeScript(&quot;document.title&quot;);</code>会返回null;而<code>js.executeScript(&quot;return document.title&quot;);</code>则会返回页面的title。</p>
+<h4 id="Q：使用XPATH定位元素，在有的浏览器可以，有的却不行，为什么？"><a href="#Q：使用XPATH定位元素，在有的浏览器可以，有的却不行，为什么？" class="headerlink" title="Q：使用XPATH定位元素，在有的浏览器可以，有的却不行，为什么？"></a>Q：使用XPATH定位元素，在有的浏览器可以，有的却不行，为什么？</h4><p>A:简单来说，不同的浏览器对XPATH的处理略有不同。而你整好碰上了。具体参见<a href="https://code.google.com/p/selenium/wiki/XpathInWebDriver" target="_blank" rel="noopener">XpathInWebDriver</a>章节。</p>
+<h4 id="Q：InternetExplorerDriver不能在Vista上很好的工作。我应该怎么做？"><a href="#Q：InternetExplorerDriver不能在Vista上很好的工作。我应该怎么做？" class="headerlink" title="Q：InternetExplorerDriver不能在Vista上很好的工作。我应该怎么做？"></a>Q：InternetExplorerDriver不能在Vista上很好的工作。我应该怎么做？</h4><p>A:InternetExplorerDriver需要所有的保护模式设置到相同的值（开启或关闭）。假如你不能修改这些，你也可以这样：</p>
+<pre><code>DesiredCapabilities capabilities = DesiredCapabilities.internetExplorer();
+capabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
+WebDriver driver = new InternetExplorerDriver(capabilities);
+</code></pre><p>正如常量名所示，你的所有测试可能需要分开。当然，如果你所有的站点都在同一个保护模式，那是没问题的。</p>
+<h4 id="Q：除了Java，还支持哪些语言？"><a href="#Q：除了Java，还支持哪些语言？" class="headerlink" title="Q：除了Java，还支持哪些语言？"></a>Q：除了Java，还支持哪些语言？</h4><p>A:Python,Ruby,C#,Java都是直接支持的。并且还有PHP和Perl的webdriver实现。同时一个JS的API也正在计划中。</p>
+<h4 id="Q：如何处理新弹出的浏览器窗口？"><a href="#Q：如何处理新弹出的浏览器窗口？" class="headerlink" title="Q：如何处理新弹出的浏览器窗口？"></a>Q：如何处理新弹出的浏览器窗口？</h4><p>A:WebDriver提供了处理多浏览器窗口的能力。通过使用<code>WebDriver.switchTo().window()</code>可以转向一个已知名字的窗口。假如不知道这个窗口的名字，可以使用<code>&quot;WebDriver.getWindowHandles()</code>获取窗口的名字列表。然后就可以使用<code>switchTo().window()</code>来转向了。</p>
+<h4 id="Q：WebDriver支持JavaScript弹出的alert和prompts框嘛？"><a href="#Q：WebDriver支持JavaScript弹出的alert和prompts框嘛？" class="headerlink" title="Q：WebDriver支持JavaScript弹出的alert和prompts框嘛？"></a>Q：WebDriver支持JavaScript弹出的alert和prompts框嘛？</h4><p>A: 使用<a href="http://selenium.googlecode.com/svn/trunk/docs/api/java/org/openqa/selenium/Alert.html" target="_blank" rel="noopener">Alert API</a>可以搞定:</p>
+<pre><code>// Get a handle to the open alert, prompt or confirmation
+Alert alert = driver.switchTo().alert();
+// Get the text of the alert or prompt
+alert.getText();
+// And acknowledge the alert (equivalent to clicking &quot;OK&quot;)
+alert.accept();
+</code></pre><h4 id="Q：WebDriver支持文件上传？"><a href="#Q：WebDriver支持文件上传？" class="headerlink" title="Q：WebDriver支持文件上传？"></a>Q：WebDriver支持文件上传？</h4><p>A:答案是肯定的。你是不能直接与操作系统的浏览文件窗口直接交互的，但是做了一些神奇的工作，使得你在文件上传元素上调用<code>WebElement#sendKeys(&quot;/path/to/file&quot;)</code> 就可以正确上传。同时你要保证不要在文件上传元素上进行<code>WebElement#click()</code>操作，否则可能导致浏览器挂起。<br>小提示：你是不能直接与隐藏的元素交互的，除非使他们显示出来。假如你的元素是隐藏的，可以使用类似下面的代码，来让元素可见。</p>
+<pre><code>((JavascriptExecutor)driver).executeScript(&quot;arguments[0].style.visibility = &apos;visible&apos;;      arguments[0].style.height = &apos;1px&apos;; arguments[0].style.width = &apos;1px&apos;; arguments[0].style.opacity = 1&quot;, fileUploadElement);
+</code></pre><h4 id="Q：为什么在执行sendKeys后，没有触发onchange事件？"><a href="#Q：为什么在执行sendKeys后，没有触发onchange事件？" class="headerlink" title="Q：为什么在执行sendKeys后，没有触发onchange事件？"></a>Q：为什么在执行<code>sendKeys</code>后，没有触发onchange事件？</h4><p>A:WebDriver是将焦点一直放在调用<code>sendKeys</code>的元素上的。而onchange事件是当焦点离开元素才触发的。因此，你只需移动下焦点，简单的<code>click</code>下其他元素即可。</p>
+<h4 id="Q：能同时运行多个WebDriver的实例？"><a href="#Q：能同时运行多个WebDriver的实例？" class="headerlink" title="Q：能同时运行多个WebDriver的实例？"></a>Q：能同时运行多个WebDriver的实例？</h4><p>A:HtmlUnitDriver,ChromeDriver,FirefoxDriver的每个实例都是完全独立的（其中firefox和chrome，每个实例都使用它们自己的匿名profile）。由于Windows自身的运行方式，同时只能有一个InternetExplorerDriver实例。假如你同时需要运行多个InternetExplorerDriver实例，可以考虑使用Remote!WebDriver以及虚拟机。</p>
+<h4 id="Q：我需要使用代理。我该如何配置呢？"><a href="#Q：我需要使用代理。我该如何配置呢？" class="headerlink" title="Q：我需要使用代理。我该如何配置呢？"></a>Q：我需要使用代理。我该如何配置呢？</h4><p>A：代理配置是通过<code>org.openqa.selenium.Proxy</code>类来实现的，类似下面代码所示：</p>
+<pre><code>Proxy proxy = new Proxy();
+proxy.setProxyAutoconfigUrl(&quot;http://youdomain/config&quot;);
+
+// We use firefox as an example here.
+DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+capabilities.setCapability(CapabilityType.PROXY, proxy);
+
+// You could use any webdriver implementation here
+WebDriver driver = new FirefoxDriver(capabilities);
+</code></pre><h4 id="Q：使用HtmlUnitDriver该如何实现权限验证？"><a href="#Q：使用HtmlUnitDriver该如何实现权限验证？" class="headerlink" title="Q：使用HtmlUnitDriver该如何实现权限验证？"></a>Q：使用HtmlUnitDriver该如何实现权限验证？</h4><p>A:当创建HtmlUnitDriver时，重写<code>modifyWebClient</code>方法即可。例如：</p>
+<pre><code>WebDriver driver = new HtmlUnitDriver() {
+  protected WebClient modifyWebClient(WebClient client) {
+    // This class ships with HtmlUnit itself
+    DefaultCredentialsProvider creds = new DefaultCredentialsProvider();
+
+    // Set some example credentials
+    creds.addCredentials(&quot;username&quot;, &quot;password&quot;);
+
+    // And now add the provider to the webClient instance
+    client.setCredentialsProvider(creds);
+
+    return client;
+  }
+};
+</code></pre><h4 id="Q：WebDriver是线程安全的吗？"><a href="#Q：WebDriver是线程安全的吗？" class="headerlink" title="Q：WebDriver是线程安全的吗？"></a>Q：WebDriver是线程安全的吗？</h4><p>A:WebDriver不是线程安全的。话说回来，如果你串行的访问driver实例，你就可以在多个线程之间共享一个driver引用。这个不是推荐的方法。其实你可以为每个线程实例化一个WebDriver。</p>
+<h4 id="Q：如何向一个可编辑的iframe里输入？"><a href="#Q：如何向一个可编辑的iframe里输入？" class="headerlink" title="Q：如何向一个可编辑的iframe里输入？"></a>Q：如何向一个可编辑的iframe里输入？</h4><p>A:假设那个iframe的name是“foo”:</p>
+<pre><code>driver.switchTo().frame(&quot;foo&quot;);
+WebElement editable = driver.switchTo().activeElement();
+editable.sendKeys(&quot;Your text here&quot;);
+</code></pre><p>有时，这方法不管用。那是因为iframe没有任何内容。在Firefox中，你可以在<code>sendKeys</code>之前做以下的操作：</p>
+<pre><code>((JavascriptExecutor) driver).executeScript(&quot;document.body.innerHTML = &apos;&lt;br&gt;&apos;&quot;);
+</code></pre><p>因为iframe内默认是没有任何内容的，所以就不知道该往哪儿进行键盘输入，上面的操作是必须的。这个操作只是插入了一个空标签，就把一切搞定了。<br>记得在做完iframe内的操作后，switch出来（因为进一步都交互都是使用下面的frame的）。</p>
+<pre><code>driver.switchTo().defaultContent();
+</code></pre><h4 id="Q：在Linux系统上WebDriver无法启动Firefox，并抛出java-net-SocketException。"><a href="#Q：在Linux系统上WebDriver无法启动Firefox，并抛出java-net-SocketException。" class="headerlink" title="Q：在Linux系统上WebDriver无法启动Firefox，并抛出java.net.SocketException。"></a>Q：在Linux系统上WebDriver无法启动Firefox，并抛出<code>java.net.SocketException</code>。</h4><p>A:在Linux系统上运行WebDriver,Firefox无法启动并抛出如下错误：</p>
+<pre><code>Caused by: java.net.SocketException: Invalid argument
+        at java.net.PlainSocketImpl.socketBind(Native Method)
+        at java.net.PlainSocketImpl.bind(PlainSocketImpl.java:365)
+        at java.net.Socket.bind(Socket.java:571)
+        at org.openqa.selenium.firefox.internal.SocketLock.isLockFree(SocketLock.java:99)
+        at org.openqa.selenium.firefox.internal.SocketLock.lock(SocketLock.java:63)
+</code></pre><p>这可能是因为机器上的IPv6设置导致的。执行下面的脚本：</p>
+<pre><code>sudo sysctl net.ipv6.bindv6only=0
+</code></pre><p>为了使用相同的调用，就能让socket同时绑定到主机的IPv6和IPv4地址。更长远的解决方案是编辑<code>/etc/sysctl.d/bindv6only.conf</code>禁用这个行为。</p>
+<h4 id="Q-WebDriver找不到元素-页面没有完全加载就返回了。"><a href="#Q-WebDriver找不到元素-页面没有完全加载就返回了。" class="headerlink" title="Q:WebDriver找不到元素/页面没有完全加载就返回了。"></a>Q:WebDriver找不到元素/页面没有完全加载就返回了。</h4><p>A:这个问题可以从各种方式显现出来：</p>
+<ul>
+<li>使用WebDriver.findElement(…)抛出ElementNotFoundException，但当检查DOM（使用Firebug等工具）时，元素明明就在那里。</li>
+<li>调用Driver.get时，一旦HTML加载，方法就立即返回了。但是onload触发的JavaScript代码没有加载。因此页面是没有加载完全的并且一些元素是无法找到的。</li>
+<li>click一个元素或者链接时，触发了一个新建元素的操作。然而，click操作返回后，直接调用findElement并不能找到这个新建的元素。click操作不应该是被阻塞的吗？</li>
+<li>我怎么才能知道一个页面是否已经完全加载了？</li>
+</ul>
+<p><strong>解析</strong>：WebDriver基本上都是blocking API。但是，在一些情况下，是允许页面没有完成加载就让get请求返回的。经典的样例就是，当页面加载后才开始执行JavaScript(onload触发)。浏览器（比如Firefox）会在基本的HTML内容加载后通知WebDriver，而就是此刻WebDriver才返回了。要想知道JavaScript什么时候执行完成是困难的（即使是能知道），因为JS代码可能在将来的某一刻才执行并且依赖于服务器的响应。这种情况同样也适用于click操作，在支持原生事件（Window,Linux）的系统平台上，click操作会转化为在操作系统层面的一个在元素坐标点进行的鼠标左键点击，WebDriver是无法很好的追踪到这个鼠标左键点击引起的一连串操作的。WebDriver并不了解这一切，所以WebDriver不可能等到所有的条件到来才执行测试流程。这样的情况下，blocking API是不完美的。通常，我们最为关心的是在接下来的交互中需要使用到元素是否已经显示并且可用。<br><strong>解决方案</strong>：使用Wait类来等待一个元素出现。这个类会一遍又一遍的调用findElement方法，忽略NoSuchElementException，直到找到元素为止（或者超时失效）。既然这个行为是很多用户希望默认实现的，我们实现了一个隐式等待元素出现的机制。这个可以使用<a href="http://selenium.googlecode.com/svn/trunk/docs/api/java/org/openqa/selenium/WebDriver.Timeouts.html" target="_blank" rel="noopener">WebDriver.manage().timeouts()</a>来实现.</p>
+<h4 id="Q-如何能触发页面上的任意事件？"><a href="#Q-如何能触发页面上的任意事件？" class="headerlink" title="Q:如何能触发页面上的任意事件？"></a>Q:如何能触发页面上的任意事件？</h4><p>A:WebDriver致力于模拟用户交互，因此API直接反应了用户与各种元素的交互。<br>触发一个特定的事件不能由API直接完成，但是可以直接通过执行JavaScript来调用元素上的各种方法。</p>
+<h4 id="Q-为什么不能与隐藏的元素进行交互？"><a href="#Q-为什么不能与隐藏的元素进行交互？" class="headerlink" title="Q:为什么不能与隐藏的元素进行交互？"></a>Q:为什么不能与隐藏的元素进行交互？</h4><p>A:既然用户不能看到隐藏元素的文本信息，WebDriver也一样。<br>然而，执行JavaScript来直接调用隐藏元素的getText是允许的。</p>
+<pre><code>WebElement element = ...;
+((JavascriptExecutor) driver).executeScript(&quot;return arguments[0].getText();&quot;, element);
+</code></pre><h4 id="Q-如何启动一个带插件的Firefox？"><a href="#Q-如何启动一个带插件的Firefox？" class="headerlink" title="Q:如何启动一个带插件的Firefox？"></a>Q:如何启动一个带插件的Firefox？</h4><p>A:</p>
+<pre><code>FirefoxProfile profile = new FirefoxProfile()
+profile.addExtension(....);
+
+WebDriver driver = new FirefoxDriver(profile);
+</code></pre><h4 id="Q-要是WebDriver有…功能，我会更喜欢它。"><a href="#Q-要是WebDriver有…功能，我会更喜欢它。" class="headerlink" title="Q: 要是WebDriver有…功能，我会更喜欢它。"></a>Q: 要是WebDriver有…功能，我会更喜欢它。</h4><p>A: 如果你希望WebDriver有什么功能，或者发现有什么BUG。你可以添加一个issue到WebDriver主页。</p>
+<h4 id="Q-有时Selenium-server启动一个新session的时候要花费很长的时间？"><a href="#Q-有时Selenium-server启动一个新session的时候要花费很长的时间？" class="headerlink" title="Q: 有时Selenium server启动一个新session的时候要花费很长的时间？"></a>Q: 有时Selenium server启动一个新session的时候要花费很长的时间？</h4><p>A:如果运行在Linux上，你需要增加用于安全随机数生成所需要的熵数量。大多数的Linux发行版都可以通过安装一个叫“randomsound”的包来配置。<br>在Windows(XP)系统上，你可以看下<a href="http://bugs.sun.com/view_bug.do?bug_id=6705872" target="_blank" rel="noopener">http://bugs.sun.com/view_bug.do?bug_id=6705872</a>,这通常需要从你的临时文件夹清理大量的数据文件。</p>
+<h4 id="Q-在Selenium-WebDriver的API中哪个与TextPresent对等"><a href="#Q-在Selenium-WebDriver的API中哪个与TextPresent对等" class="headerlink" title="Q: 在Selenium WebDriver的API中哪个与TextPresent对等?"></a>Q: 在Selenium WebDriver的API中哪个与TextPresent对等?</h4><p>A:</p>
+<pre><code>driver.findElement(By.tagName(&quot;body&quot;)).getText()
+</code></pre><p>会给出页面的文本内容。关于verifyTextPresent/assertTextPresent,你需要使用Test framework的Assert来验证。关于waitForTextPresent, 你需要使用WebDriverWait类来解决。</p>
+<h4 id="Q-socket-lock感觉是一个糟糕的设计。我如何能更好的实现。"><a href="#Q-socket-lock感觉是一个糟糕的设计。我如何能更好的实现。" class="headerlink" title="Q:socket lock感觉是一个糟糕的设计。我如何能更好的实现。"></a>Q:socket lock感觉是一个糟糕的设计。我如何能更好的实现。</h4><p>A:守护Firefox启动的socket lock在设计时，有以下的限制：</p>
+<ul>
+<li>socket lock需要在所有语言绑定之间共享。ruby,java以及其他语言的绑定可以在相同的机器同时共存。</li>
+<li>启动firefox的某些关键部分必须在机器上独占锁定。</li>
+<li>socket lock本身不是瓶颈。启动firefox才是。</li>
+</ul>
+<p><code>SocketLock</code>是<code>Lock</code>接口的一个实现. 这给你自己的接口实现提供了一个可插拔的策略。为了切换到一个不同的实现，你需要继承FirefoxDriver并且重写“obtainLock”方法。</p>
+<h4 id="Q-当我使用Python的send-keys方法时，为什么出现一个UnicodeEncodeError？"><a href="#Q-当我使用Python的send-keys方法时，为什么出现一个UnicodeEncodeError？" class="headerlink" title="Q: 当我使用Python的send_keys方法时，为什么出现一个UnicodeEncodeError？"></a>Q: 当我使用Python的send_keys方法时，为什么出现一个UnicodeEncodeError？</h4><p>A: 你很可能没有设置系统的Locale。比如设置LANG=en_US.UTF-8和LC_CTYPE=”en_US.UTF-8”就可以了.</p>
+
+      
+    </div>
+    <ul class="popular-posts"><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2012/11/02/how-webdriver-works/" title="Selenium WebDriver 工作原理" rel="bookmark">Selenium WebDriver 工作原理</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2012/10/16/pageobjects-design-pattern/" title="PageObjects 设计模式" rel="bookmark">PageObjects 设计模式</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2013/05/30/selenium-doc-introduction/" title="selenium 文档:入门介绍" rel="bookmark">selenium 文档:入门介绍</a></h3></div></li></ul>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/qrcode_shenyanchao.jpg" alt="申艳超 wechat" style="width: 200px; max-width: 100%;">
+    <div>欢迎关注微信订阅号~</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持是我原创的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="申艳超 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="申艳超 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    申艳超
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.shenyanchao.cn/blog/2013/05/30/selenium-wiki-frequently-asked-questions/" title="selenium wiki:selenium常见问题">https://www.shenyanchao.cn/blog/2013/05/30/selenium-wiki-frequently-asked-questions/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/webdriver/" rel="tag"># webdriver</a>
+          
+            <a href="/tags/selenium/" rel="tag"># selenium</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2013/05/30/selenium-wiki-advanced-user-interactions/" rel="next" title="selenium wiki:高级用户交互">
+                <i class="fa fa-chevron-left"></i> selenium wiki:高级用户交互
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2013/06/05/deep-in-testng/" rel="prev" title="TestNG深入理解">
+                TestNG深入理解 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/shenyanchao.jpeg" alt="申艳超">
+            
+              <p class="site-author-name" itemprop="name">申艳超</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">123</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">229</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/blueshen" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zhiyi.shen@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#selenium常见问题"><span class="nav-number">1.</span> <span class="nav-text">selenium常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Q-什么是WebDriver"><span class="nav-number">1.1.</span> <span class="nav-text">Q:什么是WebDriver?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q-Selenium与Sahi有什么异同？"><span class="nav-number">1.2.</span> <span class="nav-text">Q:Selenium与Sahi有什么异同？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q：什么是Selenium-2-0"><span class="nav-number">1.3.</span> <span class="nav-text">Q：什么是Selenium 2.0?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q：如何从原来的selenium-api迁移到新的webdriver-api"><span class="nav-number">1.4.</span> <span class="nav-text">Q：如何从原来的selenium api迁移到新的webdriver api?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q-WebDriver支持哪些浏览器？"><span class="nav-number">1.5.</span> <span class="nav-text">Q:WebDriver支持哪些浏览器？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q：“developer-focused”是什么意思？"><span class="nav-number">1.6.</span> <span class="nav-text">Q：“developer focused”是什么意思？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q-如何直接执行Javascript"><span class="nav-number">1.7.</span> <span class="nav-text">Q:如何直接执行Javascript?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q：为什么我执行Javascript-总是返回NULL？"><span class="nav-number">1.8.</span> <span class="nav-text">Q：为什么我执行Javascript,总是返回NULL？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q：使用XPATH定位元素，在有的浏览器可以，有的却不行，为什么？"><span class="nav-number">1.9.</span> <span class="nav-text">Q：使用XPATH定位元素，在有的浏览器可以，有的却不行，为什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q：InternetExplorerDriver不能在Vista上很好的工作。我应该怎么做？"><span class="nav-number">1.10.</span> <span class="nav-text">Q：InternetExplorerDriver不能在Vista上很好的工作。我应该怎么做？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q：除了Java，还支持哪些语言？"><span class="nav-number">1.11.</span> <span class="nav-text">Q：除了Java，还支持哪些语言？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q：如何处理新弹出的浏览器窗口？"><span class="nav-number">1.12.</span> <span class="nav-text">Q：如何处理新弹出的浏览器窗口？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q：WebDriver支持JavaScript弹出的alert和prompts框嘛？"><span class="nav-number">1.13.</span> <span class="nav-text">Q：WebDriver支持JavaScript弹出的alert和prompts框嘛？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q：WebDriver支持文件上传？"><span class="nav-number">1.14.</span> <span class="nav-text">Q：WebDriver支持文件上传？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q：为什么在执行sendKeys后，没有触发onchange事件？"><span class="nav-number">1.15.</span> <span class="nav-text">Q：为什么在执行sendKeys后，没有触发onchange事件？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q：能同时运行多个WebDriver的实例？"><span class="nav-number">1.16.</span> <span class="nav-text">Q：能同时运行多个WebDriver的实例？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q：我需要使用代理。我该如何配置呢？"><span class="nav-number">1.17.</span> <span class="nav-text">Q：我需要使用代理。我该如何配置呢？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q：使用HtmlUnitDriver该如何实现权限验证？"><span class="nav-number">1.18.</span> <span class="nav-text">Q：使用HtmlUnitDriver该如何实现权限验证？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q：WebDriver是线程安全的吗？"><span class="nav-number">1.19.</span> <span class="nav-text">Q：WebDriver是线程安全的吗？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q：如何向一个可编辑的iframe里输入？"><span class="nav-number">1.20.</span> <span class="nav-text">Q：如何向一个可编辑的iframe里输入？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q：在Linux系统上WebDriver无法启动Firefox，并抛出java-net-SocketException。"><span class="nav-number">1.21.</span> <span class="nav-text">Q：在Linux系统上WebDriver无法启动Firefox，并抛出java.net.SocketException。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q-WebDriver找不到元素-页面没有完全加载就返回了。"><span class="nav-number">1.22.</span> <span class="nav-text">Q:WebDriver找不到元素/页面没有完全加载就返回了。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q-如何能触发页面上的任意事件？"><span class="nav-number">1.23.</span> <span class="nav-text">Q:如何能触发页面上的任意事件？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q-为什么不能与隐藏的元素进行交互？"><span class="nav-number">1.24.</span> <span class="nav-text">Q:为什么不能与隐藏的元素进行交互？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q-如何启动一个带插件的Firefox？"><span class="nav-number">1.25.</span> <span class="nav-text">Q:如何启动一个带插件的Firefox？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q-要是WebDriver有…功能，我会更喜欢它。"><span class="nav-number">1.26.</span> <span class="nav-text">Q: 要是WebDriver有…功能，我会更喜欢它。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q-有时Selenium-server启动一个新session的时候要花费很长的时间？"><span class="nav-number">1.27.</span> <span class="nav-text">Q: 有时Selenium server启动一个新session的时候要花费很长的时间？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q-在Selenium-WebDriver的API中哪个与TextPresent对等"><span class="nav-number">1.28.</span> <span class="nav-text">Q: 在Selenium WebDriver的API中哪个与TextPresent对等?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q-socket-lock感觉是一个糟糕的设计。我如何能更好的实现。"><span class="nav-number">1.29.</span> <span class="nav-text">Q:socket lock感觉是一个糟糕的设计。我如何能更好的实现。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q-当我使用Python的send-keys方法时，为什么出现一个UnicodeEncodeError？"><span class="nav-number">1.30.</span> <span class="nav-text">Q: 当我使用Python的send_keys方法时，为什么出现一个UnicodeEncodeError？</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2012 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">申艳超</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">230.5k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: false,
+        appId: 'vFAoofuVWgdHsCv6B6BtqROc-gzGzoHsz',
+        appKey: 'ANWUkmboGiNDNRmf2iVlUIGt',
+        placeholder: '开始你的评论吧!',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("vFAoofuVWgdHsCv6B6BtqROc-gzGzoHsz", "ANWUkmboGiNDNRmf2iVlUIGt");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1562 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/icon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="java,singleton,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="申艳超-博客" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="概要单例模式是最简单的设计模式之一，但是对于Java的开发者来说，它却有很多缺陷。在本月的专栏中，David Geary探讨了单例模式以及在面对多线程（multithreading)、类装载器（classloaders）和序列化(serialization)时如何处理这些缺陷。 单例模式适合于一个类只有一个实例的情况，比如窗口管理器，打印缓冲池和文件系统，它们都是原型的例子。典型的情况是，那些对象">
+<meta name="keywords" content="java,singleton">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式:单例（singleton） in java">
+<meta property="og:url" content="https://www.shenyanchao.cn/blog/2012/11/02/singleton-in-java/index.html">
+<meta property="og:site_name" content="申艳超-博客">
+<meta property="og:description" content="概要单例模式是最简单的设计模式之一，但是对于Java的开发者来说，它却有很多缺陷。在本月的专栏中，David Geary探讨了单例模式以及在面对多线程（multithreading)、类装载器（classloaders）和序列化(serialization)时如何处理这些缺陷。 单例模式适合于一个类只有一个实例的情况，比如窗口管理器，打印缓冲池和文件系统，它们都是原型的例子。典型的情况是，那些对象">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/blog/singleton.jpg">
+<meta property="og:updated_time" content="2019-12-17T11:41:25.754Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="设计模式:单例（singleton） in java">
+<meta name="twitter:description" content="概要单例模式是最简单的设计模式之一，但是对于Java的开发者来说，它却有很多缺陷。在本月的专栏中，David Geary探讨了单例模式以及在面对多线程（multithreading)、类装载器（classloaders）和序列化(serialization)时如何处理这些缺陷。 单例模式适合于一个类只有一个实例的情况，比如窗口管理器，打印缓冲池和文件系统，它们都是原型的例子。典型的情况是，那些对象">
+<meta name="twitter:image" content="https://www.shenyanchao.cn/images/blog/singleton.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.shenyanchao.cn/blog/2012/11/02/singleton-in-java/">
+
+
+
+
+
+  <title>设计模式:单例（singleton） in java | 申艳超-博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?81c9612f8fdceca45435ef7f5404d7b2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">申艳超-博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">搜索引擎、分布式、高性能、NLP、ElasticSearch、Solr</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.shenyanchao.cn/blog/2012/11/02/singleton-in-java/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="申艳超">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/shenyanchao.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="申艳超-博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">设计模式:单例（singleton） in java</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2012-11-02T18:47:00+08:00">
+                2012-11-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/设计模式/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/blog/2012/11/02/singleton-in-java/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/blog/2012/11/02/singleton-in-java/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/blog/2012/11/02/singleton-in-java/" class="leancloud_visitors" data-flag-title="设计模式:单例（singleton） in java">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  5,447
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  22
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h3><p>单例模式是最简单的设计模式之一，但是对于Java的开发者来说，它却有很多缺陷。在本月的专栏中，David Geary探讨了单例模式以及在面对多线程（multithreading)、类装载器（classloaders）和序列化(serialization)时如何处理这些缺陷。</p>
+<p>单例模式适合于一个类只有一个实例的情况，比如窗口管理器，打印缓冲池和文件系统，它们都是原型的例子。典型的情况是，那些对象的类型被遍及一个软件系统的不同对象访问，因此需要一个全局的访问指针，这便是众所周知的单例模式的应用。当然这只有在你确信你不再需要任何多于一个的实例的情况下。<br><a id="more"></a><br>单例模式的用意在于前一段中所关心的。通过单例模式你可以：</p>
+<ul>
+<li>确保一个类只有一个实例被建立</li>
+<li>提供了一个对对象的全局访问指针</li>
+<li>在不影响单例类的客户端的情况下允许将来有多个实例</li>
+</ul>
+<p>尽管单例设计模式如在下面的图中的所显示的一样是最简单的设计模式，但对于粗心的Java开发者来说却呈现出许多缺陷。这篇文章讨论了单例模式并揭示了那些缺陷。</p>
+<h3 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h3><p>在《设计模式》一书中，作者这样来叙述单例模式的：确保一个类只有一个实例并提供一个对它的全局访问指针。<br>下图说明了单例模式的类图。<br><img src="/images/blog/singleton.jpg" alt=""></p>
+<p>正如你在上图中所看到的，这不是单例模式的完整部分。此图中单例类保持了一个对唯一的单例实例的静态引用，并且会从静态getInstance()方法中返回对那个实例的引用。<br>例1显示了一个经典的单例模式的实现。<br>例1.经典的单例模式</p>
+<pre><code>public class ClassicSingleton {
+       private static ClassicSingleton instance = null;
+
+       protected ClassicSingleton() {
+          // Exists only to defeat instantiation.
+       }
+       public static ClassicSingleton getInstance() {
+          if(instance == null) {
+             instance = new ClassicSingleton();
+          }
+          return instance;
+       }
+}
+</code></pre><p>在例1中的单例模式的实现很容易理解。ClassicSingleton类保持了一个对单独的单例实例的静态引用，并且从静态方法getInstance()中返回那个引用。<br>关于ClassicSingleton类，有几个让我们感兴趣的地方。<br>首先，ClassicSingleton使用了一个众所周知的懒汉式实例化去创建那个单例类的引用;结果，这个单例类的实例直到getInstance()方法被第一次调用时才被创建。这种技巧可以确保单例类的实例只有在需要时才被建立出来。其次，注意ClassicSingleton实现了一个protected的构造方法，这样客户端不能直接实例化一个ClassicSingleton类的实例。然而，你会惊奇的发现下面的代码完全合法：</p>
+<pre><code>public class SingletonInstantiator {
+      public SingletonInstantiator() {
+           ClassicSingleton instance = ClassicSingleton.getInstance();
+        ClassicSingleton anotherInstance =  new ClassicSingleton();
+           ...
+          }
+}
+</code></pre><p>前面这个代码片段为何能在没有继承ClassicSingleton并且ClassicSingleton类的构造方法是protected的情况下创建其实例？<br>答案是protected的构造方法可以被其子类以及在同一个包中的其它类调用。因为ClassicSingleton和SingletonInstantiator位于相同的包（缺省的包），所以SingletonInstantiator方法能创建ClasicSingleton的实例。<br>这种情况下有两种解决方案：一是你可以使ClassicSingleton的构造方法变化私有的（private）这样只有ClassicSingleton的方法能调用它;然而这也意味着ClassicSingleton不能有子类。有时这是一种很合意的解决方法，如果确实如此，那声明你的单例类为final是一个好主意，这样意图明确，并且让编译器去使用一些性能优化选项。另一种解决方法是把你的单例类放到一个外在的包中，以便在其它包中的类（包括缺省的包）无法实例化一个单例类。</p>
+<p>关于ClassicSingleton的第三点感兴趣的地方是，如果单例由不同的类装载器装入，那便有可能存在多个单例类的实例。假定不是远端存取，例如一些servlet容器对每个servlet使用完全不同的类装载器，这样的话如果有两个servlet访问一个单例类，它们就都会有各自的实例。<br>第四点，如果ClasicSingleton实现了java.io.Serializable接口，那么这个类的实例就可能被序列化和复原。不管怎样，如果你序列化一个单例类的对象，接下来复原多个那个对象，那你就会有多个单例类的实例。<br>最后也许是最重要的一点，就是例1中的ClassicSingleton类不是线程安全的。如果两个线程，我们称它们为线程1和线程2，在同一时间调用ClassicSingleton.getInstance()方法，如果线程1先进入if块，然后线程2进行控制，那么就会有ClassicSingleton的两个的实例被创建。</p>
+<p>正如你从前面的讨论中所看到的，尽管单例模式是最简单的设计模式之一，在Java中实现它也是决非想象的那么简单。这篇文章接下来会揭示Java规范对单例模式进行的考虑，但是首先让我们近水楼台的看看你如何才能测试你的单例类。</p>
+<p><strong>测试单例模式</strong></p>
+<p>接下来，我使用与log4j相对应的JUnit来测试单例类，它会贯穿在这篇文章余下的部分。如果你对JUnit或log4j不很熟悉，请参考相关资源。</p>
+<p>例2是一个用JUnit测试例1的单例模式的案例：<br>例2.一个单例模式的案例</p>
+<pre><code>import org.apache.log4j.Logger;
+import junit.framework.Assert;
+import junit.framework.TestCase;
+
+public class SingletonTest extends TestCase {
+       private ClassicSingleton sone = null, stwo = null;
+       private static Logger logger = Logger.getRootLogger();
+
+       public SingletonTest(String name) {
+          super(name);
+       }
+       public void setUp() {
+          logger.info(&quot;getting singleton...&quot;);
+          sone = ClassicSingleton.getInstance();
+          logger.info(&quot;...got singleton: &quot; + sone);
+
+          logger.info(&quot;getting singleton...&quot;);
+          stwo = ClassicSingleton.getInstance();
+          logger.info(&quot;...got singleton: &quot; + stwo);
+       }
+       public void testUnique() {
+          logger.info(&quot;checking singletons for equality&quot;);
+          Assert.assertEquals(true, sone == stwo);
+       }
+}
+</code></pre><p>例2两次调用ClassicSingleton.getInstance()，并且把返回的引用存储在成员变量中。方法testUnique()会检查这些引用看它们是否相同。例3是这个测试案例的输出：<br>例3.是这个测试案例的输出<br>Buildfile: build.xml</p>
+<p>init:<br>     [echo] Build 20030414 (14-04-2003 03:08)</p>
+<p>compile:</p>
+<p>run-test-text:<br>     [java] .INFO main: [b]getting singleton…[/b]<br>     [java] INFO main: [b]created singleton:[/b] Singleton@e86f41<br>     [java] INFO main: …got singleton: Singleton@e86f41<br>     [java] INFO main: [b]getting singleton…[/b]<br>     [java] INFO main: …got singleton: Singleton@e86f41<br>     [java] INFO main: checking singletons for equality</p>
+<pre><code>[java] Time: 0.032
+
+[java] OK (1 test)
+</code></pre><p>正如前面的清单所示，例2的简单测试顺利通过—-通过ClassicSingleton.getInstance()获得的两个单例类的引用确实相同;然而，你要知道这些引用是在单线程中得到的。下面的部分着重于用多线程测试单例类。</p>
+<p>多线程因素的考虑</p>
+<p>在例1中的ClassicSingleton.getInstance()方法由于下面的代码而不是线程安全的：</p>
+<pre><code>if(instance == null) {
+       instance = new Singleton();
+ }
+</code></pre><p>如果一个线程在第二行的赋值语句发生之前切换，那么成员变量instance仍然是null，然后另一个线程可能接下来进入到if块中。在这种情况下，两个不同的单例类实例就被创建。不幸的是这种假定很少发生，这样这种假定也很难在测试期间出现（译注：在这可能是作者对很少出现这种情况而导致无法测试从而使人们放松警惕而感到叹惜）。为了演示这个线程轮换，我得重新实现例1中的那个类。例4就是修订后的单例类：<br>例4.人为安排的方式</p>
+<pre><code>import org.apache.log4j.Logger;
+public class Singleton {
+    private static Singleton singleton = null;
+    private static Logger logger = Logger.getRootLogger();
+    private static boolean firstThread = true;
+
+      protected Singleton() {
+        // Exists only to defeat instantiation.
+    }
+    public static Singleton getInstance() {
+        if(singleton == null) {
+            simulateRandomActivity();
+            singleton = new Singleton();
+     }
+     logger.info(&quot;created singleton: &quot; + singleton);
+     return singleton;
+  }
+private static void simulateRandomActivity() {
+     try {
+        if(firstThread) {
+               firstThread = false;
+              logger.info(&quot;sleeping...&quot;);
+
+               // This nap should give the second thread enough time
+               // to get by the first thread.
+             Thread.currentThread().sleep(50);
+           }
+         }
+         catch(InterruptedException ex) {
+            logger.warn(&quot;Sleep interrupted&quot;);
+         }
+      }
+}
+</code></pre><p>除了在这个清单中的单例类强制使用了一个多线程错误处理，例4类似于例1中的单例类。在getInstance()方法第一次被调用时，调用这个方法的线程会休眠50毫秒以便另外的线程也有时间调用getInstance()并创建一个新的单例类实例。当休眠的线程觉醒时，它也会创建一个新的单例类实例，这样我们就有两个单例类实例。尽管例4是人为如此的，但它却模拟了第一个线程调用了getInstance()并在没有完成时被切换的真实情形。<br>例5测试了例4的单例类：<br>例5.失败的测试</p>
+<pre><code>import org.apache.log4j.Logger;
+import junit.framework.Assert;
+import junit.framework.TestCase;
+
+public class SingletonTest extends TestCase {
+       private static Logger logger = Logger.getRootLogger();
+       private static Singleton singleton = null;
+
+   public SingletonTest(String name) {
+      super(name);
+   }
+   public void setUp() {
+      singleton = null;
+   }
+  public void testUnique() throws InterruptedException {
+  // Both threads call Singleton.getInstance().
+  Thread threadOne = new Thread(new SingletonTestRunnable()),
+         threadTwo = new Thread(new SingletonTestRunnable());
+
+  threadOne.start();
+  threadTwo.start();
+
+  threadOne.join();
+  threadTwo.join();
+   }
+   private static class SingletonTestRunnable implements Runnable {
+  public void run() {
+     // Get a reference to the singleton.
+     Singleton s = Singleton.getInstance();
+
+     // Protect singleton member variable from
+     // multithreaded access.
+     synchronized(SingletonTest.class) {
+        if(singleton == null) // If local reference is null...
+           singleton = s;     // ...set it to the singleton
+         }
+     // Local reference must be equal to the one and
+     // only instance of Singleton; otherwise, we have two
+              // Singleton instances.
+     Assert.assertEquals(true, s == singleton);
+      }
+       }
+}
+</code></pre><p>例5的测试案例创建两个线程，然后各自启动，等待完成。这个案例保持了一个对单例类的静态引用，每个线程都会调用Singleton.getInstance()。如果这个静态成员变量没有被设置，那么第一个线程就会将它设为通过调用getInstance()而得到的引用，然后这个静态变量会与一个局部变量比较是否相等。<br>在这个测试案例运行时会发生一系列的事情：第一个线程调用getInstance()，进入if块，然后休眠;接着，第二个线程也调用getInstance()并且创建了一个单例类的实例。第二个线程会设置这个静态成员变量为它所创建的引用。第二个线程检查这个静态成员变量与一个局部备份的相等性。然后测试通过。当第一个线程觉醒时，它也会创建一个单例类的实例，并且它不会设置那个静态成员变量（因为第二个线程已经设置过了），所以那个静态变量与那个局部变量脱离同步，相等性测试即告失败。例6列出了例5的输出：<br>例6.例5的输出</p>
+<pre><code>Buildfile: build.xml
+init:
+     [echo] Build 20030414 (14-04-2003 03:06)
+compile:
+run-test-text:
+INFO Thread-1: sleeping...
+INFO Thread-2: created singleton: Singleton@7e5cbd
+INFO Thread-1: created singleton: Singleton@704ebb
+junit.framework.AssertionFailedError: expected: but was:
+       at junit.framework.Assert.fail(Assert.java:47)
+       at junit.framework.Assert.failNotEquals(Assert.java:282)
+       at junit.framework.Assert.assertEquals(Assert.java:64)
+       at junit.framework.Assert.assertEquals(Assert.java:149)
+       at junit.framework.Assert.assertEquals(Assert.java:155)
+       at SingletonTest$SingletonTestRunnable.run(Unknown Source)
+       at java.lang.Thread.run(Thread.java:554)
+     [java] .
+     [java] Time: 0.577
+
+     [java] OK (1 test)
+</code></pre><p>到现在为止我们已经知道例4不是线程安全的，那就让我们看看如何修正它。</p>
+<p><strong>同步</strong></p>
+<p>要使例4的单例类为线程安全的很容易—-只要像下面一个同步化getInstance()方法：</p>
+<pre><code>public synchronized static Singleton getInstance() {
+       if(singleton == null) {
+          simulateRandomActivity();
+          singleton = new Singleton();
+       }
+       logger.info(&quot;created singleton: &quot; + singleton);
+       return singleton;
+}
+</code></pre><p>在同步化getInstance()方法后，我们就可以得到例5的测试案例返回的下面的结果：</p>
+<pre><code>Buildfile: build.xml
+
+init:
+     [echo] Build 20030414 (14-04-2003 03:15)
+
+compile:
+    [javac] Compiling 2 source files
+
+run-test-text:
+INFO Thread-1: sleeping...
+INFO Thread-1: created singleton: Singleton@ef577d
+INFO Thread-2: created singleton: Singleton@ef577d
+     [java] .
+     [java] Time: 0.513
+
+     [java] OK (1 test)
+</code></pre><p>这此，这个测试案例工作正常，并且多线程的烦恼也被解决;然而，机敏的读者可能会认识到getInstance()方法只需要在第一次被调用时同步。因为同步的性能开销很昂贵（同步方法比非同步方法能降低到100次左右），或许我们可以引入一种性能改进方法，它只同步单例类的getInstance()方法中的赋值语句。</p>
+<p><strong>一种性能改进的方法</strong></p>
+<p>寻找一种性能改进方法时，你可能会选择像下面这样重写getInstance()方法：</p>
+<pre><code>public static Singleton getInstance() {
+       if(singleton == null) {
+          synchronized(Singleton.class) {
+             singleton = new Singleton();
+          }
+       }
+   return singleton;
+}
+</code></pre><p>这个代码片段只同步了关键的代码，而不是同步整个方法。然而这段代码却不是线程安全的。考虑一下下面的假定：线程1进入同步块，并且在它给singleton成员变量赋值之前线程1被切换。接着另一个线程进入if块。第二个线程将等待直到第一个线程完成，并且仍然会得到两个不同的单例类实例。有修复这个问题的方法吗？请读下去。</p>
+<p><strong>双重加锁检查</strong></p>
+<p>初看上去，双重加锁检查似乎是一种使懒汉式实例化为线程安全的技术。下面的代码片段展示了这种技术：</p>
+<pre><code>public static Singleton getInstance() {
+      if(singleton == null) {
+         synchronized(Singleton.class) {
+               if(singleton == null) {
+                 singleton = new Singleton();
+               }
+        }
+      }
+      return singleton;
+}
+</code></pre><p>如果两个线程同时访问getInstance()方法会发生什么？想像一下线程1进行同步块马上又被切换。接着，第二个线程进入if 块。当线程1退出同步块时，线程2会重新检查看是否singleton实例仍然为null。因为线程1设置了singleton成员变量，所以线程2的第二次检查会失败，第二个单例类实例也就不会被创建。似乎就是如此。<br>不幸的是，双重加锁检查不会保证正常工作，因为编译器会在Singleton的构造方法被调用之前随意给singleton赋一个值。如果在singleton引用被赋值之后而被初始化之前线程1被切换，线程2就会被返回一个对未初始化的单例类实例的引用。</p>
+<p><strong>一个改进的线程安全的单例模式实现</strong></p>
+<p>例7列出了一个简单、快速而又是线程安全的单例模式实现：<br>例7.一个简单的单例类</p>
+<pre><code>public class Singleton {
+       public final static Singleton INSTANCE = new Singleton();
+       private Singleton() {
+         // Exists only to defeat instantiation.
+      }
+}
+</code></pre><p>这段代码是线程安全的是因为静态成员变量一定会在类被第一次访问时被创建。你得到了一个自动使用了懒汉式实例化的线程安全的实现;你应该这样使用它：</p>
+<pre><code>Singleton singleton = Singleton.INSTANCE;
+singleton.dothis();
+singleton.dothat();
+...
+</code></pre><p>当然万事并不完美，前面的Singleton只是一个折衷的方案;如果你使用那个实现，你就无法改变它以便后来你可能想要允许多个单例类的实例。用一种更折哀的单例模式实现(通过一个getInstance()方法获得实例)你可以改变这个方法以便返回一个唯一的实例或者是数百个实例中的一个．你不能用一个公开且是静态的（public static)成员变量这样做．</p>
+<p>你可以安全的使用例７的单例模式实现或者是例１的带一个同步的getInstance()方法的实现．然而，我们必须要研究另一个问题：你必须在编译期指定这个单例类，这样就不是很灵活．一个单例类的注册表会让我们在运行期指定一个单例类．</p>
+<p>使用注册表<br>使用一个单例类注册表可以：</p>
+<p><strong>在运行期指定单例类</strong></p>
+<p>防止产生多个单例类子类的实例<br>在例8的单例类中，保持了一个通过类名进行注册的单例类注册表：<br>例8 带注册表的单例类</p>
+<pre><code>import java.util.HashMap;
+import org.apache.log4j.Logger;
+
+public class Singleton {
+       private static HashMap map = new HashMap();
+       private static Logger logger = Logger.getRootLogger();
+
+       protected Singleton() {
+          // Exists only to thwart instantiation
+       }
+   public static synchronized Singleton getInstance(String classname) {
+      if(classname == null) throw new IllegalArgumentException(&quot;Illegal classname&quot;);
+         Singleton singleton = (Singleton)map.get(classname);
+
+      if(singleton != null) {
+         logger.info(&quot;got singleton from map: &quot; + singleton);
+         return singleton;
+      }
+      if(classname.equals(&quot;SingeltonSubclass_One&quot;))
+        singleton = new SingletonSubclass_One();
+    else if(classname.equals(&quot;SingeltonSubclass_Two&quot;))
+        singleton = new SingletonSubclass_Two();
+
+      map.put(classname, singleton);
+      logger.info(&quot;created singleton: &quot; + singleton);
+      return singleton;
+       }
+       // Assume functionality follows that&apos;s attractive to inherit
+}
+</code></pre><p>这段代码的基类首先创建出子类的实例，然后把它们存储在一个Map中。但是基类却得付出很高的代价因为你必须为每一个子类替换它的getInstance()方法。幸运的是我们可以使用反射处理这个问题。</p>
+<p><strong>使用反射</strong></p>
+<p>在例9的带注册表的单例类中，使用反射来实例化一个特殊的类的对象。与例8相对的是通过这种实现，Singleton.getInstance()方法不需要在每个被实现的子类中重写了。<br>例9 使用反射实例化单例类</p>
+<pre><code>import java.util.HashMap;
+import org.apache.log4j.Logger;
+
+public class Singleton {
+       private static HashMap map = new HashMap();
+       private static Logger logger = Logger.getRootLogger();
+
+   protected Singleton() {
+  // Exists only to thwart instantiation
+   }
+   public static synchronized Singleton getInstance(String classname) {
+      Singleton singleton = (Singleton)map.get(classname);
+
+      if(singleton != null) {
+         logger.info(&quot;got singleton from map: &quot; + singleton);
+         return singleton;
+      }
+      try {
+     singleton = (Singleton)Class.forName(classname).newInstance();
+      }
+      catch(ClassNotFoundException cnf) {
+     logger.fatal(&quot;Couldn&apos;t find class &quot; + classname);
+      }
+      catch(InstantiationException ie) {
+         logger.fatal(&quot;Couldn&apos;t instantiate an object of type &quot; + classname);
+      }
+      catch(IllegalAccessException ia) {
+         logger.fatal(&quot;Couldn&apos;t access class &quot; + classname);
+      }
+      map.put(classname, singleton);
+      logger.info(&quot;created singleton: &quot; + singleton);
+
+      return singleton;
+       }
+}
+</code></pre><p>关于单例类的注册表应该说明的是：它们应该被封装在它们自己的类中以便最大限度的进行复用。</p>
+<p><strong>封装注册表</strong></p>
+<p>例10列出了一个单例注册表类。<br>例10 一个SingletonRegistry类</p>
+<pre><code>import java.util.HashMap;
+import org.apache.log4j.Logger;
+
+public class SingletonRegistry {
+       public static SingletonRegistry REGISTRY = new SingletonRegistry();
+
+       private static HashMap map = new HashMap();
+       private static Logger logger = Logger.getRootLogger();
+
+       protected SingletonRegistry() {
+          // Exists to defeat instantiation
+       }
+       public static synchronized Object getInstance(String classname) {
+          Object singleton = map.get(classname);
+
+          if(singleton != null) {
+             return singleton;
+          }
+      try {
+         singleton = Class.forName(classname).newInstance();
+         logger.info(&quot;created singleton: &quot; + singleton);
+      }
+      catch(ClassNotFoundException cnf) {
+         logger.fatal(&quot;Couldn&apos;t find class &quot; + classname);
+      }
+      catch(InstantiationException ie) {
+         logger.fatal(&quot;Couldn&apos;t instantiate an object of type &quot; +
+                   classname);
+      }
+      catch(IllegalAccessException ia) {
+         logger.fatal(&quot;Couldn&apos;t access class &quot; + classname);
+      }
+      map.put(classname, singleton);
+      return singleton;
+       }
+}
+</code></pre><p>注意我是把SingletonRegistry类作为一个单例模式实现的。我也通用化了这个注册表以便它能存储和取回任何类型的对象。例11显示了的Singleton类使用了这个注册表。<br>例11 使用了一个封装的注册表的Singleton类</p>
+<pre><code>import java.util.HashMap;
+import org.apache.log4j.Logger;
+
+public class Singleton {
+
+       protected Singleton() {
+          // Exists only to thwart instantiation.
+       }
+       public static Singleton getInstance() {
+          return (Singleton)SingletonRegistry.REGISTRY.getInstance(classname);
+       }
+}
+</code></pre><p>上面的Singleton类使用那个注册表的唯一实例通过类名取得单例对象。<br>现在我们已经知道如何实现线程安全的单例类和如何使用一个注册表去在运行期指定单例类名，接着让我们考查一下如何安排类载入器和处理序列化。</p>
+<p><strong>Classloaders</strong></p>
+<p>在许多情况下，使用多个类载入器是很普通的–包括servlet容器–所以不管你在实现你的单例类时是多么小心你都最终可以得到多个单例类的实例。如果你想要确保你的单例类只被同一个的类载入器装入，那你就必须自己指定这个类载入器;例如：</p>
+<pre><code>private static Class getClass(String classname)
+                                     throws ClassNotFoundException {
+     ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+
+      if(classLoader == null)
+     classLoader = Singleton.class.getClassLoader();
+
+      return (classLoader.loadClass(classname));
+       }
+}
+</code></pre><p>这个方法会尝试把当前的线程与那个类载入器相关联;如果classloader为null，这个方法会使用与装入单例类基类的那个类载入器。这个方法可以用Class.forName()代替。</p>
+<p><strong>序列化</strong></p>
+<p>如果你序列化一个单例类，然后两次重构它，那么你就会得到那个单例类的两个实例，除非你实现readResolve()方法，像下面这样：<br>例12 一个可序列化的单例类</p>
+<pre><code>import org.apache.log4j.Logger;
+
+public class Singleton implements java.io.Serializable {
+       public static Singleton INSTANCE = new Singleton();
+
+       protected Singleton() {
+          // Exists only to thwart instantiation.
+       }
+       private Object readResolve() {
+        return INSTANCE;
+      }
+   }
+</code></pre><p>上面的单例类实现从readResolve()方法中返回一个唯一的实例;这样无论Singleton类何时被重构，它都只会返回那个相同的单例类实例。<br>例13测试了例12的单例类：<br>例13 测试一个可序列化的单例类</p>
+<pre><code>import java.io.*;
+import org.apache.log4j.Logger;
+import junit.framework.Assert;
+import junit.framework.TestCase;
+
+public class SingletonTest extends TestCase {
+       private Singleton sone = null, stwo = null;
+       private static Logger logger = Logger.getRootLogger();
+
+      public SingletonTest(String name) {
+          super(name);
+       }
+       public void setUp() {
+          sone = Singleton.INSTANCE;
+          stwo = Singleton.INSTANCE;
+       }
+       public void testSerialize() {
+          logger.info(&quot;testing singleton serialization...&quot;);
+        [b]      writeSingleton();
+          Singleton s1 = readSingleton();
+          Singleton s2 = readSingleton();
+          Assert.assertEquals(true, s1 == s2);[/b]   }
+           private void writeSingleton() {
+          try {
+             FileOutputStream fos = new FileOutputStream(&quot;serializedSingleton&quot;);
+             ObjectOutputStream oos = new ObjectOutputStream(fos);
+             Singleton s = Singleton.INSTANCE;
+
+             oos.writeObject(Singleton.INSTANCE);
+             oos.flush();
+          }
+          catch(NotSerializableException se) {
+             logger.fatal(&quot;Not Serializable Exception: &quot; + se.getMessage());
+          }
+          catch(IOException iox) {
+             logger.fatal(&quot;IO Exception: &quot; + iox.getMessage());
+          }
+       }
+       private Singleton readSingleton() {
+          Singleton s = null;
+
+          try {
+             FileInputStream fis = new FileInputStream(&quot;serializedSingleton&quot;);
+             ObjectInputStream ois = new ObjectInputStream(fis);
+             s = (Singleton)ois.readObject();
+          }
+          catch(ClassNotFoundException cnf) {
+             logger.fatal(&quot;Class Not Found Exception: &quot; + cnf.getMessage());
+          }
+          catch(NotSerializableException se) {
+             logger.fatal(&quot;Not Serializable Exception: &quot; + se.getMessage());
+          }
+          catch(IOException iox) {
+             logger.fatal(&quot;IO Exception: &quot; + iox.getMessage());
+          }
+          return s;
+       }
+       public void testUnique() {
+          logger.info(&quot;testing singleton uniqueness...&quot;);
+          Singleton another = new Singleton();
+
+          logger.info(&quot;checking singletons for equality&quot;);
+          Assert.assertEquals(true, sone == stwo);
+       }
+}
+</code></pre><p>前面这个测试案例序列化例12中的单例类，并且两次重构它。然后这个测试案例检查看是否被重构的单例类实例是同一个对象。下面是测试案例的输出：</p>
+<pre><code>Buildfile: build.xml
+
+init:
+     [echo] Build 20030422 (22-04-2003 11:32)
+
+compile:
+
+run-test-text:
+     [java] .INFO main: testing singleton serialization...
+     [java] .INFO main: testing singleton uniqueness...
+     [java] INFO main: checking singletons for equality
+
+     [java] Time: 0.1
+
+     [java] OK (2 tests)
+</code></pre><p><strong>单例模式结束语</strong></p>
+<p>单例模式简单却容易让人迷惑，特别是对于Java的开发者来说。在这篇文章中，作者演示了Java开发者在顾及多线程、类载入器和序列化情况如何实现单例模式。作者也展示了你怎样才能实现一个单例类的注册表，以便能够在运行期指定单例类。</p>
+<p>原文：<a href="http://calmness.iteye.com/blog/60179" target="_blank" rel="noopener">http://calmness.iteye.com/blog/60179</a></p>
+
+      
+    </div>
+    <ul class="popular-posts"><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2014/03/27/java-encode-error-again/" title="又见Java乱码" rel="bookmark">又见Java乱码</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2018/10/29/mat-for-java/" title="利用MAT来分析JAVA内存泄露" rel="bookmark">利用MAT来分析JAVA内存泄露</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2012/11/02/mediator-in-java/" title="设计模式：中介者（mediator） in java" rel="bookmark">设计模式：中介者（mediator） in java</a></h3></div></li></ul>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/qrcode_shenyanchao.jpg" alt="申艳超 wechat" style="width: 200px; max-width: 100%;">
+    <div>欢迎关注微信订阅号~</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持是我原创的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="申艳超 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="申艳超 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    申艳超
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.shenyanchao.cn/blog/2012/11/02/singleton-in-java/" title="设计模式:单例（singleton） in java">https://www.shenyanchao.cn/blog/2012/11/02/singleton-in-java/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+            <a href="/tags/singleton/" rel="tag"># singleton</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2012/11/02/how-webdriver-works/" rel="next" title="Selenium WebDriver 工作原理">
+                <i class="fa fa-chevron-left"></i> Selenium WebDriver 工作原理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2012/11/02/bridge-in-java/" rel="prev" title="设计模式：桥接(bridge) in java">
+                设计模式：桥接(bridge) in java <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/shenyanchao.jpeg" alt="申艳超">
+            
+              <p class="site-author-name" itemprop="name">申艳超</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">123</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">229</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/blueshen" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zhiyi.shen@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#概要"><span class="nav-number">1.</span> <span class="nav-text">概要</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单例模式"><span class="nav-number">2.</span> <span class="nav-text">单例模式</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2012 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">申艳超</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">230.5k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: false,
+        appId: 'vFAoofuVWgdHsCv6B6BtqROc-gzGzoHsz',
+        appKey: 'ANWUkmboGiNDNRmf2iVlUIGt',
+        placeholder: '开始你的评论吧!',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("vFAoofuVWgdHsCv6B6BtqROc-gzGzoHsz", "ANWUkmboGiNDNRmf2iVlUIGt");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

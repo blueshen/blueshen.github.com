@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/icon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="lucene,FST,FSM,FSA,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="申艳超-博客" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="搜索引擎为什么能查询速度那么快？核心是在于如何快速的依据查询词快速的查找到所有的相关文档，这也是倒排索引（Inverted Index）的核心思想。那么如何设计一个快速的(常量，或者1)定位词典的数据结构就显得尤其重要。简单来说，我们可以采用HashMap， TRIE， Binary Search Tree， Tenary Search Tree等各种数据结构来实现。 那么开源的搜索引擎包Luce">
+<meta name="keywords" content="lucene,FST,FSM,FSA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于Lucene的词典FST深入剖析">
+<meta property="og:url" content="https://www.shenyanchao.cn/blog/2018/12/04/lucene-fst/index.html">
+<meta property="og:site_name" content="申艳超-博客">
+<meta property="og:description" content="搜索引擎为什么能查询速度那么快？核心是在于如何快速的依据查询词快速的查找到所有的相关文档，这也是倒排索引（Inverted Index）的核心思想。那么如何设计一个快速的(常量，或者1)定位词典的数据结构就显得尤其重要。简单来说，我们可以采用HashMap， TRIE， Binary Search Tree， Tenary Search Tree等各种数据结构来实现。 那么开源的搜索引擎包Luce">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/lucene-fst/fst/fst-cauchy.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/lucene-fst/fst/fst-set1.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/lucene-fst/fst/fst-set2.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/lucene-fst/fst/fst-set3.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/lucene-fst/fst/fst-set3-suffixes.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/lucene-fst/fst/fst-set3.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/lucene-fst/fst/fst-map1.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/lucene-fst/fst/fst-map2.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/lucene-fst/fst/fst-map3.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/lucene-fst/fst/fst-map2-suffixes.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/lucene-fst/fst/fst-days3.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/lucene-fst/fst/fst-days3-trie.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/lucene-fst/fst/fst-days3-fst-1.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/lucene-fst/fst/fst-days3-fst-1-alt.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/lucene-fst/fst/fst-days3-fst-2.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/lucene-fst/fst/fst-days3-fst-3.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/lucene-fst/fst/fst-days3-fst-4.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/lucene-fst/fst/fst-days3-fst-5.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/lucene-fst/fst/lucene-fst-builder.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/lucene-fst/fst/lucene-fst-outputs.png">
+<meta property="og:updated_time" content="2019-12-17T11:41:25.745Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于Lucene的词典FST深入剖析">
+<meta name="twitter:description" content="搜索引擎为什么能查询速度那么快？核心是在于如何快速的依据查询词快速的查找到所有的相关文档，这也是倒排索引（Inverted Index）的核心思想。那么如何设计一个快速的(常量，或者1)定位词典的数据结构就显得尤其重要。简单来说，我们可以采用HashMap， TRIE， Binary Search Tree， Tenary Search Tree等各种数据结构来实现。 那么开源的搜索引擎包Luce">
+<meta name="twitter:image" content="https://www.shenyanchao.cn/images/lucene-fst/fst/fst-cauchy.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.shenyanchao.cn/blog/2018/12/04/lucene-fst/">
+
+
+
+
+
+  <title>关于Lucene的词典FST深入剖析 | 申艳超-博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?81c9612f8fdceca45435ef7f5404d7b2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">申艳超-博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">搜索引擎、分布式、高性能、NLP、ElasticSearch、Solr</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.shenyanchao.cn/blog/2018/12/04/lucene-fst/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="申艳超">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/shenyanchao.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="申艳超-博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">关于Lucene的词典FST深入剖析</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-04T12:35:25+08:00">
+                2018-12-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/lucene/" itemprop="url" rel="index">
+                    <span itemprop="name">lucene</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/blog/2018/12/04/lucene-fst/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/blog/2018/12/04/lucene-fst/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/blog/2018/12/04/lucene-fst/" class="leancloud_visitors" data-flag-title="关于Lucene的词典FST深入剖析">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3,810
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  15
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="搜索引擎为什么能查询速度那么快？"><a href="#搜索引擎为什么能查询速度那么快？" class="headerlink" title="搜索引擎为什么能查询速度那么快？"></a>搜索引擎为什么能查询速度那么快？</h3><p>核心是在于如何快速的依据<strong>查询词</strong>快速的查找到所有的相关文档，这也是<strong>倒排索引（Inverted Index）</strong>的核心思想。那么如何设计一个快速的(常量，或者1)定位词典的数据结构就显得尤其重要。简单来说，我们可以采用HashMap， TRIE， Binary Search Tree， Tenary Search Tree等各种数据结构来实现。</p>
+<p>那么开源的搜索引擎包Lucene是怎么来设计的呢？Lucene采用了一种称为FST（Finite State Transducer）的结构来构建词典，这个结构保证了时间和空间复杂度的均衡，是Lucene的核心功能之一。</p>
+<h3 id="关于FST（Finite-State-Transducer）"><a href="#关于FST（Finite-State-Transducer）" class="headerlink" title="关于FST（Finite State Transducer）"></a>关于FST（Finite State Transducer）</h3><p>FST类似一种TRIE树。</p>
+<h4 id="使用FSM-Finite-State-Machines-作为数据结构"><a href="#使用FSM-Finite-State-Machines-作为数据结构" class="headerlink" title="使用FSM(Finite State Machines)作为数据结构"></a>使用FSM(Finite State Machines)作为数据结构</h4><p><strong>FSM(Finite State Machines)有限状态机</strong>: 表示有限个状态（State）集合以及这些状态之间<strong>转移</strong>和动作的数学模型。其中一个状态被标记为<strong>开始状态</strong>，0个或更多的状态被标记为<strong>final状态</strong>。<br>一个FSM同一时间只处于1个状态。FSM很通用，可以用来表示多种处理过程，下面的FSM描述了《小猫咪的一天》。   </p>
+<p><img src="/images/lucene-fst/fst/fst-cauchy.png" alt="fsm 小猫咪的一天"></p>
+<p>其中“睡觉”或者“吃饭”代表的是<strong>状态</strong>,而“提供食物”或者“东西移动”则代表了<strong>转移</strong>。图中这个FSM是对小猫活动的一个抽象（这里并没有刻意写开始状态或者final状态），小猫咪不能同时的即处于“玩耍”又处于“睡觉”状态，并且从一个状态到下一个状态的转换只有一个输入。“睡觉”状态并不知道是从什么状态转换过来的，可能是“玩耍”，也可能是”猫砂窝”。</p>
+<p>如果《小猫咪的一天》这个FSM接收以下的输入:  </p>
+<ul>
+<li>提供食物</li>
+<li>有大声音</li>
+<li>安静</li>
+<li>消化食物</li>
+</ul>
+<p>那么我们会明确的知道，小猫咪会这样依次变化状态： 睡觉-&gt;吃饭-&gt;躲藏-&gt;吃饭-&gt;猫砂窝. </p>
+<a id="more"></a>
+<p>以上只是一个现实中的例子，下面我们来看如何实现一个Ordered Sets,和Map结构。</p>
+<h4 id="Ordered-Sets"><a href="#Ordered-Sets" class="headerlink" title="Ordered Sets"></a>Ordered Sets</h4><p>Ordered Sets是一个有序集合。通常一个有序集合可以用二叉树、B树实现。无序的集合使用hash table来实现. 这里，我们用一个<strong>确定无环有限状态接收机（Deterministric acyclic finite state acceptor, FSA）</strong>来实现。</p>
+<p>FSA是一个FSM(有限状态机)的一种，特性如下:</p>
+<ul>
+<li>确定：意味着指定任何一个状态，只可能最多有一个转移可以访问到。</li>
+<li>无环： 不可能重复遍历同一个状态</li>
+<li>接收机：有限状态机只“接受”特定的输入序列，并终止于final状态。</li>
+</ul>
+<p>下面来看，我们如何来表示只有一个key：”<strong>jul</strong>“ 的集合。FSA是这样的：   </p>
+<p><img src="/images/lucene-fst/fst/fst-set1.png" alt="fsm"></p>
+<p>当查询这个FSA是否包含“jul”的时候，按字符依序输入。</p>
+<ul>
+<li>输入j，FSA从0-&gt;1</li>
+<li>输入u, FSA从1-&gt;2</li>
+<li>输入l，FSA从2-&gt;3</li>
+</ul>
+<p>这个时候，FSA处于final状态3，所以“jul”是在这个集合的。 </p>
+<p>设想一下如果输入“jun”，在状态2的时候<strong>无法移动</strong>了，就知道不在这个集合里了。<br>设想如何输入“ju”, 在状态2的时候，已经没有输入了。而状态2并不是<strong>final状态</strong>，所以也不在这个集合里。<br>值得指出的是，查找这个key是否在集合内的时间复杂度，取决于key的长度，而不是集合的大小。<br>​<br>现在往FSA里再加一个key.  FSA此时包含keys:”jul”和“mar”。    </p>
+<p><img src="/images/lucene-fst/fst/fst-set2.png" alt="fsm"></p>
+<p>start状态0此时有了2个转移：<strong>j</strong>和<strong>m</strong>。因此，输入key:”mar”,首先会跟随m来转移。 final状态是“jul”和“mar”<strong>共享</strong>的。这使得我们能用<strong>更少的空间</strong>来表示<strong>更多的信息</strong>。 </p>
+<p>当我们在这个FSA里加入“jun”，那么它和“jul”有共同的前缀“ju”: </p>
+<p><img src="/images/lucene-fst/fst/fst-set3.png" alt="fsm"></p>
+<p>这里变化很小，没有增加新的状态，只是多了一个转移而已。</p>
+<p>下面来看一下由“october”，“november”,”december”构成的FSA.</p>
+<p><img src="/images/lucene-fst/fst/fst-set3-suffixes.png" alt="fsm"></p>
+<p>它们有共同的后缀“ber”，所以在FSA只出现了1次。 其中2个有共同的后缀”ember”，也只出现了1次。    </p>
+<p>那么我们如何来遍历一个FSA表示的所有key呢，我们以前面的”jul”，“jun”,”mar”为例：</p>
+<p><img src="/images/lucene-fst/fst/fst-set3.png" alt="fsm"></p>
+<p><strong>遍历算法</strong>是这样的：</p>
+<ul>
+<li>初始状态0， key=””</li>
+<li>-&gt;1, key=”j”</li>
+<li>-&gt;2, key=”ju”</li>
+<li>-&gt;3, key=”jul”, 找到jul</li>
+<li>2&lt;-, key=”ju”</li>
+<li>-&gt;3, key=”jun”, 找到jun</li>
+<li>2&lt;-, key=”ju”</li>
+<li>1&lt;-, key=”j”</li>
+<li>0&lt;-, key=””</li>
+<li>-&gt;4, key=”m”</li>
+<li>-&gt;5, key=”ma”,</li>
+<li>-&gt;3, key=”mar”,找到mar</li>
+</ul>
+<p>这个算法时间复杂度O(n),n是集合里所有的key的大小, 空间复杂度O(k),k是结合内最长的key字段length。</p>
+<h4 id="Ordered-maps"><a href="#Ordered-maps" class="headerlink" title="Ordered maps"></a>Ordered maps</h4><p>Ordered maps就像一个普通的map，只不过它的key是有序的。我们来看一下如何使用<strong>确定无环状态转换器（Deterministic acyclic finite state transducer， FST）</strong>来实现它。</p>
+<p>FST是也一个有限状态机（FSM）,具有这样的特性：  </p>
+<ul>
+<li>确定：意味着指定任何一个状态，只可能最多有一个转移可以遍历到。</li>
+<li>无环： 不可能重复遍历同一个状态</li>
+<li>transducer：接收特定的序列，终止于final状态，同时会<strong>输出一个值</strong>。</li>
+</ul>
+<p>FST和FSA很像，给定一个key除了能回答是否存在，还能输出一个<strong>关联的值</strong>。  </p>
+<p>下面来看这样的一个输入：“jul:7”, 7是jul关联的值，就像是一个map的entry. </p>
+<p><img src="/images/lucene-fst/fst/fst-map1.png" alt="fst"></p>
+<p>这和对应的有序集合基本一样，除了第一个0-&gt;1的转换j关联了一个值7. 其他的转换u和l,<strong>默认关联</strong>的值是<strong>0</strong>,这里不予展现。  </p>
+<p>那么当我们查找key:”jul”的时候，大概流程如下：</p>
+<ul>
+<li>初始状态0 </li>
+<li>输入j,   FST从0-&gt;1， value=7</li>
+<li>输入u,  FST从1-&gt;2， value=7+0</li>
+<li>输入l，FST从2-&gt;3, value=7+0+0</li>
+</ul>
+<p>此时，FST处于final状态3，所以存在jul，并且给出output是7.</p>
+<p>我们再看一下，加入mar:3之后，FST变成什么样：</p>
+<p><img src="/images/lucene-fst/fst/fst-map2.png" alt="fst"></p>
+<p>同样的很简单，<strong>需要注意</strong>的是mar自带的值3放在了第1个转移上。这只是为了算法更简单而已，事实上，可以放在其他转移上。  </p>
+<p>如果共享前缀，FST会发生什么呢？这里我们继续加入jun:6。</p>
+<p><img src="/images/lucene-fst/fst/fst-map3.png" alt="fst"></p>
+<p>和sets一样，jun和jul共享状态3， 但是有一些变化。</p>
+<ul>
+<li>0-&gt;1转移，输出从7变成了6</li>
+<li>2-&gt;3转移，输入l，输出值变成了1。</li>
+</ul>
+<p>这个输出变化是很重要的，因为他改变了查找jul输出值的过程。</p>
+<ul>
+<li>初始状态0</li>
+<li>输入j, FST从0-&gt;1， value=6</li>
+<li>输入u， FST从1-&gt;2， value=6+0</li>
+<li>输入l，FST从2-&gt;3, value=6+0+1</li>
+</ul>
+<p>最终的值仍旧是7，但是走的路径却是不一样的。<br>那查找jun是不是也是正确的呢？</p>
+<ul>
+<li>初始状态0</li>
+<li>输入j, FST从0 -&gt; 1， value=6</li>
+<li>输入u，FST从1 -&gt; 2， value=6+0</li>
+<li>输入n，FST从2 -&gt; 3, value=6+0+0</li>
+</ul>
+<p>从上可知，jun的查询也是正确的。FST保证了不同的转移有<strong>唯一</strong>的值，但同时也复用了大部分的数据结构。    </p>
+<p>实现共享状态的<strong>关键点</strong>是：每一个key,都在FST中对应一个唯一的路径。因此，对于任何一个特定的key，总会有一些value的转移组合使得路径是唯一的。我们需要做的就是如何来在转移中<strong>分配</strong>这些组合。</p>
+<p>key输出的共享机制同样适用于共同前缀和共同后缀。比如我们有tuesday:3和thursday:5这样的FST:   </p>
+<p><img src="/images/lucene-fst/fst/fst-map2-suffixes.png" alt="fst"></p>
+<p>2个key有共同的前缀<strong>t</strong>，共同后缀<strong>sday</strong>。关联的2个value同样有共同的前缀。3可以写做<strong>3+0</strong>，而5可以写作：<strong>3+2</strong>。 这样很好的让实现了关联value的共享。   </p>
+<p>上面的这个例子，其实有点简单化，并且局限。假如这些关联的value并不是int呢？ 实际上，FST对于关联value(outputs)的类型是要求必须有以下操作（method）的。</p>
+<ul>
+<li>加（Addition）</li>
+<li>减 (Subtraction)</li>
+<li>取前缀 (对于整数来说，就是min)</li>
+</ul>
+<h3 id="FST的构建"><a href="#FST的构建" class="headerlink" title="FST的构建"></a>FST的构建</h3><p>前面，一直没有提到如何构建FST。构建相对于遍历来说，还是有些复杂的。<br>为了简单化，我们假设set或者map里的数据是按字典序加入的。这个假设是很沉重的限制，不过我们会讲如何来缓解它。</p>
+<p>为了构建FSM，我们先来看看TRIE树是如何构建的。</p>
+<h4 id="TRIE树的构建"><a href="#TRIE树的构建" class="headerlink" title="TRIE树的构建"></a>TRIE树的构建</h4><p>TRIE可以看做是一个FSA,唯一的一个不同是TRIE只共享前缀，而FSA不仅共享前缀还共享后缀。</p>
+<p>假设我们有一个这样的Set: mon,tues,thurs。FSA是这样的： </p>
+<p><img src="/images/lucene-fst/fst/fst-days3.png" alt="fst"></p>
+<p>相应的TRIE则是这样的，只共享了前缀。</p>
+<p><img src="/images/lucene-fst/fst/fst-days3-trie.png" alt="fst trie"></p>
+<p>TRIE有重复的3个final状态3，8，11. 而8，11都是s转移，是可以合并的。</p>
+<p>构建一个TRIE树是相当简单的。插入1个key，只需要做简单的查找就可以了。如果输入先结束，那么当前状态设置为final；如果无法转移了，那么就直接创建新的转移和状态。不要忘了最后一个创建的状态设置为final就可以了。</p>
+<h4 id="FST的构建-1"><a href="#FST的构建-1" class="headerlink" title="FST的构建"></a>FST的构建</h4><p>构建FST在很大程度上和构建FSA是一样的，主要的不同点是，怎么样在转移上<strong>放置和共享outputs</strong>。   </p>
+<p>仍旧使用前面提到的例子，mon,tues和thurs，并给他们关联相应的星期数值2，3和5.  </p>
+<p>从第1个key, mon:2开始：</p>
+<p><img src="/images/lucene-fst/fst/fst-days3-fst-1.png" alt="fst mon">   </p>
+<p>这里虚线代表，在后续的insert过程中，FST可能有变化。    </p>
+<p>需要关注的是，这里只是把2放在了第1个转移上。技术上说，下面这样分配也是正确的。</p>
+<p><img src="/images/lucene-fst/fst/fst-days3-fst-1-alt.png" alt="fst mon alt">   </p>
+<p>只不过，把output放在靠近start状态的算法更容易写而已。</p>
+<p>下面继续把thurs:5插入：</p>
+<p><img src="/images/lucene-fst/fst/fst-days3-fst-2.png" alt="fst mon thurs">   </p>
+<p>就像FSA的insert一样，插入thurs之后，我们可以知道FST的mon部分（蓝色）就不会再变了。</p>
+<p>由于mon和thurs没有共同的前缀，只是简单的2个map中的key. 所以他们的output value可以直接放置在start状态的第1个转移上。</p>
+<p>下面，继续插入tues:3，</p>
+<p><img src="/images/lucene-fst/fst/fst-days3-fst-3.png" alt="fst">   </p>
+<p>这引起了新的变化。有一部分被<strong>冻住</strong>了，并且知道以后不会再修改了。output value也出现了重新的分配。因为tues的output是3，并且tues和thurs有共同的前缀t, 所以5和3的prefix操作得出的结果就是3. 状态0-&gt;状态4的value被分配为3，状态4-&gt;状态5设置为2。</p>
+<p>我们再插入更多的key, 这次插入tye:99看发生什么情况：</p>
+<p><img src="/images/lucene-fst/fst/fst-days3-fst-4.png" alt="fst">   </p>
+<p>插入tye，导致”es”部分被冻住，同时由于共享前缀t, 状态4-&gt;状态9的输出是99-3=96。</p>
+<p>最后一步，结束了，再执行一次冻住操作。</p>
+<p>最终的FST长这样：</p>
+<p><img src="/images/lucene-fst/fst/fst-days3-fst-5.png" alt="fst">   </p>
+<h3 id="Lucene-FST"><a href="#Lucene-FST" class="headerlink" title="Lucene FST"></a>Lucene FST</h3><p>上一部分，对于FST的概念以及构建进行了详细的介绍。本部分将对Lucene FST的实现以及具体进行详细的分析。<br>Lucene关于FST相关的代码在package:<code>org.apache.lucene.util.fst</code>。    </p>
+<p>从<code>org.apache.lucene.util.fst.Builder</code>看起，这个是构建FST的Builder：</p>
+<p><img src="/images/lucene-fst/fst/lucene-fst-builder.png" alt="fst builder lucene">   </p>
+<p>Builder通过泛型T，从而可以构建包含不同类型的FST。我们重点关注属性。</p>
+<p>从其中插入数据<code>add()</code>方法看起： </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** Add the next input/output pair.  The provided input</span></span><br><span class="line"><span class="comment">   *  must be sorted after the previous one according to</span></span><br><span class="line"><span class="comment">   *  &#123;<span class="doctag">@link</span> IntsRef#compareTo&#125;.  It's also OK to add the same</span></span><br><span class="line"><span class="comment">   *  input twice in a row with different outputs, as long</span></span><br><span class="line"><span class="comment">   *  as &#123;<span class="doctag">@link</span> Outputs&#125; implements the &#123;<span class="doctag">@link</span> Outputs#merge&#125;</span></span><br><span class="line"><span class="comment">   *  method. Note that input is fully consumed after this</span></span><br><span class="line"><span class="comment">   *  method is returned (so caller is free to reuse), but</span></span><br><span class="line"><span class="comment">   *  output is not.  So if your outputs are changeable (eg</span></span><br><span class="line"><span class="comment">   *  &#123;<span class="doctag">@link</span> ByteSequenceOutputs&#125; or &#123;<span class="doctag">@link</span></span></span><br><span class="line"><span class="comment">   *  IntSequenceOutputs&#125;) then you cannot reuse across</span></span><br><span class="line"><span class="comment">   *  calls. */</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(IntsRef input, T output)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">// prefixLenPlus1是计算出input和lastInput具有公共前缀的位置</span></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> prefixLenPlus1 = pos1+<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">     <span class="comment">// 1.新插入的节点放到frontier数组，UnCompileNode表明是新插入的，以后还可能会变化，还未放入FST内。</span></span><br><span class="line">    <span class="keyword">if</span> (frontier.length &lt; input.length+<span class="number">1</span>) &#123;</span><br><span class="line">      <span class="keyword">final</span> UnCompiledNode&lt;T&gt;[] next = ArrayUtil.grow(frontier, input.length+<span class="number">1</span>);</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> idx=frontier.length;idx&lt;next.length;idx++) &#123;</span><br><span class="line">        next[idx] = <span class="keyword">new</span> UnCompiledNode&lt;&gt;(<span class="keyword">this</span>, idx);</span><br><span class="line">      &#125;</span><br><span class="line">      frontier = next;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// minimize/compile states from previous input's</span></span><br><span class="line">    <span class="comment">// orphan'd suffix</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 2.从prefixLenPlus1, 进行freeze冰冻操作, 添加并构建最小FST</span></span><br><span class="line">    freezeTail(prefixLenPlus1);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// init tail states for current input</span></span><br><span class="line">    <span class="comment">// 3.将当前input剩下的部分插入，构建arc转移（前缀是共用的，不用添加新的状态）。</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> idx=prefixLenPlus1;idx&lt;=input.length;idx++) &#123;</span><br><span class="line">      frontier[idx-<span class="number">1</span>].addArc(input.ints[input.offset + idx - <span class="number">1</span>],</span><br><span class="line">                             frontier[idx]);</span><br><span class="line">      frontier[idx].inputCount++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> UnCompiledNode&lt;T&gt; lastNode = frontier[input.length];</span><br><span class="line">    <span class="keyword">if</span> (lastInput.length() != input.length || prefixLenPlus1 != input.length + <span class="number">1</span>) &#123;</span><br><span class="line">      lastNode.isFinal = <span class="keyword">true</span>;</span><br><span class="line">      lastNode.output = NO_OUTPUT;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// push conflicting outputs forward, only as far as</span></span><br><span class="line">    <span class="comment">// needed</span></span><br><span class="line">    <span class="comment">// 4.如果有冲突的话，重新分配output值</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> idx=<span class="number">1</span>;idx&lt;prefixLenPlus1;idx++) &#123;</span><br><span class="line">      <span class="keyword">final</span> UnCompiledNode&lt;T&gt; node = frontier[idx];</span><br><span class="line">      <span class="keyword">final</span> UnCompiledNode&lt;T&gt; parentNode = frontier[idx-<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">      <span class="keyword">final</span> T lastOutput = parentNode.getLastOutput(input.ints[input.offset + idx - <span class="number">1</span>]);</span><br><span class="line">      <span class="function"><span class="keyword">assert</span> <span class="title">validOutput</span><span class="params">(lastOutput)</span></span>;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">final</span> T commonOutputPrefix;</span><br><span class="line">      <span class="keyword">final</span> T wordSuffix;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (lastOutput != NO_OUTPUT) &#123;</span><br><span class="line">        <span class="comment">// 使用common方法，计算output的共同前缀</span></span><br><span class="line">        commonOutputPrefix = fst.outputs.common(output, lastOutput);</span><br><span class="line">        <span class="function"><span class="keyword">assert</span> <span class="title">validOutput</span><span class="params">(commonOutputPrefix)</span></span>;</span><br><span class="line">        <span class="comment">// 使用subtract方法，计算重新分配的output</span></span><br><span class="line">        wordSuffix = fst.outputs.subtract(lastOutput, commonOutputPrefix);</span><br><span class="line">        <span class="function"><span class="keyword">assert</span> <span class="title">validOutput</span><span class="params">(wordSuffix)</span></span>;</span><br><span class="line">        parentNode.setLastOutput(input.ints[input.offset + idx - <span class="number">1</span>], commonOutputPrefix);</span><br><span class="line">        node.prependOutput(wordSuffix);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        commonOutputPrefix = wordSuffix = NO_OUTPUT;</span><br><span class="line">      &#125;</span><br><span class="line">      output = fst.outputs.subtract(output, commonOutputPrefix);</span><br><span class="line">      <span class="function"><span class="keyword">assert</span> <span class="title">validOutput</span><span class="params">(output)</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>通过注释，我们看到input是经过排序的，也就是ordered。否则生成的就不是最小的FST。另外如果NO_OUTPUT就退化为FSA了，不用执行第4步重新分配output了。</p>
+<p>其中<code>freezeTail</code> 方法就是将不再变化的部分进行冰冻，又叫compile，把UnCompileNode，给构建进FST里。进入到FST是先进行compileNode, 然后addNode进去的。</p>
+<p>总结以下，加入节点过程：</p>
+<ul>
+<li>1)新插入input放入frontier，这里还没有加入FST</li>
+<li>2)依据当前input, 对上次插入数据进行freezeTail操作, 放入FST内</li>
+<li>3)构建input的转移（Arc）关系</li>
+<li>4)解决Output冲突，重新分配output，保证路径统一(NO_OUTPUT,不执行)</li>
+</ul>
+<p>最后在<code>finish</code>方法里，执行<code>freezeTail(0)</code>, 把所有的input构建进FST内。</p>
+<p>另外，值得注意的是Lucene里定义的<strong>Outputs</strong>类型：</p>
+<p><img src="/images/lucene-fst/fst/lucene-fst-outputs.png" alt="fst">  </p>
+<p>其中3个method是Outputs接口定义的，有11个不同类型的实现:</p>
+<ul>
+<li><code>T add(T prefix, T output);</code> 加</li>
+<li><code>T subtract(T output, T inc);</code> 减</li>
+<li><code>T common(T output1, T output2)</code> 前缀</li>
+</ul>
+<p>完全满足我们上个部分的限制，可见就是基于之前算法的一个完整的实现。    </p>
+<p>除了在Term词典这块有应用，FST在整个lucene内部使用的也是很广泛的，基本把hashmap进行了替换。<br>场景大概有以下：  </p>
+<ul>
+<li>自动联想：suggester</li>
+<li>charFilter: mappingcharFilter</li>
+<li>同义词过滤器</li>
+<li>hunspell拼写检查词典</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>FST，不但能<strong>共享前缀</strong>还能<strong>共享后缀</strong>。不但能判断查找的key是否存在，还能给出响应的输入output。 它在时间复杂度和空间复杂度上都做了最大程度的优化，使得Lucene能够将Term Dictionary完全加载到内存，快速的定位Term找到响应的output（posting倒排列表）。</p>
+<hr>
+<p>参考文档：   </p>
+<p><a href="http://www.cs.uvm.edu/~xwu/wie/CourseSlides/Schips-BurstTries.pdf" target="_blank" rel="noopener">Burst Tries</a><br><a href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.24.3698" target="_blank" rel="noopener">Direct Construction of Minimal Acyclic Subsequential Transducers</a><br><a href="https://blog.burntsushi.net/transducers/" target="_blank" rel="noopener">Index 1,600,000,000 Keys with Automata and Rust</a><br><a href="https://en.wikipedia.org/wiki/DFA_minimization" target="_blank" rel="noopener">DFA minimization WikiPedia</a><br><a href="http://www.cs.put.poznan.pl/dweiss/site/publications/download/fsacomp.pdf" target="_blank" rel="noopener">Smaller Representation of Finite State Automata</a><br><a href="http://blog.mikemccandless.com/2010/12/using-finite-state-transducers-in.html" target="_blank" rel="noopener">Using Finite State Transducers in Lucene</a></p>
+
+      
+    </div>
+    <ul class="popular-posts"><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2014/11/25/better-synonym-handling-in-solr/" title="如何在Solr中更好的处理同义词" rel="bookmark">如何在Solr中更好的处理同义词</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2019/01/10/elasticsearch-nested/" title="ElasticSearch-Nested嵌套类型解密" rel="bookmark">ElasticSearch-Nested嵌套类型解密</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2018/12/13/elasticsearch-yellow-exception/" title="ElasticSearch线上故障-持续Yellow状态" rel="bookmark">ElasticSearch线上故障-持续Yellow状态</a></h3></div></li></ul>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/qrcode_shenyanchao.jpg" alt="申艳超 wechat" style="width: 200px; max-width: 100%;">
+    <div>欢迎关注微信订阅号~</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持是我原创的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="申艳超 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="申艳超 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    申艳超
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.shenyanchao.cn/blog/2018/12/04/lucene-fst/" title="关于Lucene的词典FST深入剖析">https://www.shenyanchao.cn/blog/2018/12/04/lucene-fst/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/lucene/" rel="tag"># lucene</a>
+          
+            <a href="/tags/FST/" rel="tag"># FST</a>
+          
+            <a href="/tags/FSM/" rel="tag"># FSM</a>
+          
+            <a href="/tags/FSA/" rel="tag"># FSA</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2018/10/29/mat-for-java/" rel="next" title="利用MAT来分析JAVA内存泄露">
+                <i class="fa fa-chevron-left"></i> 利用MAT来分析JAVA内存泄露
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2018/12/04/lucene-numberic/" rel="prev" title="Lucene数字类型处理">
+                Lucene数字类型处理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/shenyanchao.jpeg" alt="申艳超">
+            
+              <p class="site-author-name" itemprop="name">申艳超</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">123</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">229</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/blueshen" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zhiyi.shen@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#搜索引擎为什么能查询速度那么快？"><span class="nav-number">1.</span> <span class="nav-text">搜索引擎为什么能查询速度那么快？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于FST（Finite-State-Transducer）"><span class="nav-number">2.</span> <span class="nav-text">关于FST（Finite State Transducer）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用FSM-Finite-State-Machines-作为数据结构"><span class="nav-number">2.1.</span> <span class="nav-text">使用FSM(Finite State Machines)作为数据结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Ordered-Sets"><span class="nav-number">2.2.</span> <span class="nav-text">Ordered Sets</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Ordered-maps"><span class="nav-number">2.3.</span> <span class="nav-text">Ordered maps</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FST的构建"><span class="nav-number">3.</span> <span class="nav-text">FST的构建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TRIE树的构建"><span class="nav-number">3.1.</span> <span class="nav-text">TRIE树的构建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FST的构建-1"><span class="nav-number">3.2.</span> <span class="nav-text">FST的构建</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lucene-FST"><span class="nav-number">4.</span> <span class="nav-text">Lucene FST</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2012 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">申艳超</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">230.5k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: false,
+        appId: 'vFAoofuVWgdHsCv6B6BtqROc-gzGzoHsz',
+        appKey: 'ANWUkmboGiNDNRmf2iVlUIGt',
+        placeholder: '开始你的评论吧!',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("vFAoofuVWgdHsCv6B6BtqROc-gzGzoHsz", "ANWUkmboGiNDNRmf2iVlUIGt");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

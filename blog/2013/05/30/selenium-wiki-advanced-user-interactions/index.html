@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/icon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="selenium,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="申艳超-博客" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="AdvancedUserInteractions(高级用户交互)入门高级用户交互API提供了一个更新更完善的机制来定义并描述用户在一个网页上的各种操作。这些操作包括：拖拽、按住CTRL键选择多个元素等等。 开始（short how to）为了生成一连串的动作，我们使用Actions来建立。首先，我们先配置操作： 123456Actions builder = new Actions(driver)">
+<meta name="keywords" content="selenium">
+<meta property="og:type" content="article">
+<meta property="og:title" content="selenium wiki:高级用户交互">
+<meta property="og:url" content="https://www.shenyanchao.cn/blog/2013/05/30/selenium-wiki-advanced-user-interactions/index.html">
+<meta property="og:site_name" content="申艳超-博客">
+<meta property="og:description" content="AdvancedUserInteractions(高级用户交互)入门高级用户交互API提供了一个更新更完善的机制来定义并描述用户在一个网页上的各种操作。这些操作包括：拖拽、按住CTRL键选择多个元素等等。 开始（short how to）为了生成一连串的动作，我们使用Actions来建立。首先，我们先配置操作： 123456Actions builder = new Actions(driver)">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-12-17T11:41:25.753Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="selenium wiki:高级用户交互">
+<meta name="twitter:description" content="AdvancedUserInteractions(高级用户交互)入门高级用户交互API提供了一个更新更完善的机制来定义并描述用户在一个网页上的各种操作。这些操作包括：拖拽、按住CTRL键选择多个元素等等。 开始（short how to）为了生成一连串的动作，我们使用Actions来建立。首先，我们先配置操作： 123456Actions builder = new Actions(driver)">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.shenyanchao.cn/blog/2013/05/30/selenium-wiki-advanced-user-interactions/">
+
+
+
+
+
+  <title>selenium wiki:高级用户交互 | 申艳超-博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?81c9612f8fdceca45435ef7f5404d7b2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">申艳超-博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">搜索引擎、分布式、高性能、NLP、ElasticSearch、Solr</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.shenyanchao.cn/blog/2013/05/30/selenium-wiki-advanced-user-interactions/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="申艳超">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/shenyanchao.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="申艳超-博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">selenium wiki:高级用户交互</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-05-30T19:56:00+08:00">
+                2013-05-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/selenium官方文档/" itemprop="url" rel="index">
+                    <span itemprop="name">selenium官方文档</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/blog/2013/05/30/selenium-wiki-advanced-user-interactions/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/blog/2013/05/30/selenium-wiki-advanced-user-interactions/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/blog/2013/05/30/selenium-wiki-advanced-user-interactions/" class="leancloud_visitors" data-flag-title="selenium wiki:高级用户交互">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,018
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  7
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="AdvancedUserInteractions-高级用户交互"><a href="#AdvancedUserInteractions-高级用户交互" class="headerlink" title="AdvancedUserInteractions(高级用户交互)"></a>AdvancedUserInteractions(高级用户交互)</h3><h3 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h3><p>高级用户交互API提供了一个更新更完善的机制来定义并描述用户在一个网页上的各种操作。这些操作包括：拖拽、按住CTRL键选择多个元素等等。</p>
+<h4 id="开始（short-how-to）"><a href="#开始（short-how-to）" class="headerlink" title="开始（short how to）"></a>开始（short how to）</h4><p>为了生成一连串的动作，我们使用Actions来建立。首先，我们先配置操作：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Actions builder = <span class="keyword">new</span> Actions(driver);</span><br><span class="line"></span><br><span class="line">builder.keyDown(Keys.CONTROL)</span><br><span class="line">.click(someElement)</span><br><span class="line">.click(someOtherElement)</span><br><span class="line">.keyUp(Keys.CONTROL);</span><br></pre></td></tr></table></figure>
+<p>然后，获得操作（Action）:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Action selectMultiple = builder.build();</span><br></pre></td></tr></table></figure>
+<p>最后，执行这个动作：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">selectMultiple.perform();</span><br></pre></td></tr></table></figure>
+<p>这一系列的动作应该尽量的短。在使用中最好在执行一个简短的动作后验证页面是否处于正确的状态，然后再执行下面的动作。下一节将会列出所有可用的动作（Action），并且说明它们如何进行扩展。<br><a id="more"></a></p>
+<h4 id="键盘交互（Keyboard-interactions）"><a href="#键盘交互（Keyboard-interactions）" class="headerlink" title="键盘交互（Keyboard interactions）"></a>键盘交互（Keyboard interactions）</h4><p>键盘交互是发生在一个特定的页面元素的，而webdriver会确保这个页面元素在执行键盘动作时处于正确的状态。这个正确的状态，包括页面元素滚动到可视区域并定位到这个页面元素。<br>既然这个新的API是面向用户（user-oriental）的接口，那么对于一个用户，在对一个元素输入文本前做显式的交互就更加的符合逻辑。这意味着，当想定位到相邻的页面元素时，可能需要点击一下元素或按下Tab（<code>Keys.TAB</code>）键。<br>The new interactions API will (first) support keyboard actions without a provided element. The additional work to focus on an element before sending it keyboard events will be added later on.</p>
+<h4 id="鼠标交互（Mouse-interactions）"><a href="#鼠标交互（Mouse-interactions）" class="headerlink" title="鼠标交互（Mouse interactions）"></a>鼠标交互（Mouse interactions）</h4><p>鼠标操作有一个上下文-鼠标的当前位置。因此，当为几个鼠标操作设定一个上下文时，第一个操作的上下文就是元素的相对位置，下一个操作的上下文就上一个操作后的鼠标相对位置。</p>
+<h3 id="支持情况"><a href="#支持情况" class="headerlink" title="支持情况"></a>支持情况</h3><p>这个针对操作以及动作生成器的API已经（绝大部分）完成。HtmlUnit和Firefox已经完全支持，Opera和IE正在支持中。</p>
+<h3 id="大纲"><a href="#大纲" class="headerlink" title="大纲"></a>大纲</h3><h4 id="单个动作"><a href="#单个动作" class="headerlink" title="单个动作"></a>单个动作</h4><p>所有的动作都实现了<code>Action</code>接口，这个接口只有一个方法：<code>perform（）</code>。每个动作所需要的信息都通过Constructor传入。当调用这个动作的时候，动作知道如何与页面交互（如，找到活动的元素并输入文本或者计算出在屏幕上的点击坐标）并且调用底层实现来实现这个交互。<br>下面是一些动作：</p>
+<ul>
+<li>ButtonReleaseAction - 释放鼠标左键</li>
+<li>ClickAction - 相当于 WebElement.click()</li>
+<li>ClickAndHoldAction - 按下鼠标左键并保持</li>
+<li>ContextClickAction - 一般就是鼠标右键，通常调出右键菜单用。</li>
+<li>DoubleClickAction - 双击某个元素</li>
+<li>KeyDownAction - 按下修饰键（SHIFT，CTRL，ALT，WIN）</li>
+<li>KeyUpAction - 释放修饰键</li>
+<li>MoveMouseAction - 移动鼠标从当前位置到另外的元素.</li>
+<li>MoveToOffsetAction - 移动鼠标到一个元素的偏移位置（偏移可以为负，元素是鼠标刚移动到的那个元素）。</li>
+<li>SendKeysAction - 相当于 WebElement.sendKey(…)</li>
+</ul>
+<p><code>CompositeAction</code>包含一系列的动作，当被调用的时候，它会调用它所包含的所有动作的perform方法。通常，这个动作通常都不是直接建立的，一般是使用<code>ActionChainsGenerator</code>。</p>
+<h4 id="生成动作链"><a href="#生成动作链" class="headerlink" title="生成动作链"></a>生成动作链</h4><p><code>Actions</code>链生成器实现了创建者模式来新建一个包含一组动作的<code>CompositeAction</code>。使用Actions生成器可以很容易的生成动作并调用<code>build（）</code>方法来获得复杂的操作。</p>
+<pre><code>Actions builder = new Actions(driver);
+
+Action dragAndDrop = builder.clickAndHold(someElement)
+   .moveToElement(otherElement)
+   .release(otherElement)
+   .build();
+
+dragAndDrop.perform();
+</code></pre><p>有一个对<code>Actions</code>进行扩展的计划，给<code>Actions</code>类添加一个方法，这个方法可以追加任何动作到其拥有的动作列表上。这将允许添加扩展的动作，而不用人工创建CompositeAction。关于扩展<code>Actions</code>,请往下看。</p>
+<h4 id="扩展Action接口的指导"><a href="#扩展Action接口的指导" class="headerlink" title="扩展Action接口的指导"></a>扩展Action接口的指导</h4><p>Action接口只有一个方法-<code>perform()</code>。除了实际的交互本身，所有的条件判断也都应该在这个这个方法里实现。在动作创建和动作实际执行这段时间内，很可能页面的状态已经发生了变化，比如元素的可视情况已经坐标已经不能找到了。</p>
+<h3 id="实现细节"><a href="#实现细节" class="headerlink" title="实现细节"></a>实现细节</h3><p>为了达到每个操作的执行与具体实现的分离，所有的动作都依赖2个接口：<code>Mouse</code>和<code>Keyboard</code>。这些接口被所有支持高级用户接口API的driver实现了。需要注意的是，这些接口是为了让动作使用的，而不是最终用户。本节的信息，主要是针对想扩展WebDriver的开发者的。</p>
+<h4 id="一字警告"><a href="#一字警告" class="headerlink" title="一字警告"></a>一字警告</h4><p><code>Keyboard</code>和<code>Mouse</code>接口是设计用来支持各种Action类的。有鉴于此，它们的API没有Actions链生成器API稳定。直接使用这些接口可能达不到期望的结果，因为Action类做了额外的工作来确保在实际事件触发时处于正确的环境条件。这些准备工作包括定位在正确的元素上或者鼠标交互前保证元素是可见的。</p>
+<h4 id="Keyboard接口"><a href="#Keyboard接口" class="headerlink" title="Keyboard接口"></a>Keyboard接口</h4><p>Keyboard接口包含3个方法：</p>
+<ul>
+<li>void sendKeys(CharSequence… keysToSend) - 与 sendKeys(…)相似.</li>
+<li>void pressKey(Keys keyToPress) - 按下一个键并保持。键仅限于修饰键(Control, Alt and Shift).</li>
+<li>void releaseKey(Keys keyToRelease) - 释放修饰键.</li>
+</ul>
+<p>至于如何在调用之间保存修饰键的状态是Keyboard接口实现类的职责。只有活跃的元素才会接收到这些事件。</p>
+<h4 id="Mouse接口"><a href="#Mouse接口" class="headerlink" title="Mouse接口"></a>Mouse接口</h4><p><code>Mouse</code>接口包含以下方法（有可能不久之后会有变化）：</p>
+<ul>
+<li>void click(WebElement onElement) - 同click()方法一样.</li>
+<li>void doubleClick(WebElement onElement) - 双击一个元素.</li>
+<li>void mouseDown(WebElement onElement) - 在一个元素上按下左键并保持<br>Action selectMultiple = builder.build();</li>
+<li>void mouseUp(WebElement onElement) - 在一个元素上释放左键.</li>
+<li>void mouseMove(WebElement toElement) - 从当前位置移动到一个元素</li>
+<li>void mouseMove(WebElement toElement, long xOffset, long yOffset) - 从当前位置移动到一个元素的偏移坐标</li>
+<li>void contextClick(WebElement onElement) - 在一个元素上做一个右键操作</li>
+</ul>
+<h4 id="Native-events（原生事件）-VS-synthetic-events（合成事件）"><a href="#Native-events（原生事件）-VS-synthetic-events（合成事件）" class="headerlink" title="Native events（原生事件） VS synthetic events（合成事件）"></a>Native events（原生事件） VS synthetic events（合成事件）</h4><p>WebDriver提供的高级用户接口，要么是直接模拟的Javascript事件（即合成事件），要么就是让浏览器生成Javascript事件（即原生事件）。原生事件能更好的模拟用户交互，而合成事件则是平台独立的，这使得使用了替代的窗口管理器的linux系统显得尤其重要，具体参加<a href="https://code.google.com/p/selenium/wiki/NativeEventsOnLinux" target="_blank" rel="noopener">native events on Linux</a>。原生事件无论什么时候总是应该尽可能的使用。</p>
+<p>下面的表格展示了浏览器对事件的支持情况。</p>
+<p><table border="1px"></table></p>
+<p><tr></tr></p>
+<p><td>浏览器</td><td>操作系统</td><td>原生事件</td><td>合成事件</td><br></p>
+<p><tr></tr></p>
+<p><td>Firefox</td><td>Linux</td><td>支持</td><td>支持（默认）</td><br></p>
+<p><tr></tr></p>
+<p><td>Firefox</td><td>Windows</td><td>支持（默认）</td><td>支持</td><br></p>
+<p><tr></tr></p>
+<p><td>Internet Explorer</td><td>Windows</td><td>支持（默认）</td><td>不支持</td><br></p>
+<p><tr></tr></p>
+<p><td>Chrome</td><td>Linux/Windows</td><td>支持*</td><td>不支持</td><br></p>
+<p><tr></tr></p>
+<p><td>Opera</td><td>Linux/Windows</td><td>支持（默认）</td><td>不支持</td><br></p>
+<p><tr></tr></p>
+<p><td>HtmlUnit</td><td>Linux/Windows</td><td>支持（默认）</td><td>不支持</td><br><br><br>*)ChromeDriver提供了2种模式来支持原生事件：Webkit事件和原始事件。其中Webkit事件是使用Webkit函数来触发的Javascript事件，而原始事件模式则使用的是操作系统级别的事件。</p>
+<p>FirefoxDriver中，原生事件可以使用FirefoxProfile来进行开关控制。</p>
+<pre><code>FirefoxProfile profile = new FirefoxProfile();
+profile.setEnableNativeEvents(true);
+FirefoxDriver driver = new FirefoxDriver(profile);
+</code></pre><h5 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h5><p>以下是原生事件与合成事件表现不同的一些例子：</p>
+<ul>
+<li>使用合成事件，点击隐藏在其他元素下面的元素是可以的。使用原生事件，浏览器会将点击事件作用在所给坐标最外层的元素上，就像是用户点击在特定的位置一样。</li>
+<li>当一个用户，按下TAB键希望焦点从当前元素定位到下一个元素，浏览器是可以做到的。使用合成事件的话，浏览器并不知道TAB键被按下了，因此也不会改变焦点。而使用原生事件，浏览器则会表现正确。</li>
+</ul>
+<hr>
+<p>原文：<a href="https://code.google.com/p/selenium/wiki/AdvancedUserInteractions" target="_blank" rel="noopener">https://code.google.com/p/selenium/wiki/AdvancedUserInteractions</a></p>
+
+      
+    </div>
+    <ul class="popular-posts"><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2012/11/02/how-webdriver-works/" title="Selenium WebDriver 工作原理" rel="bookmark">Selenium WebDriver 工作原理</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2012/10/16/pageobjects-design-pattern/" title="PageObjects 设计模式" rel="bookmark">PageObjects 设计模式</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2013/05/30/selenium-doc-introduction/" title="selenium 文档:入门介绍" rel="bookmark">selenium 文档:入门介绍</a></h3></div></li></ul>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/qrcode_shenyanchao.jpg" alt="申艳超 wechat" style="width: 200px; max-width: 100%;">
+    <div>欢迎关注微信订阅号~</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持是我原创的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="申艳超 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="申艳超 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    申艳超
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.shenyanchao.cn/blog/2013/05/30/selenium-wiki-advanced-user-interactions/" title="selenium wiki:高级用户交互">https://www.shenyanchao.cn/blog/2013/05/30/selenium-wiki-advanced-user-interactions/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/selenium/" rel="tag"># selenium</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2013/05/30/selenium-wiki-web-driver-js/" rel="next" title="selenium wiki:webdriverJs">
+                <i class="fa fa-chevron-left"></i> selenium wiki:webdriverJs
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2013/05/30/selenium-wiki-frequently-asked-questions/" rel="prev" title="selenium wiki:selenium常见问题">
+                selenium wiki:selenium常见问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/shenyanchao.jpeg" alt="申艳超">
+            
+              <p class="site-author-name" itemprop="name">申艳超</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">123</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">229</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/blueshen" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zhiyi.shen@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#AdvancedUserInteractions-高级用户交互"><span class="nav-number">1.</span> <span class="nav-text">AdvancedUserInteractions(高级用户交互)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#入门"><span class="nav-number">2.</span> <span class="nav-text">入门</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#开始（short-how-to）"><span class="nav-number">2.1.</span> <span class="nav-text">开始（short how to）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#键盘交互（Keyboard-interactions）"><span class="nav-number">2.2.</span> <span class="nav-text">键盘交互（Keyboard interactions）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#鼠标交互（Mouse-interactions）"><span class="nav-number">2.3.</span> <span class="nav-text">鼠标交互（Mouse interactions）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#支持情况"><span class="nav-number">3.</span> <span class="nav-text">支持情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大纲"><span class="nav-number">4.</span> <span class="nav-text">大纲</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#单个动作"><span class="nav-number">4.1.</span> <span class="nav-text">单个动作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#生成动作链"><span class="nav-number">4.2.</span> <span class="nav-text">生成动作链</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#扩展Action接口的指导"><span class="nav-number">4.3.</span> <span class="nav-text">扩展Action接口的指导</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现细节"><span class="nav-number">5.</span> <span class="nav-text">实现细节</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一字警告"><span class="nav-number">5.1.</span> <span class="nav-text">一字警告</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Keyboard接口"><span class="nav-number">5.2.</span> <span class="nav-text">Keyboard接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Mouse接口"><span class="nav-number">5.3.</span> <span class="nav-text">Mouse接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Native-events（原生事件）-VS-synthetic-events（合成事件）"><span class="nav-number">5.4.</span> <span class="nav-text">Native events（原生事件） VS synthetic events（合成事件）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#例子"><span class="nav-number">5.4.1.</span> <span class="nav-text">例子</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2012 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">申艳超</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">230.5k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: false,
+        appId: 'vFAoofuVWgdHsCv6B6BtqROc-gzGzoHsz',
+        appKey: 'ANWUkmboGiNDNRmf2iVlUIGt',
+        placeholder: '开始你的评论吧!',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("vFAoofuVWgdHsCv6B6BtqROc-gzGzoHsz", "ANWUkmboGiNDNRmf2iVlUIGt");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

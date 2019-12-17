@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/icon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="redis,expire,lru,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="申艳超-博客" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="Redis内存限制Redis作为一个高性能的内存NoSQL数据库，其容量受到最大内存限制的限制。 在使用Redis时，除了对性能，稳定性有很高的要求外，对内存占用也比较敏感。在使用过程中，有些用户会觉得自己的线上实例内存占用比自己预想的要大。 事实上，实例中的内存除了保存原始的键值对所需的开销外，还有一些运行时产生的额外内存，包括：  垃圾数据和过期Key所占空间 字典dict渐进式rehash导">
+<meta name="keywords" content="redis,expire,lru">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis过期&amp;淘汰机制">
+<meta property="og:url" content="https://www.shenyanchao.cn/blog/2018/12/26/redis-expire/index.html">
+<meta property="og:site_name" content="申艳超-博客">
+<meta property="og:description" content="Redis内存限制Redis作为一个高性能的内存NoSQL数据库，其容量受到最大内存限制的限制。 在使用Redis时，除了对性能，稳定性有很高的要求外，对内存占用也比较敏感。在使用过程中，有些用户会觉得自己的线上实例内存占用比自己预想的要大。 事实上，实例中的内存除了保存原始的键值对所需的开销外，还有一些运行时产生的额外内存，包括：  垃圾数据和过期Key所占空间 字典dict渐进式rehash导">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-12-17T11:41:25.749Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Redis过期&amp;淘汰机制">
+<meta name="twitter:description" content="Redis内存限制Redis作为一个高性能的内存NoSQL数据库，其容量受到最大内存限制的限制。 在使用Redis时，除了对性能，稳定性有很高的要求外，对内存占用也比较敏感。在使用过程中，有些用户会觉得自己的线上实例内存占用比自己预想的要大。 事实上，实例中的内存除了保存原始的键值对所需的开销外，还有一些运行时产生的额外内存，包括：  垃圾数据和过期Key所占空间 字典dict渐进式rehash导">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.shenyanchao.cn/blog/2018/12/26/redis-expire/">
+
+
+
+
+
+  <title>Redis过期&淘汰机制 | 申艳超-博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?81c9612f8fdceca45435ef7f5404d7b2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">申艳超-博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">搜索引擎、分布式、高性能、NLP、ElasticSearch、Solr</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.shenyanchao.cn/blog/2018/12/26/redis-expire/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="申艳超">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/shenyanchao.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="申艳超-博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Redis过期&淘汰机制</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-26T14:28:52+08:00">
+                2018-12-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/redis/" itemprop="url" rel="index">
+                    <span itemprop="name">redis</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/blog/2018/12/26/redis-expire/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/blog/2018/12/26/redis-expire/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/blog/2018/12/26/redis-expire/" class="leancloud_visitors" data-flag-title="Redis过期&淘汰机制">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,276
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  10
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Redis内存限制"><a href="#Redis内存限制" class="headerlink" title="Redis内存限制"></a>Redis内存限制</h2><p>Redis作为一个高性能的内存NoSQL数据库，其容量受到最大内存限制的限制。</p>
+<p>在使用Redis时，除了对性能，稳定性有很高的要求外，对内存占用也比较敏感。在使用过程中，有些用户会觉得自己的线上实例内存占用比自己预想的要大。</p>
+<p>事实上，实例中的内存除了保存原始的键值对所需的开销外，还有一些运行时产生的额外内存，包括：</p>
+<ol>
+<li>垃圾数据和过期Key所占空间</li>
+<li>字典dict渐进式rehash导致未及时删除的空间</li>
+<li>Redis管理数据, 包括底层数据结构开销，客户端信息，读写缓冲区等</li>
+<li>主从复制，bgsave时的额外开销</li>
+<li>其它</li>
+</ol>
+<a id="more"></a>
+<h2 id="Redis过期数据清理策略"><a href="#Redis过期数据清理策略" class="headerlink" title="Redis过期数据清理策略"></a>Redis过期数据清理策略</h2><h3 id="过期数据清理时机"><a href="#过期数据清理时机" class="headerlink" title="过期数据清理时机"></a>过期数据清理时机</h3><p>为了防止一次性清理大量过期Key导致Redis服务受影响，Redis只在空闲时清理过期Key。</p>
+<p>具体Redis逐出过期Key的时机为:</p>
+<ol>
+<li>访问Key时，会判断Key是否过期，逐出过期Key;</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">  <span class="function">robj *<span class="title">lookupKeyRead</span><span class="params">(redisDb *db, robj *key)</span> </span>&#123;</span><br><span class="line">    robj *val;</span><br><span class="line">    expireIfNeeded(db,key);</span><br><span class="line">    val = lookupKey(db,key);</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">return</span> val;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>CPU空闲时在定期serverCron任务中，逐出部分过期Key;</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">aeCreateTimeEvent(server.el, <span class="number">1</span>, serverCron, <span class="literal">NULL</span>, <span class="literal">NULL</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">serverCron</span><span class="params">(struct aeEventLoop *eventLoop, <span class="keyword">long</span> <span class="keyword">long</span> id, <span class="keyword">void</span> *clientData)</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    databasesCron();</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">databasesCron</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    <span class="comment">/* Expire keys by random sampling. Not required for slaves</span></span><br><span class="line"><span class="comment">     + as master will synthesize DELs for us. */</span></span><br><span class="line">    <span class="keyword">if</span> (server.active_expire_enabled &amp;&amp; server.masterhost == <span class="literal">NULL</span>)</span><br><span class="line">        activeExpireCycle(ACTIVE_EXPIRE_CYCLE_SLOW);</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>每次事件循环执行的时候，逐出部分过期Key;</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">aeMain</span><span class="params">(aeEventLoop *eventLoop)</span> </span>&#123;</span><br><span class="line">           eventLoop-&gt;stop = <span class="number">0</span>;</span><br><span class="line">           <span class="keyword">while</span> (!eventLoop-&gt;stop) &#123;</span><br><span class="line">               <span class="keyword">if</span> (eventLoop-&gt;beforesleep != <span class="literal">NULL</span>)</span><br><span class="line">                   eventLoop-&gt;beforesleep(eventLoop);</span><br><span class="line">               aeProcessEvents(eventLoop, AE_ALL_EVENTS);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">beforeSleep</span><span class="params">(struct aeEventLoop *eventLoop)</span> </span>&#123;</span><br><span class="line">           ...</span><br><span class="line">  	<span class="comment">/* Run a fast expire cycle (the called function will return</span></span><br><span class="line"><span class="comment">            - ASAP if a fast cycle is not needed). */</span></span><br><span class="line">   <span class="keyword">if</span> (server.active_expire_enabled &amp;&amp; server.masterhost == <span class="literal">NULL</span>)</span><br><span class="line">               activeExpireCycle(ACTIVE_EXPIRE_CYCLE_FAST);</span><br><span class="line">           ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="过期数据清理算法"><a href="#过期数据清理算法" class="headerlink" title="过期数据清理算法"></a>过期数据清理算法</h3><p>Redis过期Key清理的机制对清理的频率和最大时间都有限制，在尽量不影响正常服务的情况下，进行过期Key的清理，以达到长时间服务的性能最优.</p>
+<p>Redis会周期性的随机测试一批设置了过期时间的key并进行处理。测试到的已过期的key将被删除。具体的算法如下:</p>
+<ol>
+<li>Redis配置项hz定义了serverCron任务的执行周期，默认为10，即CPU空闲时每秒执行10次;</li>
+<li>每次过期key清理的时间不超过CPU时间的25%，即若hz=1，则一次清理时间最大为250ms，若hz=10，则一次清理时间最大为25ms;</li>
+<li>清理时依次遍历所有的db;</li>
+<li>从db中随机取20个key，判断是否过期，若过期，则逐出;</li>
+<li>若有5个以上key过期，则重复步骤4，否则遍历下一个db;</li>
+<li>在清理过程中，若达到了25%CPU时间，退出清理过程;</li>
+</ol>
+<p>这是一个基于概率的简单算法，基本的假设是抽出的样本能够代表整个key空间，redis持续清理过期的数据直至将要过期的key的百分比降到了25%以下。这也意味着在长期来看任何给定的时刻已经过期但仍占据着内存空间的key的量最多为每秒的写操作量除以4.</p>
+<ul>
+<li>由于算法采用的随机取key判断是否过期的方式，故几乎不可能清理完所有的过期Key;</li>
+<li>调高hz参数可以提升清理的频率，过期key可以更及时的被删除，但hz太高会增加CPU时间的消耗;<a href="https://groups.google.com/forum/#!topic/redis-db/6kILekxQXBM" target="_blank" rel="noopener">Redis作者关于hz参数的一些讨论</a></li>
+</ul>
+<p>代码分析如下:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">activeExpireCycle</span><span class="params">(<span class="keyword">int</span> type)</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">/* We can use at max ACTIVE_EXPIRE_CYCLE_SLOW_TIME_PERC percentage of CPU time</span></span><br><span class="line"><span class="comment">     * per iteration. Since this function gets called with a frequency of</span></span><br><span class="line"><span class="comment">     * server.hz times per second, the following is the max amount of</span></span><br><span class="line"><span class="comment">     * microseconds we can spend in this function. */</span></span><br><span class="line">    <span class="comment">// 最多允许25%的CPU时间用于过期Key清理</span></span><br><span class="line">    <span class="comment">// 若hz=1，则一次activeExpireCycle最多只能执行250ms</span></span><br><span class="line">    <span class="comment">// 若hz=10，则一次activeExpireCycle最多只能执行25ms</span></span><br><span class="line">    timelimit = <span class="number">1000000</span>*ACTIVE_EXPIRE_CYCLE_SLOW_TIME_PERC/server.hz/<span class="number">100</span>;</span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">// 遍历所有db</span></span><br><span class="line">    <span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; dbs_per_call; j++) &#123;</span><br><span class="line">        <span class="keyword">int</span> expired;</span><br><span class="line">        redisDb *db = server.db+(current_db % server.dbnum);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* Increment the DB now so we are sure if we run out of time</span></span><br><span class="line"><span class="comment">         * in the current DB we'll restart from the next. This allows to</span></span><br><span class="line"><span class="comment">         * distribute the time evenly across DBs. */</span></span><br><span class="line">        current_db++;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* Continue to expire if at the end of the cycle more than 25%</span></span><br><span class="line"><span class="comment">         * of the keys were expired. */</span></span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            ...</span><br><span class="line">            <span class="comment">// 一次取20个Key，判断是否过期</span></span><br><span class="line">            <span class="keyword">if</span> (num &gt; ACTIVE_EXPIRE_CYCLE_LOOKUPS_PER_LOOP)</span><br><span class="line">                num = ACTIVE_EXPIRE_CYCLE_LOOKUPS_PER_LOOP;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> (num--) &#123;</span><br><span class="line">                dictEntry *de;</span><br><span class="line">                <span class="keyword">long</span> <span class="keyword">long</span> ttl;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> ((de = dictGetRandomKey(db-&gt;expires)) == <span class="literal">NULL</span>) <span class="keyword">break</span>;</span><br><span class="line">                ttl = dictGetSignedIntegerVal(de)-now;</span><br><span class="line">                <span class="keyword">if</span> (activeExpireCycleTryExpire(db,de,now)) expired++;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> ((iteration &amp; <span class="number">0xf</span>) == <span class="number">0</span>) &#123; <span class="comment">/* check once every 16 iterations. */</span></span><br><span class="line">                <span class="keyword">long</span> <span class="keyword">long</span> elapsed = ustime()-start;</span><br><span class="line">                latencyAddSampleIfNeeded(<span class="string">"expire-cycle"</span>,elapsed/<span class="number">1000</span>);</span><br><span class="line">                <span class="keyword">if</span> (elapsed &gt; timelimit) timelimit_exit = <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (timelimit_exit) <span class="keyword">return</span>;</span><br><span class="line">            <span class="comment">/* We don't repeat the cycle if there are less than 25% of keys</span></span><br><span class="line"><span class="comment">             * found expired in the current DB. */</span></span><br><span class="line">            <span class="comment">// 若有5个以上过期Key，则继续直至时间超过25%的CPU时间</span></span><br><span class="line">            <span class="comment">// 若没有5个过期Key，则跳过。</span></span><br><span class="line">        &#125; <span class="keyword">while</span> (expired &gt; ACTIVE_EXPIRE_CYCLE_LOOKUPS_PER_LOOP/<span class="number">4</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Redis数据逐出策略"><a href="#Redis数据逐出策略" class="headerlink" title="Redis数据逐出策略"></a>Redis数据逐出策略</h2><h3 id="数据逐出时机"><a href="#数据逐出时机" class="headerlink" title="数据逐出时机"></a>数据逐出时机</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 执行命令</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">processCommand</span><span class="params">(redisClient *c)</span> </span>&#123;</span><br><span class="line">        ...</span><br><span class="line">        <span class="comment">/* Handle the maxmemory directive.</span></span><br><span class="line"><span class="comment">        **</span></span><br><span class="line"><span class="comment">        First we try to free some memory if possible (if there are volatile</span></span><br><span class="line"><span class="comment">        * keys in the dataset). If there are not the only thing we can do</span></span><br><span class="line"><span class="comment">        * is returning an error. */</span></span><br><span class="line">        <span class="keyword">if</span> (server.maxmemory) &#123;</span><br><span class="line">            <span class="keyword">int</span> retval = freeMemoryIfNeeded();</span><br><span class="line">            ...</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="数据逐出算法"><a href="#数据逐出算法" class="headerlink" title="数据逐出算法"></a>数据逐出算法</h3><p>在逐出算法中，根据用户设置的逐出策略，选出待逐出的key，直到当前内存小于最大内存值为主.</p>
+<p>可选逐出策略如下：</p>
+<ul>
+<li>volatile-lru：从已设置过期时间的数据集（server.db[i].expires）中挑选最近最少使用 的数据淘汰</li>
+<li>volatile-ttl：从已设置过期时间的数据集（server.db[i].expires）中挑选将要过期的数 据淘汰</li>
+<li>volatile-random：从已设置过期时间的数据集（server.db[i].expires）中任意选择数据淘汰</li>
+<li>allkeys-lru：从数据集（server.db[i].dict）中挑选最近最少使用的数据淘汰</li>
+<li>allkeys-random：从数据集（server.db[i].dict）中任意选择数据淘汰</li>
+<li>no-enviction（驱逐）：禁止驱逐数据</li>
+</ul>
+<p>具体代码如下</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">freeMemoryIfNeeded</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">// 计算mem_used</span></span><br><span class="line">    mem_used = zmalloc_used_memory();</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Check if we are over the memory limit. */</span></span><br><span class="line">    <span class="keyword">if</span> (mem_used &lt;= server.maxmemory) <span class="keyword">return</span> REDIS_OK;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果禁止逐出，返回错误</span></span><br><span class="line">    <span class="keyword">if</span> (server.maxmemory_policy == REDIS_MAXMEMORY_NO_EVICTION)</span><br><span class="line">        <span class="keyword">return</span> REDIS_ERR; <span class="comment">/* We need to free memory, but policy forbids. */</span></span><br><span class="line"></span><br><span class="line">    mem_freed = <span class="number">0</span>;</span><br><span class="line">    mem_tofree = mem_used - server.maxmemory;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> start = ustime();</span><br><span class="line">    latencyStartMonitor(latency);</span><br><span class="line">    <span class="keyword">while</span> (mem_freed &lt; mem_tofree) &#123;</span><br><span class="line">        <span class="keyword">int</span> j, k, keys_freed = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; server.dbnum; j++) &#123;</span><br><span class="line">            <span class="comment">// 根据逐出策略的不同，选出待逐出的数据</span></span><br><span class="line">            <span class="keyword">long</span> bestval = <span class="number">0</span>; <span class="comment">/* just to prevent warning */</span></span><br><span class="line">            sds bestkey = <span class="literal">NULL</span>;</span><br><span class="line">            <span class="class"><span class="keyword">struct</span> <span class="title">dictEntry</span> *<span class="title">de</span>;</span></span><br><span class="line">            redisDb *db = server.db+j;</span><br><span class="line">            dict *dict;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (server.maxmemory_policy == REDIS_MAXMEMORY_ALLKEYS_LRU ||</span><br><span class="line">                server.maxmemory_policy == REDIS_MAXMEMORY_ALLKEYS_RANDOM)</span><br><span class="line">            &#123;</span><br><span class="line">                dict = server.db[j].dict;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                dict = server.db[j].expires;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (dictSize(dict) == <span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">/* volatile-random and allkeys-random policy */</span></span><br><span class="line">            <span class="keyword">if</span> (server.maxmemory_policy == REDIS_MAXMEMORY_ALLKEYS_RANDOM ||</span><br><span class="line">                server.maxmemory_policy == REDIS_MAXMEMORY_VOLATILE_RANDOM)</span><br><span class="line">            &#123;</span><br><span class="line">                de = dictGetRandomKey(dict);</span><br><span class="line">                bestkey = dictGetKey(de);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">/* volatile-lru and allkeys-lru policy */</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (server.maxmemory_policy == REDIS_MAXMEMORY_ALLKEYS_LRU ||</span><br><span class="line">                server.maxmemory_policy == REDIS_MAXMEMORY_VOLATILE_LRU)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">for</span> (k = <span class="number">0</span>; k &lt; server.maxmemory_samples; k++) &#123;</span><br><span class="line">                    sds thiskey;</span><br><span class="line">                    <span class="keyword">long</span> thisval;</span><br><span class="line">                    robj *o;</span><br><span class="line"></span><br><span class="line">                    de = dictGetRandomKey(dict);</span><br><span class="line">                    thiskey = dictGetKey(de);</span><br><span class="line">                    <span class="comment">/* When policy is volatile-lru we need an additional lookup</span></span><br><span class="line"><span class="comment">                     * to locate the real key, as dict is set to db-&gt;expires.  **/</span></span><br><span class="line">                    <span class="keyword">if</span> (server.maxmemory_policy == REDIS_MAXMEMORY_VOLATILE_LRU)</span><br><span class="line">                        de = dictFind(db-&gt;dict, thiskey);</span><br><span class="line">                    o = dictGetVal(de);</span><br><span class="line">                    thisval = estimateObjectIdleTime(o);</span><br><span class="line"></span><br><span class="line">                    <span class="comment">/* Higher idle time is better candidate for deletion */</span></span><br><span class="line">                    <span class="keyword">if</span> (bestkey == <span class="literal">NULL</span> || thisval &gt; bestval) &#123;</span><br><span class="line">                        bestkey = thiskey;</span><br><span class="line">                        bestval = thisval;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">/* volatile-ttl */</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (server.maxmemory_policy == REDIS_MAXMEMORY_VOLATILE_TTL) &#123;</span><br><span class="line">                <span class="keyword">for</span> (k = <span class="number">0</span>; k &lt; server.maxmemory_samples; k++) &#123;</span><br><span class="line">                    sds thiskey;</span><br><span class="line">                    <span class="keyword">long</span> thisval;</span><br><span class="line"></span><br><span class="line">                    de = dictGetRandomKey(dict);</span><br><span class="line">                    thiskey = dictGetKey(de);</span><br><span class="line">                    thisval = (<span class="keyword">long</span>) dictGetVal(de);</span><br><span class="line"></span><br><span class="line">                    <span class="comment">/* Expire sooner (minor expire unix timestamp) is better</span></span><br><span class="line"><span class="comment">                     * candidate for deletion **/</span></span><br><span class="line">                    <span class="keyword">if</span> (bestkey == <span class="literal">NULL</span> || thisval &lt; bestval) &#123;</span><br><span class="line">                        bestkey = thiskey;</span><br><span class="line">                        bestval = thisval;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">/* Finally remove the selected key. **/</span></span><br><span class="line">            <span class="comment">// 逐出挑选出的数据</span></span><br><span class="line">            <span class="keyword">if</span> (bestkey ) &#123;</span><br><span class="line">                ...</span><br><span class="line">                delta = (<span class="keyword">long</span> <span class="keyword">long</span>) zmalloc_used_memory();</span><br><span class="line">                dbDelete(db,keyobj);</span><br><span class="line">                delta -= (<span class="keyword">long</span> <span class="keyword">long</span>) zmalloc_used_memory();</span><br><span class="line">                mem_freed += delta;</span><br><span class="line">                ...</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">return</span> REDIS_OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h2><ul>
+<li>不要放垃圾数据，及时清理无用数据<br>实验性的数据和下线的业务数据及时删除;</li>
+<li>key尽量都设置过期时间<br>对具有时效性的key设置过期时间，通过redis自身的过期key清理策略来降低过期key对于内存的占用，同时也能够减少业务的麻烦，不需要定期手动清理了.</li>
+<li>单Key不要过大<br>key在get的时候网络传输延迟会比较大，需要分配的输出缓冲区也比较大，在定期清理的时候也容易造成比较高的延迟. 最好能通过业务拆分，数据压缩等方式避免这种过大的key的产生。</li>
+<li>不同业务如果公用一个业务的话，最好使用不同的逻辑db分开<br>从上面的分析可以看出，Redis的过期Key清理策略和强制淘汰策略都会遍历各个db。将key分布在不同的db有助于过期Key的及时清理。另外不同业务使用不同db也有助于问题排查和无用数据的及时下线.</li>
+</ul>
+<hr>
+<p>参考文档</p>
+<p><a href="https://yq.aliyun.com/articles/257459" target="_blank" rel="noopener">Redis数据过期和淘汰策略详解</a></p>
+
+      
+    </div>
+    <ul class="popular-posts"><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2018/12/28/argument-on-Redis/" title="关于Redis RedLock算法的争论" rel="bookmark">关于Redis RedLock算法的争论</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2018/12/28/distributed-locks-with-Redis/" title="使用Redis实现分布式锁" rel="bookmark">使用Redis实现分布式锁</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2018/12/25/redis-inside/" title="Redis数据模型详解" rel="bookmark">Redis数据模型详解</a></h3></div></li></ul>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/qrcode_shenyanchao.jpg" alt="申艳超 wechat" style="width: 200px; max-width: 100%;">
+    <div>欢迎关注微信订阅号~</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持是我原创的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="申艳超 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="申艳超 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    申艳超
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.shenyanchao.cn/blog/2018/12/26/redis-expire/" title="Redis过期&淘汰机制">https://www.shenyanchao.cn/blog/2018/12/26/redis-expire/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/redis/" rel="tag"># redis</a>
+          
+            <a href="/tags/expire/" rel="tag"># expire</a>
+          
+            <a href="/tags/lru/" rel="tag"># lru</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2018/12/25/epoll/" rel="next" title="linux epoll模型">
+                <i class="fa fa-chevron-left"></i> linux epoll模型
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2018/12/26/redis-io/" rel="prev" title="Redis-IO模型">
+                Redis-IO模型 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/shenyanchao.jpeg" alt="申艳超">
+            
+              <p class="site-author-name" itemprop="name">申艳超</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">123</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">229</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/blueshen" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zhiyi.shen@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis内存限制"><span class="nav-number">1.</span> <span class="nav-text">Redis内存限制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis过期数据清理策略"><span class="nav-number">2.</span> <span class="nav-text">Redis过期数据清理策略</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#过期数据清理时机"><span class="nav-number">2.1.</span> <span class="nav-text">过期数据清理时机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#过期数据清理算法"><span class="nav-number">2.2.</span> <span class="nav-text">过期数据清理算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis数据逐出策略"><span class="nav-number">3.</span> <span class="nav-text">Redis数据逐出策略</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据逐出时机"><span class="nav-number">3.1.</span> <span class="nav-text">数据逐出时机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据逐出算法"><span class="nav-number">3.2.</span> <span class="nav-text">数据逐出算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最佳实践"><span class="nav-number">4.</span> <span class="nav-text">最佳实践</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2012 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">申艳超</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">230.5k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: false,
+        appId: 'vFAoofuVWgdHsCv6B6BtqROc-gzGzoHsz',
+        appKey: 'ANWUkmboGiNDNRmf2iVlUIGt',
+        placeholder: '开始你的评论吧!',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("vFAoofuVWgdHsCv6B6BtqROc-gzGzoHsz", "ANWUkmboGiNDNRmf2iVlUIGt");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

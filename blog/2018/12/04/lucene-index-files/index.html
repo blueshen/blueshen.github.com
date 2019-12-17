@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/icon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="lucene,index,lucene7,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="申艳超-博客" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="最近2年，整个开源搜索引擎领域，发展迅速，版本迭代很快。 Lucene最近两年从4.0版本已经发布到最新的7.5.0版本，Solr和Elasticsearch也不断跟进升级。Lucene作为核心包，互联网上或者是书籍上关于它的介绍和分析都比较陈旧了，很多都是基于Lucene3.x来。是时候，从底层来分析下最新的Lucene发展情况了。 本文，依Lucene 7.5.0（当时最新）版本描述。 Luc">
+<meta name="keywords" content="lucene,index,lucene7">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lucene索引过程&amp;索引文件格式详解">
+<meta property="og:url" content="https://www.shenyanchao.cn/blog/2018/12/04/lucene-index-files/index.html">
+<meta property="og:site_name" content="申艳超-博客">
+<meta property="og:description" content="最近2年，整个开源搜索引擎领域，发展迅速，版本迭代很快。 Lucene最近两年从4.0版本已经发布到最新的7.5.0版本，Solr和Elasticsearch也不断跟进升级。Lucene作为核心包，互联网上或者是书籍上关于它的介绍和分析都比较陈旧了，很多都是基于Lucene3.x来。是时候，从底层来分析下最新的Lucene发展情况了。 本文，依Lucene 7.5.0（当时最新）版本描述。 Luc">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/lucene-index-files/lucene-index-on-disk.jpg">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/lucene-index-files/lucene-index-process.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/lucene-index-files/lucene-segments-n.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/lucene-index-files/lucene-si.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/lucene-index-files/lucene-fnm.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/lucene-index-files/lucene-fdt.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/lucene-index-files/lucene-tim.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/lucene-index-files/lucene-doc.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/lucene-index-files/lucene-pos.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/lucene-index-files/lucene-pay.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/lucene-index-files/lucene-liv.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/lucene-index-files/lucene-tvd.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/lucene-index-files/lucene-nvd.png">
+<meta property="og:updated_time" content="2019-12-17T11:41:25.745Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lucene索引过程&amp;索引文件格式详解">
+<meta name="twitter:description" content="最近2年，整个开源搜索引擎领域，发展迅速，版本迭代很快。 Lucene最近两年从4.0版本已经发布到最新的7.5.0版本，Solr和Elasticsearch也不断跟进升级。Lucene作为核心包，互联网上或者是书籍上关于它的介绍和分析都比较陈旧了，很多都是基于Lucene3.x来。是时候，从底层来分析下最新的Lucene发展情况了。 本文，依Lucene 7.5.0（当时最新）版本描述。 Luc">
+<meta name="twitter:image" content="https://www.shenyanchao.cn/images/lucene-index-files/lucene-index-on-disk.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.shenyanchao.cn/blog/2018/12/04/lucene-index-files/">
+
+
+
+
+
+  <title>Lucene索引过程&索引文件格式详解 | 申艳超-博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?81c9612f8fdceca45435ef7f5404d7b2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">申艳超-博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">搜索引擎、分布式、高性能、NLP、ElasticSearch、Solr</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.shenyanchao.cn/blog/2018/12/04/lucene-index-files/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="申艳超">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/shenyanchao.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="申艳超-博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Lucene索引过程&索引文件格式详解</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-04T12:36:09+08:00">
+                2018-12-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/lucene/" itemprop="url" rel="index">
+                    <span itemprop="name">lucene</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/blog/2018/12/04/lucene-index-files/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/blog/2018/12/04/lucene-index-files/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/blog/2018/12/04/lucene-index-files/" class="leancloud_visitors" data-flag-title="Lucene索引过程&索引文件格式详解">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,984
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  7
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近2年，整个开源搜索引擎领域，发展迅速，版本迭代很快。 Lucene最近两年从4.0版本已经发布到最新的7.5.0版本，Solr和Elasticsearch也不断跟进升级。Lucene作为核心包，互联网上或者是书籍上关于它的介绍和分析都比较陈旧了，很多都是基于Lucene3.x来。是时候，从底层来分析下最新的Lucene发展情况了。</p>
+<p>本文，依Lucene 7.5.0（当时最新）版本描述。</p>
+<h3 id="Lucene索引文件的表现"><a href="#Lucene索引文件的表现" class="headerlink" title="Lucene索引文件的表现"></a>Lucene索引文件的表现</h3><p>Lucene索引在硬盘上的<strong>表现</strong>就是一系列的文件，后缀名不同，下面是一个样例：</p>
+<p><img src="/images/lucene-index-files/lucene-index-on-disk.jpg" alt="lucene 索引文件"></p>
+<p>通常，看到这些文件，我们就想打开看看，发现根本无法直接查看。这里存的到底是什么，都有什么作用。很多时候是一脸的懵。为了更好的理解这些文件，下面将一步步进行细致的分析。</p>
+<a id="more"></a>
+<h3 id="Lucene构建索引过程"><a href="#Lucene构建索引过程" class="headerlink" title="Lucene构建索引过程"></a>Lucene构建索引过程</h3><p>Lucene源码读起来是比较晦涩的，毕竟它写于20年前，而且作者也是一个具备很多工作经验的老手，读源码是需要一定的时间的。    </p>
+<p>做索引的入口是<code>IndexWriter.addDocument*()</code>, 当新索引N个Document的时候，是如何生成一系列的索引文件呢。</p>
+<p>下面是一个源码导读图：</p>
+<p><img src="/images/lucene-index-files/lucene-index-process.png" alt="Lucene 索引构建"></p>
+<p>以上重点关注<code>DefaultIndexingChain</code>这个类，<code>processDocument()</code>方法主要是用来构建<strong>正排信息</strong>。而针对每个Field的<code>processField()</code>则通过一系列的操作，构建出了<strong>倒排信息</strong>。</p>
+<p>什么时候写入磁盘文件中呢？触发点是DocumentsWriterPerThread(DWPT)的flush()方法。触发时间可能是以下条件：</p>
+<ul>
+<li>超过MaxBufferedDocs限制</li>
+<li>超过RAMBufferSizeMB限制</li>
+<li>人为flush()或commit()</li>
+<li>MergePolicy触发</li>
+</ul>
+<p>经过以上的处理，就生成了一个最小的<strong>独立索引单元</strong>，称之为Segment。一个逻辑上的索引（表现为一个目录），是由N多个Segment构成的。</p>
+<h3 id="Lucene索引文件"><a href="#Lucene索引文件" class="headerlink" title="Lucene索引文件"></a>Lucene索引文件</h3><p>以下描述在<a href="https://lucene.apache.org/core/7_5_0/core/org/apache/lucene/codecs/lucene70/package-summary.html" target="_blank" rel="noopener">Lucene JavaDoc</a>里有详细的介绍，为方便理解，介绍如下：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>扩展名</th>
+<th>简要描述</th>
+<th>相关源码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Segment File</td>
+<td>segments_N</td>
+<td>commit点信息，其中N是一个36进制表示的值</td>
+<td>SegmentInfos</td>
+</tr>
+<tr>
+<td>Lock File</td>
+<td>write.lock</td>
+<td>文件锁，避免多个writer同时写；默认和索引文件一个目录。</td>
+<td></td>
+</tr>
+<tr>
+<td>Segment Info</td>
+<td>.si</td>
+<td>segment的元数据信息，指明这个segment都包含哪些文件</td>
+<td>Lucene70SegmentInfoFormat</td>
+</tr>
+<tr>
+<td>Compound File</td>
+<td>.cfs, .cfe</td>
+<td>如果启用compound功能，会压缩索引到2个文件内</td>
+<td>Lucene50CompoundFormat</td>
+</tr>
+<tr>
+<td>Fields</td>
+<td>.fnm</td>
+<td>存储有哪些Field,以及相关信息</td>
+<td>Lucene60FieldInfosFormat</td>
+</tr>
+<tr>
+<td>Field Index</td>
+<td>.fdx</td>
+<td>Field数据文件的索引</td>
+<td>Lucene50StoredFieldsFormat</td>
+</tr>
+<tr>
+<td>Field Data</td>
+<td>.fdt</td>
+<td>Field数据文件</td>
+<td>Lucene50StoredFieldsFormat</td>
+</tr>
+<tr>
+<td>Term Dictionary</td>
+<td>.tim</td>
+<td>Term词典</td>
+<td>BlockTreeTermsWriter</td>
+</tr>
+<tr>
+<td>Term Index</td>
+<td>.tip</td>
+<td>指向Term词典的索引</td>
+<td>BlockTreeTermsWriter</td>
+</tr>
+<tr>
+<td>Frequencies</td>
+<td>.doc</td>
+<td>保留包含每个Term的文档列表</td>
+<td>Lucene50PostingsWriter</td>
+</tr>
+<tr>
+<td>Positions</td>
+<td>.pos</td>
+<td>Term在文章中出现的位置信息</td>
+<td>Lucene50PostingsWriter</td>
+</tr>
+<tr>
+<td>Payloads</td>
+<td>.pay</td>
+<td>offset偏移/payload附加信息</td>
+<td>Lucene50PostingsWriter</td>
+</tr>
+<tr>
+<td>Norms</td>
+<td>.nvd, .nvm</td>
+<td>.nvm保存加权因子元数据；.nvd存储加权数据</td>
+<td>Lucene70NormsFormat</td>
+</tr>
+<tr>
+<td>Per-Document Values</td>
+<td>.dvd, .dvm</td>
+<td>.dvm存文档正排元数据；.dvd存文档正排数据</td>
+<td>Lucene70DocValuesFormat</td>
+</tr>
+<tr>
+<td>Term Vector Index</td>
+<td>.tvx</td>
+<td>指向tvd的offset</td>
+<td>Lucene50TermVectorsFormat</td>
+</tr>
+<tr>
+<td>Term Vector Data</td>
+<td>.tvd</td>
+<td>存储term vector信息</td>
+<td>Lucene50TermVectorsFormat</td>
+</tr>
+<tr>
+<td>Live Documents</td>
+<td>.liv</td>
+<td>活着的文档列表。位图形式</td>
+<td>Lucene50LiveDocsFormat</td>
+</tr>
+<tr>
+<td>Point Values</td>
+<td>.dii, .dim</td>
+<td>多维数据，地理位置等信息，用于处理数值型的查询</td>
+<td>Lucene60PointsFormat</td>
+</tr>
+</tbody>
+</table>
+<h4 id="Segment-N"><a href="#Segment-N" class="headerlink" title="Segment_N"></a>Segment_N</h4><p>格式：</p>
+<p><img src="/images/lucene-index-files/lucene-segments-n.png" alt="Lucene Segment_N"></p>
+<p>其中N作为后缀，是36进制的数字, 实现方式为：<code>Long.toString(gen, Character.MAX_RADIX)</code>。</p>
+<p>segments_N里通过SegName记录了这索引里<strong>所有.si文件名</strong>。</p>
+<h4 id="segment格式（-si）"><a href="#segment格式（-si）" class="headerlink" title="segment格式（.si）"></a>segment格式（.si）</h4><p>格式：</p>
+<p><img src="/images/lucene-index-files/lucene-si.png" alt="Lucene segment"></p>
+<p>由于一个segment文件，就是一个独立的子索引，其中Files是一个列表，里面存储了本segment所有相关的索引文件。类似长这样：</p>
+<pre><code>_8qh.dii
+_8qh.dim
+_8qh.fdt
+_8qh.fdx
+_8qh.fnm
+_8qh_Lucene50_0.doc
+_8qh_Lucene50_0.pos
+_8qh_Lucene50_0.tim
+_8qh_Lucene50_0.tip
+_8qh_Lucene70_0.dvd
+_8qh_Lucene70_0.dvm
+_8qh.si    
+</code></pre><p>IndexSort作为新加入的一个特性，也直接体现在了.si文件里。IndexSort可以加速排序，极大提升性能。</p>
+<h4 id="Field-info格式（-fnm）"><a href="#Field-info格式（-fnm）" class="headerlink" title="Field info格式（.fnm）"></a>Field info格式（.fnm）</h4><p>格式：</p>
+<p><img src="/images/lucene-index-files/lucene-fnm.png" alt="Lucene Filed info"></p>
+<p>存储了Document所包含的FieldName以及Field的内部表示FieldNumber（可以理解为ID）。 同时，每个Field相关索引配置，都通过byte来存储保存下来。</p>
+<p>其中DocValueBits里，不同类型的Field, 处理DocValue数据是不一样的，此处暂时按下不表。后续产出</p>
+<h4 id="Field-Data格式（-fdx-fdt）"><a href="#Field-Data格式（-fdx-fdt）" class="headerlink" title="Field Data格式（.fdx, .fdt）"></a>Field Data格式（.fdx, .fdt）</h4><p>格式如下所示：</p>
+<p><img src="/images/lucene-index-files/lucene-fdt.png" alt=""></p>
+<p>由于fdt正排信息很多，在存到磁盘的时候，使用<strong>LZ4算法</strong>进行了压缩。每个Chunk大小16KB(<code>1&lt;&lt;14</code>), Doc个数不能超过128个。在fdx中每个Block有1024个Chunk。</p>
+<p>CompressDocs是压缩后进行存储的，为了方便理解，可以认为就是一系列的Doc构成的。每个Doc又包含FieldNumAndType和实际的Field Value。</p>
+<p>其中FieldNumAndType是一个VLong: <strong>低3位</strong>表示Field Type, 其余<strong>高位</strong>用来表示FieldNumber.  可见Lucene为了最大程度的节省空间，做了很多的Trick.</p>
+<h4 id="Term-Index格式（-tip-tim）"><a href="#Term-Index格式（-tip-tim）" class="headerlink" title="Term Index格式（.tip,.tim）"></a>Term Index格式（.tip,.tim）</h4><p><a href="https://lucene.apache.org/core/7_5_0/core/org/apache/lucene/codecs/blocktree/BlockTreeTermsWriter.html" target="_blank" rel="noopener">格式</a>如下：</p>
+<p>.tip:</p>
+<p>​    Header, FSTIndex&lt; IndexStartFP&gt;…, DirOffset, Footer</p>
+<p>.tim</p>
+<p>​    Header, <em>PostingsHeader</em>, NodeBlock(…), FieldSummary, DirOffset, Footer</p>
+<p>图例如下：</p>
+<p><img src="/images/lucene-index-files/lucene-tim.png" alt="lucene Term Index &amp; Term Dictionary"></p>
+<p>其中FST部分，是直接加载到内存的，详见另外一篇博文，这里为方便理解，直接写画为类TRIE一样。</p>
+<h4 id="Pos列表（-doc-pos-pay）"><a href="#Pos列表（-doc-pos-pay）" class="headerlink" title="Pos列表（.doc, .pos, .pay）"></a>Pos列表（.doc, .pos, .pay）</h4><p>doc格式如下：</p>
+<p><img src="/images/lucene-index-files/lucene-doc.png" alt="Lucene posting list"></p>
+<p>需要注意的是，PackedBlock是对倒排列表的压缩，每128个作为一个Block，不能凑整的情况下，再按VIntBlock进行存储。无论如何存储，Block内部是存储了DocID（<code>PackedDocDeltaBlock</code>）和Term Freq(<code>PackedFreqBlock</code>)的对应关系的。</p>
+<p>而Postings则是以SKIPLIST（跳表）进行存储的，这种存储格式保证了快速的查找和归并操作。最底层的SkipDatum通过DocSkip保有对实际doc的指针。PosFPSkip则指向.pos文件，PayFPSkip指向了.pay文件。</p>
+<p>pos文件格式：</p>
+<p><img src="/images/lucene-index-files/lucene-pos.png" alt="Lucene Position"></p>
+<p>这里的PackedPosDeltaBlock与doc文件的很像，也是进行了压缩成block进行存储。最终通过PostionDelta和OffsetDelta来获取相关的位置和偏移信息。</p>
+<p>pay格式：</p>
+<p><img src="/images/lucene-index-files/lucene-pay.png" alt="Lucene payload"></p>
+<p>同样做了Block处理，这个文件通过TermPayloads保留了Term和Payload的对应关系；通过TermOffsets保存了Term和Offset的对应关系。</p>
+<h4 id="LIV文件格式-liv"><a href="#LIV文件格式-liv" class="headerlink" title="LIV文件格式(.liv)"></a>LIV文件格式(.liv)</h4><p>格式如下：</p>
+<p><img src="/images/lucene-index-files/lucene-liv.png" alt="Lucene live document"></p>
+<p>通过FixBitSet位图，来表示哪些是存活的，哪些是被删除的。FixBitSet的底层是通过<code>long[]</code>来模拟实现这样一个大的位图的。</p>
+<p>Lucene的4.0版本之前是通过.del文件来标记哪些DocID是被删除的，而现在则改为.liv标记哪些是存活的。个人而言，没有看出来具体原因，毕竟功能实现其实是一样的。</p>
+<h4 id="TermVector-tvx-tvd"><a href="#TermVector-tvx-tvd" class="headerlink" title="TermVector(.tvx, .tvd)"></a>TermVector(.tvx, .tvd)</h4><p>格式如下：</p>
+<p><img src="/images/lucene-index-files/lucene-tvd.png" alt="Lucene TermVector"></p>
+<p>这个格式和Field Data的很相似。区别在于最底层的Chunk直接保留了相关的信息TermFreqs、Positions、StartOffsets、TermAndPayLoads等信息。</p>
+<p>从这里也可以看出Term Vector保存的信息很多都是和之前重复的，如果没有必要，完全可以关闭Term Vector功能，避免额外的性能损耗。  </p>
+<h4 id="Norms-nvm-nvd"><a href="#Norms-nvm-nvd" class="headerlink" title="Norms (.nvm, .nvd)"></a>Norms (.nvm, .nvd)</h4><p>格式如下：</p>
+<p><img src="/images/lucene-index-files/lucene-nvd.png" alt="Lucene Norms"></p>
+<p>Norms信息通常是用来存储Field\Document的Boost加权信息，然后Lucene7之后，去除了Index时的boost加权操作。因此，目前Norms里存储的东西极少，有逐步被取消的的可能性。</p>
+<h4 id="Doc-Values-dvx-dvd"><a href="#Doc-Values-dvx-dvd" class="headerlink" title="Doc Values(.dvx, .dvd)"></a>Doc Values(.dvx, .dvd)</h4><p>DocValues部分，比较复杂，以至于官方文档都没有给出详细的索引格式。以后将作为一个独立的文章还具体解释。</p>
+<h4 id="Point-Values-dii，-dim"><a href="#Point-Values-dii，-dim" class="headerlink" title="Point Values(.dii，.dim)"></a>Point Values(.dii，.dim)</h4><p>Lucene7之后，彻底去除了之前关于数字类型索引和查找的逻辑。之前的TrieInt, TrieLong等完全被删除。取而代之的是IntPoint,LongPoint等类型。</p>
+<p>这些类型都是由BKD-Tree来实现的，Point Value被用来实现N-Dimension多维数据的索引和快速的查询，有统一数字型查询、2D位置、3D乃至8D数据查询的趋势，这块将单独作为一个文章进行详细解读。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>Lucene索引及其格式，是Solr以及ElasticSearch等分布式搜索引擎的根基。Lucene每一次核心功能的迭代与性能提升都是至关重要的。对Lucene索引过程以及索引文件格式的理解，有助于从更高层面来分析和看待生产环境出现的问题。</p>
+<hr>
+<p>参考文档：</p>
+<p><a href="https://lucene.apache.org/core/7_5_0/core/org/apache/lucene/codecs/lucene70/package-summary.html" target="_blank" rel="noopener">Lucene Java DOC</a></p>
+<p><a href="http://blog.51cto.com/sbp810050504" target="_blank" rel="noopener">sbp810050504的blog</a></p>
+<p><a href="https://www.cnblogs.com/forfuture1978/" target="_blank" rel="noopener">刘超觉先的博客</a></p>
+<p><a href="https://www.manning.com/books/lucene-in-action-second-edition" target="_blank" rel="noopener">Lucene in Action</a></p>
+
+      
+    </div>
+    <ul class="popular-posts"><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2014/11/25/better-synonym-handling-in-solr/" title="如何在Solr中更好的处理同义词" rel="bookmark">如何在Solr中更好的处理同义词</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2019/01/10/elasticsearch-nested/" title="ElasticSearch-Nested嵌套类型解密" rel="bookmark">ElasticSearch-Nested嵌套类型解密</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2018/12/13/elasticsearch-yellow-exception/" title="ElasticSearch线上故障-持续Yellow状态" rel="bookmark">ElasticSearch线上故障-持续Yellow状态</a></h3></div></li></ul>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/qrcode_shenyanchao.jpg" alt="申艳超 wechat" style="width: 200px; max-width: 100%;">
+    <div>欢迎关注微信订阅号~</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持是我原创的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="申艳超 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="申艳超 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    申艳超
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.shenyanchao.cn/blog/2018/12/04/lucene-index-files/" title="Lucene索引过程&索引文件格式详解">https://www.shenyanchao.cn/blog/2018/12/04/lucene-index-files/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/lucene/" rel="tag"># lucene</a>
+          
+            <a href="/tags/index/" rel="tag"># index</a>
+          
+            <a href="/tags/lucene7/" rel="tag"># lucene7</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2018/12/04/lucene-numberic/" rel="next" title="Lucene数字类型处理">
+                <i class="fa fa-chevron-left"></i> Lucene数字类型处理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2018/12/04/lucene-bkd/" rel="prev" title="Lucene BKD树-动态磁盘优化BSP树">
+                Lucene BKD树-动态磁盘优化BSP树 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/shenyanchao.jpeg" alt="申艳超">
+            
+              <p class="site-author-name" itemprop="name">申艳超</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">123</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">229</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/blueshen" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zhiyi.shen@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Lucene索引文件的表现"><span class="nav-number">1.</span> <span class="nav-text">Lucene索引文件的表现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lucene构建索引过程"><span class="nav-number">2.</span> <span class="nav-text">Lucene构建索引过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lucene索引文件"><span class="nav-number">3.</span> <span class="nav-text">Lucene索引文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Segment-N"><span class="nav-number">3.1.</span> <span class="nav-text">Segment_N</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#segment格式（-si）"><span class="nav-number">3.2.</span> <span class="nav-text">segment格式（.si）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Field-info格式（-fnm）"><span class="nav-number">3.3.</span> <span class="nav-text">Field info格式（.fnm）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Field-Data格式（-fdx-fdt）"><span class="nav-number">3.4.</span> <span class="nav-text">Field Data格式（.fdx, .fdt）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Term-Index格式（-tip-tim）"><span class="nav-number">3.5.</span> <span class="nav-text">Term Index格式（.tip,.tim）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Pos列表（-doc-pos-pay）"><span class="nav-number">3.6.</span> <span class="nav-text">Pos列表（.doc, .pos, .pay）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LIV文件格式-liv"><span class="nav-number">3.7.</span> <span class="nav-text">LIV文件格式(.liv)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TermVector-tvx-tvd"><span class="nav-number">3.8.</span> <span class="nav-text">TermVector(.tvx, .tvd)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Norms-nvm-nvd"><span class="nav-number">3.9.</span> <span class="nav-text">Norms (.nvm, .nvd)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Doc-Values-dvx-dvd"><span class="nav-number">3.10.</span> <span class="nav-text">Doc Values(.dvx, .dvd)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Point-Values-dii，-dim"><span class="nav-number">3.11.</span> <span class="nav-text">Point Values(.dii，.dim)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2012 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">申艳超</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">230.5k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: false,
+        appId: 'vFAoofuVWgdHsCv6B6BtqROc-gzGzoHsz',
+        appKey: 'ANWUkmboGiNDNRmf2iVlUIGt',
+        placeholder: '开始你的评论吧!',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("vFAoofuVWgdHsCv6B6BtqROc-gzGzoHsz", "ANWUkmboGiNDNRmf2iVlUIGt");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
