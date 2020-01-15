@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-Hans">
+<html class="theme-next mist use-motion" lang="zh-Hans">
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -89,10 +89,12 @@
 <meta property="og:site_name" content="申艳超-博客">
 <meta property="og:description" content="Spring MVC本身对Restful支持非常好。它的@RequestMapping、@RequestParam、@PathVariable、@ResponseBody注解很好的支持了REST。18.2 Creating RESTful services 1. @RequestMappingSpring uses the @RequestMapping method annotation to">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-12-17T11:41:25.751Z">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/blog/5641522be32ad.jpg">
+<meta property="og:updated_time" content="2020-01-15T12:09:19.998Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Restful Spring MVC">
 <meta name="twitter:description" content="Spring MVC本身对Restful支持非常好。它的@RequestMapping、@RequestParam、@PathVariable、@ResponseBody注解很好的支持了REST。18.2 Creating RESTful services 1. @RequestMappingSpring uses the @RequestMapping method annotation to">
+<meta name="twitter:image" content="https://www.shenyanchao.cn/images/blog/5641522be32ad.jpg">
 
 
 
@@ -100,7 +102,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Mist',
     version: '5.1.4',
     sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -404,7 +406,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  4,208
+                  4,379
                 </span>
               
 
@@ -420,7 +422,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  21
+                  22
                 </span>
               
             </div>
@@ -441,7 +443,8 @@
       
 
       
-        <p>Spring MVC本身对Restful支持非常好。它的<code>@RequestMapping</code>、<code>@RequestParam</code>、<code>@PathVariable</code>、<code>@ResponseBody</code>注解很好的支持了REST。<a href="http://static.springsource.org/spring/docs/3.0.0.M3/reference/html/ch18s02.html" target="_blank" rel="noopener">18.2 Creating RESTful services</a></p>
+        <p><img src="/images/blog/5641522be32ad.jpg" alt="springmvc"></p>
+<p>Spring MVC本身对Restful支持非常好。它的<code>@RequestMapping</code>、<code>@RequestParam</code>、<code>@PathVariable</code>、<code>@ResponseBody</code>注解很好的支持了REST。<a href="http://static.springsource.org/spring/docs/3.0.0.M3/reference/html/ch18s02.html" target="_blank" rel="noopener">18.2 Creating RESTful services</a></p>
 <h3 id="1-RequestMapping"><a href="#1-RequestMapping" class="headerlink" title="1. @RequestMapping"></a>1. <code>@RequestMapping</code></h3><p>Spring uses the @RequestMapping method annotation to define the URI Template for the request. 类似于struts的action-mapping。 可以指定POST或者GET。</p>
 <h3 id="2-PathVariable"><a href="#2-PathVariable" class="headerlink" title="2. @PathVariable"></a>2. <code>@PathVariable</code></h3><p>The @PathVariable method parameter annotation is used to indicate that a method parameter should be bound to the value of a URI template variable. 用于抽取URL中的信息作为参数。（注意，不包括请求字符串，那是<code>@RequestParam</code>做的事情。）</p>
 <pre><code>@RequestMapping(&quot;/owners/{ownerId}&quot;, method=RequestMethod.GET)
@@ -460,44 +463,14 @@ public String findOwner(@PathVariable(&quot;ownerId&quot;) String theOwner, Mode
 <a id="more"></a>
 <h3 id="3-RequestParam"><a href="#3-RequestParam" class="headerlink" title="3. @RequestParam"></a>3. <code>@RequestParam</code></h3><p>官方文档居然没有对这个注解进行说明，估计是遗漏了（真不应该啊）。这个注解跟<code>@PathVariable</code>功能差不多，只是参数值的来源不一样而已。它的取值来源是请求参数（querystring或者post表单字段）。</p>
 <p>对了，因为它的来源可以是POST字段，所以它支持更丰富和复杂的类型信息。比如文件对象:</p>
-<pre><code>@RequestMapping(&quot;/imageUpload&quot;)
-public String processImageUpload(@RequestParam(&quot;name&quot;) String name,
-                @RequestParam(&quot;description&quot;) String description,
-                @RequestParam(&quot;image&quot;) MultipartFile image) throws IOException {
-    this.imageDatabase.storeImage(name, image.getInputStream(),
-                                    (int) image.getSize(), description);
-    return &quot;redirect:imageList&quot;;
-}
-</code></pre><p>还可以设置defaultValue：</p>
-<pre><code>@RequestMapping(&quot;/imageUpload&quot;)
-public String processImageUpload(@RequestParam(value=&quot;name&quot;, defaultValue=&quot;arganzheng&quot;) String name,
-                @RequestParam(&quot;description&quot;) String description,
-                @RequestParam(&quot;image&quot;) MultipartFile image) throws IOException {
-    this.imageDatabase.storeImage(name, image.getInputStream(),
-                                    (int) image.getSize(), description);
-    return &quot;redirect:imageList&quot;;
-}
-</code></pre><h3 id="4-RequestBody和-ResponseBody"><a href="#4-RequestBody和-ResponseBody" class="headerlink" title="4. @RequestBody和@ResponseBody"></a>4. <code>@RequestBody</code>和<code>@ResponseBody</code></h3><p>这两个注解其实用到了Spring的一个非常灵活的设计——<code>HttpMessageConverter</code> <a href="http://static.springsource.org/spring/docs/3.0.0.M3/reference/html/ch18s03.html#rest-message-conversion" target="_blank" rel="noopener">18.3.2 HTTP Message Conversion</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/imageUpload"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">processImageUpload</span><span class="params">(@RequestParam(<span class="string">"name"</span>)</span> String name,</span></span><br><span class="line"><span class="function">                @<span class="title">RequestParam</span><span class="params">(<span class="string">"description"</span>)</span> String description,</span></span><br><span class="line"><span class="function">                @<span class="title">RequestParam</span><span class="params">(<span class="string">"image"</span>)</span> MultipartFile image) <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.imageDatabase.storeImage(name, image.getInputStream(),</span><br><span class="line">                                    (<span class="keyword">int</span>) image.getSize(), description);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"redirect:imageList"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>还可以设置defaultValue：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/imageUpload"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">processImageUpload</span><span class="params">(@RequestParam(value=<span class="string">"name"</span>, defaultValue=<span class="string">"arganzheng"</span>)</span> String name,</span></span><br><span class="line"><span class="function">                @<span class="title">RequestParam</span><span class="params">(<span class="string">"description"</span>)</span> String description,</span></span><br><span class="line"><span class="function">                @<span class="title">RequestParam</span><span class="params">(<span class="string">"image"</span>)</span> MultipartFile image) <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.imageDatabase.storeImage(name, image.getInputStream(),</span><br><span class="line">                                    (<span class="keyword">int</span>) image.getSize(), description);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"redirect:imageList"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-RequestBody和-ResponseBody"><a href="#4-RequestBody和-ResponseBody" class="headerlink" title="4. @RequestBody和@ResponseBody"></a>4. <code>@RequestBody</code>和<code>@ResponseBody</code></h3><p>这两个注解其实用到了Spring的一个非常灵活的设计——<code>HttpMessageConverter</code> <a href="http://static.springsource.org/spring/docs/3.0.0.M3/reference/html/ch18s03.html#rest-message-conversion" target="_blank" rel="noopener">18.3.2 HTTP Message Conversion</a></p>
 <p>与<code>@RequestParam</code>不同，<code>@RequestBody</code>和<code>@ResponseBody</code>是针对整个HTTP请求或者返回消息的。前者只是针对HTTP请求消息中的一个 name=value 键值对(名称很贴切)。</p>
 <p><code>HtppMessageConverter</code>负责将HTTP请求消息(HTTP request message)转化为对象，或者将对象转化为HTTP响应体(HTTP response body)。</p>
-<pre><code>public interface HttpMessageConverter&lt;T&gt; {
-
-    // Indicate whether the given class is supported by this converter.
-    boolean supports(Class&lt;? extends T&gt; clazz);
-
-    // Return the list of MediaType objects supported by this converter.
-    List&lt;MediaType&gt; getSupportedMediaTypes();
-
-    // Read an object of the given type form the given input message, and returns it.
-    T read(Class&lt;T&gt; clazz, HttpInputMessage inputMessage) throws IOException,
-                                                                    HttpMessageNotReadableException;
-
-    // Write an given object to the given output message.
-    void write(T t, HttpOutputMessage outputMessage) throws IOException,
-                                                            HttpMessageNotWritableException;
-
-}
-</code></pre><p>Spring MVC对<code>HttpMessageConverter</code>有多种默认实现，基本上不需要自己再自定义<code>HttpMessageConverter</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">HttpMessageConverter</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Indicate whether the given class is supported by this converter.</span></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">supports</span><span class="params">(Class&lt;? extends T&gt; clazz)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Return the list of MediaType objects supported by this converter.</span></span><br><span class="line">    <span class="function">List&lt;MediaType&gt; <span class="title">getSupportedMediaTypes</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Read an object of the given type form the given input message, and returns it.</span></span><br><span class="line">    <span class="function">T <span class="title">read</span><span class="params">(Class&lt;T&gt; clazz, HttpInputMessage inputMessage)</span> <span class="keyword">throws</span> IOException,</span></span><br><span class="line"><span class="function">                                                                    HttpMessageNotReadableException</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Write an given object to the given output message.</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">write</span><span class="params">(T t, HttpOutputMessage outputMessage)</span> <span class="keyword">throws</span> IOException,</span></span><br><span class="line"><span class="function">                                                            HttpMessageNotWritableException</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Spring MVC对<code>HttpMessageConverter</code>有多种默认实现，基本上不需要自己再自定义<code>HttpMessageConverter</code></p>
 <blockquote>
 </blockquote>
 <ul>
@@ -802,128 +775,76 @@ public String test(
       return mediaType;
     }
 
+protected MediaType getMediaTypeFromParameter(String parameterValue) {
+  return this.mediaTypes.get(parameterValue.toLowerCase(Locale.ENGLISH));
+}
 
-    protected MediaType getMediaTypeFromParameter(String parameterValue) {
-      return this.mediaTypes.get(parameterValue.toLowerCase(Locale.ENGLISH));
+private List&lt;View&gt; getCandidateViews(String viewName, Locale locale, List&lt;MediaType&gt; requestedMediaTypes)
+    throws Exception {
+
+  List&lt;View&gt; candidateViews = new ArrayList&lt;View&gt;();
+  for (ViewResolver viewResolver : this.viewResolvers) {
+    View view = viewResolver.resolveViewName(viewName, locale);
+    if (view != null) {
+      candidateViews.add(view);
     }
-
-    private List&lt;View&gt; getCandidateViews(String viewName, Locale locale, List&lt;MediaType&gt; requestedMediaTypes)
-        throws Exception {
-
-      List&lt;View&gt; candidateViews = new ArrayList&lt;View&gt;();
-      for (ViewResolver viewResolver : this.viewResolvers) {
-        View view = viewResolver.resolveViewName(viewName, locale);
+    for (MediaType requestedMediaType : requestedMediaTypes) {
+      List&lt;String&gt; extensions = getExtensionsForMediaType(requestedMediaType);
+      for (String extension : extensions) {
+        String viewNameWithExtension = viewName + &quot;.&quot; + extension;
+        view = viewResolver.resolveViewName(viewNameWithExtension, locale);
         if (view != null) {
           candidateViews.add(view);
         }
-        for (MediaType requestedMediaType : requestedMediaTypes) {
-          List&lt;String&gt; extensions = getExtensionsForMediaType(requestedMediaType);
-          for (String extension : extensions) {
-            String viewNameWithExtension = viewName + &quot;.&quot; + extension;
-            view = viewResolver.resolveViewName(viewNameWithExtension, locale);
-            if (view != null) {
-              candidateViews.add(view);
-            }
-          }
+      }
 
-        }
-      }
-      if (!CollectionUtils.isEmpty(this.defaultViews)) {
-        candidateViews.addAll(this.defaultViews);
-      }
-      return candidateViews;
     }
+  }
+  if (!CollectionUtils.isEmpty(this.defaultViews)) {
+    candidateViews.addAll(this.defaultViews);
+  }
+  return candidateViews;
+}
 
-    private List&lt;String&gt; getExtensionsForMediaType(MediaType requestedMediaType) {
-      List&lt;String&gt; result = new ArrayList&lt;String&gt;();
-      for (Entry&lt;String, MediaType&gt; entry : this.mediaTypes.entrySet()) {
-        if (requestedMediaType.includes(entry.getValue())) {
-          result.add(entry.getKey());
-        }
-      }
-      return result;
+private List&lt;String&gt; getExtensionsForMediaType(MediaType requestedMediaType) {
+  List&lt;String&gt; result = new ArrayList&lt;String&gt;();
+  for (Entry&lt;String, MediaType&gt; entry : this.mediaTypes.entrySet()) {
+    if (requestedMediaType.includes(entry.getValue())) {
+      result.add(entry.getKey());
     }
+  }
+  return result;
+}
 
-    private View getBestView(List&lt;View&gt; candidateViews, List&lt;MediaType&gt; requestedMediaTypes) {
-      MediaType bestRequestedMediaType = null;
-      View bestView = null;
-      for (MediaType requestedMediaType : requestedMediaTypes) {
-        for (View candidateView : candidateViews) {
-          if (StringUtils.hasText(candidateView.getContentType())) {
-            MediaType candidateContentType = MediaType.parseMediaType(candidateView.getContentType());
-            if (requestedMediaType.includes(candidateContentType)) {
-              bestRequestedMediaType = requestedMediaType;
-              bestView = candidateView;
-              break;
-            }
-          }
-        }
-        if (bestView != null) {
-          if (logger.isDebugEnabled()) {
-            logger.debug(&quot;Returning [&quot; + bestView + &quot;] based on requested media type &apos;&quot; +
-                bestRequestedMediaType + &quot;&apos;&quot;);
-          }
+private View getBestView(List&lt;View&gt; candidateViews, List&lt;MediaType&gt; requestedMediaTypes) {
+  MediaType bestRequestedMediaType = null;
+  View bestView = null;
+  for (MediaType requestedMediaType : requestedMediaTypes) {
+    for (View candidateView : candidateViews) {
+      if (StringUtils.hasText(candidateView.getContentType())) {
+        MediaType candidateContentType = MediaType.parseMediaType(candidateView.getContentType());
+        if (requestedMediaType.includes(candidateContentType)) {
+          bestRequestedMediaType = requestedMediaType;
+          bestView = candidateView;
           break;
         }
       }
-      return bestView;
-
     }
-
-    ...
-
-}
-</code></pre><p>可以看到<code>ContentNegotiationViewResolver</code>有点类似于ComposeCommand（参见Command模式 by GoF），它本身实现了ViewResolver接口，所以它是一个ViewResolver，但是它组合了一堆的ViewResolver，根据一定的规则（前面讨论的content negotiation）将视图请求转发给最match的ViewResolver。</p>
-<p>所以关键在两点：</p>
-<h4 id="1-content-negotiation策略-ContentNegotiationStrategy"><a href="#1-content-negotiation策略-ContentNegotiationStrategy" class="headerlink" title="1. content negotiation策略 (ContentNegotiationStrategy)"></a>1. content negotiation策略 (<code>ContentNegotiationStrategy</code>)</h4><blockquote>
-<p>This view resolver uses the requested media type to select a suitable View for a request. This media type is determined by using the following criteria:</p>
-</blockquote>
-<ol>
-<li>If the requested path has a file extension and if the setFavorPathExtension(boolean) property is true, the mediaTypes property is inspected for a matching media type.</li>
-<li>If the request contains a parameter defining the extension and if the setFavorParameter(boolean) property is true, the mediaTypes property is inspected for a matching media type. The default name of the parameter is format and it can be configured using the parameterName property.</li>
-<li>If there is no match in the mediaTypes property and if the Java Activation Framework (JAF) is both enabled and present on the classpath, FileTypeMap.getContentType(String) is used instead.</li>
-<li>If the previous steps did not result in a media type, and ignoreAcceptHeader is false, the request Accept header is used.<blockquote>
-</blockquote>
-Once the requested media type has been determined, this resolver queries each delegate view resolver for a View and determines if the requested media type is compatible with the view’s content type). The most compatible view is returned.</li>
-</ol>
-<p>这个就是上面提到的Spring MVC默认的三个<code>ContentNegotiationStrategy</code>，即所谓的PPA Strategy（path extension, then parameter, then Accept header) ，顺序也是先path extension，然后parameter(默认是format参数)，然后才是accept头。</p>
-<p>关于<code>ContentNegotiationStrategy</code>，可以参考笔者的另一篇文章：<a href="http://blog.arganzheng.me/posts/content-negotiation-using-spring-mvc.html" target="_blank" rel="noopener">content negotiation using spring mvc</a>。有具体的实际案例。</p>
-<h5 id="2-供选择的SingleViewResolver"><a href="#2-供选择的SingleViewResolver" class="headerlink" title="2. 供选择的SingleViewResolver"></a>2. 供选择的SingleViewResolver</h5><blockquote>
-</blockquote>
-<ol>
-<li>The ContentNegotiatingViewResolver does not resolve views itself, but delegates to other ViewResolvers. By default, these other view resolvers are picked up automatically from the application context, though they can also be set explicitly by using the viewResolvers property. Note that in order for this view resolver to work properly, the order property needs to be set to a higher precedence than the others (the default is Ordered.HIGHEST_PRECEDENCE.)<blockquote>
-</blockquote>
- 说明：即<code>private List&lt;ViewResolver&gt; viewResolvers;</code>属性。需要注意的是Spring会自动加载和注册所有其他的ViewResolver到<code>ContentNegotiationViewResolover</code>的<code>viewResolvers</code>属性。但是你需要告诉Spring MVC，你希望controller返回的view都是由<code>ContentNegotiationViewResolover</code>来解析，而不是其他定义的ViewResolver。这是通过order配置项来决定。你应该给<code>ContentNegotiationViewResolover</code>配置最高的order(其实默认就是最高了)。<blockquote>
-</blockquote>
-</li>
-<li>Additionally, this view resolver exposes the defaultViews property, allowing you to override the views provided by the view resolvers. Note that these default views are offered as candicates, and still need have the content type requested (via file extension, parameter, or Accept header, described above). You can also set the default content type directly, which will be returned when the other mechanisms (Accept header, file extension or parameter) do not result in a match.<blockquote>
-</blockquote>
- 说明：即<code>private List&lt;View&gt; defaultViews;</code>和<code>private MediaType defaultContentType;</code>属性。</li>
-</ol>
-<p>关于<code>ContentNegotiatingViewResolver</code>，下面两篇文章都不错，值得一看：</p>
-<ol>
-<li><a href="http://blog.eyallupu.com/2009/07/content-negotiation-using-spring-mvcs.html" target="_blank" rel="noopener">Content Negotiation using Spring MVC’s ContentNegotiatingViewResolver</a>:使用了<code>viewResolvers</code>配置。</li>
-<li><a href="http://blog.springsource.com/2009/03/16/adding-an-atom-view-to-an-application-using-springs-rest-support/" target="_blank" rel="noopener">ADDING AN ATOM VIEW TO AN APPLICATION USING SPRING’S REST SUPPORT</a>:使用了<code>ViewResolvers</code>配置。</li>
-<li><a href="http://www.mkyong.com/spring-mvc/spring-3-mvc-contentnegotiatingviewresolver-example/" target="_blank" rel="noopener">Spring 3 MVC ContentNegotiatingViewResolver Example</a>:使用了<code>defaultViews</code>配置。</li>
-</ol>
-<p>注意：<code>@ResponseBody</code>是为了单个View准备的，即它只能转换成一种格式，对于<code>ContentNegotiatingViewResolver</code>，需要多个<strong>Single</strong>ViewResolver来接收。</p>
-<h3 id="8-客户端调用-Accessing-RESTful-services-on-the-Client"><a href="#8-客户端调用-Accessing-RESTful-services-on-the-Client" class="headerlink" title="8. 客户端调用 Accessing RESTful services on the Client"></a>8. 客户端调用 <a href="http://static.springsource.org/spring/docs/3.0.0.M3/reference/html/ch18s03.html#rest-resttemplate" target="_blank" rel="noopener">Accessing RESTful services on the Client</a></h3><p>Spring MVC不仅大大的简化了服务端RESTful服务的开发和开放，还提供了一些辅助类来方便客户端调用REST服务。</p>
-<p>以前Client如果要调用REST服务，一般是使用HttpClient来发送HTTP请求：</p>
-<pre><code>String uri = &quot;http://example.com/hotels/1/bookings&quot;;
-
-PostMethod post = new PostMethod(uri);
-String request = // create booking request content
-post.setRequestEntity(new StringRequestEntity(request));
-
-httpClient.executeMethod(post);
-
-if (HttpStatus.SC_CREATED == post.getStatusCode()) {
-  Header location = post.getRequestHeader(&quot;Location&quot;);
-  if (location != null) {
-    System.out.println(&quot;Created new booking at :&quot; + location.getValue());
+    if (bestView != null) {
+      if (logger.isDebugEnabled()) {
+        logger.debug(&quot;Returning [&quot; + bestView + &quot;] based on requested media type &apos;&quot; +
+            bestRequestedMediaType + &quot;&apos;&quot;);
+      }
+      break;
+    }
   }
+  return bestView;
+
 }
-</code></pre><p>太过底层，而且代码比较冗长，一般都要手动封装一下（即类似于SDK，封装了签名和HTTP发送和接受细节）。我们看一下Spring MVC是怎么解决这个问题的。</p>
+
+...
+</code></pre><p>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">可以看到`ContentNegotiationViewResolver`有点类似于ComposeCommand（参见Command模式 by GoF），它本身实现了ViewResolver接口，所以它是一个ViewResolver，但是它组合了一堆的ViewResolver，根据一定的规则（前面讨论的content negotiation）将视图请求转发给最match的ViewResolver。</span><br><span class="line"></span><br><span class="line">所以关键在两点：</span><br><span class="line"></span><br><span class="line">#### 1. content negotiation策略 (`ContentNegotiationStrategy`)</span><br><span class="line"></span><br><span class="line">&gt;This view resolver uses the requested media type to select a suitable View for a request. This media type is determined by using the following criteria:</span><br><span class="line">&gt;</span><br><span class="line">1. If the requested path has a file extension and if the setFavorPathExtension(boolean) property is true, the mediaTypes property is inspected for a matching media type.</span><br><span class="line">2. If the request contains a parameter defining the extension and if the setFavorParameter(boolean) property is true, the mediaTypes property is inspected for a matching media type. The default name of the parameter is format and it can be configured using the parameterName property.</span><br><span class="line">3. If there is no match in the mediaTypes property and if the Java Activation Framework (JAF) is both enabled and present on the classpath, FileTypeMap.getContentType(String) is used instead.</span><br><span class="line">4. If the previous steps did not result in a media type, and ignoreAcceptHeader is false, the request Accept header is used.</span><br><span class="line">&gt;</span><br><span class="line">Once the requested media type has been determined, this resolver queries each delegate view resolver for a View and determines if the requested media type is compatible with the view&apos;s content type). The most compatible view is returned.</span><br><span class="line"></span><br><span class="line">这个就是上面提到的Spring MVC默认的三个`ContentNegotiationStrategy`，即所谓的PPA Strategy（path extension, then parameter, then Accept header) ，顺序也是先path extension，然后parameter(默认是format参数)，然后才是accept头。</span><br><span class="line"></span><br><span class="line">关于`ContentNegotiationStrategy`，可以参考笔者的另一篇文章：[content negotiation using spring mvc](http://blog.arganzheng.me/posts/content-negotiation-using-spring-mvc.html)。有具体的实际案例。</span><br><span class="line"></span><br><span class="line">##### 2. 供选择的SingleViewResolver</span><br><span class="line">&gt;</span><br><span class="line">1. The ContentNegotiatingViewResolver does not resolve views itself, but delegates to other ViewResolvers. By default, these other view resolvers are picked up automatically from the application context, though they can also be set explicitly by using the viewResolvers property. Note that in order for this view resolver to work properly, the order property needs to be set to a higher precedence than the others (the default is Ordered.HIGHEST_PRECEDENCE.)</span><br><span class="line">&gt;</span><br><span class="line">    说明：即`private List&lt;ViewResolver&gt; viewResolvers;`属性。需要注意的是Spring会自动加载和注册所有其他的ViewResolver到`ContentNegotiationViewResolover`的`viewResolvers`属性。但是你需要告诉Spring MVC，你希望controller返回的view都是由`ContentNegotiationViewResolover`来解析，而不是其他定义的ViewResolver。这是通过order配置项来决定。你应该给`ContentNegotiationViewResolover`配置最高的order(其实默认就是最高了)。</span><br><span class="line">&gt;</span><br><span class="line">2. Additionally, this view resolver exposes the defaultViews property, allowing you to override the views provided by the view resolvers. Note that these default views are offered as candicates, and still need have the content type requested (via file extension, parameter, or Accept header, described above). You can also set the default content type directly, which will be returned when the other mechanisms (Accept header, file extension or parameter) do not result in a match.</span><br><span class="line">&gt;</span><br><span class="line">    说明：即`private List&lt;View&gt; defaultViews;`和`private MediaType defaultContentType;`属性。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">关于`ContentNegotiatingViewResolver`，下面两篇文章都不错，值得一看：</span><br><span class="line"></span><br><span class="line">1. [Content Negotiation using Spring MVC&apos;s ContentNegotiatingViewResolver](http://blog.eyallupu.com/2009/07/content-negotiation-using-spring-mvcs.html):使用了`viewResolvers`配置。</span><br><span class="line">2. [ADDING AN ATOM VIEW TO AN APPLICATION USING SPRING&apos;S REST SUPPORT](http://blog.springsource.com/2009/03/16/adding-an-atom-view-to-an-application-using-springs-rest-support/):使用了`ViewResolvers`配置。</span><br><span class="line">3. [Spring 3 MVC ContentNegotiatingViewResolver Example](http://www.mkyong.com/spring-mvc/spring-3-mvc-contentnegotiatingviewresolver-example/):使用了`defaultViews`配置。</span><br><span class="line"></span><br><span class="line">注意：`@ResponseBody`是为了单个View准备的，即它只能转换成一种格式，对于`ContentNegotiatingViewResolver`，需要多个**Single**ViewResolver来接收。</span><br><span class="line"></span><br><span class="line">### 8. 客户端调用 [Accessing RESTful services on the Client](http://static.springsource.org/spring/docs/3.0.0.M3/reference/html/ch18s03.html#rest-resttemplate)</span><br><span class="line"></span><br><span class="line">Spring MVC不仅大大的简化了服务端RESTful服务的开发和开放，还提供了一些辅助类来方便客户端调用REST服务。</span><br><span class="line"></span><br><span class="line">以前Client如果要调用REST服务，一般是使用HttpClient来发送HTTP请求：</span><br><span class="line"></span><br><span class="line">​```java</span><br><span class="line">String uri = &quot;http://example.com/hotels/1/bookings&quot;;</span><br><span class="line"></span><br><span class="line">PostMethod post = new PostMethod(uri);</span><br><span class="line">String request = // create booking request content</span><br><span class="line">post.setRequestEntity(new StringRequestEntity(request));</span><br><span class="line"></span><br><span class="line">httpClient.executeMethod(post);</span><br><span class="line"></span><br><span class="line">if (HttpStatus.SC_CREATED == post.getStatusCode()) &#123;</span><br><span class="line">  Header location = post.getRequestHeader(&quot;Location&quot;);</span><br><span class="line">  if (location != null) &#123;</span><br><span class="line">    System.out.println(&quot;Created new booking at :&quot; + location.getValue());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>太过底层，而且代码比较冗长，一般都要手动封装一下（即类似于SDK，封装了签名和HTTP发送和接受细节）。我们看一下Spring MVC是怎么解决这个问题的。</p>
 <h4 id="RestTemplate"><a href="#RestTemplate" class="headerlink" title="RestTemplate"></a><a href="http://blog.springsource.org/2009/03/27/rest-in-spring-3-resttemplate/" target="_blank" rel="noopener">RestTemplate</a></h4><p>RestTemplate是client-site HTTP access的核心类。正如它的名称所示，<code>RestTemplate</code>非常类似于<code>JdbcTemplate</code>, <code>JmsTemplate</code>等XXXTemplate。这意味着<code>RestTemplate</code>是线程安全的并且可以通过callback来定制它的行为。</p>
 <p><strong>TIPS</strong> Spring提供的Template类非常灵活和好用，种类也很丰富。当你需要做一些事情的时候可以先考虑一下有没有相应的template可以用。</p>
 <p>RestTemplate默认使用<code>java.net</code>包下的基础类来创建HTTP请求。你可以实现<code>ClientHttpRequestFactory</code>接口，提供你自己的Http请求工厂类。Spring提供了<code>CommonsClientHttpRequestFactory</code>，这个工厂类使用Jakarta Commons HttpClient来创建HTTP请求。这样就可以使用HttpClient提供的认证和链接池功能了。</p>
@@ -1252,7 +1173,7 @@ http://arganzheng.me/message/update
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-RequestMapping"><span class="nav-number">1.</span> <span class="nav-text">1. @RequestMapping</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-PathVariable"><span class="nav-number">2.</span> <span class="nav-text">2. @PathVariable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-RequestParam"><span class="nav-number">3.</span> <span class="nav-text">3. @RequestParam</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-RequestBody和-ResponseBody"><span class="nav-number">4.</span> <span class="nav-text">4. @RequestBody和@ResponseBody</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-CookieValue"><span class="nav-number">5.</span> <span class="nav-text">5. @CookieValue</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-RequestHeader"><span class="nav-number">6.</span> <span class="nav-text">6. @RequestHeader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-返回多种表现形式-Returning-multiple-representations"><span class="nav-number">7.</span> <span class="nav-text">7. 返回多种表现形式(Returning multiple representations)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-content-negotiation策略-ContentNegotiationStrategy"><span class="nav-number">7.1.</span> <span class="nav-text">1. content negotiation策略 (ContentNegotiationStrategy)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-供选择的SingleViewResolver"><span class="nav-number">7.1.1.</span> <span class="nav-text">2. 供选择的SingleViewResolver</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-客户端调用-Accessing-RESTful-services-on-the-Client"><span class="nav-number">8.</span> <span class="nav-text">8. 客户端调用 Accessing RESTful services on the Client</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#RestTemplate"><span class="nav-number">8.1.</span> <span class="nav-text">RestTemplate</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-支持RESTful的URL"><span class="nav-number">9.</span> <span class="nav-text">9. 支持RESTful的URL</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-RequestMapping"><span class="nav-number">1.</span> <span class="nav-text">1. @RequestMapping</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-PathVariable"><span class="nav-number">2.</span> <span class="nav-text">2. @PathVariable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-RequestParam"><span class="nav-number">3.</span> <span class="nav-text">3. @RequestParam</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-RequestBody和-ResponseBody"><span class="nav-number">4.</span> <span class="nav-text">4. @RequestBody和@ResponseBody</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-CookieValue"><span class="nav-number">5.</span> <span class="nav-text">5. @CookieValue</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-RequestHeader"><span class="nav-number">6.</span> <span class="nav-text">6. @RequestHeader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-返回多种表现形式-Returning-multiple-representations"><span class="nav-number">7.</span> <span class="nav-text">7. 返回多种表现形式(Returning multiple representations)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#RestTemplate"><span class="nav-number">7.1.</span> <span class="nav-text">RestTemplate</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-支持RESTful的URL"><span class="nav-number">8.</span> <span class="nav-text">9. 支持RESTful的URL</span></a></li></ol></div>
             
 
           </div>
@@ -1286,7 +1207,7 @@ http://arganzheng.me/message/update
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">233.4k</span>
+    <span title="Site words total count">233.6k</span>
   
 </div>
 
@@ -1299,7 +1220,7 @@ http://arganzheng.me/message/update
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
 
 
 

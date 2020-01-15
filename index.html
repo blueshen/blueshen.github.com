@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-Hans">
+<html class="theme-next mist use-motion" lang="zh-Hans">
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -95,7 +95,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Mist',
     version: '5.1.4',
     sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -845,7 +845,8 @@
 
       
         
-          <p>Lucene Field本身并不支持嵌套类型，最多也就支持多值类型。ElasticSearch进行了扩展，使得Field可以是object对象类型或者nested嵌套类型。</p>
+          <p><img src="/images/elasticsearch-nested/es-header.jpg" alt="elasticsearch nested"></p>
+<p>Lucene Field本身并不支持嵌套类型，最多也就支持多值类型。ElasticSearch进行了扩展，使得Field可以是object对象类型或者nested嵌套类型。</p>
 <p>object类型，本质上是把字段<strong>路径打平</strong>，最终在索引里还是一个正常的Field字段，object类型转化后，并不会保留<strong>对象内的属性对应关系</strong>，这在查询中可能需要特别注意。然后nested嵌套类型却实现的对应关系。</p>
 <p>使用上的区别，可以参考官方<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/nested.html" target="_blank" rel="noopener">Nested Data Type</a>。</p>
 <p>本文，我们主要关注的是elasticsearch内部是如何实现的？</p>
@@ -859,7 +860,7 @@
         
       
     </div>
-    <ul class="popular-posts"><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2018/12/13/elasticsearch-yellow-exception/" title="ElasticSearch线上故障-持续Yellow状态" rel="bookmark">ElasticSearch线上故障-持续Yellow状态</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2014/11/25/better-synonym-handling-in-solr/" title="如何在Solr中更好的处理同义词" rel="bookmark">如何在Solr中更好的处理同义词</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2018/12/04/lucene-bkd/" title="Lucene BKD树-动态磁盘优化BSP树" rel="bookmark">Lucene BKD树-动态磁盘优化BSP树</a></h3></div></li></ul>
+    <ul class="popular-posts"><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2018/12/13/elasticsearch-yellow-exception/" title="ElasticSearch线上故障-持续Yellow状态" rel="bookmark">ElasticSearch线上故障-持续Yellow状态</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2014/11/25/better-synonym-handling-in-solr/" title="如何在Solr中更好的处理同义词" rel="bookmark">如何在Solr中更好的处理同义词</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2018/12/04/lucene-index-files/" title="Lucene索引过程&索引文件格式详解" rel="bookmark">Lucene索引过程&索引文件格式详解</a></h3></div></li></ul>
     
     
     
@@ -1063,7 +1064,7 @@
         
       
     </div>
-    <ul class="popular-posts"><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2018/12/28/distributed-locks-with-Redis/" title="使用Redis实现分布式锁" rel="bookmark">使用Redis实现分布式锁</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2018/12/26/redis-expire/" title="Redis过期&淘汰机制" rel="bookmark">Redis过期&淘汰机制</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2018/12/25/redis-inside/" title="Redis数据模型详解" rel="bookmark">Redis数据模型详解</a></h3></div></li></ul>
+    <ul class="popular-posts"><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2018/12/28/distributed-locks-with-Redis/" title="使用Redis实现分布式锁" rel="bookmark">使用Redis实现分布式锁</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2018/12/26/redis-expire/" title="Redis过期&淘汰机制" rel="bookmark">Redis过期&淘汰机制</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2018/12/26/redis-io/" title="Redis-IO模型" rel="bookmark">Redis-IO模型</a></h3></div></li></ul>
     
     
     
@@ -1263,7 +1264,7 @@
         
       
     </div>
-    <ul class="popular-posts"><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2018/12/28/argument-on-Redis/" title="关于Redis RedLock算法的争论" rel="bookmark">关于Redis RedLock算法的争论</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2018/12/26/redis-expire/" title="Redis过期&淘汰机制" rel="bookmark">Redis过期&淘汰机制</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2018/12/25/redis-inside/" title="Redis数据模型详解" rel="bookmark">Redis数据模型详解</a></h3></div></li></ul>
+    <ul class="popular-posts"><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2018/12/28/argument-on-Redis/" title="关于Redis RedLock算法的争论" rel="bookmark">关于Redis RedLock算法的争论</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2018/12/26/redis-expire/" title="Redis过期&淘汰机制" rel="bookmark">Redis过期&淘汰机制</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2018/12/26/redis-io/" title="Redis-IO模型" rel="bookmark">Redis-IO模型</a></h3></div></li></ul>
     
     
     
@@ -1881,7 +1882,7 @@
         
       
     </div>
-    <ul class="popular-posts"><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2018/12/28/argument-on-Redis/" title="关于Redis RedLock算法的争论" rel="bookmark">关于Redis RedLock算法的争论</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2018/12/28/distributed-locks-with-Redis/" title="使用Redis实现分布式锁" rel="bookmark">使用Redis实现分布式锁</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2018/12/25/redis-inside/" title="Redis数据模型详解" rel="bookmark">Redis数据模型详解</a></h3></div></li></ul>
+    <ul class="popular-posts"><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2018/12/28/argument-on-Redis/" title="关于Redis RedLock算法的争论" rel="bookmark">关于Redis RedLock算法的争论</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2018/12/28/distributed-locks-with-Redis/" title="使用Redis实现分布式锁" rel="bookmark">使用Redis实现分布式锁</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2018/12/26/redis-io/" title="Redis-IO模型" rel="bookmark">Redis-IO模型</a></h3></div></li></ul>
     
     
     
@@ -2092,7 +2093,7 @@
         
       
     </div>
-    <ul class="popular-posts"><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2018/12/26/redis-io/" title="Redis-IO模型" rel="bookmark">Redis-IO模型</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2014/11/13/install-hadoop/" title="Hadoop1.2.1安装部署" rel="bookmark">Hadoop1.2.1安装部署</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2013/05/02/my-linux-dream/" title="从windows到linux" rel="bookmark">从windows到linux</a></h3></div></li></ul>
+    <ul class="popular-posts"><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2018/12/26/redis-io/" title="Redis-IO模型" rel="bookmark">Redis-IO模型</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2014/11/13/install-hadoop/" title="Hadoop1.2.1安装部署" rel="bookmark">Hadoop1.2.1安装部署</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2013/01/17/most-rated-20-software-in-ubuntu-softcenter/" title="Ubuntu软件中心最受欢迎的20个软件" rel="bookmark">Ubuntu软件中心最受欢迎的20个软件</a></h3></div></li></ul>
     
     
     
@@ -2586,7 +2587,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">233.4k</span>
+    <span title="Site words total count">233.6k</span>
   
 </div>
 
@@ -2599,7 +2600,7 @@
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
 
 
 

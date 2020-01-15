@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-Hans">
+<html class="theme-next mist use-motion" lang="zh-Hans">
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="申艳超-博客">
 <meta property="og:description" content="一 Jenkins插件的结构Jenkins插件实际上是一个按照一定规则组织的jar包，其结构如下： 123456789xxx.hpi+- META-INF|	+-MANIFEST.MF+- WEB-INF|	+- classes|		+- index.jelly|		+- XXXX.class|	+- lib+-	(static resources) 说明：  1.插件的后缀为”.hpi”,文件名">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-12-17T11:41:25.744Z">
+<meta property="og:updated_time" content="2020-01-15T12:01:18.303Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="开始第一个Jenkins Plugin">
 <meta name="twitter:description" content="一 Jenkins插件的结构Jenkins插件实际上是一个按照一定规则组织的jar包，其结构如下： 123456789xxx.hpi+- META-INF|	+-MANIFEST.MF+- WEB-INF|	+- classes|		+- index.jelly|		+- XXXX.class|	+- lib+-	(static resources) 说明：  1.插件的后缀为”.hpi”,文件名">
@@ -100,7 +100,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Mist',
     version: '5.1.4',
     sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -404,7 +404,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,450
+                  1,474
                 </span>
               
 
@@ -420,7 +420,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  6
+                  7
                 </span>
               
             </div>
@@ -475,52 +475,19 @@ Enter the artifactId of your plugin: samplePlugin
 </code></pre><p>这样会建立一个工程，名字为<code>samplePlugin</code>,包路径<code>com.baidu.ite.hudson</code>。<br>或者使用如下的命令：</p>
 <pre><code>mvn -U org.jenkins-ci.tools:maven-hpi-plugin:create -DgroupId={your.gound.id} -DartifactId={your.plugin.id}
 </code></pre><p>说明：<br>1，-u代表jenkins需要更新自己所有的插件内容。<br>2，jenkins中提供的archetype-resources，文件的名字为<code>HelloWorldBuilder.java</code>。我们需要手工修改成自己需要的内容。</p>
-<h4 id="2-2-1-代码结构"><a href="#2-2-1-代码结构" class="headerlink" title="2.2.1 代码结构"></a>2.2.1 代码结构</h4><p>使用 hpi:create生成的文件结构如下：</p>
-<pre><code>+- src
-|    +- main
-|    |    +- java
-|    |    |    +- groupId.HelloWorldBuilder.java
-|    |    +- resources
-|    |    |    +-  groupId.HelloWorldBuilder
-   |    |    |    |    +- config.jelly
-</code></pre><p>​    |    |    |    |    +- help-name.html<br>​    |    |    |    +- index.jelly</p>
+<h4 id="2-2-1-代码结构"><a href="#2-2-1-代码结构" class="headerlink" title="2.2.1 代码结构"></a>2.2.1 代码结构</h4><p>使用 hpi:create生成的文件结构如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">+- src</span><br><span class="line">|	+- main</span><br><span class="line">|	|	+- java</span><br><span class="line">|	|	|	+- groupId.HelloWorldBuilder.java</span><br><span class="line">|	|	+- resources</span><br><span class="line">|	|	|	+-  groupId.HelloWorldBuilder</span><br><span class="line"> |	|	|	|	+- config.jelly</span><br><span class="line"> |	|	|	|	+- help-name.html</span><br><span class="line">|	|	|	+- index.jelly</span><br></pre></td></tr></table></figure></p>
 <p>Jenkins定义了一些扩展点（Extension Points）,这些扩展点是接口或者抽象类。你可以根据自己的需要来修改文件的名字和扩展点。我们使用命令生成的框架程序中，HelloWorldBuilder继承了Builder。</p>
-<h4 id="2-2-2-代码的解释"><a href="#2-2-2-代码的解释" class="headerlink" title="2.2.2 代码的解释"></a>2.2.2 代码的解释</h4><pre><code>数据的绑定：
-
-&lt;!--config.jelly--&gt;
-&lt;f:entry title=&quot;Name&quot; field=&quot;name&quot;&gt;
-    &lt;f:textbox /&gt;
-  &lt;/f:entry&gt;
-
-//--HelloWorldBuilder.java--
-@DataBoundConstructor
-public HelloWorldBuilder(String name) {
-    this.name = name;
-}
-</code></pre><p>首先，在config.jelly中包含需要传入的参数配置信息的文本框，field为name，这样可以在Jenkins中进行配置，然后通过DataBoundConstructor的方式，传到类中。</p>
-<pre><code>Jenkins插件任务的执行
-
-@Override
-public boolean perform(AbstractBuild build, Launcher launcher, BuildListener listener) {
-    // This is where you &apos;build&apos; the project.
-
-    // This also shows how you can consult the global configuration of the builder
-        listener.getLogger().println(&quot;Hello, &quot;+name+&quot;!&quot;);
-    return true;
-}
-</code></pre><p>根据注释可以了解：该处是你在Job进行构建时进行操作的地方，并且这里可以根据你在配置中的设置执行你需要的工作。通常，根据需要修改perform函数即可。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">传入数据的检查</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">public</span> FormValidation <span class="title">doCheckName</span><span class="params">(@QueryParameter String value)</span></span></span><br><span class="line"><span class="function">                <span class="keyword">throws</span> IOException, ServletException </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (value.length() == <span class="number">0</span>)</span><br><span class="line">                <span class="keyword">return</span> FormValidation.error(<span class="string">"Please set a name"</span>);</span><br><span class="line">            <span class="keyword">if</span> (value.length() &lt; <span class="number">4</span>)</span><br><span class="line">                <span class="keyword">return</span> FormValidation.warning(<span class="string">"Isn't the name too short?"</span>);</span><br><span class="line">            <span class="keyword">return</span> FormValidation.ok();</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-2-2-代码的解释"><a href="#2-2-2-代码的解释" class="headerlink" title="2.2.2 代码的解释"></a>2.2.2 代码的解释</h4><p>数据的绑定：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--config.jelly--&gt;</span><br><span class="line">&lt;f:entry title=&quot;Name&quot; field=&quot;name&quot;&gt;</span><br><span class="line">	&lt;f:textbox /&gt;</span><br><span class="line">&lt;/f:entry&gt;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//--HelloWorldBuilder.java--</span></span><br><span class="line"><span class="meta">@DataBoundConstructor</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">HelloWorldBuilder</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先，在config.jelly中包含需要传入的参数配置信息的文本框，field为name，这样可以在Jenkins中进行配置，然后通过DataBoundConstructor的方式，传到类中。</p>
+<p>Jenkins插件任务的执行<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">perform</span><span class="params">(AbstractBuild build, Launcher launcher, BuildListener listener)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// This is where you 'build' the project.</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// This also shows how you can consult the global configuration of the builder</span></span><br><span class="line">        listener.getLogger().println(<span class="string">"Hello, "</span>+name+<span class="string">"!"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>根据注释可以了解：该处是你在Job进行构建时进行操作的地方，并且这里可以根据你在配置中的设置执行你需要的工作。通常，根据需要修改perform函数即可。</p>
+<p>传入数据的检查<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> FormValidation <span class="title">doCheckName</span><span class="params">(@QueryParameter String value)</span></span></span><br><span class="line"><span class="function">               <span class="keyword">throws</span> IOException, ServletException </span>&#123;</span><br><span class="line">           <span class="keyword">if</span> (value.length() == <span class="number">0</span>)</span><br><span class="line">               <span class="keyword">return</span> FormValidation.error(<span class="string">"Please set a name"</span>);</span><br><span class="line">           <span class="keyword">if</span> (value.length() &lt; <span class="number">4</span>)</span><br><span class="line">               <span class="keyword">return</span> FormValidation.warning(<span class="string">"Isn't the name too short?"</span>);</span><br><span class="line">           <span class="keyword">return</span> FormValidation.ok();</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure></p>
 <p>在该函数中，实现在配置页面中填写内容时，进行校验的过程。如函数所述，当填入内容为空时，提示：Please set a name。你可以根据你的需要进行逻辑的控制。</p>
 <h3 id="2-3-转换为eclipse工程"><a href="#2-3-转换为eclipse工程" class="headerlink" title="2.3 转换为eclipse工程"></a>2.3 转换为eclipse工程</h3><p>为了便于在编辑器中进行修改，我们需要将生成的maven代码转化为eclipse工程，使用的命令如下：</p>
-<pre><code>mvn eclipse:eclipse
-或者
-mvn -DdownloadSources=true -DdownloadJavadocs=true -DoutputDirectory=target/eclipse-classes eclipse:eclipse
-</code></pre><p>第二条较长的命令中，参数是可选的。</p>
+<p><code>mvn eclipse:eclipse</code><br>或者<br><code>mvn -DdownloadSources=true -DdownloadJavadocs=true -DoutputDirectory=target/eclipse-classes eclipse:eclipse</code><br>第二条较长的命令中，参数是可选的。</p>
 <h3 id="2-4-生成hpi文件"><a href="#2-4-生成hpi文件" class="headerlink" title="2.4 生成hpi文件"></a>2.4 生成hpi文件</h3><p>使用如下命令可以生成<code>./target/pluginname.hpi</code>:</p>
-<pre><code>mvn install
-或者
-mvn package
-</code></pre><p>其中mvn install 生成hpi文件，并放置到本地maven仓库中，mvn package只进行打包操作。</p>
+<p><code>mvn install</code><br>或者<br><code>mvn package</code><br>其中mvn install 生成hpi文件，并放置到本地maven仓库中，mvn package只进行打包操作。</p>
 <h3 id="2-5-使用-hpl进行调试"><a href="#2-5-使用-hpl进行调试" class="headerlink" title="2.5 使用.hpl进行调试"></a>2.5 使用.hpl进行调试</h3><p>maven中使用<code>.hpl（hudson plugin link）</code>格式来进行插件的调试。hpl文件中只包含一个链接，链接到类似<code>META-INF/MANIFEST.MF</code>的说明文件<code>../path/to/your/plugin/workspace/manifest-debug.mf</code>。该文件其中额外定义了一些属性来指定文件目录位置,这样资源的修改可以立即生效（需要配置stapler.jelly.noCache=true），不需要重新打包安装。<br>在maven中可以使用命令：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn hpi:hpl -DhudsonHome=/...</span><br></pre></td></tr></table></figure>
 <h3 id="2-6-使用-hpi进行测试"><a href="#2-6-使用-hpi进行测试" class="headerlink" title="2.6 使用.hpi进行测试"></a>2.6 使用.hpi进行测试</h3><p>在调试通过后，可以使用.hpi文件来启动jenkins,查看结果，命令如下：</p>
@@ -826,7 +793,7 @@ mvn package
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">233.4k</span>
+    <span title="Site words total count">233.6k</span>
   
 </div>
 
@@ -839,7 +806,7 @@ mvn package
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
 
 
 

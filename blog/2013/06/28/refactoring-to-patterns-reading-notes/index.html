@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-Hans">
+<html class="theme-next mist use-motion" lang="zh-Hans">
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -81,18 +81,20 @@
 
 
 
-<meta name="description" content="GoF的《设计模式》以及Martin Fowler的《重构》都是经典。而《重构与模式》则是将二者结合起来。通过设计模式来指导重构，而重构的目的就是让代码更加的简单，易于维护和扩展。 写作缘由 过度设计：代码存在设计过度的情况 模式万灵丹：认为设计模式的万能的 设计不足：类比与过度设计，长期设计不足，导致开发节奏“快、慢、更慢” 测试驱动开发和持续重构：敏捷开发中，Kent Beck说开发过程是“红">
+<meta name="description" content="GoF的《设计模式》以及Martin Fowler的《重构》都是经典。而《重构与模式》则是将二者结合起来。通过设计模式来指导重构，而重构的目的就是让代码更加的简单，易于维护和扩展。 写作缘由 过度设计：代码存在设计过度的情况 模式万灵丹：认为设计模式的万能的 设计不足：类比与过度设计，长期设计不足，导致开发节奏“快、慢、更慢” 测试驱动开发和持续重构：敏捷开发中，Kent Beck说开发过程是“">
 <meta name="keywords" content="读书笔记,重构,模式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《重构与模式》读书笔记">
 <meta property="og:url" content="https://www.shenyanchao.cn/blog/2013/06/28/refactoring-to-patterns-reading-notes/index.html">
 <meta property="og:site_name" content="申艳超-博客">
-<meta property="og:description" content="GoF的《设计模式》以及Martin Fowler的《重构》都是经典。而《重构与模式》则是将二者结合起来。通过设计模式来指导重构，而重构的目的就是让代码更加的简单，易于维护和扩展。 写作缘由 过度设计：代码存在设计过度的情况 模式万灵丹：认为设计模式的万能的 设计不足：类比与过度设计，长期设计不足，导致开发节奏“快、慢、更慢” 测试驱动开发和持续重构：敏捷开发中，Kent Beck说开发过程是“红">
+<meta property="og:description" content="GoF的《设计模式》以及Martin Fowler的《重构》都是经典。而《重构与模式》则是将二者结合起来。通过设计模式来指导重构，而重构的目的就是让代码更加的简单，易于维护和扩展。 写作缘由 过度设计：代码存在设计过度的情况 模式万灵丹：认为设计模式的万能的 设计不足：类比与过度设计，长期设计不足，导致开发节奏“快、慢、更慢” 测试驱动开发和持续重构：敏捷开发中，Kent Beck说开发过程是“">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-12-17T11:41:25.750Z">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/blog/refactor_to_pattern.jpeg">
+<meta property="og:updated_time" content="2020-01-15T12:06:42.950Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《重构与模式》读书笔记">
-<meta name="twitter:description" content="GoF的《设计模式》以及Martin Fowler的《重构》都是经典。而《重构与模式》则是将二者结合起来。通过设计模式来指导重构，而重构的目的就是让代码更加的简单，易于维护和扩展。 写作缘由 过度设计：代码存在设计过度的情况 模式万灵丹：认为设计模式的万能的 设计不足：类比与过度设计，长期设计不足，导致开发节奏“快、慢、更慢” 测试驱动开发和持续重构：敏捷开发中，Kent Beck说开发过程是“红">
+<meta name="twitter:description" content="GoF的《设计模式》以及Martin Fowler的《重构》都是经典。而《重构与模式》则是将二者结合起来。通过设计模式来指导重构，而重构的目的就是让代码更加的简单，易于维护和扩展。 写作缘由 过度设计：代码存在设计过度的情况 模式万灵丹：认为设计模式的万能的 设计不足：类比与过度设计，长期设计不足，导致开发节奏“快、慢、更慢” 测试驱动开发和持续重构：敏捷开发中，Kent Beck说开发过程是“">
+<meta name="twitter:image" content="https://www.shenyanchao.cn/images/blog/refactor_to_pattern.jpeg">
 
 
 
@@ -100,7 +102,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Mist',
     version: '5.1.4',
     sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -441,7 +443,8 @@
       
 
       
-        <p>GoF的《设计模式》以及Martin Fowler的《重构》都是经典。而《重构与模式》则是将二者结合起来。通过设计模式来指导重构，而重构的目的就是让代码更加的简单，易于维护和扩展。</p>
+        <p><img src="/images/blog/refactor_to_pattern.jpeg" alt="refactor_to_pattern"></p>
+<p>GoF的《设计模式》以及Martin Fowler的《重构》都是经典。而《重构与模式》则是将二者结合起来。通过设计模式来指导重构，而重构的目的就是让代码更加的简单，易于维护和扩展。</p>
 <h3 id="写作缘由"><a href="#写作缘由" class="headerlink" title="写作缘由"></a>写作缘由</h3><ul>
 <li>过度设计：代码存在设计过度的情况</li>
 <li>模式万灵丹：认为设计模式的万能的</li>
@@ -844,7 +847,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">233.4k</span>
+    <span title="Site words total count">233.6k</span>
   
 </div>
 
@@ -857,7 +860,7 @@
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
 
 
 

@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-Hans">
+<html class="theme-next mist use-motion" lang="zh-Hans">
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -81,20 +81,21 @@
 
 
 
-<meta name="description" content="Lucene Field本身并不支持嵌套类型，最多也就支持多值类型。ElasticSearch进行了扩展，使得Field可以是object对象类型或者nested嵌套类型。 object类型，本质上是把字段路径打平，最终在索引里还是一个正常的Field字段，object类型转化后，并不会保留对象内的属性对应关系，这在查询中可能需要特别注意。然后nested嵌套类型却实现的对应关系。 使用上的区别，">
+<meta name="description" content="Lucene Field本身并不支持嵌套类型，最多也就支持多值类型。ElasticSearch进行了扩展，使得Field可以是object对象类型或者nested嵌套类型。 object类型，本质上是把字段路径打平，最终在索引里还是一个正常的Field字段，object类型转化后，并不会保留对象内的属性对应关系，这在查询中可能需要特别注意。然后nested嵌套类型却实现的对应关系。 使用上的区别">
 <meta name="keywords" content="lucene,elasticsearch,nested">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ElasticSearch-Nested嵌套类型解密">
 <meta property="og:url" content="https://www.shenyanchao.cn/blog/2019/01/10/elasticsearch-nested/index.html">
 <meta property="og:site_name" content="申艳超-博客">
-<meta property="og:description" content="Lucene Field本身并不支持嵌套类型，最多也就支持多值类型。ElasticSearch进行了扩展，使得Field可以是object对象类型或者nested嵌套类型。 object类型，本质上是把字段路径打平，最终在索引里还是一个正常的Field字段，object类型转化后，并不会保留对象内的属性对应关系，这在查询中可能需要特别注意。然后nested嵌套类型却实现的对应关系。 使用上的区别，">
+<meta property="og:description" content="Lucene Field本身并不支持嵌套类型，最多也就支持多值类型。ElasticSearch进行了扩展，使得Field可以是object对象类型或者nested嵌套类型。 object类型，本质上是把字段路径打平，最终在索引里还是一个正常的Field字段，object类型转化后，并不会保留对象内的属性对应关系，这在查询中可能需要特别注意。然后nested嵌套类型却实现的对应关系。 使用上的区别">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/elasticsearch-nested/es-header.jpg">
 <meta property="og:image" content="https://www.shenyanchao.cn/images/elasticsearch-nested/elasticsearch-non-nested.png">
-<meta property="og:updated_time" content="2019-12-17T11:41:25.740Z">
+<meta property="og:updated_time" content="2020-01-15T11:54:38.772Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ElasticSearch-Nested嵌套类型解密">
-<meta name="twitter:description" content="Lucene Field本身并不支持嵌套类型，最多也就支持多值类型。ElasticSearch进行了扩展，使得Field可以是object对象类型或者nested嵌套类型。 object类型，本质上是把字段路径打平，最终在索引里还是一个正常的Field字段，object类型转化后，并不会保留对象内的属性对应关系，这在查询中可能需要特别注意。然后nested嵌套类型却实现的对应关系。 使用上的区别，">
-<meta name="twitter:image" content="https://www.shenyanchao.cn/images/elasticsearch-nested/elasticsearch-non-nested.png">
+<meta name="twitter:description" content="Lucene Field本身并不支持嵌套类型，最多也就支持多值类型。ElasticSearch进行了扩展，使得Field可以是object对象类型或者nested嵌套类型。 object类型，本质上是把字段路径打平，最终在索引里还是一个正常的Field字段，object类型转化后，并不会保留对象内的属性对应关系，这在查询中可能需要特别注意。然后nested嵌套类型却实现的对应关系。 使用上的区别">
+<meta name="twitter:image" content="https://www.shenyanchao.cn/images/elasticsearch-nested/es-header.jpg">
 
 
 
@@ -102,7 +103,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Mist',
     version: '5.1.4',
     sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -443,7 +444,8 @@
       
 
       
-        <p>Lucene Field本身并不支持嵌套类型，最多也就支持多值类型。ElasticSearch进行了扩展，使得Field可以是object对象类型或者nested嵌套类型。</p>
+        <p><img src="/images/elasticsearch-nested/es-header.jpg" alt="elasticsearch nested"></p>
+<p>Lucene Field本身并不支持嵌套类型，最多也就支持多值类型。ElasticSearch进行了扩展，使得Field可以是object对象类型或者nested嵌套类型。</p>
 <p>object类型，本质上是把字段<strong>路径打平</strong>，最终在索引里还是一个正常的Field字段，object类型转化后，并不会保留<strong>对象内的属性对应关系</strong>，这在查询中可能需要特别注意。然后nested嵌套类型却实现的对应关系。</p>
 <p>使用上的区别，可以参考官方<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/nested.html" target="_blank" rel="noopener">Nested Data Type</a>。</p>
 <p>本文，我们主要关注的是elasticsearch内部是如何实现的？</p>
@@ -505,7 +507,7 @@
 
       
     </div>
-    <ul class="popular-posts"><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2018/12/13/elasticsearch-yellow-exception/" title="ElasticSearch线上故障-持续Yellow状态" rel="bookmark">ElasticSearch线上故障-持续Yellow状态</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2014/11/25/better-synonym-handling-in-solr/" title="如何在Solr中更好的处理同义词" rel="bookmark">如何在Solr中更好的处理同义词</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2018/12/04/lucene-bkd/" title="Lucene BKD树-动态磁盘优化BSP树" rel="bookmark">Lucene BKD树-动态磁盘优化BSP树</a></h3></div></li></ul>
+    <ul class="popular-posts"><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2018/12/13/elasticsearch-yellow-exception/" title="ElasticSearch线上故障-持续Yellow状态" rel="bookmark">ElasticSearch线上故障-持续Yellow状态</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2014/11/25/better-synonym-handling-in-solr/" title="如何在Solr中更好的处理同义词" rel="bookmark">如何在Solr中更好的处理同义词</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2018/12/04/lucene-index-files/" title="Lucene索引过程&索引文件格式详解" rel="bookmark">Lucene索引过程&索引文件格式详解</a></h3></div></li></ul>
     
     
     
@@ -798,7 +800,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">233.4k</span>
+    <span title="Site words total count">233.6k</span>
   
 </div>
 
@@ -811,7 +813,7 @@
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
 
 
 
