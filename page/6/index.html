@@ -1116,208 +1116,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.shenyanchao.cn/blog/2013/05/30/selenium-doc-selenium-web-driver/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="申艳超">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/shenyanchao.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="申艳超-博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2013/05/30/selenium-doc-selenium-web-driver/" itemprop="url">selenium文档:selenium WebDriver</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-05-30T19:55:00+08:00">
-                2013-05-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/selenium官方文档/" itemprop="url" rel="index">
-                    <span itemprop="name">selenium官方文档</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/blog/2013/05/30/selenium-doc-selenium-web-driver/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/blog/2013/05/30/selenium-doc-selenium-web-driver/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/blog/2013/05/30/selenium-doc-selenium-web-driver/" class="leancloud_visitors" data-flag-title="selenium文档:selenium WebDriver">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  5,836
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  23
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="Selenium-WebDriver"><a href="#Selenium-WebDriver" class="headerlink" title="Selenium WebDriver"></a>Selenium WebDriver</h1><p>注意：本章内容官方团队正在完善中。</p>
-<h2 id="介绍-WebDriver"><a href="#介绍-WebDriver" class="headerlink" title="介绍 WebDriver"></a>介绍 WebDriver</h2><p>Selenium 2.0 最主要的一个新特性就是集成了 WebDriver API。WebDriver 提供更精简的编程几口，以解决 Selenium-RC API 中的一些限制。WebDriver 为那些页面元素可以不通过页面重新加载来更新的动态网页提供了更好的支持。WebDriver 的目标是提供一套精心设计的面向对象的 API 来更好的支持现代高级 web 应用的测试工作。</p>
-<h2 id="同-Selenium-RC-相比，WebDriver-如何驱动浏览器的？"><a href="#同-Selenium-RC-相比，WebDriver-如何驱动浏览器的？" class="headerlink" title="同 Selenium-RC 相比，WebDriver 如何驱动浏览器的？"></a>同 Selenium-RC 相比，WebDriver 如何驱动浏览器的？</h2><p>Selenium-WebDriver 直接通过浏览器自动化的本地接口来调用浏览器。如何直接调用，和调用的细节取决于你使用什么浏览器。本章后续的内容介绍了每个 “browser driver” 的详细信息。</p>
-<p>相比 Selenium-RC ，WebDriver 确实非常不一样。Selenium-RC 在所有支持的浏览器中工作原理是一样的。它将 JavaScript 在浏览器加载的时候注入浏览器，然后使用这些 JavaScript 驱动 AUT 运行 WebDriver 使用的是不同的技术，再一次强调，它是直接调用浏览器自动化的本地接口。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/blog/2013/05/30/selenium-doc-selenium-web-driver/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </p></div>
-    <ul class="popular-posts"><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2012/11/02/how-webdriver-works/" title="Selenium WebDriver 工作原理" rel="bookmark">Selenium WebDriver 工作原理</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2012/10/16/pageobjects-design-pattern/" title="PageObjects 设计模式" rel="bookmark">PageObjects 设计模式</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2013/05/30/selenium-doc-introduction/" title="selenium 文档:入门介绍" rel="bookmark">selenium 文档:入门介绍</a></h3></div></li></ul>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://www.shenyanchao.cn/blog/2013/05/30/selenium-doc-selenium-rc/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1470,6 +1268,208 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/blog/2013/05/30/selenium-doc-selenium-rc/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </p></div>
+    <ul class="popular-posts"><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2012/11/02/how-webdriver-works/" title="Selenium WebDriver 工作原理" rel="bookmark">Selenium WebDriver 工作原理</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2012/10/16/pageobjects-design-pattern/" title="PageObjects 设计模式" rel="bookmark">PageObjects 设计模式</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2013/05/30/selenium-doc-introduction/" title="selenium 文档:入门介绍" rel="bookmark">selenium 文档:入门介绍</a></h3></div></li></ul>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.shenyanchao.cn/blog/2013/05/30/selenium-doc-selenium-web-driver/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="申艳超">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/shenyanchao.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="申艳超-博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2013/05/30/selenium-doc-selenium-web-driver/" itemprop="url">selenium文档:selenium WebDriver</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-05-30T19:55:00+08:00">
+                2013-05-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/selenium官方文档/" itemprop="url" rel="index">
+                    <span itemprop="name">selenium官方文档</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/blog/2013/05/30/selenium-doc-selenium-web-driver/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/blog/2013/05/30/selenium-doc-selenium-web-driver/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/blog/2013/05/30/selenium-doc-selenium-web-driver/" class="leancloud_visitors" data-flag-title="selenium文档:selenium WebDriver">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  5,836
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  23
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="Selenium-WebDriver"><a href="#Selenium-WebDriver" class="headerlink" title="Selenium WebDriver"></a>Selenium WebDriver</h1><p>注意：本章内容官方团队正在完善中。</p>
+<h2 id="介绍-WebDriver"><a href="#介绍-WebDriver" class="headerlink" title="介绍 WebDriver"></a>介绍 WebDriver</h2><p>Selenium 2.0 最主要的一个新特性就是集成了 WebDriver API。WebDriver 提供更精简的编程几口，以解决 Selenium-RC API 中的一些限制。WebDriver 为那些页面元素可以不通过页面重新加载来更新的动态网页提供了更好的支持。WebDriver 的目标是提供一套精心设计的面向对象的 API 来更好的支持现代高级 web 应用的测试工作。</p>
+<h2 id="同-Selenium-RC-相比，WebDriver-如何驱动浏览器的？"><a href="#同-Selenium-RC-相比，WebDriver-如何驱动浏览器的？" class="headerlink" title="同 Selenium-RC 相比，WebDriver 如何驱动浏览器的？"></a>同 Selenium-RC 相比，WebDriver 如何驱动浏览器的？</h2><p>Selenium-WebDriver 直接通过浏览器自动化的本地接口来调用浏览器。如何直接调用，和调用的细节取决于你使用什么浏览器。本章后续的内容介绍了每个 “browser driver” 的详细信息。</p>
+<p>相比 Selenium-RC ，WebDriver 确实非常不一样。Selenium-RC 在所有支持的浏览器中工作原理是一样的。它将 JavaScript 在浏览器加载的时候注入浏览器，然后使用这些 JavaScript 驱动 AUT 运行 WebDriver 使用的是不同的技术，再一次强调，它是直接调用浏览器自动化的本地接口。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/blog/2013/05/30/selenium-doc-selenium-web-driver/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
