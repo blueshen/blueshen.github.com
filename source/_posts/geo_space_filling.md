@@ -23,7 +23,7 @@ categories: geo
 | ![img](/images/geo_space_filling/v2-ab1d66d2cba49cfa930d6f754991ae2e_hd.jpg) | ![img](/images/geo_space_filling/v2-c25495c39e569de4f6dc2b7b7b6a8fd4_hd.jpg) |
 
 可以看出，每个花椰菜的凸起，单独拿出来其实都和花椰菜是一样的造型。蕨类植物的叶子，没个分支都和整体的形状一致。
-
+<!--more-->
 [本华·曼德博](https://zh.wikipedia.org/wiki/本華·曼德博)提出"关于英大不列颠岛的海岸线到底有多长？”这样的问题，他用分形几何给出的答案是无限长。
 
 ![british_bench](/images/geo_space_filling/british_bench.jpeg)
