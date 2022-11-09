@@ -1,471 +1,302 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next mist use-motion" lang="zh-Hans">
-<head><meta name="generator" content="Hexo 3.9.0">
+<html lang="zh-Hans">
+<head>
   <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="theme-color" content="#222">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.shenyanchao.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.13.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/icon.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="ast,eclipse,">
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="申艳超-博客" type="application/atom+xml">
-
-
-
-
-
-
-<meta name="description" content="Eclipse ASTEclipse AST 是 Eclipse JDT 的一个重要组成部分,定义在包 org.eclipse.jdt.core.dom 中,用来表示 Java 语言中的所有语法结构。Eclipse AST 采用工厂方法模式和访问者模式   (见 2.7节)来设计和实现,这样可以减轻用户深入了解其内部结构的压力,并且方便用户利用它们构建并处理 AST。你可以打开 Eclipse 帮">
-<meta name="keywords" content="ast,eclipse">
+    <meta name="description" content="Eclipse ASTEclipse AST 是 Eclipse JDT 的一个重要组成部分,定义在包 org.eclipse.jdt.core.dom 中,用来表示 Java 语言中的所有语法结构。Eclipse AST 采用工厂方法模式和访问者模式   (见 2.7节)来设计和实现,这样可以减轻用户深入了解其内部结构的压力,并且方便用户利用它们构建并处理 AST。你可以打开 Eclipse 帮">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Eclipse AST抽象语法树API">
 <meta property="og:url" content="https://www.shenyanchao.cn/blog/2013/06/07/eclipse-ast/index.html">
 <meta property="og:site_name" content="申艳超-博客">
 <meta property="og:description" content="Eclipse ASTEclipse AST 是 Eclipse JDT 的一个重要组成部分,定义在包 org.eclipse.jdt.core.dom 中,用来表示 Java 语言中的所有语法结构。Eclipse AST 采用工厂方法模式和访问者模式   (见 2.7节)来设计和实现,这样可以减轻用户深入了解其内部结构的压力,并且方便用户利用它们构建并处理 AST。你可以打开 Eclipse 帮">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-12-17T11:41:25.740Z">
+<meta property="og:locale">
+<meta property="article:published_time" content="2013-06-07T12:29:00.000Z">
+<meta property="article:modified_time" content="2019-12-17T11:41:25.740Z">
+<meta property="article:author" content="申艳超">
+<meta property="article:tag" content="ast">
+<meta property="article:tag" content="eclipse">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Eclipse AST抽象语法树API">
-<meta name="twitter:description" content="Eclipse ASTEclipse AST 是 Eclipse JDT 的一个重要组成部分,定义在包 org.eclipse.jdt.core.dom 中,用来表示 Java 语言中的所有语法结构。Eclipse AST 采用工厂方法模式和访问者模式   (见 2.7节)来设计和实现,这样可以减轻用户深入了解其内部结构的压力,并且方便用户利用它们构建并处理 AST。你可以打开 Eclipse 帮">
+
+
+<link rel="canonical" href="https://www.shenyanchao.cn/blog/2013/06/07/eclipse-ast/">
 
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Mist',
-    version: '5.1.4',
-    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-Hans","comments":true,"permalink":"https://www.shenyanchao.cn/blog/2013/06/07/eclipse-ast/","path":"blog/2013/06/07/eclipse-ast/","title":"Eclipse AST抽象语法树API"}</script>
 
-
-
-  <link rel="canonical" href="https://www.shenyanchao.cn/blog/2013/06/07/eclipse-ast/">
-
-
-
-
-
-  <title>Eclipse AST抽象语法树API | 申艳超-博客</title>
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Eclipse AST抽象语法树API | 申艳超-博客</title>
   
 
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?81c9612f8fdceca45435ef7f5404d7b2"></script>
 
 
 
 
-  <script type="text/javascript">
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?81c9612f8fdceca45435ef7f5404d7b2";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
 
+  <script async defer data-website-id="" src=""></script>
 
+  <script defer data-domain="" src=""></script>
 
-
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="申艳超-博客" type="application/atom+xml">
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
-  
-  
-    
-  
-
-  <div class="container sidebar-position-right page-post-detail">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">申艳超-博客</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
-      
-        <h1 class="site-subtitle" itemprop="description">搜索引擎、分布式、高性能、NLP、ElasticSearch、Solr</h1>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">申艳超-博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">搜索引擎、分布式、高性能、NLP、ElasticSearch、Solr</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
-            
-            关于
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-            
-            标签
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
-            
-            分类
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-sitemap">
-          <a href="/sitemap.xml" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
-            
-            站点地图
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-commonweal">
-          <a href="/404.html" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
-            
-            公益404
-          </a>
-        </li>
-      
-
-      
-    </ul>
-  
-
-  
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>Archives</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="sitemap fa-fw"></i>Sitemap</a></li><li class="menu-item menu-item-commonweal"><a href="/404.html" rel="section"><i class="heartbeat fa-fw"></i>Commonweal 404</a></li>
+  </ul>
 </nav>
 
 
 
- </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Eclipse-AST"><span class="nav-number">1.</span> <span class="nav-text">Eclipse AST</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#AST-%E8%8A%82%E7%82%B9%E7%B1%BB"><span class="nav-number">1.1.</span> <span class="nav-text">AST 节点类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AST-%E7%B1%BB"><span class="nav-number">1.2.</span> <span class="nav-text">AST 类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ASTVisitor-%E7%B1%BB"><span class="nav-number">1.3.</span> <span class="nav-text">ASTVisitor 类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SimpleMiniJOOL-%E8%AF%AD%E8%A8%80%E6%B6%89%E5%8F%8A%E7%9A%84-AST-%E8%8A%82%E7%82%B9%E7%B1%BB"><span class="nav-number">1.4.</span> <span class="nav-text">SimpleMiniJOOL 语言涉及的 AST 节点类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B4%E4%BD%93%E7%BB%93%E6%9E%84"><span class="nav-number">1.4.1.</span> <span class="nav-text">整体结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.4.2.</span> <span class="nav-text">语句</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">1.4.3.</span> <span class="nav-text">表达式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Eclipse-AST-%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.5.</span> <span class="nav-text">Eclipse AST 使用示例</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="申艳超"
+      src="/images/shenyanchao.jpeg">
+  <p class="site-author-name" itemprop="name">申艳超</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">133</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">244</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/blueshen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;blueshen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhiyi.shen@gmail.com" title="E-Mail → mailto:zhiyi.shen@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
     </header>
 
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
     
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/blueshen" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
 
   
 
-  
+
+<div class="post-block">
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="https://www.shenyanchao.cn/blog/2013/06/07/eclipse-ast/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="申艳超">
-      <meta itemprop="description" content="">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/shenyanchao.jpeg">
+      <meta itemprop="name" content="申艳超">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="申艳超-博客">
+      <meta itemprop="description" content="">
     </span>
 
-    
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Eclipse AST抽象语法树API | 申艳超-博客">
+      <meta itemprop="description" content="">
+    </span>
       <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Eclipse AST抽象语法树API
+        </h1>
 
-        
-        
-          <h2 class="post-title" itemprop="name headline">Eclipse AST抽象语法树API</h2>
-        
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-06-07T20:29:00+08:00">
-                2013-06-07
-              </time>
-            
+      <time title="Created: 2013-06-07 20:29:00" itemprop="dateCreated datePublished" datetime="2013-06-07T20:29:00+08:00">2013-06-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2019-12-17 19:41:25" itemprop="dateModified" datetime="2019-12-17T19:41:25+08:00">2019-12-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+        </span>
+    </span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/blog/2013/06/07/eclipse-ast/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/blog/2013/06/07/eclipse-ast/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/blog/2013/06/07/eclipse-ast/" class="leancloud_visitors" data-flag-title="Eclipse AST抽象语法树API">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-            <span class="post-meta-divider">|</span>
-            <span class="page-pv"><i class="fa fa-file-o"></i>
-            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
-            </span>
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  5,538
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  22
-                </span>
-              
-            </div>
-          
-
-          
+  
+    <span id="/blog/2013/06/07/eclipse-ast/" class="post-meta-item leancloud_visitors" data-flag-title="Eclipse AST抽象语法树API" title="Views">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
 
         </div>
       </header>
-    
 
     
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
         <h3 id="Eclipse-AST"><a href="#Eclipse-AST" class="headerlink" title="Eclipse AST"></a>Eclipse AST</h3><p>Eclipse AST 是 Eclipse JDT 的一个重要组成部分,定义在包 org.eclipse.jdt.core.dom 中,用来表示 Java 语言中的所有语法结构。<br>Eclipse AST 采用工厂方法模式和访问者模式   (见 2.7节)来设计和实现,这样可以减轻用户深入了解其内部结构的压力,并且方便用户利用它们构建并处理 AST。你可以打开 Eclipse 帮助页面,通过鼠标依次点击窗口左边的目录“JDT Plug-in Developer Guide” –&gt;“Reference” –&gt;“API Reference” Æ“org.eclipse.jdt.core.dom”,即可打开这个包的详细说明。本节将对这个包中重要的类作简要说明,为简便起见,这里省去这些类的包名,即org.eclipse.jdt.core.dom。<br>在 Eclipse AST 中,与本书的课程设计相关的类主要有以下三部分:</p>
 <ul>
 <li>ASTNode 类及其派生类:用于描述各种 AST 节点的类,每个 AST 节点表示一个Java 源程序中的一个语法结构,例如,一个名字、类型、表达式、语句或声明等。</li>
 <li>AST 类:创建 AST 节点的工厂类,类中包含许多创建各类 AST 节点的工厂方法,用户可以利用这些方法来构建 AST。</li>
 <li>ASTVisitor 类:<br>AST 的访问者抽象类,类中声明了一组访问各类 AST 节点的 visit( )方法、endVisit( )方法和 preVisit( )方法。</li>
 </ul>
-<a id="more"></a>
+<span id="more"></span>
 <h4 id="AST-节点类"><a href="#AST-节点类" class="headerlink" title="AST 节点类"></a>AST 节点类</h4><p>在 Eclipse AST 中,Java 源程序中的每个语法结构对应为一个 AST 节点,所有的 AST节点按其在语法上的关系连接形成一棵 AST 树。类 ASTNode 是 AST 树中各类节点的抽象基类,其余的 AST 节点类都由它派生。在 ASTNode 类中声明有各个具体的 AST 节点类所对应的类型标识,如 ASTNode.COMPILATION_UNIT 代表 Compilation_Unit 节点类,这类节点用来表示一个 Java 源程序文件。<br>为便于自顶向下(从父节点到子节点)或者自底向上(从子节点到父节点)访问 AST树,AST 节点含有指向其父节点的 parent 域以及若干关联的子节点域。在 AST 节点类中,以属性(property)来统一处理子节点以及用户自定义的节点属性,属性的访问方法有:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setProperty</span><span class="params">(String propertyName, Object data)</span> <span class="comment">// 设置指定属性的值</span></span></span><br><span class="line"><span class="function">Object <span class="title">getProperty</span><span class="params">(String propertyName)</span> <span class="comment">// 取得指定属性的值</span></span></span><br><span class="line"><span class="function">Map <span class="title">properties</span><span class="params">( )</span><span class="comment">// 返回节点的所有属性表,这个表是不可修改的</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="title function_">setProperty</span><span class="params">(String propertyName, Object data)</span> <span class="comment">// 设置指定属性的值</span></span><br><span class="line">Object <span class="title function_">getProperty</span><span class="params">(String propertyName)</span> <span class="comment">// 取得指定属性的值</span></span><br><span class="line">Map <span class="title function_">properties</span><span class="params">( )</span><span class="comment">// 返回节点的所有属性表,这个表是不可修改的</span></span><br></pre></td></tr></table></figure>
 <p>在每个具体的 AST 节点类中,以类常量形式声明该类节点所拥有的基本属性(即基本的子节点)类别,并定义了存放属性值的域以及设置和访问属性的方法。例如,在一个 Java源程序文件中,有可选的 package 声明、0 个或多个 import 声明以及至少 1 个类型声明(可以是类声明或接口声明),从而在表示 Java 源程序文件(称为编译单元)的 AST 节点类CompilationUnit 中就声明有 final 类变量 PACKAGE_PROPERTY、IMPORTS_PROPERTY 和TYPES_PROPERTY,分别表示 package 属性、imports 属性和 types 属性,同时还定义有如下的访问方法:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">List <span class="title">imports</span><span class="params">( )</span></span></span><br><span class="line"><span class="function"><span class="comment">// 该节点的所有 import 声明,按在程序中的出现次序排列List types( )</span></span></span><br><span class="line"><span class="function"><span class="comment">// 该节点的所有顶层类型声明,按在程序中的出现次序排列</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setPackage</span><span class="params">(PackageDeclaration pkgDecl)</span> <span class="comment">// 设置该节点的 package 声明</span></span></span><br><span class="line"><span class="function">PackageDeclaration <span class="title">getPackage</span><span class="params">( )</span></span></span><br><span class="line"><span class="function"><span class="comment">// 取得该节点的 package 声明</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">List <span class="title function_">imports</span><span class="params">( )</span></span><br><span class="line"><span class="comment">// 该节点的所有 import 声明,按在程序中的出现次序排列List types( )</span></span><br><span class="line"><span class="comment">// 该节点的所有顶层类型声明,按在程序中的出现次序排列</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">setPackage</span><span class="params">(PackageDeclaration pkgDecl)</span> <span class="comment">// 设置该节点的 package 声明</span></span><br><span class="line">PackageDeclaration <span class="title function_">getPackage</span><span class="params">( )</span></span><br><span class="line"><span class="comment">// 取得该节点的 package 声明</span></span><br></pre></td></tr></table></figure>
 <p>其中,类型相同的子节点组成的序列以 java.util.List 接口类来表示,这个接口类包含 add、get、set、remove 等方法用于访问和修改序列。在实际构造和访问 AST 树时,需要注意统一所使用的 List 接口类的实现类,例如,可以统一使用类 java.util.LinkedList 或者统一使用类java.util.ArrayList 来表示序列。<br>在 AST 节点类中,只提供获取父节点的方法,即</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ASTNode <span class="title">getParent</span><span class="params">( )</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ASTNode <span class="title function_">getParent</span><span class="params">( )</span></span><br></pre></td></tr></table></figure>
 <p>而没有提供设置父节点的方法,这是因为对节点的 parent 域的设置是伴随着将该节点设置为其他节点的子节点而自动进行的。一个新创建的 AST 节点是没有设置其父节点的。当节点A 通过形如 setCHILD 方法,如 A.setPackage(B)方法,或者通过序列的 add 或 set 方法,如A.types( ).add(B)方法,将节点 B 设为自己的孩子时,B 节点的 parent 域将自动设置为对 A节点的引用;对于那些因上述操作导致不再是 A 节点的子节点来说,其 parent 域将被自动设置为 null。</p>
 <p>每个 AST 节点及其子节点只能归属于一棵 AST 树。如果将一棵 AST 树中的某个 AST节点添加到另一棵 AST 树中,则必须复制这个节点及其所有的子孙节点,以保证这些节点只属于一棵 AST 树。此外,AST 树中不能含有环,如果某些操作会导致 AST 有环,则这些操作将失败。<br>为支持对源程序的分析和类型检查等,每个 AST 节点还含有一组位标志(用一个 int用来传播与该节点有关的附加信息,这些位标志可以通过节点的以下方法来存取:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setFlags</span><span class="params">(<span class="keyword">int</span> flags)</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getFlags</span><span class="params">( )</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="title function_">setFlags</span><span class="params">(<span class="type">int</span> flags)</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">getFlags</span><span class="params">( )</span></span><br></pre></td></tr></table></figure>
 <p>此外,Eclipse AST 还支持访问者模式,每个 AST 节点都含有方法:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">accept</span><span class="params">(ASTVisitor visitor)</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="title function_">accept</span><span class="params">(ASTVisitor visitor)</span></span><br></pre></td></tr></table></figure>
 <p>用于统一表示对当前节点访问时所要执行的任务,这个任务由参数 visitor 来给定。你可以进一步了解 ASTVisitor 类以及访问者模式(见 2.7.2 节)来了解对 AST 树的访问。</p>
 <h4 id="AST-类"><a href="#AST-类" class="headerlink" title="AST 类"></a>AST 类</h4><p>org.eclipse.jdt.core.dom.AST 是 AST 节点的工厂类,即它提供一系列形如</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">TYPE <span class="title">newTYPE</span><span class="params">( )</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TYPE <span class="title function_">newTYPE</span><span class="params">( )</span></span><br></pre></td></tr></table></figure>
 <p>的工厂方法,用来创建名为 TYPE 的 Eclipse AST 节点类的实例,新创建的节点并没有设置父节点。例如,方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">CompilationUnit <span class="title">newCompilationUnit</span><span class="params">( )</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CompilationUnit <span class="title function_">newCompilationUnit</span><span class="params">( )</span></span><br></pre></td></tr></table></figure>
 <p>用来创建由这个 AST 所拥有的一个编译单元节点。<br>要使用这些方法,首先需要创建 AST 类的实例:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AST ast = AST.newAST(AST.JLS3);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">AST</span> <span class="variable">ast</span> <span class="operator">=</span> AST.newAST(AST.JLS3);</span><br></pre></td></tr></table></figure>
 <p>其中,参数 AST.JLS3 指示所生成的 ast 包含处理 JLS3(Java 语言规范第 3 版)的 AST API。<br>JLS3 是 Java 语言所有早期版本的超集,JLS3 API 可以用来处理直到 Java SE 6(即 JDK1.6)<br>的 Java 程序。</p>
 <h4 id="ASTVisitor-类"><a href="#ASTVisitor-类" class="headerlink" title="ASTVisitor 类"></a>ASTVisitor 类</h4><p>org.eclipse.jdt.core.dom.ASTVisitor 是 AST 树的访问者类,它提供一套方法来实现对给定节点的访问。<br>这套方法中有两组是与具体的 AST 节点类 T 相关的,即 visit 方法和 endVisit方法,有两个是与具体的 AST 节点类无关的,即 preVisit 方法和 postVisit 方法。这些方法都通过参数接收一个 AST 节点 node,然后对这个节点进行访问以执行一些操作。</p>
 <ul>
@@ -473,42 +304,44 @@
 <li>public void preVisit(ASTNode node)</li>
 <li>public void postVisit(ASTNode node) 这个方法在 endVisit(node)之后被调用。<br>这个方法在 visit(node)之前被调用。<br>ASTVisitor 类提供的 preVisit 方法和 postVisit 方法的缺省实现是什么也不做。子类可以根据需要来重新实现它们。</li>
 </ul>
-<p>在 Eclipse AST 中,结合 AST 节点的 accept( )方法和 ASTVisitor 实例,假设待访问的AST 树的根节点为 root,<br>则调用 root.accept( )就可以启动对这棵 AST 树的遍历。遍历是以深度优先搜索为基础的,你可以进一步查看 Eclipse JDT 的源代码来确认这一点,你也可以从<a href="http://www.docjar.com/docs/api/org/eclipse/jdt/core/dom/index.html" target="_blank" rel="noopener">http://www.docjar.com/docs/api/org/eclipse/jdt/core/dom/index.html</a> 上查看相关的源代码。为帮助大家理解对 AST 树的遍历过程,这里简要给出 accept 方法的实现。<br>所有的 AST 节点都执行在 ASTNode 类中定义的 accept 方法:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">accept</span><span class="params">(ASTVisitor visitor)</span> </span>&#123;</span><br><span class="line"><span class="keyword">if</span> (visitor == <span class="keyword">null</span>) &#123; <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(); &#125;</span><br><span class="line">visitor.preVisit(<span class="keyword">this</span>);</span><br><span class="line"><span class="comment">// 执行与节点类型无关的 preVisit 方法</span></span><br><span class="line">accept0(visitor); <span class="comment">// 调用 accept0,执行与节点类型相关的 visit/endVisit 方法</span></span><br><span class="line">visitor.postVisit(<span class="keyword">this</span>); <span class="comment">// 执行与节点类型无关的 postVisit 方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在 Eclipse AST 中,结合 AST 节点的 accept( )方法和 ASTVisitor 实例,假设待访问的AST 树的根节点为 root,<br>则调用 root.accept( )就可以启动对这棵 AST 树的遍历。遍历是以深度优先搜索为基础的,你可以进一步查看 Eclipse JDT 的源代码来确认这一点,你也可以从<a target="_blank" rel="noopener" href="http://www.docjar.com/docs/api/org/eclipse/jdt/core/dom/index.html">http://www.docjar.com/docs/api/org/eclipse/jdt/core/dom/index.html</a> 上查看相关的源代码。为帮助大家理解对 AST 树的遍历过程,这里简要给出 accept 方法的实现。<br>所有的 AST 节点都执行在 ASTNode 类中定义的 accept 方法:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">accept</span><span class="params">(ASTVisitor visitor)</span> &#123;</span><br><span class="line"><span class="keyword">if</span> (visitor == <span class="literal">null</span>) &#123; <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(); &#125;</span><br><span class="line">visitor.preVisit(<span class="built_in">this</span>);</span><br><span class="line"><span class="comment">// 执行与节点类型无关的 preVisit 方法</span></span><br><span class="line">accept0(visitor); <span class="comment">// 调用 accept0,执行与节点类型相关的 visit/endVisit 方法</span></span><br><span class="line">visitor.postVisit(<span class="built_in">this</span>); <span class="comment">// 执行与节点类型无关的 postVisit 方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>ASTNode 类中的 accept0 方法是一个抽象的方法:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">accept0</span><span class="params">(ASTVisitor visitor)</span></span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">accept0</span><span class="params">(ASTVisitor visitor)</span>;</span><br></pre></td></tr></table></figure>
 <p>每个具体的 AST 节点类中都必须实现 accept0 方法,实现该方法的通用模板如下:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">boolean</span> visitChildren = visitor.visit(<span class="keyword">this</span>);</span><br><span class="line"><span class="keyword">if</span> (visitChildren) &#123;</span><br><span class="line"><span class="comment">// 调用 visit( )访问本节点</span></span><br><span class="line"><span class="comment">// 如果 visit( )返回 true,则访问子节点acceptChild(visitor, getProperty1()); // 访问非序列型属性</span></span><br><span class="line">acceptChildren(visitor, rawListProperty); <span class="comment">// 访问序列型属性</span></span><br><span class="line">acceptChild(visitor, getProperty2());</span><br><span class="line">&#125;</span><br><span class="line">visitor.endVisit(<span class="keyword">this</span>);<span class="comment">// 调用 endVisit( )执行一些节点访问后的操作</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">boolean</span> <span class="variable">visitChildren</span> <span class="operator">=</span> visitor.visit(<span class="built_in">this</span>);</span><br><span class="line"><span class="keyword">if</span> (visitChildren) &#123;</span><br><span class="line"><span class="comment">// 调用 visit( )访问本节点</span></span><br><span class="line"><span class="comment">// 如果 visit( )返回 true,则访问子节点acceptChild(visitor, getProperty1()); // 访问非序列型属性</span></span><br><span class="line">acceptChildren(visitor, rawListProperty); <span class="comment">// 访问序列型属性</span></span><br><span class="line">acceptChild(visitor, getProperty2());</span><br><span class="line">&#125;</span><br><span class="line">visitor.endVisit(<span class="built_in">this</span>);<span class="comment">// 调用 endVisit( )执行一些节点访问后的操作</span></span><br></pre></td></tr></table></figure>
+
 <p>从上面的模板可以看出,如果节点包含多个属性,如 CompilationUnit 节点中有 imports属性和 types 属性等,则按这些属性在源程序中的先后次序来依次访问;如果一个属性为序列型,如 CompilationUnit 节点中的 types 属性,则调用 acceptChildren 方法来依次访问序列中的各个子节点;如果一个属性是非序列的,则调用 acceptChild 方法来访问。acceptChild和 acceptChildren 这两个方法的实现都与 AST 节点的具体类型无关,故放在 ASTNode 类中:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">final</span> <span class="keyword">void</span> <span class="title">acceptChild</span><span class="params">(ASTVisitor visitor, ASTNode child)</span> </span>&#123;</span><br><span class="line"><span class="keyword">if</span> (child == <span class="keyword">null</span>) &#123; <span class="keyword">return</span>; &#125;</span><br><span class="line">child.accept(visitor);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">final</span> <span class="keyword">void</span> <span class="title">acceptChildren</span><span class="params">(ASTVisitor visitor, ASTNode.NodeList children)</span> </span>&#123;</span><br><span class="line">NodeList.Cursor cursor = children.newCursor();</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line"><span class="keyword">while</span> (cursor.hasNext()) &#123;</span><br><span class="line">ASTNode child = (ASTNode) cursor.next();</span><br><span class="line">child.accept(visitor);</span><br><span class="line">&#125;</span><br><span class="line">&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">children.releaseCursor(cursor);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">acceptChild</span><span class="params">(ASTVisitor visitor, ASTNode child)</span> &#123;</span><br><span class="line"><span class="keyword">if</span> (child == <span class="literal">null</span>) &#123; <span class="keyword">return</span>; &#125;</span><br><span class="line">child.accept(visitor);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">acceptChildren</span><span class="params">(ASTVisitor visitor, ASTNode.NodeList children)</span> &#123;</span><br><span class="line">NodeList.<span class="type">Cursor</span> <span class="variable">cursor</span> <span class="operator">=</span> children.newCursor();</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line"><span class="keyword">while</span> (cursor.hasNext()) &#123;</span><br><span class="line"><span class="type">ASTNode</span> <span class="variable">child</span> <span class="operator">=</span> (ASTNode) cursor.next();</span><br><span class="line">child.accept(visitor);</span><br><span class="line">&#125;</span><br><span class="line">&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">children.releaseCursor(cursor);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>基于上述的实现机制,当你需要对 AST 树实现特定的访问功能时,你只需要结合实际需求设计和实现 ASTVisitor 类的子类就可以了。例如,在本章的课程设计中,你需要实现ASTVisitor 类的派生类 InterpVisitor,在其中重写(override)与需要解释执行的语法结构相对应的 visit( )方法。</p>
 <h4 id="SimpleMiniJOOL-语言涉及的-AST-节点类"><a href="#SimpleMiniJOOL-语言涉及的-AST-节点类" class="headerlink" title="SimpleMiniJOOL 语言涉及的 AST 节点类"></a>SimpleMiniJOOL 语言涉及的 AST 节点类</h4><p>虽然 Eclipse AST 有为数众多的 AST 节点类,但是为表示 SimpleMiniJOOL 语言只会用到其中的一小部分,下面简要描述 SimpleMiniJOOL 语言所涉及到的 AST 节点类,重点介绍在使用这些类时所关注的成员。</p>
 <h5 id="整体结构"><a href="#整体结构" class="headerlink" title="整体结构"></a>整体结构</h5><p>1、CompilationUnit 类(编译单元)<br>它用来表示一个 Java 源程序文件,本书中用来表示一个 MiniJOOL 语言或其子语言程序的全部,是所对应的 AST 树的根节点。虽然这类节点有 package 声明、import 声明列表和类型声明列表等基本属性,但是在表示 SimpleMiniJOOL 程序时就只有一个类声明子节点。<br><strong>主要成员</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">List <span class="title">types</span><span class="params">( )</span><span class="comment">// 返回该编译单元的顶层类型声明所对应的节点序列</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List <span class="title function_">types</span><span class="params">( )</span><span class="comment">// 返回该编译单元的顶层类型声明所对应的节点序列</span></span><br></pre></td></tr></table></figure>
 <p>2、TypeDeclaration 类(类型声明)<br>它用于表示 Java 语言中的类声明或接口声明,本书中用来表示 MiniJOOL 语言或其子语言中的类声明。在 SimpleMiniJOOL 程序中,仅有一个名为 Program 的类声明。<br><strong>主要成员</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">MethodDeclaration[] getMethods( )</span><br><span class="line"><span class="comment">// 返回类声明的方法声明序列</span></span><br><span class="line">以下成员在表示 SkipOOMiniJOOL 或 MiniJOOL 程序时才会用到:</span><br><span class="line">FieldDeclaration[] getFields( ) <span class="comment">// 返回类声明的域声明序列</span></span><br><span class="line"><span class="function">Type <span class="title">getSuperclassType</span><span class="params">( )</span> <span class="comment">// 返回该类声明的超类类型或 null</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setSuperclassType</span><span class="params">(Type superclassType)</span></span></span><br><span class="line"><span class="function"><span class="comment">// 设置或清除超类</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">MethodDeclaration[] getMethods( )</span><br><span class="line"><span class="comment">// 返回类声明的方法声明序列</span></span><br><span class="line">以下成员在表示 SkipOOMiniJOOL 或 MiniJOOL 程序时才会用到:</span><br><span class="line">FieldDeclaration[] getFields( ) <span class="comment">// 返回类声明的域声明序列</span></span><br><span class="line">Type <span class="title function_">getSuperclassType</span><span class="params">( )</span> <span class="comment">// 返回该类声明的超类类型或 null</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">setSuperclassType</span><span class="params">(Type superclassType)</span></span><br><span class="line"><span class="comment">// 设置或清除超类</span></span><br></pre></td></tr></table></figure>
 <p>3、MethodDeclaration 类(方法声明)<br>它用于表示 Java 语言中的方法声明或者是构造器声明(注意:在 Java 语言规范中,并不是将构造器看成是一个方法。因为后者视为是类中的成员,可以被子类继承;而前者不能被子类继承)。这类节点的基本属性包括:方法或构造器名、方法或构造器的体、返回类型、形参列表等。在一个 SimpleMiniJOOL 程序里的唯一的类中,只有一个名为 main 的无参方法,这个方法声明表示为一个 MethodDeclaration 实例。<br><strong>主要成员</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Block <span class="title">getBody</span><span class="params">( )</span> <span class="comment">// 返回该方法声明的方法体,如果没有体则为 null</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setBody</span><span class="params">(Block body)</span> <span class="comment">// 设置或清除该方法声明的方法体</span></span></span><br><span class="line"><span class="function">SimpleName <span class="title">getName</span><span class="params">( )</span> <span class="comment">// 返回所声明的方法名</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setName</span><span class="params">(SimpleName methodName)</span></span></span><br><span class="line"><span class="function">Type <span class="title">getReturnType2</span><span class="params">( )</span></span></span><br><span class="line"><span class="function"><span class="comment">// 设置方法名</span></span></span><br><span class="line"><span class="function"><span class="comment">// 返回所声明的方法的返回类型</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setReturnType2</span><span class="params">(Type type)</span></span></span><br><span class="line"><span class="function"><span class="comment">// 设置返回类型</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Block <span class="title function_">getBody</span><span class="params">( )</span> <span class="comment">// 返回该方法声明的方法体,如果没有体则为 null</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">setBody</span><span class="params">(Block body)</span> <span class="comment">// 设置或清除该方法声明的方法体</span></span><br><span class="line">SimpleName <span class="title function_">getName</span><span class="params">( )</span> <span class="comment">// 返回所声明的方法名</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">setName</span><span class="params">(SimpleName methodName)</span></span><br><span class="line">Type <span class="title function_">getReturnType2</span><span class="params">( )</span></span><br><span class="line"><span class="comment">// 设置方法名</span></span><br><span class="line"><span class="comment">// 返回所声明的方法的返回类型</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">setReturnType2</span><span class="params">(Type type)</span></span><br><span class="line"><span class="comment">// 设置返回类型</span></span><br></pre></td></tr></table></figure>
 <p>以下成员在表示 SkipOOMiniJOOL 或 MiniJOOL 程序时才会用到:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">List <span class="title">parameters</span><span class="params">( )</span> <span class="comment">// 返回所声明的方法的参数声明序列</span></span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">isConstructor</span><span class="params">( )</span> <span class="comment">// 返回该声明是否是在声明构造器</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setConstructor</span><span class="params">(<span class="keyword">boolean</span> isConstructor)</span></span></span><br><span class="line"><span class="function"><span class="comment">// 设置是否是在声明构造器</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List <span class="title function_">parameters</span><span class="params">( )</span> <span class="comment">// 返回所声明的方法的参数声明序列</span></span><br><span class="line"><span class="type">boolean</span> <span class="title function_">isConstructor</span><span class="params">( )</span> <span class="comment">// 返回该声明是否是在声明构造器</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">setConstructor</span><span class="params">(<span class="type">boolean</span> isConstructor)</span></span><br><span class="line"><span class="comment">// 设置是否是在声明构造器</span></span><br></pre></td></tr></table></figure>
 <h5 id="语句"><a href="#语句" class="headerlink" title="语句"></a>语句</h5><p>Statement 类是所有 Eclipse AST 中语句节点类的基类,由它派生出许多具体的语句节点类。在表示 SimpleMiniJOOL 程序时,只涉及到 Block、ExpressionStatement、IfStatement、WhileStatement、EmptyStatement、BreakStatement、ContinueStatement、ReturnStatement 等语句节点类。<br>1、Block 类(语句块)<br>它表示用花括号括起来的语句序列,可以用来表示一个方法体。其基本属性是语句序列。<br><strong>主要成员</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">List <span class="title">statements</span><span class="params">( )</span></span></span><br><span class="line"><span class="function"><span class="comment">// 返回该语句块中的语句序列</span></span></span><br></pre></td></tr></table></figure>
-<p>2、ExpressionStatement 类(表达式语句)<br>它表示由表达式形成的合法语句,包括表达式这一基本属性。在 SimpleMiniJOOL 语言中,可以用这个类来表示 print/read 语句或赋值表达式语句。<br><strong>主要成员</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Expression <span class="title">getExpression</span><span class="params">( )</span> <span class="comment">// 返回该语句中的表达式</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setExpression</span><span class="params">(Expression expression)</span> <span class="comment">// 设置该语句中的表达式</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List <span class="title function_">statements</span><span class="params">( )</span></span><br><span class="line"><span class="comment">// 返回该语句块中的语句序列</span></span><br></pre></td></tr></table></figure>
+<p>2、ExpressionStatement 类(表达式语句)<br>它表示由表达式形成的合法语句,包括表达式这一基本属性。在 SimpleMiniJOOL 语言中,可以用这个类来表示 print&#x2F;read 语句或赋值表达式语句。<br><strong>主要成员</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Expression <span class="title function_">getExpression</span><span class="params">( )</span> <span class="comment">// 返回该语句中的表达式</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">setExpression</span><span class="params">(Expression expression)</span> <span class="comment">// 设置该语句中的表达式</span></span><br></pre></td></tr></table></figure>
 <p>3、IfStatement(if 语句)<br>它表示 if 或 if-else 语句,节点中包括 if 语句的表达式、then 分支以及可选的 else 分支<br>这些基本属性。<br><strong>主要成员</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Expression <span class="title">getExpression</span><span class="params">( )</span> <span class="comment">// 返回 if 语句的表达式</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setExpression</span><span class="params">(Expression expression)</span> <span class="comment">// 设置 if 语句的表达式</span></span></span><br><span class="line"><span class="function">Statement <span class="title">getThenStatement</span><span class="params">( )</span> <span class="comment">// 返回 if 语句的 then 分支</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setThenStatement</span><span class="params">(Statement statement)</span> <span class="comment">// 设置 then 分支</span></span></span><br><span class="line"><span class="function">Statement <span class="title">getElseStatement</span><span class="params">( )</span> <span class="comment">// 返回 if 语句的 else 分支</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setElseStatement</span><span class="params">(Statement statement)</span> <span class="comment">// 设置 else 分支</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Expression <span class="title function_">getExpression</span><span class="params">( )</span> <span class="comment">// 返回 if 语句的表达式</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">setExpression</span><span class="params">(Expression expression)</span> <span class="comment">// 设置 if 语句的表达式</span></span><br><span class="line">Statement <span class="title function_">getThenStatement</span><span class="params">( )</span> <span class="comment">// 返回 if 语句的 then 分支</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">setThenStatement</span><span class="params">(Statement statement)</span> <span class="comment">// 设置 then 分支</span></span><br><span class="line">Statement <span class="title function_">getElseStatement</span><span class="params">( )</span> <span class="comment">// 返回 if 语句的 else 分支</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">setElseStatement</span><span class="params">(Statement statement)</span> <span class="comment">// 设置 else 分支</span></span><br></pre></td></tr></table></figure>
 <p>4、WhileStatement 类(while 语句)<br>它表示 while 语句,节点中包括 while 语句的表达式和体这些基本属性。<br><strong>主要成员</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Expression <span class="title">getExpression</span><span class="params">( )</span> <span class="comment">// 返回 while 语句的表达式</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setExpression</span><span class="params">(Expression expression)</span> <span class="comment">// 设置 while 语句的表达式</span></span></span><br><span class="line"><span class="function">Statement <span class="title">getBody</span><span class="params">( )</span> <span class="comment">// 返回 while 语句的体</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setBody</span><span class="params">(Statement statement)</span> <span class="comment">// 设置 while 语句的体</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Expression <span class="title function_">getExpression</span><span class="params">( )</span> <span class="comment">// 返回 while 语句的表达式</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">setExpression</span><span class="params">(Expression expression)</span> <span class="comment">// 设置 while 语句的表达式</span></span><br><span class="line">Statement <span class="title function_">getBody</span><span class="params">( )</span> <span class="comment">// 返回 while 语句的体</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">setBody</span><span class="params">(Statement statement)</span> <span class="comment">// 设置 while 语句的体</span></span><br></pre></td></tr></table></figure>
 <p>5、EmptyStatement 类(空语句)<br>它表示由分号组成的语句。<br>6、BreakStatement 类和 ContinueStatement 类<br>这两个类分别表示 break 语句和 continue 语句。在 Java 语言中,这两个语句是允许带有标号的,即形如“break label; ”或“continue label;”,因此提供 getLabel( )和 setLabel( )成员来访问标号。但是,在 MiniJOOL 语言或其子语言中,不支持标号。<br>7、ReturnStatement 类<br>它表示 return 语句。SimpleMiniJOOL 语言中的 return 语句是不允许含有表达式的,但是 MiniJOOL 语言和 SkipOOMiniJOOL 语言中的 return 语句允许含有表达式以支持返回值。故以下成员在表示 MiniJOOL 语言和 SkipOOMiniJOOL 语言时才会用到:<br><strong>主要成员</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Expression <span class="title">getExpression</span><span class="params">( )</span> <span class="comment">// 返回 return 语句的表达式</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setExpression</span><span class="params">(Expression expression)</span> <span class="comment">// 设置 return 语句的表达式</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Expression <span class="title function_">getExpression</span><span class="params">( )</span> <span class="comment">// 返回 return 语句的表达式</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">setExpression</span><span class="params">(Expression expression)</span> <span class="comment">// 设置 return 语句的表达式</span></span><br></pre></td></tr></table></figure>
 <h5 id="表达式"><a href="#表达式" class="headerlink" title="表达式"></a>表达式</h5><p>Expression 类是所有 Eclipse AST 中表达式节点类的基类,由它派生出许多类。在表示SimpleMiniJOOL 程 序 时 , 只 涉 及 到 MethodInvocation 、 Assignment 、 InfixExpression 、PrefixExpression、ParenthesizedExpression、NumberLiteral、Name 这些表达式节点类。<br>1、MethodInvocation 类(方法调用)<br>它用来表示 Java 程序中的方法调用。MiniJOOL 语言中的方法调用形如:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[ Expression . ] Identifier ( [ Expression &#123; , Expression &#125; ] )</span><br></pre></td></tr></table></figure>
-<p>开头的“Expression .”是限制被调用方法的受限表达式,可以是类名、实例表达式或者没有。在 SkipOOMiniJOOL 语言中,方法调用不存在受限表达式。虽然 SimpleMiniJOOL 语言中没有方法调用,但是程序中的“print/read( &lt;参数&gt;)”用方法调用节点来表示。<br><strong>主要成员</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 返回所调用的方法名</span></span><br><span class="line"><span class="function">SimpleName <span class="title">getName</span><span class="params">( )</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setName</span><span class="params">(SimpleName methodName)</span> <span class="comment">// 设置方法名</span></span></span><br><span class="line"><span class="function">List <span class="title">arguments</span><span class="params">( )</span></span></span><br><span class="line"><span class="function"><span class="comment">// 返回方法调用表达式中的实参表达式序列</span></span></span><br></pre></td></tr></table></figure>
+<p>开头的“Expression .”是限制被调用方法的受限表达式,可以是类名、实例表达式或者没有。在 SkipOOMiniJOOL 语言中,方法调用不存在受限表达式。虽然 SimpleMiniJOOL 语言中没有方法调用,但是程序中的“print&#x2F;read( &lt;参数&gt;)”用方法调用节点来表示。<br><strong>主要成员</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 返回所调用的方法名</span></span><br><span class="line">SimpleName <span class="title function_">getName</span><span class="params">( )</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">setName</span><span class="params">(SimpleName methodName)</span> <span class="comment">// 设置方法名</span></span><br><span class="line">List <span class="title function_">arguments</span><span class="params">( )</span></span><br><span class="line"><span class="comment">// 返回方法调用表达式中的实参表达式序列</span></span><br></pre></td></tr></table></figure>
 <p>以下成员在表示 MiniJOOL 程序时才会用到:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Expression <span class="title">getExpression</span><span class="params">( )</span> <span class="comment">// 返回方法调用的受限表达式</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setExpression</span><span class="params">(Expression expression)</span> <span class="comment">// 设置方法调用的受限表达式</span></span></span><br></pre></td></tr></table></figure>
-<p>2、Assignment 类(赋值表达式)<br>它用于表示赋值表达式,包含运算符、左部和右部等基本属性。赋值运算符是在内部类Assignment.Operator 中义。MiniJOOL 语言或其子语言中支持的赋值运算符包括 =、+=、-=、*=、/=、%=。<br><strong>主要成员</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Expression <span class="title">getLeftHandSide</span><span class="params">( )</span></span></span><br><span class="line"><span class="function"><span class="comment">// 返回赋值表达式的左部</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setLeftHandSide</span><span class="params">(Expression expr)</span></span></span><br><span class="line"><span class="function"><span class="title">getRightHandSide</span><span class="params">( )</span></span></span><br><span class="line"><span class="function"><span class="comment">// 设 置 赋 值 表 达 式 的 左 部 Expression</span></span></span><br><span class="line"><span class="function"><span class="comment">// 返回赋值表达式的右部</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setRightHandSide</span><span class="params">(Expression expr)</span></span></span><br><span class="line"><span class="function"><span class="comment">// 设置赋值表达式的右部</span></span></span><br><span class="line"><span class="function">Assignment.Operator <span class="title">getOperator</span><span class="params">( )</span> <span class="comment">// 返回赋值表达式的运算符</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setOperator</span><span class="params">(Assignment.Operator op)</span> <span class="comment">// 设置赋值表达式的运算符</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Expression <span class="title function_">getExpression</span><span class="params">( )</span> <span class="comment">// 返回方法调用的受限表达式</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">setExpression</span><span class="params">(Expression expression)</span> <span class="comment">// 设置方法调用的受限表达式</span></span><br></pre></td></tr></table></figure>
+<p>2、Assignment 类(赋值表达式)<br>它用于表示赋值表达式,包含运算符、左部和右部等基本属性。赋值运算符是在内部类Assignment.Operator 中义。MiniJOOL 语言或其子语言中支持的赋值运算符包括 &#x3D;、+&#x3D;、-&#x3D;、*&#x3D;、&#x2F;&#x3D;、%&#x3D;。<br><strong>主要成员</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Expression <span class="title function_">getLeftHandSide</span><span class="params">( )</span></span><br><span class="line"><span class="comment">// 返回赋值表达式的左部</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">setLeftHandSide</span><span class="params">(Expression expr)</span></span><br><span class="line">getRightHandSide( )</span><br><span class="line"><span class="comment">// 设 置 赋 值 表 达 式 的 左 部 Expression</span></span><br><span class="line"><span class="comment">// 返回赋值表达式的右部</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">setRightHandSide</span><span class="params">(Expression expr)</span></span><br><span class="line"><span class="comment">// 设置赋值表达式的右部</span></span><br><span class="line">Assignment.Operator <span class="title function_">getOperator</span><span class="params">( )</span> <span class="comment">// 返回赋值表达式的运算符</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">setOperator</span><span class="params">(Assignment.Operator op)</span> <span class="comment">// 设置赋值表达式的运算符</span></span><br></pre></td></tr></table></figure>
 <p><strong>赋值运算符</strong><br>在内部类 Assignment.Operator 中,定义有许多类型为 static Assignment.Operator 的赋值运算符,其中与 MiniJOOL 语言及其子语言有关的有:</p>
 <pre><code>ASSIGN:表示 =,可以用 Assignment.Operator.ASSIGN 来访问,以下类似
 PLUS_ASSIGN:表示+=
@@ -516,499 +349,162 @@ MINUS_ASSIGN:表示 -=
 TIMES_ASSIGN:表示 *=
 DIVIDE_ASSIGN:表示 /=
 REMAINDER_ASSIGN:表示 %=
-</code></pre><p>3、InfixExpression 类(中缀表达式)<br>它用于表示中缀表达式,包含运算符、左操作数和右操作数等基本属性。运算符是在内部类 InfixExpression.Operator 中定义。MiniJOOL 语言或其子语言中支持的中缀运算符包括包括+、-、*、/、%、==、!=、&lt;、&lt;=、&gt;、&gt;=、&amp;&amp;、||等。<br><strong>主要成员</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 返回中缀表达式的左操作数</span></span><br><span class="line"><span class="function">Expression <span class="title">getLeftOperand</span><span class="params">( )</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setLeftOperand</span><span class="params">(Expression expr)</span> <span class="comment">// 设置左操作数</span></span></span><br><span class="line"><span class="function">Expression <span class="title">getRightOperand</span><span class="params">( )</span> <span class="comment">// 返回中缀表达式的右操作数</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setRightOperand</span><span class="params">(Expression expr)</span> <span class="comment">// 设置右操作数</span></span></span><br><span class="line"><span class="function">InfixExpression.Operator <span class="title">getOperator</span><span class="params">( )</span> <span class="comment">// 返回中缀表达式的运算符</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setOperator</span><span class="params">(InfixExpression.Operator op)</span> <span class="comment">// 设置运算符</span></span></span><br></pre></td></tr></table></figure>
+</code></pre>
+<p>3、InfixExpression 类(中缀表达式)<br>它用于表示中缀表达式,包含运算符、左操作数和右操作数等基本属性。运算符是在内部类 InfixExpression.Operator 中定义。MiniJOOL 语言或其子语言中支持的中缀运算符包括包括+、-、*、&#x2F;、%、&#x3D;&#x3D;、!&#x3D;、&lt;、&lt;&#x3D;、&gt;、&gt;&#x3D;、&amp;&amp;、||等。<br><strong>主要成员</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 返回中缀表达式的左操作数</span></span><br><span class="line">Expression <span class="title function_">getLeftOperand</span><span class="params">( )</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">setLeftOperand</span><span class="params">(Expression expr)</span> <span class="comment">// 设置左操作数</span></span><br><span class="line">Expression <span class="title function_">getRightOperand</span><span class="params">( )</span> <span class="comment">// 返回中缀表达式的右操作数</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">setRightOperand</span><span class="params">(Expression expr)</span> <span class="comment">// 设置右操作数</span></span><br><span class="line">InfixExpression.Operator <span class="title function_">getOperator</span><span class="params">( )</span> <span class="comment">// 返回中缀表达式的运算符</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">setOperator</span><span class="params">(InfixExpression.Operator op)</span> <span class="comment">// 设置运算符</span></span><br></pre></td></tr></table></figure>
 <p><strong>中缀运算符</strong><br>本书涉及内部类 InfixExpression.Operator 中定义的以下 static InfixExpression.Operator 类型的实例:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">+ PLUS</span><br><span class="line"><span class="meta">%</span><span class="bash"> REMAINDER</span></span><br><span class="line">&lt; LESS</span><br><span class="line">&amp;&amp;</span><br><span class="line">-</span><br><span class="line">MINUS</span><br><span class="line">==</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> GREATER</span></span><br><span class="line">CONDITIONAL_AND</span><br><span class="line">*</span><br><span class="line">TIMES</span><br><span class="line">/ DIVIDE</span><br><span class="line">EQUALS != NOT_EQUALS</span><br><span class="line">&lt;= &gt;=</span><br><span class="line">||</span><br><span class="line">LESS_EQUALS</span><br><span class="line">GREATER_EQUALS</span><br><span class="line">CONDITIONAL_OR</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">+ PLUS</span><br><span class="line"><span class="meta prompt_">% </span><span class="language-bash">REMAINDER</span></span><br><span class="line">&lt; LESS</span><br><span class="line">&amp;&amp;</span><br><span class="line">-</span><br><span class="line">MINUS</span><br><span class="line">==</span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">GREATER</span></span><br><span class="line">CONDITIONAL_AND</span><br><span class="line">*</span><br><span class="line">TIMES</span><br><span class="line">/ DIVIDE</span><br><span class="line">EQUALS != NOT_EQUALS</span><br><span class="line">&lt;= &gt;=</span><br><span class="line">||</span><br><span class="line">LESS_EQUALS</span><br><span class="line">GREATER_EQUALS</span><br><span class="line">CONDITIONAL_OR</span><br></pre></td></tr></table></figure>
 <p>4、PrefixExpression 类(前缀表达式)<br>它用于表示前缀表达式,包含运算符、操作数等基本属性。运算符是在内部类PrefixExpression.Operator 中定义。在 SimpleMiniJOOL 中,包括-、+、!等前缀运算符。<br><strong>主要成员</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Expression <span class="title">getOperand</span><span class="params">( )</span></span></span><br><span class="line"><span class="function"><span class="comment">// 返回前缀表达式的操作数</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setOperand</span><span class="params">(Expression expr)</span></span></span><br><span class="line"><span class="function"><span class="comment">// 设置操作数</span></span></span><br><span class="line"><span class="function">PrefixExpression.Operator <span class="title">getOperator</span><span class="params">( )</span> <span class="comment">// 返回前缀表达式的运算符</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setOperator</span><span class="params">(PrefixExpression.Operator op)</span> <span class="comment">// 设置运算符</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Expression <span class="title function_">getOperand</span><span class="params">( )</span></span><br><span class="line"><span class="comment">// 返回前缀表达式的操作数</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">setOperand</span><span class="params">(Expression expr)</span></span><br><span class="line"><span class="comment">// 设置操作数</span></span><br><span class="line">PrefixExpression.Operator <span class="title function_">getOperator</span><span class="params">( )</span> <span class="comment">// 返回前缀表达式的运算符</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">setOperator</span><span class="params">(PrefixExpression.Operator op)</span> <span class="comment">// 设置运算符</span></span><br></pre></td></tr></table></figure>
 <p><strong>前缀运算符</strong><br>本书涉及内部类 PrefixExpression.Operator 中定义的以下 static PrefixExpression.Operator类型的实例:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">+PLUS</span><br><span class="line">- MINUS</span><br><span class="line">! NOT</span><br></pre></td></tr></table></figure>
 <p>5、ParenthesizedExpression 类(带括号的表达式)<br><strong>主要成员</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Expression <span class="title">getExpression</span><span class="params">( )</span></span></span><br><span class="line"><span class="function"><span class="comment">// 返回括号内的表达式</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setExpression</span><span class="params">(Expression expression)</span> <span class="comment">// 设置括号内的表达式</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Expression <span class="title function_">getExpression</span><span class="params">( )</span></span><br><span class="line"><span class="comment">// 返回括号内的表达式</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">setExpression</span><span class="params">(Expression expression)</span> <span class="comment">// 设置括号内的表达式</span></span><br></pre></td></tr></table></figure>
 <p>6、NumberLiteral 类(整数)<br><strong>主要成员</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">String <span class="title">getToken</span><span class="params">( )</span></span></span><br><span class="line"><span class="function"><span class="comment">// 返回对应的整数串</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setToken</span><span class="params">(String token)</span> <span class="comment">// 设置整数串</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String <span class="title function_">getToken</span><span class="params">( )</span></span><br><span class="line"><span class="comment">// 返回对应的整数串</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">setToken</span><span class="params">(String token)</span> <span class="comment">// 设置整数串</span></span><br></pre></td></tr></table></figure>
 <p>7、Name 类<br>它用于表示一个名字,由它派生出 QualifiedName 和 SimpleName 两个类,前者表示一个形如 a.b 的受限名,后者表示一个简单名。在 SimpleMiniJOOL 程序中只会出现简单名。<br><strong>SimpleName 的主要成员</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">String <span class="title">getIdentifier</span><span class="params">( )</span> <span class="comment">// 返回标识符</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setIdentifier</span><span class="params">(String expression)</span> <span class="comment">// 设置标识符</span></span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">isDeclaration</span><span class="params">( )</span> <span class="comment">// 该标识符是否定义过</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String <span class="title function_">getIdentifier</span><span class="params">( )</span> <span class="comment">// 返回标识符</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">setIdentifier</span><span class="params">(String expression)</span> <span class="comment">// 设置标识符</span></span><br><span class="line"><span class="type">boolean</span> <span class="title function_">isDeclaration</span><span class="params">( )</span> <span class="comment">// 该标识符是否定义过</span></span><br></pre></td></tr></table></figure>
 <p><strong>QualifiedName 的主要成员</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">SimpleName <span class="title">getName</span><span class="params">( )</span> <span class="comment">// 返回受限名中的名字部分</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setName</span><span class="params">(SimpleName name )</span> <span class="comment">// 设置受限名中的名字部分</span></span></span><br><span class="line"><span class="function">Name <span class="title">getQualifier</span><span class="params">( )</span> <span class="comment">// 返回受限名中的受限部分</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setQualifier</span><span class="params">(Name qualifier)</span> <span class="comment">// 设置受限名中的受限部分</span></span></span><br></pre></td></tr></table></figure>
-<h4 id="Eclipse-AST-使用示例"><a href="#Eclipse-AST-使用示例" class="headerlink" title="Eclipse AST 使用示例"></a>Eclipse AST 使用示例</h4><p>在这一节中,我们将演示如何利用 Eclipse AST 手工构建如下的 SimpleMiniJOOL 程序的 AST 中间表示。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Program</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">i = <span class="number">10</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SimpleName <span class="title function_">getName</span><span class="params">( )</span> <span class="comment">// 返回受限名中的名字部分</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">setName</span><span class="params">(SimpleName name )</span> <span class="comment">// 设置受限名中的名字部分</span></span><br><span class="line">Name <span class="title function_">getQualifier</span><span class="params">( )</span> <span class="comment">// 返回受限名中的受限部分</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">setQualifier</span><span class="params">(Name qualifier)</span> <span class="comment">// 设置受限名中的受限部分</span></span><br></pre></td></tr></table></figure>
+<h4 id="Eclipse-AST-使用示例"><a href="#Eclipse-AST-使用示例" class="headerlink" title="Eclipse AST 使用示例"></a>Eclipse AST 使用示例</h4><p>在这一节中,我们将演示如何利用 Eclipse AST 手工构建如下的 SimpleMiniJOOL 程序的 AST 中间表示。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Program</span> &#123;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">i = <span class="number">10</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>首先,你需要通过 Eclipse AST 工厂类中的方法 newAST()建立一个 AST 实例:</p>
 <pre><code>AST ast = AST.newAST(JLS3);
-</code></pre><p>利用这个 AST 实例,就可以按如下的方法创建各种 AST 节点,并构建完整的抽象语法树。然后,利用 Eclipse AST 工厂类中的各种创建方法按如下步骤创建所需要的 AST 节点:<br>1) 整个 SimpleMiniJOOL 程序构成一个 CompilationUnit:</p>
-<pre><code>CompilationUnit cu = ast.newCompilationUnit();
-</code></pre><p>2) 在 CompilationUnit 实例中包含一个 TypeDeclaration,表示程序中的类 Program:</p>
-<pre><code>TypeDeclaration type = ast.newTypeDeclaration( );
-type.setName(ast.newSimpleName(“Program”));
-// 定义类的名字
-</code></pre><p>3) 在这个 TypeDeclaration 实例中添加类 Program 中的方法 main():</p>
-<pre><code>MethodDeclaration method = ast.newMethodDeclaration( );
-method.setName(ast.newSimpleName(“main”));
-type.bodyDeclarations().add(method);
-// 设置方法 main()的 modifier 为 static
-method.modifiers().add(
-ast.newModifier(Modifier.ModifierKeyword.STATIC_KEYWORD));
-// 设置方法 main()的返回类型为 void
-method.setReturnType2(ast.newPrimitiveType(PrimitiveType.VOID));
-</code></pre><p>4) 构造 main 函数的函数体 mainBody</p>
-<pre><code>Block mainBody = ast.newBlock();
-method.setBody(mainBody);
-</code></pre><p>5) 向方法 main 函数体 mainBody 中添加语句</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 构建赋值表达式</span></span><br><span class="line">Assignment assign = ast.newAssignment();</span><br><span class="line"><span class="comment">// 设置赋值表达式的左值为 i</span></span><br><span class="line">assign.setLeftHandSide(ast.newSimpleName(<span class="string">"i"</span>));</span><br><span class="line"><span class="comment">// 设置赋值表达式的赋值算符为=</span></span><br><span class="line">assign.setOperator(Assignment.Operator.ASSIGN);</span><br><span class="line"><span class="comment">// 设置赋值表达式的右值为数字 10</span></span><br><span class="line">assign.setRightHandSide(ast.newNumberLiteral(<span class="string">"10"</span>));</span><br><span class="line"><span class="comment">// 由赋值表达式构建语句,并把这个语句加入方法 Main()的函数体</span></span><br><span class="line">ExpressionStatement statement = ast.newExpressionStatement(assign);</span><br><span class="line">mainBody.statements().add(statement);</span><br></pre></td></tr></table></figure>
-<p>至此,用 Eclipse AST 表示的 SimpleMiniJOOL 程序的抽象语法树就构建完毕了。<br>在 lab1/src/edu/ustc/cs/compile/interpreter/TestCase.java 中的 createSampleAST( )方法给出了构建一个简单 SimpleMiniJOOL 程序对应的 AST 的完整示例。<br>需要再次强调的是,使用 Eclipse AST 构建的抽象语法树在拓扑结构上必须是无环的。无论是手工构建 AST 还是自动构建 AST,你都需要小心的检查自己的代码,避免违反这个原则。</p>
+</code></pre>
+<p>利用这个 AST 实例,就可以按如下的方法创建各种 AST 节点,并构建完整的抽象语法树。然后,利用 Eclipse AST 工厂类中的各种创建方法按如下步骤创建所需要的 AST 节点:</p>
+<ol>
+<li><p>整个 SimpleMiniJOOL 程序构成一个 CompilationUnit:</p>
+<p> CompilationUnit cu &#x3D; ast.newCompilationUnit();</p>
+</li>
+<li><p>在 CompilationUnit 实例中包含一个 TypeDeclaration,表示程序中的类 Program:</p>
+<p> TypeDeclaration type &#x3D; ast.newTypeDeclaration( );<br> type.setName(ast.newSimpleName(“Program”));<br> &#x2F;&#x2F; 定义类的名字</p>
+</li>
+<li><p>在这个 TypeDeclaration 实例中添加类 Program 中的方法 main():</p>
+<p> MethodDeclaration method &#x3D; ast.newMethodDeclaration( );<br> method.setName(ast.newSimpleName(“main”));<br> type.bodyDeclarations().add(method);<br> &#x2F;&#x2F; 设置方法 main()的 modifier 为 static<br> method.modifiers().add(<br> ast.newModifier(Modifier.ModifierKeyword.STATIC_KEYWORD));<br> &#x2F;&#x2F; 设置方法 main()的返回类型为 void<br> method.setReturnType2(ast.newPrimitiveType(PrimitiveType.VOID));</p>
+</li>
+<li><p>构造 main 函数的函数体 mainBody</p>
+<p> Block mainBody &#x3D; ast.newBlock();<br> method.setBody(mainBody);</p>
+</li>
+<li><p>向方法 main 函数体 mainBody 中添加语句</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 构建赋值表达式</span></span><br><span class="line"><span class="type">Assignment</span> <span class="variable">assign</span> <span class="operator">=</span> ast.newAssignment();</span><br><span class="line"><span class="comment">// 设置赋值表达式的左值为 i</span></span><br><span class="line">assign.setLeftHandSide(ast.newSimpleName(<span class="string">&quot;i&quot;</span>));</span><br><span class="line"><span class="comment">// 设置赋值表达式的赋值算符为=</span></span><br><span class="line">assign.setOperator(Assignment.Operator.ASSIGN);</span><br><span class="line"><span class="comment">// 设置赋值表达式的右值为数字 10</span></span><br><span class="line">assign.setRightHandSide(ast.newNumberLiteral(<span class="string">&quot;10&quot;</span>));</span><br><span class="line"><span class="comment">// 由赋值表达式构建语句,并把这个语句加入方法 Main()的函数体</span></span><br><span class="line"><span class="type">ExpressionStatement</span> <span class="variable">statement</span> <span class="operator">=</span> ast.newExpressionStatement(assign);</span><br><span class="line">mainBody.statements().add(statement);</span><br></pre></td></tr></table></figure>
+<p>至此,用 Eclipse AST 表示的 SimpleMiniJOOL 程序的抽象语法树就构建完毕了。<br>在 lab1&#x2F;src&#x2F;edu&#x2F;ustc&#x2F;cs&#x2F;compile&#x2F;interpreter&#x2F;TestCase.java 中的 createSampleAST( )方法给出了构建一个简单 SimpleMiniJOOL 程序对应的 AST 的完整示例。<br>需要再次强调的是,使用 Eclipse AST 构建的抽象语法树在拓扑结构上必须是无环的。无论是手工构建 AST 还是自动构建 AST,你都需要小心的检查自己的代码,避免违反这个原则。</p>
 
-      
     </div>
-    <ul class="popular-posts"><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2013/06/19/use-eclipse-ast-to-parser-java/" title="使用Eclipse AST来解析Java" rel="bookmark">使用Eclipse AST来解析Java</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2013/09/25/custome-checkstyle-rule/" title="自定义CheckStyle规则" rel="bookmark">自定义CheckStyle规则</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2013/12/14/ut-maven-plugin/" title="ut-maven-plugin" rel="bookmark">ut-maven-plugin</a></h3></div></li></ul>
-    
-    
-    
 
     
-      <div>
-        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
-    <img id="wechat_subscriber_qcode" src="/images/qrcode_shenyanchao.jpg" alt="申艳超 wechat" style="width: 200px; max-width: 100%;">
-    <div>欢迎关注微信订阅号~</div>
-</div>
+    
+    
+      
 
-      </div>
-    
-
-    
-      <div>
-        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-  <div>您的支持是我原创的动力！</div>
-  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-    <span>打赏</span>
-  </button>
-  <div id="QR" style="display: none;">
-
-    
-      <div id="wechat" style="display: inline-block">
-        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="申艳超 微信支付">
-        <p>微信支付</p>
-      </div>
-    
-
-    
-      <div id="alipay" style="display: inline-block">
-        <img id="alipay_qr" src="/images/alipay.jpg" alt="申艳超 支付宝">
-        <p>支付宝</p>
-      </div>
-    
-
-    
-
-  </div>
-</div>
-
-      </div>
-    
-
-    
-      <div>
-        <ul class="post-copyright">
-  <li class="post-copyright-author">
-    <strong>本文作者：</strong>
-    申艳超
-  </li>
-  <li class="post-copyright-link">
-    <strong>本文链接：</strong>
-    <a href="https://www.shenyanchao.cn/blog/2013/06/07/eclipse-ast/" title="Eclipse AST抽象语法树API">https://www.shenyanchao.cn/blog/2013/06/07/eclipse-ast/</a>
-  </li>
-  <li class="post-copyright-license">
-    <strong>版权声明： </strong>
-    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
-  </li>
-</ul>
-
-      </div>
-    
 
     <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/ast/" rel="tag"># ast</a>
-          
-            <a href="/tags/eclipse/" rel="tag"># eclipse</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/blog/2013/06/05/deep-in-testng/" rel="next" title="TestNG深入理解">
-                <i class="fa fa-chevron-left"></i> TestNG深入理解
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/blog/2013/06/13/write-my-maven-plugin/" rel="prev" title="如何写一个自己的Maven Plugin">
-                如何写一个自己的Maven Plugin <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
-  
-    <div class="comments" id="comments">
-    </div>
-  
-
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image" src="/images/shenyanchao.jpeg" alt="申艳超">
-            
-              <p class="site-author-name" itemprop="name">申艳超</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">124</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">35</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">233</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-            <div class="feed-link motion-element">
-              <a href="/atom.xml" rel="alternate">
-                <i class="fa fa-rss"></i>
-                RSS
-              </a>
-            </div>
-          
-
-          
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/blueshen" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:zhiyi.shen@gmail.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-            </div>
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Eclipse-AST"><span class="nav-number">1.</span> <span class="nav-text">Eclipse AST</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#AST-节点类"><span class="nav-number">1.1.</span> <span class="nav-text">AST 节点类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AST-类"><span class="nav-number">1.2.</span> <span class="nav-text">AST 类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ASTVisitor-类"><span class="nav-number">1.3.</span> <span class="nav-text">ASTVisitor 类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SimpleMiniJOOL-语言涉及的-AST-节点类"><span class="nav-number">1.4.</span> <span class="nav-text">SimpleMiniJOOL 语言涉及的 AST 节点类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#整体结构"><span class="nav-number">1.4.1.</span> <span class="nav-text">整体结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#语句"><span class="nav-number">1.4.2.</span> <span class="nav-text">语句</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#表达式"><span class="nav-number">1.4.3.</span> <span class="nav-text">表达式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Eclipse-AST-使用示例"><span class="nav-number">1.5.</span> <span class="nav-text">Eclipse AST 使用示例</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
+          <div class="reward-container">
+  <div>您的支持是我原创的动力！</div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="申艳超 WeChat Pay">
+        <span>WeChat Pay</span>
       </div>
-    </main>
+      <div>
+        <img src="/images/alipay.jpg" alt="申艳超 Alipay">
+        <span>Alipay</span>
+      </div>
 
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; 2012 &mdash; <span itemprop="copyrightYear">2020</span>
+  </div>
+</div>
+
+          <div class="followme">
+  <span>Welcome to my other publishing channels</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/ast/" rel="tag"># ast</a>
+              <a href="/tags/eclipse/" rel="tag"># eclipse</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2013/06/05/deep-in-testng/" rel="prev" title="TestNG深入理解">
+                  <i class="fa fa-chevron-left"></i> TestNG深入理解
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/2013/06/13/write-my-maven-plugin/" rel="next" title="如何写一个自己的Maven Plugin">
+                  如何写一个自己的Maven Plugin <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2012 – 
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
-    <i class="fa fa-user"></i>
+    <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">申艳超</span>
-
-  
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-area-chart"></i>
-    </span>
-    
-      <span class="post-meta-item-text">Site words total count&#58;</span>
-    
-    <span title="Site words total count">233.6k</span>
-  
 </div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
-
-
-
-
-        
 <div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-  
-    <span class="site-uv">
-      <i class="fa fa-user"></i>
-      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-      
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
     </span>
-  
-
-  
-    <span class="site-pv">
-      <i class="fa fa-eye"></i>
-      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-      
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
     </span>
-  
 </div>
-
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a>
   </div>
 
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
-
-
+    </div>
+  </footer>
 
   
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
   
 
@@ -1017,182 +513,13 @@ method.setBody(mainBody);
 
 
   
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"vFAoofuVWgdHsCv6B6BtqROc-gzGzoHsz","app_key":"ANWUkmboGiNDNRmf2iVlUIGt","server_url":null,"security":true}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
 
 
-
-
-
-
-
-
-  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-  
-  <script type="text/javascript">
-    var GUEST = ['nick','mail','link'];
-    var guest = 'nick,mail';
-    guest = guest.split(',').filter(item=>{
-      return GUEST.indexOf(item)>-1;
-    });
-    new Valine({
-        el: '#comments' ,
-        verify: true,
-        notify: false,
-        appId: 'vFAoofuVWgdHsCv6B6BtqROc-gzGzoHsz',
-        appKey: 'ANWUkmboGiNDNRmf2iVlUIGt',
-        placeholder: '开始你的评论吧!',
-        avatar:'mm',
-        guest_info:guest,
-        pageSize:'10' || 10,
-    });
-  </script>
-
-
-
-  
-
-
-
-
-
-  
-
-  
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("vFAoofuVWgdHsCv6B6BtqROc-gzGzoHsz", "ANWUkmboGiNDNRmf2iVlUIGt");</script>
-  <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
-            }
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
-
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
-          } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
-          }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
-      });
-    }
-
-    $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
-    });
-  </script>
-
-
-
-  
-
-  
-<script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-
-
-  
-  
-
-  
-
-  
-
-  
 
 </body>
 </html>

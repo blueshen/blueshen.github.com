@@ -1,954 +1,459 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next mist use-motion" lang="zh-Hans">
-<head><meta name="generator" content="Hexo 3.9.0">
+<html lang="zh-Hans">
+<head>
   <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="theme-color" content="#222">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.shenyanchao.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.13.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/icon.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="webdriver,selenium,">
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="申艳超-博客" type="application/atom+xml">
-
-
-
-
-
-
-<meta name="description" content="Selenium Grid快速上手如果你对 Selenium 自动化测试已经非常熟悉，你仅仅需要一个快速上手来使程序运行起来。本章节的内容能满足不同的技术层次，但是如果你仅仅需要一个可以快速上手的指引，那么就显得有点多。如果是这样，你可以参考 Selenium Wiki 的相关文章。 什么是 Selenium-Grid ?Selenium-Grid 允许你在多台机器的多个浏览器上并行的进行测试，也">
-<meta name="keywords" content="webdriver,selenium">
+    <meta name="description" content="Selenium Grid快速上手如果你对 Selenium 自动化测试已经非常熟悉，你仅仅需要一个快速上手来使程序运行起来。本章节的内容能满足不同的技术层次，但是如果你仅仅需要一个可以快速上手的指引，那么就显得有点多。如果是这样，你可以参考 Selenium Wiki 的相关文章。 什么是 Selenium-Grid ?Selenium-Grid 允许你在多台机器的多个浏览器上并行的进行测试，也">
 <meta property="og:type" content="article">
 <meta property="og:title" content="selenium文档:selenium Grid">
 <meta property="og:url" content="https://www.shenyanchao.cn/blog/2013/05/30/selenium-doc-selenium-grid/index.html">
 <meta property="og:site_name" content="申艳超-博客">
 <meta property="og:description" content="Selenium Grid快速上手如果你对 Selenium 自动化测试已经非常熟悉，你仅仅需要一个快速上手来使程序运行起来。本章节的内容能满足不同的技术层次，但是如果你仅仅需要一个可以快速上手的指引，那么就显得有点多。如果是这样，你可以参考 Selenium Wiki 的相关文章。 什么是 Selenium-Grid ?Selenium-Grid 允许你在多台机器的多个浏览器上并行的进行测试，也">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-12-17T11:41:25.751Z">
+<meta property="og:locale">
+<meta property="article:published_time" content="2013-05-30T11:55:00.000Z">
+<meta property="article:modified_time" content="2019-12-17T11:41:25.751Z">
+<meta property="article:author" content="申艳超">
+<meta property="article:tag" content="webdriver">
+<meta property="article:tag" content="selenium">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="selenium文档:selenium Grid">
-<meta name="twitter:description" content="Selenium Grid快速上手如果你对 Selenium 自动化测试已经非常熟悉，你仅仅需要一个快速上手来使程序运行起来。本章节的内容能满足不同的技术层次，但是如果你仅仅需要一个可以快速上手的指引，那么就显得有点多。如果是这样，你可以参考 Selenium Wiki 的相关文章。 什么是 Selenium-Grid ?Selenium-Grid 允许你在多台机器的多个浏览器上并行的进行测试，也">
+
+
+<link rel="canonical" href="https://www.shenyanchao.cn/blog/2013/05/30/selenium-doc-selenium-grid/">
 
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Mist',
-    version: '5.1.4',
-    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-Hans","comments":true,"permalink":"https://www.shenyanchao.cn/blog/2013/05/30/selenium-doc-selenium-grid/","path":"blog/2013/05/30/selenium-doc-selenium-grid/","title":"selenium文档:selenium Grid"}</script>
 
-
-
-  <link rel="canonical" href="https://www.shenyanchao.cn/blog/2013/05/30/selenium-doc-selenium-grid/">
-
-
-
-
-
-  <title>selenium文档:selenium Grid | 申艳超-博客</title>
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>selenium文档:selenium Grid | 申艳超-博客</title>
   
 
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?81c9612f8fdceca45435ef7f5404d7b2"></script>
 
 
 
 
-  <script type="text/javascript">
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?81c9612f8fdceca45435ef7f5404d7b2";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
 
+  <script async defer data-website-id="" src=""></script>
 
+  <script defer data-domain="" src=""></script>
 
-
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="申艳超-博客" type="application/atom+xml">
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
-  
-  
-    
-  
-
-  <div class="container sidebar-position-right page-post-detail">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">申艳超-博客</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
-      
-        <h1 class="site-subtitle" itemprop="description">搜索引擎、分布式、高性能、NLP、ElasticSearch、Solr</h1>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">申艳超-博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">搜索引擎、分布式、高性能、NLP、ElasticSearch、Solr</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
-            
-            关于
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-            
-            标签
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
-            
-            分类
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-sitemap">
-          <a href="/sitemap.xml" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
-            
-            站点地图
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-commonweal">
-          <a href="/404.html" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
-            
-            公益404
-          </a>
-        </li>
-      
-
-      
-    </ul>
-  
-
-  
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>Archives</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="sitemap fa-fw"></i>Sitemap</a></li><li class="menu-item menu-item-commonweal"><a href="/404.html" rel="section"><i class="heartbeat fa-fw"></i>Commonweal 404</a></li>
+  </ul>
 </nav>
 
 
 
- </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Selenium-Grid"><span class="nav-number">1.</span> <span class="nav-text">Selenium Grid</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B"><span class="nav-number">1.1.</span> <span class="nav-text">快速上手</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-Selenium-Grid"><span class="nav-number">1.2.</span> <span class="nav-text">什么是 Selenium-Grid ?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%95%E6%97%B6%E9%9C%80%E8%A6%81%E4%BD%BF%E7%94%A8"><span class="nav-number">1.3.</span> <span class="nav-text">何时需要使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Selenium-Grid-2-0"><span class="nav-number">1.4.</span> <span class="nav-text">Selenium-Grid 2.0</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Selenium-Grid-1-0"><span class="nav-number">1.5.</span> <span class="nav-text">Selenium-Grid 1.0</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Selenium-Grid-%E7%9A%84-Hub-%E5%92%8C-Nodes-%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84%EF%BC%9F"><span class="nav-number">1.6.</span> <span class="nav-text">Selenium-Grid 的 Hub 和 Nodes 是如何工作的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD"><span class="nav-number">1.7.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8-Selenium-Grid"><span class="nav-number">1.8.</span> <span class="nav-text">启动 Selenium-Grid</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E4%B8%AD%E5%BF%83"><span class="nav-number">1.8.1.</span> <span class="nav-text">启动中心</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E8%8A%82%E7%82%B9"><span class="nav-number">1.8.2.</span> <span class="nav-text">启动节点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-Selenium-Grid"><span class="nav-number">1.9.</span> <span class="nav-text">配置 Selenium-Grid</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%BB%98%E8%AE%A4%E9%85%8D%E7%BD%AE"><span class="nav-number">1.9.1.</span> <span class="nav-text">默认配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSON-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">1.9.2.</span> <span class="nav-text">JSON 配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E5%91%BD%E4%BB%A4%E8%A1%8C%E9%80%89%E9%A1%B9%E9%85%8D%E7%BD%AE"><span class="nav-number">1.9.3.</span> <span class="nav-text">通过命令行选项配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AD%E5%BF%83%E9%85%8D%E7%BD%AE"><span class="nav-number">1.10.</span> <span class="nav-text">中心配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%87%E5%AE%9A%E7%AB%AF%E5%8F%A3"><span class="nav-number">1.10.1.</span> <span class="nav-text">指定端口</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8A%82%E7%82%B9%E9%85%8D%E7%BD%AE"><span class="nav-number">1.11.</span> <span class="nav-text">节点配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E5%8F%82%E6%95%B0"><span class="nav-number">1.12.</span> <span class="nav-text">时间参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B8%AE%E5%8A%A9"><span class="nav-number">1.13.</span> <span class="nav-text">获取命令行帮助</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF"><span class="nav-number">1.14.</span> <span class="nav-text">常见错误</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Unable-to-acess-the-jarfile"><span class="nav-number">1.14.1.</span> <span class="nav-text">Unable to acess the jarfile</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="申艳超"
+      src="/images/shenyanchao.jpeg">
+  <p class="site-author-name" itemprop="name">申艳超</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">133</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">244</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/blueshen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;blueshen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhiyi.shen@gmail.com" title="E-Mail → mailto:zhiyi.shen@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
     </header>
 
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
     
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/blueshen" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
 
   
 
-  
+
+<div class="post-block">
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="https://www.shenyanchao.cn/blog/2013/05/30/selenium-doc-selenium-grid/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="申艳超">
-      <meta itemprop="description" content="">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/shenyanchao.jpeg">
+      <meta itemprop="name" content="申艳超">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="申艳超-博客">
+      <meta itemprop="description" content="">
     </span>
 
-    
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="selenium文档:selenium Grid | 申艳超-博客">
+      <meta itemprop="description" content="">
+    </span>
       <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          selenium文档:selenium Grid
+        </h1>
 
-        
-        
-          <h2 class="post-title" itemprop="name headline">selenium文档:selenium Grid</h2>
-        
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-05-30T19:55:00+08:00">
-                2013-05-30
-              </time>
-            
+      <time title="Created: 2013-05-30 19:55:00" itemprop="dateCreated datePublished" datetime="2013-05-30T19:55:00+08:00">2013-05-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2019-12-17 19:41:25" itemprop="dateModified" datetime="2019-12-17T19:41:25+08:00">2019-12-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/selenium%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/" itemprop="url" rel="index"><span itemprop="name">selenium官方文档</span></a>
+        </span>
+    </span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/selenium官方文档/" itemprop="url" rel="index">
-                    <span itemprop="name">selenium官方文档</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/blog/2013/05/30/selenium-doc-selenium-grid/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/blog/2013/05/30/selenium-doc-selenium-grid/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/blog/2013/05/30/selenium-doc-selenium-grid/" class="leancloud_visitors" data-flag-title="selenium文档:selenium Grid">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-            <span class="post-meta-divider">|</span>
-            <span class="page-pv"><i class="fa fa-file-o"></i>
-            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
-            </span>
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2,901
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  11
-                </span>
-              
-            </div>
-          
-
-          
+  
+    <span id="/blog/2013/05/30/selenium-doc-selenium-grid/" class="post-meta-item leancloud_visitors" data-flag-title="selenium文档:selenium Grid" title="Views">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
 
         </div>
       </header>
-    
 
     
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <h1 id="Selenium-Grid"><a href="#Selenium-Grid" class="headerlink" title="Selenium Grid"></a>Selenium Grid</h1><h2 id="快速上手"><a href="#快速上手" class="headerlink" title="快速上手"></a>快速上手</h2><p>如果你对 Selenium 自动化测试已经非常熟悉，你仅仅需要一个快速上手来使程序运行起来。本章节的内容能满足不同的技术层次，但是如果你仅仅需要一个可以快速上手的指引，那么就显得有点多。如果是这样，你可以参考 <a href="http://code.google.com/p/selenium/wiki/Grid2" target="_blank" rel="noopener">Selenium Wiki</a> 的相关文章。</p>
-<h2 id="什么是-Selenium-Grid"><a href="#什么是-Selenium-Grid" class="headerlink" title="什么是 Selenium-Grid ?"></a>什么是 Selenium-Grid ?</h2><p>Selenium-Grid 允许你在多台机器的多个浏览器上并行的进行测试，也就是说，你可以同时运行多个测试。本质上来说就是，Selenium-Grid 支持分布式的测试执行。它可以让你的测试在一个分布式的执行环境中运行。<br><a id="more"></a></p>
+        <h1 id="Selenium-Grid"><a href="#Selenium-Grid" class="headerlink" title="Selenium Grid"></a>Selenium Grid</h1><h2 id="快速上手"><a href="#快速上手" class="headerlink" title="快速上手"></a>快速上手</h2><p>如果你对 Selenium 自动化测试已经非常熟悉，你仅仅需要一个快速上手来使程序运行起来。本章节的内容能满足不同的技术层次，但是如果你仅仅需要一个可以快速上手的指引，那么就显得有点多。如果是这样，你可以参考 <a target="_blank" rel="noopener" href="http://code.google.com/p/selenium/wiki/Grid2">Selenium Wiki</a> 的相关文章。</p>
+<h2 id="什么是-Selenium-Grid"><a href="#什么是-Selenium-Grid" class="headerlink" title="什么是 Selenium-Grid ?"></a>什么是 Selenium-Grid ?</h2><p>Selenium-Grid 允许你在多台机器的多个浏览器上并行的进行测试，也就是说，你可以同时运行多个测试。本质上来说就是，Selenium-Grid 支持分布式的测试执行。它可以让你的测试在一个分布式的执行环境中运行。</p>
+<span id="more"></span>
 <h2 id="何时需要使用"><a href="#何时需要使用" class="headerlink" title="何时需要使用"></a>何时需要使用</h2><p>通常，以下两种情况你都会需要使用 Selenium-Grid。</p>
 <ul>
 <li>在多个浏览器中运行测试，在多个版本的浏览器中进行测试，或在不同操作系统的浏览器中进行测试。</li>
 <li>减少测试运行时间。</li>
 </ul>
-<p>Selenium-Grid 通过使用多台机器并行地运行测试来加速测试的执行过程。例如,如果你有一个包含100个测试用例的测试套件,你使用 Selenium-Grid 支持4台不同的机器（虚拟机或实体机均可）来运行那些测试，同仅使用一台机器相比，你的测试所需要的运行时间大致为其 1/4。对于大型的测试套件和那些会进行大量数据校验的需要长时间运行的测试套件来说，这将节约很多时间。有些测试套件可能要运行好几小时。另一个需要缩短套件运行时间的原因是开发者检入（check-in）AUT 代码后，需要缩短测试的运行周期。越来越多的团队使用敏捷开发，相比整夜整夜的等待测试通过，他们希望尽快地看到测试反馈。</p>
+<p>Selenium-Grid 通过使用多台机器并行地运行测试来加速测试的执行过程。例如,如果你有一个包含100个测试用例的测试套件,你使用 Selenium-Grid 支持4台不同的机器（虚拟机或实体机均可）来运行那些测试，同仅使用一台机器相比，你的测试所需要的运行时间大致为其 1&#x2F;4。对于大型的测试套件和那些会进行大量数据校验的需要长时间运行的测试套件来说，这将节约很多时间。有些测试套件可能要运行好几小时。另一个需要缩短套件运行时间的原因是开发者检入（check-in）AUT 代码后，需要缩短测试的运行周期。越来越多的团队使用敏捷开发，相比整夜整夜的等待测试通过，他们希望尽快地看到测试反馈。</p>
 <p>Selenium-Grid 也可以用于支持多执行环境的测试运行，典型的，同时在多个不同的浏览器中运行。例如，Grid 的虚拟机可以安装测试必须的各种浏览器。于是，机器 1 上有 ie8，机器 2 上有 ie9，机器 3 上有最新版的 chrome，而机器 4 上有最新版的 firefox。当测试套件运行时，Selenium-Grid 可以使测试在指定的浏览器中运行，并且接收每个浏览器的运行结果。</p>
 <p>另外，我们可以拥有一个装有多个类型和版本都一样的浏览器 Grid。例如，一个 Grid 拥有 4 台机器，每台机器可以运行 3 个 firefox 12 实例，形成一个 firefox 的服务农场。当测试套件运行时，每个传递给 Selenium-Grid 的测试都被指派给下一个可用的 firefox 实例。通过这种方式，我们可以使得同时有 12 个测试在并行的运行以完成测试，显著地缩短了测试完成需要的时间。</p>
 <p>Selenium-Grid 非常灵活。以上两个例子可以联合起来使用，这样可以就可以使得不同类型和版本的浏览器有多个可运行实例。使用这样的配置，既并行地执行测试，同时又可以测试多个浏览器类型和版本。</p>
-<h2 id="Selenium-Grid-2-0"><a href="#Selenium-Grid-2-0" class="headerlink" title="Selenium-Grid 2.0"></a>Selenium-Grid 2.0</h2><p>Selenium-Grid 2.0 是在编写本文时(5/26/2012)已发布的最新版本。它同版本 1 有很多不同之处。在 2.0 中，Selenium-Grid 和 Selenium-RC 服务端进行了合并。现在，你仅需要下载一个 jar 包就可以获得它们。</p>
-<h2 id="Selenium-Grid-1-0"><a href="#Selenium-Grid-1-0" class="headerlink" title="Selenium-Grid 1.0"></a>Selenium-Grid 1.0</h2><p>版本 1 是 Selenium-Grid 的第一个发布版本。如果你是一个 Selenium-Grid 新手，你应该选择版本 2 。新版本已经在原有基础上进行了更新，页增加了一些新特性，并且支持 Selenium-WebDriver。一些老的系统可能仍然在使用版本 1.关于 Selenium-Grid 版本 1 的信息可以参考 <a href="http://selenium-grid.seleniumhq.org/" target="_blank" rel="noopener">Selenium-Grid website</a></p>
+<h2 id="Selenium-Grid-2-0"><a href="#Selenium-Grid-2-0" class="headerlink" title="Selenium-Grid 2.0"></a>Selenium-Grid 2.0</h2><p>Selenium-Grid 2.0 是在编写本文时(5&#x2F;26&#x2F;2012)已发布的最新版本。它同版本 1 有很多不同之处。在 2.0 中，Selenium-Grid 和 Selenium-RC 服务端进行了合并。现在，你仅需要下载一个 jar 包就可以获得它们。</p>
+<h2 id="Selenium-Grid-1-0"><a href="#Selenium-Grid-1-0" class="headerlink" title="Selenium-Grid 1.0"></a>Selenium-Grid 1.0</h2><p>版本 1 是 Selenium-Grid 的第一个发布版本。如果你是一个 Selenium-Grid 新手，你应该选择版本 2 。新版本已经在原有基础上进行了更新，页增加了一些新特性，并且支持 Selenium-WebDriver。一些老的系统可能仍然在使用版本 1.关于 Selenium-Grid 版本 1 的信息可以参考 <a target="_blank" rel="noopener" href="http://selenium-grid.seleniumhq.org/">Selenium-Grid website</a></p>
 <h2 id="Selenium-Grid-的-Hub-和-Nodes-是如何工作的？"><a href="#Selenium-Grid-的-Hub-和-Nodes-是如何工作的？" class="headerlink" title="Selenium-Grid 的 Hub 和 Nodes 是如何工作的？"></a>Selenium-Grid 的 Hub 和 Nodes 是如何工作的？</h2><p>Grid 由一个中心和一到多个节点组成。两者都是通过 selenium-server.jar 启动。在接下来的章节中，我们列出了一些例子。</p>
 <p>中心接收要执行的测试信息，包括在哪些平台和浏览器执行等。它知道每个注册了的节点的配置。根据测试信息，它会选择符合需求的节点进行测试。一旦选定了一个节点，测试脚本就会初始化 Selenium 命令，并且由重心发送给选定的要运行测试的节点。这个节点会启动浏览器，然后在浏览器中执行这个 AUT 的 Selenium 命令。 </p>
-<p>我们提供了一些<a href="http://selenium-grid.seleniumhq.org/how_it_works.html" target="_blank" rel="noopener">图标</a>来演示其原理。第二张图标是用以说明 Selenium-Grid 1 的，版本 2 也适用并且对于我们的描述是一个很好的说明。唯一的区别在于相关术语。使用“Selenium-Grid 节点”替换“Selenium Remote Control”即符合我们对 Selenium-Grid 2 的描述。</p>
-<h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p>下载过程很简单。从 SeleniumHq 站点的<a href="http://docs.seleniumhq.org/download/" target="_blank" rel="noopener">下载页面</a>下载 Selenium-Server jar 包。你需要的链接在“Selenium-Server (以前是 Selenium-RC)”章节中。</p>
+<p>我们提供了一些<a target="_blank" rel="noopener" href="http://selenium-grid.seleniumhq.org/how_it_works.html">图标</a>来演示其原理。第二张图标是用以说明 Selenium-Grid 1 的，版本 2 也适用并且对于我们的描述是一个很好的说明。唯一的区别在于相关术语。使用“Selenium-Grid 节点”替换“Selenium Remote Control”即符合我们对 Selenium-Grid 2 的描述。</p>
+<h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p>下载过程很简单。从 SeleniumHq 站点的<a target="_blank" rel="noopener" href="http://docs.seleniumhq.org/download/">下载页面</a>下载 Selenium-Server jar 包。你需要的链接在“Selenium-Server (以前是 Selenium-RC)”章节中。</p>
 <p>将它存放到任意文件夹中。你需要确保机器上正确的安装了 java。如果 java 没有正常运行，检查你系统的 path 变量是否包含了 java.exe 的路径。</p>
 <h2 id="启动-Selenium-Grid"><a href="#启动-Selenium-Grid" class="headerlink" title="启动 Selenium-Grid"></a>启动 Selenium-Grid</h2><p>由于节点对中心有依赖，所以你通常需要先启动一个中心。这也不是必须的，因为节点可以识别其中心是否已经启动，反之亦然。作为教程，我们建议你先启动中心，否则会显示一些错误信息，你应该不会想在第一次使用 Selenium-Grid 的时候就看到它们。</p>
 <h3 id="启动中心"><a href="#启动中心" class="headerlink" title="启动中心"></a>启动中心</h3><p>通过在命令行执行以下命令，可以启动一个使用默认设置的中心。所有平台可用，包括 Windows Linux, 或 MacOs 。</p>
 <pre><code>java -jar selenium-server-standalone-2.21.0.jar -role hub
-</code></pre><p>我们将在接下来的章节中解释各个参数。注意，你可能需要修改上述命令中 jar 包的版本号，这取决于你使用的 selenium-server 的版本。</p>
+</code></pre>
+<p>我们将在接下来的章节中解释各个参数。注意，你可能需要修改上述命令中 jar 包的版本号，这取决于你使用的 selenium-server 的版本。</p>
 <h3 id="启动节点"><a href="#启动节点" class="headerlink" title="启动节点"></a>启动节点</h3><p>通过在命令行执行以下命令，可以你懂一个使用默认设置的节点。</p>
 <pre><code>java -jar selenium-server-standalone-2.21.0.jar -role node  -hub http://localhost:4444/grid/register
-</code></pre><p>该操作假设中心是使用默认设置启动的。中心用于监听请求使用的默认端口号为 4444，这就是为什么端口 4444 被用于中心 url 中。同时“localhost”假定你的节点和中心运行在同一台机器上。对于新手来说，这是最简单的方式。如果要在两台不同的机器上运行中心和节点，只需要将“localhost”替换成中心所在机器的 hostname 即可。</p>
+</code></pre>
+<p>该操作假设中心是使用默认设置启动的。中心用于监听请求使用的默认端口号为 4444，这就是为什么端口 4444 被用于中心 url 中。同时“localhost”假定你的节点和中心运行在同一台机器上。对于新手来说，这是最简单的方式。如果要在两台不同的机器上运行中心和节点，只需要将“localhost”替换成中心所在机器的 hostname 即可。</p>
 <p><strong>警告：</strong> 确保运行中心和节点的机器均已关闭防火墙，否则你将看到一个连接错误。</p>
 <h2 id="配置-Selenium-Grid"><a href="#配置-Selenium-Grid" class="headerlink" title="配置 Selenium-Grid"></a>配置 Selenium-Grid</h2><h3 id="默认配置"><a href="#默认配置" class="headerlink" title="默认配置"></a>默认配置</h3><h3 id="JSON-配置文件"><a href="#JSON-配置文件" class="headerlink" title="JSON 配置文件"></a>JSON 配置文件</h3><h3 id="通过命令行选项配置"><a href="#通过命令行选项配置" class="headerlink" title="通过命令行选项配置"></a>通过命令行选项配置</h3><h2 id="中心配置"><a href="#中心配置" class="headerlink" title="中心配置"></a>中心配置</h2><p>通过指定 <code>-role hub</code> 即以默认设置启动中心：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar selenium-server-standalone-2.21.0.jar -role hub</span><br></pre></td></tr></table></figure>
+
 <p>你将看到以下日志输出：</p>
 <pre><code>Jul 19, 2012 10:46:21 AM org.openqa.grid.selenium.GridLauncher main
 INFO: Launching a selenium grid server
 2012-07-19 10:46:25.082:INFO:osjs.Server:jetty-7.x.y-SNAPSHOT
-2012-07-19 10:46:25.151:INFO:osjsh.ContextHandler:started o.s.j.s.ServletContextHandler{/,null}
+2012-07-19 10:46:25.151:INFO:osjsh.ContextHandler:started o.s.j.s.ServletContextHandler&#123;/,null&#125;
 2012-07-19 10:46:25.185:INFO:osjs.AbstractConnector:Started SocketConnector@0.0.0.0:4444
-</code></pre><h3 id="指定端口"><a href="#指定端口" class="headerlink" title="指定端口"></a>指定端口</h3><p>中心默认使用的端口是 4444 。这是一个 TCP/IP 端口，被用于监听客户端，即自动化测试脚本到 Selenium-Grid 中心的连接。如果你电脑上的另一个应用已经占用这个接口，或者你已经启动了一个 Selenium-Server，你将看到以下输出：</p>
+</code></pre>
+<h3 id="指定端口"><a href="#指定端口" class="headerlink" title="指定端口"></a>指定端口</h3><p>中心默认使用的端口是 4444 。这是一个 TCP&#x2F;IP 端口，被用于监听客户端，即自动化测试脚本到 Selenium-Grid 中心的连接。如果你电脑上的另一个应用已经占用这个接口，或者你已经启动了一个 Selenium-Server，你将看到以下输出：</p>
 <pre><code>10:56:35.490 WARN - Failed to start: SocketListener0@0.0.0.0:4444
 Exception in thread &quot;main&quot; java.net.BindException: Selenium is already running on port 4444. Or some other service is.
-</code></pre><p>如果看到这个信息，你可以关掉在使用端口 4444 的进程，或者告诉 Selenium-Grid 使用一个别的端口来启动中心。<code>-port</code> 选项用于修改中心的端口：</p>
+</code></pre>
+<p>如果看到这个信息，你可以关掉在使用端口 4444 的进程，或者告诉 Selenium-Grid 使用一个别的端口来启动中心。<code>-port</code> 选项用于修改中心的端口：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar selenium-server-standalone-2.21.0.jar -role hub -port 4441</span><br></pre></td></tr></table></figure>
+
 <p>即使已经有一个中心运行在这台机器上，只要它们不使用同一个端口，就能正常工作。</p>
 <p>你可能想知道哪个进程使用了 4444 端口，这样你就可以让中心使用这个默认端口。使用以下命令可以查看你机器上所有运行程序使用的端口：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -a</span><br></pre></td></tr></table></figure>
-<p>Unix/Linux, MacOs 和 Windows 均支持此命令，只是在 Windows 中 -a 参数为必须的。基本上，你需要显示进程 id 和端口。在 Unix 中，你可以通过管道 “grep” 输出那些你关心的端口相关的条目。</p>
+
+<p>Unix&#x2F;Linux, MacOs 和 Windows 均支持此命令，只是在 Windows 中 -a 参数为必须的。基本上，你需要显示进程 id 和端口。在 Unix 中，你可以通过管道 “grep” 输出那些你关心的端口相关的条目。</p>
 <h2 id="节点配置"><a href="#节点配置" class="headerlink" title="节点配置"></a>节点配置</h2><h2 id="时间参数"><a href="#时间参数" class="headerlink" title="时间参数"></a>时间参数</h2><h2 id="获取命令行帮助"><a href="#获取命令行帮助" class="headerlink" title="获取命令行帮助"></a>获取命令行帮助</h2><p>Selenium-Server 提供了一个可选项列表，每个选项都有一个简短的描述。目前（2012夏），命令行帮助还有一些奇怪，但是如果你知道如何去找、如何解读信息会对你很有帮助。</p>
 <p>Selenium-Server 提供了两种不同的功能，Selenium-RC server 和 Selenium-Grid。它们是两个不同的团队编写的，所以每个功能的命令行帮助被放置在不同的地方。因此，对于新手来说，在初次使用任意一个功能时，帮助都不是那么显而易见。</p>
 <p>如果你仅传递一个 <code>-h</code> 选项，你将看到 Selenium-RC Server 的可选项而不是 Selenium-Grid 的。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar selenium-server-standalone-2.21.0.jar -h</span><br></pre></td></tr></table></figure>
+
 <p>上述代码将显示 Selenium-RC server 选项。如果你想看到 Selenium-Grid 的命令行帮助，你需要先使用 <code>-hub</code> 或 <code>-node</code> 选项告诉 Selenium-Server 你想看的是关于 Selenium-Grid 的，然后再追加 <code>-h</code> 选项。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar selenium-server-standalone-2.21.0.jar -role node -h</span><br></pre></td></tr></table></figure>
+
 <p>对于这个问题，你还可以给 <code>-role node</code> 传递一个垃圾参数：</p>
 <pre><code>java -jar selenium-server-standalone-2.21.0.jar -role node xx
-</code></pre><p>你将先看到 “INFO…” 和一个 “ERROR”，在其后你将看到 Selenium-Grid 的命令行选项。我们没有列出这个命令的所有输出，因为它实在太长了，这个输出的最初几行看起来如下：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Jul 19, 2012 10:10:39 AM org.openqa.grid.selenium.GridLauncher main</span><br><span class="line">INFO: Launching a selenium grid node</span><br><span class="line">org.openqa.grid.common.exception.GridConfigurationException: You need to specify a hub to register to using -hubHost X -hubPort 5555. The specified config was -hubHost null -hubPort 4444</span><br><span class="line">        at org.openqa.grid.common.RegistrationRequest.validate(RegistrationRequest.java:610)</span><br><span class="line">        at org.openqa.grid.internal.utils.SelfRegisteringRemote.startRemoteServer(SelfRegisteringRemote.java:88)</span><br><span class="line">        at org.openqa.grid.selenium.GridLauncher.main(GridLauncher.java:72)</span><br><span class="line">Error building the config :You need to specify a hub to register to using -hubHost X -hubPort 5555. The specified config was -hubHost null -hubPort 4444</span><br><span class="line">Usage :</span><br><span class="line">  -hubConfig:</span><br><span class="line">        (hub) a JSON file following grid2 format.</span><br><span class="line"></span><br><span class="line"> -nodeTimeout:</span><br><span class="line">        (node) &lt;XXXX&gt;  the timeout in seconds before the hub</span><br><span class="line">          automatically ends a test that hasn't had aby activity than XX</span><br><span class="line">          sec.The browser will be released for another test to use.This</span><br><span class="line">          typically takes care of the client crashes.</span><br></pre></td></tr></table></figure>
+</code></pre>
+<p>你将先看到 “INFO…” 和一个 “ERROR”，在其后你将看到 Selenium-Grid 的命令行选项。我们没有列出这个命令的所有输出，因为它实在太长了，这个输出的最初几行看起来如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Jul 19, 2012 10:10:39 AM org.openqa.grid.selenium.GridLauncher main</span><br><span class="line">INFO: Launching a selenium grid node</span><br><span class="line">org.openqa.grid.common.exception.GridConfigurationException: You need to specify a hub to register to using -hubHost X -hubPort 5555. The specified config was -hubHost null -hubPort 4444</span><br><span class="line">        at org.openqa.grid.common.RegistrationRequest.validate(RegistrationRequest.java:610)</span><br><span class="line">        at org.openqa.grid.internal.utils.SelfRegisteringRemote.startRemoteServer(SelfRegisteringRemote.java:88)</span><br><span class="line">        at org.openqa.grid.selenium.GridLauncher.main(GridLauncher.java:72)</span><br><span class="line">Error building the config :You need to specify a hub to register to using -hubHost X -hubPort 5555. The specified config was -hubHost null -hubPort 4444</span><br><span class="line">Usage :</span><br><span class="line">  -hubConfig:</span><br><span class="line">        (hub) a JSON file following grid2 format.</span><br><span class="line"></span><br><span class="line"> -nodeTimeout:</span><br><span class="line">        (node) &lt;XXXX&gt;  the timeout in seconds before the hub</span><br><span class="line">          automatically ends a test that hasn&#x27;t had aby activity than XX</span><br><span class="line">          sec.The browser will be released for another test to use.This</span><br><span class="line">          typically takes care of the client crashes.</span><br></pre></td></tr></table></figure>
+
 <h2 id="常见错误"><a href="#常见错误" class="headerlink" title="常见错误"></a>常见错误</h2><h3 id="Unable-to-acess-the-jarfile"><a href="#Unable-to-acess-the-jarfile" class="headerlink" title="Unable to acess the jarfile"></a>Unable to acess the jarfile</h3><p>Unable to access jarfile selenium-server-standalone-2.21.0.jar</p>
 <p>无论是启动中心还是节点都有可能产生这个错误。这意味着 java 无法找到 selenium-server jar 包。你需要从 selenium-server-XXXX.jar 文件存放在目录运行命令或者指定 jar 包的完整路径。</p>
 
-      
     </div>
-    <ul class="popular-posts"><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2012/11/02/how-webdriver-works/" title="Selenium WebDriver 工作原理" rel="bookmark">Selenium WebDriver 工作原理</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2012/10/16/pageobjects-design-pattern/" title="PageObjects 设计模式" rel="bookmark">PageObjects 设计模式</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2013/05/30/selenium-doc-introduction/" title="selenium 文档:入门介绍" rel="bookmark">selenium 文档:入门介绍</a></h3></div></li></ul>
-    
-    
-    
 
     
-      <div>
-        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
-    <img id="wechat_subscriber_qcode" src="/images/qrcode_shenyanchao.jpg" alt="申艳超 wechat" style="width: 200px; max-width: 100%;">
-    <div>欢迎关注微信订阅号~</div>
-</div>
+    
+    
+      
 
-      </div>
-    
-
-    
-      <div>
-        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-  <div>您的支持是我原创的动力！</div>
-  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-    <span>打赏</span>
-  </button>
-  <div id="QR" style="display: none;">
-
-    
-      <div id="wechat" style="display: inline-block">
-        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="申艳超 微信支付">
-        <p>微信支付</p>
-      </div>
-    
-
-    
-      <div id="alipay" style="display: inline-block">
-        <img id="alipay_qr" src="/images/alipay.jpg" alt="申艳超 支付宝">
-        <p>支付宝</p>
-      </div>
-    
-
-    
-
-  </div>
-</div>
-
-      </div>
-    
-
-    
-      <div>
-        <ul class="post-copyright">
-  <li class="post-copyright-author">
-    <strong>本文作者：</strong>
-    申艳超
-  </li>
-  <li class="post-copyright-link">
-    <strong>本文链接：</strong>
-    <a href="https://www.shenyanchao.cn/blog/2013/05/30/selenium-doc-selenium-grid/" title="selenium文档:selenium Grid">https://www.shenyanchao.cn/blog/2013/05/30/selenium-doc-selenium-grid/</a>
-  </li>
-  <li class="post-copyright-license">
-    <strong>版权声明： </strong>
-    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
-  </li>
-</ul>
-
-      </div>
-    
 
     <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/webdriver/" rel="tag"># webdriver</a>
-          
-            <a href="/tags/selenium/" rel="tag"># selenium</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/blog/2013/05/30/selenium-doc-selenium-rc/" rel="next" title="selenium文档:selenium RC">
-                <i class="fa fa-chevron-left"></i> selenium文档:selenium RC
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/blog/2013/05/30/selenium-wiki-web-driver-js/" rel="prev" title="selenium wiki:webdriverJs">
-                selenium wiki:webdriverJs <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
-  
-    <div class="comments" id="comments">
-    </div>
-  
-
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image" src="/images/shenyanchao.jpeg" alt="申艳超">
-            
-              <p class="site-author-name" itemprop="name">申艳超</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">124</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">35</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">233</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-            <div class="feed-link motion-element">
-              <a href="/atom.xml" rel="alternate">
-                <i class="fa fa-rss"></i>
-                RSS
-              </a>
-            </div>
-          
-
-          
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/blueshen" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:zhiyi.shen@gmail.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-            </div>
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Selenium-Grid"><span class="nav-number">1.</span> <span class="nav-text">Selenium Grid</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#快速上手"><span class="nav-number">1.1.</span> <span class="nav-text">快速上手</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是-Selenium-Grid"><span class="nav-number">1.2.</span> <span class="nav-text">什么是 Selenium-Grid ?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#何时需要使用"><span class="nav-number">1.3.</span> <span class="nav-text">何时需要使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Selenium-Grid-2-0"><span class="nav-number">1.4.</span> <span class="nav-text">Selenium-Grid 2.0</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Selenium-Grid-1-0"><span class="nav-number">1.5.</span> <span class="nav-text">Selenium-Grid 1.0</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Selenium-Grid-的-Hub-和-Nodes-是如何工作的？"><span class="nav-number">1.6.</span> <span class="nav-text">Selenium-Grid 的 Hub 和 Nodes 是如何工作的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载"><span class="nav-number">1.7.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动-Selenium-Grid"><span class="nav-number">1.8.</span> <span class="nav-text">启动 Selenium-Grid</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#启动中心"><span class="nav-number">1.8.1.</span> <span class="nav-text">启动中心</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动节点"><span class="nav-number">1.8.2.</span> <span class="nav-text">启动节点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置-Selenium-Grid"><span class="nav-number">1.9.</span> <span class="nav-text">配置 Selenium-Grid</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#默认配置"><span class="nav-number">1.9.1.</span> <span class="nav-text">默认配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSON-配置文件"><span class="nav-number">1.9.2.</span> <span class="nav-text">JSON 配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过命令行选项配置"><span class="nav-number">1.9.3.</span> <span class="nav-text">通过命令行选项配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中心配置"><span class="nav-number">1.10.</span> <span class="nav-text">中心配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#指定端口"><span class="nav-number">1.10.1.</span> <span class="nav-text">指定端口</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#节点配置"><span class="nav-number">1.11.</span> <span class="nav-text">节点配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时间参数"><span class="nav-number">1.12.</span> <span class="nav-text">时间参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取命令行帮助"><span class="nav-number">1.13.</span> <span class="nav-text">获取命令行帮助</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见错误"><span class="nav-number">1.14.</span> <span class="nav-text">常见错误</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Unable-to-acess-the-jarfile"><span class="nav-number">1.14.1.</span> <span class="nav-text">Unable to acess the jarfile</span></a></li></ol></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
+          <div class="reward-container">
+  <div>您的支持是我原创的动力！</div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="申艳超 WeChat Pay">
+        <span>WeChat Pay</span>
       </div>
-    </main>
+      <div>
+        <img src="/images/alipay.jpg" alt="申艳超 Alipay">
+        <span>Alipay</span>
+      </div>
 
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; 2012 &mdash; <span itemprop="copyrightYear">2020</span>
+  </div>
+</div>
+
+          <div class="followme">
+  <span>Welcome to my other publishing channels</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/webdriver/" rel="tag"># webdriver</a>
+              <a href="/tags/selenium/" rel="tag"># selenium</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2013/05/30/selenium-doc-selenium-web-driver/" rel="prev" title="selenium文档:selenium WebDriver">
+                  <i class="fa fa-chevron-left"></i> selenium文档:selenium WebDriver
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/2013/05/30/selenium-wiki-web-driver-js/" rel="next" title="selenium wiki:webdriverJs">
+                  selenium wiki:webdriverJs <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2012 – 
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
-    <i class="fa fa-user"></i>
+    <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">申艳超</span>
-
-  
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-area-chart"></i>
-    </span>
-    
-      <span class="post-meta-item-text">Site words total count&#58;</span>
-    
-    <span title="Site words total count">233.6k</span>
-  
 </div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
-
-
-
-
-        
 <div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-  
-    <span class="site-uv">
-      <i class="fa fa-user"></i>
-      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-      
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
     </span>
-  
-
-  
-    <span class="site-pv">
-      <i class="fa fa-eye"></i>
-      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-      
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
     </span>
-  
 </div>
-
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a>
   </div>
 
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
-
-
+    </div>
+  </footer>
 
   
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
   
 
@@ -957,182 +462,13 @@ Exception in thread &quot;main&quot; java.net.BindException: Selenium is already
 
 
   
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"vFAoofuVWgdHsCv6B6BtqROc-gzGzoHsz","app_key":"ANWUkmboGiNDNRmf2iVlUIGt","server_url":null,"security":true}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
 
 
-
-
-
-
-
-
-  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-  
-  <script type="text/javascript">
-    var GUEST = ['nick','mail','link'];
-    var guest = 'nick,mail';
-    guest = guest.split(',').filter(item=>{
-      return GUEST.indexOf(item)>-1;
-    });
-    new Valine({
-        el: '#comments' ,
-        verify: true,
-        notify: false,
-        appId: 'vFAoofuVWgdHsCv6B6BtqROc-gzGzoHsz',
-        appKey: 'ANWUkmboGiNDNRmf2iVlUIGt',
-        placeholder: '开始你的评论吧!',
-        avatar:'mm',
-        guest_info:guest,
-        pageSize:'10' || 10,
-    });
-  </script>
-
-
-
-  
-
-
-
-
-
-  
-
-  
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("vFAoofuVWgdHsCv6B6BtqROc-gzGzoHsz", "ANWUkmboGiNDNRmf2iVlUIGt");</script>
-  <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
-            }
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
-
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
-          } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
-          }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
-      });
-    }
-
-    $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
-    });
-  </script>
-
-
-
-  
-
-  
-<script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-
-
-  
-  
-
-  
-
-  
-
-  
 
 </body>
 </html>

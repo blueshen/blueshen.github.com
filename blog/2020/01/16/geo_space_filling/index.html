@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.shenyanchao.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.13.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="空间搜索-分形几何 分形(fractal)分形（英语：fractal，源自拉丁语：frāctus，有“零碎”、“破裂”之意），又称碎形、残形，通常被定义为“一个粗糙或零碎的几何形状，可以分成数个部分，且每一部分都（至少近似地）是整体缩小后的形状”，即具有自相似的性质。 分形在数学中是一种抽象的物体，用于描述自然界中存在的事物。1975 年本华·曼德博首次提出“分形(fractal)”这个术语。 关">
+<meta property="og:type" content="article">
+<meta property="og:title" content="空间搜索-分形几何">
+<meta property="og:url" content="https://www.shenyanchao.cn/blog/2020/01/16/geo_space_filling/index.html">
+<meta property="og:site_name" content="申艳超-博客">
+<meta property="og:description" content="空间搜索-分形几何 分形(fractal)分形（英语：fractal，源自拉丁语：frāctus，有“零碎”、“破裂”之意），又称碎形、残形，通常被定义为“一个粗糙或零碎的几何形状，可以分成数个部分，且每一部分都（至少近似地）是整体缩小后的形状”，即具有自相似的性质。 分形在数学中是一种抽象的物体，用于描述自然界中存在的事物。1975 年本华·曼德博首次提出“分形(fractal)”这个术语。 关">
+<meta property="og:locale">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo_space_filling/750px-Mandel_zoom_00_mandelbrot_set.jpg">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo_space_filling/v2-ab1d66d2cba49cfa930d6f754991ae2e_hd.jpg">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo_space_filling/v2-c25495c39e569de4f6dc2b7b7b6a8fd4_hd.jpg">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo_space_filling/british_bench.jpeg">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo_space_filling/729px-Cantor_set_in_seven_iterations.svg.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo_space_filling/200px-Von_Koch_curve.gif">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo/curve_0.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo/curve_1.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo_space_filling/200px-Animated_construction_of_Sierpinski_Triangle.gif">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo_space_filling/220px-Sierpinski_carpet_6.svg.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo_space_filling/fractal_0.jpg">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo_space_filling/fractal_1.jpg">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo/peano.png">
+<meta property="og:image" content="https://wikimedia.org/api/rest_v1/media/math/render/svg/31a5c18739ff04858eecc8fec2f53912c348e0e5">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo/hilbert-curve.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo/hilbert-curve-3d.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo/curve_4.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo_space_filling/c4dfb-sv8yq.gif">
+<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/7/7c/Hilbert-curve_rounded-gradient-animated.gif">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo/56_20_1%E9%98%B6%E5%B8%8C%E5%B0%94%E4%BC%AF%E7%89%B9%E6%9B%B2%E7%BA%BF.gif">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo/56_21_2%E9%98%B6%E5%B8%8C%E5%B0%94%E4%BC%AF%E7%89%B9%E6%9B%B2%E7%BA%BF.gif">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo/56_22_3%E9%98%B6%E5%B8%8C%E5%B0%94%E4%BC%AF%E7%89%B9%E6%9B%B2%E7%BA%BF.gif">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo/56_23_5n%E9%98%B6%E5%B8%8C%E5%B0%94%E4%BC%AF%E7%89%B9%E6%9B%B2%E7%BA%BF.gif">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo/56_24_6%E5%B8%8C%E5%B0%94%E4%BC%AF%E7%89%B9%E6%9B%B2%E7%BA%BF%E5%B1%95%E5%BC%80%E6%88%90%E7%BA%BF.gif">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo/56_25_7%E5%B8%8C%E5%B0%94%E4%BC%AF%E7%89%B9%E6%9B%B2%E7%BA%BF%E6%97%A0%E9%99%90%E5%88%92%E5%88%86%E4%B8%8B%E5%8E%BB.gif">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo/56_26_8%E5%B8%8C%E5%B0%94%E4%BC%AF%E7%89%B9%E6%9B%B2%E7%BA%BF%E4%B8%8E%E8%9B%87%E5%BD%A2%E6%9B%B2%E7%BA%BF%E5%93%AA%E4%B8%AA%E5%A5%BD.gif">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo/56_27_9%E8%9B%87%E5%BD%A2%E6%9B%B2%E7%BA%BF%E6%9D%A5%E5%9B%9E%E6%91%86%E5%8A%A8.gif">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo/56_28_10%E5%B8%8C%E5%B0%94%E4%BC%AF%E7%89%B9%E6%9B%B2%E7%BA%BF%E8%B6%8B%E8%BF%91%E7%A8%B3%E5%AE%9A.gif">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo/%E5%B8%8C%E5%B0%94%E4%BC%AF%E7%89%B9%E6%9B%B2%E7%BA%BF-%E8%BF%9E%E7%BB%AD_0.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo/%E5%B8%8C%E5%B0%94%E4%BC%AF%E7%89%B9%E6%9B%B2%E7%BA%BF-%E8%BF%9E%E7%BB%AD_1.png">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-c3842f9c8258b3fc20684770b05f85ac_hd.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-56f5284dad1dbd5818ab4717dbd1c84a_hd.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-9b41e04ed570992a3e96a9fac08d1ba4_hd.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-dc011037f5125038a1082de41568edcf_hd.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-e6f2a5c9d9c3b348efdb536a89d6ce48_hd.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-55f2c597fb6b163d00495bf83408d4e5_hd.jpg">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo/curve_3.png">
+<meta property="article:published_time" content="2020-01-16T14:03:21.000Z">
+<meta property="article:modified_time" content="2022-11-09T03:50:26.712Z">
+<meta property="article:author" content="申艳超">
+<meta property="article:tag" content="spatail search">
+<meta property="article:tag" content="map">
+<meta property="article:tag" content="uber">
+<meta property="article:tag" content="h3">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.shenyanchao.cn/images/geo_space_filling/750px-Mandel_zoom_00_mandelbrot_set.jpg">
+
+
+<link rel="canonical" href="https://www.shenyanchao.cn/blog/2020/01/16/geo_space_filling/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-Hans","comments":true,"permalink":"https://www.shenyanchao.cn/blog/2020/01/16/geo_space_filling/","path":"blog/2020/01/16/geo_space_filling/","title":"空间搜索-分形几何"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>空间搜索-分形几何 | 申艳超-博客</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?81c9612f8fdceca45435ef7f5404d7b2"></script>
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="申艳超-博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">申艳超-博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">搜索引擎、分布式、高性能、NLP、ElasticSearch、Solr</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>Archives</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="sitemap fa-fw"></i>Sitemap</a></li><li class="menu-item menu-item-commonweal"><a href="/404.html" rel="section"><i class="heartbeat fa-fw"></i>Commonweal 404</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A9%BA%E9%97%B4%E6%90%9C%E7%B4%A2-%E5%88%86%E5%BD%A2%E5%87%A0%E4%BD%95"><span class="nav-number">1.</span> <span class="nav-text">空间搜索-分形几何</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E5%BD%A2-fractal"><span class="nav-number">2.</span> <span class="nav-text">分形(fractal)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A9%BA%E9%97%B4%E5%A1%AB%E5%85%85%E6%9B%B2%E7%BA%BF"><span class="nav-number">2.1.</span> <span class="nav-text">空间填充曲线</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hilbert-Curve-%E5%B8%8C%E5%B0%94%E4%BC%AF%E7%89%B9%E6%9B%B2%E7%BA%BF"><span class="nav-number">2.2.</span> <span class="nav-text">Hilbert Curve 希尔伯特曲线</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%8C%E5%B0%94%E4%BC%AF%E7%89%B9%E6%9B%B2%E7%BA%BF%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">2.2.1.</span> <span class="nav-text">希尔伯特曲线的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%8C%E5%B0%94%E4%BC%AF%E7%89%B9%E6%9B%B2%E7%BA%BF%E7%9A%84%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95"><span class="nav-number">2.2.2.</span> <span class="nav-text">希尔伯特曲线的构造方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%8C%E5%B0%94%E4%BC%AF%E7%89%B9%E6%9B%B2%E7%BA%BF%E7%89%B9%E6%80%A7"><span class="nav-number">2.2.3.</span> <span class="nav-text">希尔伯特曲线特性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%99%8D%E7%BB%B4"><span class="nav-number">2.2.3.1.</span> <span class="nav-text">降维</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A8%B3%E5%AE%9A%E6%80%A7"><span class="nav-number">2.2.3.2.</span> <span class="nav-text">稳定性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9E%E7%BB%AD%E6%80%A7"><span class="nav-number">2.2.3.3.</span> <span class="nav-text">连续性</span></a></li></ol></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="申艳超"
+      src="/images/shenyanchao.jpeg">
+  <p class="site-author-name" itemprop="name">申艳超</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">133</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">244</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/blueshen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;blueshen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhiyi.shen@gmail.com" title="E-Mail → mailto:zhiyi.shen@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/blueshen" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://www.shenyanchao.cn/blog/2020/01/16/geo_space_filling/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/shenyanchao.jpeg">
+      <meta itemprop="name" content="申艳超">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="申艳超-博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="空间搜索-分形几何 | 申艳超-博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          空间搜索-分形几何
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2020-01-16 22:03:21" itemprop="dateCreated datePublished" datetime="2020-01-16T22:03:21+08:00">2020-01-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-11-09 11:50:26" itemprop="dateModified" datetime="2022-11-09T11:50:26+08:00">2022-11-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/geo/" itemprop="url" rel="index"><span itemprop="name">geo</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/blog/2020/01/16/geo_space_filling/" class="post-meta-item leancloud_visitors" data-flag-title="空间搜索-分形几何" title="Views">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="空间搜索-分形几何"><a href="#空间搜索-分形几何" class="headerlink" title="空间搜索-分形几何"></a>空间搜索-分形几何</h1><p><img src="/images/geo_space_filling/750px-Mandel_zoom_00_mandelbrot_set.jpg" alt="曼德博集合"></p>
+<h1 id="分形-fractal"><a href="#分形-fractal" class="headerlink" title="分形(fractal)"></a>分形(fractal)</h1><p><strong>分形</strong>（英语：fractal，源自拉丁语：frāctus，有“零碎”、“破裂”之意），又称<strong>碎形</strong>、<strong>残形</strong>，通常被定义为“一个粗糙或零碎的<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%87%A0%E4%BD%95%E5%BD%A2%E7%8A%B6">几何形状</a>，可以分成数个部分，且每一部分都（至少近似地）是整体缩小后的形状”，即具有<strong>自相似</strong>的性质。 分形在数学中是一种抽象的物体，用于描述自然界中存在的事物。1975 年<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%9C%AC%E8%8F%AF%C2%B7%E6%9B%BC%E5%BE%B7%E5%8D%9A">本华·曼德博</a>首次提出“分形(fractal)”这个术语。</p>
+<p>关于分形的具体定义，权威专家也仍有一些争论，即使作为”分形几何之父“，<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%9C%AC%E8%8F%AF%C2%B7%E6%9B%BC%E5%BE%B7%E5%8D%9A">本华·曼德博</a>也一直更新其定义。<br>“<strong>美丽、（研究起来）极其困难但又非常的有用，这就是分形</strong>”。1982年更新为：”<strong>分形是一种其豪斯多夫维数严格大于拓扑维数的集合</strong>“，后来称为”<strong>分形是由与整体在某些方面相似的部分构成的图形</strong>“ 。又过了一段时间，决定这样描述分形：“**…在研究和使用分形时，不需要迂腐的定义。用分形维数作为描述各种不同分型的通用术语**”。</p>
+<p>通常认为, 理论分型是无限迭代、自相似的、具有分形维数的详细数学结构。<br>是不是看完以上的描述，还是不太了解什么是分形，那么我们来看几个现实中的例子。</p>
+<table>
+<thead>
+<tr>
+<th>花椰菜</th>
+<th>蕨类植物</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="/images/geo_space_filling/v2-ab1d66d2cba49cfa930d6f754991ae2e_hd.jpg" alt="img"></td>
+<td><img src="/images/geo_space_filling/v2-c25495c39e569de4f6dc2b7b7b6a8fd4_hd.jpg" alt="img"></td>
+</tr>
+</tbody></table>
+<p>可以看出，每个花椰菜的凸起，单独拿出来其实都和花椰菜是一样的造型。蕨类植物的叶子，没个分支都和整体的形状一致。</p>
+<p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%9C%AC%E8%8F%AF%C2%B7%E6%9B%BC%E5%BE%B7%E5%8D%9A">本华·曼德博</a>提出”关于英大不列颠岛的海岸线到底有多长？”这样的问题，他用分形几何给出的答案是无限长。</p>
+<p><img src="/images/geo_space_filling/british_bench.jpeg" alt="british_bench"></p>
+<p>可以看出，在不同的比例尺下，去量海岸线的长度是不一样的。200KM比例尺海岸线约2300KM，而100KM比例尺则达到了2800KM，如果是50KM的比例尺，海岸长度达到了3500KM。试想一想，当比例尺越小，能够描绘的越精细，这个海岸线的长度也不断趋向于无限。</p>
+<p>这个问题，回归到分形本身，其实就是针对直线这一图形，不断进行分形细分，直线分割越来越小。但是仍旧是一个直线(自相似)。</p>
+<p>分形与其他几何图形相似但又有所不同。当你缩放一个图形时，你就能看出分形和其他几何图形的区别。将一个多边形的边长加倍，它的面积变为原来的四倍。新的边长与旧边长相比增加了 2 倍，而面积增加了 4 倍，即 2^2倍。平面内的多边形在二维空间中，指数 2 刚好是多边形所在的二维空间的维数。类似的，对于三维空间中的球，如果它的半径加倍，则它的体积变为原来的 8 倍，即2^3 倍，指数 3 依旧是球所在空间的维数。</p>
+<p>如果将分形的一维长度加倍，如将康托三分集的初始线段长加倍，分型空间的内容2^n倍，此时<em>n</em> 不一定是个整数。幂指数<em>n</em> 称为<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%88%86%E5%BD%A2%E7%BB%B4%E6%95%B0">分型的维数</a>，它通常大于分型的拓扑维数。</p>
+<p><img src="/images/geo_space_filling/729px-Cantor_set_in_seven_iterations.svg.png" alt="Cantor ternary set, in seven iterations"></p>
+<p>要做出<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%A7%91%E8%B5%AB%E9%9B%AA%E8%8A%B1">科赫雪花</a>，将正三角形每边中央三分之一的线段以一对同长的线段取代，形成一个等腰的“凸角”。再对上一步骤所形成的每一边做同样的动作。每一次<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E8%BF%AD%E4%BB%A3">迭代</a>，总长度增加三分之一。科赫雪花即是无限次迭代的结果，有无限长的周长，但其面积还是有限的。因此，科赫雪花和其他相似构造有时会被称为“怪兽曲线”。</p>
+<p>下图是<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%A7%91%E8%B5%AB%E9%9B%AA%E8%8A%B1">科赫雪花</a>的动态展示：<br><img src="/images/geo_space_filling/200px-Von_Koch_curve.gif" alt="img"></p>
+<p>分形的“<strong>自我相似</strong>”的特征很容易通过类比来理解，就像用镜头或其他设备放大数字图像，从而发现以前不可见的、更精细的新结构。如果你放大一个分形的图像，则不会出现新的细节；图像没什么变化，相似的图案一遍又一遍的重复出现。对于有些分形几乎完全一样的图像会不断地重复。 自我相似的特征并非反直觉的。人们在生活中也能看到自我相似的现象，例如：两面平行的镜子间的无限重复、山上庙里老和尚的故事里的山…分形的不同之处在于重复的图案一定有详细的细节。</p>
+<p>细节性的概念和分形的另一个特征——<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%88%86%E5%BD%A2%E7%BB%B4%E6%95%B0"><strong>分形维数</strong></a>有关。分形维数不需要数学背景，也很容易理解：分形的<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%88%86%E5%BD%A2%E7%BB%B4%E6%95%B0">分形维数</a>大于它的拓扑维数，通过将分形尺度与普通的几何形状相比较，我们便能感受到他们的差别。举个例子，通常认为直线是是一维的，如果直线被分为三部分，每部分都是原来的 1&#x2F;3 长，你会得到相等的三部分。相比之下，科赫雪花的拓扑维数是 1，和普通的直线一样，但它的分形维数大于 1，因为它有很多的细节。雪花曲线被分为原长的 1&#x2F;3，得到的是 4 条原始雪花曲线重组组合的结果。这种与众不同的关系是<strong>分形维数</strong>的基础。</p>
+<p>这也引出了第三个特征：分形在数学上是处处不可微的。具体的说，这意味着分形不能用传统的方法测量。测量非分型曲线，如波浪曲线的长度，只要放大到足够大，总能用直线拟合一小段曲线，然后就能用卷尺测量这段直线的长度，再将各段直线长度相加，就可以得出波浪的长度。这样做实质上是把曲线看作数学上的函数，在一小段范围内取一阶泰勒展开，近似为直线，然后求和总长度。但分型曲线是处处不可微的，如果尝试使用直线去拟合分形曲线，如科赫雪花曲线，缩放的过程永远不会停止，因为曲线图案的重复模式总会不断地出现，每次缩放，都需要使用更小的卷尺来贴合曲线。</p>
+<p>分形一般有以下特质：</p>
+<ul>
+<li>在任意小的尺度上都能有精细的结构；</li>
+<li>太不规则，以至无论是其整体或局部都难以用传统<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%AC%A7%E6%B0%8F%E5%87%A0%E4%BD%95">欧氏几何</a>的语言来描述；</li>
+<li>具有（至少是近似的或<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%BB%9F%E8%AE%A1">统计</a>的）<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E8%87%AA%E7%9B%B8%E4%BC%BC">自相似</a>形式；</li>
+<li>一般地，其“分形维数”（通常为<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E8%B1%AA%E6%96%AF%E5%A4%9A%E5%A4%AB%E7%BB%B4%E6%95%B0">豪斯多夫维数</a>）会大于<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%8B%93%E6%92%B2%E7%B6%AD%E6%95%B8">拓扑维数</a>（希尔伯特曲线是相等的）；</li>
+<li>在多数情况下有着简单的<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E9%80%92%E5%BD%92%E5%AE%9A%E4%B9%89">递归定义</a>。</li>
+</ul>
+<p>因为分形在所有的大小尺度下都显得相似，所以通常被认为是无限复杂的。</p>
+<p>一类分形的典型例子有: 康托尔集、龙形曲线，谢尔宾斯基三角形和地毯、门格海绵、、皮亚诺曲线等。</p>
+<table>
+<thead>
+<tr>
+<th>龙形曲线</th>
+<th>Gosper 曲线</th>
+<th>谢尔宾斯基三角</th>
+<th>谢尔宾斯基地毯</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="/images/geo/curve_0.png"></td>
+<td><img src="/images/geo/curve_1.png"></td>
+<td><img src="/images/geo_space_filling/200px-Animated_construction_of_Sierpinski_Triangle.gif"></td>
+<td><img src="/images/geo_space_filling/220px-Sierpinski_carpet_6.svg.png" alt="谢尔宾斯基地毯"></td>
+</tr>
+</tbody></table>
+<p>分形可以是<strong>确定性</strong>的，如上述所有的分形；也可以是<strong>随机的</strong>(即非确定性的)。</p>
+<p>比如说，平面上布朗运动的轨迹的豪斯多夫维数等于2。实际上，布朗粒子的轨迹由大量无规则可循的折线组成，是一种处处连续但处处不可微的曲线，是一种无规分形曲线，它也具有自相似性，但这种自相似性具有<strong>统计的</strong>性质。<br>分形也可以依据其自相似来分类，有如下三种：</p>
+<ul>
+<li><strong>精确自相似</strong>：这是最强的一种自相似，分形在任一尺度下都显得一样。由迭代函数系统定义出的分形通常会展现出精确自相似来。</li>
+<li><strong>半自相似</strong>：这是一种较松的自相似，分形在不同尺度下会显得大略（但非精确）相同。半自相似分形包含有整个分形扭曲及退化形式的缩小尺寸。由递推关系式定义出的分形通常会是半自相似，但不会是精确自相似。</li>
+<li><strong>统计自相似</strong>：这是最弱的一种自相似，这种分形在不同尺度下都能保有固定的数值或统计测度。大多数对“分形”合理的定义自然会导致某一类型的统计自相似（<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%88%86%E5%BD%A2%E7%BB%B4%E6%95%B0">分形维数</a>本身即是个在不同尺度下都保持固定的数值测度）。随机分形是统计自相似，但非精确及半自相似的分形的一个例子。</li>
+</ul>
+<p>现在有一些软件可以很好的画出精确自相似分形图形，甚至作为工艺品出售：</p>
+<p><img src="/images/geo_space_filling/fractal_0.jpg" alt="img"></p>
+<p><img src="/images/geo_space_filling/fractal_1.jpg" alt="img"></p>
+<h2 id="空间填充曲线"><a href="#空间填充曲线" class="headerlink" title="空间填充曲线"></a>空间填充曲线</h2><p>空间填充曲线目前来看其实就是<strong>分形</strong>的一种，它解决了这一难题：能否用一条无限长的线，穿过任意维度空间里面的所有点？</p>
+<p><img src="/images/geo/peano.png" alt="Peano曲线"></p>
+<p>在1890年，<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Giuseppe_Peano">Giuseppe Peano</a>发现了一条连续曲线，现在称为 <strong>Peano 曲线</strong>，它可以穿过单位正方形上的每个点。他的目的是构建一个可以从单位区间到单位正方形的连续映射。 Peano 受到 Georg Cantor 早期违反直觉的研究结果的启发，即单位区间中无限数量的点与任何有限维度流型中无限数量的点，基数相同。 Peano 解决的问题实质就是，是否存在这样一个连续的映射，一条能填充满平面的曲线。上图就是他找到的一条曲线。</p>
+<p>一般来说，一维的东西是不可能填满2维的方格的。但是Peano曲线恰恰给出了反例。</p>
+<p>Peano曲线的构造方法如下：</p>
+<p>取一个正方形并且把它分出<strong>九个相等</strong>的小正方形，然后从左下角的正方形开始至右上角的正方形结束，依次把小正方形的<strong>中心</strong>用线段连接起来；下一步把每个小正方形分成九个相等的正方形，然后上述方式把其中中心连接起来……将这种操作手续无限进行下去，最终得到的极限情况的曲线就被称作<strong>Peano曲线</strong>。</p>
+<p>皮亚诺对区间[0,1]上的点和正方形上的点的映射作了详细的数学描述。实际上，正方形的这些点对于<img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/31a5c18739ff04858eecc8fec2f53912c348e0e5">，可找到两个连续函数 x &#x3D; f(t) 和 y &#x3D; g(t)，使得 x 和 y 取属于单位正方形的每一个值。</p>
+<p>一年后，即1891年，<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%B8%8C%E5%B0%94%E4%BC%AF%E7%89%B9">希尔伯特</a>发明了另外一个曲线，叫希尔伯特曲线（Hilbert curve）。具体步骤如下。</p>
+<p><img src="/images/geo/hilbert-curve.png"></p>
+<p><em>上图就是1-6阶的希尔伯特曲线</em>。</p>
+<p>同样的原理，希尔伯特曲线也可以扩展到3D空间，如下图所示。</p>
+<p><img src="/images/geo/hilbert-curve-3d.png"></p>
+<p>在数学分析中，空间填充曲线是一个参数化的注入函数，它将单位区间映射到单位正方形，立方体，更广义的，n维超立方体等中的连续曲线，随着参数的增加，它可以任意接近单位立方体中的给定点。填充曲线也是多种多样的。如下所示：</p>
+<p><img src="/images/geo/curve_4.png" alt="填充曲线"></p>
+<p>除了数学重要性之外，空间填充曲线也可用于降维，数学规划，稀疏多维数据库索引，电子学和生物学。空间填充曲线的现在被用在互联网地图中。</p>
+<h2 id="Hilbert-Curve-希尔伯特曲线"><a href="#Hilbert-Curve-希尔伯特曲线" class="headerlink" title="Hilbert Curve 希尔伯特曲线"></a>Hilbert Curve 希尔伯特曲线</h2><h3 id="希尔伯特曲线的定义"><a href="#希尔伯特曲线的定义" class="headerlink" title="希尔伯特曲线的定义"></a>希尔伯特曲线的定义</h3><p><img src="/images/geo_space_filling/c4dfb-sv8yq.gif" alt="希尔伯特曲线填充"></p>
+<p><strong>希尔伯特曲线</strong>一种能填充满一个平面正方形的分形曲线（<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/w/index.php?title=%E7%A9%BA%E9%96%93%E5%A1%AB%E5%85%85%E6%9B%B2%E7%B7%9A&action=edit&redlink=1">空间填充曲线</a>），由<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%A4%A7%E8%A1%9B%C2%B7%E5%B8%8C%E7%88%BE%E4%BC%AF%E7%89%B9">大卫·希尔伯特</a>在1891年提出。由于它能填满平面，它的<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E8%B1%AA%E6%96%AF%E5%A4%9A%E5%A4%AB%E7%B6%AD">豪斯多夫维</a>是2。取它填充的正方形的边长为1，第n步的希尔伯特曲线的长度是2^n - 2^(-n)。</p>
+<h3 id="希尔伯特曲线的构造方法"><a href="#希尔伯特曲线的构造方法" class="headerlink" title="希尔伯特曲线的构造方法"></a>希尔伯特曲线的构造方法</h3><p><img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Hilbert-curve_rounded-gradient-animated.gif" alt="img"></p>
+<p>一阶的希尔伯特曲线，生成方法就是把正方形四等分(<strong>4个小正方形</strong>)，从其中一个子正方形的中心开始(原则上从任何一个都可以)，依次穿线，穿过其余3个正方形的中心。</p>
+<p><img src="/images/geo/56_20_1%E9%98%B6%E5%B8%8C%E5%B0%94%E4%BC%AF%E7%89%B9%E6%9B%B2%E7%BA%BF.gif" alt="希尔伯特曲线1阶"></p>
+<p>二阶的希尔伯特曲线，生成方法就是把之前每个子正方形继续四等分，每4个小的正方形先生成一阶希尔伯特曲线。然后把4个一阶的希尔伯特曲线首尾相连。</p>
+<p><img src="/images/geo/56_21_2%E9%98%B6%E5%B8%8C%E5%B0%94%E4%BC%AF%E7%89%B9%E6%9B%B2%E7%BA%BF.gif" alt="希尔伯特曲线2阶"></p>
+<p>三阶的希尔伯特曲线，生成方法就是与二阶类似，先生成二阶希尔伯特曲线。然后把4个二阶的希尔伯特曲线首尾相连。需要注意的是为了保证连续性，做了旋转操作。</p>
+<p><img src="/images/geo/56_22_3%E9%98%B6%E5%B8%8C%E5%B0%94%E4%BC%AF%E7%89%B9%E6%9B%B2%E7%BA%BF.gif" alt="希尔伯特曲线3阶"></p>
+<p>n阶的希尔伯特曲线的生成方法也是递归的，先生成n-1阶的希尔伯特曲线，然后把4个n-1阶的希尔伯特曲线首尾相连。</p>
+<p><img src="/images/geo/56_23_5n%E9%98%B6%E5%B8%8C%E5%B0%94%E4%BC%AF%E7%89%B9%E6%9B%B2%E7%BA%BF.gif"></p>
+<h3 id="希尔伯特曲线特性"><a href="#希尔伯特曲线特性" class="headerlink" title="希尔伯特曲线特性"></a>希尔伯特曲线特性</h3><h4 id="降维"><a href="#降维" class="headerlink" title="降维"></a>降维</h4><p>作为空间填充曲线，希尔伯特曲线可以对多维空间有效的降维。希尔伯特曲线，本身就是对一条直线不断切分，生成的，从而可以填满2D区间。反过来说，这条曲线本身就是一维的。</p>
+<p><img src="/images/geo/56_24_6%E5%B8%8C%E5%B0%94%E4%BC%AF%E7%89%B9%E6%9B%B2%E7%BA%BF%E5%B1%95%E5%BC%80%E6%88%90%E7%BA%BF.gif"></p>
+<p>上图就是希尔伯特曲线在填满一个平面以后，把平面上的点都展开成一维的线了。</p>
+<p>当然，当n趋近于无穷大的时候，n阶希尔伯特曲线就可以近似填满整个平面了。这也是分形的特性，回到前面讲的“无限长的大不列颠岛的海岸线”。这里也是一样的，不但可以填满整个平面，从另外一个角度来说，这个线也是无限长的。当我们说这个长度是多少的时候，其实是有一个n来限制的。</p>
+<p><img src="/images/geo/56_25_7%E5%B8%8C%E5%B0%94%E4%BC%AF%E7%89%B9%E6%9B%B2%E7%BA%BF%E6%97%A0%E9%99%90%E5%88%92%E5%88%86%E4%B8%8B%E5%8E%BB.gif"></p>
+<h4 id="稳定性"><a href="#稳定性" class="headerlink" title="稳定性"></a>稳定性</h4><p>当n阶希尔伯特曲线，n趋于无穷大的时候，曲线上的点的位置基本上趋于稳定。举个例子：</p>
+<p><img src="/images/geo/56_26_8%E5%B8%8C%E5%B0%94%E4%BC%AF%E7%89%B9%E6%9B%B2%E7%BA%BF%E4%B8%8E%E8%9B%87%E5%BD%A2%E6%9B%B2%E7%BA%BF%E5%93%AA%E4%B8%AA%E5%A5%BD.gif"></p>
+<p>上图左边是希尔伯特曲线，右边是蛇形曲线。当n趋于无穷大的时候，两者理论上都可以填满平面。但是希尔伯特曲线更加优秀。</p>
+<p>在蛇形曲线上给定一个点，当n趋于无穷大的过程中，这个点在蛇形曲线上的位置是时刻变化的。这就造成了点的相对位置始终不定。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="/images/geo/56_27_9%E8%9B%87%E5%BD%A2%E6%9B%B2%E7%BA%BF%E6%9D%A5%E5%9B%9E%E6%91%86%E5%8A%A8.gif"></td>
+</tr>
+<tr>
+<td><img src="/images/geo/56_28_10%E5%B8%8C%E5%B0%94%E4%BC%AF%E7%89%B9%E6%9B%B2%E7%BA%BF%E8%B6%8B%E8%BF%91%E7%A8%B3%E5%AE%9A.gif"></td>
+</tr>
+</tbody></table>
+<p>再看看希尔伯特曲线，同样是一个点，在n趋于无穷大的情况下：</p>
+<p>从上图可以看到，点的位置几乎没有怎么变化。所以希尔伯特曲线更加优秀。</p>
+<h4 id="连续性"><a href="#连续性" class="headerlink" title="连续性"></a>连续性</h4><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="/images/geo/%E5%B8%8C%E5%B0%94%E4%BC%AF%E7%89%B9%E6%9B%B2%E7%BA%BF-%E8%BF%9E%E7%BB%AD_0.png"></td>
+<td><img src="/images/geo/%E5%B8%8C%E5%B0%94%E4%BC%AF%E7%89%B9%E6%9B%B2%E7%BA%BF-%E8%BF%9E%E7%BB%AD_1.png"></td>
+</tr>
+</tbody></table>
+<p>希尔伯特曲线是连续的，所以能保证一定可以填满空间。连续性是需要数学证明的。具体证明方法这里就不细说了。</p>
+<p>参考文档：</p>
+<p><a target="_blank" rel="noopener" href="http://blog.christianperone.com/2015/08/googles-s2-geometry-on-the-sphere-cells-and-hilbert-curve/?utm_source=tuicool">http://blog.christianperone.com/2015/08/googles-s2-geometry-on-the-sphere-cells-and-hilbert-curve/?utm_source=tuicool</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/35358486">https://zhuanlan.zhihu.com/p/35358486</a><br><a target="_blank" rel="noopener" href="https://halfrost.com/go_spatial_search/">https://halfrost.com/go_spatial_search/</a><br><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Space-filling_curve">Space-filling curve</a><br><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/List_of_fractals_by_Hausdorff_dimension">List of fractals by Hausdorff dimension</a><br><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=3s7h2MHQtxc">介绍希尔伯特曲线的Youtube视频</a><br><a target="_blank" rel="noopener" href="http://bit-player.org/extras/hilbert/hilbert-mapping.html">希尔伯特曲线在线演示</a><br><a target="_blank" rel="noopener" href="http://www4.ncsu.edu/~njrose/pdfFiles/HilbertCurve.pdf">希尔伯特曲线论文</a><br><a target="_blank" rel="noopener" href="http://bit-player.org/2013/mapping-the-hilbert-curve">Mapping the Hilbert curve</a><br><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=ay8OMOsf6AQ">伯努瓦.曼德勃罗:分形和粗糙的艺术<br>https://www.bilibili.com/video/av3602681/</a></p>
+<p><img src="https://pic1.zhimg.com/80/v2-c3842f9c8258b3fc20684770b05f85ac_hd.jpg" alt="Hilbert曲线"><br><img src="https://pic3.zhimg.com/80/v2-56f5284dad1dbd5818ab4717dbd1c84a_hd.jpg" alt="Dragon曲线"><br><img src="https://pic1.zhimg.com/80/v2-9b41e04ed570992a3e96a9fac08d1ba4_hd.jpg" alt="Gospher曲线"><br><img src="https://pic4.zhimg.com/80/v2-dc011037f5125038a1082de41568edcf_hd.jpg" alt="img"><br><img src="https://pic1.zhimg.com/80/v2-e6f2a5c9d9c3b348efdb536a89d6ce48_hd.jpg" alt="img"><br><img src="https://pic2.zhimg.com/80/v2-55f2c597fb6b163d00495bf83408d4e5_hd.jpg" alt="img"><br><img src="/images/geo/curve_3.png" alt="摩尔曲线"></p>
+<hr>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>您的支持是我原创的动力！</div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="申艳超 WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpg" alt="申艳超 Alipay">
+        <span>Alipay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>Welcome to my other publishing channels</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/spatail-search/" rel="tag"># spatail search</a>
+              <a href="/tags/map/" rel="tag"># map</a>
+              <a href="/tags/uber/" rel="tag"># uber</a>
+              <a href="/tags/h3/" rel="tag"># h3</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2020/01/16/geo_spatial_search_overview/" rel="prev" title="空间搜索概述">
+                  <i class="fa fa-chevron-left"></i> 空间搜索概述
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/2020/01/16/geo_projection/" rel="next" title="空间搜索-地球投影">
+                  空间搜索-地球投影 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2012 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">申艳超</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"vFAoofuVWgdHsCv6B6BtqROc-gzGzoHsz","app_key":"ANWUkmboGiNDNRmf2iVlUIGt","server_url":null,"security":true}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+
+</body>
+</html>

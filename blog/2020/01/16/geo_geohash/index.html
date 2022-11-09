@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.shenyanchao.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.13.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="一. GeoHash 算法1. Geohash 算法简介Geohash 是一种地理编码，由 Gustavo Niemeyer 在2008年发明的，G.M.Morton在1966年做过类似的工作。。它是一种分级的数据结构，把空间划分为网格。Geohash 属于空间填充曲线中的 Z 阶曲线（Z-order curve）的实际应用。 何为 Z 阶曲线？">
+<meta property="og:type" content="article">
+<meta property="og:title" content="空间搜索-GeoHash">
+<meta property="og:url" content="https://www.shenyanchao.cn/blog/2020/01/16/geo_geohash/index.html">
+<meta property="og:site_name" content="申艳超-博客">
+<meta property="og:description" content="一. GeoHash 算法1. Geohash 算法简介Geohash 是一种地理编码，由 Gustavo Niemeyer 在2008年发明的，G.M.Morton在1966年做过类似的工作。。它是一种分级的数据结构，把空间划分为网格。Geohash 属于空间填充曲线中的 Z 阶曲线（Z-order curve）的实际应用。 何为 Z 阶曲线？">
+<meta property="og:locale">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo-geohash/global-geohash.jpeg">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo/z-order-line.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo/z-order-3d.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo/geohash_0.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo/geohash_1.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo/geohash_2.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo/geohash_3.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo/z-curve.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo/geohash-z-curve-disvantage.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo/geohash-z-curve_0.png">
+<meta property="article:published_time" content="2020-01-16T14:03:21.000Z">
+<meta property="article:modified_time" content="2022-11-09T03:39:39.117Z">
+<meta property="article:author" content="申艳超">
+<meta property="article:tag" content="spatail search">
+<meta property="article:tag" content="geohash">
+<meta property="article:tag" content="z-order">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.shenyanchao.cn/images/geo-geohash/global-geohash.jpeg">
+
+
+<link rel="canonical" href="https://www.shenyanchao.cn/blog/2020/01/16/geo_geohash/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-Hans","comments":true,"permalink":"https://www.shenyanchao.cn/blog/2020/01/16/geo_geohash/","path":"blog/2020/01/16/geo_geohash/","title":"空间搜索-GeoHash"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>空间搜索-GeoHash | 申艳超-博客</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?81c9612f8fdceca45435ef7f5404d7b2"></script>
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="申艳超-博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">申艳超-博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">搜索引擎、分布式、高性能、NLP、ElasticSearch、Solr</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>Archives</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="sitemap fa-fw"></i>Sitemap</a></li><li class="menu-item menu-item-commonweal"><a href="/404.html" rel="section"><i class="heartbeat fa-fw"></i>Commonweal 404</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80-GeoHash-%E7%AE%97%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">一. GeoHash 算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Geohash-%E7%AE%97%E6%B3%95%E7%AE%80%E4%BB%8B"><span class="nav-number">1.1.</span> <span class="nav-text">1. Geohash 算法简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Geohash-%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8%E4%B8%BE%E4%BE%8B"><span class="nav-number">1.2.</span> <span class="nav-text">2. Geohash 实际应用举例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Geohash-%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="nav-number">1.3.</span> <span class="nav-text">4. Geohash 的优缺点</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="申艳超"
+      src="/images/shenyanchao.jpeg">
+  <p class="site-author-name" itemprop="name">申艳超</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">133</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">244</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/blueshen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;blueshen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhiyi.shen@gmail.com" title="E-Mail → mailto:zhiyi.shen@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/blueshen" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://www.shenyanchao.cn/blog/2020/01/16/geo_geohash/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/shenyanchao.jpeg">
+      <meta itemprop="name" content="申艳超">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="申艳超-博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="空间搜索-GeoHash | 申艳超-博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          空间搜索-GeoHash
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2020-01-16 22:03:21" itemprop="dateCreated datePublished" datetime="2020-01-16T22:03:21+08:00">2020-01-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-11-09 11:39:39" itemprop="dateModified" datetime="2022-11-09T11:39:39+08:00">2022-11-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/geo/" itemprop="url" rel="index"><span itemprop="name">geo</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/blog/2020/01/16/geo_geohash/" class="post-meta-item leancloud_visitors" data-flag-title="空间搜索-GeoHash" title="Views">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><img src="/images/geo-geohash/global-geohash.jpeg" alt="global-geohash"></p>
+<hr>
+<h2 id="一-GeoHash-算法"><a href="#一-GeoHash-算法" class="headerlink" title="一. GeoHash 算法"></a>一. GeoHash 算法</h2><h3 id="1-Geohash-算法简介"><a href="#1-Geohash-算法简介" class="headerlink" title="1. Geohash 算法简介"></a>1. Geohash 算法简介</h3><p>Geohash 是一种地理编码，由 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/w/index.php?title=Gustavo_Niemeyer&action=edit&redlink=1">Gustavo Niemeyer</a> 在2008年发明的，G.M.Morton在1966年做过类似的工作。。它是一种分级的数据结构，把空间划分为网格。Geohash 属于空间填充曲线中的 Z 阶曲线（<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Z-order_curve">Z-order curve</a>）的实际应用。</p>
+<p>何为 Z 阶曲线？<br><img src="/images/geo/z-order-line.png" alt="z"></p>
+<span id="more"></span>
+
+<p>上图就是 Z 阶曲线。这个曲线比较简单，生成它也比较容易，只需要把每个 Z 首尾相连即可。</p>
+<p><img src="/images/geo/z-order-3d.png" alt="z-order 3D"></p>
+<p>Z 阶曲线同样可以扩展到三维空间。只要 Z 形状足够小并且足够密，也能填满整个三维空间。</p>
+<p>说到这里可能读者依旧一头雾水，不知道 Geohash 和 Z 曲线究竟有啥关系？其实 Geohash算法 的理论基础就是基于 Z 曲线的生成原理。继续说回 Geohash。</p>
+<p>Geohash 能够提供任意精度的分段级别。一般分级从 1-12 级。</p>
+<table>
+<thead>
+<tr>
+<th align="center">字符串长度</th>
+<th align="center"></th>
+<th align="center">cell 宽度</th>
+<th align="center"></th>
+<th align="center">cell 高度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">≤</td>
+<td align="center">5,000km</td>
+<td align="center">×</td>
+<td align="center">5,000km</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">≤</td>
+<td align="center">1,250km</td>
+<td align="center">×</td>
+<td align="center">625km</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">≤</td>
+<td align="center">156km</td>
+<td align="center">×</td>
+<td align="center">156km</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center">≤</td>
+<td align="center">39.1km</td>
+<td align="center">×</td>
+<td align="center">19.5km</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="center">≤</td>
+<td align="center">4.89km</td>
+<td align="center">×</td>
+<td align="center">4.89km</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td align="center">≤</td>
+<td align="center">1.22km</td>
+<td align="center">×</td>
+<td align="center">0.61km</td>
+</tr>
+<tr>
+<td align="center">7</td>
+<td align="center">≤</td>
+<td align="center">153m</td>
+<td align="center">×</td>
+<td align="center">153m</td>
+</tr>
+<tr>
+<td align="center">8</td>
+<td align="center">≤</td>
+<td align="center">38.2m</td>
+<td align="center">×</td>
+<td align="center">19.1m</td>
+</tr>
+<tr>
+<td align="center">9</td>
+<td align="center">≤</td>
+<td align="center">4.77m</td>
+<td align="center">×</td>
+<td align="center">4.77m</td>
+</tr>
+<tr>
+<td align="center">10</td>
+<td align="center">≤</td>
+<td align="center">1.19m</td>
+<td align="center">×</td>
+<td align="center">0.596m</td>
+</tr>
+<tr>
+<td align="center">11</td>
+<td align="center">≤</td>
+<td align="center">149mm</td>
+<td align="center">×</td>
+<td align="center">149mm</td>
+</tr>
+<tr>
+<td align="center">12</td>
+<td align="center">≤</td>
+<td align="center">37.2mm</td>
+<td align="center">×</td>
+<td align="center">18.6mm</td>
+</tr>
+</tbody></table>
+<p>还记得引语里面提到的问题么？这里我们就可以用 Geohash 来解决这个问题。</p>
+<p>我们可以利用 Geohash 的字符串长短来决定要划分区域的大小。这个对应关系可以参考上面表格里面 cell 的宽和高。一旦选定 cell 的宽和高，那么 Geohash 字符串的长度就确定下来了。这样我们就把地图分成了一个个的矩形区域了。</p>
+<p>地图上虽然把区域划分好了，但是还有一个问题没有解决，那就是如何快速的查找一个点附近邻近的点和区域呢？</p>
+<p>Geohash 有一个和 Z 阶曲线相关的性质，那就是一个点附近的地方(但不绝对) hash 字符串总是有公共前缀，并且公共前缀的长度越长，这两个点距离越近。</p>
+<p>由于这个特性，Geohash 就常常被用来作为唯一标识符。用在数据库里面可用 Geohash 来表示一个点。Geohash 这个公共前缀的特性就可以用来快速的进行邻近点的搜索。越接近的点通常和目标点的 Geohash 字符串公共前缀越长（但是这不一定，也有特殊情况，下面举例会说明）</p>
+<p>Geohash 也有几种编码形式，常见的有2种，base 32 和 base 36。</p>
+<table>
+<thead>
+<tr>
+<th align="center">Decimal</th>
+<th align="center">0</th>
+<th align="center">1</th>
+<th align="center">2</th>
+<th align="center">3</th>
+<th align="center">4</th>
+<th align="center">5</th>
+<th align="center">6</th>
+<th align="center">7</th>
+<th align="center">8</th>
+<th align="center">9</th>
+<th align="center">10</th>
+<th align="center">11</th>
+<th align="center">12</th>
+<th align="center">13</th>
+<th align="center">14</th>
+<th align="center">15</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Base 32</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">2</td>
+<td align="center">3</td>
+<td align="center">4</td>
+<td align="center">5</td>
+<td align="center">6</td>
+<td align="center">7</td>
+<td align="center">8</td>
+<td align="center">9</td>
+<td align="center">b</td>
+<td align="center">c</td>
+<td align="center">d</td>
+<td align="center">e</td>
+<td align="center">f</td>
+<td align="center">g</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="center">Decimal</th>
+<th align="center">16</th>
+<th align="center">17</th>
+<th align="center">18</th>
+<th align="center">19</th>
+<th align="center">20</th>
+<th align="center">21</th>
+<th align="center">22</th>
+<th align="center">23</th>
+<th align="center">24</th>
+<th align="center">25</th>
+<th align="center">26</th>
+<th align="center">27</th>
+<th align="center">28</th>
+<th align="center">29</th>
+<th align="center">30</th>
+<th align="center">31</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Base 32</td>
+<td align="center">h</td>
+<td align="center">j</td>
+<td align="center">k</td>
+<td align="center">m</td>
+<td align="center">n</td>
+<td align="center">p</td>
+<td align="center">q</td>
+<td align="center">r</td>
+<td align="center">s</td>
+<td align="center">t</td>
+<td align="center">u</td>
+<td align="center">v</td>
+<td align="center">w</td>
+<td align="center">x</td>
+<td align="center">y</td>
+<td align="center">z</td>
+</tr>
+</tbody></table>
+<p>base 36 的版本对大小写敏感，用了36个字符，“23456789bBCdDFgGhHjJKlLMnNPqQrRtTVWX”。</p>
+<table>
+<thead>
+<tr>
+<th align="center">Decimal</th>
+<th align="center">0</th>
+<th align="center">1</th>
+<th align="center">2</th>
+<th align="center">3</th>
+<th align="center">4</th>
+<th align="center">5</th>
+<th align="center">6</th>
+<th align="center">7</th>
+<th align="center">8</th>
+<th align="center">9</th>
+<th align="center">10</th>
+<th align="center">11</th>
+<th align="center">12</th>
+<th align="center">13</th>
+<th align="center">14</th>
+<th align="center">15</th>
+<th align="center">16</th>
+<th align="center">17</th>
+<th align="center">18</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Base 36</td>
+<td align="center">2</td>
+<td align="center">3</td>
+<td align="center">4</td>
+<td align="center">5</td>
+<td align="center">6</td>
+<td align="center">7</td>
+<td align="center">8</td>
+<td align="center">9</td>
+<td align="center">b</td>
+<td align="center">B</td>
+<td align="center">C</td>
+<td align="center">d</td>
+<td align="center">D</td>
+<td align="center">F</td>
+<td align="center">g</td>
+<td align="center">G</td>
+<td align="center">h</td>
+<td align="center">H</td>
+<td align="center">j</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="center">Decimal</th>
+<th align="center">19</th>
+<th align="center">20</th>
+<th align="center">21</th>
+<th align="center">22</th>
+<th align="center">23</th>
+<th align="center">24</th>
+<th align="center">25</th>
+<th align="center">26</th>
+<th align="center">27</th>
+<th align="center">28</th>
+<th align="center">29</th>
+<th align="center">30</th>
+<th align="center">31</th>
+<th align="center">32</th>
+<th align="center">33</th>
+<th align="center">34</th>
+<th align="center">35</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Base 36</td>
+<td align="center">J</td>
+<td align="center">K</td>
+<td align="center">I</td>
+<td align="center">L</td>
+<td align="center">M</td>
+<td align="center">n</td>
+<td align="center">N</td>
+<td align="center">P</td>
+<td align="center">q</td>
+<td align="center">Q</td>
+<td align="center">r</td>
+<td align="center">R</td>
+<td align="center">t</td>
+<td align="center">T</td>
+<td align="center">V</td>
+<td align="center">W</td>
+<td align="center">X</td>
+</tr>
+</tbody></table>
+<h3 id="2-Geohash-实际应用举例"><a href="#2-Geohash-实际应用举例" class="headerlink" title="2. Geohash 实际应用举例"></a>2. Geohash 实际应用举例</h3><p>接下来的举例以 base-32 为例。举个例子。</p>
+<p><img src="/images/geo/geohash_0.png"></p>
+<p>上图是一个地图，地图中间有一个美罗城，假设需要查询距离美罗城最近的餐馆，该如何查询？</p>
+<p>第一步我们需要把地图网格化，利用 geohash。通过查表，我们选取字符串长度为6的矩形来网格化这张地图。</p>
+<p>经过查询，美罗城的经纬度是[31.1932993, 121.43960190000007]。</p>
+<p>先处理纬度。地球的纬度区间是[-90,90]。把这个区间分为2部分，即[-90,0)，[0,90]。31.1932993位于(0,90]区间，即右区间，标记为1。然后继续把(0,90]区间二分，分为[0,45)，[45,90]，31.1932993位于[0,45)区间，即左区间，标记为0。一直划分下去。</p>
+<table>
+<thead>
+<tr>
+<th align="left">左区间</th>
+<th align="left">中值</th>
+<th align="left">右区间</th>
+<th align="center">二进制结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">-90</td>
+<td align="left">0</td>
+<td align="left">90</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="left">0</td>
+<td align="left">45</td>
+<td align="left">90</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="left">0</td>
+<td align="left">22.5</td>
+<td align="left">45</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="left">22.5</td>
+<td align="left">33.75</td>
+<td align="left">45</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="left">22.5</td>
+<td align="left">28.125</td>
+<td align="left">33.75</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="left">28.125</td>
+<td align="left">30.9375</td>
+<td align="left">33.75</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="left">30.9375</td>
+<td align="left">32.34375</td>
+<td align="left">33.75</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="left">30.9375</td>
+<td align="left">31.640625</td>
+<td align="left">32.34375</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="left">30.9375</td>
+<td align="left">31.2890625</td>
+<td align="left">31.640625</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="left">30.9375</td>
+<td align="left">31.1132812</td>
+<td align="left">31.2890625</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="left">31.1132812</td>
+<td align="left">31.2011718</td>
+<td align="left">31.2890625</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="left">31.1132812</td>
+<td align="left">31.1572265</td>
+<td align="left">31.2011718</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="left">31.1572265</td>
+<td align="left">31.1791992</td>
+<td align="left">31.2011718</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="left">31.1791992</td>
+<td align="left">31.1901855</td>
+<td align="left">31.2011718</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="left">31.1901855</td>
+<td align="left">31.1956786</td>
+<td align="left">31.2011718</td>
+<td align="center">0</td>
+</tr>
+</tbody></table>
+<p>再处理经度，一样的处理方式。地球经度区间是[-180,180]</p>
+<table>
+<thead>
+<tr>
+<th align="left">左区间</th>
+<th align="left">中值</th>
+<th align="left">右区间</th>
+<th align="center">二进制结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">-180</td>
+<td align="left">0</td>
+<td align="left">180</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="left">0</td>
+<td align="left">90</td>
+<td align="left">180</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="left">90</td>
+<td align="left">135</td>
+<td align="left">180</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="left">90</td>
+<td align="left">112.5</td>
+<td align="left">135</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="left">112.5</td>
+<td align="left">123.75</td>
+<td align="left">135</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="left">112.5</td>
+<td align="left">118.125</td>
+<td align="left">123.75</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="left">118.125</td>
+<td align="left">120.9375</td>
+<td align="left">123.75</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="left">120.9375</td>
+<td align="left">122.34375</td>
+<td align="left">123.75</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="left">120.9375</td>
+<td align="left">121.640625</td>
+<td align="left">122.34375</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="left">120.9375</td>
+<td align="left">121.289062</td>
+<td align="left">121.640625</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="left">121.289062</td>
+<td align="left">121.464844</td>
+<td align="left">121.640625</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="left">121.289062</td>
+<td align="left">121.376953</td>
+<td align="left">121.464844</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="left">121.376953</td>
+<td align="left">121.420898</td>
+<td align="left">121.464844</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="left">121.420898</td>
+<td align="left">121.442871</td>
+<td align="left">121.464844</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="left">121.420898</td>
+<td align="left">121.431885</td>
+<td align="left">121.442871</td>
+<td align="center">1</td>
+</tr>
+</tbody></table>
+<p>纬度产生的二进制是<code>101011000101110</code>，经度产生的二进制是<code>110101100101101</code>，按照“<strong>偶数位放经度，奇数位放纬度</strong>”的规则，重新组合经度和纬度的二进制串，生成新的：<code>111001100111100000110011110110</code>，最后一步就是把这个最终的字符串转换成字符，对应需要查找 base-32 的表。<code>11100 11001 11100 00011 00111 10110</code>转换成10进制是 <code>28 25 28 3 7 22</code>，查表编码得到最终结果: <code>wtw37q</code>。</p>
+<p>我们还可以把这个网格周围8个各自都计算出来。</p>
+<p><img src="/images/geo/geohash_1.png"></p>
+<p>从地图上可以看出，这邻近的9个格子，前缀都完全一致。都是<code>wtw37</code>。</p>
+<p>如果我们把字符串再增加一位，会有什么样的结果呢？Geohash 增加到7位。</p>
+<p><img src="/images/geo/geohash_2.png"></p>
+<p>当Geohash 增加到7位的时候，网格更小了，美罗城的 Geohash 变成了 wtw37qt。</p>
+<p>看到这里，读者应该已经清楚了 Geohash 的算法原理了。咱们把6位和7位都组合到一张图上面来看。</p>
+<p><img src="/images/geo/geohash_3.png"></p>
+<p>可以看到中间大格子的 Geohash 的值是 wtw37q，那么它里面的所有小格子前缀都是 wtw37q。可以想象，当 Geohash 字符串长度为5的时候，Geohash 肯定就为 wtw37 了。</p>
+<p>接下来解释之前说的 Geohash 和 Z 阶曲线的关系。回顾最后一步合并经纬度字符串的规则，<strong>“偶数位放经度，奇数位放纬度”</strong>。读者一定有点好奇，这个规则哪里来的？凭空瞎想的？其实并不是，这个规则就是 Z 阶曲线。看下图：</p>
+<p><img src="/images/geo/z-curve.png"></p>
+<p>x 轴就是纬度，y轴就是经度。经度放偶数位，纬度放奇数位就是这样而来的。</p>
+<p>最后有一个精度的问题。</p>
+<table>
+<thead>
+<tr>
+<th align="center">Geohash 长度</th>
+<th align="right">Lat位数</th>
+<th align="right">Lng位数</th>
+<th align="right">Lat误差</th>
+<th align="right">误差</th>
+<th align="center">km误差</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">±23</td>
+<td align="right">±23</td>
+<td align="center">±2500</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">±2.8</td>
+<td align="right">±5.6</td>
+<td align="center">±630</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="right">7</td>
+<td align="right">8</td>
+<td align="right">±0.70</td>
+<td align="right">±0.70</td>
+<td align="center">±78</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="right">10</td>
+<td align="right">10</td>
+<td align="right">±0.087</td>
+<td align="right">±0.18</td>
+<td align="center">±20</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="right">12</td>
+<td align="right">13</td>
+<td align="right">±0.022</td>
+<td align="right">±0.022</td>
+<td align="center">±2.4</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td align="right">15</td>
+<td align="right">15</td>
+<td align="right">±0.0027</td>
+<td align="right">±0.0055</td>
+<td align="center">±0.61</td>
+</tr>
+<tr>
+<td align="center">7</td>
+<td align="right">17</td>
+<td align="right">18</td>
+<td align="right">±0.00068</td>
+<td align="right">±0.00068</td>
+<td align="center">±0.076</td>
+</tr>
+<tr>
+<td align="center">8</td>
+<td align="right">20</td>
+<td align="right">20</td>
+<td align="right">±0.000086</td>
+<td align="right">±0.000172</td>
+<td align="center">±0.019</td>
+</tr>
+<tr>
+<td align="center">9</td>
+<td align="right">22</td>
+<td align="right">23</td>
+<td align="right">±0.000021</td>
+<td align="right">±0.000021</td>
+<td align="center">±0.00478</td>
+</tr>
+<tr>
+<td align="center">10</td>
+<td align="right">25</td>
+<td align="right">25</td>
+<td align="right">±0.00000268</td>
+<td align="right">±0.00000536</td>
+<td align="center">±0.0005971</td>
+</tr>
+<tr>
+<td align="center">11</td>
+<td align="right">27</td>
+<td align="right">28</td>
+<td align="right">±0.00000067</td>
+<td align="right">±0.00000067</td>
+<td align="center">±0.0001492</td>
+</tr>
+<tr>
+<td align="center">12</td>
+<td align="right">30</td>
+<td align="right">30</td>
+<td align="right">±0.00000008</td>
+<td align="right">±0.00000017</td>
+<td align="center">±0.0000186</td>
+</tr>
+</tbody></table>
+<h3 id="4-Geohash-的优缺点"><a href="#4-Geohash-的优缺点" class="headerlink" title="4. Geohash 的优缺点"></a>4. Geohash 的优缺点</h3><p>Geohash 的优点很明显，它利用 Z 阶曲线进行编码。而 Z 阶曲线可以将二维或者多维空间里的所有点都转换成一维曲线。在数学上成为分形维。并且 Z 阶曲线还具有局部保序性。</p>
+<p>Z 阶曲线通过交织点的坐标值的二进制表示来简单地计算多维度中的点的z值。一旦将数据被加到该排序中，任何一维数据结构，例如二叉搜索树，B树，跳跃表或（具有低有效位被截断）哈希表都可以用来处理数据。通过 Z 阶曲线所得到的顺序可以等同地被描述为从四叉树的深度优先遍历得到的顺序。</p>
+<p>这也是 Geohash 的另外一个优点，搜索查找邻近点比较快。<br>Geohash 的缺点之一也来自 Z 阶曲线。<br>Z 阶曲线有一个比较严重的问题，虽然有局部保序性，但是它也有突变性。在每个 Z 字母的拐角，都有可能出现顺序的突变。</p>
+<p><img src="/images/geo/geohash-z-curve-disvantage.png"></p>
+<p>看上图中标注出来的蓝色的点点。每两个点虽然是相邻的，但是距离相隔很远。看右下角的图，两个数值邻近红色的点两者距离几乎达到了整个正方形的边长。两个数值邻近绿色的点也达到了正方形的一半的长度。</p>
+<p>Geohash 的另外一个缺点是，如果选择不好合适的网格大小，判断邻近点可能会比较麻烦。<br><img src="/images/geo/geohash-z-curve_0.png"><br>看上图，如果选择 Geohash 字符串为6的话，就是蓝色的大格子。红星是美罗城，紫色的圆点是搜索出来的目标点。如果用 Geohash 算法查询的话，距离比较近的可能是<code> wtw37p</code>，<code>wtw37r</code>，<code>wtw37w</code>，<code>wtw37m</code>。但是其实距离最近的点就在 <code>wtw37q</code>。如果选择这么大的网格，就需要再查找周围的8个格子。</p>
+<p>如果选择 Geohash 字符串为7的话，那变成黄色的小格子。这样距离红星星最近的点就只有一个了。就是 <code>wtw37qw</code>。</p>
+<p>如果网格大小，精度选择的不好，那么查询最近点还需要再次查询周围8个点。</p>
+<hr>
+<p>参考文档：</p>
+<p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Geohash">https://en.wikipedia.org/wiki/Geohash</a></p>
+<p><a target="_blank" rel="noopener" href="https://halfrost.com/go_spatial_search">https://halfrost.com/go_spatial_search</a></p>
+<p><a target="_blank" rel="noopener" href="http://geohash.org/">http://geohash.org/</a></p>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>您的支持是我原创的动力！</div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="申艳超 WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpg" alt="申艳超 Alipay">
+        <span>Alipay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>Welcome to my other publishing channels</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/spatail-search/" rel="tag"># spatail search</a>
+              <a href="/tags/geohash/" rel="tag"># geohash</a>
+              <a href="/tags/z-order/" rel="tag"># z-order</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2020/01/16/geo_google_s2/" rel="prev" title="google s2 希尔伯特曲线">
+                  <i class="fa fa-chevron-left"></i> google s2 希尔伯特曲线
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/2020/01/16/geo_data_format/" rel="next" title="空间搜索-数据格式">
+                  空间搜索-数据格式 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2012 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">申艳超</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"vFAoofuVWgdHsCv6B6BtqROc-gzGzoHsz","app_key":"ANWUkmboGiNDNRmf2iVlUIGt","server_url":null,"security":true}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+
+</body>
+</html>

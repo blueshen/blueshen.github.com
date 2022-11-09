@@ -1,502 +1,344 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next mist use-motion" lang="zh-Hans">
-<head><meta name="generator" content="Hexo 3.9.0">
+<html lang="zh-Hans">
+<head>
   <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="theme-color" content="#222">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.shenyanchao.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.13.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/icon.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="java7,java8,">
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="申艳超-博客" type="application/atom+xml">
-
-
-
-
-
-
-<meta name="description" content="Java7新特性Java7语法特性根据JSR 334，Java7添加了数个语法方面的新特性： 1. switch可以消化String比如： 12345678910public static void switchString(String s)&amp;#123;    switch (s)&amp;#123;    case &quot;db&quot;: ...    case &quot;wls&quot;: ...    case &quot;ibm&quot;:">
-<meta name="keywords" content="java7,java8">
+    <meta name="description" content="Java7新特性Java7语法特性根据JSR 334，Java7添加了数个语法方面的新特性： 1. switch可以消化String比如： 12345678910public static void switchString(String s)&amp;#123;    switch (s)&amp;#123;    case &quot;db&quot;: ...    case &quot;wls&quot;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java新特性">
 <meta property="og:url" content="https://www.shenyanchao.cn/blog/2014/08/27/java-new-feature/index.html">
 <meta property="og:site_name" content="申艳超-博客">
-<meta property="og:description" content="Java7新特性Java7语法特性根据JSR 334，Java7添加了数个语法方面的新特性： 1. switch可以消化String比如： 12345678910public static void switchString(String s)&amp;#123;    switch (s)&amp;#123;    case &quot;db&quot;: ...    case &quot;wls&quot;: ...    case &quot;ibm&quot;:">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-12-17T11:41:25.744Z">
+<meta property="og:description" content="Java7新特性Java7语法特性根据JSR 334，Java7添加了数个语法方面的新特性： 1. switch可以消化String比如： 12345678910public static void switchString(String s)&amp;#123;    switch (s)&amp;#123;    case &quot;db&quot;: ...    case &quot;wls&quot;">
+<meta property="og:locale">
+<meta property="article:published_time" content="2014-08-27T06:43:00.000Z">
+<meta property="article:modified_time" content="2019-12-17T11:41:25.744Z">
+<meta property="article:author" content="申艳超">
+<meta property="article:tag" content="java7">
+<meta property="article:tag" content="java8">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java新特性">
-<meta name="twitter:description" content="Java7新特性Java7语法特性根据JSR 334，Java7添加了数个语法方面的新特性： 1. switch可以消化String比如： 12345678910public static void switchString(String s)&amp;#123;    switch (s)&amp;#123;    case &quot;db&quot;: ...    case &quot;wls&quot;: ...    case &quot;ibm&quot;:">
+
+
+<link rel="canonical" href="https://www.shenyanchao.cn/blog/2014/08/27/java-new-feature/">
 
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Mist',
-    version: '5.1.4',
-    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-Hans","comments":true,"permalink":"https://www.shenyanchao.cn/blog/2014/08/27/java-new-feature/","path":"blog/2014/08/27/java-new-feature/","title":"Java新特性"}</script>
 
-
-
-  <link rel="canonical" href="https://www.shenyanchao.cn/blog/2014/08/27/java-new-feature/">
-
-
-
-
-
-  <title>Java新特性 | 申艳超-博客</title>
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Java新特性 | 申艳超-博客</title>
   
 
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?81c9612f8fdceca45435ef7f5404d7b2"></script>
 
 
 
 
-  <script type="text/javascript">
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?81c9612f8fdceca45435ef7f5404d7b2";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
 
+  <script async defer data-website-id="" src=""></script>
 
+  <script defer data-domain="" src=""></script>
 
-
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="申艳超-博客" type="application/atom+xml">
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
-  
-  
-    
-  
-
-  <div class="container sidebar-position-right page-post-detail">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">申艳超-博客</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
-      
-        <h1 class="site-subtitle" itemprop="description">搜索引擎、分布式、高性能、NLP、ElasticSearch、Solr</h1>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">申艳超-博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">搜索引擎、分布式、高性能、NLP、ElasticSearch、Solr</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
-            
-            关于
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-            
-            标签
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
-            
-            分类
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-sitemap">
-          <a href="/sitemap.xml" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
-            
-            站点地图
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-commonweal">
-          <a href="/404.html" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
-            
-            公益404
-          </a>
-        </li>
-      
-
-      
-    </ul>
-  
-
-  
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>Archives</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="sitemap fa-fw"></i>Sitemap</a></li><li class="menu-item menu-item-commonweal"><a href="/404.html" rel="section"><i class="heartbeat fa-fw"></i>Commonweal 404</a></li>
+  </ul>
 </nav>
 
 
 
- </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java7%E6%96%B0%E7%89%B9%E6%80%A7"><span class="nav-number">1.</span> <span class="nav-text">Java7新特性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java7%E8%AF%AD%E6%B3%95%E7%89%B9%E6%80%A7"><span class="nav-number">1.1.</span> <span class="nav-text">Java7语法特性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-switch%E5%8F%AF%E4%BB%A5%E6%B6%88%E5%8C%96String"><span class="nav-number">1.1.1.</span> <span class="nav-text">1. switch可以消化String</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%96%B0%E7%9A%84%E6%95%B4%E6%95%B0%E5%AD%97%E9%9D%A2%E8%A1%A8%E8%BE%BE%E6%96%B9%E5%BC%8F-%E2%80%9C0b%E2%80%9D%E5%89%8D%E7%BC%80%E5%92%8C%E2%80%9D-%E2%80%9D%E8%BF%9E%E6%95%B0%E7%AC%A6%EF%BC%8C%E6%8F%90%E5%8D%87%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E5%B9%B8%E7%A6%8F%E6%84%9F%E3%80%82"><span class="nav-number">1.1.2.</span> <span class="nav-text">2. 新的整数字面表达方式 - “0b”前缀和”_”连数符，提升程序员的幸福感。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E7%AE%80%E5%8C%96%E4%BA%86%E6%B3%9B%E5%9E%8B%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA%E7%9A%84%E8%AF%AD%E6%B3%95-%E2%80%9C%E8%8F%B1%E5%BD%A2-new%E2%80%9D%EF%BC%8C%E4%BB%A5%E4%B8%8B%E4%B8%A4%E4%B8%AA%E8%AF%AD%E5%8F%A5%E7%AD%89%E4%BB%B7%EF%BC%9A"><span class="nav-number">1.1.3.</span> <span class="nav-text">3. 简化了泛型对象创建的语法 - “菱形 new”，以下两个语句等价：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E4%B8%BA%E6%89%80%E6%9C%89%E7%9A%84reflect%E6%93%8D%E4%BD%9C%E5%BC%82%E5%B8%B8%E6%89%BE%E4%BA%86%E4%B8%AA%E6%96%B0%E7%88%B8%E7%88%B8-ReflectOperationException%EF%BC%8C%E5%AD%A9%E5%84%BF%E4%BB%AC%E6%98%AF%EF%BC%9A"><span class="nav-number">1.1.4.</span> <span class="nav-text">4. 为所有的reflect操作异常找了个新爸爸 - ReflectOperationException，孩儿们是：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-catch%E6%9C%89%E4%BA%86%E5%A4%9A%E9%87%8D%E6%8D%95%E8%8E%B7%E5%8A%9F%E8%83%BD%EF%BC%8C%E4%B9%9F%E7%8E%A9%E8%B5%B7%E4%BA%86%E5%8C%85%E5%85%BB%E7%9A%84%E5%8B%BE%E5%BD%93%EF%BC%8C%E4%BB%A5%E4%B8%8B%E4%BB%A3%E7%A0%81%E5%BF%83%E9%A2%86%E7%A5%9E%E4%BC%9A%EF%BC%9A"><span class="nav-number">1.1.5.</span> <span class="nav-text">5. catch有了多重捕获功能，也玩起了包养的勾当，以下代码心领神会：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E5%BC%82%E5%B8%B8%E7%B2%BE%E7%A1%AE%E9%87%8D%E6%8A%9B-%E9%87%8D%E6%8A%9B%E6%97%B6%E8%87%AA%E5%8A%A8%E9%80%A0%E5%9E%8B%E4%B8%BA%E5%AD%90%E7%B1%BB%EF%BC%8C%E6%9C%89%E7%82%B9%E5%8D%8A%E4%B8%BB%E5%8A%A8%E5%88%B6%E5%AF%BC%E6%AD%A6%E5%99%A8%E7%9A%84style%EF%BC%9A"><span class="nav-number">1.1.6.</span> <span class="nav-text">6. 异常精确重抛 - 重抛时自动造型为子类，有点半主动制导武器的style：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-%E5%8F%91%E6%98%8E%E4%BA%86try-%E7%BB%93%E6%9E%84-Try-with-Resources%EF%BC%8C%E8%83%BD%E5%A4%9F%E8%87%AA%E5%8A%A8%E6%8E%A5%E4%BD%8F%E5%BC%82%E5%B8%B8%E5%B9%B6%E5%85%B3%E9%97%AD%E8%B5%84%E6%BA%90-%E6%89%80%E8%B0%93%E7%9A%84%E8%B5%84%E6%BA%90%E9%9C%80%E8%A6%81%E5%88%A9%E7%94%A8%E6%96%B0%E7%9A%84java-lang-AutoCloseable%E6%8E%A5%E5%8F%A3-%EF%BC%8C%E6%B3%A8%E6%84%8F%E4%BB%A5%E4%B8%8B%E4%BB%A3%E7%A0%81%E4%B8%ADtry%E5%90%8E%E9%9D%A2%E8%B7%9F%E7%9A%84%E6%98%AF%E2%80%9D-%E2%80%9C%E4%B8%8D%E6%98%AF%E2%80%9D-%E2%80%9C%EF%BC%9A"><span class="nav-number">1.1.7.</span> <span class="nav-text">7. 发明了try()结构 - Try with Resources，能够自动接住异常并关闭资源(所谓的资源需要利用新的java.lang.AutoCloseable接口)，注意以下代码中try后面跟的是”(“不是”{“：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java7-NIO-%E6%96%B0%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">Java7 NIO 新方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%A2%9E%E5%8A%A0java-nio-file-Paths%E7%94%A8%E4%BA%8E%E7%9B%AE%E5%BD%95%E6%93%8D%E4%BD%9C"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.增加java.nio.file.Paths用于目录操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%A2%9E%E5%8A%A0java-nio-file-Files%E5%B7%A5%E5%85%B7%E7%B1%BB%E6%9D%A5%E5%A4%84%E7%90%86%E6%96%87%E4%BB%B6"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.增加java.nio.file.Files工具类来处理文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E7%9B%AE%E5%BD%95%E6%A0%91%E9%81%8D%E5%8E%86"><span class="nav-number">1.2.3.</span> <span class="nav-text">3.目录树遍历</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E4%BD%BF%E7%94%A8WatchService%E6%9D%A5%E7%9B%91%E6%8E%A7%E7%9B%AE%E5%BD%95%EF%BC%8C%E5%8F%98%E5%8C%96%E8%AF%B7%E9%80%9A%E7%9F%A5"><span class="nav-number">1.2.4.</span> <span class="nav-text">4.使用WatchService来监控目录，变化请通知</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java7%E5%B9%B6%E5%8F%91%EF%BC%88JSR166Y%EF%BC%89"><span class="nav-number">1.3.</span> <span class="nav-text">Java7并发（JSR166Y）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Fork-Join%E6%A1%86%E6%9E%B6%EF%BC%8C%E5%A4%A7%E4%BB%BB%E5%8A%A1%E5%88%86%E8%A7%A3%E4%B8%BA%E5%B0%8F%E4%BB%BB%E5%8A%A1"><span class="nav-number">1.3.1.</span> <span class="nav-text">Fork Join框架，大任务分解为小任务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TransferQueue%EF%BC%8CConcurrentLinkedDeque%E7%AD%89%E6%96%B0%E7%B1%BB"><span class="nav-number">1.3.2.</span> <span class="nav-text">TransferQueue，ConcurrentLinkedDeque等新类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ThreadLocalRandom%E7%94%A8%E4%BA%8E%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E6%95%B0"><span class="nav-number">1.3.3.</span> <span class="nav-text">ThreadLocalRandom用于生成随机数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java7-client"><span class="nav-number">1.4.</span> <span class="nav-text">Java7 client</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java7-VM%E6%96%B0%E7%89%B9%E6%80%A7"><span class="nav-number">1.5.</span> <span class="nav-text">Java7 VM新特性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%BC%95%E5%85%A5Garbage-First%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95"><span class="nav-number">1.5.1.</span> <span class="nav-text">1.引入Garbage First回收算法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java8%E6%96%B0%E7%89%B9%E6%80%A7"><span class="nav-number">2.</span> <span class="nav-text">Java8新特性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%8E%A5%E5%8F%A3%E9%BB%98%E8%AE%A4%E6%96%B9%E6%B3%95-%E6%8E%A5%E5%8F%A3%E5%85%81%E8%AE%B8%E6%9C%89%E5%AE%9E%E7%8E%B0%E5%95%A6"><span class="nav-number">2.1.</span> <span class="nav-text">1.接口默认方法[接口允许有实现啦]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">2.2.</span> <span class="nav-text">2.Lambda表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-FunctionalInterface"><span class="nav-number">2.3.</span> <span class="nav-text">3.@FunctionalInterface</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%96%B9%E6%B3%95%E4%B8%8E%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E7%9A%84%E5%BC%95%E7%94%A8"><span class="nav-number">2.3.1.</span> <span class="nav-text">(1)方法与构造函数的引用::</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%86%85%E5%B5%8C%E7%9A%84Functional-Interfaces"><span class="nav-number">2.3.2.</span> <span class="nav-text">(2)内嵌的Functional Interfaces</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%97%B6%E9%97%B4API"><span class="nav-number">2.4.</span> <span class="nav-text">4.时间API</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Clock"><span class="nav-number">2.4.1.</span> <span class="nav-text">(1)Clock</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-TimeZones"><span class="nav-number">2.4.2.</span> <span class="nav-text">(2)TimeZones</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-LocalTime"><span class="nav-number">2.4.3.</span> <span class="nav-text">(3)LocalTime</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-LocalDate"><span class="nav-number">2.4.4.</span> <span class="nav-text">(4)LocalDate</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-LocalDateTime"><span class="nav-number">2.4.5.</span> <span class="nav-text">(5)LocalDateTime</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E6%94%AF%E6%8C%81%E9%87%8D%E5%A4%8D%E6%B3%A8%E8%A7%A3%E4%BA%86%EF%BC%8C%E6%B3%A8%E8%A7%A3%E4%B9%9F%E5%8F%AF%E4%BB%A5%E7%94%A8%E5%9C%A8%E4%BB%BB%E4%BD%95%E5%9C%B0%E6%96%B9%E4%BA%86"><span class="nav-number">2.5.</span> <span class="nav-text">5.支持重复注解了，注解也可以用在任何地方了</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-Nashorn-JavaScript-%E5%BC%95%E6%93%8E"><span class="nav-number">2.6.</span> <span class="nav-text">6.Nashorn JavaScript 引擎</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-StampedLock"><span class="nav-number">2.7.</span> <span class="nav-text">7.StampedLock</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="申艳超"
+      src="/images/shenyanchao.jpeg">
+  <p class="site-author-name" itemprop="name">申艳超</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">133</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">244</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/blueshen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;blueshen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhiyi.shen@gmail.com" title="E-Mail → mailto:zhiyi.shen@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
     </header>
 
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
     
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/blueshen" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
 
   
 
-  
+
+<div class="post-block">
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="https://www.shenyanchao.cn/blog/2014/08/27/java-new-feature/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="申艳超">
-      <meta itemprop="description" content="">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/shenyanchao.jpeg">
+      <meta itemprop="name" content="申艳超">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="申艳超-博客">
+      <meta itemprop="description" content="">
     </span>
 
-    
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Java新特性 | 申艳超-博客">
+      <meta itemprop="description" content="">
+    </span>
       <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java新特性
+        </h1>
 
-        
-        
-          <h2 class="post-title" itemprop="name headline">Java新特性</h2>
-        
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-08-27T14:43:00+08:00">
-                2014-08-27
-              </time>
-            
+      <time title="Created: 2014-08-27 14:43:00" itemprop="dateCreated datePublished" datetime="2014-08-27T14:43:00+08:00">2014-08-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2019-12-17 19:41:25" itemprop="dateModified" datetime="2019-12-17T19:41:25+08:00">2019-12-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+        </span>
+    </span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/blog/2014/08/27/java-new-feature/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/blog/2014/08/27/java-new-feature/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/blog/2014/08/27/java-new-feature/" class="leancloud_visitors" data-flag-title="Java新特性">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-            <span class="post-meta-divider">|</span>
-            <span class="page-pv"><i class="fa fa-file-o"></i>
-            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
-            </span>
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  4,603
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  21
-                </span>
-              
-            </div>
-          
-
-          
+  
+    <span id="/blog/2014/08/27/java-new-feature/" class="post-meta-item leancloud_visitors" data-flag-title="Java新特性" title="Views">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
 
         </div>
       </header>
-    
 
     
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
         <h2 id="Java7新特性"><a href="#Java7新特性" class="headerlink" title="Java7新特性"></a>Java7新特性</h2><h3 id="Java7语法特性"><a href="#Java7语法特性" class="headerlink" title="Java7语法特性"></a>Java7语法特性</h3><p>根据JSR 334，Java7添加了数个语法方面的新特性：</p>
 <h4 id="1-switch可以消化String"><a href="#1-switch可以消化String" class="headerlink" title="1. switch可以消化String"></a>1. switch可以消化String</h4><p>比如：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">switchString</span><span class="params">(String s)</span></span>&#123;</span><br><span class="line">    <span class="keyword">switch</span> (s)&#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">"db"</span>: ...</span><br><span class="line">    <span class="keyword">case</span> <span class="string">"wls"</span>: ...</span><br><span class="line">    <span class="keyword">case</span> <span class="string">"ibm"</span>: ...</span><br><span class="line">    <span class="keyword">case</span> <span class="string">"soa"</span>: ...</span><br><span class="line">    <span class="keyword">case</span> <span class="string">"fa"</span>: ...</span><br><span class="line">    <span class="keyword">default</span>: ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">switchString</span><span class="params">(String s)</span>&#123;</span><br><span class="line">    <span class="keyword">switch</span> (s)&#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;db&quot;</span>: ...</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;wls&quot;</span>: ...</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;ibm&quot;</span>: ...</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;soa&quot;</span>: ...</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;fa&quot;</span>: ...</span><br><span class="line">    <span class="keyword">default</span>: ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+
 <h4 id="2-新的整数字面表达方式-“0b”前缀和”-”连数符，提升程序员的幸福感。"><a href="#2-新的整数字面表达方式-“0b”前缀和”-”连数符，提升程序员的幸福感。" class="headerlink" title="2. 新的整数字面表达方式 - “0b”前缀和”_”连数符，提升程序员的幸福感。"></a>2. 新的整数字面表达方式 - “0b”前缀和”_”连数符，提升程序员的幸福感。</h4><ul>
 <li><p>a. 表示二进制字面值的前缀, 0b:<br> 比如以下三个变量的值相同：</p>
- <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">byte</span> b1 = <span class="number">0b00100001</span>;     <span class="comment">// New</span></span><br><span class="line"><span class="keyword">byte</span> b2 = <span class="number">0x21</span>;        <span class="comment">// Old</span></span><br><span class="line"><span class="keyword">byte</span> b3 = <span class="number">33</span>;        <span class="comment">// Old</span></span><br></pre></td></tr></table></figure>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">byte</span> <span class="variable">b1</span> <span class="operator">=</span> <span class="number">0b00100001</span>;     <span class="comment">// New</span></span><br><span class="line"><span class="type">byte</span> <span class="variable">b2</span> <span class="operator">=</span> <span class="number">0x21</span>;        <span class="comment">// Old</span></span><br><span class="line"><span class="type">byte</span> <span class="variable">b3</span> <span class="operator">=</span> <span class="number">33</span>;        <span class="comment">// Old</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>b. 用下划线连接整数提升其可读性，自身无含义，不可用在数字的起始和末尾：</p>
-   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">long</span> phone_nbr = <span class="number">021_1111_2222</span>;</span><br></pre></td></tr></table></figure>
-</li>
+   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">long</span> <span class="variable">phone_nbr</span> <span class="operator">=</span> <span class="number">021_1111_2222</span>;</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h4 id="3-简化了泛型对象创建的语法-“菱形-new”，以下两个语句等价："><a href="#3-简化了泛型对象创建的语法-“菱形-new”，以下两个语句等价：" class="headerlink" title="3. 简化了泛型对象创建的语法 - “菱形 new”，以下两个语句等价："></a>3. 简化了泛型对象创建的语法 - “菱形 new”，以下两个语句等价：</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;String&gt; al1 = <span class="keyword">new</span> ArrayList&lt;String&gt;();    <span class="comment">// Old</span></span><br><span class="line">ArrayList&lt;String&gt; al2 = <span class="keyword">new</span> ArrayList&lt;&gt;();        <span class="comment">// New</span></span><br></pre></td></tr></table></figure>
+<h4 id="3-简化了泛型对象创建的语法-“菱形-new”，以下两个语句等价："><a href="#3-简化了泛型对象创建的语法-“菱形-new”，以下两个语句等价：" class="headerlink" title="3. 简化了泛型对象创建的语法 - “菱形 new”，以下两个语句等价："></a>3. 简化了泛型对象创建的语法 - “菱形 new”，以下两个语句等价：</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;String&gt; al1 = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;String&gt;();    <span class="comment">// Old</span></span><br><span class="line">ArrayList&lt;String&gt; al2 = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();        <span class="comment">// New</span></span><br></pre></td></tr></table></figure>
+
 <h4 id="4-为所有的reflect操作异常找了个新爸爸-ReflectOperationException，孩儿们是："><a href="#4-为所有的reflect操作异常找了个新爸爸-ReflectOperationException，孩儿们是：" class="headerlink" title="4. 为所有的reflect操作异常找了个新爸爸 - ReflectOperationException，孩儿们是："></a>4. 为所有的reflect操作异常找了个新爸爸 - ReflectOperationException，孩儿们是：</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ClassNotFoundException,</span><br><span class="line">IllegalAccessException,</span><br><span class="line">InstantiationException,</span><br><span class="line">InvocationTargetException,</span><br><span class="line">NoSuchFieldException,</span><br><span class="line">NoSuchMethodException</span><br></pre></td></tr></table></figure>
+
 <h4 id="5-catch有了多重捕获功能，也玩起了包养的勾当，以下代码心领神会："><a href="#5-catch有了多重捕获功能，也玩起了包养的勾当，以下代码心领神会：" class="headerlink" title="5. catch有了多重捕获功能，也玩起了包养的勾当，以下代码心领神会："></a>5. catch有了多重捕获功能，也玩起了包养的勾当，以下代码心领神会：</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    <span class="comment">// code</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">catch</span> (SQLException | IOException ex) &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="6-异常精确重抛-重抛时自动造型为子类，有点半主动制导武器的style："><a href="#6-异常精确重抛-重抛时自动造型为子类，有点半主动制导武器的style：" class="headerlink" title="6. 异常精确重抛 - 重抛时自动造型为子类，有点半主动制导武器的style："></a>6. 异常精确重抛 - 重抛时自动造型为子类，有点半主动制导武器的style：</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> <span class="keyword">throws</span> NoSuchMethodException, NoSuchFieldException</span>&#123;    <span class="comment">// 子类</span></span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        <span class="comment">// code</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">catch</span> (RelectiveOperationException ex)&#123;    <span class="comment">// 父类</span></span><br><span class="line">        <span class="keyword">throws</span> ex;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="7-发明了try-结构-Try-with-Resources，能够自动接住异常并关闭资源-所谓的资源需要利用新的java-lang-AutoCloseable接口-，注意以下代码中try后面跟的是”-“不是”-“："><a href="#7-发明了try-结构-Try-with-Resources，能够自动接住异常并关闭资源-所谓的资源需要利用新的java-lang-AutoCloseable接口-，注意以下代码中try后面跟的是”-“不是”-“：" class="headerlink" title="7. 发明了try()结构 - Try with Resources，能够自动接住异常并关闭资源(所谓的资源需要利用新的java.lang.AutoCloseable接口)，注意以下代码中try后面跟的是”(“不是”{“："></a>7. 发明了try()结构 - Try with Resources，能够自动接住异常并关闭资源(所谓的资源需要利用新的java.lang.AutoCloseable接口)，注意以下代码中try后面跟的是”(“不是”{“：</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>(BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> FileReader(<span class="string">"/home/oracle/temp.txt"</span>)))&#123;</span><br><span class="line">    ... br.readLine() ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="6-异常精确重抛-重抛时自动造型为子类，有点半主动制导武器的style："><a href="#6-异常精确重抛-重抛时自动造型为子类，有点半主动制导武器的style：" class="headerlink" title="6. 异常精确重抛 - 重抛时自动造型为子类，有点半主动制导武器的style："></a>6. 异常精确重抛 - 重抛时自动造型为子类，有点半主动制导武器的style：</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test</span><span class="params">()</span> <span class="keyword">throws</span> NoSuchMethodException, NoSuchFieldException&#123;    <span class="comment">// 子类</span></span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        <span class="comment">// code</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">catch</span> (RelectiveOperationException ex)&#123;    <span class="comment">// 父类</span></span><br><span class="line">        <span class="keyword">throws</span> ex;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="7-发明了try-结构-Try-with-Resources，能够自动接住异常并关闭资源-所谓的资源需要利用新的java-lang-AutoCloseable接口-，注意以下代码中try后面跟的是”-“不是”-“："><a href="#7-发明了try-结构-Try-with-Resources，能够自动接住异常并关闭资源-所谓的资源需要利用新的java-lang-AutoCloseable接口-，注意以下代码中try后面跟的是”-“不是”-“：" class="headerlink" title="7. 发明了try()结构 - Try with Resources，能够自动接住异常并关闭资源(所谓的资源需要利用新的java.lang.AutoCloseable接口)，注意以下代码中try后面跟的是”(“不是”{“："></a>7. 发明了try()结构 - Try with Resources，能够自动接住异常并关闭资源(所谓的资源需要利用新的java.lang.AutoCloseable接口)，注意以下代码中try后面跟的是”(“不是”{“：</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>(<span class="type">BufferedReader</span> <span class="variable">br</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedReader</span>(<span class="keyword">new</span> <span class="title class_">FileReader</span>(<span class="string">&quot;/home/oracle/temp.txt&quot;</span>)))&#123;</span><br><span class="line">    ... br.readLine() ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>try-with-resources语句可以带catch，也可以向上例一样一个catch也没有。</p>
 <h3 id="Java7-NIO-新方法"><a href="#Java7-NIO-新方法" class="headerlink" title="Java7 NIO 新方法"></a>Java7 NIO 新方法</h3><p>整体来说，对IO操作进行了优化，使用起来更加顺手，甚至可以替换apache common-io包。</p>
-<h4 id="1-增加java-nio-file-Paths用于目录操作"><a href="#1-增加java-nio-file-Paths用于目录操作" class="headerlink" title="1.增加java.nio.file.Paths用于目录操作"></a>1.增加<code>java.nio.file.Paths</code>用于目录操作</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Path path = Paths.get(<span class="string">"/home/shenyanchao"</span>, <span class="string">"Desktop"</span>);</span><br><span class="line">   System.out.println(path.toAbsolutePath());</span><br><span class="line">   System.out.println(path.getParent());</span><br><span class="line">   System.out.println(path.getFileSystem().isOpen());</span><br></pre></td></tr></table></figure>
-<h4 id="2-增加java-nio-file-Files工具类来处理文件"><a href="#2-增加java-nio-file-Files工具类来处理文件" class="headerlink" title="2.增加java.nio.file.Files工具类来处理文件"></a>2.增加<code>java.nio.file.Files</code>工具类来处理文件</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Files.copy(src,dest, StandardCopyOption.COPY_ATTRIBUTES,StandardCopyOption.REPLACE_EXISTING);</span><br><span class="line"></span><br><span class="line">Files.move(src,dest,StandardCopyOption.ATOMIC_MOVE);</span><br><span class="line"></span><br><span class="line">Files.createLink(src,dest);</span><br><span class="line">Files.createSymbolicLink(src,dest);</span><br><span class="line">Files.deleteIfExists(dest);</span><br><span class="line"></span><br><span class="line">Files.readAllLines(src);</span><br><span class="line"></span><br><span class="line">Files.createTempFile(src,<span class="string">"aa"</span>,<span class="string">"bb"</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="1-增加java-nio-file-Paths用于目录操作"><a href="#1-增加java-nio-file-Paths用于目录操作" class="headerlink" title="1.增加java.nio.file.Paths用于目录操作"></a>1.增加<code>java.nio.file.Paths</code>用于目录操作</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Path</span> <span class="variable">path</span> <span class="operator">=</span> Paths.get(<span class="string">&quot;/home/shenyanchao&quot;</span>, <span class="string">&quot;Desktop&quot;</span>);</span><br><span class="line">   System.out.println(path.toAbsolutePath());</span><br><span class="line">   System.out.println(path.getParent());</span><br><span class="line">   System.out.println(path.getFileSystem().isOpen());</span><br></pre></td></tr></table></figure>
+<h4 id="2-增加java-nio-file-Files工具类来处理文件"><a href="#2-增加java-nio-file-Files工具类来处理文件" class="headerlink" title="2.增加java.nio.file.Files工具类来处理文件"></a>2.增加<code>java.nio.file.Files</code>工具类来处理文件</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Files.copy(src,dest, StandardCopyOption.COPY_ATTRIBUTES,StandardCopyOption.REPLACE_EXISTING);</span><br><span class="line"></span><br><span class="line">Files.move(src,dest,StandardCopyOption.ATOMIC_MOVE);</span><br><span class="line"></span><br><span class="line">Files.createLink(src,dest);</span><br><span class="line">Files.createSymbolicLink(src,dest);</span><br><span class="line">Files.deleteIfExists(dest);</span><br><span class="line"></span><br><span class="line">Files.readAllLines(src);</span><br><span class="line"></span><br><span class="line">Files.createTempFile(src,<span class="string">&quot;aa&quot;</span>,<span class="string">&quot;bb&quot;</span>);</span><br></pre></td></tr></table></figure>
 <h4 id="3-目录树遍历"><a href="#3-目录树遍历" class="headerlink" title="3.目录树遍历"></a>3.目录树遍历</h4><p>使用<code>FileVisitor</code>来实现访问者模式。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">preVisitDirectory(T dir, BasicFileAttributes attrs);</span><br><span class="line">visitFile(T dir, BasicFileAttributes attrs);</span><br><span class="line">visitFileFailed(T dir, IOException exc);</span><br><span class="line">postVisitDirectory(T dir, IOException exc);</span><br></pre></td></tr></table></figure>
-<h4 id="4-使用WatchService来监控目录，变化请通知"><a href="#4-使用WatchService来监控目录，变化请通知" class="headerlink" title="4.使用WatchService来监控目录，变化请通知"></a>4.使用WatchService来监控目录，变化请通知</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">WatchService watchService = FileSystems.getDefault().newWatchService();</span><br><span class="line">Path path = Paths.get(<span class="string">"/home/shenyanchao/Documents"</span>);</span><br><span class="line">WatchKey watchKey = path.register(watchService, StandardWatchEventKinds.ENTRY_CREATE,</span><br><span class="line">        StandardWatchEventKinds.ENTRY_DELETE, StandardWatchEventKinds.ENTRY_MODIFY);</span><br><span class="line"><span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">    List&lt;WatchEvent&lt;?&gt;&gt; watchEvents = watchService.take().pollEvents();</span><br><span class="line">    <span class="keyword">for</span> (WatchEvent&lt;?&gt; watchEvent : watchEvents) &#123;</span><br><span class="line">        System.out.printf(<span class="string">"[%s]文件发生了[%s]事件。%n"</span>, watchEvent.context(), watchEvent.kind());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">boolean</span> valid = watchKey.reset();</span><br><span class="line">    <span class="keyword">if</span> (!valid)&#123;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="4-使用WatchService来监控目录，变化请通知"><a href="#4-使用WatchService来监控目录，变化请通知" class="headerlink" title="4.使用WatchService来监控目录，变化请通知"></a>4.使用WatchService来监控目录，变化请通知</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">WatchService</span> <span class="variable">watchService</span> <span class="operator">=</span> FileSystems.getDefault().newWatchService();</span><br><span class="line"><span class="type">Path</span> <span class="variable">path</span> <span class="operator">=</span> Paths.get(<span class="string">&quot;/home/shenyanchao/Documents&quot;</span>);</span><br><span class="line"><span class="type">WatchKey</span> <span class="variable">watchKey</span> <span class="operator">=</span> path.register(watchService, StandardWatchEventKinds.ENTRY_CREATE,</span><br><span class="line">        StandardWatchEventKinds.ENTRY_DELETE, StandardWatchEventKinds.ENTRY_MODIFY);</span><br><span class="line"><span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">    List&lt;WatchEvent&lt;?&gt;&gt; watchEvents = watchService.take().pollEvents();</span><br><span class="line">    <span class="keyword">for</span> (WatchEvent&lt;?&gt; watchEvent : watchEvents) &#123;</span><br><span class="line">        System.out.printf(<span class="string">&quot;[%s]文件发生了[%s]事件。%n&quot;</span>, watchEvent.context(), watchEvent.kind());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">boolean</span> <span class="variable">valid</span> <span class="operator">=</span> watchKey.reset();</span><br><span class="line">    <span class="keyword">if</span> (!valid)&#123;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="Java7并发（JSR166Y）"><a href="#Java7并发（JSR166Y）" class="headerlink" title="Java7并发（JSR166Y）"></a>Java7并发（JSR166Y）</h3><h4 id="Fork-Join框架，大任务分解为小任务"><a href="#Fork-Join框架，大任务分解为小任务" class="headerlink" title="Fork Join框架，大任务分解为小任务"></a>Fork Join框架，大任务分解为小任务</h4><p>通过ForkJoinPool，ForkJoinTask来实现的。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Fibonacci</span> <span class="keyword">extends</span> <span class="title">RecursiveTask</span>&lt;<span class="title">Integer</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> n;</span><br><span class="line"></span><br><span class="line">    Fibonacci(<span class="keyword">int</span> n) &#123;</span><br><span class="line">        <span class="keyword">this</span>.n = n;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> Integer <span class="title">compute</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (n &lt;= <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> n;</span><br><span class="line">        Fibonacci f1 = <span class="keyword">new</span> Fibonacci(n - <span class="number">1</span>);</span><br><span class="line">        f1.fork();</span><br><span class="line">        Fibonacci f2 = <span class="keyword">new</span> Fibonacci(n - <span class="number">2</span>);</span><br><span class="line">        f2.fork();</span><br><span class="line">        <span class="keyword">return</span> f1.join() + f2.join();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Fibonacci fibonacci = <span class="keyword">new</span> Fibonacci(<span class="number">4</span>);</span><br><span class="line">        System.out.println(fibonacci.compute());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Fibonacci</span> <span class="keyword">extends</span> <span class="title class_">RecursiveTask</span>&lt;Integer&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> <span class="type">int</span> n;</span><br><span class="line"></span><br><span class="line">    Fibonacci(<span class="type">int</span> n) &#123;</span><br><span class="line">        <span class="built_in">this</span>.n = n;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> Integer <span class="title function_">compute</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (n &lt;= <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> n;</span><br><span class="line">        <span class="type">Fibonacci</span> <span class="variable">f1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Fibonacci</span>(n - <span class="number">1</span>);</span><br><span class="line">        f1.fork();</span><br><span class="line">        <span class="type">Fibonacci</span> <span class="variable">f2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Fibonacci</span>(n - <span class="number">2</span>);</span><br><span class="line">        f2.fork();</span><br><span class="line">        <span class="keyword">return</span> f1.join() + f2.join();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Fibonacci</span> <span class="variable">fibonacci</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Fibonacci</span>(<span class="number">4</span>);</span><br><span class="line">        System.out.println(fibonacci.compute());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h4 id="TransferQueue，ConcurrentLinkedDeque等新类"><a href="#TransferQueue，ConcurrentLinkedDeque等新类" class="headerlink" title="TransferQueue，ConcurrentLinkedDeque等新类"></a>TransferQueue，ConcurrentLinkedDeque等新类</h4><p>TransferQueue是一个继承了 BlockingQueue的接口，并且增加若干新的方法。</p>
 <h4 id="ThreadLocalRandom用于生成随机数"><a href="#ThreadLocalRandom用于生成随机数" class="headerlink" title="ThreadLocalRandom用于生成随机数"></a>ThreadLocalRandom用于生成随机数</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ThreadLocalRandom.current().nextInt (...)</span><br></pre></td></tr></table></figure>
 <p>Random是线程安全的，但速度较慢。而这个是快速的，但是速度很快。适用于线程内部的使用。</p>
 <h3 id="Java7-client"><a href="#Java7-client" class="headerlink" title="Java7 client"></a>Java7 client</h3><p>诸如更新了很多swing显示相关的api.<br>更好的支持linux fonts</p>
 <h3 id="Java7-VM新特性"><a href="#Java7-VM新特性" class="headerlink" title="Java7 VM新特性"></a>Java7 VM新特性</h3><h4 id="1-引入Garbage-First回收算法"><a href="#1-引入Garbage-First回收算法" class="headerlink" title="1.引入Garbage First回收算法"></a>1.引入Garbage First回收算法</h4><p>Garbage First简称G1，它的目标是要做到尽量减少GC所导致的应用暂停的时间，让应用达到准实时的效果，同时保持JVM堆空间的利用率。用于替代CMS</p>
 <hr>
-<p>参考文档：<a href="http://www.slideshare.net/boulderjug/55-things-in-java-7" target="_blank" rel="noopener">http://www.slideshare.net/boulderjug/55-things-in-java-7</a></p>
+<p>参考文档：<a target="_blank" rel="noopener" href="http://www.slideshare.net/boulderjug/55-things-in-java-7">http://www.slideshare.net/boulderjug/55-things-in-java-7</a></p>
 <h2 id="Java8新特性"><a href="#Java8新特性" class="headerlink" title="Java8新特性"></a>Java8新特性</h2><h3 id="1-接口默认方法-接口允许有实现啦"><a href="#1-接口默认方法-接口允许有实现啦" class="headerlink" title="1.接口默认方法[接口允许有实现啦]"></a>1.接口默认方法[接口允许有实现啦]</h3><p>Java 8允许我们给接口添加一个非抽象的方法实现，只需要使用 <code>default</code>关键字即可，这个特征又叫做扩展方法。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Formula</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">double</span> <span class="title">calculate</span><span class="params">(<span class="keyword">int</span> a)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">default</span> <span class="keyword">double</span> <span class="title">sqrt</span><span class="params">(<span class="keyword">int</span> a)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">return</span> Math.sqrt(a);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">Formula</span> &#123;</span><br><span class="line">	<span class="type">double</span> <span class="title function_">calculate</span><span class="params">(<span class="type">int</span> a)</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">default</span> <span class="type">double</span> <span class="title function_">sqrt</span><span class="params">(<span class="type">int</span> a)</span> &#123;</span><br><span class="line">    	<span class="keyword">return</span> Math.sqrt(a);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="2-Lambda表达式"><a href="#2-Lambda表达式" class="headerlink" title="2.Lambda表达式"></a>2.Lambda表达式</h3><p>据说借鉴了各种动态语言的新特性，比如scala，python<br>首先看看在老版本的Java中是如何排列字符串的：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; names = Arrays.asList(<span class="string">"peter"</span>, <span class="string">"anna"</span>, <span class="string">"mike"</span>, <span class="string">"xenia"</span>);</span><br><span class="line"></span><br><span class="line">Collections.sort(names, <span class="keyword">new</span> Comparator&lt;String&gt;() &#123;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(String a, String b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> b.compareTo(a);</span><br><span class="line">&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; names = Arrays.asList(<span class="string">&quot;peter&quot;</span>, <span class="string">&quot;anna&quot;</span>, <span class="string">&quot;mike&quot;</span>, <span class="string">&quot;xenia&quot;</span>);</span><br><span class="line"></span><br><span class="line">Collections.sort(names, <span class="keyword">new</span> <span class="title class_">Comparator</span>&lt;String&gt;() &#123;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(String a, String b)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> b.compareTo(a);</span><br><span class="line">&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>Java 8 提供了更为简介的语法，lambda表达式：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Collections.sort(names, (String a, String b) -&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> b.compareTo(a);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
 <p>可以更短：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Collections.sort(names, (String a, String b) -&gt; b.compareTo(a));</span><br></pre></td></tr></table></figure>
 <p>再短：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Collections.sort(names, (a, b) -&gt; b.compareTo(a));</span><br></pre></td></tr></table></figure>
 <h3 id="3-FunctionalInterface"><a href="#3-FunctionalInterface" class="headerlink" title="3.@FunctionalInterface"></a>3.@FunctionalInterface</h3><p>这是新引入的一个注解，用于支持lambda。用<code>FunctionalInterface</code>标识的接口，必须只包含1个抽象方法。否则会编译报错的。因为如果有多个抽象方法，lambda就无法知道对应哪个方法了。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Converter</span>&lt;<span class="title">F</span>, <span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function">T <span class="title">convert</span><span class="params">(F from)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Converter&lt;String, Integer&gt; converter = (from) -&gt; Integer.valueOf(from);</span><br><span class="line">Integer converted = converter.convert(<span class="string">"123"</span>);</span><br><span class="line">System.out.println(converted);    <span class="comment">// 123</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">Converter</span>&lt;F, T&gt; &#123;</span><br><span class="line">    T <span class="title function_">convert</span><span class="params">(F from)</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Converter&lt;String, Integer&gt; converter = (from) -&gt; Integer.valueOf(from);</span><br><span class="line"><span class="type">Integer</span> <span class="variable">converted</span> <span class="operator">=</span> converter.convert(<span class="string">&quot;123&quot;</span>);</span><br><span class="line">System.out.println(converted);    <span class="comment">// 123</span></span><br></pre></td></tr></table></figure>
+
 <p>例子中，<code>(from) -&gt; Integer.valueOf(from)</code>这个lambda表达式指出了convert方法的具体实现。</p>
 <h4 id="1-方法与构造函数的引用"><a href="#1-方法与构造函数的引用" class="headerlink" title="(1)方法与构造函数的引用::"></a>(1)方法与构造函数的引用::</h4><p>Java 8 允许你使用 :: 关键字来传递方法或者构造函数引用,下面的代码展示了如何引用一个静态方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Converter&lt;String, Integer&gt; converter = Integer::valueOf;</span><br><span class="line">Integer converted = converter.convert(<span class="string">"123"</span>);</span><br><span class="line">System.out.println(converted);   <span class="comment">// 123</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Converter&lt;String, Integer&gt; converter = Integer::valueOf;</span><br><span class="line"><span class="type">Integer</span> <span class="variable">converted</span> <span class="operator">=</span> converter.convert(<span class="string">&quot;123&quot;</span>);</span><br><span class="line">System.out.println(converted);   <span class="comment">// 123</span></span><br></pre></td></tr></table></figure>
+
 <p>当然也可以引用一个对象的方法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">converter = something::startsWith;</span><br><span class="line">String converted = converter.convert(<span class="string">"Java"</span>);</span><br><span class="line">System.out.println(converted);    <span class="comment">// "J"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">converter = something::startsWith;</span><br><span class="line"><span class="type">String</span> <span class="variable">converted</span> <span class="operator">=</span> converter.convert(<span class="string">&quot;Java&quot;</span>);</span><br><span class="line">System.out.println(converted);    <span class="comment">// &quot;J&quot;</span></span><br></pre></td></tr></table></figure>
+
 <p>那么如何引用构造函数呢？</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    String firstName;</span><br><span class="line">    String lastName;</span><br><span class="line"></span><br><span class="line">    Person() &#123;&#125;</span><br><span class="line"></span><br><span class="line">    Person(String firstName, String lastName) &#123;</span><br><span class="line">        <span class="keyword">this</span>.firstName = firstName;</span><br><span class="line">        <span class="keyword">this</span>.lastName = lastName;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    String firstName;</span><br><span class="line">    String lastName;</span><br><span class="line"></span><br><span class="line">    Person() &#123;&#125;</span><br><span class="line"></span><br><span class="line">    Person(String firstName, String lastName) &#123;</span><br><span class="line">        <span class="built_in">this</span>.firstName = firstName;</span><br><span class="line">        <span class="built_in">this</span>.lastName = lastName;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这是一个pojo类。下面创建一个用于创建person对象的FunctionalInterface：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">PersonFactory</span>&lt;<span class="title">P</span> <span class="keyword">extends</span> <span class="title">Person</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function">P <span class="title">create</span><span class="params">(String firstName, String lastName)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">PersonFactory</span>&lt;P <span class="keyword">extends</span> <span class="title class_">Person</span>&gt; &#123;</span><br><span class="line">    P <span class="title function_">create</span><span class="params">(String firstName, String lastName)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这里我们使用构造函数引用来将他们关联起来，而不是实现一个完整的工厂：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PersonFactory&lt;Person&gt; personFactory = Person::<span class="keyword">new</span>;</span><br><span class="line">Person person = personFactory.create(<span class="string">"Peter"</span>, <span class="string">"Parker"</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PersonFactory&lt;Person&gt; personFactory = Person::<span class="keyword">new</span>;</span><br><span class="line"><span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> personFactory.create(<span class="string">&quot;Peter&quot;</span>, <span class="string">&quot;Parker&quot;</span>);</span><br></pre></td></tr></table></figure>
 <p>我们只需要使用 Person::new 来获取Person类构造函数的引用，Java编译器会自动根据PersonFactory.create方法的签名来选择合适的构造函数。</p>
 <h4 id="2-内嵌的Functional-Interfaces"><a href="#2-内嵌的Functional-Interfaces" class="headerlink" title="(2)内嵌的Functional Interfaces"></a>(2)内嵌的Functional Interfaces</h4><p>上面提到的Comparator接口，为什么可以使用lambda表达式，正是因为在java 8中，被定义为了FunctionalInterface。这些已经存在的接口是通过添加@FunctionalInterface注解来支持的。</p>
 <p>另外，java 8 api还提供了丰富的接口。这些接口貌似都是从Google Guava包里得到的提示，命名甚至都是一样的。</p>
@@ -504,47 +346,54 @@
 <li>Predicates</li>
 </ul>
 <p>Predicate 接口只有一个参数，返回boolean类型。该接口包含多种默认方法来将Predicate组合成其他复杂的逻辑（比如：与，或，非）：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Predicate&lt;String&gt; predicate = (s) -&gt; s.length() &gt; <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">predicate.test(<span class="string">"foo"</span>);              <span class="comment">// true</span></span><br><span class="line">predicate.negate().test(<span class="string">"foo"</span>);     <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line">Predicate&lt;Boolean&gt; nonNull = Objects::nonNull;</span><br><span class="line">Predicate&lt;Boolean&gt; isNull = Objects::isNull;</span><br><span class="line"></span><br><span class="line">Predicate&lt;String&gt; isEmpty = String::isEmpty;</span><br><span class="line">Predicate&lt;String&gt; isNotEmpty = isEmpty.negate();</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Predicate&lt;String&gt; predicate = (s) -&gt; s.length() &gt; <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">predicate.test(<span class="string">&quot;foo&quot;</span>);              <span class="comment">// true</span></span><br><span class="line">predicate.negate().test(<span class="string">&quot;foo&quot;</span>);     <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line">Predicate&lt;Boolean&gt; nonNull = Objects::nonNull;</span><br><span class="line">Predicate&lt;Boolean&gt; isNull = Objects::isNull;</span><br><span class="line"></span><br><span class="line">Predicate&lt;String&gt; isEmpty = String::isEmpty;</span><br><span class="line">Predicate&lt;String&gt; isNotEmpty = isEmpty.negate();</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>Function</li>
 </ul>
 <p>Function 接口有一个参数并且返回一个结果，并附带了一些可以和其他函数组合的默认方法（compose, andThen）：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Function&lt;String, Integer&gt; toInteger = Integer::valueOf;</span><br><span class="line">Function&lt;String, String&gt; backToString = toInteger.andThen(String::valueOf);</span><br><span class="line"></span><br><span class="line">backToString.apply(<span class="string">"123"</span>);     <span class="comment">// "123"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Function&lt;String, Integer&gt; toInteger = Integer::valueOf;</span><br><span class="line">Function&lt;String, String&gt; backToString = toInteger.andThen(String::valueOf);</span><br><span class="line"></span><br><span class="line">backToString.apply(<span class="string">&quot;123&quot;</span>);     <span class="comment">// &quot;123&quot;</span></span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>Supplier</li>
 </ul>
 <p>Supplier 接口返回一个给定类型的泛型，和Function接口不同的是该接口不接受任何参数.</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Supplier&lt;Person&gt; personSupplier = Person::<span class="keyword">new</span>;</span><br><span class="line">personSupplier.get();   <span class="comment">// new Person</span></span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>Consumer</li>
 </ul>
 <p>Consumer在一个输入参数上做一些操作。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Consumer&lt;Person&gt; greeter = (p) -&gt; System.out.println(<span class="string">"Hello, "</span> + p.firstName);</span><br><span class="line">greeter.accept(<span class="keyword">new</span> Person(<span class="string">"Luke"</span>, <span class="string">"Skywalker"</span>));</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Consumer&lt;Person&gt; greeter = (p) -&gt; System.out.println(<span class="string">&quot;Hello, &quot;</span> + p.firstName);</span><br><span class="line">greeter.accept(<span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;Luke&quot;</span>, <span class="string">&quot;Skywalker&quot;</span>));</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>Comparator</li>
 </ul>
 <p>Comparator是早就存在的，不过java 8提供了一些默认方法。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Comparator&lt;Person&gt; comparator = (p1, p2) -&gt; p1.firstName.compareTo(p2.firstName);</span><br><span class="line"></span><br><span class="line">Person p1 = <span class="keyword">new</span> Person(<span class="string">"John"</span>, <span class="string">"Doe"</span>);</span><br><span class="line">Person p2 = <span class="keyword">new</span> Person(<span class="string">"Alice"</span>, <span class="string">"Wonderland"</span>);</span><br><span class="line"></span><br><span class="line">comparator.compare(p1, p2);             <span class="comment">// &gt; 0</span></span><br><span class="line">comparator.reversed().compare(p1, p2);  <span class="comment">// &lt; 0</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Comparator&lt;Person&gt; comparator = (p1, p2) -&gt; p1.firstName.compareTo(p2.firstName);</span><br><span class="line"></span><br><span class="line"><span class="type">Person</span> <span class="variable">p1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;John&quot;</span>, <span class="string">&quot;Doe&quot;</span>);</span><br><span class="line"><span class="type">Person</span> <span class="variable">p2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;Alice&quot;</span>, <span class="string">&quot;Wonderland&quot;</span>);</span><br><span class="line"></span><br><span class="line">comparator.compare(p1, p2);             <span class="comment">// &gt; 0</span></span><br><span class="line">comparator.reversed().compare(p1, p2);  <span class="comment">// &lt; 0</span></span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>Optional</li>
 </ul>
 <p>Optional其实并不是一个FunctionInterface，而是一个用来避免<code>NullPointerException</code>的工具。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Optional&lt;String&gt; optional = Optional.of(<span class="string">"bam"</span>);</span><br><span class="line"></span><br><span class="line">optional.isPresent();           <span class="comment">// true</span></span><br><span class="line">optional.get();                 <span class="comment">// "bam"</span></span><br><span class="line">optional.orElse(<span class="string">"fallback"</span>);    <span class="comment">// "bam"</span></span><br><span class="line"></span><br><span class="line">optional.ifPresent((s) -&gt; System.out.println(s.charAt(<span class="number">0</span>)));     <span class="comment">// "b"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Optional&lt;String&gt; optional = Optional.of(<span class="string">&quot;bam&quot;</span>);</span><br><span class="line"></span><br><span class="line">optional.isPresent();           <span class="comment">// true</span></span><br><span class="line">optional.get();                 <span class="comment">// &quot;bam&quot;</span></span><br><span class="line">optional.orElse(<span class="string">&quot;fallback&quot;</span>);    <span class="comment">// &quot;bam&quot;</span></span><br><span class="line"></span><br><span class="line">optional.ifPresent((s) -&gt; System.out.println(s.charAt(<span class="number">0</span>)));     <span class="comment">// &quot;b&quot;</span></span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>Stream</li>
 </ul>
 <p><code>java.util.stream.Stream</code>代表了能在其上做一系列操作的一串元素。在java 8中，Collections被扩展了。我们可以通过<code>Collections.stream()</code>或者<code>Collections.parallelStream()</code>来创建Stream。<br>首先，新建一个数组。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; stringCollection = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">stringCollection.add(<span class="string">"ddd2"</span>);</span><br><span class="line">stringCollection.add(<span class="string">"aaa2"</span>);</span><br><span class="line">stringCollection.add(<span class="string">"bbb1"</span>);</span><br><span class="line">stringCollection.add(<span class="string">"aaa1"</span>);</span><br><span class="line">stringCollection.add(<span class="string">"bbb3"</span>);</span><br><span class="line">stringCollection.add(<span class="string">"ccc"</span>);</span><br><span class="line">stringCollection.add(<span class="string">"bbb2"</span>);</span><br><span class="line">stringCollection.add(<span class="string">"ddd1"</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; stringCollection = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">stringCollection.add(<span class="string">&quot;ddd2&quot;</span>);</span><br><span class="line">stringCollection.add(<span class="string">&quot;aaa2&quot;</span>);</span><br><span class="line">stringCollection.add(<span class="string">&quot;bbb1&quot;</span>);</span><br><span class="line">stringCollection.add(<span class="string">&quot;aaa1&quot;</span>);</span><br><span class="line">stringCollection.add(<span class="string">&quot;bbb3&quot;</span>);</span><br><span class="line">stringCollection.add(<span class="string">&quot;ccc&quot;</span>);</span><br><span class="line">stringCollection.add(<span class="string">&quot;bbb2&quot;</span>);</span><br><span class="line">stringCollection.add(<span class="string">&quot;ddd1&quot;</span>);</span><br></pre></td></tr></table></figure>
 <p>具体使用如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">stringCollection</span><br><span class="line">    .stream()</span><br><span class="line">    .sorted()</span><br><span class="line">    .filter((s) -&gt; s.startsWith(<span class="string">"a"</span>))</span><br><span class="line">    .forEach(System.out::println);</span><br><span class="line"></span><br><span class="line"><span class="comment">// "aaa1", "aaa2"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">stringCollection</span><br><span class="line">    .stream()</span><br><span class="line">    .sorted()</span><br><span class="line">    .filter((s) -&gt; s.startsWith(<span class="string">&quot;a&quot;</span>))</span><br><span class="line">    .forEach(System.out::println);</span><br><span class="line"></span><br><span class="line"><span class="comment">// &quot;aaa1&quot;, &quot;aaa2&quot;</span></span><br></pre></td></tr></table></figure>
 <p>map()函数可以把每个值转换为另外的值。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">stringCollection</span><br><span class="line">    .stream()</span><br><span class="line">    .map(String::toUpperCase)</span><br><span class="line">    .sorted((a, b) -&gt; b.compareTo(a))</span><br><span class="line">    .forEach(System.out::println);</span><br><span class="line"></span><br><span class="line"><span class="comment">// "DDD2", "DDD1", "CCC", "BBB3", "BBB2", "AAA2", "AAA1"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">stringCollection</span><br><span class="line">    .stream()</span><br><span class="line">    .map(String::toUpperCase)</span><br><span class="line">    .sorted((a, b) -&gt; b.compareTo(a))</span><br><span class="line">    .forEach(System.out::println);</span><br><span class="line"></span><br><span class="line"><span class="comment">// &quot;DDD2&quot;, &quot;DDD1&quot;, &quot;CCC&quot;, &quot;BBB3&quot;, &quot;BBB2&quot;, &quot;AAA2&quot;, &quot;AAA1&quot;</span></span><br></pre></td></tr></table></figure>
 <p>另外提供有各种match方法。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">boolean</span> anyStartsWithA =</span><br><span class="line">    stringCollection</span><br><span class="line">        .stream()</span><br><span class="line">        .anyMatch((s) -&gt; s.startsWith(<span class="string">"a"</span>));</span><br><span class="line"></span><br><span class="line">System.out.println(anyStartsWithA);      <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">boolean</span> allStartsWithA =</span><br><span class="line">    stringCollection</span><br><span class="line">        .stream()</span><br><span class="line">        .allMatch((s) -&gt; s.startsWith(<span class="string">"a"</span>));</span><br><span class="line"></span><br><span class="line">System.out.println(allStartsWithA);      <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">boolean</span> noneStartsWithZ =</span><br><span class="line">    stringCollection</span><br><span class="line">        .stream()</span><br><span class="line">        .noneMatch((s) -&gt; s.startsWith(<span class="string">"z"</span>));</span><br><span class="line"></span><br><span class="line">System.out.println(noneStartsWithZ);      <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">boolean</span> <span class="variable">anyStartsWithA</span> <span class="operator">=</span></span><br><span class="line">    stringCollection</span><br><span class="line">        .stream()</span><br><span class="line">        .anyMatch((s) -&gt; s.startsWith(<span class="string">&quot;a&quot;</span>));</span><br><span class="line"></span><br><span class="line">System.out.println(anyStartsWithA);      <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="type">boolean</span> <span class="variable">allStartsWithA</span> <span class="operator">=</span></span><br><span class="line">    stringCollection</span><br><span class="line">        .stream()</span><br><span class="line">        .allMatch((s) -&gt; s.startsWith(<span class="string">&quot;a&quot;</span>));</span><br><span class="line"></span><br><span class="line">System.out.println(allStartsWithA);      <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"><span class="type">boolean</span> <span class="variable">noneStartsWithZ</span> <span class="operator">=</span></span><br><span class="line">    stringCollection</span><br><span class="line">        .stream()</span><br><span class="line">        .noneMatch((s) -&gt; s.startsWith(<span class="string">&quot;z&quot;</span>));</span><br><span class="line"></span><br><span class="line">System.out.println(noneStartsWithZ);      <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
 <p>count()方法返回的是一个值。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">long</span> startsWithB =</span><br><span class="line">    stringCollection</span><br><span class="line">        .stream()</span><br><span class="line">        .filter((s) -&gt; s.startsWith(<span class="string">"b"</span>))</span><br><span class="line">        .count();</span><br><span class="line"></span><br><span class="line">System.out.println(startsWithB);    <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">long</span> <span class="variable">startsWithB</span> <span class="operator">=</span></span><br><span class="line">    stringCollection</span><br><span class="line">        .stream()</span><br><span class="line">        .filter((s) -&gt; s.startsWith(<span class="string">&quot;b&quot;</span>))</span><br><span class="line">        .count();</span><br><span class="line"></span><br><span class="line">System.out.println(startsWithB);    <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
 <p>reduce则进行了归一化处理：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Optional&lt;String&gt; reduced =</span><br><span class="line">    stringCollection</span><br><span class="line">        .stream()</span><br><span class="line">        .sorted()</span><br><span class="line">        .reduce((s1, s2) -&gt; s1 + <span class="string">"#"</span> + s2);</span><br><span class="line"></span><br><span class="line">reduced.ifPresent(System.out::println);</span><br><span class="line"><span class="comment">// "aaa1#aaa2#bbb1#bbb2#bbb3#ccc#ddd1#ddd2"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Optional&lt;String&gt; reduced =</span><br><span class="line">    stringCollection</span><br><span class="line">        .stream()</span><br><span class="line">        .sorted()</span><br><span class="line">        .reduce((s1, s2) -&gt; s1 + <span class="string">&quot;#&quot;</span> + s2);</span><br><span class="line"></span><br><span class="line">reduced.ifPresent(System.out::println);</span><br><span class="line"><span class="comment">// &quot;aaa1#aaa2#bbb1#bbb2#bbb3#ccc#ddd1#ddd2&quot;</span></span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>ParallelStream</li>
 </ul>
@@ -553,25 +402,32 @@
 <li>Map</li>
 </ul>
 <p>Map并不支持Stream，不过Java 8 提供了各种有用的新方法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;Integer, String&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">    map.putIfAbsent(i, <span class="string">"val"</span> + i);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">map.forEach((id, val) -&gt; System.out.println(val));</span><br><span class="line"></span><br><span class="line">map.computeIfPresent(<span class="number">3</span>, (num, val) -&gt; val + num);</span><br><span class="line">map.get(<span class="number">3</span>);             <span class="comment">// val33</span></span><br><span class="line"></span><br><span class="line">map.computeIfPresent(<span class="number">9</span>, (num, val) -&gt; <span class="keyword">null</span>);</span><br><span class="line">map.containsKey(<span class="number">9</span>);     <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line">map.computeIfAbsent(<span class="number">23</span>, num -&gt; <span class="string">"val"</span> + num);</span><br><span class="line">map.containsKey(<span class="number">23</span>);    <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line">map.computeIfAbsent(<span class="number">3</span>, num -&gt; <span class="string">"bam"</span>);</span><br><span class="line">map.get(<span class="number">3</span>);             <span class="comment">// val33</span></span><br><span class="line"></span><br><span class="line">map.remove(<span class="number">3</span>, <span class="string">"val3"</span>);</span><br><span class="line">map.get(<span class="number">3</span>);             <span class="comment">// val33</span></span><br><span class="line"></span><br><span class="line">map.remove(<span class="number">3</span>, <span class="string">"val33"</span>);</span><br><span class="line">map.get(<span class="number">3</span>);             <span class="comment">// null</span></span><br><span class="line"></span><br><span class="line">map.getOrDefault(<span class="number">42</span>, <span class="string">"not found"</span>);  <span class="comment">// not found</span></span><br><span class="line"></span><br><span class="line">map.merge(<span class="number">9</span>, <span class="string">"val9"</span>, (value, newValue) -&gt; value.concat(newValue));</span><br><span class="line">map.get(<span class="number">9</span>);             <span class="comment">// val9</span></span><br><span class="line"></span><br><span class="line">map.merge(<span class="number">9</span>, <span class="string">"concat"</span>, (value, newValue) -&gt; value.concat(newValue));</span><br><span class="line">map.get(<span class="number">9</span>);             <span class="comment">// val9concat</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;Integer, String&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">    map.putIfAbsent(i, <span class="string">&quot;val&quot;</span> + i);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">map.forEach((id, val) -&gt; System.out.println(val));</span><br><span class="line"></span><br><span class="line">map.computeIfPresent(<span class="number">3</span>, (num, val) -&gt; val + num);</span><br><span class="line">map.get(<span class="number">3</span>);             <span class="comment">// val33</span></span><br><span class="line"></span><br><span class="line">map.computeIfPresent(<span class="number">9</span>, (num, val) -&gt; <span class="literal">null</span>);</span><br><span class="line">map.containsKey(<span class="number">9</span>);     <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line">map.computeIfAbsent(<span class="number">23</span>, num -&gt; <span class="string">&quot;val&quot;</span> + num);</span><br><span class="line">map.containsKey(<span class="number">23</span>);    <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line">map.computeIfAbsent(<span class="number">3</span>, num -&gt; <span class="string">&quot;bam&quot;</span>);</span><br><span class="line">map.get(<span class="number">3</span>);             <span class="comment">// val33</span></span><br><span class="line"></span><br><span class="line">map.remove(<span class="number">3</span>, <span class="string">&quot;val3&quot;</span>);</span><br><span class="line">map.get(<span class="number">3</span>);             <span class="comment">// val33</span></span><br><span class="line"></span><br><span class="line">map.remove(<span class="number">3</span>, <span class="string">&quot;val33&quot;</span>);</span><br><span class="line">map.get(<span class="number">3</span>);             <span class="comment">// null</span></span><br><span class="line"></span><br><span class="line">map.getOrDefault(<span class="number">42</span>, <span class="string">&quot;not found&quot;</span>);  <span class="comment">// not found</span></span><br><span class="line"></span><br><span class="line">map.merge(<span class="number">9</span>, <span class="string">&quot;val9&quot;</span>, (value, newValue) -&gt; value.concat(newValue));</span><br><span class="line">map.get(<span class="number">9</span>);             <span class="comment">// val9</span></span><br><span class="line"></span><br><span class="line">map.merge(<span class="number">9</span>, <span class="string">&quot;concat&quot;</span>, (value, newValue) -&gt; value.concat(newValue));</span><br><span class="line">map.get(<span class="number">9</span>);             <span class="comment">// val9concat</span></span><br></pre></td></tr></table></figure>
+
 <h3 id="4-时间API"><a href="#4-时间API" class="headerlink" title="4.时间API"></a>4.时间API</h3><p>Java8更新了Date API,这个新的api与joda-time类似。</p>
 <h4 id="1-Clock"><a href="#1-Clock" class="headerlink" title="(1)Clock"></a>(1)Clock</h4><p>Clock类提供了访问当前日期和时间的方法，Clock是时区敏感的，可以用来取代 System.currentTimeMillis() 来获取当前的微秒数。某一个特定的时间点也可以使用Instant类来表示，Instant类也可以用来创建老的java.util.Date对象。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Clock clock = Clock.systemDefaultZone();</span><br><span class="line"><span class="keyword">long</span> millis = clock.millis();</span><br><span class="line"></span><br><span class="line">Instant instant = clock.instant();</span><br><span class="line">Date legacyDate = Date.from(instant);   <span class="comment">// legacy java.util.Date</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Clock</span> <span class="variable">clock</span> <span class="operator">=</span> Clock.systemDefaultZone();</span><br><span class="line"><span class="type">long</span> <span class="variable">millis</span> <span class="operator">=</span> clock.millis();</span><br><span class="line"></span><br><span class="line"><span class="type">Instant</span> <span class="variable">instant</span> <span class="operator">=</span> clock.instant();</span><br><span class="line"><span class="type">Date</span> <span class="variable">legacyDate</span> <span class="operator">=</span> Date.from(instant);   <span class="comment">// legacy java.util.Date</span></span><br></pre></td></tr></table></figure>
+
 <h4 id="2-TimeZones"><a href="#2-TimeZones" class="headerlink" title="(2)TimeZones"></a>(2)TimeZones</h4><p>在新API中时区使用ZoneId来表示。时区可以很方便的使用静态方法of来获取到。 时区定义了到UTS时间的时间差，在Instant时间点对象到本地日期对象之间转换的时候是极其重要的</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(ZoneId.getAvailableZoneIds());</span><br><span class="line"><span class="comment">// prints all available timezone ids</span></span><br><span class="line"></span><br><span class="line">ZoneId zone1 = ZoneId.of(<span class="string">"Europe/Berlin"</span>);</span><br><span class="line">ZoneId zone2 = ZoneId.of(<span class="string">"Brazil/East"</span>);</span><br><span class="line">System.out.println(zone1.getRules());</span><br><span class="line">System.out.println(zone2.getRules());</span><br><span class="line"></span><br><span class="line"><span class="comment">// ZoneRules[currentStandardOffset=+01:00]</span></span><br><span class="line"><span class="comment">// ZoneRules[currentStandardOffset=-03:00]</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(ZoneId.getAvailableZoneIds());</span><br><span class="line"><span class="comment">// prints all available timezone ids</span></span><br><span class="line"></span><br><span class="line"><span class="type">ZoneId</span> <span class="variable">zone1</span> <span class="operator">=</span> ZoneId.of(<span class="string">&quot;Europe/Berlin&quot;</span>);</span><br><span class="line"><span class="type">ZoneId</span> <span class="variable">zone2</span> <span class="operator">=</span> ZoneId.of(<span class="string">&quot;Brazil/East&quot;</span>);</span><br><span class="line">System.out.println(zone1.getRules());</span><br><span class="line">System.out.println(zone2.getRules());</span><br><span class="line"></span><br><span class="line"><span class="comment">// ZoneRules[currentStandardOffset=+01:00]</span></span><br><span class="line"><span class="comment">// ZoneRules[currentStandardOffset=-03:00]</span></span><br></pre></td></tr></table></figure>
 <h4 id="3-LocalTime"><a href="#3-LocalTime" class="headerlink" title="(3)LocalTime"></a>(3)LocalTime</h4><p>LocalTime 定义了一个没有时区信息的时间，例如 晚上10点，或者 17:30:15。下面的例子使用前面代码创建的时区创建了两个本地时间。之后比较时间并以小时和分钟为单位计算两个时间的时间差：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">LocalTime now1 = LocalTime.now(zone1);</span><br><span class="line">LocalTime now2 = LocalTime.now(zone2);</span><br><span class="line"></span><br><span class="line">System.out.println(now1.isBefore(now2));  <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">long</span> hoursBetween = ChronoUnit.HOURS.between(now1, now2);</span><br><span class="line"><span class="keyword">long</span> minutesBetween = ChronoUnit.MINUTES.between(now1, now2);</span><br><span class="line"></span><br><span class="line">System.out.println(hoursBetween);       <span class="comment">// -3</span></span><br><span class="line">System.out.println(minutesBetween);     <span class="comment">// -239</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">LocalTime</span> <span class="variable">now1</span> <span class="operator">=</span> LocalTime.now(zone1);</span><br><span class="line"><span class="type">LocalTime</span> <span class="variable">now2</span> <span class="operator">=</span> LocalTime.now(zone2);</span><br><span class="line"></span><br><span class="line">System.out.println(now1.isBefore(now2));  <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"><span class="type">long</span> <span class="variable">hoursBetween</span> <span class="operator">=</span> ChronoUnit.HOURS.between(now1, now2);</span><br><span class="line"><span class="type">long</span> <span class="variable">minutesBetween</span> <span class="operator">=</span> ChronoUnit.MINUTES.between(now1, now2);</span><br><span class="line"></span><br><span class="line">System.out.println(hoursBetween);       <span class="comment">// -3</span></span><br><span class="line">System.out.println(minutesBetween);     <span class="comment">// -239</span></span><br></pre></td></tr></table></figure>
 <p>LocalTime 提供了多种工厂方法来简化对象的创建，包括解析时间字符串</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">LocalTime late = LocalTime.of(<span class="number">23</span>, <span class="number">59</span>, <span class="number">59</span>);</span><br><span class="line">System.out.println(late);       <span class="comment">// 23:59:59</span></span><br><span class="line"></span><br><span class="line">DateTimeFormatter germanFormatter =</span><br><span class="line">    DateTimeFormatter</span><br><span class="line">        .ofLocalizedTime(FormatStyle.SHORT)</span><br><span class="line">        .withLocale(Locale.GERMAN);</span><br><span class="line"></span><br><span class="line">LocalTime leetTime = LocalTime.parse(<span class="string">"13:37"</span>, germanFormatter);</span><br><span class="line">System.out.println(leetTime);   <span class="comment">// 13:37</span></span><br></pre></td></tr></table></figure>
-<h4 id="4-LocalDate"><a href="#4-LocalDate" class="headerlink" title="(4)LocalDate"></a>(4)LocalDate</h4><p>LocalDate 表示了一个确切的日期，比如 2014-03-11。该对象值是不可变的，用起来和LocalTime基本一致。下面的例子展示了如何给Date对象加减天/月/年。另外要注意的是这些对象是不可变的，操作返回的总是一个新实例。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">LocalDate today = LocalDate.now();</span><br><span class="line">LocalDate tomorrow = today.plus(<span class="number">1</span>, ChronoUnit.DAYS);</span><br><span class="line">LocalDate yesterday = tomorrow.minusDays(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">LocalDate independenceDay = LocalDate.of(<span class="number">2014</span>, Month.JULY, <span class="number">4</span>);</span><br><span class="line">DayOfWeek dayOfWeek = independenceDay.getDayOfWeek();</span><br><span class="line">System.out.println(dayOfWeek);    <span class="comment">// FRIDAY</span></span><br><span class="line"></span><br><span class="line">DateTimeFormatter germanFormatter =</span><br><span class="line">    DateTimeFormatter</span><br><span class="line">        .ofLocalizedDate(FormatStyle.MEDIUM)</span><br><span class="line">        .withLocale(Locale.GERMAN);</span><br><span class="line"></span><br><span class="line">LocalDate xmas = LocalDate.parse(<span class="string">"24.12.2014"</span>, germanFormatter);</span><br><span class="line">System.out.println(xmas);   <span class="comment">// 2014-12-24</span></span><br></pre></td></tr></table></figure>
-<h4 id="5-LocalDateTime"><a href="#5-LocalDateTime" class="headerlink" title="(5)LocalDateTime"></a>(5)LocalDateTime</h4><p>LocalDateTime 同时表示了时间和日期，相当于前两节内容合并到一个对象上了。LocalDateTime和LocalTime还有LocalDate一样，都是不可变的。LocalDateTime提供了一些能访问具体字段的方法。<br>​<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">LocalDateTime sylvester = LocalDateTime.of(<span class="number">2014</span>, Month.DECEMBER, <span class="number">31</span>, <span class="number">23</span>, <span class="number">59</span>, <span class="number">59</span>);</span><br><span class="line"></span><br><span class="line">DayOfWeek dayOfWeek = sylvester.getDayOfWeek();</span><br><span class="line">System.out.println(dayOfWeek);      <span class="comment">// WEDNESDAY</span></span><br><span class="line"></span><br><span class="line">Month month = sylvester.getMonth();</span><br><span class="line">System.out.println(month);          <span class="comment">// DECEMBER</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">long</span> minuteOfDay = sylvester.getLong(ChronoField.MINUTE_OF_DAY);</span><br><span class="line">System.out.println(minuteOfDay);    <span class="comment">// 1439</span></span><br><span class="line"></span><br><span class="line">Instant instant = sylvester</span><br><span class="line">        .atZone(ZoneId.systemDefault())</span><br><span class="line">        .toInstant();</span><br><span class="line"></span><br><span class="line">Date legacyDate = Date.from(instant);</span><br><span class="line">System.out.println(legacyDate);     <span class="comment">// Wed Dec 31 23:59:59 CET 2014</span></span><br><span class="line"></span><br><span class="line">DateTimeFormatter formatter =</span><br><span class="line">    DateTimeFormatter</span><br><span class="line">        .ofPattern(<span class="string">"MMM dd, yyyy - HH:mm"</span>);</span><br><span class="line"></span><br><span class="line">LocalDateTime parsed = LocalDateTime.parse(<span class="string">"Nov 03, 2014 - 07:13"</span>, formatter);</span><br><span class="line">String string = formatter.format(parsed);</span><br><span class="line">System.out.println(string);     <span class="comment">// Nov 03, 2014 - 07:13</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">LocalTime</span> <span class="variable">late</span> <span class="operator">=</span> LocalTime.of(<span class="number">23</span>, <span class="number">59</span>, <span class="number">59</span>);</span><br><span class="line">System.out.println(late);       <span class="comment">// 23:59:59</span></span><br><span class="line"></span><br><span class="line"><span class="type">DateTimeFormatter</span> <span class="variable">germanFormatter</span> <span class="operator">=</span></span><br><span class="line">    DateTimeFormatter</span><br><span class="line">        .ofLocalizedTime(FormatStyle.SHORT)</span><br><span class="line">        .withLocale(Locale.GERMAN);</span><br><span class="line"></span><br><span class="line"><span class="type">LocalTime</span> <span class="variable">leetTime</span> <span class="operator">=</span> LocalTime.parse(<span class="string">&quot;13:37&quot;</span>, germanFormatter);</span><br><span class="line">System.out.println(leetTime);   <span class="comment">// 13:37</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="4-LocalDate"><a href="#4-LocalDate" class="headerlink" title="(4)LocalDate"></a>(4)LocalDate</h4><p>LocalDate 表示了一个确切的日期，比如 2014-03-11。该对象值是不可变的，用起来和LocalTime基本一致。下面的例子展示了如何给Date对象加减天&#x2F;月&#x2F;年。另外要注意的是这些对象是不可变的，操作返回的总是一个新实例。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">LocalDate</span> <span class="variable">today</span> <span class="operator">=</span> LocalDate.now();</span><br><span class="line"><span class="type">LocalDate</span> <span class="variable">tomorrow</span> <span class="operator">=</span> today.plus(<span class="number">1</span>, ChronoUnit.DAYS);</span><br><span class="line"><span class="type">LocalDate</span> <span class="variable">yesterday</span> <span class="operator">=</span> tomorrow.minusDays(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line"><span class="type">LocalDate</span> <span class="variable">independenceDay</span> <span class="operator">=</span> LocalDate.of(<span class="number">2014</span>, Month.JULY, <span class="number">4</span>);</span><br><span class="line"><span class="type">DayOfWeek</span> <span class="variable">dayOfWeek</span> <span class="operator">=</span> independenceDay.getDayOfWeek();</span><br><span class="line">System.out.println(dayOfWeek);    <span class="comment">// FRIDAY</span></span><br><span class="line"></span><br><span class="line"><span class="type">DateTimeFormatter</span> <span class="variable">germanFormatter</span> <span class="operator">=</span></span><br><span class="line">    DateTimeFormatter</span><br><span class="line">        .ofLocalizedDate(FormatStyle.MEDIUM)</span><br><span class="line">        .withLocale(Locale.GERMAN);</span><br><span class="line"></span><br><span class="line"><span class="type">LocalDate</span> <span class="variable">xmas</span> <span class="operator">=</span> LocalDate.parse(<span class="string">&quot;24.12.2014&quot;</span>, germanFormatter);</span><br><span class="line">System.out.println(xmas);   <span class="comment">// 2014-12-24</span></span><br></pre></td></tr></table></figure>
+<h4 id="5-LocalDateTime"><a href="#5-LocalDateTime" class="headerlink" title="(5)LocalDateTime"></a>(5)LocalDateTime</h4><p>LocalDateTime 同时表示了时间和日期，相当于前两节内容合并到一个对象上了。LocalDateTime和LocalTime还有LocalDate一样，都是不可变的。LocalDateTime提供了一些能访问具体字段的方法。<br>​    </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">LocalDateTime</span> <span class="variable">sylvester</span> <span class="operator">=</span> LocalDateTime.of(<span class="number">2014</span>, Month.DECEMBER, <span class="number">31</span>, <span class="number">23</span>, <span class="number">59</span>, <span class="number">59</span>);</span><br><span class="line"></span><br><span class="line"><span class="type">DayOfWeek</span> <span class="variable">dayOfWeek</span> <span class="operator">=</span> sylvester.getDayOfWeek();</span><br><span class="line">System.out.println(dayOfWeek);      <span class="comment">// WEDNESDAY</span></span><br><span class="line"></span><br><span class="line"><span class="type">Month</span> <span class="variable">month</span> <span class="operator">=</span> sylvester.getMonth();</span><br><span class="line">System.out.println(month);          <span class="comment">// DECEMBER</span></span><br><span class="line"></span><br><span class="line"><span class="type">long</span> <span class="variable">minuteOfDay</span> <span class="operator">=</span> sylvester.getLong(ChronoField.MINUTE_OF_DAY);</span><br><span class="line">System.out.println(minuteOfDay);    <span class="comment">// 1439</span></span><br><span class="line"></span><br><span class="line"><span class="type">Instant</span> <span class="variable">instant</span> <span class="operator">=</span> sylvester</span><br><span class="line">        .atZone(ZoneId.systemDefault())</span><br><span class="line">        .toInstant();</span><br><span class="line"></span><br><span class="line"><span class="type">Date</span> <span class="variable">legacyDate</span> <span class="operator">=</span> Date.from(instant);</span><br><span class="line">System.out.println(legacyDate);     <span class="comment">// Wed Dec 31 23:59:59 CET 2014</span></span><br><span class="line"></span><br><span class="line"><span class="type">DateTimeFormatter</span> <span class="variable">formatter</span> <span class="operator">=</span></span><br><span class="line">    DateTimeFormatter</span><br><span class="line">        .ofPattern(<span class="string">&quot;MMM dd, yyyy - HH:mm&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="type">LocalDateTime</span> <span class="variable">parsed</span> <span class="operator">=</span> LocalDateTime.parse(<span class="string">&quot;Nov 03, 2014 - 07:13&quot;</span>, formatter);</span><br><span class="line"><span class="type">String</span> <span class="variable">string</span> <span class="operator">=</span> formatter.format(parsed);</span><br><span class="line">System.out.println(string);     <span class="comment">// Nov 03, 2014 - 07:13</span></span><br></pre></td></tr></table></figure>
+
 <h3 id="5-支持重复注解了，注解也可以用在任何地方了"><a href="#5-支持重复注解了，注解也可以用在任何地方了" class="headerlink" title="5.支持重复注解了，注解也可以用在任何地方了"></a>5.支持重复注解了，注解也可以用在任何地方了</h3><p>java8之前，类，属性，方法才有注解，现在几乎任何地方都可以了。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="meta">@Interned</span> MyObject();</span><br><span class="line">myString = (<span class="meta">@NonNull</span> String) str;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">monitorTemperature</span><span class="params">()</span> <span class="keyword">throws</span> @Critical TemperatureException </span>&#123; ... &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="meta">@Interned</span> MyObject();</span><br><span class="line">myString = (<span class="meta">@NonNull</span> String) str;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">monitorTemperature</span><span class="params">()</span> <span class="keyword">throws</span> <span class="meta">@Critical</span> TemperatureException &#123; ... &#125;</span><br></pre></td></tr></table></figure>
 <p>之前要实现重复注解需要这样：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Authority &#123;</span><br><span class="line">     <span class="function">String <span class="title">role</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Authorities &#123;</span><br><span class="line">    Authority[] value();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RepeatAnnotationUseOldVersion</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Authorities</span>(&#123;<span class="meta">@Authority</span>(role=<span class="string">"Admin"</span>),<span class="meta">@Authority</span>(role=<span class="string">"Manager"</span>)&#125;)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSomeThing</span><span class="params">()</span></span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Authority &#123;</span><br><span class="line">     String <span class="title function_">role</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Authorities &#123;</span><br><span class="line">    Authority[] value();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RepeatAnnotationUseOldVersion</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Authorities(&#123;@Authority(role=&quot;Admin&quot;),@Authority(role=&quot;Manager&quot;)&#125;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doSomeThing</span><span class="params">()</span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>而现在：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Repeatable</span>(Authorities.class)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Authority &#123;</span><br><span class="line">     <span class="function">String <span class="title">role</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Authorities &#123;</span><br><span class="line">    Authority[] value();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RepeatAnnotationUseNewVersion</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Authority</span>(role=<span class="string">"Admin"</span>)</span><br><span class="line">    <span class="meta">@Authority</span>(role=<span class="string">"Manager"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSomeThing</span><span class="params">()</span></span>&#123; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Repeatable(Authorities.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Authority &#123;</span><br><span class="line">     String <span class="title function_">role</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Authorities &#123;</span><br><span class="line">    Authority[] value();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RepeatAnnotationUseNewVersion</span> &#123;</span><br><span class="line">    <span class="meta">@Authority(role=&quot;Admin&quot;)</span></span><br><span class="line">    <span class="meta">@Authority(role=&quot;Manager&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doSomeThing</span><span class="params">()</span>&#123; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="6-Nashorn-JavaScript-引擎"><a href="#6-Nashorn-JavaScript-引擎" class="headerlink" title="6.Nashorn JavaScript 引擎"></a>6.Nashorn JavaScript 引擎</h3><p>简单的说，它是 Rhino 的接替者.升级啦。</p>
 <h3 id="7-StampedLock"><a href="#7-StampedLock" class="headerlink" title="7.StampedLock"></a>7.StampedLock</h3><p>它是java8在java.util.concurrent.locks新增的一个API。</p>
 <p>ReentrantReadWriteLock 在沒有任何读写锁时，才可以取得写入锁，这可用于实现了悲观读取（Pessimistic Reading），即如果执行中进行读取时，经常可能有另一执行要写入的需求，为了保持同步，ReentrantReadWriteLock 的读取锁定就可派上用场。</p>
@@ -583,462 +439,125 @@
 <p>然而，如果读取执行情况很多，写入很少的情况下，使用 ReentrantReadWriteLock 可能会使写入线程遭遇饥饿（Starvation）问题，也就是写入线程吃吃无法竞争到锁定而一直处于等待状态。</p>
 <p>StampedLock控制锁有三种模式（写，读，乐观读），一个StampedLock状态是由版本和模式两个部分组成，锁获取方法返回一个数字作为票据stamp，它用相应的锁状态表示并控制访问，数字0表示没有写锁被授权访问。在读锁上分为悲观锁和乐观锁。</p>
 <p>所谓的乐观读模式，也就是若读的操作很多，写的操作很少的情况下，你可以乐观地认为，写入与读取同时发生几率很少，因此不悲观地使用完全的读取锁定，程序可以查看读取资料之后，是否遭到写入执行的变更，再采取后续的措施（重新读取变更信息，或者抛出异常） ，这一个小小改进，可大幅度提高程序的吞吐量！！</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span> </span>&#123;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">double</span> x, y;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">final</span> StampedLock sl = <span class="keyword">new</span> StampedLock();</span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">move</span><span class="params">(<span class="keyword">double</span> deltaX, <span class="keyword">double</span> deltaY)</span> </span>&#123; <span class="comment">// an exclusively locked method</span></span><br><span class="line">     <span class="keyword">long</span> stamp = sl.writeLock();</span><br><span class="line">     <span class="keyword">try</span> &#123;</span><br><span class="line">       x += deltaX;</span><br><span class="line">       y += deltaY;</span><br><span class="line">     &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">       sl.unlockWrite(stamp);</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br><span class="line">  <span class="comment">//下面看看乐观读锁案例</span></span><br><span class="line">   <span class="function"><span class="keyword">double</span> <span class="title">distanceFromOrigin</span><span class="params">()</span> </span>&#123; <span class="comment">// A read-only method</span></span><br><span class="line">     <span class="keyword">long</span> stamp = sl.tryOptimisticRead(); <span class="comment">//获得一个乐观读锁</span></span><br><span class="line">     <span class="keyword">double</span> currentX = x, currentY = y; <span class="comment">//将两个字段读入本地局部变量</span></span><br><span class="line">     <span class="keyword">if</span> (!sl.validate(stamp)) &#123; <span class="comment">//检查发出乐观读锁后同时是否有其他写锁发生？</span></span><br><span class="line">        stamp = sl.readLock(); <span class="comment">//如果没有，我们再次获得一个读悲观锁</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">          currentX = x; <span class="comment">// 将两个字段读入本地局部变量</span></span><br><span class="line">          currentY = y; <span class="comment">// 将两个字段读入本地局部变量</span></span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">           sl.unlockRead(stamp);</span><br><span class="line">        &#125;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">return</span> Math.sqrt(currentX * currentX + currentY * currentY);</span><br><span class="line">   &#125;</span><br><span class="line"><span class="comment">//下面是悲观读锁案例</span></span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">moveIfAtOrigin</span><span class="params">(<span class="keyword">double</span> newX, <span class="keyword">double</span> newY)</span> </span>&#123; <span class="comment">// upgrade</span></span><br><span class="line">     <span class="comment">// Could instead start with optimistic, not read mode</span></span><br><span class="line">     <span class="keyword">long</span> stamp = sl.readLock();</span><br><span class="line">     <span class="keyword">try</span> &#123;</span><br><span class="line">       <span class="keyword">while</span> (x == <span class="number">0.0</span> &amp;&amp; y == <span class="number">0.0</span>) &#123; <span class="comment">//循环，检查当前状态是否符合</span></span><br><span class="line">         <span class="keyword">long</span> ws = sl.tryConvertToWriteLock(stamp); <span class="comment">//将读锁转为写锁</span></span><br><span class="line">         <span class="keyword">if</span> (ws != <span class="number">0L</span>) &#123; <span class="comment">//这是确认转为写锁是否成功</span></span><br><span class="line">           stamp = ws; <span class="comment">//如果成功 替换票据</span></span><br><span class="line">           x = newX; <span class="comment">//进行状态改变</span></span><br><span class="line">           y = newY; <span class="comment">//进行状态改变</span></span><br><span class="line">           <span class="keyword">break</span>;</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="keyword">else</span> &#123; <span class="comment">//如果不能成功转换为写锁</span></span><br><span class="line">           sl.unlockRead(stamp); <span class="comment">//我们显式释放读锁</span></span><br><span class="line">           stamp = sl.writeLock(); <span class="comment">//显式直接进行写锁 然后再通过循环再试</span></span><br><span class="line">         &#125;</span><br><span class="line">       &#125;</span><br><span class="line">     &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">       sl.unlock(stamp); <span class="comment">//释放读锁或写锁</span></span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Point</span> &#123;</span><br><span class="line">   <span class="keyword">private</span> <span class="type">double</span> x, y;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">StampedLock</span> <span class="variable">sl</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StampedLock</span>();</span><br><span class="line">   <span class="keyword">void</span> <span class="title function_">move</span><span class="params">(<span class="type">double</span> deltaX, <span class="type">double</span> deltaY)</span> &#123; <span class="comment">// an exclusively locked method</span></span><br><span class="line">     <span class="type">long</span> <span class="variable">stamp</span> <span class="operator">=</span> sl.writeLock();</span><br><span class="line">     <span class="keyword">try</span> &#123;</span><br><span class="line">       x += deltaX;</span><br><span class="line">       y += deltaY;</span><br><span class="line">     &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">       sl.unlockWrite(stamp);</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br><span class="line">  <span class="comment">//下面看看乐观读锁案例</span></span><br><span class="line">   <span class="type">double</span> <span class="title function_">distanceFromOrigin</span><span class="params">()</span> &#123; <span class="comment">// A read-only method</span></span><br><span class="line">     <span class="type">long</span> <span class="variable">stamp</span> <span class="operator">=</span> sl.tryOptimisticRead(); <span class="comment">//获得一个乐观读锁</span></span><br><span class="line">     <span class="type">double</span> <span class="variable">currentX</span> <span class="operator">=</span> x, currentY = y; <span class="comment">//将两个字段读入本地局部变量</span></span><br><span class="line">     <span class="keyword">if</span> (!sl.validate(stamp)) &#123; <span class="comment">//检查发出乐观读锁后同时是否有其他写锁发生？</span></span><br><span class="line">        stamp = sl.readLock(); <span class="comment">//如果没有，我们再次获得一个读悲观锁</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">          currentX = x; <span class="comment">// 将两个字段读入本地局部变量</span></span><br><span class="line">          currentY = y; <span class="comment">// 将两个字段读入本地局部变量</span></span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">           sl.unlockRead(stamp);</span><br><span class="line">        &#125;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">return</span> Math.sqrt(currentX * currentX + currentY * currentY);</span><br><span class="line">   &#125;</span><br><span class="line"><span class="comment">//下面是悲观读锁案例</span></span><br><span class="line">   <span class="keyword">void</span> <span class="title function_">moveIfAtOrigin</span><span class="params">(<span class="type">double</span> newX, <span class="type">double</span> newY)</span> &#123; <span class="comment">// upgrade</span></span><br><span class="line">     <span class="comment">// Could instead start with optimistic, not read mode</span></span><br><span class="line">     <span class="type">long</span> <span class="variable">stamp</span> <span class="operator">=</span> sl.readLock();</span><br><span class="line">     <span class="keyword">try</span> &#123;</span><br><span class="line">       <span class="keyword">while</span> (x == <span class="number">0.0</span> &amp;&amp; y == <span class="number">0.0</span>) &#123; <span class="comment">//循环，检查当前状态是否符合</span></span><br><span class="line">         <span class="type">long</span> <span class="variable">ws</span> <span class="operator">=</span> sl.tryConvertToWriteLock(stamp); <span class="comment">//将读锁转为写锁</span></span><br><span class="line">         <span class="keyword">if</span> (ws != <span class="number">0L</span>) &#123; <span class="comment">//这是确认转为写锁是否成功</span></span><br><span class="line">           stamp = ws; <span class="comment">//如果成功 替换票据</span></span><br><span class="line">           x = newX; <span class="comment">//进行状态改变</span></span><br><span class="line">           y = newY; <span class="comment">//进行状态改变</span></span><br><span class="line">           <span class="keyword">break</span>;</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="keyword">else</span> &#123; <span class="comment">//如果不能成功转换为写锁</span></span><br><span class="line">           sl.unlockRead(stamp); <span class="comment">//我们显式释放读锁</span></span><br><span class="line">           stamp = sl.writeLock(); <span class="comment">//显式直接进行写锁 然后再通过循环再试</span></span><br><span class="line">         &#125;</span><br><span class="line">       &#125;</span><br><span class="line">     &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">       sl.unlock(stamp); <span class="comment">//释放读锁或写锁</span></span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
 <hr>
-<p>参考文档：<a href="http://winterbe.com/posts/2014/03/16/java-8-tutorial/" target="_blank" rel="noopener">http://winterbe.com/posts/2014/03/16/java-8-tutorial/</a></p>
+<p>参考文档：<a target="_blank" rel="noopener" href="http://winterbe.com/posts/2014/03/16/java-8-tutorial/">http://winterbe.com/posts/2014/03/16/java-8-tutorial/</a></p>
 
-      
     </div>
-    
-    
-    
-    
 
     
-      <div>
-        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
-    <img id="wechat_subscriber_qcode" src="/images/qrcode_shenyanchao.jpg" alt="申艳超 wechat" style="width: 200px; max-width: 100%;">
-    <div>欢迎关注微信订阅号~</div>
-</div>
+    
+    
+      
 
-      </div>
-    
-
-    
-      <div>
-        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-  <div>您的支持是我原创的动力！</div>
-  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-    <span>打赏</span>
-  </button>
-  <div id="QR" style="display: none;">
-
-    
-      <div id="wechat" style="display: inline-block">
-        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="申艳超 微信支付">
-        <p>微信支付</p>
-      </div>
-    
-
-    
-      <div id="alipay" style="display: inline-block">
-        <img id="alipay_qr" src="/images/alipay.jpg" alt="申艳超 支付宝">
-        <p>支付宝</p>
-      </div>
-    
-
-    
-
-  </div>
-</div>
-
-      </div>
-    
-
-    
-      <div>
-        <ul class="post-copyright">
-  <li class="post-copyright-author">
-    <strong>本文作者：</strong>
-    申艳超
-  </li>
-  <li class="post-copyright-link">
-    <strong>本文链接：</strong>
-    <a href="https://www.shenyanchao.cn/blog/2014/08/27/java-new-feature/" title="Java新特性">https://www.shenyanchao.cn/blog/2014/08/27/java-new-feature/</a>
-  </li>
-  <li class="post-copyright-license">
-    <strong>版权声明： </strong>
-    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
-  </li>
-</ul>
-
-      </div>
-    
 
     <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/java7/" rel="tag"># java7</a>
-          
-            <a href="/tags/java8/" rel="tag"># java8</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/blog/2014/06/24/export-excel-by-jxls/" rel="next" title="使用 jXLS导出报表">
-                <i class="fa fa-chevron-left"></i> 使用 jXLS导出报表
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/blog/2014/10/22/tie-breaker-in-solr/" rel="prev" title="solr中的tie breaker">
-                solr中的tie breaker <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
-  
-    <div class="comments" id="comments">
-    </div>
-  
-
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image" src="/images/shenyanchao.jpeg" alt="申艳超">
-            
-              <p class="site-author-name" itemprop="name">申艳超</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">124</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">35</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">233</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-            <div class="feed-link motion-element">
-              <a href="/atom.xml" rel="alternate">
-                <i class="fa fa-rss"></i>
-                RSS
-              </a>
-            </div>
-          
-
-          
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/blueshen" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:zhiyi.shen@gmail.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-            </div>
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java7新特性"><span class="nav-number">1.</span> <span class="nav-text">Java7新特性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java7语法特性"><span class="nav-number">1.1.</span> <span class="nav-text">Java7语法特性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-switch可以消化String"><span class="nav-number">1.1.1.</span> <span class="nav-text">1. switch可以消化String</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-新的整数字面表达方式-“0b”前缀和”-”连数符，提升程序员的幸福感。"><span class="nav-number">1.1.2.</span> <span class="nav-text">2. 新的整数字面表达方式 - “0b”前缀和”_”连数符，提升程序员的幸福感。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-简化了泛型对象创建的语法-“菱形-new”，以下两个语句等价："><span class="nav-number">1.1.3.</span> <span class="nav-text">3. 简化了泛型对象创建的语法 - “菱形 new”，以下两个语句等价：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-为所有的reflect操作异常找了个新爸爸-ReflectOperationException，孩儿们是："><span class="nav-number">1.1.4.</span> <span class="nav-text">4. 为所有的reflect操作异常找了个新爸爸 - ReflectOperationException，孩儿们是：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-catch有了多重捕获功能，也玩起了包养的勾当，以下代码心领神会："><span class="nav-number">1.1.5.</span> <span class="nav-text">5. catch有了多重捕获功能，也玩起了包养的勾当，以下代码心领神会：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-异常精确重抛-重抛时自动造型为子类，有点半主动制导武器的style："><span class="nav-number">1.1.6.</span> <span class="nav-text">6. 异常精确重抛 - 重抛时自动造型为子类，有点半主动制导武器的style：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-发明了try-结构-Try-with-Resources，能够自动接住异常并关闭资源-所谓的资源需要利用新的java-lang-AutoCloseable接口-，注意以下代码中try后面跟的是”-“不是”-“："><span class="nav-number">1.1.7.</span> <span class="nav-text">7. 发明了try()结构 - Try with Resources，能够自动接住异常并关闭资源(所谓的资源需要利用新的java.lang.AutoCloseable接口)，注意以下代码中try后面跟的是”(“不是”{“：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java7-NIO-新方法"><span class="nav-number">1.2.</span> <span class="nav-text">Java7 NIO 新方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-增加java-nio-file-Paths用于目录操作"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.增加java.nio.file.Paths用于目录操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-增加java-nio-file-Files工具类来处理文件"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.增加java.nio.file.Files工具类来处理文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-目录树遍历"><span class="nav-number">1.2.3.</span> <span class="nav-text">3.目录树遍历</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-使用WatchService来监控目录，变化请通知"><span class="nav-number">1.2.4.</span> <span class="nav-text">4.使用WatchService来监控目录，变化请通知</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java7并发（JSR166Y）"><span class="nav-number">1.3.</span> <span class="nav-text">Java7并发（JSR166Y）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Fork-Join框架，大任务分解为小任务"><span class="nav-number">1.3.1.</span> <span class="nav-text">Fork Join框架，大任务分解为小任务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TransferQueue，ConcurrentLinkedDeque等新类"><span class="nav-number">1.3.2.</span> <span class="nav-text">TransferQueue，ConcurrentLinkedDeque等新类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ThreadLocalRandom用于生成随机数"><span class="nav-number">1.3.3.</span> <span class="nav-text">ThreadLocalRandom用于生成随机数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java7-client"><span class="nav-number">1.4.</span> <span class="nav-text">Java7 client</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java7-VM新特性"><span class="nav-number">1.5.</span> <span class="nav-text">Java7 VM新特性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-引入Garbage-First回收算法"><span class="nav-number">1.5.1.</span> <span class="nav-text">1.引入Garbage First回收算法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java8新特性"><span class="nav-number">2.</span> <span class="nav-text">Java8新特性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-接口默认方法-接口允许有实现啦"><span class="nav-number">2.1.</span> <span class="nav-text">1.接口默认方法[接口允许有实现啦]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Lambda表达式"><span class="nav-number">2.2.</span> <span class="nav-text">2.Lambda表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-FunctionalInterface"><span class="nav-number">2.3.</span> <span class="nav-text">3.@FunctionalInterface</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-方法与构造函数的引用"><span class="nav-number">2.3.1.</span> <span class="nav-text">(1)方法与构造函数的引用::</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-内嵌的Functional-Interfaces"><span class="nav-number">2.3.2.</span> <span class="nav-text">(2)内嵌的Functional Interfaces</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-时间API"><span class="nav-number">2.4.</span> <span class="nav-text">4.时间API</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Clock"><span class="nav-number">2.4.1.</span> <span class="nav-text">(1)Clock</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-TimeZones"><span class="nav-number">2.4.2.</span> <span class="nav-text">(2)TimeZones</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-LocalTime"><span class="nav-number">2.4.3.</span> <span class="nav-text">(3)LocalTime</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-LocalDate"><span class="nav-number">2.4.4.</span> <span class="nav-text">(4)LocalDate</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-LocalDateTime"><span class="nav-number">2.4.5.</span> <span class="nav-text">(5)LocalDateTime</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-支持重复注解了，注解也可以用在任何地方了"><span class="nav-number">2.5.</span> <span class="nav-text">5.支持重复注解了，注解也可以用在任何地方了</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-Nashorn-JavaScript-引擎"><span class="nav-number">2.6.</span> <span class="nav-text">6.Nashorn JavaScript 引擎</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-StampedLock"><span class="nav-number">2.7.</span> <span class="nav-text">7.StampedLock</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
+          <div class="reward-container">
+  <div>您的支持是我原创的动力！</div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="申艳超 WeChat Pay">
+        <span>WeChat Pay</span>
       </div>
-    </main>
+      <div>
+        <img src="/images/alipay.jpg" alt="申艳超 Alipay">
+        <span>Alipay</span>
+      </div>
 
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; 2012 &mdash; <span itemprop="copyrightYear">2020</span>
+  </div>
+</div>
+
+          <div class="followme">
+  <span>Welcome to my other publishing channels</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/java7/" rel="tag"># java7</a>
+              <a href="/tags/java8/" rel="tag"># java8</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2014/06/24/export-excel-by-jxls/" rel="prev" title="使用 jXLS导出报表">
+                  <i class="fa fa-chevron-left"></i> 使用 jXLS导出报表
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/2014/10/22/tie-breaker-in-solr/" rel="next" title="solr中的tie breaker">
+                  solr中的tie breaker <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2012 – 
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
-    <i class="fa fa-user"></i>
+    <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">申艳超</span>
-
-  
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-area-chart"></i>
-    </span>
-    
-      <span class="post-meta-item-text">Site words total count&#58;</span>
-    
-    <span title="Site words total count">233.6k</span>
-  
 </div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
-
-
-
-
-        
 <div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-  
-    <span class="site-uv">
-      <i class="fa fa-user"></i>
-      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-      
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
     </span>
-  
-
-  
-    <span class="site-pv">
-      <i class="fa fa-eye"></i>
-      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-      
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
     </span>
-  
 </div>
-
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a>
   </div>
 
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
-
-
+    </div>
+  </footer>
 
   
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
   
 
@@ -1047,182 +566,13 @@
 
 
   
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"vFAoofuVWgdHsCv6B6BtqROc-gzGzoHsz","app_key":"ANWUkmboGiNDNRmf2iVlUIGt","server_url":null,"security":true}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
 
 
-
-
-
-
-
-
-  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-  
-  <script type="text/javascript">
-    var GUEST = ['nick','mail','link'];
-    var guest = 'nick,mail';
-    guest = guest.split(',').filter(item=>{
-      return GUEST.indexOf(item)>-1;
-    });
-    new Valine({
-        el: '#comments' ,
-        verify: true,
-        notify: false,
-        appId: 'vFAoofuVWgdHsCv6B6BtqROc-gzGzoHsz',
-        appKey: 'ANWUkmboGiNDNRmf2iVlUIGt',
-        placeholder: '开始你的评论吧!',
-        avatar:'mm',
-        guest_info:guest,
-        pageSize:'10' || 10,
-    });
-  </script>
-
-
-
-  
-
-
-
-
-
-  
-
-  
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("vFAoofuVWgdHsCv6B6BtqROc-gzGzoHsz", "ANWUkmboGiNDNRmf2iVlUIGt");</script>
-  <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
-            }
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
-
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
-          } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
-          }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
-      });
-    }
-
-    $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
-    });
-  </script>
-
-
-
-  
-
-  
-<script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-
-
-  
-  
-
-  
-
-  
-
-  
 
 </body>
 </html>

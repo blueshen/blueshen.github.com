@@ -1,454 +1,288 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next mist use-motion" lang="zh-Hans">
-<head><meta name="generator" content="Hexo 3.9.0">
+<html lang="zh-Hans">
+<head>
   <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="theme-color" content="#222">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.shenyanchao.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.13.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/icon.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="微服务,API,设计,">
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="申艳超-博客" type="application/atom+xml">
-
-
-
-
-
-
-<meta name="description" content="微服务下的API设计原则目的：规范团队乃至公司的API设计。主要参考： Github API 1. 为了安全，请使用HTTPS与API设计无关、为了安全请使用HTTPS。公网API,强制使用HTTPS。内网API可酌情选择。 2. API 地址和版本在 url 中指定 API 的版本是个很好地做法。如果 API 变化比较大，可以把API设计为子域名，比如 https://api.ke.com/v3">
-<meta name="keywords" content="微服务,API,设计">
+    <meta name="description" content="微服务下的API设计原则目的：规范团队乃至公司的API设计。主要参考： Github API 1. 为了安全，请使用HTTPS与API设计无关、为了安全请使用HTTPS。公网API,强制使用HTTPS。内网API可酌情选择。 2. API 地址和版本在 url 中指定 API 的版本是个很好地做法。如果 API 变化比较大，可以把API设计为子域名，比如 https:&#x2F;&#x2F;api.ke.com&#x2F;v3">
 <meta property="og:type" content="article">
 <meta property="og:title" content="微服务下的API设计原则">
 <meta property="og:url" content="https://www.shenyanchao.cn/blog/2018/08/23/the-principle-of-api-design-in-mircoservice/index.html">
 <meta property="og:site_name" content="申艳超-博客">
-<meta property="og:description" content="微服务下的API设计原则目的：规范团队乃至公司的API设计。主要参考： Github API 1. 为了安全，请使用HTTPS与API设计无关、为了安全请使用HTTPS。公网API,强制使用HTTPS。内网API可酌情选择。 2. API 地址和版本在 url 中指定 API 的版本是个很好地做法。如果 API 变化比较大，可以把API设计为子域名，比如 https://api.ke.com/v3">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-12-17T11:41:25.755Z">
+<meta property="og:description" content="微服务下的API设计原则目的：规范团队乃至公司的API设计。主要参考： Github API 1. 为了安全，请使用HTTPS与API设计无关、为了安全请使用HTTPS。公网API,强制使用HTTPS。内网API可酌情选择。 2. API 地址和版本在 url 中指定 API 的版本是个很好地做法。如果 API 变化比较大，可以把API设计为子域名，比如 https:&#x2F;&#x2F;api.ke.com&#x2F;v3">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-08-23T09:05:00.000Z">
+<meta property="article:modified_time" content="2019-12-17T11:41:25.755Z">
+<meta property="article:author" content="申艳超">
+<meta property="article:tag" content="微服务">
+<meta property="article:tag" content="API">
+<meta property="article:tag" content="设计">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="微服务下的API设计原则">
-<meta name="twitter:description" content="微服务下的API设计原则目的：规范团队乃至公司的API设计。主要参考： Github API 1. 为了安全，请使用HTTPS与API设计无关、为了安全请使用HTTPS。公网API,强制使用HTTPS。内网API可酌情选择。 2. API 地址和版本在 url 中指定 API 的版本是个很好地做法。如果 API 变化比较大，可以把API设计为子域名，比如 https://api.ke.com/v3">
+
+
+<link rel="canonical" href="https://www.shenyanchao.cn/blog/2018/08/23/the-principle-of-api-design-in-mircoservice/">
 
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Mist',
-    version: '5.1.4',
-    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-Hans","comments":true,"permalink":"https://www.shenyanchao.cn/blog/2018/08/23/the-principle-of-api-design-in-mircoservice/","path":"blog/2018/08/23/the-principle-of-api-design-in-mircoservice/","title":"微服务下的API设计原则"}</script>
 
-
-
-  <link rel="canonical" href="https://www.shenyanchao.cn/blog/2018/08/23/the-principle-of-api-design-in-mircoservice/">
-
-
-
-
-
-  <title>微服务下的API设计原则 | 申艳超-博客</title>
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>微服务下的API设计原则 | 申艳超-博客</title>
   
 
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?81c9612f8fdceca45435ef7f5404d7b2"></script>
 
 
 
 
-  <script type="text/javascript">
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?81c9612f8fdceca45435ef7f5404d7b2";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
 
+  <script async defer data-website-id="" src=""></script>
 
+  <script defer data-domain="" src=""></script>
 
-
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="申艳超-博客" type="application/atom+xml">
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
-  
-  
-    
-  
-
-  <div class="container sidebar-position-right page-post-detail">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">申艳超-博客</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
-      
-        <h1 class="site-subtitle" itemprop="description">搜索引擎、分布式、高性能、NLP、ElasticSearch、Solr</h1>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">申艳超-博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">搜索引擎、分布式、高性能、NLP、ElasticSearch、Solr</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
-            
-            关于
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-            
-            标签
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
-            
-            分类
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-sitemap">
-          <a href="/sitemap.xml" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
-            
-            站点地图
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-commonweal">
-          <a href="/404.html" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
-            
-            公益404
-          </a>
-        </li>
-      
-
-      
-    </ul>
-  
-
-  
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>Archives</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="sitemap fa-fw"></i>Sitemap</a></li><li class="menu-item menu-item-commonweal"><a href="/404.html" rel="section"><i class="heartbeat fa-fw"></i>Commonweal 404</a></li>
+  </ul>
 </nav>
 
 
 
- </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BE%AE%E6%9C%8D%E5%8A%A1%E4%B8%8B%E7%9A%84API%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99"><span class="nav-number">1.</span> <span class="nav-text">微服务下的API设计原则</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E4%B8%BA%E4%BA%86%E5%AE%89%E5%85%A8%EF%BC%8C%E8%AF%B7%E4%BD%BF%E7%94%A8HTTPS"><span class="nav-number">1.1.</span> <span class="nav-text">1. 为了安全，请使用HTTPS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-API-%E5%9C%B0%E5%9D%80%E5%92%8C%E7%89%88%E6%9C%AC"><span class="nav-number">1.2.</span> <span class="nav-text">2. API 地址和版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-schema%E8%AF%B7%E4%BD%BF%E7%94%A8JSON"><span class="nav-number">1.3.</span> <span class="nav-text">3. schema请使用JSON</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E4%BB%A5%E8%B5%84%E6%BA%90%E4%B8%BA%E4%B8%AD%E5%BF%83%E7%9A%84URL%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.4.</span> <span class="nav-text">4. 以资源为中心的URL设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E4%BD%BF%E7%94%A8%E6%AD%A3%E7%A1%AE%E7%9A%84HTTP-Method"><span class="nav-number">1.5.</span> <span class="nav-text">5. 使用正确的HTTP Method</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E7%AC%A6%E5%90%88-CRUD-%E7%9A%84%E6%83%85%E5%86%B5"><span class="nav-number">1.5.1.</span> <span class="nav-text">不符合 CRUD 的情况</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-POST"><span class="nav-number">1.5.1.1.</span> <span class="nav-text">使用 POST</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A2%9E%E5%8A%A0%E6%8E%A7%E5%88%B6%E5%8F%82%E6%95%B0"><span class="nav-number">1.5.1.2.</span> <span class="nav-text">增加控制参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8A%8A%E5%8A%A8%E4%BD%9C%E8%BD%AC%E6%8D%A2%E6%88%90%E8%B5%84%E6%BA%90"><span class="nav-number">1.5.1.3.</span> <span class="nav-text">把动作转换成资源</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Query-%E8%AE%A9%E6%9F%A5%E8%AF%A2%E6%9B%B4%E8%87%AA%E7%94%B1"><span class="nav-number">1.6.</span> <span class="nav-text">6. Query 让查询更自由</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-%E5%88%86%E9%A1%B5-Pagination"><span class="nav-number">1.7.</span> <span class="nav-text">7. 分页 Pagination</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-%E9%80%89%E6%8B%A9%E5%90%88%E9%80%82%E7%9A%84HTTP%E7%8A%B6%E6%80%81%E7%A0%81"><span class="nav-number">1.8.</span> <span class="nav-text">8. 选择合适的HTTP状态码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E7%A0%81%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.9.</span> <span class="nav-text">9. 错误处理码设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-%E9%AA%8C%E8%AF%81%E5%92%8C%E6%8E%88%E6%9D%83"><span class="nav-number">1.10.</span> <span class="nav-text">10. 验证和授权</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-%E9%99%90%E6%B5%81rate-limit"><span class="nav-number">1.11.</span> <span class="nav-text">11. 限流rate limit</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-Hypermedia-API"><span class="nav-number">1.12.</span> <span class="nav-text">12. Hypermedia API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-%E7%BC%96%E5%86%99%E4%BC%98%E7%A7%80%E7%9A%84%E6%96%87%E6%A1%A3"><span class="nav-number">1.13.</span> <span class="nav-text">13. 编写优秀的文档</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="申艳超"
+      src="/images/shenyanchao.jpeg">
+  <p class="site-author-name" itemprop="name">申艳超</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">133</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">244</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/blueshen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;blueshen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhiyi.shen@gmail.com" title="E-Mail → mailto:zhiyi.shen@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
     </header>
 
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
     
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/blueshen" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
 
   
 
-  
+
+<div class="post-block">
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="https://www.shenyanchao.cn/blog/2018/08/23/the-principle-of-api-design-in-mircoservice/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="申艳超">
-      <meta itemprop="description" content="">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/shenyanchao.jpeg">
+      <meta itemprop="name" content="申艳超">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="申艳超-博客">
+      <meta itemprop="description" content="">
     </span>
 
-    
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="微服务下的API设计原则 | 申艳超-博客">
+      <meta itemprop="description" content="">
+    </span>
       <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          微服务下的API设计原则
+        </h1>
 
-        
-        
-          <h2 class="post-title" itemprop="name headline">微服务下的API设计原则</h2>
-        
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-23T17:05:00+08:00">
-                2018-08-23
-              </time>
-            
+      <time title="Created: 2018-08-23 17:05:00" itemprop="dateCreated datePublished" datetime="2018-08-23T17:05:00+08:00">2018-08-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2019-12-17 19:41:25" itemprop="dateModified" datetime="2019-12-17T19:41:25+08:00">2019-12-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" itemprop="url" rel="index"><span itemprop="name">微服务</span></a>
+        </span>
+    </span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/微服务/" itemprop="url" rel="index">
-                    <span itemprop="name">微服务</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/blog/2018/08/23/the-principle-of-api-design-in-mircoservice/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/blog/2018/08/23/the-principle-of-api-design-in-mircoservice/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/blog/2018/08/23/the-principle-of-api-design-in-mircoservice/" class="leancloud_visitors" data-flag-title="微服务下的API设计原则">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-            <span class="post-meta-divider">|</span>
-            <span class="page-pv"><i class="fa fa-file-o"></i>
-            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
-            </span>
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  3,531
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  13
-                </span>
-              
-            </div>
-          
-
-          
+  
+    <span id="/blog/2018/08/23/the-principle-of-api-design-in-mircoservice/" class="post-meta-item leancloud_visitors" data-flag-title="微服务下的API设计原则" title="Views">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
 
         </div>
       </header>
-    
 
     
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <h1 id="微服务下的API设计原则"><a href="#微服务下的API设计原则" class="headerlink" title="微服务下的API设计原则"></a>微服务下的API设计原则</h1><p>目的：<br>规范团队乃至公司的API设计。<br>主要参考： <a href="https://developer.github.com/v3/" target="_blank" rel="noopener">Github API</a></p>
+        <h1 id="微服务下的API设计原则"><a href="#微服务下的API设计原则" class="headerlink" title="微服务下的API设计原则"></a>微服务下的API设计原则</h1><p>目的：<br>规范团队乃至公司的API设计。<br>主要参考： <a target="_blank" rel="noopener" href="https://developer.github.com/v3/">Github API</a></p>
 <h2 id="1-为了安全，请使用HTTPS"><a href="#1-为了安全，请使用HTTPS" class="headerlink" title="1. 为了安全，请使用HTTPS"></a>1. 为了安全，请使用HTTPS</h2><p>与API设计无关、为了安全请使用HTTPS。公网API,强制使用HTTPS。内网API可酌情选择。</p>
 <h2 id="2-API-地址和版本"><a href="#2-API-地址和版本" class="headerlink" title="2. API 地址和版本"></a>2. API 地址和版本</h2><p>在 <code>url</code> 中指定 API 的版本是个很好地做法。<br>如果 API 变化比较大，可以把API设计为子域名，比如 <code>https://api.ke.com/v3</code>；<br>也可以简单地把版本放在路径中，比如 <code>https://ke.com/api/v1</code>。<br><strong>不建议放入Header</strong>，不直观。</p>
 <h2 id="3-schema请使用JSON"><a href="#3-schema请使用JSON" class="headerlink" title="3. schema请使用JSON"></a>3. schema请使用JSON</h2><p>对于响应返回的格式，JSON 因为它的可读性、紧凑性以及多种语言支持等优点，成为了 HTTP API 最常用的返回格式。因此，最好采用<strong>JSON</strong>作为返回内容的格式。</p>
 <p><strong>不推荐其他格式</strong>，如果必须使用，比如 <code>xml</code>，应该在请求头部 <code>Accept</code> 中指定。<br>对于不支持的格式，服务端需要返回正确的 <code>status code</code>，并给出详细的说明。</p>
-<a id="more"></a>
+<span id="more"></span>
+
 <h2 id="4-以资源为中心的URL设计"><a href="#4-以资源为中心的URL设计" class="headerlink" title="4. 以资源为中心的URL设计"></a>4. 以资源为中心的URL设计</h2><p>资源是 <code>Restful API</code> 的核心元素，所有的操作都是针对特定资源进行的。而资源就是 <code>URL</code>（Uniform Resoure Locator）表示的，所以简洁、清晰、结构化的 URL 设计是至关重要的。Github 可以说是这方面的典范，下面我们就拿 <code>repository</code> 来说明。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/users/:username/repos</span><br><span class="line">/users/:org/repos</span><br><span class="line">/repos/:owner/:repo</span><br><span class="line">/repos/:owner/:repo/tags</span><br><span class="line">/repos/:owner/:repo/branches/:branch</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/users/:username/repos</span><br><span class="line">/users/:org/repos</span><br><span class="line">/repos/:owner/:repo</span><br><span class="line">/repos/:owner/:repo/tags</span><br><span class="line">/repos/:owner/:repo/branches/:branch</span><br></pre></td></tr></table></figure>
+
 <p>我们可以看到几个特性：</p>
 <ul>
 <li>资源分为单个文档和集合，尽量使用复数来表示资源，单个资源通过添加 id 或者 name 等来表示</li>
@@ -464,8 +298,7 @@
 <th>描述</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>HEAD</td>
 <td>只获取某个资源的头部信息。比如只想了解某个文件的大小，某个资源的修改日期等</td>
 </tr>
@@ -489,16 +322,16 @@
 <td>DELETE</td>
 <td>删除资源</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>比如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">GET /repos/:owner/:repo/issues</span><br><span class="line">GET /repos/:owner/:repo/issues/:number</span><br><span class="line">POST /repos/:owner/:repo/issues</span><br><span class="line">PATCH /repos/:owner/:repo/issues/:number</span><br><span class="line">DELETE /repos/:owner/:repo</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">GET /repos/:owner/:repo/issues</span><br><span class="line">GET /repos/:owner/:repo/issues/:number</span><br><span class="line">POST /repos/:owner/:repo/issues</span><br><span class="line">PATCH /repos/:owner/:repo/issues/:number</span><br><span class="line">DELETE /repos/:owner/:repo</span><br></pre></td></tr></table></figure>
+
 <p>建议：依据公司的实际情况，不可能所有的服务都能符合RESTFUL标准。请重点学习使用<code>GET,POST,DELETE</code></p>
 <h3 id="不符合-CRUD-的情况"><a href="#不符合-CRUD-的情况" class="headerlink" title="不符合 CRUD 的情况"></a>不符合 CRUD 的情况</h3><p>在实际资源操作中，总会有一些不符合 <code>CRUD</code>（Create-Read-Update-Delete） 的情况，一般有几种处理方法。</p>
 <h4 id="使用-POST"><a href="#使用-POST" class="headerlink" title="使用 POST"></a>使用 POST</h4><p>为需要的动作增加一个 endpoint，使用 POST 来执行动作，比如 <code>POST /resend</code> 重新发送邮件。</p>
-<h4 id="增加控制参数"><a href="#增加控制参数" class="headerlink" title="增加控制参数"></a>增加控制参数</h4><p>添加动作相关的参数，通过修改参数来控制动作。比如一个博客网站，会有把写好的文章“发布”的功能，可以用上面的 <code>POST /articles/{:id}/publish</code> 方法，也可以在文章中增加 <code>published:boolean</code> 字段，发布的时候就是更新该字段 <code>PUT /articles/{:id}?published=true</code></p>
+<h4 id="增加控制参数"><a href="#增加控制参数" class="headerlink" title="增加控制参数"></a>增加控制参数</h4><p>添加动作相关的参数，通过修改参数来控制动作。比如一个博客网站，会有把写好的文章“发布”的功能，可以用上面的 <code>POST /articles/&#123;:id&#125;/publish</code> 方法，也可以在文章中增加 <code>published:boolean</code> 字段，发布的时候就是更新该字段 <code>PUT /articles/&#123;:id&#125;?published=true</code></p>
 <h4 id="把动作转换成资源"><a href="#把动作转换成资源" class="headerlink" title="把动作转换成资源"></a>把动作转换成资源</h4><p>把动作转换成可以执行 <code>CRUD</code> 操作的资源， github 就是用了这种方法。</p>
-<p>比如“喜欢”一个 gist，就增加一个 <code>/gists/:id/star</code> 子资源，然后对其进行操作：“喜欢”使用 <code>PUT /gists/:id/star</code>，“取消喜欢”使用 <code>DELETE /gists/:id/star</code>。</p>
+<p>比如“喜欢”一个 gist，就增加一个 <code>/gists/:id/star</code> 子资源，然后对其进行操作：“喜欢”使用 <code>PUT /gists/:id/star</code>，“取消喜欢”使用 <code>DELETE /gists/:id/star </code>。</p>
 <p>另外一个例子是 <code>Fork</code>，这也是一个动作，但是在 gist 下面增加 <code>forks</code>资源，就能把动作变成 <code>CRUD</code> 兼容的：<code>POST /gists/:id/forks</code> 可以执行用户 fork 的动作。</p>
 <h2 id="6-Query-让查询更自由"><a href="#6-Query-让查询更自由" class="headerlink" title="6. Query 让查询更自由"></a>6. Query 让查询更自由</h2><p>比如查询某个 repo 下面 issues 的时候，可以通过以下参数来控制返回哪些结果：</p>
 <ul>
@@ -533,8 +366,7 @@
 <th>解释</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>200</td>
 <td>OK</td>
 <td>Y</td>
@@ -636,20 +468,20 @@
 <td>Y</td>
 <td>服务器因为负载过高或者维护，暂时无法提供服务。服务器端应该返回 <code>Retry-After</code> 头部，告诉客户端过一段时间再来重试</td>
 </tr>
-</tbody>
-</table>
-<p>上面这些状态码覆盖了 API 设计中大部分的情况，如果对某个状态码不清楚或者希望查看更完整的列表，可以参考 <a href="https://httpstatuses.com/" target="_blank" rel="noopener">HTTP Status Code</a> 这个网站，或者 <a href="https://tools.ietf.org/html/rfc7231#section-6" target="_blank" rel="noopener">RFC7231 Response Status Codes</a> 的内容。<br>在实际应用中，<strong>不建议再使用更多的状态码</strong>。</p>
+</tbody></table>
+<p>上面这些状态码覆盖了 API 设计中大部分的情况，如果对某个状态码不清楚或者希望查看更完整的列表，可以参考 <a target="_blank" rel="noopener" href="https://httpstatuses.com/">HTTP Status Code</a> 这个网站，或者 <a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc7231#section-6">RFC7231 Response Status Codes</a> 的内容。<br>在实际应用中，<strong>不建议再使用更多的状态码</strong>。</p>
 <h2 id="9-错误处理码设计"><a href="#9-错误处理码设计" class="headerlink" title="9. 错误处理码设计"></a>9. 错误处理码设计</h2><p>除了使用好HTTP状态码，必须有良好的错误码设计。一个良好的状态码设计应同事给出<code>状态码</code>和对应<code>错误消息</code>。<br>HTTP请求返回格式(建议)：</p>
-<pre><code>{
+<pre><code>&#123;
     &quot;code&quot;:XXX,
     &quot;message&quot;:&quot;ABCDE...&quot;,
-    &quot;data&quot;:{
+    &quot;data&quot;:&#123;
         ...
-    }
-}
-</code></pre><p>在正常请求时，约定<code>code=0,message=&quot;ok&quot;</code>。</p>
+    &#125;
+&#125;
+</code></pre>
+<p>在正常请求时，约定<code>code=0,message=&quot;ok&quot;</code>。</p>
 <p>错误时，错误码规则为<code>ABBBBCCCC</code>，共9位。</p>
-<p>A:错误级别。如1代表系统级错误，2代表服务级错误；<br>B:项目或模块名称代码；9999个项目或模块，够用了；<br>C:具体错误编号。单个项目/模块有999种错误应该够用；</p>
+<p>A:错误级别。如1代表系统级错误，2代表服务级错误；<br>B:项目或模块名称代码；9999个项目或模块，够用了；<br>C:具体错误编号。单个项目&#x2F;模块有999种错误应该够用；</p>
 <p>A错误级别码：</p>
 <table>
 <thead>
@@ -658,8 +490,7 @@
 <th>错误说明</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>1</td>
 <td>依赖组件级错误</td>
 </tr>
@@ -683,8 +514,7 @@
 <td>…</td>
 <td>-</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>BBBB项目代码：</p>
 <table>
 <thead>
@@ -693,8 +523,7 @@
 <th>错误说明</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>0001</td>
 <td>search-ershou</td>
 </tr>
@@ -706,8 +535,7 @@
 <td>…</td>
 <td>-</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>CCCC错误编号：</p>
 <table>
 <thead>
@@ -716,8 +544,7 @@
 <th>错误说明</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>1000</td>
 <td>权限认证相关错误</td>
 </tr>
@@ -735,482 +562,143 @@
 </tr>
 <tr>
 <td>…</td>
+<td></td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <h2 id="10-验证和授权"><a href="#10-验证和授权" class="headerlink" title="10. 验证和授权"></a>10. 验证和授权</h2><p>一般来说，让任何人随意访问公开的 API 是不好的做法。验证和授权是两件事情：</p>
 <ul>
 <li>验证（Authentication）是为了确定用户是其申明的身份，比如提供账户的密码。不然的话，任何人伪造成其他身份（比如其他用户或者管理员）是非常危险的</li>
 <li>授权（Authorization）是为了保证用户有对请求资源特定操作的权限。比如用户的私人信息只能自己能访问，其他人无法看到；有些特殊的操作只能管理员可以操作，其他用户有只读的权限等等</li>
 </ul>
-<p>如果没有通过验证（提供的用户名和密码不匹配，token 不正确等），需要返回 <a href="https://httpstatuses.com/401" target="_blank" rel="noopener"><strong>401 Unauthorized</strong></a>状态码，并在 body 中说明具体的错误信息；而没有被授权访问的资源操作，需要返回 <a href="https://httpstatuses.com/403" target="_blank" rel="noopener"><strong>403 Forbidden</strong></a> 状态码，还有详细的错误信息。</p>
-<p><strong>NOTE</strong>：Github API 对某些用户未被授权访问的资源操作返回 <a href="https://httpstatuses.com/404" target="_blank" rel="noopener"><strong>404 Not Found</strong></a>，目的是为了防止私有资源的泄露（比如黑客可以自动化试探用户的私有资源，返回 403 的话，就等于告诉黑客用户有这些私有的资源）。</p>
-<h2 id="11-限流rate-limit"><a href="#11-限流rate-limit" class="headerlink" title="11. 限流rate limit"></a>11. 限流rate limit</h2><p>如果对访问的次数不加控制，很可能会造成 API 被滥用，甚至被 <a href="https://en.wikipedia.org/wiki/Denial-of-service_attack" target="_blank" rel="noopener">DDos 攻击</a>。根据使用者不同的身份对其进行限流，可以防止这些情况，减少服务器的压力。</p>
+<p>如果没有通过验证（提供的用户名和密码不匹配，token 不正确等），需要返回 <a target="_blank" rel="noopener" href="https://httpstatuses.com/401"><strong>401 Unauthorized</strong></a>状态码，并在 body 中说明具体的错误信息；而没有被授权访问的资源操作，需要返回 <a target="_blank" rel="noopener" href="https://httpstatuses.com/403"><strong>403 Forbidden</strong></a> 状态码，还有详细的错误信息。</p>
+<p><strong>NOTE</strong>：Github API 对某些用户未被授权访问的资源操作返回 <a target="_blank" rel="noopener" href="https://httpstatuses.com/404"><strong>404 Not Found</strong></a>，目的是为了防止私有资源的泄露（比如黑客可以自动化试探用户的私有资源，返回 403 的话，就等于告诉黑客用户有这些私有的资源）。</p>
+<h2 id="11-限流rate-limit"><a href="#11-限流rate-limit" class="headerlink" title="11. 限流rate limit"></a>11. 限流rate limit</h2><p>如果对访问的次数不加控制，很可能会造成 API 被滥用，甚至被 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Denial-of-service_attack">DDos 攻击</a>。根据使用者不同的身份对其进行限流，可以防止这些情况，减少服务器的压力。</p>
 <p>对用户的请求限流之后，要有方法告诉用户它的请求使用情况，<code>Github API</code> 使用的三个相关的头部可以借鉴：</p>
 <ul>
 <li><code>X-RateLimit-Limit</code>: 用户每个小时允许发送请求的最大值</li>
 <li><code>X-RateLimit-Remaining</code>：当前时间窗口剩下的可用请求数目</li>
 <li><code>X-RateLimit-Rest</code>: 时间窗口重置的时候，到这个时间点可用的请求数量就会变成 X-RateLimit-Limit的值</li>
 </ul>
-<p>如果允许没有登录的用户使用 API（可以让用户试用），可以把 <code>X-RateLimit-Limit</code> 的值设置得很小，比如 Github 使用的 <code>60</code>。没有登录的用户是按照请求的 IP 来确定的，而登录的用户按照认证后的信息来确定身份。<br>对于超过流量的请求，可以返回 <a href="https://httpstatuses.com/429" target="_blank" rel="noopener"><strong>429 Too many requests</strong></a> 状态码，并附带错误信息。而 <code>Github API</code> 返回的是 <a href="https://httpstatuses.com/403" target="_blank" rel="noopener"><strong>403 Forbidden</strong></a>，虽然没有 <code>429</code> 更准确，也是可以理解的。</p>
-<h2 id="12-Hypermedia-API"><a href="#12-Hypermedia-API" class="headerlink" title="12. Hypermedia API"></a>12. Hypermedia API</h2><p>Restful API 的设计最好做到 Hypermedia：在返回结果中提供相关资源的链接。这种设计也被称为 <a href="http://en.wikipedia.org/wiki/HATEOAS" target="_blank" rel="noopener">HATEOAS</a>。这样做的好处是，用户可以根据返回结果就能得到后续操作需要访问的地址。<br>比如访问 <a href="https://api.github.com/" target="_blank" rel="noopener">api.github.com</a>，就可以看到 Github API 支持的资源操作。<br>Spring技术栈，可以使用<a href="https://spring.io/projects/spring-hateoas" target="_blank" rel="noopener">Spring Hateoas</a>；由于需要在返回body内增加内容，内部服务使用起来颇有难度，不建议。外部服务强烈推荐。</p>
+<p>如果允许没有登录的用户使用 API（可以让用户试用），可以把 <code>X-RateLimit-Limit</code> 的值设置得很小，比如 Github 使用的 <code>60</code>。没有登录的用户是按照请求的 IP 来确定的，而登录的用户按照认证后的信息来确定身份。<br>对于超过流量的请求，可以返回 <a target="_blank" rel="noopener" href="https://httpstatuses.com/429"><strong>429 Too many requests</strong></a> 状态码，并附带错误信息。而 <code>Github API</code> 返回的是 <a target="_blank" rel="noopener" href="https://httpstatuses.com/403"><strong>403 Forbidden</strong></a>，虽然没有 <code>429</code> 更准确，也是可以理解的。</p>
+<h2 id="12-Hypermedia-API"><a href="#12-Hypermedia-API" class="headerlink" title="12. Hypermedia API"></a>12. Hypermedia API</h2><p>Restful API 的设计最好做到 Hypermedia：在返回结果中提供相关资源的链接。这种设计也被称为 <a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/HATEOAS">HATEOAS</a>。这样做的好处是，用户可以根据返回结果就能得到后续操作需要访问的地址。<br>比如访问 <a target="_blank" rel="noopener" href="https://api.github.com/">api.github.com</a>，就可以看到 Github API 支持的资源操作。<br>Spring技术栈，可以使用<a target="_blank" rel="noopener" href="https://spring.io/projects/spring-hateoas">Spring Hateoas</a>；由于需要在返回body内增加内容，内部服务使用起来颇有难度，不建议。外部服务强烈推荐。</p>
 <h2 id="13-编写优秀的文档"><a href="#13-编写优秀的文档" class="headerlink" title="13. 编写优秀的文档"></a>13. 编写优秀的文档</h2><p>API 最终是给人使用的，不管是公司内部，还是公开的 API 都是一样。即使我们遵循了上面提到的所有规范，设计的 API 非常优雅，用户还是不知道怎么使用我们的 API。最后一步，但非常重要的一步是：为你的 API 编写优秀的文档。</p>
-<p>对每个请求以及返回的参数给出说明，最好给出一个详细而完整地示例，提醒用户需要注意的地方……反正目标就是用户可以根据你的文档就能直接使用API，而不是要发邮件给你，或者跑到你的座位上问你一堆问题。<br>文档生成：<strong>建议使用<a href="https://swagger.io/" target="_blank" rel="noopener">SWAGGER</a></strong><br>与Spring集成：使用<a href="http://springfox.github.io/springfox/" target="_blank" rel="noopener">SpringFox</a></p>
+<p>对每个请求以及返回的参数给出说明，最好给出一个详细而完整地示例，提醒用户需要注意的地方……反正目标就是用户可以根据你的文档就能直接使用API，而不是要发邮件给你，或者跑到你的座位上问你一堆问题。<br>文档生成：<strong>建议使用<a target="_blank" rel="noopener" href="https://swagger.io/">SWAGGER</a></strong><br>与Spring集成：使用<a target="_blank" rel="noopener" href="http://springfox.github.io/springfox/">SpringFox</a></p>
 
-      
     </div>
-    
-    
-    
-    
 
     
-      <div>
-        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
-    <img id="wechat_subscriber_qcode" src="/images/qrcode_shenyanchao.jpg" alt="申艳超 wechat" style="width: 200px; max-width: 100%;">
-    <div>欢迎关注微信订阅号~</div>
-</div>
+    
+    
+      
 
-      </div>
-    
-
-    
-      <div>
-        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-  <div>您的支持是我原创的动力！</div>
-  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-    <span>打赏</span>
-  </button>
-  <div id="QR" style="display: none;">
-
-    
-      <div id="wechat" style="display: inline-block">
-        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="申艳超 微信支付">
-        <p>微信支付</p>
-      </div>
-    
-
-    
-      <div id="alipay" style="display: inline-block">
-        <img id="alipay_qr" src="/images/alipay.jpg" alt="申艳超 支付宝">
-        <p>支付宝</p>
-      </div>
-    
-
-    
-
-  </div>
-</div>
-
-      </div>
-    
-
-    
-      <div>
-        <ul class="post-copyright">
-  <li class="post-copyright-author">
-    <strong>本文作者：</strong>
-    申艳超
-  </li>
-  <li class="post-copyright-link">
-    <strong>本文链接：</strong>
-    <a href="https://www.shenyanchao.cn/blog/2018/08/23/the-principle-of-api-design-in-mircoservice/" title="微服务下的API设计原则">https://www.shenyanchao.cn/blog/2018/08/23/the-principle-of-api-design-in-mircoservice/</a>
-  </li>
-  <li class="post-copyright-license">
-    <strong>版权声明： </strong>
-    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
-  </li>
-</ul>
-
-      </div>
-    
 
     <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/微服务/" rel="tag"># 微服务</a>
-          
-            <a href="/tags/API/" rel="tag"># API</a>
-          
-            <a href="/tags/设计/" rel="tag"># 设计</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/blog/2018/07/23/spring-cache-redis-annotation/" rel="next" title="Spring Redis 注解式Cache那些事">
-                <i class="fa fa-chevron-left"></i> Spring Redis 注解式Cache那些事
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/blog/2018/10/29/mat-for-java/" rel="prev" title="利用MAT来分析JAVA内存泄露">
-                利用MAT来分析JAVA内存泄露 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
-  
-    <div class="comments" id="comments">
-    </div>
-  
-
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image" src="/images/shenyanchao.jpeg" alt="申艳超">
-            
-              <p class="site-author-name" itemprop="name">申艳超</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">124</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">35</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">233</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-            <div class="feed-link motion-element">
-              <a href="/atom.xml" rel="alternate">
-                <i class="fa fa-rss"></i>
-                RSS
-              </a>
-            </div>
-          
-
-          
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/blueshen" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:zhiyi.shen@gmail.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-            </div>
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#微服务下的API设计原则"><span class="nav-number">1.</span> <span class="nav-text">微服务下的API设计原则</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-为了安全，请使用HTTPS"><span class="nav-number">1.1.</span> <span class="nav-text">1. 为了安全，请使用HTTPS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-API-地址和版本"><span class="nav-number">1.2.</span> <span class="nav-text">2. API 地址和版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-schema请使用JSON"><span class="nav-number">1.3.</span> <span class="nav-text">3. schema请使用JSON</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-以资源为中心的URL设计"><span class="nav-number">1.4.</span> <span class="nav-text">4. 以资源为中心的URL设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-使用正确的HTTP-Method"><span class="nav-number">1.5.</span> <span class="nav-text">5. 使用正确的HTTP Method</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#不符合-CRUD-的情况"><span class="nav-number">1.5.1.</span> <span class="nav-text">不符合 CRUD 的情况</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用-POST"><span class="nav-number">1.5.1.1.</span> <span class="nav-text">使用 POST</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#增加控制参数"><span class="nav-number">1.5.1.2.</span> <span class="nav-text">增加控制参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#把动作转换成资源"><span class="nav-number">1.5.1.3.</span> <span class="nav-text">把动作转换成资源</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Query-让查询更自由"><span class="nav-number">1.6.</span> <span class="nav-text">6. Query 让查询更自由</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-分页-Pagination"><span class="nav-number">1.7.</span> <span class="nav-text">7. 分页 Pagination</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-选择合适的HTTP状态码"><span class="nav-number">1.8.</span> <span class="nav-text">8. 选择合适的HTTP状态码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-错误处理码设计"><span class="nav-number">1.9.</span> <span class="nav-text">9. 错误处理码设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-验证和授权"><span class="nav-number">1.10.</span> <span class="nav-text">10. 验证和授权</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-限流rate-limit"><span class="nav-number">1.11.</span> <span class="nav-text">11. 限流rate limit</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-Hypermedia-API"><span class="nav-number">1.12.</span> <span class="nav-text">12. Hypermedia API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-编写优秀的文档"><span class="nav-number">1.13.</span> <span class="nav-text">13. 编写优秀的文档</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
+          <div class="reward-container">
+  <div>您的支持是我原创的动力！</div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="申艳超 WeChat Pay">
+        <span>WeChat Pay</span>
       </div>
-    </main>
+      <div>
+        <img src="/images/alipay.jpg" alt="申艳超 Alipay">
+        <span>Alipay</span>
+      </div>
 
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; 2012 &mdash; <span itemprop="copyrightYear">2020</span>
+  </div>
+</div>
+
+          <div class="followme">
+  <span>Welcome to my other publishing channels</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag"># 微服务</a>
+              <a href="/tags/API/" rel="tag"># API</a>
+              <a href="/tags/%E8%AE%BE%E8%AE%A1/" rel="tag"># 设计</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2018/07/23/spring-cache-redis-annotation/" rel="prev" title="Spring Redis 注解式Cache那些事">
+                  <i class="fa fa-chevron-left"></i> Spring Redis 注解式Cache那些事
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/2018/10/29/mat-for-java/" rel="next" title="利用MAT来分析JAVA内存泄露">
+                  利用MAT来分析JAVA内存泄露 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2012 – 
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
-    <i class="fa fa-user"></i>
+    <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">申艳超</span>
-
-  
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-area-chart"></i>
-    </span>
-    
-      <span class="post-meta-item-text">Site words total count&#58;</span>
-    
-    <span title="Site words total count">233.6k</span>
-  
 </div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
-
-
-
-
-        
 <div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-  
-    <span class="site-uv">
-      <i class="fa fa-user"></i>
-      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-      
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
     </span>
-  
-
-  
-    <span class="site-pv">
-      <i class="fa fa-eye"></i>
-      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-      
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
     </span>
-  
 </div>
-
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a>
   </div>
 
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
-
-
+    </div>
+  </footer>
 
   
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
   
 
@@ -1219,182 +707,13 @@
 
 
   
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"vFAoofuVWgdHsCv6B6BtqROc-gzGzoHsz","app_key":"ANWUkmboGiNDNRmf2iVlUIGt","server_url":null,"security":true}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
 
 
-
-
-
-
-
-
-  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-  
-  <script type="text/javascript">
-    var GUEST = ['nick','mail','link'];
-    var guest = 'nick,mail';
-    guest = guest.split(',').filter(item=>{
-      return GUEST.indexOf(item)>-1;
-    });
-    new Valine({
-        el: '#comments' ,
-        verify: true,
-        notify: false,
-        appId: 'vFAoofuVWgdHsCv6B6BtqROc-gzGzoHsz',
-        appKey: 'ANWUkmboGiNDNRmf2iVlUIGt',
-        placeholder: '开始你的评论吧!',
-        avatar:'mm',
-        guest_info:guest,
-        pageSize:'10' || 10,
-    });
-  </script>
-
-
-
-  
-
-
-
-
-
-  
-
-  
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("vFAoofuVWgdHsCv6B6BtqROc-gzGzoHsz", "ANWUkmboGiNDNRmf2iVlUIGt");</script>
-  <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
-            }
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
-
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
-          } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
-          }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
-      });
-    }
-
-    $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
-    });
-  </script>
-
-
-
-  
-
-  
-<script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-
-
-  
-  
-
-  
-
-  
-
-  
 
 </body>
 </html>

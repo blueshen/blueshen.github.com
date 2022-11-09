@@ -1,454 +1,287 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next mist use-motion" lang="zh-Hans">
-<head><meta name="generator" content="Hexo 3.9.0">
+<html lang="zh-Hans">
+<head>
   <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="theme-color" content="#222">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.shenyanchao.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.13.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/icon.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="数据库,dbunit,h2database,ut，sql-maven-plugin,">
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="申艳超-博客" type="application/atom+xml">
-
-
-
-
-
-
-<meta name="description" content="DbUnit是一个意在对使用数据库驱动项目进行测试的JUnit扩展。它使得你的数据库在各个Test之间处于一个已知的状态。这很好的解决了以下问题：当一个测试破坏了数据库时，导致其后面的所有测试失败或给出了错误的结果。 DbUnit原理DbUnit通过维护真实数据库与数据集(DataSet)之间的关系来发现与暴露测试过程中的问题。此处DataSet可以自建，可以由数据库导出，并以多种方式体现，xml">
-<meta name="keywords" content="数据库,dbunit,h2database,ut，sql-maven-plugin">
+    <meta name="description" content="DbUnit是一个意在对使用数据库驱动项目进行测试的JUnit扩展。它使得你的数据库在各个Test之间处于一个已知的状态。这很好的解决了以下问题：当一个测试破坏了数据库时，导致其后面的所有测试失败或给出了错误的结果。 DbUnit原理DbUnit通过维护真实数据库与数据集(DataSet)之间的关系来发现与暴露测试过程中的问题。此处DataSet可以自建，可以由数据库导出，并以多种方式体现，xml">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DbUnit使用入门">
 <meta property="og:url" content="https://www.shenyanchao.cn/blog/2013/06/27/usage-dbunit/index.html">
 <meta property="og:site_name" content="申艳超-博客">
 <meta property="og:description" content="DbUnit是一个意在对使用数据库驱动项目进行测试的JUnit扩展。它使得你的数据库在各个Test之间处于一个已知的状态。这很好的解决了以下问题：当一个测试破坏了数据库时，导致其后面的所有测试失败或给出了错误的结果。 DbUnit原理DbUnit通过维护真实数据库与数据集(DataSet)之间的关系来发现与暴露测试过程中的问题。此处DataSet可以自建，可以由数据库导出，并以多种方式体现，xml">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-12-17T11:41:25.756Z">
+<meta property="og:locale">
+<meta property="article:published_time" content="2013-06-27T07:57:00.000Z">
+<meta property="article:modified_time" content="2019-12-17T11:41:25.756Z">
+<meta property="article:author" content="申艳超">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="dbunit">
+<meta property="article:tag" content="h2database">
+<meta property="article:tag" content="ut，sql-maven-plugin">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="DbUnit使用入门">
-<meta name="twitter:description" content="DbUnit是一个意在对使用数据库驱动项目进行测试的JUnit扩展。它使得你的数据库在各个Test之间处于一个已知的状态。这很好的解决了以下问题：当一个测试破坏了数据库时，导致其后面的所有测试失败或给出了错误的结果。 DbUnit原理DbUnit通过维护真实数据库与数据集(DataSet)之间的关系来发现与暴露测试过程中的问题。此处DataSet可以自建，可以由数据库导出，并以多种方式体现，xml">
+
+
+<link rel="canonical" href="https://www.shenyanchao.cn/blog/2013/06/27/usage-dbunit/">
 
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Mist',
-    version: '5.1.4',
-    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-Hans","comments":true,"permalink":"https://www.shenyanchao.cn/blog/2013/06/27/usage-dbunit/","path":"blog/2013/06/27/usage-dbunit/","title":"DbUnit使用入门"}</script>
 
-
-
-  <link rel="canonical" href="https://www.shenyanchao.cn/blog/2013/06/27/usage-dbunit/">
-
-
-
-
-
-  <title>DbUnit使用入门 | 申艳超-博客</title>
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>DbUnit使用入门 | 申艳超-博客</title>
   
 
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?81c9612f8fdceca45435ef7f5404d7b2"></script>
 
 
 
 
-  <script type="text/javascript">
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?81c9612f8fdceca45435ef7f5404d7b2";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
 
+  <script async defer data-website-id="" src=""></script>
 
+  <script defer data-domain="" src=""></script>
 
-
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="申艳超-博客" type="application/atom+xml">
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
-  
-  
-    
-  
-
-  <div class="container sidebar-position-right page-post-detail">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">申艳超-博客</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
-      
-        <h1 class="site-subtitle" itemprop="description">搜索引擎、分布式、高性能、NLP、ElasticSearch、Solr</h1>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">申艳超-博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">搜索引擎、分布式、高性能、NLP、ElasticSearch、Solr</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
-            
-            关于
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-            
-            标签
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
-            
-            分类
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-sitemap">
-          <a href="/sitemap.xml" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
-            
-            站点地图
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-commonweal">
-          <a href="/404.html" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
-            
-            公益404
-          </a>
-        </li>
-      
-
-      
-    </ul>
-  
-
-  
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>Archives</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="sitemap fa-fw"></i>Sitemap</a></li><li class="menu-item menu-item-commonweal"><a href="/404.html" rel="section"><i class="heartbeat fa-fw"></i>Commonweal 404</a></li>
+  </ul>
 </nav>
 
 
 
- </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#DbUnit%E5%8E%9F%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">DbUnit原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B%E4%BD%BF%E7%94%A8DbUnit"><span class="nav-number">2.</span> <span class="nav-text">开始使用DbUnit</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DataSet%E6%95%B0%E6%8D%AE%E9%9B%86%E5%87%86%E5%A4%87"><span class="nav-number">2.1.</span> <span class="nav-text">DataSet数据集准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%A7%E6%89%BFDBTestCase%E6%9D%A5%E5%AE%9E%E7%8E%B0%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B"><span class="nav-number">2.2.</span> <span class="nav-text">继承DBTestCase来实现测试用例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E5%88%B6%E6%B5%8B%E8%AF%95%E6%89%A7%E8%A1%8C%E5%89%8D%E5%90%8E%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="nav-number">2.3.</span> <span class="nav-text">定制测试执行前后的操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DatabaseConfig%E8%AE%BE%E7%BD%AE"><span class="nav-number">2.4.</span> <span class="nav-text">DatabaseConfig设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Database%E6%95%B0%E6%8D%AE%E9%AA%8C%E8%AF%81"><span class="nav-number">2.5.</span> <span class="nav-text">Database数据验证</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DbUnit%E7%9A%84%E8%BF%90%E8%A1%8C%E6%AD%A5%E9%AA%A4"><span class="nav-number">3.</span> <span class="nav-text">DbUnit的运行步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E4%BB%80%E4%B9%88%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%9F"><span class="nav-number">4.</span> <span class="nav-text">使用什么数据库？</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="申艳超"
+      src="/images/shenyanchao.jpeg">
+  <p class="site-author-name" itemprop="name">申艳超</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">133</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">244</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/blueshen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;blueshen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhiyi.shen@gmail.com" title="E-Mail → mailto:zhiyi.shen@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
     </header>
 
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
     
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/blueshen" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
 
   
 
-  
+
+<div class="post-block">
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="https://www.shenyanchao.cn/blog/2013/06/27/usage-dbunit/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="申艳超">
-      <meta itemprop="description" content="">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/shenyanchao.jpeg">
+      <meta itemprop="name" content="申艳超">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="申艳超-博客">
+      <meta itemprop="description" content="">
     </span>
 
-    
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="DbUnit使用入门 | 申艳超-博客">
+      <meta itemprop="description" content="">
+    </span>
       <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          DbUnit使用入门
+        </h1>
 
-        
-        
-          <h2 class="post-title" itemprop="name headline">DbUnit使用入门</h2>
-        
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-06-27T15:57:00+08:00">
-                2013-06-27
-              </time>
-            
+      <time title="Created: 2013-06-27 15:57:00" itemprop="dateCreated datePublished" datetime="2013-06-27T15:57:00+08:00">2013-06-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2019-12-17 19:41:25" itemprop="dateModified" datetime="2019-12-17T19:41:25+08:00">2019-12-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">单元测试</span></a>
+        </span>
+    </span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/单元测试/" itemprop="url" rel="index">
-                    <span itemprop="name">单元测试</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/blog/2013/06/27/usage-dbunit/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/blog/2013/06/27/usage-dbunit/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/blog/2013/06/27/usage-dbunit/" class="leancloud_visitors" data-flag-title="DbUnit使用入门">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-            <span class="post-meta-divider">|</span>
-            <span class="page-pv"><i class="fa fa-file-o"></i>
-            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
-            </span>
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,996
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  9
-                </span>
-              
-            </div>
-          
-
-          
+  
+    <span id="/blog/2013/06/27/usage-dbunit/" class="post-meta-item leancloud_visitors" data-flag-title="DbUnit使用入门" title="Views">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
 
         </div>
       </header>
-    
 
     
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <p><a href="http://www.dbunit.org/" target="_blank" rel="noopener">DbUnit</a>是一个意在对使用数据库驱动项目进行测试的JUnit扩展。它使得你的数据库在各个Test之间处于一个已知的状态。这很好的解决了以下问题：当一个测试破坏了数据库时，导致其后面的所有测试失败或给出了错误的结果。</p>
+        <p><a target="_blank" rel="noopener" href="http://www.dbunit.org/">DbUnit</a>是一个意在对使用数据库驱动项目进行测试的JUnit扩展。它使得你的数据库在各个Test之间处于一个已知的状态。这很好的解决了以下问题：当一个测试破坏了数据库时，导致其后面的所有测试失败或给出了错误的结果。</p>
 <h3 id="DbUnit原理"><a href="#DbUnit原理" class="headerlink" title="DbUnit原理"></a>DbUnit原理</h3><p>DbUnit通过维护真实数据库与数据集(DataSet)之间的关系来发现与暴露测试过程中的问题。此处DataSet可以自建，可以由数据库导出，并以多种方式体现，xml文件、XLS文件和数据库查询数据等，一般多用XML文件。在测试过程中，DataSet被称为期望结果(expected result),真实数据库被称真实结果(actual result),你所要做的就是通过DbUnit完成期望结果与真实结果之间的操作与比较，从而发现问题和校验结果。<br>DbUnit包括三个核心部分:</p>
 <ul>
 <li>IDatabaseConnection ：描述DbUnit数据库连接接口；</li>
 <li>IDataSet：数据集操作接口；</li>
 <li>DatabaseOperation：描述测试用例测试方法执行前与执行后所做操作的抽象类；</li>
 </ul>
-<a id="more"></a>
+<span id="more"></span>
 <p>值得关注的是DatabaseOperation的各种实现，比较常用的有 REFRESH、DELETE_ALL和CLEAN_INSERT等。这些操作关系到数据集与数据库数据的同步、数据准备，不小心就会对数据库原有数据造成影响，所以务必做好备份。</p>
 <p>DatabaseOperation有以下的可选项：</p>
 <ul>
@@ -461,34 +294,37 @@
 <li>TRUNCATE_TABLE：与DELETE_ALL类似，更轻量级，不能rollback。</li>
 <li>CLEAN_INSERT：是一个组合操作，是DELETE_ALL和INSERT的组合。是getSetUpOeration的默认返回值。</li>
 </ul>
-<h3 id="开始使用DbUnit"><a href="#开始使用DbUnit" class="headerlink" title="开始使用DbUnit"></a>开始使用DbUnit</h3><h4 id="DataSet数据集准备"><a href="#DataSet数据集准备" class="headerlink" title="DataSet数据集准备"></a>DataSet数据集准备</h4><p>DataSet可以手工编写，当然也可以从已有数据库导出。以使用广泛的FlatXMlDataSet来说，可以<a href="http://www.dbunit.org/components.html#FlatXmlDataSet" target="_blank" rel="noopener">手工编写</a>。另外也可以从数据库读取，DbUnit提供了相关的API：</p>
-<pre><code>QueryDataSet dataSet = new QueryDataSet(getConnection());
-dataSet.addTable(&quot;user&quot;, &quot;select * from user &quot;);
-FlatXmlDataSet.write(dataSet, new FileOutputStream(&quot;data.xml&quot;));
-</code></pre><h4 id="继承DBTestCase来实现测试用例"><a href="#继承DBTestCase来实现测试用例" class="headerlink" title="继承DBTestCase来实现测试用例"></a>继承DBTestCase来实现测试用例</h4><p>最简单的使用DbUnit的方式就是继承DBTestCase。当然有一些方法需要重写，比如getDataSet()用来读取DataSet并返回。DBTestCase依赖于IDatabaseTester来连接数据库。默认使用的是PropertiesBasedJdbcDatabaseTester，它会从系统变量内获取DriverManager使用的相关变量。如果要使用其它的方式，可以重写getDatabaseTester()。当然也可以直接继承DBTestCase的其它子类。比如：</p>
+<h3 id="开始使用DbUnit"><a href="#开始使用DbUnit" class="headerlink" title="开始使用DbUnit"></a>开始使用DbUnit</h3><h4 id="DataSet数据集准备"><a href="#DataSet数据集准备" class="headerlink" title="DataSet数据集准备"></a>DataSet数据集准备</h4><p>DataSet可以手工编写，当然也可以从已有数据库导出。以使用广泛的FlatXMlDataSet来说，可以<a target="_blank" rel="noopener" href="http://www.dbunit.org/components.html#FlatXmlDataSet">手工编写</a>。另外也可以从数据库读取，DbUnit提供了相关的API：</p>
+<pre><code>    QueryDataSet dataSet = new QueryDataSet(getConnection());
+    dataSet.addTable(&quot;user&quot;, &quot;select * from user &quot;);
+    FlatXmlDataSet.write(dataSet, new FileOutputStream(&quot;data.xml&quot;));
+</code></pre>
+<h4 id="继承DBTestCase来实现测试用例"><a href="#继承DBTestCase来实现测试用例" class="headerlink" title="继承DBTestCase来实现测试用例"></a>继承DBTestCase来实现测试用例</h4><p>最简单的使用DbUnit的方式就是继承DBTestCase。当然有一些方法需要重写，比如getDataSet()用来读取DataSet并返回。DBTestCase依赖于IDatabaseTester来连接数据库。默认使用的是PropertiesBasedJdbcDatabaseTester，它会从系统变量内获取DriverManager使用的相关变量。如果要使用其它的方式，可以重写getDatabaseTester()。当然也可以直接继承DBTestCase的其它子类。比如：</p>
 <ul>
 <li>JdbcBasedDBTestCase</li>
 <li>DataSourceBasedDBTestCase</li>
 <li>JndiBasedDBTestCase</li>
 </ul>
 <p>下面依默认的情况，那么如何设置系统变量呢？在Constructor里就好了。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SampleTest</span> <span class="keyword">extends</span> <span class="title">DBTestCase</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SampleTest</span><span class="params">(String name)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>( name );</span><br><span class="line">        System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_DRIVER_CLASS, <span class="string">"org.h2.Driver"</span>);</span><br><span class="line">        System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_CONNECTION_URL, <span class="string">"jdbc:h2:~/dbunitdemo"</span>);</span><br><span class="line">        System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_USERNAME, <span class="string">"sa"</span>);</span><br><span class="line">        System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_PASSWORD, <span class="string">""</span>);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> IDataSet <span class="title">getDataSet</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> FlatXmlDataSetBuilder().build(<span class="keyword">new</span> FileInputStream(<span class="string">"dataset.xml"</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SampleTest</span> <span class="keyword">extends</span> <span class="title class_">DBTestCase</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">SampleTest</span><span class="params">(String name)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">super</span>( name );</span><br><span class="line">        System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_DRIVER_CLASS, <span class="string">&quot;org.h2.Driver&quot;</span>);</span><br><span class="line">        System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_CONNECTION_URL, <span class="string">&quot;jdbc:h2:~/dbunitdemo&quot;</span>);</span><br><span class="line">        System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_USERNAME, <span class="string">&quot;sa&quot;</span>);</span><br><span class="line">        System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_PASSWORD, <span class="string">&quot;&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> IDataSet <span class="title function_">getDataSet</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">FlatXmlDataSetBuilder</span>().build(<span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;dataset.xml&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>那么如果我要使用其它的DatabaseTester怎么办？比如JdbcDatabaseTester。那直接重写getDatabaseTester(),返回JdbcDatabaseTester就好了。其它同理。当然那个Constructor就可以去除哪些属性设置了。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> IDatabaseTester <span class="title">getDatabaseTester</span><span class="params">()</span> <span class="keyword">throws</span> ClassNotFoundException </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> JdbcDatabaseTester(<span class="string">"org.h2.Driver"</span>, <span class="string">"jdbc:h2:~/dbunitdemo"</span>, <span class="string">"sa"</span>, <span class="string">""</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> IDatabaseTester <span class="title function_">getDatabaseTester</span><span class="params">()</span> <span class="keyword">throws</span> ClassNotFoundException &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">JdbcDatabaseTester</span>(<span class="string">&quot;org.h2.Driver&quot;</span>, <span class="string">&quot;jdbc:h2:~/dbunitdemo&quot;</span>, <span class="string">&quot;sa&quot;</span>, <span class="string">&quot;&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h4 id="定制测试执行前后的操作"><a href="#定制测试执行前后的操作" class="headerlink" title="定制测试执行前后的操作"></a>定制测试执行前后的操作</h4><p>默认情况下，在Test执行前会做一个CLEAN_INSERT操作，然后结束后做一个NONE操作。那么，如何定制这个操作呢？我们可以重写getSetUpOperation()和 getTearDownOperation()方法就可以了。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> DatabaseOperation <span class="title">getSetUpOperation</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> DatabaseOperation.REFRESH;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">protected</span> DatabaseOperation <span class="title">getTearDownOperation</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> DatabaseOperation.NONE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> DatabaseOperation <span class="title function_">getSetUpOperation</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> DatabaseOperation.REFRESH;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">protected</span> DatabaseOperation <span class="title function_">getTearDownOperation</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> DatabaseOperation.NONE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="DatabaseConfig设置"><a href="#DatabaseConfig设置" class="headerlink" title="DatabaseConfig设置"></a>DatabaseConfig设置</h4><p>有时候，需要对DatabaseConnection做一些特殊的配置，那么这个时候，我们可以重写setUpDatabaseConfig(DatabaseConfig config)。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">setUpDatabaseConfig</span><span class="params">(DatabaseConfig config)</span> </span>&#123;</span><br><span class="line">        config.setProperty(DatabaseConfig.PROPERTY_BATCH_SIZE, <span class="keyword">new</span> Integer(<span class="number">97</span>));</span><br><span class="line">        config.setFeature(DatabaseConfig.FEATURE_BATCHED_STATEMENTS, <span class="keyword">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">setUpDatabaseConfig</span><span class="params">(DatabaseConfig config)</span> &#123;</span><br><span class="line">        config.setProperty(DatabaseConfig.PROPERTY_BATCH_SIZE, <span class="keyword">new</span> <span class="title class_">Integer</span>(<span class="number">97</span>));</span><br><span class="line">        config.setFeature(DatabaseConfig.FEATURE_BATCHED_STATEMENTS, <span class="literal">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>比如，我在使用H2Database时，老是报一个这样的warn:</p>
-<pre><code>WARN org.dbunit.dataset.AbstractTableMetaData - Potential problem found: The configured data type factory &apos;class org.dbunit.dataset.datatype.DefaultDataTypeFactory&apos; might cause problems with the current database &apos;H2&apos; (e.g. some datatypes may not be supported properly). In rare cases you might see this message because the list of supported database products is incomplete (list=[derby]). If so please request a java-class update via the forums.If you are using your own IDataTypeFactory extending DefaultDataTypeFactory, ensure that you override getValidDbProducts() to specify the supported database products.
-</code></pre><p>那么，如何让这个WARN消失呢？加上这个配置：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">config.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, <span class="keyword">new</span> H2DataTypeFactory());</span><br></pre></td></tr></table></figure>
+<pre><code>WARN org.dbunit.dataset.AbstractTableMetaData - Potential problem found: The configured data type factory &#39;class org.dbunit.dataset.datatype.DefaultDataTypeFactory&#39; might cause problems with the current database &#39;H2&#39; (e.g. some datatypes may not be supported properly). In rare cases you might see this message because the list of supported database products is incomplete (list=[derby]). If so please request a java-class update via the forums.If you are using your own IDataTypeFactory extending DefaultDataTypeFactory, ensure that you override getValidDbProducts() to specify the supported database products.
+</code></pre>
+<p>那么，如何让这个WARN消失呢？加上这个配置：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">config.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, <span class="keyword">new</span> <span class="title class_">H2DataTypeFactory</span>());</span><br></pre></td></tr></table></figure>
 <h4 id="Database数据验证"><a href="#Database数据验证" class="headerlink" title="Database数据验证"></a>Database数据验证</h4><p>DbUnit提供了校验2个Table或者datasets是否包含相同数据的方法。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Assertion</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">assertEquals</span><span class="params">(ITable expected, ITable actual)</span></span></span><br><span class="line"><span class="function">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">assertEquals</span><span class="params">(IDataSet expected, IDataSet actual)</span></span></span><br><span class="line"><span class="function">&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Assertion</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">assertEquals</span><span class="params">(ITable expected, ITable actual)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">assertEquals</span><span class="params">(IDataSet expected, IDataSet actual)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>下面的例子，展示了如何对比一个数据库Table和Flat Xml table的数据是否一致。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Fetch database data after executing your code</span></span><br><span class="line">IDataSet databaseDataSet = getConnection().createDataSet();</span><br><span class="line">ITable actualTable = databaseDataSet.getTable(<span class="string">"TABLE_NAME"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Load expected data from an XML dataset</span></span><br><span class="line">IDataSet expectedDataSet = <span class="keyword">new</span> FlatXmlDataSetBuilder().build(<span class="keyword">new</span> File(<span class="string">"expectedDataSet.xml"</span>));</span><br><span class="line">ITable expectedTable = expectedDataSet.getTable(<span class="string">"TABLE_NAME"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Assert actual database table match expected table</span></span><br><span class="line">Assertion.assertEquals(expectedTable, actualTable);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Fetch database data after executing your code</span></span><br><span class="line"><span class="type">IDataSet</span> <span class="variable">databaseDataSet</span> <span class="operator">=</span> getConnection().createDataSet();</span><br><span class="line"><span class="type">ITable</span> <span class="variable">actualTable</span> <span class="operator">=</span> databaseDataSet.getTable(<span class="string">&quot;TABLE_NAME&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Load expected data from an XML dataset</span></span><br><span class="line"><span class="type">IDataSet</span> <span class="variable">expectedDataSet</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FlatXmlDataSetBuilder</span>().build(<span class="keyword">new</span> <span class="title class_">File</span>(<span class="string">&quot;expectedDataSet.xml&quot;</span>));</span><br><span class="line"><span class="type">ITable</span> <span class="variable">expectedTable</span> <span class="operator">=</span> expectedDataSet.getTable(<span class="string">&quot;TABLE_NAME&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Assert actual database table match expected table</span></span><br><span class="line">Assertion.assertEquals(expectedTable, actualTable);</span><br></pre></td></tr></table></figure>
 <h3 id="DbUnit的运行步骤"><a href="#DbUnit的运行步骤" class="headerlink" title="DbUnit的运行步骤"></a>DbUnit的运行步骤</h3><p>由于DBTestCase最终都是继承自JUnit的TestCase的，很明显，在一个测试方法执行前都会调用setUp(),执行后调用tearDown()。在DatabaseTestCase中对这2个函数进行了重写，如下所示：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">setUp</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    logger.debug(<span class="string">"setUp() - start"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">super</span>.setUp();</span><br><span class="line">    <span class="keyword">final</span> IDatabaseTester databaseTester = getDatabaseTester();</span><br><span class="line">    assertNotNull( <span class="string">"DatabaseTester is not set"</span>, databaseTester );</span><br><span class="line">    databaseTester.setSetUpOperation( getSetUpOperation() );</span><br><span class="line">    databaseTester.setDataSet( getDataSet() );</span><br><span class="line">    databaseTester.setOperationListener(getOperationListener());</span><br><span class="line">    databaseTester.onSetup();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">tearDown</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    logger.debug(<span class="string">"tearDown() - start"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">final</span> IDatabaseTester databaseTester = getDatabaseTester();</span><br><span class="line">        assertNotNull( <span class="string">"DatabaseTester is not set"</span>, databaseTester );</span><br><span class="line">        databaseTester.setTearDownOperation( getTearDownOperation() );</span><br><span class="line">        databaseTester.setDataSet( getDataSet() );</span><br><span class="line">        databaseTester.setOperationListener(getOperationListener());</span><br><span class="line">        databaseTester.onTearDown();</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        tester = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">super</span>.tearDown();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">setUp</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span><br><span class="line">&#123;</span><br><span class="line">    logger.debug(<span class="string">&quot;setUp() - start&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">super</span>.setUp();</span><br><span class="line">    <span class="keyword">final</span> <span class="type">IDatabaseTester</span> <span class="variable">databaseTester</span> <span class="operator">=</span> getDatabaseTester();</span><br><span class="line">    assertNotNull( <span class="string">&quot;DatabaseTester is not set&quot;</span>, databaseTester );</span><br><span class="line">    databaseTester.setSetUpOperation( getSetUpOperation() );</span><br><span class="line">    databaseTester.setDataSet( getDataSet() );</span><br><span class="line">    databaseTester.setOperationListener(getOperationListener());</span><br><span class="line">    databaseTester.onSetup();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">tearDown</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span><br><span class="line">&#123;</span><br><span class="line">    logger.debug(<span class="string">&quot;tearDown() - start&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="type">IDatabaseTester</span> <span class="variable">databaseTester</span> <span class="operator">=</span> getDatabaseTester();</span><br><span class="line">        assertNotNull( <span class="string">&quot;DatabaseTester is not set&quot;</span>, databaseTester );</span><br><span class="line">        databaseTester.setTearDownOperation( getTearDownOperation() );</span><br><span class="line">        databaseTester.setDataSet( getDataSet() );</span><br><span class="line">        databaseTester.setOperationListener(getOperationListener());</span><br><span class="line">        databaseTester.onTearDown();</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        tester = <span class="literal">null</span>;</span><br><span class="line">        <span class="built_in">super</span>.tearDown();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这2个重写的方法，也验证了前面所说，DBTestCase是依赖于databaseTester的。前面所做的一些重写方法，在这里得到了使用，从而改变了测试执行的动作。databaseTester.onSetup()，databaseTester.onTearDown()分别按照配置完成了测试执行前后的操作。</p>
 <p>总结：</p>
 <ul>
@@ -497,7 +333,7 @@ FlatXmlDataSet.write(dataSet, new FileOutputStream(&quot;data.xml&quot;));
 <li>3.运行测试。</li>
 <li>4.测试运行完毕后，不执行任何操作。</li>
 </ul>
-<h3 id="使用什么数据库？"><a href="#使用什么数据库？" class="headerlink" title="使用什么数据库？"></a>使用什么数据库？</h3><p>由于单元测试，与生产环境不要求是一样的数据库。因此，原则上是可以随意选取的。但是考虑到敏捷性，尽量选取轻量级的，以及可移植的。<br>这里推荐一个数据库<a href="http://www.h2database.com/html/main.html" target="_blank" rel="noopener">H2Database</a>，它是一个内存数据库，极为轻量。它与其它几种数据库的对比如下：</p>
+<h3 id="使用什么数据库？"><a href="#使用什么数据库？" class="headerlink" title="使用什么数据库？"></a>使用什么数据库？</h3><p>由于单元测试，与生产环境不要求是一样的数据库。因此，原则上是可以随意选取的。但是考虑到敏捷性，尽量选取轻量级的，以及可移植的。<br>这里推荐一个数据库<a target="_blank" rel="noopener" href="http://www.h2database.com/html/main.html">H2Database</a>，它是一个内存数据库，极为轻量。它与其它几种数据库的对比如下：</p>
 <table>
 <thead>
 <tr>
@@ -509,8 +345,7 @@ FlatXmlDataSet.write(dataSet, new FileOutputStream(&quot;data.xml&quot;));
 <th>PostgreSQL</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>Pure Java</td>
 <td>YES</td>
 <td>YES</td>
@@ -559,475 +394,134 @@ FlatXmlDataSet.write(dataSet, new FileOutputStream(&quot;data.xml&quot;));
 <td>YES</td>
 </tr>
 <tr>
-<td>Footprint (jar/dll size)</td>
+<td>Footprint (jar&#x2F;dll size)</td>
 <td>~1MB</td>
 <td>~2 MB</td>
 <td>~1 MB</td>
 <td>~4 MB</td>
 <td>~6 MB</td>
 </tr>
-</tbody>
-</table>
-<p>之所以选择内存数据库，是因为在诸如持续集成时，不同的机器可能配置不一样，想运行还要搭建数据库，这个比较麻烦啊。<br>有了数据库就牵涉到如何初始化数据库的问题。如果你使用MAVEN触发Test，这里推荐一个<a href="http://mojo.codehaus.org/sql-maven-plugin/" target="_blank" rel="noopener">sql-maven-plugin</a>。它可以方便的执行数据库SQL脚本来创建数据库。</p>
+</tbody></table>
+<p>之所以选择内存数据库，是因为在诸如持续集成时，不同的机器可能配置不一样，想运行还要搭建数据库，这个比较麻烦啊。<br>有了数据库就牵涉到如何初始化数据库的问题。如果你使用MAVEN触发Test，这里推荐一个<a target="_blank" rel="noopener" href="http://mojo.codehaus.org/sql-maven-plugin/">sql-maven-plugin</a>。它可以方便的执行数据库SQL脚本来创建数据库。</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.codehaus.mojo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>sql-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.5<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.h2database<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>h2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.172<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">driver</span>&gt;</span>org.h2.Driver<span class="tag">&lt;/<span class="name">driver</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url</span>&gt;</span>jdbc:h2:~/dbunitdemo<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">username</span>&gt;</span>sa<span class="tag">&lt;/<span class="name">username</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">password</span>&gt;</span><span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">srcFiles</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">srcFile</span>&gt;</span>$&#123;project.basedir&#125;/src/main/sql/dbunitdemo.sql<span class="tag">&lt;/<span class="name">srcFile</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">srcFiles</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>create-db<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">phase</span>&gt;</span>process-test-resources<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">goal</span>&gt;</span>execute<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>这里，创建了一个H2Database。直接执行<code>mvn sql:execute</code>用来初始化数据库。当然，这里把执行配置到了process-test-resources阶段，直接执行<code>mvn test</code>就OK了。</p>
 
-      
     </div>
-    <ul class="popular-posts"><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/blog/2015/03/26/c3p0-config/" title="关于C3P0容错和自动重连特性的研究" rel="bookmark">关于C3P0容错和自动重连特性的研究</a></h3></div></li></ul>
-    
-    
-    
 
     
-      <div>
-        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
-    <img id="wechat_subscriber_qcode" src="/images/qrcode_shenyanchao.jpg" alt="申艳超 wechat" style="width: 200px; max-width: 100%;">
-    <div>欢迎关注微信订阅号~</div>
-</div>
+    
+    
+      
 
-      </div>
-    
-
-    
-      <div>
-        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-  <div>您的支持是我原创的动力！</div>
-  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-    <span>打赏</span>
-  </button>
-  <div id="QR" style="display: none;">
-
-    
-      <div id="wechat" style="display: inline-block">
-        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="申艳超 微信支付">
-        <p>微信支付</p>
-      </div>
-    
-
-    
-      <div id="alipay" style="display: inline-block">
-        <img id="alipay_qr" src="/images/alipay.jpg" alt="申艳超 支付宝">
-        <p>支付宝</p>
-      </div>
-    
-
-    
-
-  </div>
-</div>
-
-      </div>
-    
-
-    
-      <div>
-        <ul class="post-copyright">
-  <li class="post-copyright-author">
-    <strong>本文作者：</strong>
-    申艳超
-  </li>
-  <li class="post-copyright-link">
-    <strong>本文链接：</strong>
-    <a href="https://www.shenyanchao.cn/blog/2013/06/27/usage-dbunit/" title="DbUnit使用入门">https://www.shenyanchao.cn/blog/2013/06/27/usage-dbunit/</a>
-  </li>
-  <li class="post-copyright-license">
-    <strong>版权声明： </strong>
-    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
-  </li>
-</ul>
-
-      </div>
-    
 
     <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/数据库/" rel="tag"># 数据库</a>
-          
-            <a href="/tags/dbunit/" rel="tag"># dbunit</a>
-          
-            <a href="/tags/h2database/" rel="tag"># h2database</a>
-          
-            <a href="/tags/ut，sql-maven-plugin/" rel="tag"># ut，sql-maven-plugin</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/blog/2013/06/21/mockito-in-brief/" rel="next" title="Mockito简介">
-                <i class="fa fa-chevron-left"></i> Mockito简介
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/blog/2013/06/28/refactoring-to-patterns-reading-notes/" rel="prev" title="《重构与模式》读书笔记">
-                《重构与模式》读书笔记 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
-  
-    <div class="comments" id="comments">
-    </div>
-  
-
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image" src="/images/shenyanchao.jpeg" alt="申艳超">
-            
-              <p class="site-author-name" itemprop="name">申艳超</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">124</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">35</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">233</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-            <div class="feed-link motion-element">
-              <a href="/atom.xml" rel="alternate">
-                <i class="fa fa-rss"></i>
-                RSS
-              </a>
-            </div>
-          
-
-          
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/blueshen" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:zhiyi.shen@gmail.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-            </div>
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#DbUnit原理"><span class="nav-number">1.</span> <span class="nav-text">DbUnit原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开始使用DbUnit"><span class="nav-number">2.</span> <span class="nav-text">开始使用DbUnit</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DataSet数据集准备"><span class="nav-number">2.1.</span> <span class="nav-text">DataSet数据集准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#继承DBTestCase来实现测试用例"><span class="nav-number">2.2.</span> <span class="nav-text">继承DBTestCase来实现测试用例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#定制测试执行前后的操作"><span class="nav-number">2.3.</span> <span class="nav-text">定制测试执行前后的操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DatabaseConfig设置"><span class="nav-number">2.4.</span> <span class="nav-text">DatabaseConfig设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Database数据验证"><span class="nav-number">2.5.</span> <span class="nav-text">Database数据验证</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DbUnit的运行步骤"><span class="nav-number">3.</span> <span class="nav-text">DbUnit的运行步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用什么数据库？"><span class="nav-number">4.</span> <span class="nav-text">使用什么数据库？</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
+          <div class="reward-container">
+  <div>您的支持是我原创的动力！</div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="申艳超 WeChat Pay">
+        <span>WeChat Pay</span>
       </div>
-    </main>
+      <div>
+        <img src="/images/alipay.jpg" alt="申艳超 Alipay">
+        <span>Alipay</span>
+      </div>
 
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; 2012 &mdash; <span itemprop="copyrightYear">2020</span>
+  </div>
+</div>
+
+          <div class="followme">
+  <span>Welcome to my other publishing channels</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag"># 数据库</a>
+              <a href="/tags/dbunit/" rel="tag"># dbunit</a>
+              <a href="/tags/h2database/" rel="tag"># h2database</a>
+              <a href="/tags/ut%EF%BC%8Csql-maven-plugin/" rel="tag"># ut，sql-maven-plugin</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2013/06/21/mockito-in-brief/" rel="prev" title="Mockito简介">
+                  <i class="fa fa-chevron-left"></i> Mockito简介
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/2013/06/28/refactoring-to-patterns-reading-notes/" rel="next" title="《重构与模式》读书笔记">
+                  《重构与模式》读书笔记 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2012 – 
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
-    <i class="fa fa-user"></i>
+    <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">申艳超</span>
-
-  
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-area-chart"></i>
-    </span>
-    
-      <span class="post-meta-item-text">Site words total count&#58;</span>
-    
-    <span title="Site words total count">233.6k</span>
-  
 </div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
-
-
-
-
-        
 <div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-  
-    <span class="site-uv">
-      <i class="fa fa-user"></i>
-      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-      
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
     </span>
-  
-
-  
-    <span class="site-pv">
-      <i class="fa fa-eye"></i>
-      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-      
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
     </span>
-  
 </div>
-
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a>
   </div>
 
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
-
-
+    </div>
+  </footer>
 
   
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
   
 
@@ -1036,182 +530,13 @@ FlatXmlDataSet.write(dataSet, new FileOutputStream(&quot;data.xml&quot;));
 
 
   
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"vFAoofuVWgdHsCv6B6BtqROc-gzGzoHsz","app_key":"ANWUkmboGiNDNRmf2iVlUIGt","server_url":null,"security":true}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
 
 
-
-
-
-
-
-
-  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-  
-  <script type="text/javascript">
-    var GUEST = ['nick','mail','link'];
-    var guest = 'nick,mail';
-    guest = guest.split(',').filter(item=>{
-      return GUEST.indexOf(item)>-1;
-    });
-    new Valine({
-        el: '#comments' ,
-        verify: true,
-        notify: false,
-        appId: 'vFAoofuVWgdHsCv6B6BtqROc-gzGzoHsz',
-        appKey: 'ANWUkmboGiNDNRmf2iVlUIGt',
-        placeholder: '开始你的评论吧!',
-        avatar:'mm',
-        guest_info:guest,
-        pageSize:'10' || 10,
-    });
-  </script>
-
-
-
-  
-
-
-
-
-
-  
-
-  
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("vFAoofuVWgdHsCv6B6BtqROc-gzGzoHsz", "ANWUkmboGiNDNRmf2iVlUIGt");</script>
-  <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
-            }
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
-
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
-          } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
-          }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
-      });
-    }
-
-    $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
-    });
-  </script>
-
-
-
-  
-
-  
-<script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-
-
-  
-  
-
-  
-
-  
-
-  
 
 </body>
 </html>

@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.shenyanchao.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.13.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="空间搜索综述空间搜索是针对多维空间数据进行的搜索，这听起来是一句废话。但是，这重点强调的是空间数据，而且数据是**多维(2D, 3D, …)**的。同时, 空间搜索有别于传统的网页文本搜索(google, baidu等)，传统搜索引擎针对的是海量的文本，分词之后，通过倒排等技术来进行快速的匹配。 空间搜索的数据则是点、线、多边形，多维空间等等几何体。如何能高效准确的搜索出想要的空间数据是空间搜索需">
+<meta property="og:type" content="article">
+<meta property="og:title" content="空间搜索概述">
+<meta property="og:url" content="https://www.shenyanchao.cn/blog/2020/01/16/geo_spatial_search_overview/index.html">
+<meta property="og:site_name" content="申艳超-博客">
+<meta property="og:description" content="空间搜索综述空间搜索是针对多维空间数据进行的搜索，这听起来是一句废话。但是，这重点强调的是空间数据，而且数据是**多维(2D, 3D, …)**的。同时, 空间搜索有别于传统的网页文本搜索(google, baidu等)，传统搜索引擎针对的是海量的文本，分词之后，通过倒排等技术来进行快速的匹配。 空间搜索的数据则是点、线、多边形，多维空间等等几何体。如何能高效准确的搜索出想要的空间数据是空间搜索需">
+<meta property="og:locale">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo_spatial_search_overview/geo_in_life.jpeg">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo_spatial_search_overview/general_text_search.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo_spatial_search_overview/lbs_example.jpeg">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo_spatial_search_overview/geo-search-step.jpeg">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo_spatial_search_overview/earth_gravity.jpg">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo_spatial_search_overview/word_map.jpg">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo_spatial_search_overview/a2433a84da869e229b4a49b779129055_hd.jpg">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo_spatial_search_overview/657855a6c731af25c5e27a068b4ec133_hd.jpg">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo_spatial_search_overview/2560px-Utm-zones-USA.svg.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo_spatial_search_overview/Great_Britain_Box-hiearchy.png">
+<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/4/4f/DGGs-asOGC-topic21-fig1.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo_spatial_search_overview/320px-Goldberg_polyhedron_7_0.png">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo_spatial_search_overview/15mipu.jpg">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo_spatial_search_overview/cc3e735aef9c3b7d2ccd44952e2c2ce2_hd.jpg">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo_spatial_search_overview/c4508572210068f7a47dc6e032a0d23d_hd.jpg">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo_spatial_search_overview/0b46f21fbe096b632ef806e60d338744eaf8aca7.jpg">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo-quadtree/5cff54de-5133-4369-8680-52d2723eb756.jpg">
+<meta property="og:image" content="https://www.shenyanchao.cn/images/geo_spatial_search_overview/image5-280x300.png">
+<meta property="article:published_time" content="2020-01-16T14:03:21.000Z">
+<meta property="article:modified_time" content="2022-11-09T03:44:54.654Z">
+<meta property="article:author" content="申艳超">
+<meta property="article:tag" content="spatail search">
+<meta property="article:tag" content="map">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.shenyanchao.cn/images/geo_spatial_search_overview/geo_in_life.jpeg">
+
+
+<link rel="canonical" href="https://www.shenyanchao.cn/blog/2020/01/16/geo_spatial_search_overview/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-Hans","comments":true,"permalink":"https://www.shenyanchao.cn/blog/2020/01/16/geo_spatial_search_overview/","path":"blog/2020/01/16/geo_spatial_search_overview/","title":"空间搜索概述"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>空间搜索概述 | 申艳超-博客</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?81c9612f8fdceca45435ef7f5404d7b2"></script>
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="申艳超-博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">申艳超-博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">搜索引擎、分布式、高性能、NLP、ElasticSearch、Solr</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>Archives</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="sitemap fa-fw"></i>Sitemap</a></li><li class="menu-item menu-item-commonweal"><a href="/404.html" rel="section"><i class="heartbeat fa-fw"></i>Commonweal 404</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A9%BA%E9%97%B4%E6%90%9C%E7%B4%A2%E7%BB%BC%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">空间搜索综述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E7%94%9F%E6%B4%BB%E4%B8%AD%E6%97%A0%E5%A4%84%E4%B8%8D%E5%9C%A8"><span class="nav-number">1.1.</span> <span class="nav-text">在生活中无处不在</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A9%BA%E9%97%B4%E6%90%9C%E7%B4%A2%E8%A7%A3%E5%86%B32%E5%A4%A7%E6%A0%B8%E5%BF%83%E9%97%AE%E9%A2%98"><span class="nav-number">1.2.</span> <span class="nav-text">空间搜索解决2大核心问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A9%BA%E9%97%B4%E7%B4%A2%E5%BC%95%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.3.</span> <span class="nav-text">空间索引基本步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%B0%E7%90%83%E6%98%AF%E4%B8%80%E4%B8%AA3D%E7%9A%84"><span class="nav-number">1.4.</span> <span class="nav-text">地球是一个3D的</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%9E%E5%88%86%E5%B1%82%E7%BD%91%E6%A0%BC%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.4.1.</span> <span class="nav-text">非分层网格系统</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E5%B1%82%E7%BD%91%E6%A0%BC%E7%B3%BB%E7%BB%9F%EF%BC%9A"><span class="nav-number">1.4.2.</span> <span class="nav-text">分层网格系统：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E5%9C%B0%E7%BA%BF%E7%BD%91%E6%A0%BC%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.5.</span> <span class="nav-text">测地线网格系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E6%98%AF%E4%BB%BB%E4%BD%95%E5%BD%A2%E7%8A%B6%E7%9A%84%E7%BD%91%E6%A0%BC%E9%83%BD%E5%8F%AF%E4%BB%A5"><span class="nav-number">1.6.</span> <span class="nav-text">不是任何形状的网格都可以</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E5%B1%82%E4%B8%8E%E7%BC%96%E7%A0%81"><span class="nav-number">1.7.</span> <span class="nav-text">分层与编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A9%BA%E9%97%B4%E6%90%9C%E7%B4%A2%E7%BD%91%E6%A0%BC%E6%96%B9%E6%A1%88"><span class="nav-number">1.8.</span> <span class="nav-text">空间搜索网格方案</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="申艳超"
+      src="/images/shenyanchao.jpeg">
+  <p class="site-author-name" itemprop="name">申艳超</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">133</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">244</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/blueshen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;blueshen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhiyi.shen@gmail.com" title="E-Mail → mailto:zhiyi.shen@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/blueshen" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://www.shenyanchao.cn/blog/2020/01/16/geo_spatial_search_overview/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/shenyanchao.jpeg">
+      <meta itemprop="name" content="申艳超">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="申艳超-博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="空间搜索概述 | 申艳超-博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          空间搜索概述
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2020-01-16 22:03:21" itemprop="dateCreated datePublished" datetime="2020-01-16T22:03:21+08:00">2020-01-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-11-09 11:44:54" itemprop="dateModified" datetime="2022-11-09T11:44:54+08:00">2022-11-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/geo/" itemprop="url" rel="index"><span itemprop="name">geo</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/blog/2020/01/16/geo_spatial_search_overview/" class="post-meta-item leancloud_visitors" data-flag-title="空间搜索概述" title="Views">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="空间搜索综述"><a href="#空间搜索综述" class="headerlink" title="空间搜索综述"></a>空间搜索综述</h2><p>空间搜索是针对多维空间数据进行的搜索，这听起来是一句废话。但是，这重点强调的是<strong>空间</strong>数据，而且数据是**多维(2D, 3D, …)**的。同时, 空间搜索有别于传统的网页文本搜索(google, baidu等)，传统搜索引擎针对的是海量的文本，分词之后，通过倒排等技术来进行快速的匹配。</p>
+<p>空间搜索的数据则是点、线、多边形，多维空间等等几何体。如何能高效准确的搜索出想要的空间数据是空间搜索需要解决的。</p>
+<h3 id="在生活中无处不在"><a href="#在生活中无处不在" class="headerlink" title="在生活中无处不在"></a>在生活中无处不在</h3><p>无形之中，空间搜索已经存在于我们生活中的方方面面。也许，出门你可能要打个车，看看附近有哪些司机师傅可以接单。自驾要搜索一下沿途的加油站，如果是电车你可能想找一下充电桩。抑或是你今天休息宅在家里，想找个餐厅，定个外卖。所有的这些都离不开空间搜索支持。</p>
+<p><img src="/images/geo_spatial_search_overview/geo_in_life.jpeg" alt="空间搜索无处不在"></p>
+<p>现在比较流行的RDBMS数据库 MySQL、PostgreSQL 都原生支持 B+ 树。这种数据结构能高效的查询。MongoDB、Redis等NoSQL数据库原生的支持了空间索引能力。业界对于空间搜索的需求是巨大的。</p>
+<span id="more"></span>
+
+<h3 id="空间搜索解决2大核心问题"><a href="#空间搜索解决2大核心问题" class="headerlink" title="空间搜索解决2大核心问题"></a>空间搜索解决2大核心问题</h3><ul>
+<li>空间索引</li>
+<li>空间查询</li>
+</ul>
+<p>简单回顾一下，文本搜索似乎也是要解决这2个问题。也许文本搜索能给空间搜索带来一些启发。</p>
+<p>文本索引是先切分为一个个的token词，然后针对每个token建立一个倒排链，也就是我们熟称的<strong>倒排索引</strong>。基本思想很简单，如下图所示：</p>
+<p><img src="/images/geo_spatial_search_overview/general_text_search.png" alt="文本倒排"></p>
+<p>文本倒排索引建立之后，查询起来就特别快了。比如搜索”跳槽“，可以通过倒排链很快的得到1和4这两篇文档包含这个搜索词。这里需要注意的是搜索召回的时候只要包含这个搜索词，原则上就是我们想要的内容。</p>
+<p>回过头来，我们来看一下，空间搜索的一个典型场景：</p>
+<p>比如<strong>使用手机查找当前屏幕显示范围内的所有餐厅，或者离我2KM内(圆形)的餐厅</strong>，如下图所示。</p>
+<p><img src="/images/geo_spatial_search_overview/lbs_example.jpeg" alt="LBS查找"></p>
+<p>怎么来实现这个功能呢？</p>
+<p>首先，想到的就是<strong>暴力法</strong>，扫描数据库内的所有餐厅，计算这个餐厅是不是在当前屏幕范围内，或者是不是离我当前位置2KM，然后把符合条件的餐厅过滤出来。</p>
+<p>这个方案的确是可行的，但是显然是及其低效的。如果这个数据库餐厅的量级不断扩大，或者屏幕范围不断增大，这个计算耗时将是完全不可忍受的。另外还需要额外计算是否符合过滤条件(在不在范围内)。</p>
+<p>既然如此低效，那我们可以如何改进呢？</p>
+<p>低效的原因，在于全量数据扫描，如果有一种办法可以减小数据扫描量就可以了，在常见的关系数据库内，自然想到的就是加索引(index)。这就是通用的分治思想，诸如2分查找, 二叉搜索树, B+树等。这些都适用于1D数据的处理，针对地理位置点，这是一个经度和纬度构成的2D数据。</p>
+<p>直观上来说，就是要把餐厅按照一定的规则归在不同的<strong>分块</strong>内，如果某个分块不符合过滤条件（比如附近2KM) , 那么整个分块内的所有餐厅也就没有必要再参与计算。通过分块，大大减少了计算量。</p>
+<p>以上减少了扫描量，但是仍然是需要计算的，能不能做到像文本搜索一样，以常量O(1)的时间复杂度，高效的查询呢。这就牵涉出这样一个问题，如果能提前计算出附近2KM的分块是什么，那么直接使用文本搜索的倒排索引形式就可以常量复杂度解决问题。</p>
+<p>为了能提前计算出附近2KM的分块，这对分块大小是有要求的，如果这个分块大小是100KMX100KM, 那有可能这个分块的内的数量仍旧是不可忍受的，还是会退化为O(n)的复杂度。但是如果分块太小，比如1mX1m，可能会导致满足条件的分块太多，从而导致整体性能的下降。 所以这是一个双刃剑。</p>
+<p>所好的是，我们可以站在巨人的肩膀上，有很多前辈已经做了很多的研究和尝试，我们可以从中汲取营养，得到灵感。</p>
+<h3 id="空间索引基本步骤"><a href="#空间索引基本步骤" class="headerlink" title="空间索引基本步骤"></a>空间索引基本步骤</h3><p>综合以上提出的解决方案，实际上空间搜索的发展也是基本按照这样的思路来不断推进的。想做空间索引，至少以下几步都是不可缺少的。如下图所示：</p>
+<p><img src="/images/geo_spatial_search_overview/geo-search-step.jpeg" alt="geo-search-step"></p>
+<p>地球做为一个球体，她是3D的，虽然不是完全的纯球体。有人说他是一个椭圆形，由于自转的原因，赤道附近凸起，两极收敛的。也有人说，地球是一个梨形的，而且可能是个坏梨。</p>
+<p><img src="/images/geo_spatial_search_overview/earth_gravity.jpg" alt="地球重力場"></p>
+<p>实际上，从海平面来说，地球就应该是像大家常见到的太空拍摄的图，蔚蓝色的，虽然实际上，可能并没有那么好看而已。大致可以认为地球是一个有点椭圆的圆形。</p>
+<p>地球是一个3D是不争的事实，那第一步就是要考虑，我们是基于地球直接做分块呢，还是说基于更多认同的经纬度这一2D平面做分块呢。空间搜索这块，实际上不同的实现都有。</p>
+<p>如果是基于经纬度2D，那么就牵涉到如何把3D地球映射为2D平面，这就是<strong>地球投影</strong>研究的范畴。</p>
+<p>如果是直接基于3D球形做切分，那就要考虑如何在球面上做分块。其实这些事情远在计算机技术发明之前都有很多研究人员投入，那是地理信息科学研究的基础。可以参考基于地心投影，外接多边体方案的实现，这种方案通常称为<strong>测地线网格</strong>系统。</p>
+<p>关于分块的大小，不同的业务场景其实是不一样的，有没有一种办法可以兼而有之， 有的。那就是<strong>分层</strong>，不同层有不同的块大小，这样在不同的距离上，选取适当的层来计算就可以了。当然，最好层之间是有包含关系最好，能够方便的在不同层之间转换，这也是<strong>全球网格系统</strong>研究的范畴，美滋滋。</p>
+<p>分块不仅要考虑大小，还要考虑<strong>分块形状</strong>，块选取什么形状还是很有讲究的，当然我们自然想到的其实就是长方形、或者正方形。还有很多形状可以选择，但是并不是所有的图形都可以完全覆盖2D平面。</p>
+<p>既然分块要有<strong>层次关系</strong>, 显然具有<strong>自相似性</strong>是最好的选择，这样无论你在任何一层来看，除了个数，大小不一样，形状应该都是一样的。那就要考虑，如何通过切分来划分为更精确的小块。简单来说，长方形就可以，可以不断的4等分，9等分等等。说的更有通用性，这是<strong>分形几何</strong>研究的范畴。</p>
+<p>下面，我来分别的展开讲一下，空间搜索需要关注的各个部分。</p>
+<h3 id="地球是一个3D的"><a href="#地球是一个3D的" class="headerlink" title="地球是一个3D的"></a>地球是一个3D的</h3><p>早期的空间搜索都是基于经纬度来处理的，毕竟这个广泛得到了人们的认同。</p>
+<p>以常见的世界地图举例，其实我们默认接受了(经度、维度)这一笛卡尔坐标系，把地球通过投影，变成了一个2D的平面。无论我们使用的腾讯地图、百度地图，还是各种打车软件，其实都是基于这个平面地图来展开的。</p>
+<p><img src="/images/geo_spatial_search_overview/word_map.jpg" alt="word_map"></p>
+<p>然而平面地图在处理空间搜索的时候是有一定的局限性的，这个局限性在于投影过程中导致的形状和大小的失真，由于失真的存在，可能导致数据分布不均，距离计算错误一系列问题。</p>
+<p>地球是一个3D的，意味着在转为2D的平面地图之后，从经度，纬度上肯定是有<strong>变形</strong>的。这里暂不考虑地球本身就不是一个标准的球体，以及山川、湖泊、盆地的影响。直觉常会让人迷惑，比如下图。</p>
+<p><img src="/images/geo_spatial_search_overview/a2433a84da869e229b4a49b779129055_hd.jpg" alt="img"></p>
+<p>视觉上，格陵兰岛似乎比中国还要大，但是查询各种资料，发现它才216万平方公里大。中国大天朝可是有960万平方公里大。为什么会出现这种问题，这就是说地图在转换为2D过程中出现了<strong>变形</strong>，导致不同纬度在2D平面上的面积不一致，有误差。</p>
+<p><img src="/images/geo_spatial_search_overview/657855a6c731af25c5e27a068b4ec133_hd.jpg" alt="img"></p>
+<p>如果把格陵兰岛移动到和中国同纬度，那看起来就正常多了。比例也是对的。实际上，不同的转换方案可能导致的变形也是不一样的，这里的例子只是因为我们常用的墨卡托投影导致的一个副作用。</p>
+<p>把地球从3D变为2D，这就是常说的<strong>降维</strong>， 在应用到地理信息系统时，有一个专有名词叫做<strong>地球投影</strong>。了解地球投影技术是理解空间搜索的一个基本。</p>
+<p>以上，了解到了地球投影，以及它的劣势：失真。 那么下面我们来看一下，如何直接在地球3D上做分块, 这就引出了全球地理网格系统(DGGS)。DGGS研究范围，涵盖了如何分层，如何球面分块等等领域，下面来展开讲一下。</p>
+<p>###全球地理网格系统(DGGS)</p>
+<p>地理信息科学中的全球网格系统所要做的事情与空间搜索想做的事情不谋而合，或者说空间搜索的发展，直接借鉴了很多地理科学的研究成果。在地理信息科学(GIS)中，讨论如何划分网格(Cell)来表示地球， 从而可以让计算机来识别和高效查询已经有很多年的历史，成果丰硕。这使得空间搜索有了很好的理论基础。</p>
+<p>单纯从DGGS发展来说，主要分为以下几种分类：</p>
+<h4 id="非分层网格系统"><a href="#非分层网格系统" class="headerlink" title="非分层网格系统"></a>非分层网格系统</h4><p>离散全局网格中最常见的一类是将网格中心点放置在经度&#x2F;纬度子午线和平行线上，或者使用经度&#x2F;纬度子午线和平行线形成矩形像元的边界的网格。从名字上也可以看出，这个是基于经纬度平面地图的网格系统，并且不是分层的结构。</p>
+<p><img src="/images/geo_spatial_search_overview/2560px-Utm-zones-USA.svg.png" alt="Utm-zones-USA 非分层网格系统"></p>
+<p>上图是针对美国UTM投影基础上，把美国按照6°的经度间隔进行分割的示意图。</p>
+<h4 id="分层网格系统："><a href="#分层网格系统：" class="headerlink" title="分层网格系统："></a>分层网格系统：</h4><p>相对于非分层网络而言。所谓分层，就是把地球逻辑上划分为N个层，每个层的比例尺是不一样的，用于来在不同的精度上来划分世界。</p>
+<p>比如下图，显示了英国大不列颠岛的不同精度上的网格分布（150km比例尺、75km比例尺、37.5km比例尺）。</p>
+<p><img src="/images/geo_spatial_search_overview/Great_Britain_Box-hiearchy.png" alt="img"></p>
+<p>随着层次越高，比例越小，网格可以表示的区域也更加的精确。需要注意分层带来的好处，也就是图中绿色部分展示的效果，通过不同层次的结合，在更精细的比例上，同样是可以使用更粗的层次上来覆盖(Cover)的。这在空间索引，以及查询过程中，都能大大的优化存储量和查询性能。</p>
+<h3 id="测地线网格系统"><a href="#测地线网格系统" class="headerlink" title="测地线网格系统"></a>测地线网格系统</h3><p>普通网格系统，都是基于投影后的2D平面来切分网格的，且不论使用何种地球投影方案，这都会带来不同纬度的网格实际面积是不一致的，并且有可能面积相差很大。比如在赤道附近1°的距离，比靠近南北极的1°相差简直天差地别。</p>
+<p>测地线网格系统，则是直接把地球按照测地线来作为一个3D球体来直接划分区域的。划分不受经纬度的影响，每个区域大小基本一致(地球不是纯球体)。在具体实现上，如何对地球表面的切分呢？</p>
+<p>通常使用地球外接多面体，从地心投影的形式来划分：</p>
+<p>基本上，一共有这5种正多面体可以来投影：正四面体、正六面体(正方体)、正八面体、正十二面体、正二十面体。</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/DGGs-asOGC-topic21-fig1.png" alt="Regular polyhedra (top) and their corresponding equal area DGG"></p>
+<p>可以注意到的是，这些多面体都是正多面体(柏拉图体)。每个面的大小是一致的，完全符合网格切分的要求。显然面越多，面内部各自之间的区域失真就更低(面积小，地球起伏更低)。所以，常见的测地线网格系统多以<strong>正二十面体</strong>作为切分方案。如下图所示：</p>
+<p><img src="/images/geo_spatial_search_overview/320px-Goldberg_polyhedron_7_0.png" alt="Goldberg polyhedron 7 0.png"></p>
+<h3 id="不是任何形状的网格都可以"><a href="#不是任何形状的网格都可以" class="headerlink" title="不是任何形状的网格都可以"></a>不是任何形状的网格都可以</h3><p>无论是2D平面网格，还是直接在球体上做的切分，最终都是针对平面做的形状选择。测地线网格系统是先映射到了正多面体上。而每个正多面体的面，都可以近似作为平面来进行。</p>
+<p>形状的选择，首先要考虑的是，什么图形可以<strong>完全覆盖平面</strong>。其实这和装修贴瓷砖是一个道理，选择什么样的瓷砖形状可以无缝密铺平面。实际上2015年华盛顿大学的数学系副教授卡西·曼、他的妻子珍妮弗及学生冯德劳发现了新的15种五边形可以密铺整个平面。这距离上一次发现类似效果的五边形已经有了30年。因此如何密铺，研究成果是很多的。</p>
+<p><img src="/images/geo_spatial_search_overview/15mipu.jpg" alt="15种五边形密铺平面"></p>
+<p>可以直接拿到的成果是：</p>
+<ol>
+<li><p>任何三角形都可以密铺平面</p>
+<p><img src="/images/geo_spatial_search_overview/cc3e735aef9c3b7d2ccd44952e2c2ce2_hd.jpg" alt="三角形平铺"></p>
+<p>因为2个三角形何在一起就是一个平行四边形，平行四边形可以铺满。</p>
+</li>
+<li><p>任何凸四边形(正方形、矩形等)都可以密铺平面</p>
+<p><img src="/images/geo_spatial_search_overview/c4508572210068f7a47dc6e032a0d23d_hd.jpg" alt="四边形平铺"></p>
+<p>四边形内角和是360°，如果把四个四边形不同的角合在一起，那么就是360°。所以可以铺满。</p>
+</li>
+<li><p>正n边型中，只有<strong>正三角形，正方形，正六边形</strong>可以密铺平面。</p>
+<p><img src="/images/geo_spatial_search_overview/0b46f21fbe096b632ef806e60d338744eaf8aca7.jpg" alt="三角形 正方形 正六边形"></p>
+<p>正n边型的内角和是<code>(n-2)*180°</code>， 那么一个内角的大小就是<code>n-2/n * 180°</code>。 如果能铺满平面，内角的整数倍就应该是360°。得出n只能是3，4，6。</p>
+</li>
+</ol>
+<p>考虑到，要求网格必须有自相似性，以及数学计算复杂度。空间搜索的形状基本都采用矩形或正多边形。直观理解上，矩形和正方形是最容易接受的。</p>
+<h3 id="分层与编码"><a href="#分层与编码" class="headerlink" title="分层与编码"></a>分层与编码</h3><p>网格分层，要求网格形状最好是有自相似性以及精确包含。同时，倒排索引的要求，要求不同层之间的网格编码最好能有共同前缀，有共同前缀才能更高效的搜索。</p>
+<p>提到了共同前缀，大家自然的可以想到Trie树，具备良好的前缀特性。其实任何树结构都具备前缀属性。树的层序遍历，可以方便的获取其子节点。双向树通过存储其父节点，可以查找他的父节点。</p>
+<p>空间搜索也是这样的需求，那么如何给不同层的网格赋予ID，同时赋予其层次关系。</p>
+<p>可以从第0层开始，每一层不断的往下N等分，给等分后的网格，按规则赋予编号(1,2,3,4…), 这样不断的迭代，直到想要的层次。</p>
+<p><img src="/images/geo-quadtree/5cff54de-5133-4369-8680-52d2723eb756.jpg" alt="geo quad tree"></p>
+<p>如上图所示，通过不断的4等分，一层一层的进行分割。其编码也具备前缀属性，当然这些编码也可以是ABCD, 规则可以自定义。其实上图表示的是四叉树结构。</p>
+<p>当然也有，其他的N等分方案，比如3等分，7等分等， 依据选择不同的网格形状使用不同的切分方案。比如正六边形的分割方案。</p>
+<p><img src="/images/geo_spatial_search_overview/image5-280x300.png" alt="正六边形7等分"></p>
+<h3 id="空间搜索网格方案"><a href="#空间搜索网格方案" class="headerlink" title="空间搜索网格方案"></a>空间搜索网格方案</h3><p>评价一个网格方案的好坏，至少要从以下角度来考虑：</p>
+<ul>
+<li>网格形状是可以自切分的</li>
+<li>更少的网格失真</li>
+<li>网格系统是分层的</li>
+<li>父子网格编码之间是可以高效运算的</li>
+<li>网格之间距离计算高效</li>
+</ul>
+<hr>
+<p>参考文档：</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/21110862">https://zhuanlan.zhihu.com/p/21110862</a></p>
+<p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%B2%83%E7%BD%97%E8%AF%BA%E4%BC%8A%E5%9B%BE">https://zh.wikipedia.org/wiki/%E6%B2%83%E7%BD%97%E8%AF%BA%E4%BC%8A%E5%9B%BE</a></p>
+<p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Geodesic_grid">https://en.wikipedia.org/wiki/Geodesic_grid</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/34916541">https://www.zhihu.com/question/34916541</a></p>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>您的支持是我原创的动力！</div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="申艳超 WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpg" alt="申艳超 Alipay">
+        <span>Alipay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>Welcome to my other publishing channels</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/spatail-search/" rel="tag"># spatail search</a>
+              <a href="/tags/map/" rel="tag"># map</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2020/01/16/geo_uber_h3/" rel="prev" title="Uber-H3索引系统">
+                  <i class="fa fa-chevron-left"></i> Uber-H3索引系统
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/2020/01/16/geo_space_filling/" rel="next" title="空间搜索-分形几何">
+                  空间搜索-分形几何 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2012 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">申艳超</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"vFAoofuVWgdHsCv6B6BtqROc-gzGzoHsz","app_key":"ANWUkmboGiNDNRmf2iVlUIGt","server_url":null,"security":true}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+
+</body>
+</html>
