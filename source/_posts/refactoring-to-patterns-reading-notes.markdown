@@ -6,7 +6,10 @@ comments: true
 categories: 读书笔记
 tags: [ 读书笔记, 重构, 模式 ]
 ---
+![refactor_to_pattern](/images/blog/refactor_to_pattern.jpeg)
+
 GoF的《设计模式》以及Martin Fowler的《重构》都是经典。而《重构与模式》则是将二者结合起来。通过设计模式来指导重构，而重构的目的就是让代码更加的简单，易于维护和扩展。
+
 ### 写作缘由
 
 - 过度设计：代码存在设计过度的情况

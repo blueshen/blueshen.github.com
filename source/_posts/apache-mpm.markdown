@@ -6,6 +6,8 @@ comments: true
 categories: apache
 tags: [ apache, mpm, worker, perfork  ]
 ---
+![Apache httpd sever](/images/blog/Apache_HTTP_server.png)
+
 ## 什么是MPM？
 
 MPM（Multi -Processing Modules，多路处理模块）是Apache2.x中影响性能的最核心特性。

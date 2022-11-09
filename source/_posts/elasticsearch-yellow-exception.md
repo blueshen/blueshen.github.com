@@ -83,7 +83,7 @@ java.nio.channels.ClosedChannelException: null
 假如，机器硬件资源有限，有没有一些办法来尽可能规避。
 
 ElasticSearch针对recovery有速度限制，默认是40MB。如果一台机器部署多台（实际上，我们就是这样部署的），那这个值可能是倍增的，很容易打满。
-```
+```properties
 indices.recovery.max_bytes_per_sec: 10MB
 ```
 

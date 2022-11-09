@@ -5,6 +5,8 @@ tags: [ elasticsearch, lucene, nested ]
 categories: [ elasticsearch ]
 ---
 
+![elasticsearch nested](/images/elasticsearch-nested/es-header.jpg)
+
 Lucene Field本身并不支持嵌套类型，最多也就支持多值类型。ElasticSearch进行了扩展，使得Field可以是object对象类型或者nested嵌套类型。
 
 object类型，本质上是把字段**路径打平**，最终在索引里还是一个正常的Field字段，object类型转化后，并不会保留**对象内的属性对应关系**，这在查询中可能需要特别注意。然后nested嵌套类型却实现的对应关系。

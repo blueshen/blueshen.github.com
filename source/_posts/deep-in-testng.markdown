@@ -1,5 +1,5 @@
 ---
-layout: post
+glayout: post
 title: "TestNG深入理解"
 date: 2013-06-05 20:10
 comments: true

@@ -108,36 +108,39 @@ JDK的版本要求在1.6以上，需要在配置文件中配置JDK的变量：
 2，jenkins中提供的archetype-resources，文件的名字为`HelloWorldBuilder.java`。我们需要手工修改成自己需要的内容。
 #### 2.2.1 代码结构
 使用 hpi:create生成的文件结构如下：
-
+```
 	+- src
 	|	+- main
 	|	|	+- java
 	|	|	|	+- groupId.HelloWorldBuilder.java
 	|	|	+- resources
 	|	|	|	+-  groupId.HelloWorldBuilder
-   	|	|	|	|	+- config.jelly
-​    |	|	|	|	+- help-name.html
-​	|	|	|	+- index.jelly
-
+  |	|	|	|	+- config.jelly
+  |	|	|	|	+- help-name.html
+	|	|	|	+- index.jelly
+```
 Jenkins定义了一些扩展点（Extension Points）,这些扩展点是接口或者抽象类。你可以根据自己的需要来修改文件的名字和扩展点。我们使用命令生成的框架程序中，HelloWorldBuilder继承了Builder。
 
 #### 2.2.2 代码的解释
-	数据的绑定：
-	
+数据的绑定：
+```	
 	<!--config.jelly-->
 	<f:entry title="Name" field="name">
 		<f:textbox />
-  	</f:entry>
+	</f:entry>
+```
 
-	//--HelloWorldBuilder.java--
-	@DataBoundConstructor
-	public HelloWorldBuilder(String name) {
-	    this.name = name;
-	}
+```java
+//--HelloWorldBuilder.java--
+@DataBoundConstructor
+public HelloWorldBuilder(String name) {
+    this.name = name;
+}
+```
 首先，在config.jelly中包含需要传入的参数配置信息的文本框，field为name，这样可以在Jenkins中进行配置，然后通过DataBoundConstructor的方式，传到类中。
 
-	Jenkins插件任务的执行
-	
+Jenkins插件任务的执行
+```java
 	@Override
 	public boolean perform(AbstractBuild build, Launcher launcher, BuildListener listener) {
 	    // This is where you 'build' the project.
@@ -146,11 +149,12 @@ Jenkins定义了一些扩展点（Extension Points）,这些扩展点是接口�
 	        listener.getLogger().println("Hello, "+name+"!");
 	    return true;
 	}
+```
 根据注释可以了解：该处是你在Job进行构建时进行操作的地方，并且这里可以根据你在配置中的设置执行你需要的工作。通常，根据需要修改perform函数即可。
 
-```java
-传入数据的检查
 
+传入数据的检查
+```java
  public FormValidation doCheckName(@QueryParameter String value)
                 throws IOException, ServletException {
             if (value.length() == 0)
@@ -165,17 +169,18 @@ Jenkins定义了一些扩展点（Extension Points）,这些扩展点是接口�
 ### 2.3 转换为eclipse工程
 为了便于在编辑器中进行修改，我们需要将生成的maven代码转化为eclipse工程，使用的命令如下：
 
-	mvn eclipse:eclipse
-	或者
-	mvn -DdownloadSources=true -DdownloadJavadocs=true -DoutputDirectory=target/eclipse-classes eclipse:eclipse
+`mvn eclipse:eclipse`
+或者
+`
+	mvn -DdownloadSources=true -DdownloadJavadocs=true -DoutputDirectory=target/eclipse-classes eclipse:eclipse`
 第二条较长的命令中，参数是可选的。
 
 ### 2.4 生成hpi文件
 使用如下命令可以生成`./target/pluginname.hpi`:
 
-	mvn install
-	或者
-	mvn package
+`mvn install`
+或者
+`mvn package`
 其中mvn install 生成hpi文件，并放置到本地maven仓库中，mvn package只进行打包操作。
 
 ### 2.5 使用.hpl进行调试

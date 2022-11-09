@@ -7,6 +7,7 @@ categories: spring
 tags: [ restful, spring, mvc]
 ---
 
+![springmvc](/images/blog/5641522be32ad.jpg)
 
 Spring MVC本身对Restful支持非常好。它的`@RequestMapping`、`@RequestParam`、`@PathVariable`、`@ResponseBody`注解很好的支持了REST。[18.2 Creating RESTful services](http://static.springsource.org/spring/docs/3.0.0.M3/reference/html/ch18s02.html)
 
@@ -42,26 +43,30 @@ method parameters that are decorated with the @PathVariable annotation can be of
 
 对了，因为它的来源可以是POST字段，所以它支持更丰富和复杂的类型信息。比如文件对象:
 
-    @RequestMapping("/imageUpload")
-    public String processImageUpload(@RequestParam("name") String name,
-                    @RequestParam("description") String description,
-                    @RequestParam("image") MultipartFile image) throws IOException {
-        this.imageDatabase.storeImage(name, image.getInputStream(),
-                                        (int) image.getSize(), description);
-        return "redirect:imageList";
-    }
+```java
+@RequestMapping("/imageUpload")
+public String processImageUpload(@RequestParam("name") String name,
+                @RequestParam("description") String description,
+                @RequestParam("image") MultipartFile image) throws IOException {
+    this.imageDatabase.storeImage(name, image.getInputStream(),
+                                    (int) image.getSize(), description);
+    return "redirect:imageList";
+}
+```
 
 
 还可以设置defaultValue：
 
-    @RequestMapping("/imageUpload")
-    public String processImageUpload(@RequestParam(value="name", defaultValue="arganzheng") String name,
-                    @RequestParam("description") String description,
-                    @RequestParam("image") MultipartFile image) throws IOException {
-        this.imageDatabase.storeImage(name, image.getInputStream(),
-                                        (int) image.getSize(), description);
-        return "redirect:imageList";
-    }
+```java
+@RequestMapping("/imageUpload")
+public String processImageUpload(@RequestParam(value="name", defaultValue="arganzheng") String name,
+                @RequestParam("description") String description,
+                @RequestParam("image") MultipartFile image) throws IOException {
+    this.imageDatabase.storeImage(name, image.getInputStream(),
+                                    (int) image.getSize(), description);
+    return "redirect:imageList";
+}
+```
 
 ### 4. `@RequestBody`和`@ResponseBody`
 
@@ -71,23 +76,25 @@ method parameters that are decorated with the @PathVariable annotation can be of
 
 `HtppMessageConverter`负责将HTTP请求消息(HTTP request message)转化为对象，或者将对象转化为HTTP响应体(HTTP response body)。
 
-    public interface HttpMessageConverter<T> {
+```java
+public interface HttpMessageConverter<T> {
 
-        // Indicate whether the given class is supported by this converter.
-        boolean supports(Class<? extends T> clazz);
+    // Indicate whether the given class is supported by this converter.
+    boolean supports(Class<? extends T> clazz);
 
-        // Return the list of MediaType objects supported by this converter.
-        List<MediaType> getSupportedMediaTypes();
+    // Return the list of MediaType objects supported by this converter.
+    List<MediaType> getSupportedMediaTypes();
 
-        // Read an object of the given type form the given input message, and returns it.
-        T read(Class<T> clazz, HttpInputMessage inputMessage) throws IOException,
-                                                                        HttpMessageNotReadableException;
+    // Read an object of the given type form the given input message, and returns it.
+    T read(Class<T> clazz, HttpInputMessage inputMessage) throws IOException,
+                                                                    HttpMessageNotReadableException;
 
-        // Write an given object to the given output message.
-        void write(T t, HttpOutputMessage outputMessage) throws IOException,
-                                                                HttpMessageNotWritableException;
+    // Write an given object to the given output message.
+    void write(T t, HttpOutputMessage outputMessage) throws IOException,
+                                                            HttpMessageNotWritableException;
 
-    }
+}
+```
 
 
 Spring MVC对`HttpMessageConverter`有多种默认实现，基本上不需要自己再自定义`HttpMessageConverter`
@@ -106,13 +113,13 @@ Spring MVC对`HttpMessageConverter`有多种默认实现，基本上不需要自
 
     public class AnnotationMethodHandlerAdapter extends WebContentGenerator
     implements HandlerAdapter, Ordered, BeanFactoryAware {
-
+    
         ...
-
+    
         public AnnotationMethodHandlerAdapter() {
             // no restriction of HTTP methods by default
             super(false);
-
+    
             // See SPR-7316
             StringHttpMessageConverter stringHttpMessageConverter = new StringHttpMessageConverter();
             stringHttpMessageConverter.setWriteAcceptCharset(false);
@@ -148,7 +155,7 @@ Spring MVC对`HttpMessageConverter`有多种默认实现，基本上不需要自
             Integer id = apiMetadataService.addApi(api);
             return id > 0;
     }
-
+    
     @RequestMapping(value = "api/{apiId}", method = RequestMethod.GET)
     @ResponseBody
     public Api getApi(@PathVariable("apiId")
@@ -159,10 +166,10 @@ Spring MVC对`HttpMessageConverter`有多种默认实现，基本上不需要自
 一般情况下我们是不需要自定义`HttpMessageConverter`，不过对于Restful应用，有时候我们需要返回jsonp数据：
 
     package me.arganzheng.study.springmvc.util;
-
+    
     import java.io.IOException;
     import java.io.PrintStream;
-
+    
     import org.codehaus.jackson.map.ObjectMapper;
     import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
     import org.springframework.http.HttpOutputMessage;
@@ -171,30 +178,30 @@ Spring MVC对`HttpMessageConverter`有多种默认实现，基本上不需要自
     import org.springframework.web.context.request.RequestAttributes;
     import org.springframework.web.context.request.RequestContextHolder;
     import org.springframework.web.context.request.ServletRequestAttributes;
-
+    
     public class MappingJsonpHttpMessageConverter extends MappingJacksonHttpMessageConverter {
-
+    
         public MappingJsonpHttpMessageConverter() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setSerializationConfig(objectMapper.getSerializationConfig().withSerializationInclusion(Inclusion.NON_NULL));
         setObjectMapper(objectMapper);
         }
-
+    
         @Override
         protected void writeInternal(Object o, HttpOutputMessage outputMessage) throws IOException, HttpMessageNotWritableException {
         String jsonpCallback = null;
-
+    
         RequestAttributes reqAttrs = RequestContextHolder.currentRequestAttributes();
         if(reqAttrs instanceof ServletRequestAttributes){
             jsonpCallback = ((ServletRequestAttributes)reqAttrs).getRequest().getParameter("jsonpCallback");
         }
-
+    
         if(jsonpCallback != null){
             new PrintStream(outputMessage.getBody()).print(jsonpCallback + "(");
         }
-
+    
         super.writeInternal(o, outputMessage);
-
+    
         if(jsonpCallback != null){
             new PrintStream(outputMessage.getBody()).println(");");
         }
@@ -252,42 +259,42 @@ Spring提供了[`ContentNegotiatingViewResolver`](http://static.springsource.org
 
 
     public class ContentNegotiatingViewResolver extends WebApplicationObjectSupport implements ViewResolver, Ordered {
-
+    
         private static final Log logger = LogFactory.getLog(ContentNegotiatingViewResolver.class);
-
+    
         private static final String ACCEPT_HEADER = "Accept";
-
+    
         private static final boolean jafPresent =
             ClassUtils.isPresent("javax.activation.FileTypeMap", ContentNegotiatingViewResolver.class.getClassLoader());
-
+    
         private static final UrlPathHelper urlPathHelper = new UrlPathHelper();
 
 
         private int order = Ordered.HIGHEST_PRECEDENCE;
-
+    
         private boolean favorPathExtension = true;
-
+    
         private boolean favorParameter = false;
-
+    
         private String parameterName = "format";
-
+    
         private boolean useNotAcceptableStatusCode = false;
-
+    
         private boolean ignoreAcceptHeader = false;
-
+    
         private boolean useJaf = true;
-
+    
         private ConcurrentMap<String, MediaType> mediaTypes = new ConcurrentHashMap<String, MediaType>();
-
+    
         private List<View> defaultViews;
-
+    
         private MediaType defaultContentType;
-
+    
         private List<ViewResolver> viewResolvers;
 
 
         // ignore some setter and getter...
-
+    
         public void setMediaTypes(Map<String, String> mediaTypes) {
           Assert.notNull(mediaTypes, "'mediaTypes' must not be null");
           for (Map.Entry<String, String> entry : mediaTypes.entrySet()) {
@@ -296,15 +303,15 @@ Spring提供了[`ContentNegotiatingViewResolver`](http://static.springsource.org
             this.mediaTypes.put(extension, mediaType);
           }
         }
-
+    
         public void setDefaultViews(List<View> defaultViews) {
           this.defaultViews = defaultViews;
         }
-
+    
         public void setDefaultContentType(MediaType defaultContentType) {
           this.defaultContentType = defaultContentType;
         }
-
+    
         public void setViewResolvers(List<ViewResolver> viewResolvers) {
           this.viewResolvers = viewResolvers;
         }
@@ -328,7 +335,7 @@ Spring提供了[`ContentNegotiatingViewResolver`](http://static.springsource.org
           }
           OrderComparator.sort(this.viewResolvers);
         }
-
+    
         public View resolveViewName(String viewName, Locale locale) throws Exception {
           RequestAttributes attrs = RequestContextHolder.getRequestAttributes();
           Assert.isInstanceOf(ServletRequestAttributes.class, attrs);
@@ -425,78 +432,78 @@ Spring提供了[`ContentNegotiatingViewResolver`](http://static.springsource.org
           }
           return mediaType;
         }
-
-
-        protected MediaType getMediaTypeFromParameter(String parameterValue) {
-          return this.mediaTypes.get(parameterValue.toLowerCase(Locale.ENGLISH));
+    
+    protected MediaType getMediaTypeFromParameter(String parameterValue) {
+      return this.mediaTypes.get(parameterValue.toLowerCase(Locale.ENGLISH));
+    }
+    
+    private List<View> getCandidateViews(String viewName, Locale locale, List<MediaType> requestedMediaTypes)
+        throws Exception {
+    
+      List<View> candidateViews = new ArrayList<View>();
+      for (ViewResolver viewResolver : this.viewResolvers) {
+        View view = viewResolver.resolveViewName(viewName, locale);
+        if (view != null) {
+          candidateViews.add(view);
         }
-
-        private List<View> getCandidateViews(String viewName, Locale locale, List<MediaType> requestedMediaTypes)
-            throws Exception {
-
-          List<View> candidateViews = new ArrayList<View>();
-          for (ViewResolver viewResolver : this.viewResolvers) {
-            View view = viewResolver.resolveViewName(viewName, locale);
+        for (MediaType requestedMediaType : requestedMediaTypes) {
+          List<String> extensions = getExtensionsForMediaType(requestedMediaType);
+          for (String extension : extensions) {
+            String viewNameWithExtension = viewName + "." + extension;
+            view = viewResolver.resolveViewName(viewNameWithExtension, locale);
             if (view != null) {
               candidateViews.add(view);
             }
-            for (MediaType requestedMediaType : requestedMediaTypes) {
-              List<String> extensions = getExtensionsForMediaType(requestedMediaType);
-              for (String extension : extensions) {
-                String viewNameWithExtension = viewName + "." + extension;
-                view = viewResolver.resolveViewName(viewNameWithExtension, locale);
-                if (view != null) {
-                  candidateViews.add(view);
-                }
-              }
-
-            }
           }
-          if (!CollectionUtils.isEmpty(this.defaultViews)) {
-            candidateViews.addAll(this.defaultViews);
-          }
-          return candidateViews;
+    
         }
-
-        private List<String> getExtensionsForMediaType(MediaType requestedMediaType) {
-          List<String> result = new ArrayList<String>();
-          for (Entry<String, MediaType> entry : this.mediaTypes.entrySet()) {
-            if (requestedMediaType.includes(entry.getValue())) {
-              result.add(entry.getKey());
-            }
-          }
-          return result;
+      }
+      if (!CollectionUtils.isEmpty(this.defaultViews)) {
+        candidateViews.addAll(this.defaultViews);
+      }
+      return candidateViews;
+    }
+    
+    private List<String> getExtensionsForMediaType(MediaType requestedMediaType) {
+      List<String> result = new ArrayList<String>();
+      for (Entry<String, MediaType> entry : this.mediaTypes.entrySet()) {
+        if (requestedMediaType.includes(entry.getValue())) {
+          result.add(entry.getKey());
         }
-
-        private View getBestView(List<View> candidateViews, List<MediaType> requestedMediaTypes) {
-          MediaType bestRequestedMediaType = null;
-          View bestView = null;
-          for (MediaType requestedMediaType : requestedMediaTypes) {
-            for (View candidateView : candidateViews) {
-              if (StringUtils.hasText(candidateView.getContentType())) {
-                MediaType candidateContentType = MediaType.parseMediaType(candidateView.getContentType());
-                if (requestedMediaType.includes(candidateContentType)) {
-                  bestRequestedMediaType = requestedMediaType;
-                  bestView = candidateView;
-                  break;
-                }
-              }
-            }
-            if (bestView != null) {
-              if (logger.isDebugEnabled()) {
-                logger.debug("Returning [" + bestView + "] based on requested media type '" +
-                    bestRequestedMediaType + "'");
-              }
+      }
+      return result;
+    }
+    
+    private View getBestView(List<View> candidateViews, List<MediaType> requestedMediaTypes) {
+      MediaType bestRequestedMediaType = null;
+      View bestView = null;
+      for (MediaType requestedMediaType : requestedMediaTypes) {
+        for (View candidateView : candidateViews) {
+          if (StringUtils.hasText(candidateView.getContentType())) {
+            MediaType candidateContentType = MediaType.parseMediaType(candidateView.getContentType());
+            if (requestedMediaType.includes(candidateContentType)) {
+              bestRequestedMediaType = requestedMediaType;
+              bestView = candidateView;
               break;
             }
           }
-          return bestView;
-
         }
-
-        ...
-
+        if (bestView != null) {
+          if (logger.isDebugEnabled()) {
+            logger.debug("Returning [" + bestView + "] based on requested media type '" +
+                bestRequestedMediaType + "'");
+          }
+          break;
+        }
+      }
+      return bestView;
+    
     }
+    
+    ...
+
+}
+```
 
 
 可以看到`ContentNegotiationViewResolver`有点类似于ComposeCommand（参见Command模式 by GoF），它本身实现了ViewResolver接口，所以它是一个ViewResolver，但是它组合了一堆的ViewResolver，根据一定的规则（前面讨论的content negotiation）将视图请求转发给最match的ViewResolver。
@@ -543,20 +550,22 @@ Spring MVC不仅大大的简化了服务端RESTful服务的开发和开放，还
 
 以前Client如果要调用REST服务，一般是使用HttpClient来发送HTTP请求：
 
-    String uri = "http://example.com/hotels/1/bookings";
+​```java
+String uri = "http://example.com/hotels/1/bookings";
 
-    PostMethod post = new PostMethod(uri);
-    String request = // create booking request content
-    post.setRequestEntity(new StringRequestEntity(request));
+PostMethod post = new PostMethod(uri);
+String request = // create booking request content
+post.setRequestEntity(new StringRequestEntity(request));
 
-    httpClient.executeMethod(post);
+httpClient.executeMethod(post);
 
-    if (HttpStatus.SC_CREATED == post.getStatusCode()) {
-      Header location = post.getRequestHeader("Location");
-      if (location != null) {
-        System.out.println("Created new booking at :" + location.getValue());
-      }
-    }
+if (HttpStatus.SC_CREATED == post.getStatusCode()) {
+  Header location = post.getRequestHeader("Location");
+  if (location != null) {
+    System.out.println("Created new booking at :" + location.getValue());
+  }
+}
+```
 
 太过底层，而且代码比较冗长，一般都要手动封装一下（即类似于SDK，封装了签名和HTTP发送和接受细节）。我们看一下Spring MVC是怎么解决这个问题的。
 
