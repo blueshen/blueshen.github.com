@@ -159,6 +159,9 @@
         <a href="mailto:zhiyi.shen@gmail.com" title="E-Mail → mailto:zhiyi.shen@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
       </span>
   </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
 
 
 
@@ -186,6 +189,102 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://www.shenyanchao.cn/blog/2020/01/20/geo_spatial_search_overview/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/shenyanchao.jpeg">
+      <meta itemprop="name" content="申艳超">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="申艳超-博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 申艳超-博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/blog/2020/01/20/geo_spatial_search_overview/" class="post-title-link" itemprop="url">空间搜索概述</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2020-01-20 22:03:21" itemprop="dateCreated datePublished" datetime="2020-01-20T22:03:21+08:00">2020-01-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-11-09 17:48:03" itemprop="dateModified" datetime="2022-11-09T17:48:03+08:00">2022-11-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/geo/" itemprop="url" rel="index"><span itemprop="name">geo</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="空间搜索综述"><a href="#空间搜索综述" class="headerlink" title="空间搜索综述"></a>空间搜索综述</h2><p>空间搜索是针对多维空间数据进行的搜索，这听起来是一句废话。但是，这重点强调的是<strong>空间</strong>数据，而且数据是**多维(2D, 3D, …)**的。同时, 空间搜索有别于传统的网页文本搜索(google, baidu等)，传统搜索引擎针对的是海量的文本，分词之后，通过倒排等技术来进行快速的匹配。</p>
+<p>空间搜索的数据则是点、线、多边形，多维空间等等几何体。如何能高效准确的搜索出想要的空间数据是空间搜索需要解决的。</p>
+<h3 id="在生活中无处不在"><a href="#在生活中无处不在" class="headerlink" title="在生活中无处不在"></a>在生活中无处不在</h3><p>无形之中，空间搜索已经存在于我们生活中的方方面面。也许，出门你可能要打个车，看看附近有哪些司机师傅可以接单。自驾要搜索一下沿途的加油站，如果是电车你可能想找一下充电桩。抑或是你今天休息宅在家里，想找个餐厅，定个外卖。所有的这些都离不开空间搜索支持。</p>
+<p><img src="/images/geo_spatial_search_overview/geo_in_life.jpeg" alt="空间搜索无处不在"></p>
+<p>现在比较流行的RDBMS数据库 MySQL、PostgreSQL 都原生支持 B+ 树。这种数据结构能高效的查询。MongoDB、Redis等NoSQL数据库原生的支持了空间索引能力。业界对于空间搜索的需求是巨大的。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2020/01/20/geo_spatial_search_overview/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -455,110 +554,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/blog/2020/01/16/geo_geohash/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://www.shenyanchao.cn/blog/2020/01/16/geo_google_s2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/shenyanchao.jpeg">
-      <meta itemprop="name" content="申艳超">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="申艳超-博客">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 申艳超-博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/blog/2020/01/16/geo_google_s2/" class="post-title-link" itemprop="url">google s2 希尔伯特曲线</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2020-01-16 22:03:21" itemprop="dateCreated datePublished" datetime="2020-01-16T22:03:21+08:00">2020-01-16</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-11-09 14:10:02" itemprop="dateModified" datetime="2022-11-09T14:10:02+08:00">2022-11-09</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/geo/" itemprop="url" rel="index"><span itemprop="name">geo</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><img src="/images/geo_google_s2/s2_global_intro.png" alt="google s2 希尔伯特曲线"></p>
-<p>S2其实是来自几何数学中<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/N%E7%BB%B4%E7%90%83%E9%9D%A2">N维球面</a>的一个数学符号<strong>S²</strong>，它表示的是3维空间内的2维球面。S2 这个库其实是被设计用来解决球面上各种几何问题的。</p>
-<p>接下来就看看怎么用 S2 来解决多维空间点索引的问题的。</p>
-<h3 id="球面坐标转换"><a href="#球面坐标转换" class="headerlink" title="球面坐标转换"></a>球面坐标转换</h3><p>众所周知，地球是近似一个球体。球体是一个三维的，如何把三维降成一维呢？</p>
-<p>球面上的一个点，在直角坐标系中，可以这样表示：</p>
-<p><img src="/images/geo/3-axises-point.png" alt="三维坐标"></p>
-<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">x</span> = <span class="string">r * sin θ * cos φ</span></span><br><span class="line"><span class="attr">y</span> = <span class="string">r * sin θ * sin φ </span></span><br><span class="line"><span class="attr">z</span> = <span class="string">r * cos θ</span></span><br></pre></td></tr></table></figure>
-
-<p>通常地球上的点我们会用经纬度来表示。</p>
-<p><img src="/images/geo/global-point.png"></p>
-<p>再进一步，我们可以和球面上的经纬度联系起来。不过这里需要注意的是，纬度的角度 α 和直角坐标系下的球面坐标 θ 加起来等于 90°。所以三角函数要注意转换。</p>
-<p>于是地球上任意的一个经纬度的点，就可以转换成<code> f(x,y,z)</code>。</p>
-<p>在 S2 中，地球半径被当成单位1了，所以半径不用考虑。x,y,z的值域都被限定在了<code>[-1,1]*[-1,1]*[-1,1]</code>这个区间之内了。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/blog/2020/01/16/geo_google_s2/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -902,7 +897,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://www.shenyanchao.cn/blog/2020/01/16/geo_spatial_search_overview/">
+    <link itemprop="mainEntityOfPage" href="https://www.shenyanchao.cn/blog/2020/01/16/geo_google_s2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/shenyanchao.jpeg">
@@ -920,7 +915,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/blog/2020/01/16/geo_spatial_search_overview/" class="post-title-link" itemprop="url">空间搜索概述</a>
+          <a href="/blog/2020/01/16/geo_google_s2/" class="post-title-link" itemprop="url">google s2 希尔伯特曲线</a>
         </h2>
 
         <div class="post-meta-container">
@@ -938,7 +933,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-11-09 11:44:54" itemprop="dateModified" datetime="2022-11-09T11:44:54+08:00">2022-11-09</time>
+      <time title="Modified: 2022-11-09 14:10:02" itemprop="dateModified" datetime="2022-11-09T14:10:02+08:00">2022-11-09</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -960,14 +955,22 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="空间搜索综述"><a href="#空间搜索综述" class="headerlink" title="空间搜索综述"></a>空间搜索综述</h2><p>空间搜索是针对多维空间数据进行的搜索，这听起来是一句废话。但是，这重点强调的是<strong>空间</strong>数据，而且数据是**多维(2D, 3D, …)**的。同时, 空间搜索有别于传统的网页文本搜索(google, baidu等)，传统搜索引擎针对的是海量的文本，分词之后，通过倒排等技术来进行快速的匹配。</p>
-<p>空间搜索的数据则是点、线、多边形，多维空间等等几何体。如何能高效准确的搜索出想要的空间数据是空间搜索需要解决的。</p>
-<h3 id="在生活中无处不在"><a href="#在生活中无处不在" class="headerlink" title="在生活中无处不在"></a>在生活中无处不在</h3><p>无形之中，空间搜索已经存在于我们生活中的方方面面。也许，出门你可能要打个车，看看附近有哪些司机师傅可以接单。自驾要搜索一下沿途的加油站，如果是电车你可能想找一下充电桩。抑或是你今天休息宅在家里，想找个餐厅，定个外卖。所有的这些都离不开空间搜索支持。</p>
-<p><img src="/images/geo_spatial_search_overview/geo_in_life.jpeg" alt="空间搜索无处不在"></p>
-<p>现在比较流行的RDBMS数据库 MySQL、PostgreSQL 都原生支持 B+ 树。这种数据结构能高效的查询。MongoDB、Redis等NoSQL数据库原生的支持了空间索引能力。业界对于空间搜索的需求是巨大的。</p>
+          <p><img src="/images/geo_google_s2/s2_global_intro.png" alt="google s2 希尔伯特曲线"></p>
+<p>S2其实是来自几何数学中<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/N%E7%BB%B4%E7%90%83%E9%9D%A2">N维球面</a>的一个数学符号<strong>S²</strong>，它表示的是3维空间内的2维球面。S2 这个库其实是被设计用来解决球面上各种几何问题的。</p>
+<p>接下来就看看怎么用 S2 来解决多维空间点索引的问题的。</p>
+<h3 id="球面坐标转换"><a href="#球面坐标转换" class="headerlink" title="球面坐标转换"></a>球面坐标转换</h3><p>众所周知，地球是近似一个球体。球体是一个三维的，如何把三维降成一维呢？</p>
+<p>球面上的一个点，在直角坐标系中，可以这样表示：</p>
+<p><img src="/images/geo/3-axises-point.png" alt="三维坐标"></p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">x</span> = <span class="string">r * sin θ * cos φ</span></span><br><span class="line"><span class="attr">y</span> = <span class="string">r * sin θ * sin φ </span></span><br><span class="line"><span class="attr">z</span> = <span class="string">r * cos θ</span></span><br></pre></td></tr></table></figure>
+
+<p>通常地球上的点我们会用经纬度来表示。</p>
+<p><img src="/images/geo/global-point.png"></p>
+<p>再进一步，我们可以和球面上的经纬度联系起来。不过这里需要注意的是，纬度的角度 α 和直角坐标系下的球面坐标 θ 加起来等于 90°。所以三角函数要注意转换。</p>
+<p>于是地球上任意的一个经纬度的点，就可以转换成<code> f(x,y,z)</code>。</p>
+<p>在 S2 中，地球半径被当成单位1了，所以半径不用考虑。x,y,z的值域都被限定在了<code>[-1,1]*[-1,1]*[-1,1]</code>这个区间之内了。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/blog/2020/01/16/geo_spatial_search_overview/#more" rel="contents">
+              <a class="btn" href="/blog/2020/01/16/geo_google_s2/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
