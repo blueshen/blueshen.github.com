@@ -41,5 +41,8 @@
     "js-yaml": "4.1.0",
     "mocha": "10.1.0",
     "stylint": "2.0.0"
+  },
+  "dependencies": {
+    "hexo-related-popular-posts": "^5.0.1"
   }
 }

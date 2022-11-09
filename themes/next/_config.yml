@@ -385,7 +385,7 @@ back2top:
 
 # Reading progress bar
 reading_progress:
-  enable: false
+  enable: true
   # Available values: left | right
   start_at: left
   # Available values: top | bottom
@@ -719,7 +719,7 @@ plausible:
 # Show number of visitors of each article.
 # You can visit https://www.leancloud.cn to get AppID and AppKey.
 leancloud_visitors:
-  enable: true
+  enable: false
   app_id: vFAoofuVWgdHsCv6B6BtqROc-gzGzoHsz
   app_key: ANWUkmboGiNDNRmf2iVlUIGt
   # Required for apps from CN region
@@ -877,7 +877,7 @@ motion:
 # Progress bar in the top during page loading.
 # For more information: https://github.com/CodeByZach/pace
 pace:
-  enable: false
+  enable: true
   # All available colors:
   # black | blue | green | orange | pink | purple | red | silver | white | yellow
   color: blue
