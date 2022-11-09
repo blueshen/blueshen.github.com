@@ -1721,6 +1721,16 @@ header.header {
 .back-to-top.back-to-top-on {
   bottom: 19px;
 }
+.reading-progress-bar {
+  --progress: 0;
+  background: #37c6c0;
+  height: 3px;
+  position: fixed;
+  z-index: 50;
+  width: var(--progress);
+  left: 0;
+  top: 0;
+}
 .rtl.post-body p,
 .rtl.post-body a,
 .rtl.post-body h1,
@@ -2766,7 +2776,7 @@ hr {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #37ff69;
+  background: #ff09ff;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
