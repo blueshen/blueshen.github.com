@@ -29,7 +29,7 @@
 <meta property="og:description" content="为什么使用quartz集群？在服务部署一个节点的时候，quartz任务是可以正常运行的。但是如果你业务上需要部署2个或者以上的集群时，就需要处理集群之间的定时任务执行问题了。而quartz集群就是为了解决这个问题的。前提是集群的时间同步，以及共用同一个数据库。quartz集群在spring中的配置 1.导入数据库表以mysql为例，下载quartz发行版，在&#x2F;docs&#x2F;dbTa">
 <meta property="og:locale">
 <meta property="article:published_time" content="2014-06-24T07:10:00.000Z">
-<meta property="article:modified_time" content="2019-12-17T11:41:25.749Z">
+<meta property="article:modified_time" content="2022-11-15T07:26:27.980Z">
 <meta property="article:author" content="申艳超">
 <meta property="article:tag" content="spring">
 <meta property="article:tag" content="quartz">
@@ -243,7 +243,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2019-12-17 19:41:25" itemprop="dateModified" datetime="2019-12-17T19:41:25+08:00">2019-12-17</time>
+      <time title="Modified: 2022-11-15 15:26:27" itemprop="dateModified" datetime="2022-11-15T15:26:27+08:00">2022-11-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -304,95 +304,19 @@ org.quartz.jobStore.tablePrefix = QRTZ_
 org.quartz.jobStore.isClustered = true
 org.quartz.jobStore.clusterCheckinInterval = 15000
 </code></pre>
-<h4 id="3-增加applicationContext-quartz-xml"><a href="#3-增加applicationContext-quartz-xml" class="headerlink" title="3.增加applicationContext-quartz.xml"></a>3.增加applicationContext-quartz.xml</h4><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-       xmlns:util=&quot;http://www.springframework.org/schema/util&quot;
-       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-                        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd&quot;
-       default-lazy-init=&quot;false&quot;&gt;
-
-    &lt;description&gt;Quartz的定时集群任务配置&lt;/description&gt;
-
-    &lt;bean id=&quot;quartzDataSource&quot; class=&quot;org.springframework.jdbc.datasource.SimpleDriverDataSource&quot;&gt;
-        &lt;property name=&quot;driverClass&quot; value=&quot;$&#123;db.driver&#125;&quot; /&gt;
-        &lt;property name=&quot;url&quot; value=&quot;$&#123;db.url&#125;&quot; /&gt;
-        &lt;property name=&quot;username&quot; value=&quot;$&#123;db.user&#125;&quot; /&gt;
-        &lt;property name=&quot;password&quot; value=&quot;$&#123;db.pass&#125;&quot; /&gt;
-    &lt;/bean&gt;
-
-    &lt;!-- Quartz集群Schduler --&gt;
-    &lt;bean id=&quot;clusterQuartzScheduler&quot; class=&quot;org.springframework.scheduling.quartz.SchedulerFactoryBean&quot;&gt;
-        &lt;!-- Triggers集成 --&gt;
-        &lt;property name=&quot;triggers&quot;&gt;
-            &lt;list&gt;
-                &lt;ref bean=&quot;testTrigger&quot; /&gt;
-            &lt;/list&gt;
-        &lt;/property&gt;
-        &lt;!--  quartz配置文件路径--&gt;
-        &lt;property name=&quot;configLocation&quot; value=&quot;classpath:quartz/quartz.properties&quot; /&gt;
-        &lt;!-- 启动时延期3秒开始任务 --&gt;
-        &lt;property name=&quot;startupDelay&quot; value=&quot;3&quot; /&gt;
-        &lt;!-- 保存Job数据到数据库所需的数据源 --&gt;
-        &lt;property name=&quot;dataSource&quot; ref=&quot;quartzDataSource&quot; /&gt;
-        &lt;!-- Job接受applicationContext的成员变量名 --&gt;
-        &lt;property name=&quot;applicationContextSchedulerContextKey&quot; value=&quot;applicationContext&quot; /&gt;
-        &lt;property name=&quot;overwriteExistingJobs&quot; value=&quot;true&quot; /&gt;
-        &lt;property name=&quot;jobFactory&quot;&gt;
-            &lt;bean class=&quot;com.shenyanchao.quartz.AutoWiringSpringBeanJobFactory&quot;/&gt;
-        &lt;/property&gt;
-     &lt;/bean&gt;
+<h4 id="3-增加applicationContext-quartz-xml"><a href="#3-增加applicationContext-quartz-xml" class="headerlink" title="3.增加applicationContext-quartz.xml"></a>3.增加applicationContext-quartz.xml</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span> <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:util</span>=<span class="string">&quot;http://www.springframework.org/schema/util&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd</span></span></span><br><span class="line"><span class="string"><span class="tag">                        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">default-lazy-init</span>=<span class="string">&quot;false&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">description</span>&gt;</span>Quartz的定时集群任务配置<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;quartzDataSource&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.jdbc.datasource.SimpleDriverDataSource&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;driverClass&quot;</span> <span class="attr">value</span>=<span class="string">&quot;$&#123;db.driver&#125;&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;url&quot;</span> <span class="attr">value</span>=<span class="string">&quot;$&#123;db.url&#125;&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">value</span>=<span class="string">&quot;$&#123;db.user&#125;&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span> <span class="attr">value</span>=<span class="string">&quot;$&#123;db.pass&#125;&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- Quartz集群Schduler --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;clusterQuartzScheduler&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.scheduling.quartz.SchedulerFactoryBean&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- Triggers集成 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;triggers&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">list</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">ref</span> <span class="attr">bean</span>=<span class="string">&quot;testTrigger&quot;</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">list</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--  quartz配置文件路径--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;configLocation&quot;</span> <span class="attr">value</span>=<span class="string">&quot;classpath:quartz/quartz.properties&quot;</span> /&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 启动时延期3秒开始任务 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;startupDelay&quot;</span> <span class="attr">value</span>=<span class="string">&quot;3&quot;</span> /&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 保存Job数据到数据库所需的数据源 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;dataSource&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;quartzDataSource&quot;</span> /&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- Job接受applicationContext的成员变量名 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;applicationContextSchedulerContextKey&quot;</span> <span class="attr">value</span>=<span class="string">&quot;applicationContext&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;overwriteExistingJobs&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;jobFactory&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">&quot;com.shenyanchao.quartz.AutoWiringSpringBeanJobFactory&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 
-    &lt;bean id=&quot;testTrigger&quot; class=&quot;org.springframework.scheduling.quartz.CronTriggerBean&quot;&gt;
-        &lt;property name=&quot;jobDetail&quot; ref=&quot;testJobDetail&quot; /&gt;
-        &lt;property name=&quot;cronExpression&quot; value=&quot;* 0/10 * * * ?&quot; /&gt;
-    &lt;/bean&gt;
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;testTrigger&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.scheduling.quartz.CronTriggerBean&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;jobDetail&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;testJobDetail&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;cronExpression&quot;</span> <span class="attr">value</span>=<span class="string">&quot;* 0/10 * * * ?&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- Timer JobDetail, 基于JobDetailBean实例化Job Class,可持久化到数据库实现集群 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;testJobDetail&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.scheduling.quartz.JobDetailBean&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;jobClass&quot;</span> <span class="attr">value</span>=<span class="string">&quot;cn.shenyanchao.quartz.TestTask&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- Timer Job的可配置属性,在job中通过applicationContext动态获取 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">util:map</span> <span class="attr">id</span>=<span class="string">&quot;timerJobConfig&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">&quot;nodeName&quot;</span> <span class="attr">value</span>=<span class="string">&quot;default&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">util:map</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-    &lt;!-- Timer JobDetail, 基于JobDetailBean实例化Job Class,可持久化到数据库实现集群 --&gt;
-    &lt;bean id=&quot;testJobDetail&quot; class=&quot;org.springframework.scheduling.quartz.JobDetailBean&quot;&gt;
-        &lt;property name=&quot;jobClass&quot; value=&quot;cn.shenyanchao.quartz.TestTask&quot; /&gt;
-    &lt;/bean&gt;
-
-    &lt;!-- Timer Job的可配置属性,在job中通过applicationContext动态获取 --&gt;
-    &lt;util:map id=&quot;timerJobConfig&quot;&gt;
-        &lt;entry key=&quot;nodeName&quot; value=&quot;default&quot; /&gt;
-    &lt;/util:map&gt;
-&lt;/beans&gt;
-</code></pre>
 <p>其中尤其注意，设置overwriteExistingJobs为true，这个选项可以在修改cronExpression之后，能够更新到数据库，否则无法生效。</p>
 <p>另外，配置JobFactory使得QuartzJob可以@Autowired注入spring托管的实例。内容如下：</p>
-<pre><code>public final class AutoWiringSpringBeanJobFactory extends SpringBeanJobFactory implements ApplicationContextAware &#123;
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">AutoWiringSpringBeanJobFactory</span> <span class="keyword">extends</span> <span class="title class_">SpringBeanJobFactory</span> <span class="keyword">implements</span> <span class="title class_">ApplicationContextAware</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">transient</span> AutowireCapableBeanFactory beanFactory;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setApplicationContext</span><span class="params">(<span class="keyword">final</span> ApplicationContext context)</span> &#123;</span><br><span class="line">            beanFactory = context.getAutowireCapableBeanFactory();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">protected</span> Object <span class="title function_">createJobInstance</span><span class="params">(<span class="keyword">final</span> TriggerFiredBundle bundle)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">            <span class="keyword">final</span> <span class="type">Object</span> <span class="variable">job</span> <span class="operator">=</span> <span class="built_in">super</span>.createJobInstance(bundle);</span><br><span class="line">            beanFactory.autowireBean(job);</span><br><span class="line">            <span class="keyword">return</span> job;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
-        private transient AutowireCapableBeanFactory beanFactory;
-
-        public void setApplicationContext(final ApplicationContext context) &#123;
-            beanFactory = context.getAutowireCapableBeanFactory();
-        &#125;
-
-        @Override
-        protected Object createJobInstance(final TriggerFiredBundle bundle) throws Exception &#123;
-            final Object job = super.createJobInstance(bundle);
-            beanFactory.autowireBean(job);
-            return job;
-        &#125;
-    &#125;
-</code></pre>
-<h4 id="4-如何写JOB？"><a href="#4-如何写JOB？" class="headerlink" title="4. 如何写JOB？"></a>4. 如何写JOB？</h4><pre><code>@Component
-public class TestTask extends QuartzJobBean &#123;
-
-
-    @Autowired
-    private UserService userService;
-
-    @Override
-    protected void executeInternal(JobExecutionContext context) throws JobExecutionException &#123;
-        System.out.println(userService.findByName(&quot;shenyanchao&quot;).getEmail());
-    &#125;
-&#125;
-</code></pre>
+<h4 id="4-如何写JOB？"><a href="#4-如何写JOB？" class="headerlink" title="4. 如何写JOB？"></a>4. 如何写JOB？</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestTask</span> <span class="keyword">extends</span> <span class="title class_">QuartzJobBean</span> &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserService userService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">executeInternal</span><span class="params">(JobExecutionContext context)</span> <span class="keyword">throws</span> JobExecutionException &#123;</span><br><span class="line">        System.out.println(userService.findByName(<span class="string">&quot;shenyanchao&quot;</span>).getEmail());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>由于使用MethodInvokingFactoryBean总是报seriziable错误，因此本例使用的是JobDetailBean。那这也意味着要继承QuartzJobBean。同时由于配置了JobFactory，使得可以直接注入UserService等实例。</p>
-<h4 id="5-quartz在mysql5-6下报错"><a href="#5-quartz在mysql5-6下报错" class="headerlink" title="5.quartz在mysql5.6下报错"></a>5.quartz在mysql5.6下报错</h4><pre><code>You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &#39;OPTION SQL_SELECT_LIMIT=5&#39; at line 1
-</code></pre>
+<h4 id="5-quartz在mysql5-6下报错"><a href="#5-quartz在mysql5-6下报错" class="headerlink" title="5.quartz在mysql5.6下报错"></a>5.quartz在mysql5.6下报错</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &#x27;OPTION SQL_SELECT_LIMIT=5&#x27; at line 1</span><br></pre></td></tr></table></figure>
+
 <p>这个错误是由于mysql connector的版本太低导致的，可以通过升级版本来解决。 参见<a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/13023548/mysql-server-version-for-the-right-syntax-to-use-near-option-sql-select-limit-1">http://stackoverflow.com/questions/13023548/mysql-server-version-for-the-right-syntax-to-use-near-option-sql-select-limit-1</a></p>
 
     </div>

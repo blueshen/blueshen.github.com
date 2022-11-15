@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://www.shenyanchao.cn/images/blog/2013/three-times-handshake.png">
 <meta property="og:image" content="https://www.shenyanchao.cn/images/blog/2013/four-wave.png">
 <meta property="article:published_time" content="2013-09-24T10:02:00.000Z">
-<meta property="article:modified_time" content="2019-12-17T11:41:25.748Z">
+<meta property="article:modified_time" content="2022-11-15T07:27:16.942Z">
 <meta property="article:author" content="申艳超">
 <meta property="article:tag" content="apache">
 <meta property="article:tag" content="linux">
@@ -248,7 +248,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2019-12-17 19:41:25" itemprop="dateModified" datetime="2019-12-17T19:41:25+08:00">2019-12-17</time>
+      <time title="Modified: 2022-11-15 15:27:16" itemprop="dateModified" datetime="2022-11-15T15:27:16+08:00">2022-11-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -295,15 +295,8 @@
 </li>
 </ul>
 <p>如何监控GC吗？</p>
-<pre><code>jstat -gcutil 3950 3000 5
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">jstat -gcutil 3950 3000 5</span><br><span class="line"></span><br><span class="line">  S0     S1         E          O      P       YGC     YGCT    FGC       FGCT     GCT</span><br><span class="line">  0.00  47.86  66.10   6.55  99.92      7       0.087     0         0.000    0.087</span><br><span class="line">  0.00  47.86  66.90   6.55  99.94      7       0.087     0         0.000    0.087</span><br><span class="line">  0.00  47.86  67.30   6.55  99.94      7       0.087     0         0.000    0.087</span><br><span class="line">  0.00  47.86  67.30   6.55  99.94      7       0.087     0         0.000    0.087</span><br><span class="line">  0.00  47.86  67.30   6.55  99.94      7       0.087     0         0.000    0.087</span><br></pre></td></tr></table></figure>
 
-  S0     S1         E          O      P       YGC     YGCT    FGC       FGCT     GCT
-  0.00  47.86  66.10   6.55  99.92      7       0.087     0         0.000    0.087
-  0.00  47.86  66.90   6.55  99.94      7       0.087     0         0.000    0.087
-  0.00  47.86  67.30   6.55  99.94      7       0.087     0         0.000    0.087
-  0.00  47.86  67.30   6.55  99.94      7       0.087     0         0.000    0.087
-  0.00  47.86  67.30   6.55  99.94      7       0.087     0         0.000    0.087
-</code></pre>
 <p>解决方法：<br>​         $TOMCAT_HOME&#x2F;bin&#x2F;catalina.sh   第一行添加<br>​    	export CATALINA_OPTS&#x3D;”-Xmx3500m -Xms2048m -XX:PermSize&#x3D;256m XX:MaxPermSize&#x3D;512m -Xss128k”</p>
 <p>JAVA_OPTS   VS   CATALINA_OPTS（推荐使用）<br><strong>差别</strong>：JAVA_OPTS start run stop   适用所有JVM<br>​               CATALINA_OPTS   start run    专门配置tomcat</p>
 <p>tomcat默认-client ，production环境加-server</p>
@@ -344,18 +337,14 @@
 </ul>
 <p>$MYSQL_HOME&#x2F;etc&#x2F;my.cnf  或者 my.ini（windows）</p>
 <p>主要影响性能参数：</p>
-<pre><code>max-connections = 3000     会话数上限
-max_connect_errors = 10000    允许的最大连接错误量
-query_cache_size =128M    查询缓存
-query_cache_limit = 2M   小于这么大的才缓存，保护查询缓存
-sort_buffer_size =256M    排序order by 或 group by 使用
-</code></pre>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">max-connections</span> = <span class="number">3000</span>     会话数上限</span><br><span class="line"><span class="attr">max_connect_errors</span> = <span class="number">10000</span>    允许的最大连接错误量</span><br><span class="line"><span class="attr">query_cache_size</span> =<span class="number">128</span>M    查询缓存</span><br><span class="line"><span class="attr">query_cache_limit</span> = <span class="number">2</span>M   小于这么大的才缓存，保护查询缓存</span><br><span class="line"><span class="attr">sort_buffer_size</span> =<span class="number">256</span>M    排序order by 或 group by 使用</span><br></pre></td></tr></table></figure>
+
 <p>参考：<a target="_blank" rel="noopener" href="http://www.ha97.com/4110.html">http://www.ha97.com/4110.html</a></p>
 <h4 id="Apache"><a href="#Apache" class="headerlink" title="Apache"></a>Apache</h4><p>处理静态资源，无法处理动态（需要应用服务器支持）</p>
 <p>静态资源直接交给apache处理</p>
 <p>ab 命令进行测试，达到1000并发很easy</p>
-<pre><code>ab -k -c 1000  -n 1000000  http://hostname:port/path
-</code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ab -k -c 1000  -n 1000000  http://hostname:port/path</span><br></pre></td></tr></table></figure>
+
 <p>参考：<a target="_blank" rel="noopener" href="http://httpd.apache.org/docs/2.2/programs/ab.html">http://httpd.apache.org/docs/2.2/programs/ab.html</a></p>
 <h5 id="开启MPM支持大并发"><a href="#开启MPM支持大并发" class="headerlink" title="开启MPM支持大并发"></a>开启MPM支持大并发</h5><table border="1px">
 <thead>
@@ -406,18 +395,9 @@ TIME_WAIT 962
 </code></pre>
 <p>优化TCP连接相关参数：</p>
 <p><code>vi /etc/sysctl.conf</code></p>
-<pre><code>net.ipv4.tcp_fin_timeout = 30  保持在FIN-WAIT-2的时间。默认60秒。2.2内核是180秒
-net.ipv4.tcp_keepalive_time = 1200     长连接keepalive打开，发送的频率。默认7200（2H）
-net.ipv4.tcp_tw_reuse = 1     默认0，处于TIME-WAIT状态的socket可以用于新的TCP连接
-net.ipv4.tcp_tw_recycle = 1   默认0，TIME-WAIT状态的sockets快速回收
-net.ipv4.ip_local_port_range = 1024    65000 向外连接的端口范围，默认32768~61000
-net.ipv4.tcp_max_syn_backlog = 8192  默认1024/128,未获得客户端连接请求并保存在队列中的最大数目。
-net.ipv4.tcp_max_tw_buckets = 5000   默认180000，系统处理的最大TIME_WAIT数目。
-net.ipv4.route.gc_timeout = 100  路由缓存刷新频率，失败多长时间跳到另一个。默认300.
-net.ipv4.tcp_syncookies = 1	默认0，SYN队列溢出，启用cookies处理。
-net.ipv4.tcp_syn_retries = 1       新建连接发送SYN次数，默认5，180秒
-net.ipv4.tcp_synack_retries = 1    3次握手的第二步，重试几次。默认5.
-</code></pre>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">net.ipv4.tcp_fin_timeout</span> = <span class="number">30</span>  保持在FIN-WAIT-<span class="number">2</span>的时间。默认<span class="number">60</span>秒。<span class="number">2.2</span>内核是<span class="number">180</span>秒</span><br><span class="line"><span class="attr">net.ipv4.tcp_keepalive_time</span> = <span class="number">1200</span>     长连接keepalive打开，发送的频率。默认<span class="number">7200</span>（<span class="number">2</span>H）</span><br><span class="line"><span class="attr">net.ipv4.tcp_tw_reuse</span> = <span class="number">1</span>     默认<span class="number">0</span>，处于TIME-WAIT状态的socket可以用于新的TCP连接</span><br><span class="line"><span class="attr">net.ipv4.tcp_tw_recycle</span> = <span class="number">1</span>   默认<span class="number">0</span>，TIME-WAIT状态的sockets快速回收</span><br><span class="line"><span class="attr">net.ipv4.ip_local_port_range</span> = <span class="number">1024</span>    <span class="number">65000</span> 向外连接的端口范围，默认<span class="number">32768</span>~<span class="number">61000</span></span><br><span class="line"><span class="attr">net.ipv4.tcp_max_syn_backlog</span> = <span class="number">8192</span>  默认<span class="number">1024</span>/<span class="number">128</span>,未获得客户端连接请求并保存在队列中的最大数目。</span><br><span class="line"><span class="attr">net.ipv4.tcp_max_tw_buckets</span> = <span class="number">5000</span>   默认<span class="number">180000</span>，系统处理的最大TIME_WAIT数目。</span><br><span class="line"><span class="attr">net.ipv4.route.gc_timeout</span> = <span class="number">100</span>  路由缓存刷新频率，失败多长时间跳到另一个。默认<span class="number">300</span>.</span><br><span class="line"><span class="attr">net.ipv4.tcp_syncookies</span> = <span class="number">1</span>	默认<span class="number">0</span>，SYN队列溢出，启用cookies处理。</span><br><span class="line"><span class="attr">net.ipv4.tcp_syn_retries</span> = <span class="number">1</span>       新建连接发送SYN次数，默认<span class="number">5</span>，<span class="number">180</span>秒</span><br><span class="line"><span class="attr">net.ipv4.tcp_synack_retries</span> = <span class="number">1</span>    <span class="number">3</span>次握手的第二步，重试几次。默认<span class="number">5</span>.</span><br></pre></td></tr></table></figure>
+
+
 <p><code>/sbin/sysctl -p</code>   生效</p>
 <p>参考文档：<a target="_blank" rel="noopener" href="http://www.itlearner.com/article/4792">http://www.itlearner.com/article/4792</a></p>
 <p>备注：此文由本人在公司内做的PPT分享制作而成，内容有些省略以及跳跃。欢迎留言。</p>

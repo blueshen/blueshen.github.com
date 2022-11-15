@@ -29,7 +29,7 @@
 <meta property="og:description" content="selenium常见问题 原文：https:&#x2F;&#x2F;code.google.com&#x2F;p&#x2F;selenium&#x2F;wiki&#x2F;FrequentlyAskedQuestions Q:什么是WebDriver?A:WebDriver是一个用来写网页自动化测试的工具。它致力于模拟真实用户的行为并尽可能的实现HTML上的交互。 Q:Selenium与Sahi有什么异同？A:它们的目标是一样的，都是为了测试webapp。">
 <meta property="og:locale">
 <meta property="article:published_time" content="2013-05-30T11:57:00.000Z">
-<meta property="article:modified_time" content="2019-12-17T11:41:25.753Z">
+<meta property="article:modified_time" content="2022-11-15T07:38:11.741Z">
 <meta property="article:author" content="申艳超">
 <meta property="article:tag" content="webdriver">
 <meta property="article:tag" content="selenium">
@@ -242,7 +242,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2019-12-17 19:41:25" itemprop="dateModified" datetime="2019-12-17T19:41:25+08:00">2019-12-17</time>
+      <time title="Modified: 2022-11-15 15:38:11" itemprop="dateModified" datetime="2022-11-15T15:38:11+08:00">2022-11-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -297,65 +297,25 @@ WebDriver driver = new InternetExplorerDriver(capabilities);
 <h4 id="Q：除了Java，还支持哪些语言？"><a href="#Q：除了Java，还支持哪些语言？" class="headerlink" title="Q：除了Java，还支持哪些语言？"></a>Q：除了Java，还支持哪些语言？</h4><p>A:Python,Ruby,C#,Java都是直接支持的。并且还有PHP和Perl的webdriver实现。同时一个JS的API也正在计划中。</p>
 <h4 id="Q：如何处理新弹出的浏览器窗口？"><a href="#Q：如何处理新弹出的浏览器窗口？" class="headerlink" title="Q：如何处理新弹出的浏览器窗口？"></a>Q：如何处理新弹出的浏览器窗口？</h4><p>A:WebDriver提供了处理多浏览器窗口的能力。通过使用<code>WebDriver.switchTo().window()</code>可以转向一个已知名字的窗口。假如不知道这个窗口的名字，可以使用<code>&quot;WebDriver.getWindowHandles()</code>获取窗口的名字列表。然后就可以使用<code>switchTo().window()</code>来转向了。</p>
 <h4 id="Q：WebDriver支持JavaScript弹出的alert和prompts框嘛？"><a href="#Q：WebDriver支持JavaScript弹出的alert和prompts框嘛？" class="headerlink" title="Q：WebDriver支持JavaScript弹出的alert和prompts框嘛？"></a>Q：WebDriver支持JavaScript弹出的alert和prompts框嘛？</h4><p>A: 使用<a target="_blank" rel="noopener" href="http://selenium.googlecode.com/svn/trunk/docs/api/java/org/openqa/selenium/Alert.html">Alert API</a>可以搞定:</p>
-<pre><code>// Get a handle to the open alert, prompt or confirmation
-Alert alert = driver.switchTo().alert();
-// Get the text of the alert or prompt
-alert.getText();
-// And acknowledge the alert (equivalent to clicking &quot;OK&quot;)
-alert.accept();
-</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Get a handle to the open alert, prompt or confirmation</span></span><br><span class="line"><span class="type">Alert</span> <span class="variable">alert</span> <span class="operator">=</span> driver.switchTo().alert();</span><br><span class="line"><span class="comment">// Get the text of the alert or prompt</span></span><br><span class="line">alert.getText();</span><br><span class="line"><span class="comment">// And acknowledge the alert (equivalent to clicking &quot;OK&quot;)</span></span><br><span class="line">alert.accept();</span><br></pre></td></tr></table></figure>
 <h4 id="Q：WebDriver支持文件上传？"><a href="#Q：WebDriver支持文件上传？" class="headerlink" title="Q：WebDriver支持文件上传？"></a>Q：WebDriver支持文件上传？</h4><p>A:答案是肯定的。你是不能直接与操作系统的浏览文件窗口直接交互的，但是做了一些神奇的工作，使得你在文件上传元素上调用<code>WebElement#sendKeys(&quot;/path/to/file&quot;)</code> 就可以正确上传。同时你要保证不要在文件上传元素上进行<code>WebElement#click()</code>操作，否则可能导致浏览器挂起。<br>小提示：你是不能直接与隐藏的元素交互的，除非使他们显示出来。假如你的元素是隐藏的，可以使用类似下面的代码，来让元素可见。</p>
-<pre><code>((JavascriptExecutor)driver).executeScript(&quot;arguments[0].style.visibility = &#39;visible&#39;;      arguments[0].style.height = &#39;1px&#39;; arguments[0].style.width = &#39;1px&#39;; arguments[0].style.opacity = 1&quot;, fileUploadElement);
-</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">((JavascriptExecutor)driver).executeScript(<span class="string">&quot;arguments[0].style.visibility = &#x27;visible&#x27;;      arguments[0].style.height = &#x27;1px&#x27;; arguments[0].style.width = &#x27;1px&#x27;; arguments[0].style.opacity = 1&quot;</span>, fileUploadElement);</span><br></pre></td></tr></table></figure>
+
 <h4 id="Q：为什么在执行sendKeys后，没有触发onchange事件？"><a href="#Q：为什么在执行sendKeys后，没有触发onchange事件？" class="headerlink" title="Q：为什么在执行sendKeys后，没有触发onchange事件？"></a>Q：为什么在执行<code>sendKeys</code>后，没有触发onchange事件？</h4><p>A:WebDriver是将焦点一直放在调用<code>sendKeys</code>的元素上的。而onchange事件是当焦点离开元素才触发的。因此，你只需移动下焦点，简单的<code>click</code>下其他元素即可。</p>
 <h4 id="Q：能同时运行多个WebDriver的实例？"><a href="#Q：能同时运行多个WebDriver的实例？" class="headerlink" title="Q：能同时运行多个WebDriver的实例？"></a>Q：能同时运行多个WebDriver的实例？</h4><p>A:HtmlUnitDriver,ChromeDriver,FirefoxDriver的每个实例都是完全独立的（其中firefox和chrome，每个实例都使用它们自己的匿名profile）。由于Windows自身的运行方式，同时只能有一个InternetExplorerDriver实例。假如你同时需要运行多个InternetExplorerDriver实例，可以考虑使用Remote!WebDriver以及虚拟机。</p>
 <h4 id="Q：我需要使用代理。我该如何配置呢？"><a href="#Q：我需要使用代理。我该如何配置呢？" class="headerlink" title="Q：我需要使用代理。我该如何配置呢？"></a>Q：我需要使用代理。我该如何配置呢？</h4><p>A：代理配置是通过<code>org.openqa.selenium.Proxy</code>类来实现的，类似下面代码所示：</p>
-<pre><code>Proxy proxy = new Proxy();
-proxy.setProxyAutoconfigUrl(&quot;http://youdomain/config&quot;);
-
-// We use firefox as an example here.
-DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-capabilities.setCapability(CapabilityType.PROXY, proxy);
-
-// You could use any webdriver implementation here
-WebDriver driver = new FirefoxDriver(capabilities);
-</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Proxy</span> <span class="variable">proxy</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Proxy</span>();</span><br><span class="line">proxy.setProxyAutoconfigUrl(<span class="string">&quot;http://youdomain/config&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// We use firefox as an example here.</span></span><br><span class="line"><span class="type">DesiredCapabilities</span> <span class="variable">capabilities</span> <span class="operator">=</span> DesiredCapabilities.firefox();</span><br><span class="line">capabilities.setCapability(CapabilityType.PROXY, proxy);</span><br><span class="line"></span><br><span class="line"><span class="comment">// You could use any webdriver implementation here</span></span><br><span class="line"><span class="type">WebDriver</span> <span class="variable">driver</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FirefoxDriver</span>(capabilities);</span><br></pre></td></tr></table></figure>
 <h4 id="Q：使用HtmlUnitDriver该如何实现权限验证？"><a href="#Q：使用HtmlUnitDriver该如何实现权限验证？" class="headerlink" title="Q：使用HtmlUnitDriver该如何实现权限验证？"></a>Q：使用HtmlUnitDriver该如何实现权限验证？</h4><p>A:当创建HtmlUnitDriver时，重写<code>modifyWebClient</code>方法即可。例如：</p>
-<pre><code>WebDriver driver = new HtmlUnitDriver() &#123;
-  protected WebClient modifyWebClient(WebClient client) &#123;
-    // This class ships with HtmlUnit itself
-    DefaultCredentialsProvider creds = new DefaultCredentialsProvider();
-
-    // Set some example credentials
-    creds.addCredentials(&quot;username&quot;, &quot;password&quot;);
-
-    // And now add the provider to the webClient instance
-    client.setCredentialsProvider(creds);
-
-    return client;
-  &#125;
-&#125;;
-</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">WebDriver</span> <span class="variable">driver</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HtmlUnitDriver</span>() &#123;</span><br><span class="line">  <span class="keyword">protected</span> WebClient <span class="title function_">modifyWebClient</span><span class="params">(WebClient client)</span> &#123;</span><br><span class="line">    <span class="comment">// This class ships with HtmlUnit itself</span></span><br><span class="line">    <span class="type">DefaultCredentialsProvider</span> <span class="variable">creds</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DefaultCredentialsProvider</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Set some example credentials</span></span><br><span class="line">    creds.addCredentials(<span class="string">&quot;username&quot;</span>, <span class="string">&quot;password&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// And now add the provider to the webClient instance</span></span><br><span class="line">    client.setCredentialsProvider(creds);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> client;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <h4 id="Q：WebDriver是线程安全的吗？"><a href="#Q：WebDriver是线程安全的吗？" class="headerlink" title="Q：WebDriver是线程安全的吗？"></a>Q：WebDriver是线程安全的吗？</h4><p>A:WebDriver不是线程安全的。话说回来，如果你串行的访问driver实例，你就可以在多个线程之间共享一个driver引用。这个不是推荐的方法。其实你可以为每个线程实例化一个WebDriver。</p>
 <h4 id="Q：如何向一个可编辑的iframe里输入？"><a href="#Q：如何向一个可编辑的iframe里输入？" class="headerlink" title="Q：如何向一个可编辑的iframe里输入？"></a>Q：如何向一个可编辑的iframe里输入？</h4><p>A:假设那个iframe的name是“foo”:</p>
-<pre><code>driver.switchTo().frame(&quot;foo&quot;);
-WebElement editable = driver.switchTo().activeElement();
-editable.sendKeys(&quot;Your text here&quot;);
-</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">driver.switchTo().frame(<span class="string">&quot;foo&quot;</span>);</span><br><span class="line"><span class="type">WebElement</span> <span class="variable">editable</span> <span class="operator">=</span> driver.switchTo().activeElement();</span><br><span class="line">editable.sendKeys(<span class="string">&quot;Your text here&quot;</span>);</span><br></pre></td></tr></table></figure>
 <p>有时，这方法不管用。那是因为iframe没有任何内容。在Firefox中，你可以在<code>sendKeys</code>之前做以下的操作：</p>
-<pre><code>((JavascriptExecutor) driver).executeScript(&quot;document.body.innerHTML = &#39;&lt;br&gt;&#39;&quot;);
-</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">((JavascriptExecutor) driver).executeScript(<span class="string">&quot;document.body.innerHTML = &#x27;&lt;br&gt;&#x27;&quot;</span>);</span><br></pre></td></tr></table></figure>
 <p>因为iframe内默认是没有任何内容的，所以就不知道该往哪儿进行键盘输入，上面的操作是必须的。这个操作只是插入了一个空标签，就把一切搞定了。<br>记得在做完iframe内的操作后，switch出来（因为进一步都交互都是使用下面的frame的）。</p>
-<pre><code>driver.switchTo().defaultContent();
-</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.switchTo().defaultContent();</span><br></pre></td></tr></table></figure>
 <h4 id="Q：在Linux系统上WebDriver无法启动Firefox，并抛出java-net-SocketException。"><a href="#Q：在Linux系统上WebDriver无法启动Firefox，并抛出java-net-SocketException。" class="headerlink" title="Q：在Linux系统上WebDriver无法启动Firefox，并抛出java.net.SocketException。"></a>Q：在Linux系统上WebDriver无法启动Firefox，并抛出<code>java.net.SocketException</code>。</h4><p>A:在Linux系统上运行WebDriver,Firefox无法启动并抛出如下错误：</p>
-<pre><code>Caused by: java.net.SocketException: Invalid argument
-        at java.net.PlainSocketImpl.socketBind(Native Method)
-        at java.net.PlainSocketImpl.bind(PlainSocketImpl.java:365)
-        at java.net.Socket.bind(Socket.java:571)
-        at org.openqa.selenium.firefox.internal.SocketLock.isLockFree(SocketLock.java:99)
-        at org.openqa.selenium.firefox.internal.SocketLock.lock(SocketLock.java:63)
-</code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Caused by: java.net.SocketException: Invalid argument</span><br><span class="line">        at java.net.PlainSocketImpl.socketBind(Native Method)</span><br><span class="line">        at java.net.PlainSocketImpl.bind(PlainSocketImpl.java:365)</span><br><span class="line">        at java.net.Socket.bind(Socket.java:571)</span><br><span class="line">        at org.openqa.selenium.firefox.internal.SocketLock.isLockFree(SocketLock.java:99)</span><br><span class="line">        at org.openqa.selenium.firefox.internal.SocketLock.lock(SocketLock.java:63)</span><br></pre></td></tr></table></figure>
 <p>这可能是因为机器上的IPv6设置导致的。执行下面的脚本：</p>
 <pre><code>sudo sysctl net.ipv6.bindv6only=0
 </code></pre>
@@ -370,20 +330,14 @@ editable.sendKeys(&quot;Your text here&quot;);
 <p><strong>解析</strong>：WebDriver基本上都是blocking API。但是，在一些情况下，是允许页面没有完成加载就让get请求返回的。经典的样例就是，当页面加载后才开始执行JavaScript(onload触发)。浏览器（比如Firefox）会在基本的HTML内容加载后通知WebDriver，而就是此刻WebDriver才返回了。要想知道JavaScript什么时候执行完成是困难的（即使是能知道），因为JS代码可能在将来的某一刻才执行并且依赖于服务器的响应。这种情况同样也适用于click操作，在支持原生事件（Window,Linux）的系统平台上，click操作会转化为在操作系统层面的一个在元素坐标点进行的鼠标左键点击，WebDriver是无法很好的追踪到这个鼠标左键点击引起的一连串操作的。WebDriver并不了解这一切，所以WebDriver不可能等到所有的条件到来才执行测试流程。这样的情况下，blocking API是不完美的。通常，我们最为关心的是在接下来的交互中需要使用到元素是否已经显示并且可用。<br><strong>解决方案</strong>：使用Wait类来等待一个元素出现。这个类会一遍又一遍的调用findElement方法，忽略NoSuchElementException，直到找到元素为止（或者超时失效）。既然这个行为是很多用户希望默认实现的，我们实现了一个隐式等待元素出现的机制。这个可以使用<a target="_blank" rel="noopener" href="http://selenium.googlecode.com/svn/trunk/docs/api/java/org/openqa/selenium/WebDriver.Timeouts.html">WebDriver.manage().timeouts()</a>来实现.</p>
 <h4 id="Q-如何能触发页面上的任意事件？"><a href="#Q-如何能触发页面上的任意事件？" class="headerlink" title="Q:如何能触发页面上的任意事件？"></a>Q:如何能触发页面上的任意事件？</h4><p>A:WebDriver致力于模拟用户交互，因此API直接反应了用户与各种元素的交互。<br>触发一个特定的事件不能由API直接完成，但是可以直接通过执行JavaScript来调用元素上的各种方法。</p>
 <h4 id="Q-为什么不能与隐藏的元素进行交互？"><a href="#Q-为什么不能与隐藏的元素进行交互？" class="headerlink" title="Q:为什么不能与隐藏的元素进行交互？"></a>Q:为什么不能与隐藏的元素进行交互？</h4><p>A:既然用户不能看到隐藏元素的文本信息，WebDriver也一样。<br>然而，执行JavaScript来直接调用隐藏元素的getText是允许的。</p>
-<pre><code>WebElement element = ...;
-((JavascriptExecutor) driver).executeScript(&quot;return arguments[0].getText();&quot;, element);
-</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">WebElement</span> <span class="variable">element</span> <span class="operator">=</span> ...;</span><br><span class="line">((JavascriptExecutor) driver).executeScript(<span class="string">&quot;return arguments[0].getText();&quot;</span>, element);</span><br></pre></td></tr></table></figure>
 <h4 id="Q-如何启动一个带插件的Firefox？"><a href="#Q-如何启动一个带插件的Firefox？" class="headerlink" title="Q:如何启动一个带插件的Firefox？"></a>Q:如何启动一个带插件的Firefox？</h4><p>A:</p>
-<pre><code>FirefoxProfile profile = new FirefoxProfile()
-profile.addExtension(....);
-
-WebDriver driver = new FirefoxDriver(profile);
-</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">FirefoxProfile</span> <span class="variable">profile</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FirefoxProfile</span>()</span><br><span class="line">profile.addExtension(....);</span><br><span class="line"></span><br><span class="line"><span class="type">WebDriver</span> <span class="variable">driver</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FirefoxDriver</span>(profile);</span><br></pre></td></tr></table></figure>
 <h4 id="Q-要是WebDriver有…功能，我会更喜欢它。"><a href="#Q-要是WebDriver有…功能，我会更喜欢它。" class="headerlink" title="Q: 要是WebDriver有…功能，我会更喜欢它。"></a>Q: 要是WebDriver有…功能，我会更喜欢它。</h4><p>A: 如果你希望WebDriver有什么功能，或者发现有什么BUG。你可以添加一个issue到WebDriver主页。</p>
 <h4 id="Q-有时Selenium-server启动一个新session的时候要花费很长的时间？"><a href="#Q-有时Selenium-server启动一个新session的时候要花费很长的时间？" class="headerlink" title="Q: 有时Selenium server启动一个新session的时候要花费很长的时间？"></a>Q: 有时Selenium server启动一个新session的时候要花费很长的时间？</h4><p>A:如果运行在Linux上，你需要增加用于安全随机数生成所需要的熵数量。大多数的Linux发行版都可以通过安装一个叫“randomsound”的包来配置。<br>在Windows(XP)系统上，你可以看下<a target="_blank" rel="noopener" href="http://bugs.sun.com/view_bug.do?bug_id=6705872">http://bugs.sun.com/view_bug.do?bug_id=6705872</a>,这通常需要从你的临时文件夹清理大量的数据文件。</p>
 <h4 id="Q-在Selenium-WebDriver的API中哪个与TextPresent对等"><a href="#Q-在Selenium-WebDriver的API中哪个与TextPresent对等" class="headerlink" title="Q: 在Selenium WebDriver的API中哪个与TextPresent对等?"></a>Q: 在Selenium WebDriver的API中哪个与TextPresent对等?</h4><p>A:</p>
-<pre><code>driver.findElement(By.tagName(&quot;body&quot;)).getText()
-</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.findElement(By.tagName(<span class="string">&quot;body&quot;</span>)).getText()</span><br></pre></td></tr></table></figure>
+
 <p>会给出页面的文本内容。关于verifyTextPresent&#x2F;assertTextPresent,你需要使用Test framework的Assert来验证。关于waitForTextPresent, 你需要使用WebDriverWait类来解决。</p>
 <h4 id="Q-socket-lock感觉是一个糟糕的设计。我如何能更好的实现。"><a href="#Q-socket-lock感觉是一个糟糕的设计。我如何能更好的实现。" class="headerlink" title="Q:socket lock感觉是一个糟糕的设计。我如何能更好的实现。"></a>Q:socket lock感觉是一个糟糕的设计。我如何能更好的实现。</h4><p>A:守护Firefox启动的socket lock在设计时，有以下的限制：</p>
 <ul>

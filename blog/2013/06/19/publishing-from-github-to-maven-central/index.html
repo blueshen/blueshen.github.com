@@ -21,15 +21,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"www.shenyanchao.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.13.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="除非你的项目是Apache或者Codehaus管理的，否则你是不可能直接把artifacts发布到Maven Central的。然而，Sonatype提供了它们的Nexus repositories,我们可以将开源项目提交上去，然后会自动同步到Maven Central。 下面介绍下如何做： 准备工作1.添加source code management信息到pom.xml: &lt;scm&gt;">
+    <meta name="description" content="除非你的项目是Apache或者Codehaus管理的，否则你是不可能直接把artifacts发布到Maven Central的。然而，Sonatype提供了它们的Nexus repositories,我们可以将开源项目提交上去，然后会自动同步到Maven Central。 下面介绍下如何做： 准备工作1.添加source code management信息到pom.xml: 12345&lt;sc">
 <meta property="og:type" content="article">
 <meta property="og:title" content="从Github发布jar包到Maven Central">
 <meta property="og:url" content="https://www.shenyanchao.cn/blog/2013/06/19/publishing-from-github-to-maven-central/index.html">
 <meta property="og:site_name" content="申艳超-博客">
-<meta property="og:description" content="除非你的项目是Apache或者Codehaus管理的，否则你是不可能直接把artifacts发布到Maven Central的。然而，Sonatype提供了它们的Nexus repositories,我们可以将开源项目提交上去，然后会自动同步到Maven Central。 下面介绍下如何做： 准备工作1.添加source code management信息到pom.xml: &lt;scm&gt;">
+<meta property="og:description" content="除非你的项目是Apache或者Codehaus管理的，否则你是不可能直接把artifacts发布到Maven Central的。然而，Sonatype提供了它们的Nexus repositories,我们可以将开源项目提交上去，然后会自动同步到Maven Central。 下面介绍下如何做： 准备工作1.添加source code management信息到pom.xml: 12345&lt;sc">
 <meta property="og:locale">
 <meta property="article:published_time" content="2013-06-19T11:50:00.000Z">
-<meta property="article:modified_time" content="2019-12-17T11:41:25.748Z">
+<meta property="article:modified_time" content="2022-11-15T07:25:13.266Z">
 <meta property="article:author" content="申艳超">
 <meta property="article:tag" content="maven">
 <meta property="article:tag" content="github">
@@ -244,7 +244,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2019-12-17 19:41:25" itemprop="dateModified" datetime="2019-12-17T19:41:25+08:00">2019-12-17</time>
+      <time title="Modified: 2022-11-15 15:25:13" itemprop="dateModified" datetime="2022-11-15T15:25:13+08:00">2022-11-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -276,115 +276,29 @@
         <p>除非你的项目是Apache或者Codehaus管理的，否则你是不可能直接把artifacts发布到Maven Central的。然而，Sonatype提供了它们的Nexus repositories,我们可以将开源项目提交上去，然后会自动同步到Maven Central。</p>
 <p>下面介绍下如何做：</p>
 <h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>1.添加source code management信息到pom.xml:</p>
-<pre><code>&lt;scm&gt;
-    &lt;connection&gt;scm:git:git@github.com:blueshen/ut-maven-plugin.git&lt;/connection&gt;
-    &lt;developerConnection&gt;scm:git:git@github.com:blueshen/ut-maven-plugin.git&lt;/developerConnection&gt;
-    &lt;url&gt;git@github.com:blueshen/ut-maven-plugin.git&lt;/url&gt;
-&lt;/scm&gt;
-</code></pre>
-<p>2.创建GPG的密钥对并发布公钥。参看<a target="_blank" rel="noopener" href="https://docs.sonatype.org/display/Repository/How+To+Generate+PGP+Signatures+With+Maven">Sonatype documentation</a>的具体步骤.推荐使用Linux,Mac来发布。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">scm</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">connection</span>&gt;</span>scm:git:git@github.com:blueshen/ut-maven-plugin.git<span class="tag">&lt;/<span class="name">connection</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">developerConnection</span>&gt;</span>scm:git:git@github.com:blueshen/ut-maven-plugin.git<span class="tag">&lt;/<span class="name">developerConnection</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url</span>&gt;</span>git@github.com:blueshen/ut-maven-plugin.git<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">scm</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>2.创建GPG的密钥对并发布公钥。参看<a target="_blank" rel="noopener" href="https://docs.sonatype.org/display/Repository/How+To+Generate+PGP+Signatures+With+Maven">Sonatype documentation</a>的具体步骤。推荐使用Linux,Mac来发布。</p>
 <blockquote>
-<p><code>gpg --gen-key</code> 创建key<br><code>gpg --list-keys</code> 查看所有的key<br><code>gpg --send-keys --keyserver pool.sks-keyservers.net yourkey</code>   发布你的key到服务器上</p>
+<p><code>gpg --gen-key</code> 创建key<br><code>gpg --list-keys</code> 查看所有的key<br><code>gpg --send-keys --keyserver pool.sks-keyservers.net yourkey</code>   发布你的key到常见服务器上，如果出现找不到key的话，多发几个服务器</p>
 </blockquote>
 <p>3.确保你的工程POM符合<a target="_blank" rel="noopener" href="https://docs.sonatype.org/display/Repository/Central+Sync+Requirements">要求</a><br>4.创建一个<a target="_blank" rel="noopener" href="https://issues.sonatype.org/">Sonatype JIRA</a>账户，并发布一个ticket来让Nexus repository建立。用户名，密码后面要用的。这中间牵涉到人工操作，会花费一些时间。</p>
 <span id="more"></span>
-<h3 id="使用Maven来发布到Sonatype-Nexus-repository"><a href="#使用Maven来发布到Sonatype-Nexus-repository" class="headerlink" title="使用Maven来发布到Sonatype Nexus repository"></a>使用Maven来发布到Sonatype Nexus repository</h3><h4 id="pom-xml配置有2种方法："><a href="#pom-xml配置有2种方法：" class="headerlink" title="pom.xml配置有2种方法："></a>pom.xml配置有2种方法：</h4><p>1.添加maven-release-plugin到pom.xml:</p>
-<pre><code>&lt;plugin&gt;
-    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
-    &lt;artifactId&gt;maven-release-plugin&lt;/artifactId&gt;
-    &lt;version&gt;2.2.2&lt;/version&gt;
-    &lt;configuration&gt;
-        &lt;arguments&gt;-Dgpg.passphrase=$&#123;gpg.passphrase&#125;&lt;/arguments&gt;
-    &lt;/configuration&gt;
-&lt;/plugin&gt;
-</code></pre>
-<p>添加Sonatype repositories:</p>
-<pre><code>&lt;distributionManagement&gt;
-    &lt;snapshotRepository&gt;
-        &lt;id&gt;sonatype-nexus-snapshots&lt;/id&gt;
-        &lt;name&gt;Sonatype Nexus snapshot repository&lt;/name&gt;
-        &lt;url&gt;https://oss.sonatype.org/content/repositories/snapshots&lt;/url&gt;
-    &lt;/snapshotRepository&gt;
-    &lt;repository&gt;
-        &lt;id&gt;sonatype-nexus-staging&lt;/id&gt;
-        &lt;name&gt;Sonatype Nexus release repository&lt;/name&gt;
-        &lt;url&gt;https://oss.sonatype.org/service/local/staging/deploy/maven2/&lt;/url&gt;
-    &lt;/repository&gt;
-&lt;/distributionManagement&gt;
-</code></pre>
-<p>设置artifact signing:</p>
-<pre><code>&lt;profiles&gt;
-    &lt;profile&gt;
-        &lt;id&gt;release-sign-artifacts&lt;/id&gt;
-        &lt;activation&gt;
-            &lt;property&gt;
-                &lt;name&gt;performRelease&lt;/name&gt;
-                &lt;value&gt;true&lt;/value&gt;
-            &lt;/property&gt;
-        &lt;/activation&gt;
-        &lt;build&gt;
-            &lt;plugins&gt;
-                &lt;plugin&gt;
-                    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
-                    &lt;artifactId&gt;maven-gpg-plugin&lt;/artifactId&gt;
-                    &lt;version&gt;1.4&lt;/version&gt;
-                    &lt;configuration&gt;
-                        &lt;passphrase&gt;$&#123;gpg.passphrase&#125;&lt;/passphrase&gt;
-                    &lt;/configuration&gt;
-                    &lt;executions&gt;
-                        &lt;execution&gt;
-                            &lt;id&gt;sign-artifacts&lt;/id&gt;
-                            &lt;phase&gt;verify&lt;/phase&gt;
-                            &lt;goals&gt;
-                                &lt;goal&gt;sign&lt;/goal&gt;
-                            &lt;/goals&gt;
-                        &lt;/execution&gt;
-                    &lt;/executions&gt;
-                &lt;/plugin&gt;
-            &lt;/plugins&gt;
-        &lt;/build&gt;
-    &lt;/profile&gt;
-&lt;/profiles&gt;
-</code></pre>
-<p>2.直接添加sonatype parent到POM.XML（推荐）</p>
-<pre><code>&lt;parent&gt;
-    &lt;groupId&gt;org.sonatype.oss&lt;/groupId&gt;
-    &lt;artifactId&gt;oss-parent&lt;/artifactId&gt;
-    &lt;version&gt;7&lt;/version&gt;
-&lt;/parent&gt;
-</code></pre>
-<h4 id="maven-settings-xml配置"><a href="#maven-settings-xml配置" class="headerlink" title="maven settings.xml配置"></a>maven settings.xml配置</h4><p>编辑或者创建~&#x2F;.m2&#x2F;settings.xml并包含验证信息:</p>
-<pre><code>&lt;settings xmlns=&quot;http://maven.apache.org/SETTINGS/1.0.0&quot;
-  xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-  xsi:schemaLocation=&quot;http://maven.apache.org/SETTINGS/1.0.0
-                      http://maven.apache.org/xsd/settings-1.0.0.xsd&quot;&gt;
-    &lt;servers&gt;
-        &lt;server&gt;
-            &lt;id&gt;sonatype-nexus-snapshots&lt;/id&gt;
-            &lt;username&gt;myusername&lt;/username&gt;
-            &lt;password&gt;mypassword&lt;/password&gt;
-        &lt;/server&gt;
-        &lt;server&gt;
-            &lt;id&gt;sonatype-nexus-staging&lt;/id&gt;
-            &lt;username&gt;myusername&lt;/username&gt;
-            &lt;password&gt;mypassword&lt;/password&gt;
-        &lt;/server&gt;
-    &lt;/servers&gt;
 
-    &lt;profiles&gt;
-        &lt;profile&gt;
-            &lt;id&gt;sign&lt;/id&gt;
-            &lt;activation&gt;
-                &lt;activeByDefault&gt;true&lt;/activeByDefault&gt;
-            &lt;/activation&gt;
-            &lt;properties&gt;
-                &lt;gpg.passphrase&gt;mypassphrase&lt;/gpg.passphrase&gt;
-            &lt;/properties&gt;
-        &lt;/profile&gt;
-    &lt;/profiles&gt;
-&lt;/settings&gt;
-</code></pre>
-<p>Maven有一个<a target="_blank" rel="noopener" href="http://maven.apache.org/guides/mini/guide-encryption.html">避免使用明文的方法</a>,但我还没试用过。</p>
+<h3 id="使用Maven来发布到Sonatype-Nexus-repository"><a href="#使用Maven来发布到Sonatype-Nexus-repository" class="headerlink" title="使用Maven来发布到Sonatype Nexus repository"></a>使用Maven来发布到Sonatype Nexus repository</h3><h4 id="pom-xml配置有2种方法："><a href="#pom-xml配置有2种方法：" class="headerlink" title="pom.xml配置有2种方法："></a>pom.xml配置有2种方法：</h4><p>1.添加maven-release-plugin到pom.xml:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-release-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>2.2.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">arguments</span>&gt;</span>-Dgpg.passphrase=$&#123;gpg.passphrase&#125;<span class="tag">&lt;/<span class="name">arguments</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>添加Sonatype repositories:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">distributionManagement</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">snapshotRepository</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">id</span>&gt;</span>sonatype-nexus-snapshots<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>Sonatype Nexus snapshot repository<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">url</span>&gt;</span>https://oss.sonatype.org/content/repositories/snapshots<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">snapshotRepository</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">id</span>&gt;</span>sonatype-nexus-staging<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>Sonatype Nexus release repository<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">url</span>&gt;</span>https://oss.sonatype.org/service/local/staging/deploy/maven2/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">distributionManagement</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>设置artifact signing:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">profiles</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">profile</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">id</span>&gt;</span>release-sign-artifacts<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">activation</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">name</span>&gt;</span>performRelease<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">activation</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-gpg-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">						<span class="tag">&lt;<span class="name">passphrase</span>&gt;</span>$&#123;gpg.passphrase&#125;<span class="tag">&lt;/<span class="name">passphrase</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">						<span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">							<span class="tag">&lt;<span class="name">id</span>&gt;</span>sign-artifacts<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">							<span class="tag">&lt;<span class="name">phase</span>&gt;</span>verify<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">							<span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">								<span class="tag">&lt;<span class="name">goal</span>&gt;</span>sign<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">							<span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">						<span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">profile</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">profiles</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>2.直接添加sonatype parent到pom.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.sonatype.oss<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>oss-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>7<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="maven-settings-xml配置"><a href="#maven-settings-xml配置" class="headerlink" title="maven settings.xml配置"></a>maven settings.xml配置</h4><p>编辑或者创建~&#x2F;.m2&#x2F;settings.xml并包含验证信息:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">settings</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/SETTINGS/1.0.0&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/SETTINGS/1.0.0</span></span></span><br><span class="line"><span class="string"><span class="tag">                      http://maven.apache.org/xsd/settings-1.0.0.xsd&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">servers</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">server</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">id</span>&gt;</span>sonatype-nexus-snapshots<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">username</span>&gt;</span>myusername<span class="tag">&lt;/<span class="name">username</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">password</span>&gt;</span>mypassword<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">server</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">server</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">id</span>&gt;</span>sonatype-nexus-staging<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">username</span>&gt;</span>myusername<span class="tag">&lt;/<span class="name">username</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">password</span>&gt;</span>mypassword<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">server</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">servers</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">profiles</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">profile</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">id</span>&gt;</span>sign<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">activation</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">activeByDefault</span>&gt;</span>true<span class="tag">&lt;/<span class="name">activeByDefault</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">activation</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">gpg.passphrase</span>&gt;</span>mypassphrase<span class="tag">&lt;/<span class="name">gpg.passphrase</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">profile</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">profiles</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">settings</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>Maven有一个<a target="_blank" rel="noopener" href="http://maven.apache.org/guides/mini/guide-encryption.html">避免使用明文的方法</a>。</p>
 <h3 id="准备一个release版本"><a href="#准备一个release版本" class="headerlink" title="准备一个release版本"></a>准备一个release版本</h3><p>为了准备一个release版本, 执行:</p>
 <pre><code>$ mvn release:clean
 $ mvn release:prepare
@@ -392,6 +306,7 @@ $ mvn release:prepare
 <p><a target="_blank" rel="noopener" href="http://maven.apache.org/plugins/maven-release-plugin/examples/prepare-release.html">参考这个</a>.这里具体做了以下工作：如果你的工程的版本是0.1-SNAPSHOT. 准备一个发布版本会去掉-SNAPSHOT后缀，然后提交到github，并将这时的代码打一个tag。同时，更新本地项目到0.2-SNAPSHOT版本.</p>
 <p>如果你要撤销release,可以使用<code>git reset --hard HEAD~2</code>进行<a target="_blank" rel="noopener" href="http://stackoverflow.com/a/6866485/150884">回退</a>,使用<code>git tag -d ut-maven-plugin-0.1</code><a target="_blank" rel="noopener" href="http://nathanhoad.net/how-to-delete-a-remote-git-tag">删除Tag</a>,然后使用<code>git push origin :refs/tags/ut-maven-plugin-0.1</code>提交.</p>
 <h3 id="发布到Sonatype"><a href="#发布到Sonatype" class="headerlink" title="发布到Sonatype"></a>发布到Sonatype</h3><p>1.如果一切OK，你就可以使用<a target="_blank" rel="noopener" href="http://maven.apache.org/plugins/maven-release-plugin/examples/perform-release.html">mvn release:perform</a>来发布工程到Sonatype。<br>2.登录到Sonatype Nexus，在Staging Repositories找到你的artifacts。<br>3.点击close,关闭后，点击Release发布artifacts。Sonatype有一些<a target="_blank" rel="noopener" href="https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide#SonatypeOSSMavenRepositoryUsageGuide-8.ReleaseIt">很好的指引</a>. 你可以使用<a target="_blank" rel="noopener" href="http://www.sonatype.com/books/nexus-book/reference/staging-sect-managing-plugin.html">Maven repository management plugin</a>来自动化这些步骤,尽管我自己还没有试过。<br>4.在你的JIRA ticket下添加一个评论，说你已经推了release版本。下次Sonatype同步的时候，就会将你的artifacts放到Maven Central了。以后再发布新版本的时候，就不用添加评论了，会自动同步的。</p>
+<p>5.一旦你的jira申请已经OK，如果你再发顶级目录的其他artifact也是不需要再走jira流程了。</p>
 <p>参考文档<a target="_blank" rel="noopener" href="http://datumedge.blogspot.jp/2012/05/publishing-from-github-to-maven-central.html">http://datumedge.blogspot.jp/2012/05/publishing-from-github-to-maven-central.html</a></p>
 
     </div>

@@ -30,7 +30,7 @@
 <meta property="og:locale">
 <meta property="og:image" content="https://www.shenyanchao.cn/images/blog/5641522be32ad.jpg">
 <meta property="article:published_time" content="2015-11-03T05:53:00.000Z">
-<meta property="article:modified_time" content="2020-01-15T12:09:19.998Z">
+<meta property="article:modified_time" content="2022-11-15T07:18:43.442Z">
 <meta property="article:author" content="申艳超">
 <meta property="article:tag" content="spring">
 <meta property="article:tag" content="restful">
@@ -130,7 +130,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-RequestMapping"><span class="nav-number">1.</span> <span class="nav-text">1. @RequestMapping</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-PathVariable"><span class="nav-number">2.</span> <span class="nav-text">2. @PathVariable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-RequestParam"><span class="nav-number">3.</span> <span class="nav-text">3. @RequestParam</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-RequestBody%E5%92%8C-ResponseBody"><span class="nav-number">4.</span> <span class="nav-text">4. @RequestBody和@ResponseBody</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-CookieValue"><span class="nav-number">5.</span> <span class="nav-text">5. @CookieValue</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-RequestHeader"><span class="nav-number">6.</span> <span class="nav-text">6. @RequestHeader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-%E8%BF%94%E5%9B%9E%E5%A4%9A%E7%A7%8D%E8%A1%A8%E7%8E%B0%E5%BD%A2%E5%BC%8F-Returning-multiple-representations"><span class="nav-number">7.</span> <span class="nav-text">7. 返回多种表现形式(Returning multiple representations)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#RestTemplate"><span class="nav-number">7.1.</span> <span class="nav-text">RestTemplate</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-%E6%94%AF%E6%8C%81RESTful%E7%9A%84URL"><span class="nav-number">8.</span> <span class="nav-text">9. 支持RESTful的URL</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-RequestMapping"><span class="nav-number">1.</span> <span class="nav-text">1. @RequestMapping</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-PathVariable"><span class="nav-number">2.</span> <span class="nav-text">2. @PathVariable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-RequestParam"><span class="nav-number">3.</span> <span class="nav-text">3. @RequestParam</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-RequestBody%E5%92%8C-ResponseBody"><span class="nav-number">4.</span> <span class="nav-text">4. @RequestBody和@ResponseBody</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-CookieValue"><span class="nav-number">5.</span> <span class="nav-text">5. @CookieValue</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-RequestHeader"><span class="nav-number">6.</span> <span class="nav-text">6. @RequestHeader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-%E8%BF%94%E5%9B%9E%E5%A4%9A%E7%A7%8D%E8%A1%A8%E7%8E%B0%E5%BD%A2%E5%BC%8F-Returning-multiple-representations"><span class="nav-number">7.</span> <span class="nav-text">7. 返回多种表现形式(Returning multiple representations)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-content-negotiation%E7%AD%96%E7%95%A5-ContentNegotiationStrategy"><span class="nav-number">7.1.</span> <span class="nav-text">1. content negotiation策略 (ContentNegotiationStrategy)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E4%BE%9B%E9%80%89%E6%8B%A9%E7%9A%84SingleViewResolver"><span class="nav-number">7.1.1.</span> <span class="nav-text">2. 供选择的SingleViewResolver</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%B0%83%E7%94%A8-Accessing-RESTful-services-on-the-Client"><span class="nav-number">8.</span> <span class="nav-text">8. 客户端调用 Accessing RESTful services on the Client</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#RestTemplate"><span class="nav-number">8.1.</span> <span class="nav-text">RestTemplate</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-%E6%94%AF%E6%8C%81RESTful%E7%9A%84URL"><span class="nav-number">9.</span> <span class="nav-text">9. 支持RESTful的URL</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -245,7 +245,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2020-01-15 20:09:19" itemprop="dateModified" datetime="2020-01-15T20:09:19+08:00">2020-01-15</time>
+      <time title="Modified: 2022-11-15 15:18:43" itemprop="dateModified" datetime="2022-11-15T15:18:43+08:00">2022-11-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -278,17 +278,10 @@
 <p>Spring MVC本身对Restful支持非常好。它的<code>@RequestMapping</code>、<code>@RequestParam</code>、<code>@PathVariable</code>、<code>@ResponseBody</code>注解很好的支持了REST。<a target="_blank" rel="noopener" href="http://static.springsource.org/spring/docs/3.0.0.M3/reference/html/ch18s02.html">18.2 Creating RESTful services</a></p>
 <h3 id="1-RequestMapping"><a href="#1-RequestMapping" class="headerlink" title="1. @RequestMapping"></a>1. <code>@RequestMapping</code></h3><p>Spring uses the @RequestMapping method annotation to define the URI Template for the request. 类似于struts的action-mapping。 可以指定POST或者GET。</p>
 <h3 id="2-PathVariable"><a href="#2-PathVariable" class="headerlink" title="2. @PathVariable"></a>2. <code>@PathVariable</code></h3><p>The @PathVariable method parameter annotation is used to indicate that a method parameter should be bound to the value of a URI template variable. 用于抽取URL中的信息作为参数。（注意，不包括请求字符串，那是<code>@RequestParam</code>做的事情。）</p>
-<pre><code>@RequestMapping(&quot;/owners/&#123;ownerId&#125;&quot;, method=RequestMethod.GET)
-public String findOwner(@PathVariable String ownerId, Model model) &#123;
-        // ...
-&#125;
-</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(&quot;/owners/&#123;ownerId&#125;&quot;, method=RequestMethod.GET)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">findOwner</span><span class="params">(<span class="meta">@PathVariable</span> String ownerId, Model model)</span> &#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>如果变量名与pathVariable名不一致，那么需要指定：</p>
-<pre><code>@RequestMapping(&quot;/owners/&#123;ownerId&#125;&quot;, method=RequestMethod.GET)
-public String findOwner(@PathVariable(&quot;ownerId&quot;) String theOwner, Model model) &#123;
-    // implementation omitted
-&#125;
-</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(&quot;/owners/&#123;ownerId&#125;&quot;, method=RequestMethod.GET)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">findOwner</span><span class="params">(<span class="meta">@PathVariable(&quot;ownerId&quot;)</span> String theOwner, Model model)</span> &#123;</span><br><span class="line">    <span class="comment">// implementation omitted</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p><strong>Tip</strong></p>
 </blockquote>
@@ -310,8 +303,6 @@ public String findOwner(@PathVariable(&quot;ownerId&quot;) String theOwner, Mode
 
 
 <p>Spring MVC对<code>HttpMessageConverter</code>有多种默认实现，基本上不需要自己再自定义<code>HttpMessageConverter</code></p>
-<blockquote>
-</blockquote>
 <ul>
 <li>StringHttpMessageConverter - converts strings</li>
 <li>FormHttpMessageConverter - converts form data to&#x2F;from a MultiValueMap&lt;String, String&gt;</li>
@@ -323,119 +314,23 @@ public String findOwner(@PathVariable(&quot;ownerId&quot;) String theOwner, Mode
 </ul>
 <p>然而对于RESTful应用，用的最多的当然是<code>MappingJacksonHttpMessageConverter</code>。</p>
 <p>但是<code>MappingJacksonHttpMessageConverter</code>不是默认的<code>HttpMessageConverter</code>：</p>
-<pre><code>public class AnnotationMethodHandlerAdapter extends WebContentGenerator
-implements HandlerAdapter, Ordered, BeanFactoryAware &#123;
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AnnotationMethodHandlerAdapter</span> <span class="keyword">extends</span> <span class="title class_">WebContentGenerator</span></span><br><span class="line"><span class="keyword">implements</span> <span class="title class_">HandlerAdapter</span>, Ordered, BeanFactoryAware &#123;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">AnnotationMethodHandlerAdapter</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// no restriction of HTTP methods by default</span></span><br><span class="line">        <span class="built_in">super</span>(<span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// See SPR-7316</span></span><br><span class="line">        <span class="type">StringHttpMessageConverter</span> <span class="variable">stringHttpMessageConverter</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringHttpMessageConverter</span>();</span><br><span class="line">        stringHttpMessageConverter.setWriteAcceptCharset(<span class="literal">false</span>);</span><br><span class="line">        <span class="built_in">this</span>.messageConverters = <span class="keyword">new</span> <span class="title class_">HttpMessageConverter</span>[]&#123;<span class="keyword">new</span> <span class="title class_">ByteArrayHttpMessageConverter</span>(), stringHttpMessageConverter,</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">SourceHttpMessageConverter</span>(), <span class="keyword">new</span> <span class="title class_">XmlAwareFormHttpMessageConverter</span>()&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    ...
-
-    public AnnotationMethodHandlerAdapter() &#123;
-        // no restriction of HTTP methods by default
-        super(false);
-
-        // See SPR-7316
-        StringHttpMessageConverter stringHttpMessageConverter = new StringHttpMessageConverter();
-        stringHttpMessageConverter.setWriteAcceptCharset(false);
-        this.messageConverters = new HttpMessageConverter[]&#123;new ByteArrayHttpMessageConverter(), stringHttpMessageConverter,
-        new SourceHttpMessageConverter(), new XmlAwareFormHttpMessageConverter()&#125;;
-    &#125;
-&#125;
-</code></pre>
 <p>如上：默认的<code>HttpMessageConverter</code>是<code>ByteArrayHttpMessageConverter</code>、<code>stringHttpMessageConverter</code>、<code>SourceHttpMessageConverter</code>和<code>XmlAwareFormHttpMessageConverter</code>转换器。所以需要配置一下：</p>
-<pre><code>&lt;bean class=&quot;org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter&quot;&gt;
-    &lt;property name=&quot;messageConverters&quot;&gt;
-    &lt;list&gt;
-        &lt;bean class=&quot;org.springframework.http.converter.StringHttpMessageConverter&quot;&gt;
-        &lt;property name=&quot;supportedMediaTypes&quot;&gt;
-            &lt;list&gt;
-            &lt;value&gt;text/plain;charset=GBK&lt;/value&gt;
-            &lt;/list&gt;
-        &lt;/property&gt;
-        &lt;/bean&gt;
-        &lt;bean class=&quot;org.springframework.http.converter.json.MappingJacksonHttpMessageConverter&quot; /&gt;
-    &lt;/list&gt;
-    &lt;/property&gt;
-&lt;/bean&gt;
-</code></pre>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;messageConverters&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">list</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.http.converter.StringHttpMessageConverter&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;supportedMediaTypes&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">list</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">value</span>&gt;</span>text/plain;charset=GBK<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">list</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.http.converter.json.MappingJacksonHttpMessageConverter&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">list</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>配置好了之后，就可以享受<code>@Requestbody</code>和<code>@ResponseBody</code>对JONS转换的便利之处了：</p>
-<pre><code>@RequestMapping(value = &quot;api&quot;, method = RequestMethod.POST)
-@ResponseBody
-public boolean addApi(@RequestBody
-    Api api, @RequestParam(value = &quot;afterApiId&quot;, required = false)
-    Integer afterApiId) &#123;
-        Integer id = apiMetadataService.addApi(api);
-        return id &gt; 0;
-&#125;
-
-@RequestMapping(value = &quot;api/&#123;apiId&#125;&quot;, method = RequestMethod.GET)
-@ResponseBody
-public Api getApi(@PathVariable(&quot;apiId&quot;)
-    int apiId) &#123;
-        return apiMetadataService.getApi(apiId, Version.primary);
-&#125;
-</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(value = &quot;api&quot;, method = RequestMethod.POST)</span></span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">addApi</span><span class="params">(<span class="meta">@RequestBody</span></span></span><br><span class="line"><span class="params">    Api api, <span class="meta">@RequestParam(value = &quot;afterApiId&quot;, required = false)</span></span></span><br><span class="line"><span class="params">    Integer afterApiId)</span> &#123;</span><br><span class="line">        <span class="type">Integer</span> <span class="variable">id</span> <span class="operator">=</span> apiMetadataService.addApi(api);</span><br><span class="line">        <span class="keyword">return</span> id &gt; <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RequestMapping(value = &quot;api/&#123;apiId&#125;&quot;, method = RequestMethod.GET)</span></span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="keyword">public</span> Api <span class="title function_">getApi</span><span class="params">(<span class="meta">@PathVariable(&quot;apiId&quot;)</span></span></span><br><span class="line"><span class="params">    <span class="type">int</span> apiId)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> apiMetadataService.getApi(apiId, Version.primary);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>一般情况下我们是不需要自定义<code>HttpMessageConverter</code>，不过对于Restful应用，有时候我们需要返回jsonp数据：</p>
-<pre><code>package me.arganzheng.study.springmvc.util;
-
-import java.io.IOException;
-import java.io.PrintStream;
-
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
-import org.springframework.http.HttpOutputMessage;
-import org.springframework.http.converter.HttpMessageNotWritableException;
-import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-
-public class MappingJsonpHttpMessageConverter extends MappingJacksonHttpMessageConverter &#123;
-
-    public MappingJsonpHttpMessageConverter() &#123;
-    ObjectMapper objectMapper = new ObjectMapper();
-    objectMapper.setSerializationConfig(objectMapper.getSerializationConfig().withSerializationInclusion(Inclusion.NON_NULL));
-    setObjectMapper(objectMapper);
-    &#125;
-
-    @Override
-    protected void writeInternal(Object o, HttpOutputMessage outputMessage) throws IOException, HttpMessageNotWritableException &#123;
-    String jsonpCallback = null;
-
-    RequestAttributes reqAttrs = RequestContextHolder.currentRequestAttributes();
-    if(reqAttrs instanceof ServletRequestAttributes)&#123;
-        jsonpCallback = ((ServletRequestAttributes)reqAttrs).getRequest().getParameter(&quot;jsonpCallback&quot;);
-    &#125;
-
-    if(jsonpCallback != null)&#123;
-        new PrintStream(outputMessage.getBody()).print(jsonpCallback + &quot;(&quot;);
-    &#125;
-
-    super.writeInternal(o, outputMessage);
-
-    if(jsonpCallback != null)&#123;
-        new PrintStream(outputMessage.getBody()).println(&quot;);&quot;);
-    &#125;
-    &#125;
-&#125;
-</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> me.arganzheng.study.springmvc.util;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.PrintStream;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.codehaus.jackson.map.ObjectMapper;</span><br><span class="line"><span class="keyword">import</span> org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.HttpOutputMessage;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.converter.HttpMessageNotWritableException;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.context.request.RequestAttributes;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.context.request.RequestContextHolder;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.context.request.ServletRequestAttributes;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MappingJsonpHttpMessageConverter</span> <span class="keyword">extends</span> <span class="title class_">MappingJacksonHttpMessageConverter</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MappingJsonpHttpMessageConverter</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">ObjectMapper</span> <span class="variable">objectMapper</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectMapper</span>();</span><br><span class="line">    objectMapper.setSerializationConfig(objectMapper.getSerializationConfig().withSerializationInclusion(Inclusion.NON_NULL));</span><br><span class="line">    setObjectMapper(objectMapper);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">writeInternal</span><span class="params">(Object o, HttpOutputMessage outputMessage)</span> <span class="keyword">throws</span> IOException, HttpMessageNotWritableException &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">jsonpCallback</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="type">RequestAttributes</span> <span class="variable">reqAttrs</span> <span class="operator">=</span> RequestContextHolder.currentRequestAttributes();</span><br><span class="line">    <span class="keyword">if</span>(reqAttrs <span class="keyword">instanceof</span> ServletRequestAttributes)&#123;</span><br><span class="line">        jsonpCallback = ((ServletRequestAttributes)reqAttrs).getRequest().getParameter(<span class="string">&quot;jsonpCallback&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(jsonpCallback != <span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">PrintStream</span>(outputMessage.getBody()).print(jsonpCallback + <span class="string">&quot;(&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">super</span>.writeInternal(o, outputMessage);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(jsonpCallback != <span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">PrintStream</span>(outputMessage.getBody()).println(<span class="string">&quot;);&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>如果请求的参数中带有<code>jsonpCallback</code>，那么会返回jsonp格式数据。比如：<br><a target="_blank" rel="noopener" href="http://open.buy.qq.com/meta/api/1.xhtml?jsonpCallback=clientFunction%E3%80%82">http://open.buy.qq.com/meta/api/1.xhtml?jsonpCallback=clientFunction。</a><br>会返回<code>clientFunction(…);</code></p>
 <h3 id="5-CookieValue"><a href="#5-CookieValue" class="headerlink" title="5. @CookieValue"></a>5. <code>@CookieValue</code></h3><p><code>@CookieValue</code>用于将请求的Cookie数据映射到功能处理方法的参数上。</p>
-<pre><code>public String test(@CookieValue(value=&quot;JSESSIONID&quot;, defaultValue=&quot;&quot;) String sessionId)&#123;
-    ...
-&#125;
-</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> String <span class="title function_">test</span><span class="params">(<span class="meta">@CookieValue(value=&quot;JSESSIONID&quot;, defaultValue=&quot;&quot;)</span> String sessionId)</span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>如上配置将自动将JSESSIONID值入参到sessionId参数上，defaultValue表示Cookie中没有JSESSIONID时默认为空。</p>
-<pre><code>public String test2(@CookieValue(value=&quot;JSESSIONID&quot;, defaultValue=&quot;&quot;) Cookie sessionId)&#123;
-    ...
-&#125;
-</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> String <span class="title function_">test2</span><span class="params">(<span class="meta">@CookieValue(value=&quot;JSESSIONID&quot;, defaultValue=&quot;&quot;)</span> Cookie sessionId)</span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>传入参数类型也可以是javax.servlet.http.Cookie类型。</p>
 <p><strong>TIPS</strong> 如果是使用cookies值来保持回话状态的话，推荐使用Spring的<a target="_blank" rel="noopener" href="http://docs.spring.io/spring/docs/3.0.0.M3/reference/html/ch04s04.html">Bean Scopes</a>机制，具体参见笔者的另一篇文章：<a target="_blank" rel="noopener" href="http://blog.arganzheng.me/posts/spring-bean-scopes.html">Spring的Bean Scopes</a>。非常方便。</p>
 <h3 id="6-RequestHeader"><a href="#6-RequestHeader" class="headerlink" title="6. @RequestHeader"></a>6. <code>@RequestHeader</code></h3><p><code>@RequestHeader</code>用于将请求的头信息区数据映射到功能处理方法的参数上。</p>
-<pre><code>@RequestMapping(value=&quot;/header&quot;)
-public String test(
-   @RequestHeader(&quot;User-Agent&quot;) String userAgent,
-   @RequestHeader(value=&quot;Accept&quot;) String[] accepts)
-</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(value=&quot;/header&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">test</span><span class="params">(</span></span><br><span class="line"><span class="params">   <span class="meta">@RequestHeader(&quot;User-Agent&quot;)</span> String userAgent,</span></span><br><span class="line"><span class="params">   <span class="meta">@RequestHeader(value=&quot;Accept&quot;)</span> String[] accepts)</span></span><br></pre></td></tr></table></figure>
 <p>如上配置将自动将请求头“User-Agent”值入参到userAgent参数上，并将“Accept”请求头值入参到accepts参数上。</p>
 <h3 id="7-返回多种表现形式-Returning-multiple-representations"><a href="#7-返回多种表现形式-Returning-multiple-representations" class="headerlink" title="7. 返回多种表现形式(Returning multiple representations)"></a>7. 返回多种表现形式(Returning multiple representations)</h3><p>对于Restful服务，一个资源往往有多种表现形式，比如最常见的就是返回xml和json格式数据，还有就是RSS和ATOM。怎样让客户端告诉Restful服务，我希望得到什么样表现形式的资源呢？</p>
 <p>一般来说client可以通过以下三者方式来通知Server它希望拿到的资源格式：</p>
@@ -446,252 +341,49 @@ public String test(
 </ol>
 <p>这其实就是Spring MVC默认的三个<code>ContentNegotiationStrategy</code>，即所谓的PPA Strategy（path extension, then parameter, then Accept header) ，顺序也是先path extension，然后parameter(默认是format参数)，然后才是accept头。</p>
 <p>Spring提供了<a target="_blank" rel="noopener" href="http://static.springsource.org/spring/docs/3.0.x/javadoc-api/org/springframework/web/servlet/view/ContentNegotiatingViewResolver.html"><code>ContentNegotiatingViewResolver</code></a>来解决这个问题：</p>
-<pre><code>public class ContentNegotiatingViewResolver extends WebApplicationObjectSupport implements ViewResolver, Ordered &#123;
-
-    private static final Log logger = LogFactory.getLog(ContentNegotiatingViewResolver.class);
-
-    private static final String ACCEPT_HEADER = &quot;Accept&quot;;
-
-    private static final boolean jafPresent =
-        ClassUtils.isPresent(&quot;javax.activation.FileTypeMap&quot;, ContentNegotiatingViewResolver.class.getClassLoader());
-
-    private static final UrlPathHelper urlPathHelper = new UrlPathHelper();
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ContentNegotiatingViewResolver</span> <span class="keyword">extends</span> <span class="title class_">WebApplicationObjectSupport</span> <span class="keyword">implements</span> <span class="title class_">ViewResolver</span>, Ordered &#123;</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Log</span> <span class="variable">logger</span> <span class="operator">=</span> LogFactory.getLog(ContentNegotiatingViewResolver.class);</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">ACCEPT_HEADER</span> <span class="operator">=</span> <span class="string">&quot;Accept&quot;</span>;</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">boolean</span> <span class="variable">jafPresent</span> <span class="operator">=</span></span><br><span class="line">            ClassUtils.isPresent(<span class="string">&quot;javax.activation.FileTypeMap&quot;</span>, ContentNegotiatingViewResolver.class.getClassLoader());</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">UrlPathHelper</span> <span class="variable">urlPathHelper</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">UrlPathHelper</span>();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> <span class="type">int</span> <span class="variable">order</span> <span class="operator">=</span> Ordered.HIGHEST_PRECEDENCE;</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">private</span> <span class="type">boolean</span> <span class="variable">favorPathExtension</span> <span class="operator">=</span> <span class="literal">true</span>;</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">private</span> <span class="type">boolean</span> <span class="variable">favorParameter</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">private</span> <span class="type">String</span> <span class="variable">parameterName</span> <span class="operator">=</span> <span class="string">&quot;format&quot;</span>;</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">private</span> <span class="type">boolean</span> <span class="variable">useNotAcceptableStatusCode</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">private</span> <span class="type">boolean</span> <span class="variable">ignoreAcceptHeader</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">private</span> <span class="type">boolean</span> <span class="variable">useJaf</span> <span class="operator">=</span> <span class="literal">true</span>;</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">private</span> ConcurrentMap&lt;String, MediaType&gt; mediaTypes = <span class="keyword">new</span> <span class="title class_">ConcurrentHashMap</span>&lt;String, MediaType&gt;();</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">private</span> List&lt;View&gt; defaultViews;</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">private</span> MediaType defaultContentType;</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">private</span> List&lt;ViewResolver&gt; viewResolvers;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">// ignore some setter and getter...</span></span><br><span class="line">    </span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setMediaTypes</span><span class="params">(Map&lt;String, String&gt; mediaTypes)</span> &#123;</span><br><span class="line">          Assert.notNull(mediaTypes, <span class="string">&quot;&#x27;mediaTypes&#x27; must not be null&quot;</span>);</span><br><span class="line">          <span class="keyword">for</span> (Map.Entry&lt;String, String&gt; entry : mediaTypes.entrySet()) &#123;</span><br><span class="line">            <span class="type">String</span> <span class="variable">extension</span> <span class="operator">=</span> entry.getKey().toLowerCase(Locale.ENGLISH);</span><br><span class="line">            <span class="type">MediaType</span> <span class="variable">mediaType</span> <span class="operator">=</span> MediaType.parseMediaType(entry.getValue());</span><br><span class="line">            <span class="built_in">this</span>.mediaTypes.put(extension, mediaType);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setDefaultViews</span><span class="params">(List&lt;View&gt; defaultViews)</span> &#123;</span><br><span class="line">          <span class="built_in">this</span>.defaultViews = defaultViews;</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setDefaultContentType</span><span class="params">(MediaType defaultContentType)</span> &#123;</span><br><span class="line">          <span class="built_in">this</span>.defaultContentType = defaultContentType;</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setViewResolvers</span><span class="params">(List&lt;ViewResolver&gt; viewResolvers)</span> &#123;</span><br><span class="line">          <span class="built_in">this</span>.viewResolvers = viewResolvers;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">initServletContext</span><span class="params">(ServletContext servletContext)</span> &#123;</span><br><span class="line">          <span class="keyword">if</span> (<span class="built_in">this</span>.viewResolvers == <span class="literal">null</span>) &#123;</span><br><span class="line">            Map&lt;String, ViewResolver&gt; matchingBeans =</span><br><span class="line">                BeanFactoryUtils.beansOfTypeIncludingAncestors(getApplicationContext(), ViewResolver.class);</span><br><span class="line">            <span class="built_in">this</span>.viewResolvers = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;ViewResolver&gt;(matchingBeans.size());</span><br><span class="line">            <span class="keyword">for</span> (ViewResolver viewResolver : matchingBeans.values()) &#123;</span><br><span class="line">              <span class="keyword">if</span> (<span class="built_in">this</span> != viewResolver) &#123;</span><br><span class="line">                <span class="built_in">this</span>.viewResolvers.add(viewResolver);</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">if</span> (<span class="built_in">this</span>.viewResolvers.isEmpty()) &#123;</span><br><span class="line">            logger.warn(<span class="string">&quot;Did not find any ViewResolvers to delegate to; please configure them using the &quot;</span> +</span><br><span class="line">                <span class="string">&quot;&#x27;viewResolvers&#x27; property on the ContentNegotiatingViewResolver&quot;</span>);</span><br><span class="line">          &#125;</span><br><span class="line">          OrderComparator.sort(<span class="built_in">this</span>.viewResolvers);</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">public</span> View <span class="title function_">resolveViewName</span><span class="params">(String viewName, Locale locale)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">          <span class="type">RequestAttributes</span> <span class="variable">attrs</span> <span class="operator">=</span> RequestContextHolder.getRequestAttributes();</span><br><span class="line">          Assert.isInstanceOf(ServletRequestAttributes.class, attrs);</span><br><span class="line">          List&lt;MediaType&gt; requestedMediaTypes = getMediaTypes(((ServletRequestAttributes) attrs).getRequest());</span><br><span class="line">          <span class="keyword">if</span> (requestedMediaTypes != <span class="literal">null</span>) &#123;</span><br><span class="line">            List&lt;View&gt; candidateViews = getCandidateViews(viewName, locale, requestedMediaTypes);</span><br><span class="line">            <span class="type">View</span> <span class="variable">bestView</span> <span class="operator">=</span> getBestView(candidateViews, requestedMediaTypes);</span><br><span class="line">            <span class="keyword">if</span> (bestView != <span class="literal">null</span>) &#123;</span><br><span class="line">              <span class="keyword">return</span> bestView;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">if</span> (<span class="built_in">this</span>.useNotAcceptableStatusCode) &#123;</span><br><span class="line">            <span class="keyword">if</span> (logger.isDebugEnabled()) &#123;</span><br><span class="line">              logger.debug(<span class="string">&quot;No acceptable view found; returning 406 (Not Acceptable) status code&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> NOT_ACCEPTABLE_VIEW;</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">else</span> &#123;</span><br><span class="line">            logger.debug(<span class="string">&quot;No acceptable view found; returning null&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">protected</span> List&lt;MediaType&gt; <span class="title function_">getMediaTypes</span><span class="params">(HttpServletRequest request)</span> &#123;</span><br><span class="line">          <span class="keyword">if</span> (<span class="built_in">this</span>.favorPathExtension) &#123;</span><br><span class="line">            <span class="type">String</span> <span class="variable">requestUri</span> <span class="operator">=</span> urlPathHelper.getRequestUri(request);</span><br><span class="line">            <span class="type">String</span> <span class="variable">filename</span> <span class="operator">=</span> WebUtils.extractFullFilenameFromUrlPath(requestUri);</span><br><span class="line">            <span class="type">MediaType</span> <span class="variable">mediaType</span> <span class="operator">=</span> getMediaTypeFromFilename(filename);</span><br><span class="line">            <span class="keyword">if</span> (mediaType != <span class="literal">null</span>) &#123;</span><br><span class="line">              <span class="keyword">if</span> (logger.isDebugEnabled()) &#123;</span><br><span class="line">                logger.debug(<span class="string">&quot;Requested media type is &#x27;&quot;</span> + mediaType + <span class="string">&quot;&#x27; (based on filename &#x27;&quot;</span> + filename + <span class="string">&quot;&#x27;)&quot;</span>);</span><br><span class="line">              &#125;</span><br><span class="line">              <span class="keyword">return</span> Collections.singletonList(mediaType);</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">if</span> (<span class="built_in">this</span>.favorParameter) &#123;</span><br><span class="line">            <span class="keyword">if</span> (request.getParameter(<span class="built_in">this</span>.parameterName) != <span class="literal">null</span>) &#123;</span><br><span class="line">              <span class="type">String</span> <span class="variable">parameterValue</span> <span class="operator">=</span> request.getParameter(<span class="built_in">this</span>.parameterName);</span><br><span class="line">              <span class="type">MediaType</span> <span class="variable">mediaType</span> <span class="operator">=</span> getMediaTypeFromParameter(parameterValue);</span><br><span class="line">              <span class="keyword">if</span> (mediaType != <span class="literal">null</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (logger.isDebugEnabled()) &#123;</span><br><span class="line">                  logger.debug(<span class="string">&quot;Requested media type is &#x27;&quot;</span> + mediaType + <span class="string">&quot;&#x27; (based on parameter &#x27;&quot;</span> +</span><br><span class="line">                      <span class="built_in">this</span>.parameterName + <span class="string">&quot;&#x27;=&#x27;&quot;</span> + parameterValue + <span class="string">&quot;&#x27;)&quot;</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> Collections.singletonList(mediaType);</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">if</span> (!<span class="built_in">this</span>.ignoreAcceptHeader) &#123;</span><br><span class="line">            <span class="type">String</span> <span class="variable">acceptHeader</span> <span class="operator">=</span> request.getHeader(ACCEPT_HEADER);</span><br><span class="line">            <span class="keyword">if</span> (StringUtils.hasText(acceptHeader)) &#123;</span><br><span class="line">              <span class="keyword">try</span> &#123;</span><br><span class="line">                          List&lt;MediaType&gt; mediaTypes = MediaType.parseMediaTypes(acceptHeader);</span><br><span class="line">                          MediaType.sortByQualityValue(mediaTypes);</span><br><span class="line">                          <span class="keyword">if</span> (logger.isDebugEnabled()) &#123;</span><br><span class="line">                              logger.debug(<span class="string">&quot;Requested media types are &quot;</span> + mediaTypes + <span class="string">&quot; (based on Accept header)&quot;</span>);</span><br><span class="line">                          &#125;</span><br><span class="line">                          <span class="keyword">return</span> mediaTypes;</span><br><span class="line">              &#125;</span><br><span class="line">              <span class="keyword">catch</span> (IllegalArgumentException ex) &#123;</span><br><span class="line">                <span class="keyword">if</span> (logger.isDebugEnabled()) &#123;</span><br><span class="line">                  logger.debug(<span class="string">&quot;Could not parse accept header [&quot;</span> + acceptHeader + <span class="string">&quot;]: &quot;</span> + ex.getMessage());</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">if</span> (<span class="built_in">this</span>.defaultContentType != <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (logger.isDebugEnabled()) &#123;</span><br><span class="line">              logger.debug(<span class="string">&quot;Requested media types is &quot;</span> + <span class="built_in">this</span>.defaultContentType +</span><br><span class="line">                  <span class="string">&quot; (based on defaultContentType property)&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> Collections.singletonList(<span class="built_in">this</span>.defaultContentType);</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> Collections.emptyList();</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">protected</span> MediaType <span class="title function_">getMediaTypeFromFilename</span><span class="params">(String filename)</span> &#123;</span><br><span class="line">          <span class="type">String</span> <span class="variable">extension</span> <span class="operator">=</span> StringUtils.getFilenameExtension(filename);</span><br><span class="line">          <span class="keyword">if</span> (!StringUtils.hasText(extension)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">          &#125;</span><br><span class="line">          extension = extension.toLowerCase(Locale.ENGLISH);</span><br><span class="line">          <span class="type">MediaType</span> <span class="variable">mediaType</span> <span class="operator">=</span> <span class="built_in">this</span>.mediaTypes.get(extension);</span><br><span class="line">          <span class="keyword">if</span> (mediaType == <span class="literal">null</span> &amp;&amp; <span class="built_in">this</span>.useJaf &amp;&amp; jafPresent) &#123;</span><br><span class="line">            mediaType = ActivationMediaTypeFactory.getMediaType(filename);</span><br><span class="line">            <span class="keyword">if</span> (mediaType != <span class="literal">null</span>) &#123;</span><br><span class="line">              <span class="built_in">this</span>.mediaTypes.putIfAbsent(extension, mediaType);</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">return</span> mediaType;</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">protected</span> MediaType <span class="title function_">getMediaTypeFromParameter</span><span class="params">(String parameterValue)</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">this</span>.mediaTypes.get(parameterValue.toLowerCase(Locale.ENGLISH));</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> List&lt;View&gt; <span class="title function_">getCandidateViews</span><span class="params">(String viewName, Locale locale, List&lt;MediaType&gt; requestedMediaTypes)</span></span><br><span class="line">        <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">    </span><br><span class="line">      List&lt;View&gt; candidateViews = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;View&gt;();</span><br><span class="line">      <span class="keyword">for</span> (ViewResolver viewResolver : <span class="built_in">this</span>.viewResolvers) &#123;</span><br><span class="line">        <span class="type">View</span> <span class="variable">view</span> <span class="operator">=</span> viewResolver.resolveViewName(viewName, locale);</span><br><span class="line">        <span class="keyword">if</span> (view != <span class="literal">null</span>) &#123;</span><br><span class="line">          candidateViews.add(view);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (MediaType requestedMediaType : requestedMediaTypes) &#123;</span><br><span class="line">          List&lt;String&gt; extensions = getExtensionsForMediaType(requestedMediaType);</span><br><span class="line">          <span class="keyword">for</span> (String extension : extensions) &#123;</span><br><span class="line">            <span class="type">String</span> <span class="variable">viewNameWithExtension</span> <span class="operator">=</span> viewName + <span class="string">&quot;.&quot;</span> + extension;</span><br><span class="line">            view = viewResolver.resolveViewName(viewNameWithExtension, locale);</span><br><span class="line">            <span class="keyword">if</span> (view != <span class="literal">null</span>) &#123;</span><br><span class="line">              candidateViews.add(view);</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">    </span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (!CollectionUtils.isEmpty(<span class="built_in">this</span>.defaultViews)) &#123;</span><br><span class="line">        candidateViews.addAll(<span class="built_in">this</span>.defaultViews);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> candidateViews;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> List&lt;String&gt; <span class="title function_">getExtensionsForMediaType</span><span class="params">(MediaType requestedMediaType)</span> &#123;</span><br><span class="line">      List&lt;String&gt; result = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;String&gt;();</span><br><span class="line">      <span class="keyword">for</span> (Entry&lt;String, MediaType&gt; entry : <span class="built_in">this</span>.mediaTypes.entrySet()) &#123;</span><br><span class="line">        <span class="keyword">if</span> (requestedMediaType.includes(entry.getValue())) &#123;</span><br><span class="line">          result.add(entry.getKey());</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> View <span class="title function_">getBestView</span><span class="params">(List&lt;View&gt; candidateViews, List&lt;MediaType&gt; requestedMediaTypes)</span> &#123;</span><br><span class="line">      <span class="type">MediaType</span> <span class="variable">bestRequestedMediaType</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">      <span class="type">View</span> <span class="variable">bestView</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">      <span class="keyword">for</span> (MediaType requestedMediaType : requestedMediaTypes) &#123;</span><br><span class="line">        <span class="keyword">for</span> (View candidateView : candidateViews) &#123;</span><br><span class="line">          <span class="keyword">if</span> (StringUtils.hasText(candidateView.getContentType())) &#123;</span><br><span class="line">            <span class="type">MediaType</span> <span class="variable">candidateContentType</span> <span class="operator">=</span> MediaType.parseMediaType(candidateView.getContentType());</span><br><span class="line">            <span class="keyword">if</span> (requestedMediaType.includes(candidateContentType)) &#123;</span><br><span class="line">              bestRequestedMediaType = requestedMediaType;</span><br><span class="line">              bestView = candidateView;</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (bestView != <span class="literal">null</span>) &#123;</span><br><span class="line">          <span class="keyword">if</span> (logger.isDebugEnabled()) &#123;</span><br><span class="line">            logger.debug(<span class="string">&quot;Returning [&quot;</span> + bestView + <span class="string">&quot;] based on requested media type &#x27;&quot;</span> +</span><br><span class="line">                bestRequestedMediaType + <span class="string">&quot;&#x27;&quot;</span>);</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> bestView;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
-    private int order = Ordered.HIGHEST_PRECEDENCE;
-
-    private boolean favorPathExtension = true;
-
-    private boolean favorParameter = false;
-
-    private String parameterName = &quot;format&quot;;
-
-    private boolean useNotAcceptableStatusCode = false;
-
-    private boolean ignoreAcceptHeader = false;
-
-    private boolean useJaf = true;
-
-    private ConcurrentMap&lt;String, MediaType&gt; mediaTypes = new ConcurrentHashMap&lt;String, MediaType&gt;();
-
-    private List&lt;View&gt; defaultViews;
-
-    private MediaType defaultContentType;
-
-    private List&lt;ViewResolver&gt; viewResolvers;
-
-
-    // ignore some setter and getter...
-
-    public void setMediaTypes(Map&lt;String, String&gt; mediaTypes) &#123;
-      Assert.notNull(mediaTypes, &quot;&#39;mediaTypes&#39; must not be null&quot;);
-      for (Map.Entry&lt;String, String&gt; entry : mediaTypes.entrySet()) &#123;
-        String extension = entry.getKey().toLowerCase(Locale.ENGLISH);
-        MediaType mediaType = MediaType.parseMediaType(entry.getValue());
-        this.mediaTypes.put(extension, mediaType);
-      &#125;
-    &#125;
-
-    public void setDefaultViews(List&lt;View&gt; defaultViews) &#123;
-      this.defaultViews = defaultViews;
-    &#125;
-
-    public void setDefaultContentType(MediaType defaultContentType) &#123;
-      this.defaultContentType = defaultContentType;
-    &#125;
-
-    public void setViewResolvers(List&lt;ViewResolver&gt; viewResolvers) &#123;
-      this.viewResolvers = viewResolvers;
-    &#125;
-
-
-    @Override
-    protected void initServletContext(ServletContext servletContext) &#123;
-      if (this.viewResolvers == null) &#123;
-        Map&lt;String, ViewResolver&gt; matchingBeans =
-            BeanFactoryUtils.beansOfTypeIncludingAncestors(getApplicationContext(), ViewResolver.class);
-        this.viewResolvers = new ArrayList&lt;ViewResolver&gt;(matchingBeans.size());
-        for (ViewResolver viewResolver : matchingBeans.values()) &#123;
-          if (this != viewResolver) &#123;
-            this.viewResolvers.add(viewResolver);
-          &#125;
-        &#125;
-      &#125;
-      if (this.viewResolvers.isEmpty()) &#123;
-        logger.warn(&quot;Did not find any ViewResolvers to delegate to; please configure them using the &quot; +
-            &quot;&#39;viewResolvers&#39; property on the ContentNegotiatingViewResolver&quot;);
-      &#125;
-      OrderComparator.sort(this.viewResolvers);
-    &#125;
-
-    public View resolveViewName(String viewName, Locale locale) throws Exception &#123;
-      RequestAttributes attrs = RequestContextHolder.getRequestAttributes();
-      Assert.isInstanceOf(ServletRequestAttributes.class, attrs);
-      List&lt;MediaType&gt; requestedMediaTypes = getMediaTypes(((ServletRequestAttributes) attrs).getRequest());
-      if (requestedMediaTypes != null) &#123;
-        List&lt;View&gt; candidateViews = getCandidateViews(viewName, locale, requestedMediaTypes);
-        View bestView = getBestView(candidateViews, requestedMediaTypes);
-        if (bestView != null) &#123;
-          return bestView;
-        &#125;
-      &#125;
-      if (this.useNotAcceptableStatusCode) &#123;
-        if (logger.isDebugEnabled()) &#123;
-          logger.debug(&quot;No acceptable view found; returning 406 (Not Acceptable) status code&quot;);
-        &#125;
-        return NOT_ACCEPTABLE_VIEW;
-      &#125;
-      else &#123;
-        logger.debug(&quot;No acceptable view found; returning null&quot;);
-        return null;
-      &#125;
-    &#125;
-
-
-    protected List&lt;MediaType&gt; getMediaTypes(HttpServletRequest request) &#123;
-      if (this.favorPathExtension) &#123;
-        String requestUri = urlPathHelper.getRequestUri(request);
-        String filename = WebUtils.extractFullFilenameFromUrlPath(requestUri);
-        MediaType mediaType = getMediaTypeFromFilename(filename);
-        if (mediaType != null) &#123;
-          if (logger.isDebugEnabled()) &#123;
-            logger.debug(&quot;Requested media type is &#39;&quot; + mediaType + &quot;&#39; (based on filename &#39;&quot; + filename + &quot;&#39;)&quot;);
-          &#125;
-          return Collections.singletonList(mediaType);
-        &#125;
-      &#125;
-      if (this.favorParameter) &#123;
-        if (request.getParameter(this.parameterName) != null) &#123;
-          String parameterValue = request.getParameter(this.parameterName);
-          MediaType mediaType = getMediaTypeFromParameter(parameterValue);
-          if (mediaType != null) &#123;
-            if (logger.isDebugEnabled()) &#123;
-              logger.debug(&quot;Requested media type is &#39;&quot; + mediaType + &quot;&#39; (based on parameter &#39;&quot; +
-                  this.parameterName + &quot;&#39;=&#39;&quot; + parameterValue + &quot;&#39;)&quot;);
-            &#125;
-            return Collections.singletonList(mediaType);
-          &#125;
-        &#125;
-      &#125;
-      if (!this.ignoreAcceptHeader) &#123;
-        String acceptHeader = request.getHeader(ACCEPT_HEADER);
-        if (StringUtils.hasText(acceptHeader)) &#123;
-          try &#123;
-                      List&lt;MediaType&gt; mediaTypes = MediaType.parseMediaTypes(acceptHeader);
-                      MediaType.sortByQualityValue(mediaTypes);
-                      if (logger.isDebugEnabled()) &#123;
-                          logger.debug(&quot;Requested media types are &quot; + mediaTypes + &quot; (based on Accept header)&quot;);
-                      &#125;
-                      return mediaTypes;
-          &#125;
-          catch (IllegalArgumentException ex) &#123;
-            if (logger.isDebugEnabled()) &#123;
-              logger.debug(&quot;Could not parse accept header [&quot; + acceptHeader + &quot;]: &quot; + ex.getMessage());
-            &#125;
-            return null;
-          &#125;
-        &#125;
-      &#125;
-      if (this.defaultContentType != null) &#123;
-        if (logger.isDebugEnabled()) &#123;
-          logger.debug(&quot;Requested media types is &quot; + this.defaultContentType +
-              &quot; (based on defaultContentType property)&quot;);
-        &#125;
-        return Collections.singletonList(this.defaultContentType);
-      &#125;
-      else &#123;
-        return Collections.emptyList();
-      &#125;
-    &#125;
-
-
-    protected MediaType getMediaTypeFromFilename(String filename) &#123;
-      String extension = StringUtils.getFilenameExtension(filename);
-      if (!StringUtils.hasText(extension)) &#123;
-        return null;
-      &#125;
-      extension = extension.toLowerCase(Locale.ENGLISH);
-      MediaType mediaType = this.mediaTypes.get(extension);
-      if (mediaType == null &amp;&amp; this.useJaf &amp;&amp; jafPresent) &#123;
-        mediaType = ActivationMediaTypeFactory.getMediaType(filename);
-        if (mediaType != null) &#123;
-          this.mediaTypes.putIfAbsent(extension, mediaType);
-        &#125;
-      &#125;
-      return mediaType;
-    &#125;
-
-protected MediaType getMediaTypeFromParameter(String parameterValue) &#123;
-  return this.mediaTypes.get(parameterValue.toLowerCase(Locale.ENGLISH));
-&#125;
-
-private List&lt;View&gt; getCandidateViews(String viewName, Locale locale, List&lt;MediaType&gt; requestedMediaTypes)
-    throws Exception &#123;
-
-  List&lt;View&gt; candidateViews = new ArrayList&lt;View&gt;();
-  for (ViewResolver viewResolver : this.viewResolvers) &#123;
-    View view = viewResolver.resolveViewName(viewName, locale);
-    if (view != null) &#123;
-      candidateViews.add(view);
-    &#125;
-    for (MediaType requestedMediaType : requestedMediaTypes) &#123;
-      List&lt;String&gt; extensions = getExtensionsForMediaType(requestedMediaType);
-      for (String extension : extensions) &#123;
-        String viewNameWithExtension = viewName + &quot;.&quot; + extension;
-        view = viewResolver.resolveViewName(viewNameWithExtension, locale);
-        if (view != null) &#123;
-          candidateViews.add(view);
-        &#125;
-      &#125;
-
-    &#125;
-  &#125;
-  if (!CollectionUtils.isEmpty(this.defaultViews)) &#123;
-    candidateViews.addAll(this.defaultViews);
-  &#125;
-  return candidateViews;
-&#125;
-
-private List&lt;String&gt; getExtensionsForMediaType(MediaType requestedMediaType) &#123;
-  List&lt;String&gt; result = new ArrayList&lt;String&gt;();
-  for (Entry&lt;String, MediaType&gt; entry : this.mediaTypes.entrySet()) &#123;
-    if (requestedMediaType.includes(entry.getValue())) &#123;
-      result.add(entry.getKey());
-    &#125;
-  &#125;
-  return result;
-&#125;
-
-private View getBestView(List&lt;View&gt; candidateViews, List&lt;MediaType&gt; requestedMediaTypes) &#123;
-  MediaType bestRequestedMediaType = null;
-  View bestView = null;
-  for (MediaType requestedMediaType : requestedMediaTypes) &#123;
-    for (View candidateView : candidateViews) &#123;
-      if (StringUtils.hasText(candidateView.getContentType())) &#123;
-        MediaType candidateContentType = MediaType.parseMediaType(candidateView.getContentType());
-        if (requestedMediaType.includes(candidateContentType)) &#123;
-          bestRequestedMediaType = requestedMediaType;
-          bestView = candidateView;
-          break;
-        &#125;
-      &#125;
-    &#125;
-    if (bestView != null) &#123;
-      if (logger.isDebugEnabled()) &#123;
-        logger.debug(&quot;Returning [&quot; + bestView + &quot;] based on requested media type &#39;&quot; +
-            bestRequestedMediaType + &quot;&#39;&quot;);
-      &#125;
-      break;
-    &#125;
-  &#125;
-  return bestView;
-
-&#125;
-
-...
-</code></pre>
-<p>}</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">可以看到`ContentNegotiationViewResolver`有点类似于ComposeCommand（参见Command模式 by GoF），它本身实现了ViewResolver接口，所以它是一个ViewResolver，但是它组合了一堆的ViewResolver，根据一定的规则（前面讨论的content negotiation）将视图请求转发给最match的ViewResolver。</span><br><span class="line"></span><br><span class="line">所以关键在两点：</span><br><span class="line"></span><br><span class="line">#### 1. content negotiation策略 (`ContentNegotiationStrategy`)</span><br><span class="line"></span><br><span class="line">&gt;This view resolver uses the requested media type to select a suitable View for a request. This media type is determined by using the following criteria:</span><br><span class="line">&gt;</span><br><span class="line">1. If the requested path has a file extension and if the setFavorPathExtension(boolean) property is true, the mediaTypes property is inspected for a matching media type.</span><br><span class="line">2. If the request contains a parameter defining the extension and if the setFavorParameter(boolean) property is true, the mediaTypes property is inspected for a matching media type. The default name of the parameter is format and it can be configured using the parameterName property.</span><br><span class="line">3. If there is no match in the mediaTypes property and if the Java Activation Framework (JAF) is both enabled and present on the classpath, FileTypeMap.getContentType(String) is used instead.</span><br><span class="line">4. If the previous steps did not result in a media type, and ignoreAcceptHeader is false, the request Accept header is used.</span><br><span class="line">&gt;</span><br><span class="line">Once the requested media type has been determined, this resolver queries each delegate view resolver for a View and determines if the requested media type is compatible with the view&#x27;s content type). The most compatible view is returned.</span><br><span class="line"></span><br><span class="line">这个就是上面提到的Spring MVC默认的三个`ContentNegotiationStrategy`，即所谓的PPA Strategy（path extension, then parameter, then Accept header) ，顺序也是先path extension，然后parameter(默认是format参数)，然后才是accept头。</span><br><span class="line"></span><br><span class="line">关于`ContentNegotiationStrategy`，可以参考笔者的另一篇文章：[content negotiation using spring mvc](http://blog.arganzheng.me/posts/content-negotiation-using-spring-mvc.html)。有具体的实际案例。</span><br><span class="line"></span><br><span class="line">##### 2. 供选择的SingleViewResolver</span><br><span class="line">&gt;</span><br><span class="line">1. The ContentNegotiatingViewResolver does not resolve views itself, but delegates to other ViewResolvers. By default, these other view resolvers are picked up automatically from the application context, though they can also be set explicitly by using the viewResolvers property. Note that in order for this view resolver to work properly, the order property needs to be set to a higher precedence than the others (the default is Ordered.HIGHEST_PRECEDENCE.)</span><br><span class="line">&gt;</span><br><span class="line">    说明：即`private List&lt;ViewResolver&gt; viewResolvers;`属性。需要注意的是Spring会自动加载和注册所有其他的ViewResolver到`ContentNegotiationViewResolover`的`viewResolvers`属性。但是你需要告诉Spring MVC，你希望controller返回的view都是由`ContentNegotiationViewResolover`来解析，而不是其他定义的ViewResolver。这是通过order配置项来决定。你应该给`ContentNegotiationViewResolover`配置最高的order(其实默认就是最高了)。</span><br><span class="line">&gt;</span><br><span class="line">2. Additionally, this view resolver exposes the defaultViews property, allowing you to override the views provided by the view resolvers. Note that these default views are offered as candicates, and still need have the content type requested (via file extension, parameter, or Accept header, described above). You can also set the default content type directly, which will be returned when the other mechanisms (Accept header, file extension or parameter) do not result in a match.</span><br><span class="line">&gt;</span><br><span class="line">    说明：即`private List&lt;View&gt; defaultViews;`和`private MediaType defaultContentType;`属性。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">关于`ContentNegotiatingViewResolver`，下面两篇文章都不错，值得一看：</span><br><span class="line"></span><br><span class="line">1. [Content Negotiation using Spring MVC&#x27;s ContentNegotiatingViewResolver](http://blog.eyallupu.com/2009/07/content-negotiation-using-spring-mvcs.html):使用了`viewResolvers`配置。</span><br><span class="line">2. [ADDING AN ATOM VIEW TO AN APPLICATION USING SPRING&#x27;S REST SUPPORT](http://blog.springsource.com/2009/03/16/adding-an-atom-view-to-an-application-using-springs-rest-support/):使用了`ViewResolvers`配置。</span><br><span class="line">3. [Spring 3 MVC ContentNegotiatingViewResolver Example](http://www.mkyong.com/spring-mvc/spring-3-mvc-contentnegotiatingviewresolver-example/):使用了`defaultViews`配置。</span><br><span class="line"></span><br><span class="line">注意：`@ResponseBody`是为了单个View准备的，即它只能转换成一种格式，对于`ContentNegotiatingViewResolver`，需要多个**Single**ViewResolver来接收。</span><br><span class="line"></span><br><span class="line">### 8. 客户端调用 [Accessing RESTful services on the Client](http://static.springsource.org/spring/docs/3.0.0.M3/reference/html/ch18s03.html#rest-resttemplate)</span><br><span class="line"></span><br><span class="line">Spring MVC不仅大大的简化了服务端RESTful服务的开发和开放，还提供了一些辅助类来方便客户端调用REST服务。</span><br><span class="line"></span><br><span class="line">以前Client如果要调用REST服务，一般是使用HttpClient来发送HTTP请求：</span><br><span class="line"></span><br><span class="line">​```java</span><br><span class="line">String uri = &quot;http://example.com/hotels/1/bookings&quot;;</span><br><span class="line"></span><br><span class="line">PostMethod post = new PostMethod(uri);</span><br><span class="line">String request = // create booking request content</span><br><span class="line">post.setRequestEntity(new StringRequestEntity(request));</span><br><span class="line"></span><br><span class="line">httpClient.executeMethod(post);</span><br><span class="line"></span><br><span class="line">if (HttpStatus.SC_CREATED == post.getStatusCode()) &#123;</span><br><span class="line">  Header location = post.getRequestHeader(&quot;Location&quot;);</span><br><span class="line">  if (location != null) &#123;</span><br><span class="line">    System.out.println(&quot;Created new booking at :&quot; + location.getValue());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到<code>ContentNegotiationViewResolver</code>有点类似于ComposeCommand（参见Command模式 by GoF），它本身实现了ViewResolver接口，所以它是一个ViewResolver，但是它组合了一堆的ViewResolver，根据一定的规则（前面讨论的content negotiation）将视图请求转发给最match的ViewResolver。</p>
+<p>所以关键在两点：</p>
+<h4 id="1-content-negotiation策略-ContentNegotiationStrategy"><a href="#1-content-negotiation策略-ContentNegotiationStrategy" class="headerlink" title="1. content negotiation策略 (ContentNegotiationStrategy)"></a>1. content negotiation策略 (<code>ContentNegotiationStrategy</code>)</h4><blockquote>
+<p>This view resolver uses the requested media type to select a suitable View for a request. This media type is determined by using the following criteria:</p>
+</blockquote>
+<ol>
+<li>If the requested path has a file extension and if the setFavorPathExtension(boolean) property is true, the mediaTypes property is inspected for a matching media type.</li>
+<li>If the request contains a parameter defining the extension and if the setFavorParameter(boolean) property is true, the mediaTypes property is inspected for a matching media type. The default name of the parameter is format and it can be configured using the parameterName property.</li>
+<li>If there is no match in the mediaTypes property and if the Java Activation Framework (JAF) is both enabled and present on the classpath, FileTypeMap.getContentType(String) is used instead.</li>
+<li>If the previous steps did not result in a media type, and ignoreAcceptHeader is false, the request Accept header is used.<blockquote>
+</blockquote>
+<p>Once the requested media type has been determined, this resolver queries each delegate view resolver for a View and determines if the requested media type is compatible with the view’s content type). The most compatible view is returned.</p>
+</li>
+</ol>
+<p>这个就是上面提到的Spring MVC默认的三个<code>ContentNegotiationStrategy</code>，即所谓的PPA Strategy（path extension, then parameter, then Accept header) ，顺序也是先path extension，然后parameter(默认是format参数)，然后才是accept头。</p>
+<p>关于<code>ContentNegotiationStrategy</code>，可以参考笔者的另一篇文章：<a target="_blank" rel="noopener" href="http://blog.arganzheng.me/posts/content-negotiation-using-spring-mvc.html">content negotiation using spring mvc</a>。有具体的实际案例。</p>
+<h5 id="2-供选择的SingleViewResolver"><a href="#2-供选择的SingleViewResolver" class="headerlink" title="2. 供选择的SingleViewResolver"></a>2. 供选择的SingleViewResolver</h5><blockquote>
+</blockquote>
+<ol>
+<li>The ContentNegotiatingViewResolver does not resolve views itself, but delegates to other ViewResolvers. By default, these other view resolvers are picked up automatically from the application context, though they can also be set explicitly by using the viewResolvers property. Note that in order for this view resolver to work properly, the order property needs to be set to a higher precedence than the others (the default is Ordered.HIGHEST_PRECEDENCE.)<blockquote>
+</blockquote>
+<p> 说明：即<code>private List&lt;ViewResolver&gt; viewResolvers;</code>属性。需要注意的是Spring会自动加载和注册所有其他的ViewResolver到<code>ContentNegotiationViewResolover</code>的<code>viewResolvers</code>属性。但是你需要告诉Spring MVC，你希望controller返回的view都是由<code>ContentNegotiationViewResolover</code>来解析，而不是其他定义的ViewResolver。这是通过order配置项来决定。你应该给<code>ContentNegotiationViewResolover</code>配置最高的order(其实默认就是最高了)。</p>
+<blockquote>
+</blockquote>
+</li>
+<li>Additionally, this view resolver exposes the defaultViews property, allowing you to override the views provided by the view resolvers. Note that these default views are offered as candicates, and still need have the content type requested (via file extension, parameter, or Accept header, described above). You can also set the default content type directly, which will be returned when the other mechanisms (Accept header, file extension or parameter) do not result in a match.<blockquote>
+</blockquote>
+<p> 说明：即<code>private List&lt;View&gt; defaultViews;</code>和<code>private MediaType defaultContentType;</code>属性。</p>
+</li>
+</ol>
+<p>关于<code>ContentNegotiatingViewResolver</code>，下面两篇文章都不错，值得一看：</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="http://blog.eyallupu.com/2009/07/content-negotiation-using-spring-mvcs.html">Content Negotiation using Spring MVC’s ContentNegotiatingViewResolver</a>:使用了<code>viewResolvers</code>配置。</li>
+<li><a target="_blank" rel="noopener" href="http://blog.springsource.com/2009/03/16/adding-an-atom-view-to-an-application-using-springs-rest-support/">ADDING AN ATOM VIEW TO AN APPLICATION USING SPRING’S REST SUPPORT</a>:使用了<code>ViewResolvers</code>配置。</li>
+<li><a target="_blank" rel="noopener" href="http://www.mkyong.com/spring-mvc/spring-3-mvc-contentnegotiatingviewresolver-example/">Spring 3 MVC ContentNegotiatingViewResolver Example</a>:使用了<code>defaultViews</code>配置。</li>
+</ol>
+<p>注意：<code>@ResponseBody</code>是为了单个View准备的，即它只能转换成一种格式，对于<code>ContentNegotiatingViewResolver</code>，需要多个<strong>Single</strong>ViewResolver来接收。</p>
+<h3 id="8-客户端调用-Accessing-RESTful-services-on-the-Client"><a href="#8-客户端调用-Accessing-RESTful-services-on-the-Client" class="headerlink" title="8. 客户端调用 Accessing RESTful services on the Client"></a>8. 客户端调用 <a target="_blank" rel="noopener" href="http://static.springsource.org/spring/docs/3.0.0.M3/reference/html/ch18s03.html#rest-resttemplate">Accessing RESTful services on the Client</a></h3><p>Spring MVC不仅大大的简化了服务端RESTful服务的开发和开放，还提供了一些辅助类来方便客户端调用REST服务。</p>
+<p>以前Client如果要调用REST服务，一般是使用HttpClient来发送HTTP请求：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">uri</span> <span class="operator">=</span> <span class="string">&quot;http://example.com/hotels/1/bookings&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">PostMethod</span> <span class="variable">post</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PostMethod</span>(uri);</span><br><span class="line"><span class="type">String</span> <span class="variable">request</span> <span class="operator">=</span> <span class="comment">// create booking request content</span></span><br><span class="line">post.setRequestEntity(<span class="keyword">new</span> <span class="title class_">StringRequestEntity</span>(request));</span><br><span class="line"></span><br><span class="line">httpClient.executeMethod(post);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (HttpStatus.SC_CREATED == post.getStatusCode()) &#123;</span><br><span class="line">  <span class="type">Header</span> <span class="variable">location</span> <span class="operator">=</span> post.getRequestHeader(<span class="string">&quot;Location&quot;</span>);</span><br><span class="line">  <span class="keyword">if</span> (location != <span class="literal">null</span>) &#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;Created new booking at :&quot;</span> + location.getValue());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>太过底层，而且代码比较冗长，一般都要手动封装一下（即类似于SDK，封装了签名和HTTP发送和接受细节）。我们看一下Spring MVC是怎么解决这个问题的。</p>
 <h4 id="RestTemplate"><a href="#RestTemplate" class="headerlink" title="RestTemplate"></a><a target="_blank" rel="noopener" href="http://blog.springsource.org/2009/03/27/rest-in-spring-3-resttemplate/">RestTemplate</a></h4><p>RestTemplate是client-site HTTP access的核心类。正如它的名称所示，<code>RestTemplate</code>非常类似于<code>JdbcTemplate</code>, <code>JmsTemplate</code>等XXXTemplate。这意味着<code>RestTemplate</code>是线程安全的并且可以通过callback来定制它的行为。</p>
@@ -715,20 +407,15 @@ private View getBestView(List&lt;View&gt; candidateViews, List&lt;MediaType&gt; 
 <p>另外，每个方法的第一个参数都是一个url string，但是这个URI可以带有变量(还记得<code>@PathVariable</code>吗:)哦。参数有两种方式绑定值：</p>
 <ol>
 <li><p>作为字符串变量数组(String variable arguments array)</p>
-<pre><code> String result = restTemplate.getForObject(&quot;http://example.com/hotels/&#123;hotel&#125;/bookings/&#123;booking&#125;&quot;, String.class, &quot;42&quot;, &quot;21&quot;);
-</code></pre>
-<p> 会转换为一个对<code>http://example.com/hotels/42/bookings/21</code>的GET请求。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">result</span> <span class="operator">=</span> restTemplate.getForObject(<span class="string">&quot;http://example.com/hotels/&#123;hotel&#125;/bookings/&#123;booking&#125;&quot;</span>, String.class, <span class="string">&quot;42&quot;</span>, <span class="string">&quot;21&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>会转换为一个对<code>http://example.com/hotels/42/bookings/21</code>的GET请求。</p>
 </li>
 <li><p>或者Map对象(Map)</p>
 <p>The map variant expands the template based on variable name, and is therefore more useful when using many variables, or when a single variable is used multiple times.</p>
-<pre><code> Map&lt;String, String&gt; vars = new HashMap&lt;String, String&gt;();
- vars.put(&quot;hotel&quot;, &quot;42&quot;);
- vars.put(&quot;booking&quot;, &quot;21&quot;);
- String result = restTemplate.getForObject(&quot;http://example.com/hotels/&#123;hotel&#125;/bookings/&#123;booking&#125;&quot;, String.class, vars);
- 会转换为一个对`http://example.com/hotels/42/rooms/42`的GET请求。
-</code></pre>
 </li>
 </ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;String, String&gt; vars = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;String, String&gt;();</span><br><span class="line">vars.put(<span class="string">&quot;hotel&quot;</span>, <span class="string">&quot;42&quot;</span>);</span><br><span class="line">vars.put(<span class="string">&quot;booking&quot;</span>, <span class="string">&quot;21&quot;</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">result</span> <span class="operator">=</span> restTemplate.getForObject(<span class="string">&quot;http://example.com/hotels/&#123;hotel&#125;/bookings/&#123;booking&#125;&quot;</span>,     String.class, vars);</span><br></pre></td></tr></table></figure>
+<p>会转换为一个对<code>http://example.com/hotels/42/rooms/42</code>的GET请求。</p>
 <p>关于RestTemplate使用的具体例子可以参考这篇文章<a target="_blank" rel="noopener" href="http://blog.springsource.org/2009/03/27/rest-in-spring-3-resttemplate/"><br>REST IN SPRING 3: RESTTEMPLATE</a>。写的非常好，强烈推荐！</p>
 <h3 id="9-支持RESTful的URL"><a href="#9-支持RESTful的URL" class="headerlink" title="9. 支持RESTful的URL"></a>9. 支持RESTful的URL</h3><p>在开发功能模块之前，应该先把URL设计好。比查对 <strong>消息</strong> 这个资源的操作URL可以这么设计：</p>
 <pre><code>http://arganzheng.me/messages/show/123456
@@ -739,32 +426,20 @@ http://arganzheng.me/message/update
 </code></pre>
 <p>说明：可以看到我们的URL中有动作在里面，事实上纯粹的RESTful URL是把动作隐含在HTTP头中：GET、PUT、DELETE、POST。。不过这样对用户编码有要求，这个相对简单点。</p>
 <p>要支持这种URL，web.xml需要这么配置：</p>
-<pre><code>&lt;!-- REST servlet-mapping --&gt;
-&lt;servlet-mapping&gt;
-    &lt;servlet-name&gt;DispatcherServlet&lt;srvlet-name&gt;
-    &lt;url-pattern&gt;/&lt;/url-pattern&gt;
-&lt;srvlet-mapping&gt;
-</code></pre>
-<p>但是这样的话有个问题，就是静态文件也被mapping了，会导致找不到资源。Spring提供了一个resources配置项支持静态文件的处理<a target="_blank" rel="noopener" href="http://static.springsource.org/spring/docs/3.1.x/spring-framework-reference/html/mvc.html#mvc-config-static-resources">16.14.5 Configuring Serving of Resources</a>：</p>
-<pre><code>&lt;!-- Forwards requests to the &quot;/&quot; resource to the &quot;welcome&quot; view --&gt;
-  &lt;mvc:view-controller path=&quot;/&quot; view-name=&quot;index&quot;/&gt;
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- REST servlet-mapping --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>DispatcherServlet<span class="tag">&lt;<span class="name">srvlet-name</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">srvlet-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-  &lt;!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the $&#123;webappRoot&#125;/resources/ directory --&gt;
-  &lt;mvc:resources mapping=&quot;/resources/**&quot; location=&quot;/resources/&quot; /&gt;
-  &lt;!-- 注意：配置了mvc:resources就必须配置这个选项，否则handler mapping都失效了
-      @see  http://stackoverflow.com/questions/7910845/the-handler-mapping-from-the-mvcresource-override-other-mappings-which-defined
-  --&gt;
-  &lt;mvc:annotation-driven /&gt;
-</code></pre>
+<p>但是这样的话有个问题，就是静态文件也被mapping了，会导致找不到资源。Spring提供了一个resources配置项支持静态文件的处理<a target="_blank" rel="noopener" href="http://static.springsource.org/spring/docs/3.1.x/spring-framework-reference/html/mvc.html#mvc-config-static-resources">16.14.5 Configuring Serving of Resources</a>：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Forwards requests to the &quot;/&quot; resource to the &quot;welcome&quot; view --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mvc:view-controller</span> <span class="attr">path</span>=<span class="string">&quot;/&quot;</span> <span class="attr">view-name</span>=<span class="string">&quot;index&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the $&#123;webappRoot&#125;/resources/ directory --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mvc:resources</span> <span class="attr">mapping</span>=<span class="string">&quot;/resources/**&quot;</span> <span class="attr">location</span>=<span class="string">&quot;/resources/&quot;</span> /&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 注意：配置了mvc:resources就必须配置这个选项，否则handler mapping都失效了</span></span><br><span class="line"><span class="comment">	@see  http://stackoverflow.com/questions/7910845/the-handler-mapping-from-the-mvcresource-override-other-mappings-which-defined</span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mvc:annotation-driven</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
 <p>这样所有请求：<code>http://arganzheng.me/resources/**</code>会映射到webapp下的resources目录，而不是找我们的controller处理。</p>
 <p>但是有个奇怪的问题，就是配置这个之后，原来动态东西就不能访问到了，提示找不到对应的handler，解决方案是增加一个<code>&lt;mvc:annotation-driven /&gt;</code>配置。具体参见<a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/7910845/the-handler-mapping-from-the-mvcresource-override-other-mappings-which-defined">The handler mapping from the mvc:resource override other mappings which defined with annotation</a>。</p>
 <p>另外，静态的html页面一般不放在resources路面下，而是直接在根目录下，比如：<a target="_blank" rel="noopener" href="http://arganzheng.me/index.html%E6%88%96%E8%80%85http://arganzheng.me/404.html%E3%80%82%E6%89%80%E4%BB%A5%E5%BA%94%E8%AF%A5%E5%9C%A8web.xml%E4%B8%AD%E5%9C%A8%E9%85%8D%E7%BD%AE%E4%B8%80%E4%B8%AAurl-mapping%E8%A7%84%E5%88%99%EF%BC%9A">http://arganzheng.me/index.html或者http://arganzheng.me/404.html。所以应该在web.xml中在配置一个url-mapping规则：</a></p>
-<pre><code>&lt;!-- 避免被Spring DispatcherServlet接管 --&gt;
-  &lt;servlet-mapping&gt;
-      &lt;servlet-name&gt;default&lt;srvlet-name&gt;
-      &lt;url-pattern&gt;*.html&lt;/url-pattern&gt;
-  &lt;srvlet-mapping&gt;
-</code></pre>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 避免被Spring DispatcherServlet接管 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>default<span class="tag">&lt;<span class="name">srvlet-name</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>*.html<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">srvlet-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
 
     </div>
 

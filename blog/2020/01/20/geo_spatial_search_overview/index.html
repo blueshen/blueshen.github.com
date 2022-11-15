@@ -21,12 +21,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"www.shenyanchao.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.13.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="空间搜索综述空间搜索是针对多维空间数据进行的搜索，这听起来是一句废话。但是，这重点强调的是空间数据，而且数据是**多维(2D, 3D, …)**的。同时, 空间搜索有别于传统的网页文本搜索(google, baidu等)，传统搜索引擎针对的是海量的文本，分词之后，通过倒排等技术来进行快速的匹配。 空间搜索的数据则是点、线、多边形，多维空间等等几何体。如何能高效准确的搜索出想要的空间数据是空间搜索需">
+    <meta name="description" content="空间搜索综述空间搜索是针对多维空间数据进行的搜索，这听起来是一句废话。但是，这重点强调的是空间数据，而且数据是**多维(2D, 3D …)**的。同时, 空间搜索有别于传统的网页文本搜索(google, baidu等)，传统搜索引擎针对的是海量的文本，分词之后，通过倒排等技术来进行快速的匹配。 空间搜索的数据则是点、线、多边形，多维空间等等几何体。如何能高效准确的搜索出想要的空间数据是空间搜索需要">
 <meta property="og:type" content="article">
 <meta property="og:title" content="空间搜索概述">
 <meta property="og:url" content="https://www.shenyanchao.cn/blog/2020/01/20/geo_spatial_search_overview/index.html">
 <meta property="og:site_name" content="申艳超-博客">
-<meta property="og:description" content="空间搜索综述空间搜索是针对多维空间数据进行的搜索，这听起来是一句废话。但是，这重点强调的是空间数据，而且数据是**多维(2D, 3D, …)**的。同时, 空间搜索有别于传统的网页文本搜索(google, baidu等)，传统搜索引擎针对的是海量的文本，分词之后，通过倒排等技术来进行快速的匹配。 空间搜索的数据则是点、线、多边形，多维空间等等几何体。如何能高效准确的搜索出想要的空间数据是空间搜索需">
+<meta property="og:description" content="空间搜索综述空间搜索是针对多维空间数据进行的搜索，这听起来是一句废话。但是，这重点强调的是空间数据，而且数据是**多维(2D, 3D …)**的。同时, 空间搜索有别于传统的网页文本搜索(google, baidu等)，传统搜索引擎针对的是海量的文本，分词之后，通过倒排等技术来进行快速的匹配。 空间搜索的数据则是点、线、多边形，多维空间等等几何体。如何能高效准确的搜索出想要的空间数据是空间搜索需要">
 <meta property="og:locale">
 <meta property="og:image" content="https://www.shenyanchao.cn/images/geo_spatial_search_overview/geo_in_life.jpeg">
 <meta property="og:image" content="https://www.shenyanchao.cn/images/geo_spatial_search_overview/general_text_search.png">
@@ -47,7 +47,7 @@
 <meta property="og:image" content="https://www.shenyanchao.cn/images/geo-quadtree/5cff54de-5133-4369-8680-52d2723eb756.jpg">
 <meta property="og:image" content="https://www.shenyanchao.cn/images/geo_spatial_search_overview/image5-280x300.png">
 <meta property="article:published_time" content="2020-01-20T14:03:21.000Z">
-<meta property="article:modified_time" content="2022-11-09T09:48:03.713Z">
+<meta property="article:modified_time" content="2022-11-15T07:01:28.657Z">
 <meta property="article:author" content="申艳超">
 <meta property="article:tag" content="spatail search">
 <meta property="article:tag" content="map">
@@ -261,7 +261,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-11-09 17:48:03" itemprop="dateModified" datetime="2022-11-09T17:48:03+08:00">2022-11-09</time>
+      <time title="Modified: 2022-11-15 15:01:28" itemprop="dateModified" datetime="2022-11-15T15:01:28+08:00">2022-11-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -290,7 +290,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h2 id="空间搜索综述"><a href="#空间搜索综述" class="headerlink" title="空间搜索综述"></a>空间搜索综述</h2><p>空间搜索是针对多维空间数据进行的搜索，这听起来是一句废话。但是，这重点强调的是<strong>空间</strong>数据，而且数据是**多维(2D, 3D, …)**的。同时, 空间搜索有别于传统的网页文本搜索(google, baidu等)，传统搜索引擎针对的是海量的文本，分词之后，通过倒排等技术来进行快速的匹配。</p>
+        <h2 id="空间搜索综述"><a href="#空间搜索综述" class="headerlink" title="空间搜索综述"></a>空间搜索综述</h2><p>空间搜索是针对多维空间数据进行的搜索，这听起来是一句废话。但是，这重点强调的是<strong>空间</strong>数据，而且数据是**多维(2D, 3D …)**的。同时, 空间搜索有别于传统的网页文本搜索(google, baidu等)，传统搜索引擎针对的是海量的文本，分词之后，通过倒排等技术来进行快速的匹配。</p>
 <p>空间搜索的数据则是点、线、多边形，多维空间等等几何体。如何能高效准确的搜索出想要的空间数据是空间搜索需要解决的。</p>
 <h3 id="在生活中无处不在"><a href="#在生活中无处不在" class="headerlink" title="在生活中无处不在"></a>在生活中无处不在</h3><p>无形之中，空间搜索已经存在于我们生活中的方方面面。也许，出门你可能要打个车，看看附近有哪些司机师傅可以接单。自驾要搜索一下沿途的加油站，如果是电车你可能想找一下充电桩。抑或是你今天休息宅在家里，想找个餐厅，定个外卖。所有的这些都离不开空间搜索支持。</p>
 <p><img src="/images/geo_spatial_search_overview/geo_in_life.jpeg" alt="空间搜索无处不在"></p>
@@ -469,8 +469,8 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/blog/2020/01/16/geo-quadtrees/" rel="prev" title="空间搜索-Quad Tree">
-                  <i class="fa fa-chevron-left"></i> 空间搜索-Quad Tree
+                <a href="/blog/2020/01/16/geo_data_format/" rel="prev" title="空间搜索-数据格式">
+                  <i class="fa fa-chevron-left"></i> 空间搜索-数据格式
                 </a>
             </div>
             <div class="post-nav-item">

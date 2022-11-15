@@ -29,7 +29,7 @@
 <meta property="og:description" content="WebDriverJSWebDriver 的 JavaScript 语言绑定。本文包含以下内容：  介绍 快速上手 在 Node 中运行 在浏览器中运行   设计细节 管理异步 API 同服务端通讯 &#x2F;xdrpc   未来计划  介绍WebDriver 的 JavaScript 绑定（WebDriverJS），可以使 JavaScript 开发人员避免上下文切换的开销，并且可以让他们使用">
 <meta property="og:locale">
 <meta property="article:published_time" content="2013-05-30T11:56:00.000Z">
-<meta property="article:modified_time" content="2019-12-17T11:41:25.754Z">
+<meta property="article:modified_time" content="2022-11-15T07:34:57.973Z">
 <meta property="article:author" content="申艳超">
 <meta property="article:tag" content="selenium">
 <meta property="article:tag" content="webdriverjs">
@@ -242,7 +242,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2019-12-17 19:41:25" itemprop="dateModified" datetime="2019-12-17T19:41:25+08:00">2019-12-17</time>
+      <time title="Modified: 2022-11-15 15:34:57" itemprop="dateModified" datetime="2022-11-15T15:34:57+08:00">2022-11-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -323,33 +323,8 @@ driver.quit();
 <pre><code>$ ./go //javascript/webdriver:webdriver
 </code></pre>
 <p>为了和可能不在同一个域下的 WebDriver 的服务端进行通信，客户端使用的是修改过的 <a target="_blank" rel="noopener" href="https://code.google.com/p/selenium/wiki/JsonWireProtocol">JsonWireProtocol</a> 和 <a target="_blank" rel="noopener" href="https://code.google.com/p/selenium/wiki/WebDriverJs#Cross-Origin_Resource_Sharing">cross-origin resource sharing</a>：</p>
-<pre><code>&lt;!DOCTYPE html&gt;
-&lt;script src=&quot;webdriver.js&quot;&gt;&lt;/script&gt;
-&lt;script&gt;
-  var client = new webdriver.http.CorsClient(&#39;http://localhost:4444/wd/hub&#39;);
-  var executor = new webdriver.http.Executor(client);
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;webdriver.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">var</span> client = <span class="keyword">new</span> webdriver.<span class="property">http</span>.<span class="title class_">CorsClient</span>(<span class="string">&#x27;http://localhost:4444/wd/hub&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">var</span> executor = <span class="keyword">new</span> webdriver.<span class="property">http</span>.<span class="title class_">Executor</span>(client);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="comment">// 启动一个新浏览器，这个浏览器可以被这段脚本控制</span></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">var</span> driver = webdriver.<span class="property">WebDriver</span>.<span class="title function_">createSession</span>(executor, &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="string">&#x27;browserName&#x27;</span>: <span class="string">&#x27;chrome&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">    <span class="string">&#x27;version&#x27;</span>: <span class="string">&#x27;&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">    <span class="string">&#x27;platform&#x27;</span>: <span class="string">&#x27;ANY&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">    <span class="string">&#x27;javascriptEnabled&#x27;</span>: <span class="literal">true</span></span></span><br><span class="line"><span class="language-javascript">  &#125;);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  driver.<span class="title function_">get</span>(<span class="string">&#x27;http://www.google.com&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">  driver.<span class="title function_">findElement</span>(webdriver.<span class="property">By</span>.<span class="title function_">name</span>(<span class="string">&#x27;q&#x27;</span>)).<span class="title function_">sendKeys</span>(<span class="string">&#x27;webdriver&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">  driver.<span class="title function_">findElement</span>(webdriver.<span class="property">By</span>.<span class="title function_">name</span>(<span class="string">&#x27;btnG&#x27;</span>)).<span class="title function_">click</span>();</span></span><br><span class="line"><span class="language-javascript">  driver.<span class="title function_">getTitle</span>().<span class="title function_">then</span>(<span class="keyword">function</span>(<span class="params">title</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">if</span> (title !== <span class="string">&#x27;webdriver - Google Search&#x27;</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>(</span></span><br><span class="line"><span class="language-javascript">          <span class="string">&#x27;Expected &quot;webdriver - Google Search&quot;, but was &quot;&#x27;</span> + title + <span class="string">&#x27;&quot;&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">  &#125;);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  driver.<span class="title function_">quit</span>();</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-  // 启动一个新浏览器，这个浏览器可以被这段脚本控制
-  var driver = webdriver.WebDriver.createSession(executor, &#123;
-    &#39;browserName&#39;: &#39;chrome&#39;,
-    &#39;version&#39;: &#39;&#39;,
-    &#39;platform&#39;: &#39;ANY&#39;,
-    &#39;javascriptEnabled&#39;: true
-  &#125;);
-
-  driver.get(&#39;http://www.google.com&#39;);
-  driver.findElement(webdriver.By.name(&#39;q&#39;)).sendKeys(&#39;webdriver&#39;);
-  driver.findElement(webdriver.By.name(&#39;btnG&#39;)).click();
-  driver.getTitle().then(function(title) &#123;
-    if (title !== &#39;webdriver - Google Search&#39;) &#123;
-      throw new Error(
-          &#39;Expected &quot;webdriver - Google Search&quot;, but was &quot;&#39; + title + &#39;&quot;&#39;);
-    &#125;
-  &#125;);
-
-  driver.quit();
-&lt;/script&gt;
-</code></pre>
 <h4 id="控制宿主浏览器"><a href="#控制宿主浏览器" class="headerlink" title="控制宿主浏览器"></a>控制宿主浏览器</h4><p>启动一个浏览器运行 WebDriver 来测试另一个浏览器看起来比较冗余（相比在 Node 中运行而言）。但是，使用 WebDriverJS 在浏览器中运行自动化测试是浏览器真实在跑这些脚本的。这只要服务端的 url 和浏览器的 session id 是已知的就可以实现。这些值可能会直接传递给 builder，它们也可以通过从页面 url 的查询字符串中解析出来的 wdurl 和 wdsid 定义 。</p>
 <pre><code>&lt;!-- Assuming HTML URL is /test.html?wdurl=http://localhost:4444/wd/hub&amp;wdsid=foo1234 --&gt;
 &lt;!DOCTYPE html&gt;
@@ -368,21 +343,11 @@ driver.quit();
 </code></pre>
 <h5 id="警告"><a href="#警告" class="headerlink" title="警告"></a>警告</h5><p>在浏览器中使用 WebDriverJS 有几个需要注意的地方。首先，webdriver.Builder 类只能用于已存在的 session。为了获得一个新的 session，你必须像上面的例子那样手工创建。其次，有一些命令可能会影响运行 WebDriverJS 脚本的页面。</p>
 <ul>
-<li><p>webdriver.WebDriver#quit: quit 命令将终止整个浏览器进程，包括在运行 WebDriverJS 的窗口。除非你确定要这样做，否则不要使用这个命令。</p>
-</li>
-<li><p>webdriver.WebDriver#get: WebDriver 的接口被设计为尽量接近用户的操作。这意味着无论 WebDriver 客户端当前聚焦在哪个帧，导航命令（如：driver.get(url)）总是指向最高层的帧。在操作宿主浏览器时，WebDriverJS 脚本可以通过使用 .get 命令导航离开当前页面，而当前页面仍然获得焦点。 如果要自动操作一个宿主浏览器但仍想在页面间跳转，请把WebDriver客户端的焦点设在另一个窗口上(这和Selenium RC 的多窗口模式的概念非常相似):</p>
-  <!DOCTYPE html>
-  <script src="webdriver.js"></script>
-  <script>
-    var testWindow = window.open('', 'slave');
-
-    var driver = new webdriver.Builder().build();
-    driver.switchTo().window('slave');
-    driver.get('http://www.google.com');
-    driver.findElement(webdriver.By.name('q')).sendKeys('webdriver');
-    driver.findElement(webdriver.By.name('btnG')).click();
-  </script></li>
+<li>webdriver.WebDriver#quit: quit 命令将终止整个浏览器进程，包括在运行 WebDriverJS 的窗口。除非你确定要这样做，否则不要使用这个命令。</li>
+<li>webdriver.WebDriver#get: WebDriver 的接口被设计为尽量接近用户的操作。这意味着无论 WebDriver 客户端当前聚焦在哪个帧，导航命令（如：driver.get(url)）总是指向最高层的帧。在操作宿主浏览器时，WebDriverJS 脚本可以通过使用 .get 命令导航离开当前页面，而当前页面仍然获得焦点。 如果要自动操作一个宿主浏览器但仍想在页面间跳转，请把WebDriver客户端的焦点设在另一个窗口上(这和Selenium RC 的多窗口模式的概念非常相似):</li>
 </ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;!<span class="variable constant_">DOCTYPE</span> html&gt;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;webdriver.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">  <span class="keyword">var</span> testWindow = <span class="variable language_">window</span>.<span class="title function_">open</span>(<span class="string">&#x27;&#x27;</span>, <span class="string">&#x27;slave&#x27;</span>);</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">  <span class="keyword">var</span> driver = <span class="keyword">new</span> webdriver.<span class="title class_">Builder</span>().<span class="title function_">build</span>();</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">  driver.<span class="title function_">switchTo</span>().<span class="title function_">window</span>(<span class="string">&#x27;slave&#x27;</span>);</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">  driver.<span class="title function_">get</span>(<span class="string">&#x27;http://www.google.com&#x27;</span>);</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">  driver.<span class="title function_">findElement</span>(webdriver.<span class="property">By</span>.<span class="title function_">name</span>(<span class="string">&#x27;q&#x27;</span>)).<span class="title function_">sendKeys</span>(<span class="string">&#x27;webdriver&#x27;</span>);</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">  driver.<span class="title function_">findElement</span>(webdriver.<span class="property">By</span>.<span class="title function_">name</span>(<span class="string">&#x27;btnG&#x27;</span>)).<span class="title function_">click</span>();</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
 <h4 id="调试-Tests"><a href="#调试-Tests" class="headerlink" title="调试 Tests"></a>调试 Tests</h4><p>你可以使用 WebDriver 的服务来调试在浏览器中使用  WebDriverJS 运行的测试。</p>
 <pre><code>$ ./go selenium-server-standalone
 $ java -jar \
@@ -398,91 +363,25 @@ $ java -jar \
 <li>Android 4.0+</li>
 </ul>
 <h2 id="设计细节"><a href="#设计细节" class="headerlink" title="设计细节"></a>设计细节</h2><h3 id="管理异步-API"><a href="#管理异步-API" class="headerlink" title="管理异步 API"></a>管理异步 API</h3><p>不同于其他那些提供了阻塞式 API 的语言绑定，WebDriverJS 完全是异步的。为了追踪每个命令的执行状态， WebDriverJS 对 “promise” 进行了扩展。promise 是一个这样的对象，它包含了在未来某一点可用的一个值。JavaScript 有几个 promise 的实现，WebDriverJS 的 promise 是基于 CommonJS 的 <a target="_blank" rel="noopener" href="http://www.google.com/url?q=http://wiki.commonjs.org/wiki/Promises/A&sa=D&sntz=1&usg=AFQjCNGC0NMXO-81exam-S5HjTuOxaV_mw">Promise&#x2F;A</a> 提议，它定义了 promise 是任意对象上的 then 函数属性。</p>
-<pre><code>/**
- * Registers listeners for when this instance is resolved.
- *
- * @param &#123;?function(*)&#125; callback The function to call if this promise is
- *     successfully resolved. The function should expect a single argument: the
- *     promise&#39;s resolved value.
- * @param &#123;?function(*)=&#125; opt_errback The function to call if this promise is
- *     rejected. The function should expect a single argument: the failure
- *     reason. While this argument is typically an &#123;@code Error&#125;, any type is
- *     permissible.
- * @return &#123;!Promise&#125; A new promise which will be resolved
- *     with the result of the invoked callback.
- */
-Promise.prototype.then = function(callback, opt_errback) &#123;
-&#125;;
-</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Registers listeners for when this instance is resolved.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">?function(*)</span>&#125; callback The function to call if this promise is</span></span><br><span class="line"><span class="comment"> *     successfully resolved. The function should expect a single argument: the</span></span><br><span class="line"><span class="comment"> *     promise&#x27;s resolved value.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">?function(*)=</span>&#125; opt_errback The function to call if this promise is</span></span><br><span class="line"><span class="comment"> *     rejected. The function should expect a single argument: the failure</span></span><br><span class="line"><span class="comment"> *     reason. While this argument is typically an &#123;<span class="doctag">@code</span> Error&#125;, any type is</span></span><br><span class="line"><span class="comment"> *     permissible.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> &#123;<span class="type">!Promise</span>&#125; A new promise which will be resolved</span></span><br><span class="line"><span class="comment"> *     with the result of the invoked callback.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="title class_">Promise</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">then</span> = <span class="keyword">function</span>(<span class="params">callback, opt_errback</span>) &#123;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
 <p>通过使用 promises，你可以将一连串的异步操作连接起来，确保每个操作执行时，它之前的操作都已经完成：</p>
-<pre><code>var driver = new webdriver.Builder().build();
-driver.get(&#39;http://www.google.com&#39;).then(function() &#123;
-  return driver.findElement(webdriver.By.name(&#39;q&#39;)).then(function(searchBox)&#123;
-    return searchBox.sendKeys(&#39;webdriver&#39;).then(function() &#123;
-      return driver.findElement(webdriver.By.name(&#39;btnG&#39;)).then(function(submitButton) &#123;
-        return submitButton.click().then(function() &#123;
-          return driver.getTitle().then(function(title) &#123;
-            assertEquals(&#39;webdriver - Google Search&#39;, title);
-          &#125;);
-        &#125;);
-      &#125;);
-    &#125;);
-  &#125;);
-&#125;);
-</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> driver = <span class="keyword">new</span> webdriver.<span class="title class_">Builder</span>().<span class="title function_">build</span>();</span><br><span class="line">driver.<span class="title function_">get</span>(<span class="string">&#x27;http://www.google.com&#x27;</span>).<span class="title function_">then</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> driver.<span class="title function_">findElement</span>(webdriver.<span class="property">By</span>.<span class="title function_">name</span>(<span class="string">&#x27;q&#x27;</span>)).<span class="title function_">then</span>(<span class="keyword">function</span>(<span class="params">searchBox</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> searchBox.<span class="title function_">sendKeys</span>(<span class="string">&#x27;webdriver&#x27;</span>).<span class="title function_">then</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> driver.<span class="title function_">findElement</span>(webdriver.<span class="property">By</span>.<span class="title function_">name</span>(<span class="string">&#x27;btnG&#x27;</span>)).<span class="title function_">then</span>(<span class="keyword">function</span>(<span class="params">submitButton</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> submitButton.<span class="title function_">click</span>().<span class="title function_">then</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">          <span class="keyword">return</span> driver.<span class="title function_">getTitle</span>().<span class="title function_">then</span>(<span class="keyword">function</span>(<span class="params">title</span>) &#123;</span><br><span class="line">            <span class="title function_">assertEquals</span>(<span class="string">&#x27;webdriver - Google Search&#x27;</span>, title);</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
 <p>不幸的是，上述范例非常冗长，难以辨别测试的意图。为了提供一套不降低测试可读性的干净利落的异步操作 API, WebDriverJS 引入了一个 promise “管理器” 来调度和执行所有的命令。</p>
 <p>简言之，promise 管理器处理用户自定义任务的调度和执行。管理器保存了一个任务调度的列表，当列表中的某个任务执行完毕后，依次执行下一个任务。如果一个任务返回了一个 promise，管理器将把它当做一个回调注册，在这个 promise 完成后恢复其运行。WebDriver 将自动使用管理器，所以用户不需要使用链式调用。因此，之前的 google 搜索的例子可以简化成：</p>
-<pre><code>var driver = new webdriver.Builder().build();
-driver.get(&#39;http://www.google.com&#39;);
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">var</span> <span class="variable">driver</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">webdriver</span>.Builder().build();</span><br><span class="line">driver.get(<span class="string">&#x27;http://www.google.com&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="type">var</span> <span class="variable">searchBox</span> <span class="operator">=</span> driver.findElement(webdriver.By.name(<span class="string">&#x27;q&#x27;</span>));</span><br><span class="line">searchBox.sendKeys(<span class="string">&#x27;webdriver&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="type">var</span> <span class="variable">submitButton</span> <span class="operator">=</span> driver.findElement(webdriver.By.name(<span class="string">&#x27;btnG&#x27;</span>));</span><br><span class="line">submitButton.click();</span><br><span class="line"></span><br><span class="line">driver.getTitle().then(function(title) &#123;</span><br><span class="line">  assertEquals(<span class="string">&#x27;webdriver - Google Search&#x27;</span>, title);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
-var searchBox = driver.findElement(webdriver.By.name(&#39;q&#39;));
-searchBox.sendKeys(&#39;webdriver&#39;);
-
-var submitButton = driver.findElement(webdriver.By.name(&#39;btnG&#39;));
-submitButton.click();
-
-driver.getTitle().then(function(title) &#123;
-  assertEquals(&#39;webdriver - Google Search&#39;, title);
-&#125;);
-</code></pre>
 <h4 id="On-Frames-and-Callbacks"><a href="#On-Frames-and-Callbacks" class="headerlink" title="On Frames and Callbacks"></a>On Frames and Callbacks</h4><p>就内部而言，promise 管理器保存了一个调用栈。在管理器执行循环的每一圈，它将从最顶层帧的队列中取一个任务来执行。任何被包含在之前命令的回调中的命令将被排列在一个新帧中，以确保它们能在所有早先排列的任务之前运行。这样做的结果是，如果你的测试是 written-in line，所有的回调都使用函数字面量定义，命令将按照它们在屏幕上出现的垂直顺序来执行。例如，考虑以下 WebDriverJS 测试用例：</p>
-<pre><code>driver.get(MY_APP_URL);
-driver.getTitle().then(function(title) &#123;
-  if (title === &#39;Login page&#39;) &#123;
-    driver.findElement(webdriver.By.id(&#39;user&#39;)).sendKeys(&#39;bugs&#39;);
-    driver.findElement(webdriver.By.id(&#39;pw&#39;)).sendKeys(&#39;bunny&#39;);
-    driver.findElement(webdriver.By.id(&#39;login&#39;)).click();
-  &#125;
-&#125;);
-driver.findElement(webdriver.By.id(&#39;userPreferences&#39;)).click();
-</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">driver.get(MY_APP_URL);</span><br><span class="line">driver.getTitle().then(function(title) &#123;</span><br><span class="line">  <span class="keyword">if</span> (title === <span class="string">&#x27;Login page&#x27;</span>) &#123;</span><br><span class="line">    driver.findElement(webdriver.By.id(<span class="string">&#x27;user&#x27;</span>)).sendKeys(<span class="string">&#x27;bugs&#x27;</span>);</span><br><span class="line">    driver.findElement(webdriver.By.id(<span class="string">&#x27;pw&#x27;</span>)).sendKeys(<span class="string">&#x27;bunny&#x27;</span>);</span><br><span class="line">    driver.findElement(webdriver.By.id(<span class="string">&#x27;login&#x27;</span>)).click();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line">driver.findElement(webdriver.By.id(<span class="string">&#x27;userPreferences&#x27;</span>)).click();</span><br></pre></td></tr></table></figure>
+
 <p>这个测试用例可以使用 WebDriver 的 Java API 重写如下：</p>
-<pre><code>driver.get(MY_APP_URL);
-if (&quot;Login Page&quot;.equals(driver.getTitle())) &#123;
-  driver.findElement(By.id(&quot;user&quot;)).sendKeys(&quot;bugs&quot;);
-  driver.findElement(By.id(&quot;pw&quot;)).sendKeys(&quot;bunny&quot;);
-  driver.findElement(By.id(&quot;login&quot;)).click();
-&#125;
-driver.findElement(By.id(&quot;userPreferences&quot;)).click();
-</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">driver.get(MY_APP_URL);</span><br><span class="line"><span class="keyword">if</span> (<span class="string">&quot;Login Page&quot;</span>.equals(driver.getTitle())) &#123;</span><br><span class="line">  driver.findElement(By.id(<span class="string">&quot;user&quot;</span>)).sendKeys(<span class="string">&quot;bugs&quot;</span>);</span><br><span class="line">  driver.findElement(By.id(<span class="string">&quot;pw&quot;</span>)).sendKeys(<span class="string">&quot;bunny&quot;</span>);</span><br><span class="line">  driver.findElement(By.id(<span class="string">&quot;login&quot;</span>)).click();</span><br><span class="line">&#125;</span><br><span class="line">driver.findElement(By.id(<span class="string">&quot;userPreferences&quot;</span>)).click();</span><br></pre></td></tr></table></figure>
+
 <h4 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h4><p>既然所有 WebDriverJS 的操作都是异步执行的，我们就不能使用 try-catch 语句。取而代之的是，你必须为所有命令的 promise 返回注册一个错误处理的函数。这个错误处理函数可以抛出一个错误，在这种情况下，它将被传递给链中的下一个错误处理，或者他将返回一个不同的值来抑制这个错误并切换回回调处理链。</p>
 <p>如果错误处理器没有正确的处理被拒绝的 promise（不只是哪些来自于 WebDriver 命令的），则这个错误会传播至错误处理链的父级帧。如果一个错误没有被抑制而传播到了顶层帧，promise 管理器要么触发一个 uncaughtException 事件（如果有注册监听的话），或者将错误抛给全局错误处理器。在这两种情况下，promise 管理器都将抛弃所有队列中后续的命令。</p>
-<pre><code>// 注册一个事件监听未处理的错误
-webdriver.promise.Application.
-    getInstance().
-    on(&#39;uncaughtException&#39;, function(e) &#123;
-      console.error(&#39;There was an uncaught exception: &#39; + e.message);
-    &#125;);
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 注册一个事件监听未处理的错误</span></span><br><span class="line">webdriver.promise.Application.</span><br><span class="line">    getInstance().</span><br><span class="line">    on(<span class="string">&#x27;uncaughtException&#x27;</span>, function(e) &#123;</span><br><span class="line">      console.error(<span class="string">&#x27;There was an uncaught exception: &#x27;</span> + e.message);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">driver.switchTo().window(<span class="string">&#x27;foo&#x27;</span>).then(<span class="literal">null</span>, function(e) &#123;</span><br><span class="line">  <span class="comment">// 忽略 NoSuchWindow 错误，让其他类型的错误继续向上冒泡</span></span><br><span class="line">  <span class="keyword">if</span> (e.code !== bot.ErrorCode.NO_SUCH_WINDOW) &#123;</span><br><span class="line">    <span class="keyword">throw</span> e;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 如果上面的错误不被抑制的话，这句将永远不会执行</span></span><br><span class="line">driver.getTitle();</span><br></pre></td></tr></table></figure>
 
-driver.switchTo().window(&#39;foo&#39;).then(null, function(e) &#123;
-  // 忽略 NoSuchWindow 错误，让其他类型的错误继续向上冒泡
-  if (e.code !== bot.ErrorCode.NO_SUCH_WINDOW) &#123;
-    throw e;
-  &#125;
-&#125;);
-// 如果上面的错误不被抑制的话，这句将永远不会执行
-driver.getTitle();
-</code></pre>
 <h3 id="同服务端通讯"><a href="#同服务端通讯" class="headerlink" title="同服务端通讯"></a>同服务端通讯</h3><p>当在服务端环境中运行时，客户端不受安全沙箱的约束，可以简单的发送 http 请求（例如：node 的 http.ClientRequest）。当在浏览器端运行时，WebDriverJS 客户端就会收到同源策略的约束。为了和可能不在同一个域下的服务端通讯，WebDriverJS 客户端使用的是修改过的 JsonWireProtocol 和 cross-origin resource sharing。</p>
 <h4 id="Cross-Origin-Resource-Sharing"><a href="#Cross-Origin-Resource-Sharing" class="headerlink" title="Cross-Origin Resource Sharing"></a>Cross-Origin Resource Sharing</h4><p>如果一个浏览器支持 cross-origin resource sharing (CORS), WebDriverJS 将使用 cross-origin XMLHttpRequests (XDR) 发送命令给服务端。服务端要想支持 XDR，就需要响应 preflight 请求，并带有合适的 access-control 头。</p>
 <pre><code>Access-Control-Origin: *
@@ -529,7 +428,7 @@ Content-Length: 60
 
 &#123;&quot;status&quot;:7,&quot;value&quot;:&#123;&quot;message&quot;:&quot;Unable to locate element.&quot;&#125;&#125;
 </code></pre>
-<h2 id="未来计划"><a href="#未来计划" class="headerlink" title="未来计划"></a>未来计划</h2><p>以下是一些预期要做的事情。但什么时候完成，在现在仍然未知。如果你有兴趣参与开发，请加入 <a href="mailto:&#x73;&#101;&#108;&#101;&#x6e;&#105;&#x75;&#x6d;&#x2d;&#x64;&#101;&#118;&#101;&#108;&#111;&#x70;&#101;&#114;&#115;&#64;&#103;&#111;&#x6f;&#103;&#x6c;&#101;&#103;&#114;&#x6f;&#x75;&#112;&#115;&#x2e;&#x63;&#111;&#109;">&#x73;&#101;&#108;&#101;&#x6e;&#105;&#x75;&#x6d;&#x2d;&#x64;&#101;&#118;&#101;&#108;&#111;&#x70;&#101;&#114;&#115;&#64;&#103;&#111;&#x6f;&#103;&#x6c;&#101;&#103;&#114;&#x6f;&#x75;&#112;&#115;&#x2e;&#x63;&#111;&#109;</a>。当然，这是一个开源软件，你完全不需要等待我们。如果你有好主意，就马上开工吧：）</p>
+<h2 id="未来计划"><a href="#未来计划" class="headerlink" title="未来计划"></a>未来计划</h2><p>以下是一些预期要做的事情。但什么时候完成，在现在仍然未知。如果你有兴趣参与开发，请加入 <a href="mailto:&#x73;&#101;&#108;&#101;&#110;&#x69;&#117;&#109;&#45;&#x64;&#x65;&#118;&#x65;&#x6c;&#x6f;&#112;&#101;&#x72;&#x73;&#64;&#103;&#x6f;&#x6f;&#x67;&#108;&#x65;&#x67;&#x72;&#111;&#x75;&#x70;&#x73;&#x2e;&#x63;&#111;&#109;">&#x73;&#101;&#108;&#101;&#110;&#x69;&#117;&#109;&#45;&#x64;&#x65;&#118;&#x65;&#x6c;&#x6f;&#112;&#101;&#x72;&#x73;&#64;&#103;&#x6f;&#x6f;&#x67;&#108;&#x65;&#x67;&#x72;&#111;&#x75;&#x70;&#x73;&#x2e;&#x63;&#111;&#109;</a>。当然，这是一个开源软件，你完全不需要等待我们。如果你有好主意，就马上开工吧：）</p>
 <ul>
 <li>使用 AutomationAtoms 实现一个纯 JavaScript 的命令执行器。这将允许开发者使用 js 编写非常轻量的测试代码，并且可以运行在任何服浏览器中（当然，仍然会收到同源策略的限制）。</li>
 <li>基于扩展实现一个 SafariDriver。</li>

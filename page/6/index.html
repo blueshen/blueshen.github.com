@@ -438,7 +438,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2019-12-17 19:41:25" itemprop="dateModified" datetime="2019-12-17T19:41:25+08:00">2019-12-17</time>
+      <time title="Modified: 2022-11-15 15:46:45" itemprop="dateModified" datetime="2022-11-15T15:46:45+08:00">2022-11-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -631,7 +631,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2019-12-17 19:41:25" itemprop="dateModified" datetime="2019-12-17T19:41:25+08:00">2019-12-17</time>
+      <time title="Modified: 2022-11-15 15:25:13" itemprop="dateModified" datetime="2022-11-15T15:25:13+08:00">2022-11-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -656,15 +656,10 @@
           <p>除非你的项目是Apache或者Codehaus管理的，否则你是不可能直接把artifacts发布到Maven Central的。然而，Sonatype提供了它们的Nexus repositories,我们可以将开源项目提交上去，然后会自动同步到Maven Central。</p>
 <p>下面介绍下如何做：</p>
 <h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>1.添加source code management信息到pom.xml:</p>
-<pre><code>&lt;scm&gt;
-    &lt;connection&gt;scm:git:git@github.com:blueshen/ut-maven-plugin.git&lt;/connection&gt;
-    &lt;developerConnection&gt;scm:git:git@github.com:blueshen/ut-maven-plugin.git&lt;/developerConnection&gt;
-    &lt;url&gt;git@github.com:blueshen/ut-maven-plugin.git&lt;/url&gt;
-&lt;/scm&gt;
-</code></pre>
-<p>2.创建GPG的密钥对并发布公钥。参看<a target="_blank" rel="noopener" href="https://docs.sonatype.org/display/Repository/How+To+Generate+PGP+Signatures+With+Maven">Sonatype documentation</a>的具体步骤.推荐使用Linux,Mac来发布。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">scm</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">connection</span>&gt;</span>scm:git:git@github.com:blueshen/ut-maven-plugin.git<span class="tag">&lt;/<span class="name">connection</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">developerConnection</span>&gt;</span>scm:git:git@github.com:blueshen/ut-maven-plugin.git<span class="tag">&lt;/<span class="name">developerConnection</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url</span>&gt;</span>git@github.com:blueshen/ut-maven-plugin.git<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">scm</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>2.创建GPG的密钥对并发布公钥。参看<a target="_blank" rel="noopener" href="https://docs.sonatype.org/display/Repository/How+To+Generate+PGP+Signatures+With+Maven">Sonatype documentation</a>的具体步骤。推荐使用Linux,Mac来发布。</p>
 <blockquote>
-<p><code>gpg --gen-key</code> 创建key<br><code>gpg --list-keys</code> 查看所有的key<br><code>gpg --send-keys --keyserver pool.sks-keyservers.net yourkey</code>   发布你的key到服务器上</p>
+<p><code>gpg --gen-key</code> 创建key<br><code>gpg --list-keys</code> 查看所有的key<br><code>gpg --send-keys --keyserver pool.sks-keyservers.net yourkey</code>   发布你的key到常见服务器上，如果出现找不到key的话，多发几个服务器</p>
 </blockquote>
 <p>3.确保你的工程POM符合<a target="_blank" rel="noopener" href="https://docs.sonatype.org/display/Repository/Central+Sync+Requirements">要求</a><br>4.创建一个<a target="_blank" rel="noopener" href="https://issues.sonatype.org/">Sonatype JIRA</a>账户，并发布一个ticket来让Nexus repository建立。用户名，密码后面要用的。这中间牵涉到人工操作，会花费一些时间。</p>
           <!--noindex-->
@@ -1120,7 +1115,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2019-12-17 19:41:25" itemprop="dateModified" datetime="2019-12-17T19:41:25+08:00">2019-12-17</time>
+      <time title="Modified: 2022-11-15 15:38:11" itemprop="dateModified" datetime="2022-11-15T15:38:11+08:00">2022-11-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">

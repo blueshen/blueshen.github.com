@@ -30,7 +30,7 @@
 <meta property="og:locale">
 <meta property="og:image" content="https://www.shenyanchao.cn/images/blog/singleton.jpg">
 <meta property="article:published_time" content="2012-11-02T10:47:00.000Z">
-<meta property="article:modified_time" content="2019-12-17T11:41:25.754Z">
+<meta property="article:modified_time" content="2022-11-15T07:37:19.460Z">
 <meta property="article:author" content="申艳超">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="singleton">
@@ -244,7 +244,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2019-12-17 19:41:25" itemprop="dateModified" datetime="2019-12-17T19:41:25+08:00">2019-12-17</time>
+      <time title="Modified: 2022-11-15 15:37:19" itemprop="dateModified" datetime="2022-11-15T15:37:19+08:00">2022-11-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -285,492 +285,103 @@
 <p>尽管单例设计模式如在下面的图中的所显示的一样是最简单的设计模式，但对于粗心的Java开发者来说却呈现出许多缺陷。这篇文章讨论了单例模式并揭示了那些缺陷。</p>
 <h3 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h3><p>在《设计模式》一书中，作者这样来叙述单例模式的：确保一个类只有一个实例并提供一个对它的全局访问指针。<br>下图说明了单例模式的类图。<br><img src="/images/blog/singleton.jpg"></p>
 <p>正如你在上图中所看到的，这不是单例模式的完整部分。此图中单例类保持了一个对唯一的单例实例的静态引用，并且会从静态getInstance()方法中返回对那个实例的引用。<br>例1显示了一个经典的单例模式的实现。<br>例1.经典的单例模式</p>
-<pre><code>public class ClassicSingleton &#123;
-       private static ClassicSingleton instance = null;
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ClassicSingleton</span> &#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="type">ClassicSingleton</span> <span class="variable">instance</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">protected</span> <span class="title function_">ClassicSingleton</span><span class="params">()</span> &#123;</span><br><span class="line">  		<span class="comment">// Exists only to defeat instantiation.</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> ClassicSingleton <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">  		<span class="keyword">if</span>(instance == <span class="literal">null</span>) &#123;</span><br><span class="line">     		instance = <span class="keyword">new</span> <span class="title class_">ClassicSingleton</span>();</span><br><span class="line">  		&#125;</span><br><span class="line">  		<span class="keyword">return</span> instance;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-       protected ClassicSingleton() &#123;
-          // Exists only to defeat instantiation.
-       &#125;
-       public static ClassicSingleton getInstance() &#123;
-          if(instance == null) &#123;
-             instance = new ClassicSingleton();
-          &#125;
-          return instance;
-       &#125;
-&#125;
-</code></pre>
 <p>在例1中的单例模式的实现很容易理解。ClassicSingleton类保持了一个对单独的单例实例的静态引用，并且从静态方法getInstance()中返回那个引用。<br>关于ClassicSingleton类，有几个让我们感兴趣的地方。<br>首先，ClassicSingleton使用了一个众所周知的懒汉式实例化去创建那个单例类的引用;结果，这个单例类的实例直到getInstance()方法被第一次调用时才被创建。这种技巧可以确保单例类的实例只有在需要时才被建立出来。其次，注意ClassicSingleton实现了一个protected的构造方法，这样客户端不能直接实例化一个ClassicSingleton类的实例。然而，你会惊奇的发现下面的代码完全合法：</p>
-<pre><code>public class SingletonInstantiator &#123;
-      public SingletonInstantiator() &#123;
-           ClassicSingleton instance = ClassicSingleton.getInstance();
-        ClassicSingleton anotherInstance =  new ClassicSingleton();
-           ...
-          &#125;
-&#125;
-</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SingletonInstantiator</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">SingletonInstantiator</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="type">ClassicSingleton</span> <span class="variable">instance</span> <span class="operator">=</span> ClassicSingleton.getInstance();</span><br><span class="line">		<span class="type">ClassicSingleton</span> <span class="variable">anotherInstance</span> <span class="operator">=</span>  <span class="keyword">new</span> <span class="title class_">ClassicSingleton</span>();</span><br><span class="line">   		...</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>前面这个代码片段为何能在没有继承ClassicSingleton并且ClassicSingleton类的构造方法是protected的情况下创建其实例？<br>答案是protected的构造方法可以被其子类以及在同一个包中的其它类调用。因为ClassicSingleton和SingletonInstantiator位于相同的包（缺省的包），所以SingletonInstantiator方法能创建ClasicSingleton的实例。<br>这种情况下有两种解决方案：一是你可以使ClassicSingleton的构造方法变化私有的（private）这样只有ClassicSingleton的方法能调用它;然而这也意味着ClassicSingleton不能有子类。有时这是一种很合意的解决方法，如果确实如此，那声明你的单例类为final是一个好主意，这样意图明确，并且让编译器去使用一些性能优化选项。另一种解决方法是把你的单例类放到一个外在的包中，以便在其它包中的类（包括缺省的包）无法实例化一个单例类。</p>
 <p>关于ClassicSingleton的第三点感兴趣的地方是，如果单例由不同的类装载器装入，那便有可能存在多个单例类的实例。假定不是远端存取，例如一些servlet容器对每个servlet使用完全不同的类装载器，这样的话如果有两个servlet访问一个单例类，它们就都会有各自的实例。<br>第四点，如果ClasicSingleton实现了java.io.Serializable接口，那么这个类的实例就可能被序列化和复原。不管怎样，如果你序列化一个单例类的对象，接下来复原多个那个对象，那你就会有多个单例类的实例。<br>最后也许是最重要的一点，就是例1中的ClassicSingleton类不是线程安全的。如果两个线程，我们称它们为线程1和线程2，在同一时间调用ClassicSingleton.getInstance()方法，如果线程1先进入if块，然后线程2进行控制，那么就会有ClassicSingleton的两个的实例被创建。</p>
 <p>正如你从前面的讨论中所看到的，尽管单例模式是最简单的设计模式之一，在Java中实现它也是决非想象的那么简单。这篇文章接下来会揭示Java规范对单例模式进行的考虑，但是首先让我们近水楼台的看看你如何才能测试你的单例类。</p>
 <p><strong>测试单例模式</strong></p>
 <p>接下来，我使用与log4j相对应的JUnit来测试单例类，它会贯穿在这篇文章余下的部分。如果你对JUnit或log4j不很熟悉，请参考相关资源。</p>
 <p>例2是一个用JUnit测试例1的单例模式的案例：<br>例2.一个单例模式的案例</p>
-<pre><code>import org.apache.log4j.Logger;
-import junit.framework.Assert;
-import junit.framework.TestCase;
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.log4j.Logger;</span><br><span class="line"><span class="keyword">import</span> junit.framework.Assert;</span><br><span class="line"><span class="keyword">import</span> junit.framework.TestCase;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SingletonTest</span> <span class="keyword">extends</span> <span class="title class_">TestCase</span> &#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="type">ClassicSingleton</span> <span class="variable">sone</span> <span class="operator">=</span> <span class="literal">null</span>, stwo = <span class="literal">null</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="type">Logger</span> <span class="variable">logger</span> <span class="operator">=</span> Logger.getRootLogger();</span><br><span class="line"></span><br><span class="line">	 <span class="keyword">public</span> <span class="title function_">SingletonTest</span><span class="params">(String name)</span> &#123;</span><br><span class="line">  		<span class="built_in">super</span>(name);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setUp</span><span class="params">()</span> &#123;</span><br><span class="line">  		logger.info(<span class="string">&quot;getting singleton...&quot;</span>);</span><br><span class="line">  		sone = ClassicSingleton.getInstance();</span><br><span class="line">  		logger.info(<span class="string">&quot;...got singleton: &quot;</span> + sone);</span><br><span class="line"></span><br><span class="line">  		logger.info(<span class="string">&quot;getting singleton...&quot;</span>);</span><br><span class="line">  		stwo = ClassicSingleton.getInstance();</span><br><span class="line">  		logger.info(<span class="string">&quot;...got singleton: &quot;</span> + stwo);</span><br><span class="line">	 &#125;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testUnique</span><span class="params">()</span> &#123;</span><br><span class="line">  		logger.info(<span class="string">&quot;checking singletons for equality&quot;</span>);</span><br><span class="line"> 		 Assert.assertEquals(<span class="literal">true</span>, sone == stwo);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-public class SingletonTest extends TestCase &#123;
-       private ClassicSingleton sone = null, stwo = null;
-       private static Logger logger = Logger.getRootLogger();
 
-       public SingletonTest(String name) &#123;
-          super(name);
-       &#125;
-       public void setUp() &#123;
-          logger.info(&quot;getting singleton...&quot;);
-          sone = ClassicSingleton.getInstance();
-          logger.info(&quot;...got singleton: &quot; + sone);
-
-          logger.info(&quot;getting singleton...&quot;);
-          stwo = ClassicSingleton.getInstance();
-          logger.info(&quot;...got singleton: &quot; + stwo);
-       &#125;
-       public void testUnique() &#123;
-          logger.info(&quot;checking singletons for equality&quot;);
-          Assert.assertEquals(true, sone == stwo);
-       &#125;
-&#125;
-</code></pre>
 <p>例2两次调用ClassicSingleton.getInstance()，并且把返回的引用存储在成员变量中。方法testUnique()会检查这些引用看它们是否相同。例3是这个测试案例的输出：<br>例3.是这个测试案例的输出<br>Buildfile: build.xml</p>
 <p>init:<br>     [echo] Build 20030414 (14-04-2003 03:08)</p>
 <p>compile:</p>
-<p>run-test-text:<br>     [java] .INFO main: [b]getting singleton…[&#x2F;b]<br>     [java] INFO main: [b]created singleton:[&#x2F;b] Singleton@e86f41<br>     [java] INFO main: …got singleton: Singleton@e86f41<br>     [java] INFO main: [b]getting singleton…[&#x2F;b]<br>     [java] INFO main: …got singleton: Singleton@e86f41<br>     [java] INFO main: checking singletons for equality</p>
-<pre><code> [java] Time: 0.032
-
- [java] OK (1 test)
-</code></pre>
+<p>run-test-text:<br>     [java] .INFO main: [b]getting singleton…[&#x2F;b]<br>     [java] INFO main: [b]created singleton:[&#x2F;b] Singleton@e86f41<br>     [java] INFO main: …got singleton: Singleton@e86f41<br>     [java] INFO main: [b]getting singleton…[&#x2F;b]<br>     [java] INFO main: …got singleton: Singleton@e86f41<br>     [java] INFO main: checking singletons for equality<br>     [java] Time: 0.032<br>     [java] OK (1 test)</p>
 <p>正如前面的清单所示，例2的简单测试顺利通过—-通过ClassicSingleton.getInstance()获得的两个单例类的引用确实相同;然而，你要知道这些引用是在单线程中得到的。下面的部分着重于用多线程测试单例类。</p>
 <p>多线程因素的考虑</p>
 <p>在例1中的ClassicSingleton.getInstance()方法由于下面的代码而不是线程安全的：</p>
-<pre><code>if(instance == null) &#123;
-       instance = new Singleton();
- &#125;
-</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(instance == <span class="literal">null</span>) &#123;</span><br><span class="line">	instance = <span class="keyword">new</span> <span class="title class_">Singleton</span>();</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
 <p>如果一个线程在第二行的赋值语句发生之前切换，那么成员变量instance仍然是null，然后另一个线程可能接下来进入到if块中。在这种情况下，两个不同的单例类实例就被创建。不幸的是这种假定很少发生，这样这种假定也很难在测试期间出现（译注：在这可能是作者对很少出现这种情况而导致无法测试从而使人们放松警惕而感到叹惜）。为了演示这个线程轮换，我得重新实现例1中的那个类。例4就是修订后的单例类：<br>例4.人为安排的方式</p>
-<pre><code>import org.apache.log4j.Logger;
-public class Singleton &#123;
-    private static Singleton singleton = null;
-    private static Logger logger = Logger.getRootLogger();
-    private static boolean firstThread = true;
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.log4j.Logger;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton</span> &#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="type">Singleton</span> <span class="variable">singleton</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="type">Logger</span> <span class="variable">logger</span> <span class="operator">=</span> Logger.getRootLogger();</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="variable">firstThread</span> <span class="operator">=</span> <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">protected</span> <span class="title function_">Singleton</span><span class="params">()</span> &#123;</span><br><span class="line">	 <span class="comment">// Exists only to defeat instantiation.</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="keyword">if</span>(singleton == <span class="literal">null</span>) &#123;</span><br><span class="line">    		simulateRandomActivity();</span><br><span class="line">    		singleton = <span class="keyword">new</span> <span class="title class_">Singleton</span>();</span><br><span class="line"> 	&#125;</span><br><span class="line"> 	logger.info(<span class="string">&quot;created singleton: &quot;</span> + singleton);</span><br><span class="line"> 	<span class="keyword">return</span> singleton;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">simulateRandomActivity</span><span class="params">()</span> &#123;</span><br><span class="line"> 	<span class="keyword">try</span> &#123;</span><br><span class="line">    	<span class="keyword">if</span>(firstThread) &#123;</span><br><span class="line">       		firstThread = <span class="literal">false</span>;</span><br><span class="line">      		logger.info(<span class="string">&quot;sleeping...&quot;</span>);</span><br><span class="line"></span><br><span class="line">       		<span class="comment">// This nap should give the second thread enough time</span></span><br><span class="line">       		<span class="comment">// to get by the first thread.</span></span><br><span class="line">         	Thread.currentThread().sleep(<span class="number">50</span>);</span><br><span class="line">   		&#125;</span><br><span class="line"> 		&#125;</span><br><span class="line"> 		<span class="keyword">catch</span>(InterruptedException ex) &#123;</span><br><span class="line">    		logger.warn(<span class="string">&quot;Sleep interrupted&quot;</span>);</span><br><span class="line"> 		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-      protected Singleton() &#123;
-        // Exists only to defeat instantiation.
-    &#125;
-    public static Singleton getInstance() &#123;
-        if(singleton == null) &#123;
-            simulateRandomActivity();
-            singleton = new Singleton();
-     &#125;
-     logger.info(&quot;created singleton: &quot; + singleton);
-     return singleton;
-  &#125;
-private static void simulateRandomActivity() &#123;
-     try &#123;
-        if(firstThread) &#123;
-               firstThread = false;
-              logger.info(&quot;sleeping...&quot;);
-
-               // This nap should give the second thread enough time
-               // to get by the first thread.
-             Thread.currentThread().sleep(50);
-           &#125;
-         &#125;
-         catch(InterruptedException ex) &#123;
-            logger.warn(&quot;Sleep interrupted&quot;);
-         &#125;
-      &#125;
-&#125;
-</code></pre>
 <p>除了在这个清单中的单例类强制使用了一个多线程错误处理，例4类似于例1中的单例类。在getInstance()方法第一次被调用时，调用这个方法的线程会休眠50毫秒以便另外的线程也有时间调用getInstance()并创建一个新的单例类实例。当休眠的线程觉醒时，它也会创建一个新的单例类实例，这样我们就有两个单例类实例。尽管例4是人为如此的，但它却模拟了第一个线程调用了getInstance()并在没有完成时被切换的真实情形。<br>例5测试了例4的单例类：<br>例5.失败的测试</p>
-<pre><code>import org.apache.log4j.Logger;
-import junit.framework.Assert;
-import junit.framework.TestCase;
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.log4j.Logger;</span><br><span class="line"><span class="keyword">import</span> junit.framework.Assert;</span><br><span class="line"><span class="keyword">import</span> junit.framework.TestCase;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SingletonTest</span> <span class="keyword">extends</span> <span class="title class_">TestCase</span> &#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="type">Logger</span> <span class="variable">logger</span> <span class="operator">=</span> Logger.getRootLogger();</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="type">Singleton</span> <span class="variable">singleton</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">SingletonTest</span><span class="params">(String name)</span> &#123;</span><br><span class="line">  	<span class="built_in">super</span>(name);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setUp</span><span class="params">()</span> &#123;</span><br><span class="line">  	singleton = <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testUnique</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">  <span class="comment">// Both threads call Singleton.getInstance().</span></span><br><span class="line">  <span class="type">Thread</span> <span class="variable">threadOne</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">SingletonTestRunnable</span>()),</span><br><span class="line">         threadTwo = <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">SingletonTestRunnable</span>());</span><br><span class="line"></span><br><span class="line">  threadOne.start();</span><br><span class="line">  threadTwo.start();</span><br><span class="line"></span><br><span class="line">  threadOne.join();</span><br><span class="line">  threadTwo.join();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">SingletonTestRunnable</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">     <span class="comment">// Get a reference to the singleton.</span></span><br><span class="line">     <span class="type">Singleton</span> <span class="variable">s</span> <span class="operator">=</span> Singleton.getInstance();</span><br><span class="line"></span><br><span class="line">     <span class="comment">// Protect singleton member variable from</span></span><br><span class="line">     <span class="comment">// multithreaded access.</span></span><br><span class="line">     <span class="keyword">synchronized</span>(SingletonTest.class) &#123;</span><br><span class="line">        <span class="keyword">if</span>(singleton == <span class="literal">null</span>) <span class="comment">// If local reference is null...</span></span><br><span class="line">           singleton = s;     <span class="comment">// ...set it to the singleton</span></span><br><span class="line">     	&#125;</span><br><span class="line">     <span class="comment">// Local reference must be equal to the one and</span></span><br><span class="line">     <span class="comment">// only instance of Singleton; otherwise, we have two</span></span><br><span class="line">              <span class="comment">// Singleton instances.</span></span><br><span class="line">     Assert.assertEquals(<span class="literal">true</span>, s == singleton);</span><br><span class="line">  	&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-public class SingletonTest extends TestCase &#123;
-       private static Logger logger = Logger.getRootLogger();
-       private static Singleton singleton = null;
 
-   public SingletonTest(String name) &#123;
-      super(name);
-   &#125;
-   public void setUp() &#123;
-      singleton = null;
-   &#125;
-  public void testUnique() throws InterruptedException &#123;
-  // Both threads call Singleton.getInstance().
-  Thread threadOne = new Thread(new SingletonTestRunnable()),
-         threadTwo = new Thread(new SingletonTestRunnable());
-
-  threadOne.start();
-  threadTwo.start();
-
-  threadOne.join();
-  threadTwo.join();
-   &#125;
-   private static class SingletonTestRunnable implements Runnable &#123;
-  public void run() &#123;
-     // Get a reference to the singleton.
-     Singleton s = Singleton.getInstance();
-
-     // Protect singleton member variable from
-     // multithreaded access.
-     synchronized(SingletonTest.class) &#123;
-        if(singleton == null) // If local reference is null...
-           singleton = s;     // ...set it to the singleton
-         &#125;
-     // Local reference must be equal to the one and
-     // only instance of Singleton; otherwise, we have two
-              // Singleton instances.
-     Assert.assertEquals(true, s == singleton);
-      &#125;
-       &#125;
-&#125;
-</code></pre>
 <p>例5的测试案例创建两个线程，然后各自启动，等待完成。这个案例保持了一个对单例类的静态引用，每个线程都会调用Singleton.getInstance()。如果这个静态成员变量没有被设置，那么第一个线程就会将它设为通过调用getInstance()而得到的引用，然后这个静态变量会与一个局部变量比较是否相等。<br>在这个测试案例运行时会发生一系列的事情：第一个线程调用getInstance()，进入if块，然后休眠;接着，第二个线程也调用getInstance()并且创建了一个单例类的实例。第二个线程会设置这个静态成员变量为它所创建的引用。第二个线程检查这个静态成员变量与一个局部备份的相等性。然后测试通过。当第一个线程觉醒时，它也会创建一个单例类的实例，并且它不会设置那个静态成员变量（因为第二个线程已经设置过了），所以那个静态变量与那个局部变量脱离同步，相等性测试即告失败。例6列出了例5的输出：<br>例6.例5的输出</p>
-<pre><code>Buildfile: build.xml
-init:
- 	[echo] Build 20030414 (14-04-2003 03:06)
-compile:
-run-test-text:
-INFO Thread-1: sleeping...
-INFO Thread-2: created singleton: Singleton@7e5cbd
-INFO Thread-1: created singleton: Singleton@704ebb
-junit.framework.AssertionFailedError: expected: but was:
-       at junit.framework.Assert.fail(Assert.java:47)
-       at junit.framework.Assert.failNotEquals(Assert.java:282)
-       at junit.framework.Assert.assertEquals(Assert.java:64)
-       at junit.framework.Assert.assertEquals(Assert.java:149)
-       at junit.framework.Assert.assertEquals(Assert.java:155)
-       at SingletonTest$SingletonTestRunnable.run(Unknown Source)
-       at java.lang.Thread.run(Thread.java:554)
-     [java] .
-     [java] Time: 0.577
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Buildfile: build.xml</span><br><span class="line">init:</span><br><span class="line"> 	[echo] Build 20030414 (14-04-2003 03:06)</span><br><span class="line">compile:</span><br><span class="line">run-test-text:</span><br><span class="line">INFO Thread-1: sleeping...</span><br><span class="line">INFO Thread-2: created singleton: Singleton@7e5cbd</span><br><span class="line">INFO Thread-1: created singleton: Singleton@704ebb</span><br><span class="line">junit.framework.AssertionFailedError: expected: but was:</span><br><span class="line">	at junit.framework.Assert.fail(Assert.java:47)</span><br><span class="line">	at junit.framework.Assert.failNotEquals(Assert.java:282)</span><br><span class="line">	at junit.framework.Assert.assertEquals(Assert.java:64)</span><br><span class="line">	at junit.framework.Assert.assertEquals(Assert.java:149)</span><br><span class="line">	at junit.framework.Assert.assertEquals(Assert.java:155)</span><br><span class="line">	at SingletonTest$SingletonTestRunnable.run(Unknown Source)</span><br><span class="line">	at java.lang.Thread.run(Thread.java:554)</span><br><span class="line"> 	[java] .</span><br><span class="line"> 	[java] Time: 0.577</span><br><span class="line"></span><br><span class="line"> 	[java] OK (1 test)</span><br></pre></td></tr></table></figure>
 
-     [java] OK (1 test)
-</code></pre>
+
 <p>到现在为止我们已经知道例4不是线程安全的，那就让我们看看如何修正它。</p>
 <p><strong>同步</strong></p>
 <p>要使例4的单例类为线程安全的很容易—-只要像下面一个同步化getInstance()方法：</p>
-<pre><code>public synchronized static Singleton getInstance() &#123;
-       if(singleton == null) &#123;
-          simulateRandomActivity();
-          singleton = new Singleton();
-       &#125;
-       logger.info(&quot;created singleton: &quot; + singleton);
-       return singleton;
-&#125;
-</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">static</span> Singleton <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">	<span class="keyword">if</span>(singleton == <span class="literal">null</span>) &#123;</span><br><span class="line">  		simulateRandomActivity();</span><br><span class="line">  		singleton = <span class="keyword">new</span> <span class="title class_">Singleton</span>();</span><br><span class="line">	&#125;</span><br><span class="line">	logger.info(<span class="string">&quot;created singleton: &quot;</span> + singleton);</span><br><span class="line">	<span class="keyword">return</span> singleton;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>在同步化getInstance()方法后，我们就可以得到例5的测试案例返回的下面的结果：</p>
-<pre><code>Buildfile: build.xml
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Buildfile: build.xml</span><br><span class="line"></span><br><span class="line">init:</span><br><span class="line"> 	[echo] Build 20030414 (14-04-2003 03:15)</span><br><span class="line"></span><br><span class="line">compile:</span><br><span class="line">	[javac] Compiling 2 source files</span><br><span class="line"></span><br><span class="line">run-test-text:</span><br><span class="line">INFO Thread-1: sleeping...</span><br><span class="line">INFO Thread-1: created singleton: Singleton@ef577d</span><br><span class="line">INFO Thread-2: created singleton: Singleton@ef577d</span><br><span class="line"> 	[java] .</span><br><span class="line"> 	[java] Time: 0.513</span><br><span class="line"></span><br><span class="line"> 	[java] OK (1 test)</span><br></pre></td></tr></table></figure>
 
-init:
- 	[echo] Build 20030414 (14-04-2003 03:15)
 
-compile:
-    [javac] Compiling 2 source files
-
-run-test-text:
-INFO Thread-1: sleeping...
-INFO Thread-1: created singleton: Singleton@ef577d
-INFO Thread-2: created singleton: Singleton@ef577d
- 	[java] .
- 	[java] Time: 0.513
-
- 	[java] OK (1 test)
-</code></pre>
 <p>这此，这个测试案例工作正常，并且多线程的烦恼也被解决;然而，机敏的读者可能会认识到getInstance()方法只需要在第一次被调用时同步。因为同步的性能开销很昂贵（同步方法比非同步方法能降低到100次左右），或许我们可以引入一种性能改进方法，它只同步单例类的getInstance()方法中的赋值语句。</p>
 <p><strong>一种性能改进的方法</strong></p>
 <p>寻找一种性能改进方法时，你可能会选择像下面这样重写getInstance()方法：</p>
-<pre><code>public static Singleton getInstance() &#123;
-       if(singleton == null) &#123;
-          synchronized(Singleton.class) &#123;
-             singleton = new Singleton();
-          &#125;
-       &#125;
-   return singleton;
-&#125;
-</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">	<span class="keyword">if</span>(singleton == <span class="literal">null</span>) &#123;</span><br><span class="line">  		<span class="keyword">synchronized</span>(Singleton.class) &#123;</span><br><span class="line">     		singleton = <span class="keyword">new</span> <span class="title class_">Singleton</span>();</span><br><span class="line">  		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="keyword">return</span> singleton;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
 <p>这个代码片段只同步了关键的代码，而不是同步整个方法。然而这段代码却不是线程安全的。考虑一下下面的假定：线程1进入同步块，并且在它给singleton成员变量赋值之前线程1被切换。接着另一个线程进入if块。第二个线程将等待直到第一个线程完成，并且仍然会得到两个不同的单例类实例。有修复这个问题的方法吗？请读下去。</p>
 <p><strong>双重加锁检查</strong></p>
 <p>初看上去，双重加锁检查似乎是一种使懒汉式实例化为线程安全的技术。下面的代码片段展示了这种技术：</p>
-<pre><code>public static Singleton getInstance() &#123;
-      if(singleton == null) &#123;
-         synchronized(Singleton.class) &#123;
-               if(singleton == null) &#123;
-                 singleton = new Singleton();
-               &#125;
-        &#125;
-      &#125;
-      return singleton;
-&#125;
-</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">	<span class="keyword">if</span>(singleton == <span class="literal">null</span>) &#123;</span><br><span class="line">		 <span class="keyword">synchronized</span>(Singleton.class) &#123;</span><br><span class="line">   			<span class="keyword">if</span>(singleton == <span class="literal">null</span>) &#123;</span><br><span class="line">     			singleton = <span class="keyword">new</span> <span class="title class_">Singleton</span>();</span><br><span class="line">   			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	 <span class="keyword">return</span> singleton;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>如果两个线程同时访问getInstance()方法会发生什么？想像一下线程1进行同步块马上又被切换。接着，第二个线程进入if 块。当线程1退出同步块时，线程2会重新检查看是否singleton实例仍然为null。因为线程1设置了singleton成员变量，所以线程2的第二次检查会失败，第二个单例类实例也就不会被创建。似乎就是如此。<br>不幸的是，双重加锁检查不会保证正常工作，因为编译器会在Singleton的构造方法被调用之前随意给singleton赋一个值。如果在singleton引用被赋值之后而被初始化之前线程1被切换，线程2就会被返回一个对未初始化的单例类实例的引用。</p>
 <p><strong>一个改进的线程安全的单例模式实现</strong></p>
 <p>例7列出了一个简单、快速而又是线程安全的单例模式实现：<br>例7.一个简单的单例类</p>
-<pre><code>public class Singleton &#123;
-       public final static Singleton INSTANCE = new Singleton();
-       private Singleton() &#123;
-         // Exists only to defeat instantiation.
-      &#125;
-&#125;
-</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">Singleton</span> <span class="variable">INSTANCE</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Singleton</span>();</span><br><span class="line">	<span class="keyword">private</span> <span class="title function_">Singleton</span><span class="params">()</span> &#123;</span><br><span class="line">     	<span class="comment">// Exists only to defeat instantiation.</span></span><br><span class="line">  	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这段代码是线程安全的是因为静态成员变量一定会在类被第一次访问时被创建。你得到了一个自动使用了懒汉式实例化的线程安全的实现;你应该这样使用它：</p>
-<pre><code>Singleton singleton = Singleton.INSTANCE;
-singleton.dothis();
-singleton.dothat();
-...
-</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Singleton</span> <span class="variable">singleton</span> <span class="operator">=</span> Singleton.INSTANCE;</span><br><span class="line">singleton.dothis();</span><br><span class="line">singleton.dothat();</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 <p>当然万事并不完美，前面的Singleton只是一个折衷的方案;如果你使用那个实现，你就无法改变它以便后来你可能想要允许多个单例类的实例。用一种更折哀的单例模式实现(通过一个getInstance()方法获得实例)你可以改变这个方法以便返回一个唯一的实例或者是数百个实例中的一个．你不能用一个公开且是静态的（public static)成员变量这样做．</p>
 <p>你可以安全的使用例７的单例模式实现或者是例１的带一个同步的getInstance()方法的实现．然而，我们必须要研究另一个问题：你必须在编译期指定这个单例类，这样就不是很灵活．一个单例类的注册表会让我们在运行期指定一个单例类．</p>
 <p>使用注册表<br>使用一个单例类注册表可以：</p>
 <p><strong>在运行期指定单例类</strong></p>
 <p>防止产生多个单例类子类的实例<br>在例8的单例类中，保持了一个通过类名进行注册的单例类注册表：<br>例8 带注册表的单例类</p>
-<pre><code>import java.util.HashMap;
-import org.apache.log4j.Logger;
-
-public class Singleton &#123;
-       private static HashMap map = new HashMap();
-       private static Logger logger = Logger.getRootLogger();
-
-       protected Singleton() &#123;
-          // Exists only to thwart instantiation
-       &#125;
-   public static synchronized Singleton getInstance(String classname) &#123;
-      if(classname == null) throw new IllegalArgumentException(&quot;Illegal classname&quot;);
-         Singleton singleton = (Singleton)map.get(classname);
-
-      if(singleton != null) &#123;
-         logger.info(&quot;got singleton from map: &quot; + singleton);
-         return singleton;
-      &#125;
-      if(classname.equals(&quot;SingeltonSubclass_One&quot;))
-        singleton = new SingletonSubclass_One();
-    else if(classname.equals(&quot;SingeltonSubclass_Two&quot;))
-        singleton = new SingletonSubclass_Two();
-
-      map.put(classname, singleton);
-      logger.info(&quot;created singleton: &quot; + singleton);
-      return singleton;
-       &#125;
-       // Assume functionality follows that&#39;s attractive to inherit
-&#125;
-</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> org.apache.log4j.Logger;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton</span> &#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="type">HashMap</span> <span class="variable">map</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HashMap</span>();</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="type">Logger</span> <span class="variable">logger</span> <span class="operator">=</span> Logger.getRootLogger();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">protected</span> <span class="title function_">Singleton</span><span class="params">()</span> &#123;</span><br><span class="line">  		<span class="comment">// Exists only to thwart instantiation</span></span><br><span class="line">	&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> Singleton <span class="title function_">getInstance</span><span class="params">(String classname)</span> &#123;</span><br><span class="line">  	<span class="keyword">if</span>(classname == <span class="literal">null</span>) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(<span class="string">&quot;Illegal classname&quot;</span>);</span><br><span class="line">     	<span class="type">Singleton</span> <span class="variable">singleton</span> <span class="operator">=</span> (Singleton)map.get(classname);</span><br><span class="line"></span><br><span class="line">  	<span class="keyword">if</span>(singleton != <span class="literal">null</span>) &#123;</span><br><span class="line">     	logger.info(<span class="string">&quot;got singleton from map: &quot;</span> + singleton);</span><br><span class="line">     	<span class="keyword">return</span> singleton;</span><br><span class="line">  	&#125;</span><br><span class="line">  	<span class="keyword">if</span>(classname.equals(<span class="string">&quot;SingeltonSubclass_One&quot;</span>))</span><br><span class="line">        singleton = <span class="keyword">new</span> <span class="title class_">SingletonSubclass_One</span>();</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(classname.equals(<span class="string">&quot;SingeltonSubclass_Two&quot;</span>))</span><br><span class="line">        singleton = <span class="keyword">new</span> <span class="title class_">SingletonSubclass_Two</span>();</span><br><span class="line"></span><br><span class="line">  	map.put(classname, singleton);</span><br><span class="line">  	logger.info(<span class="string">&quot;created singleton: &quot;</span> + singleton);</span><br><span class="line">  	<span class="keyword">return</span> singleton;</span><br><span class="line">	&#125;</span><br><span class="line">	 <span class="comment">// Assume functionality follows that&#x27;s attractive to inherit</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这段代码的基类首先创建出子类的实例，然后把它们存储在一个Map中。但是基类却得付出很高的代价因为你必须为每一个子类替换它的getInstance()方法。幸运的是我们可以使用反射处理这个问题。</p>
 <p><strong>使用反射</strong></p>
 <p>在例9的带注册表的单例类中，使用反射来实例化一个特殊的类的对象。与例8相对的是通过这种实现，Singleton.getInstance()方法不需要在每个被实现的子类中重写了。<br>例9 使用反射实例化单例类</p>
-<pre><code>import java.util.HashMap;
-import org.apache.log4j.Logger;
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> org.apache.log4j.Logger;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton</span> &#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="type">HashMap</span> <span class="variable">map</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HashMap</span>();</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="type">Logger</span> <span class="variable">logger</span> <span class="operator">=</span> Logger.getRootLogger();</span><br><span class="line"></span><br><span class="line"><span class="keyword">protected</span> <span class="title function_">Singleton</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="comment">// Exists only to thwart instantiation</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> Singleton <span class="title function_">getInstance</span><span class="params">(String classname)</span> &#123;</span><br><span class="line">  	<span class="type">Singleton</span> <span class="variable">singleton</span> <span class="operator">=</span> (Singleton)map.get(classname);</span><br><span class="line"></span><br><span class="line">  	<span class="keyword">if</span>(singleton != <span class="literal">null</span>) &#123;</span><br><span class="line">     	logger.info(<span class="string">&quot;got singleton from map: &quot;</span> + singleton);</span><br><span class="line">     	<span class="keyword">return</span> singleton;</span><br><span class="line">  	&#125;</span><br><span class="line">  	<span class="keyword">try</span> &#123;</span><br><span class="line">     singleton = (Singleton)Class.forName(classname).newInstance();</span><br><span class="line">  	&#125;</span><br><span class="line">  	<span class="keyword">catch</span>(ClassNotFoundException cnf) &#123;</span><br><span class="line">     logger.fatal(<span class="string">&quot;Couldn&#x27;t find class &quot;</span> + classname);</span><br><span class="line">  	&#125;</span><br><span class="line">  	<span class="keyword">catch</span>(InstantiationException ie) &#123;</span><br><span class="line">     	logger.fatal(<span class="string">&quot;Couldn&#x27;t instantiate an object of type &quot;</span> + classname);</span><br><span class="line">  	&#125;</span><br><span class="line">  	<span class="keyword">catch</span>(IllegalAccessException ia) &#123;</span><br><span class="line">     	logger.fatal(<span class="string">&quot;Couldn&#x27;t access class &quot;</span> + classname);</span><br><span class="line">  	&#125;</span><br><span class="line">  	map.put(classname, singleton);</span><br><span class="line">  	logger.info(<span class="string">&quot;created singleton: &quot;</span> + singleton);</span><br><span class="line"></span><br><span class="line">  	<span class="keyword">return</span> singleton;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-public class Singleton &#123;
-       private static HashMap map = new HashMap();
-       private static Logger logger = Logger.getRootLogger();
 
-   protected Singleton() &#123;
-  // Exists only to thwart instantiation
-   &#125;
-   public static synchronized Singleton getInstance(String classname) &#123;
-      Singleton singleton = (Singleton)map.get(classname);
-
-      if(singleton != null) &#123;
-         logger.info(&quot;got singleton from map: &quot; + singleton);
-         return singleton;
-      &#125;
-      try &#123;
-     singleton = (Singleton)Class.forName(classname).newInstance();
-      &#125;
-      catch(ClassNotFoundException cnf) &#123;
-     logger.fatal(&quot;Couldn&#39;t find class &quot; + classname);
-      &#125;
-      catch(InstantiationException ie) &#123;
-         logger.fatal(&quot;Couldn&#39;t instantiate an object of type &quot; + classname);
-      &#125;
-      catch(IllegalAccessException ia) &#123;
-         logger.fatal(&quot;Couldn&#39;t access class &quot; + classname);
-      &#125;
-      map.put(classname, singleton);
-      logger.info(&quot;created singleton: &quot; + singleton);
-
-      return singleton;
-       &#125;
-&#125;
-</code></pre>
 <p>关于单例类的注册表应该说明的是：它们应该被封装在它们自己的类中以便最大限度的进行复用。</p>
 <p><strong>封装注册表</strong></p>
 <p>例10列出了一个单例注册表类。<br>例10 一个SingletonRegistry类</p>
-<pre><code>import java.util.HashMap;
-import org.apache.log4j.Logger;
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> org.apache.log4j.Logger;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SingletonRegistry</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="type">SingletonRegistry</span> <span class="variable">REGISTRY</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SingletonRegistry</span>();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="type">HashMap</span> <span class="variable">map</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HashMap</span>();</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="type">Logger</span> <span class="variable">logger</span> <span class="operator">=</span> Logger.getRootLogger();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">protected</span> <span class="title function_">SingletonRegistry</span><span class="params">()</span> &#123;</span><br><span class="line">  		<span class="comment">// Exists to defeat instantiation</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> Object <span class="title function_">getInstance</span><span class="params">(String classname)</span> &#123;</span><br><span class="line">  		<span class="type">Object</span> <span class="variable">singleton</span> <span class="operator">=</span> map.get(classname);</span><br><span class="line"></span><br><span class="line">  		<span class="keyword">if</span>(singleton != <span class="literal">null</span>) &#123;</span><br><span class="line">     		<span class="keyword">return</span> singleton;</span><br><span class="line">  		&#125;</span><br><span class="line">  	<span class="keyword">try</span> &#123;</span><br><span class="line">     	singleton = Class.forName(classname).newInstance();</span><br><span class="line">     	logger.info(<span class="string">&quot;created singleton: &quot;</span> + singleton);</span><br><span class="line">  	&#125;</span><br><span class="line">  	<span class="keyword">catch</span>(ClassNotFoundException cnf) &#123;</span><br><span class="line">     	logger.fatal(<span class="string">&quot;Couldn&#x27;t find class &quot;</span> + classname);</span><br><span class="line">  	&#125;</span><br><span class="line">  	<span class="keyword">catch</span>(InstantiationException ie) &#123;</span><br><span class="line">     	logger.fatal(<span class="string">&quot;Couldn&#x27;t instantiate an object of type &quot;</span> +</span><br><span class="line">                   classname);</span><br><span class="line">  	&#125;</span><br><span class="line">  	<span class="keyword">catch</span>(IllegalAccessException ia) &#123;</span><br><span class="line">     	logger.fatal(<span class="string">&quot;Couldn&#x27;t access class &quot;</span> + classname);</span><br><span class="line">  	&#125;</span><br><span class="line">  	map.put(classname, singleton);</span><br><span class="line">  	<span class="keyword">return</span> singleton;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-public class SingletonRegistry &#123;
-       public static SingletonRegistry REGISTRY = new SingletonRegistry();
-
-       private static HashMap map = new HashMap();
-       private static Logger logger = Logger.getRootLogger();
-
-       protected SingletonRegistry() &#123;
-          // Exists to defeat instantiation
-       &#125;
-       public static synchronized Object getInstance(String classname) &#123;
-          Object singleton = map.get(classname);
-
-          if(singleton != null) &#123;
-             return singleton;
-          &#125;
-      try &#123;
-         singleton = Class.forName(classname).newInstance();
-         logger.info(&quot;created singleton: &quot; + singleton);
-      &#125;
-      catch(ClassNotFoundException cnf) &#123;
-         logger.fatal(&quot;Couldn&#39;t find class &quot; + classname);
-      &#125;
-      catch(InstantiationException ie) &#123;
-         logger.fatal(&quot;Couldn&#39;t instantiate an object of type &quot; +
-                   classname);
-      &#125;
-      catch(IllegalAccessException ia) &#123;
-         logger.fatal(&quot;Couldn&#39;t access class &quot; + classname);
-      &#125;
-      map.put(classname, singleton);
-      return singleton;
-       &#125;
-&#125;
-</code></pre>
 <p>注意我是把SingletonRegistry类作为一个单例模式实现的。我也通用化了这个注册表以便它能存储和取回任何类型的对象。例11显示了的Singleton类使用了这个注册表。<br>例11 使用了一个封装的注册表的Singleton类</p>
-<pre><code>import java.util.HashMap;
-import org.apache.log4j.Logger;
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> org.apache.log4j.Logger;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">protected</span> <span class="title function_">Singleton</span><span class="params">()</span> &#123;</span><br><span class="line">  		<span class="comment">// Exists only to thwart instantiation.</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">  		<span class="keyword">return</span> (Singleton)SingletonRegistry.REGISTRY.getInstance(classname);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-public class Singleton &#123;
-
-       protected Singleton() &#123;
-          // Exists only to thwart instantiation.
-       &#125;
-       public static Singleton getInstance() &#123;
-          return (Singleton)SingletonRegistry.REGISTRY.getInstance(classname);
-       &#125;
-&#125;
-</code></pre>
 <p>上面的Singleton类使用那个注册表的唯一实例通过类名取得单例对象。<br>现在我们已经知道如何实现线程安全的单例类和如何使用一个注册表去在运行期指定单例类名，接着让我们考查一下如何安排类载入器和处理序列化。</p>
 <p><strong>Classloaders</strong></p>
 <p>在许多情况下，使用多个类载入器是很普通的–包括servlet容器–所以不管你在实现你的单例类时是多么小心你都最终可以得到多个单例类的实例。如果你想要确保你的单例类只被同一个的类载入器装入，那你就必须自己指定这个类载入器;例如：</p>
-<pre><code>private static Class getClass(String classname)
-                                     throws ClassNotFoundException &#123;
- 	ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> Class <span class="title function_">getClass</span><span class="params">(String classname)</span></span><br><span class="line">                                     <span class="keyword">throws</span> ClassNotFoundException &#123;</span><br><span class="line"> 	<span class="type">ClassLoader</span> <span class="variable">classLoader</span> <span class="operator">=</span> Thread.currentThread().getContextClassLoader();</span><br><span class="line"></span><br><span class="line">  	<span class="keyword">if</span>(classLoader == <span class="literal">null</span>)</span><br><span class="line">     classLoader = Singleton.class.getClassLoader();</span><br><span class="line"></span><br><span class="line">  	<span class="keyword">return</span> (classLoader.loadClass(classname));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-  	if(classLoader == null)
-     classLoader = Singleton.class.getClassLoader();
 
-  	return (classLoader.loadClass(classname));
-       &#125;
-&#125;
-</code></pre>
 <p>这个方法会尝试把当前的线程与那个类载入器相关联;如果classloader为null，这个方法会使用与装入单例类基类的那个类载入器。这个方法可以用Class.forName()代替。</p>
 <p><strong>序列化</strong></p>
 <p>如果你序列化一个单例类，然后两次重构它，那么你就会得到那个单例类的两个实例，除非你实现readResolve()方法，像下面这样：<br>例12 一个可序列化的单例类</p>
-<pre><code>import org.apache.log4j.Logger;
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.log4j.Logger;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton</span> <span class="keyword">implements</span> <span class="title class_">java</span>.io.Serializable &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="type">Singleton</span> <span class="variable">INSTANCE</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Singleton</span>();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">protected</span> <span class="title function_">Singleton</span><span class="params">()</span> &#123;</span><br><span class="line">  		<span class="comment">// Exists only to thwart instantiation.</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">private</span> Object <span class="title function_">readResolve</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> INSTANCE;</span><br><span class="line">  	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-public class Singleton implements java.io.Serializable &#123;
-       public static Singleton INSTANCE = new Singleton();
-
-       protected Singleton() &#123;
-          // Exists only to thwart instantiation.
-       &#125;
-       private Object readResolve() &#123;
-        return INSTANCE;
-      &#125;
-   &#125;
-</code></pre>
 <p>上面的单例类实现从readResolve()方法中返回一个唯一的实例;这样无论Singleton类何时被重构，它都只会返回那个相同的单例类实例。<br>例13测试了例12的单例类：<br>例13 测试一个可序列化的单例类</p>
-<pre><code>import java.io.*;
-import org.apache.log4j.Logger;
-import junit.framework.Assert;
-import junit.framework.TestCase;
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"><span class="keyword">import</span> org.apache.log4j.Logger;</span><br><span class="line"><span class="keyword">import</span> junit.framework.Assert;</span><br><span class="line"><span class="keyword">import</span> junit.framework.TestCase;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SingletonTest</span> <span class="keyword">extends</span> <span class="title class_">TestCase</span> &#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="type">Singleton</span> <span class="variable">sone</span> <span class="operator">=</span> <span class="literal">null</span>, stwo = <span class="literal">null</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="type">Logger</span> <span class="variable">logger</span> <span class="operator">=</span> Logger.getRootLogger();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">SingletonTest</span><span class="params">(String name)</span> &#123;</span><br><span class="line">  		<span class="built_in">super</span>(name);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setUp</span><span class="params">()</span> &#123;</span><br><span class="line">  		sone = Singleton.INSTANCE;</span><br><span class="line">  		stwo = Singleton.INSTANCE;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testSerialize</span><span class="params">()</span> &#123;</span><br><span class="line">  		logger.info(<span class="string">&quot;testing singleton serialization...&quot;</span>);</span><br><span class="line">		[b]      writeSingleton();</span><br><span class="line">  		<span class="type">Singleton</span> <span class="variable">s1</span> <span class="operator">=</span> readSingleton();</span><br><span class="line">  		<span class="type">Singleton</span> <span class="variable">s2</span> <span class="operator">=</span> readSingleton();</span><br><span class="line">  		Assert.assertEquals(<span class="literal">true</span>, s1 == s2);[/b]   &#125;</span><br><span class="line">		<span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">writeSingleton</span><span class="params">()</span> &#123;</span><br><span class="line">  		<span class="keyword">try</span> &#123;</span><br><span class="line">     		<span class="type">FileOutputStream</span> <span class="variable">fos</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;serializedSingleton&quot;</span>);</span><br><span class="line">     		<span class="type">ObjectOutputStream</span> <span class="variable">oos</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectOutputStream</span>(fos);</span><br><span class="line">     		<span class="type">Singleton</span> <span class="variable">s</span> <span class="operator">=</span> Singleton.INSTANCE;</span><br><span class="line"></span><br><span class="line">     		oos.writeObject(Singleton.INSTANCE);</span><br><span class="line">     		oos.flush();</span><br><span class="line">  		&#125;</span><br><span class="line">  		<span class="keyword">catch</span>(NotSerializableException se) &#123;</span><br><span class="line">     		logger.fatal(<span class="string">&quot;Not Serializable Exception: &quot;</span> + se.getMessage());</span><br><span class="line">  		&#125;</span><br><span class="line">  		<span class="keyword">catch</span>(IOException iox) &#123;</span><br><span class="line">     		logger.fatal(<span class="string">&quot;IO Exception: &quot;</span> + iox.getMessage());</span><br><span class="line">  		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">private</span> Singleton <span class="title function_">readSingleton</span><span class="params">()</span> &#123;</span><br><span class="line">  		<span class="type">Singleton</span> <span class="variable">s</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">  		<span class="keyword">try</span> &#123;</span><br><span class="line">     		<span class="type">FileInputStream</span> <span class="variable">fis</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;serializedSingleton&quot;</span>);</span><br><span class="line">     		<span class="type">ObjectInputStream</span> <span class="variable">ois</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectInputStream</span>(fis);</span><br><span class="line">     		s = (Singleton)ois.readObject();</span><br><span class="line">  		&#125;</span><br><span class="line">  		<span class="keyword">catch</span>(ClassNotFoundException cnf) &#123;</span><br><span class="line">     		logger.fatal(<span class="string">&quot;Class Not Found Exception: &quot;</span> + cnf.getMessage());</span><br><span class="line">  		&#125;</span><br><span class="line">  		<span class="keyword">catch</span>(NotSerializableException se) &#123;</span><br><span class="line">     		logger.fatal(<span class="string">&quot;Not Serializable Exception: &quot;</span> + se.getMessage());</span><br><span class="line">  		&#125;</span><br><span class="line">  		<span class="keyword">catch</span>(IOException iox) &#123;</span><br><span class="line">     		logger.fatal(<span class="string">&quot;IO Exception: &quot;</span> + iox.getMessage());</span><br><span class="line">  		&#125;</span><br><span class="line">  		<span class="keyword">return</span> s;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testUnique</span><span class="params">()</span> &#123;</span><br><span class="line">  		logger.info(<span class="string">&quot;testing singleton uniqueness...&quot;</span>);</span><br><span class="line">  		<span class="type">Singleton</span> <span class="variable">another</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Singleton</span>();</span><br><span class="line"></span><br><span class="line">  		logger.info(<span class="string">&quot;checking singletons for equality&quot;</span>);</span><br><span class="line">  		Assert.assertEquals(<span class="literal">true</span>, sone == stwo);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-public class SingletonTest extends TestCase &#123;
-       private Singleton sone = null, stwo = null;
-       private static Logger logger = Logger.getRootLogger();
-
-      public SingletonTest(String name) &#123;
-          super(name);
-       &#125;
-       public void setUp() &#123;
-          sone = Singleton.INSTANCE;
-          stwo = Singleton.INSTANCE;
-       &#125;
-       public void testSerialize() &#123;
-          logger.info(&quot;testing singleton serialization...&quot;);
-        [b]      writeSingleton();
-          Singleton s1 = readSingleton();
-          Singleton s2 = readSingleton();
-          Assert.assertEquals(true, s1 == s2);[/b]   &#125;
-           private void writeSingleton() &#123;
-          try &#123;
-             FileOutputStream fos = new FileOutputStream(&quot;serializedSingleton&quot;);
-             ObjectOutputStream oos = new ObjectOutputStream(fos);
-             Singleton s = Singleton.INSTANCE;
-
-             oos.writeObject(Singleton.INSTANCE);
-             oos.flush();
-          &#125;
-          catch(NotSerializableException se) &#123;
-             logger.fatal(&quot;Not Serializable Exception: &quot; + se.getMessage());
-          &#125;
-          catch(IOException iox) &#123;
-             logger.fatal(&quot;IO Exception: &quot; + iox.getMessage());
-          &#125;
-       &#125;
-       private Singleton readSingleton() &#123;
-          Singleton s = null;
-
-          try &#123;
-             FileInputStream fis = new FileInputStream(&quot;serializedSingleton&quot;);
-             ObjectInputStream ois = new ObjectInputStream(fis);
-             s = (Singleton)ois.readObject();
-          &#125;
-          catch(ClassNotFoundException cnf) &#123;
-             logger.fatal(&quot;Class Not Found Exception: &quot; + cnf.getMessage());
-          &#125;
-          catch(NotSerializableException se) &#123;
-             logger.fatal(&quot;Not Serializable Exception: &quot; + se.getMessage());
-          &#125;
-          catch(IOException iox) &#123;
-             logger.fatal(&quot;IO Exception: &quot; + iox.getMessage());
-          &#125;
-          return s;
-       &#125;
-       public void testUnique() &#123;
-          logger.info(&quot;testing singleton uniqueness...&quot;);
-          Singleton another = new Singleton();
-
-          logger.info(&quot;checking singletons for equality&quot;);
-          Assert.assertEquals(true, sone == stwo);
-       &#125;
-&#125;
-</code></pre>
 <p>前面这个测试案例序列化例12中的单例类，并且两次重构它。然后这个测试案例检查看是否被重构的单例类实例是同一个对象。下面是测试案例的输出：</p>
-<pre><code>Buildfile: build.xml
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Buildfile: build.xml</span><br><span class="line"></span><br><span class="line">init:</span><br><span class="line"> 	[echo] Build 20030422 (22-04-2003 11:32)</span><br><span class="line"></span><br><span class="line">compile:</span><br><span class="line"></span><br><span class="line">run-test-text:</span><br><span class="line"> 	[java] .INFO main: testing singleton serialization...</span><br><span class="line"> 	[java] .INFO main: testing singleton uniqueness...</span><br><span class="line"> 	[java] INFO main: checking singletons for equality</span><br><span class="line"></span><br><span class="line"> 	[java] Time: 0.1</span><br><span class="line"></span><br><span class="line"> 	[java] OK (2 tests)</span><br></pre></td></tr></table></figure>
 
-init:
- 	[echo] Build 20030422 (22-04-2003 11:32)
 
-compile:
-
-run-test-text:
- 	[java] .INFO main: testing singleton serialization...
- 	[java] .INFO main: testing singleton uniqueness...
- 	[java] INFO main: checking singletons for equality
-
- 	[java] Time: 0.1
-
- 	[java] OK (2 tests)
-</code></pre>
 <p><strong>单例模式结束语</strong></p>
 <p>单例模式简单却容易让人迷惑，特别是对于Java的开发者来说。在这篇文章中，作者演示了Java开发者在顾及多线程、类载入器和序列化情况如何实现单例模式。作者也展示了你怎样才能实现一个单例类的注册表，以便能够在运行期指定单例类。</p>
 <p>原文：<a target="_blank" rel="noopener" href="http://calmness.iteye.com/blog/60179">http://calmness.iteye.com/blog/60179</a></p>
