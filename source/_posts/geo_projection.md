@@ -43,8 +43,6 @@ categories: geo
 
 ![地球投影轴](/images/geo-projection/v2-b924e67efbc78cd825ea92a6c15b1208_hd.png)
 
-### 
-
 ### 投影命名
 
 综合来说，依据不同投影性质，投影形状，投影方案，可以唯一确定一种投影方式。
