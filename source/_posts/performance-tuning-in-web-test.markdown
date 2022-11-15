@@ -38,14 +38,16 @@ acceptCount 默认值是100
 
 如何监控GC吗？
 
-	jstat -gcutil 3950 3000 5
-	
-	  S0     S1         E          O      P       YGC     YGCT    FGC       FGCT     GCT
-	  0.00  47.86  66.10   6.55  99.92      7       0.087     0         0.000    0.087
-	  0.00  47.86  66.90   6.55  99.94      7       0.087     0         0.000    0.087
-	  0.00  47.86  67.30   6.55  99.94      7       0.087     0         0.000    0.087
-	  0.00  47.86  67.30   6.55  99.94      7       0.087     0         0.000    0.087
-	  0.00  47.86  67.30   6.55  99.94      7       0.087     0         0.000    0.087
+```shell
+jstat -gcutil 3950 3000 5
+
+  S0     S1         E          O      P       YGC     YGCT    FGC       FGCT     GCT
+  0.00  47.86  66.10   6.55  99.92      7       0.087     0         0.000    0.087
+  0.00  47.86  66.90   6.55  99.94      7       0.087     0         0.000    0.087
+  0.00  47.86  67.30   6.55  99.94      7       0.087     0         0.000    0.087
+  0.00  47.86  67.30   6.55  99.94      7       0.087     0         0.000    0.087
+  0.00  47.86  67.30   6.55  99.94      7       0.087     0         0.000    0.087
+```
 
 解决方法：
 ​         $TOMCAT_HOME/bin/catalina.sh   第一行添加
@@ -120,11 +122,13 @@ $MYSQL_HOME/etc/my.cnf  或者 my.ini（windows）
 
 主要影响性能参数：
 
-    max-connections = 3000     会话数上限
-    max_connect_errors = 10000    允许的最大连接错误量
-    query_cache_size =128M    查询缓存
-    query_cache_limit = 2M   小于这么大的才缓存，保护查询缓存
-    sort_buffer_size =256M    排序order by 或 group by 使用
+```ini
+max-connections = 3000     会话数上限
+max_connect_errors = 10000    允许的最大连接错误量
+query_cache_size =128M    查询缓存
+query_cache_limit = 2M   小于这么大的才缓存，保护查询缓存
+sort_buffer_size =256M    排序order by 或 group by 使用
+```
 
 参考：<http://www.ha97.com/4110.html>
 
@@ -136,7 +140,9 @@ $MYSQL_HOME/etc/my.cnf  或者 my.ini（windows）
 
 ab 命令进行测试，达到1000并发很easy
 
-	ab -k -c 1000  -n 1000000  http://hostname:port/path
+```shell
+ab -k -c 1000  -n 1000000  http://hostname:port/path
+```
 
 参考：<http://httpd.apache.org/docs/2.2/programs/ab.html>
 
@@ -222,17 +228,19 @@ Http连接是基于TCP的，这个时候需要对linux服务器进行优化。
 
 `vi /etc/sysctl.conf`
 
-    net.ipv4.tcp_fin_timeout = 30  保持在FIN-WAIT-2的时间。默认60秒。2.2内核是180秒
-    net.ipv4.tcp_keepalive_time = 1200     长连接keepalive打开，发送的频率。默认7200（2H）
-    net.ipv4.tcp_tw_reuse = 1     默认0，处于TIME-WAIT状态的socket可以用于新的TCP连接
-    net.ipv4.tcp_tw_recycle = 1   默认0，TIME-WAIT状态的sockets快速回收
-    net.ipv4.ip_local_port_range = 1024    65000 向外连接的端口范围，默认32768~61000
-    net.ipv4.tcp_max_syn_backlog = 8192  默认1024/128,未获得客户端连接请求并保存在队列中的最大数目。
-    net.ipv4.tcp_max_tw_buckets = 5000   默认180000，系统处理的最大TIME_WAIT数目。
-    net.ipv4.route.gc_timeout = 100  路由缓存刷新频率，失败多长时间跳到另一个。默认300.
-    net.ipv4.tcp_syncookies = 1	默认0，SYN队列溢出，启用cookies处理。
-    net.ipv4.tcp_syn_retries = 1       新建连接发送SYN次数，默认5，180秒
-    net.ipv4.tcp_synack_retries = 1    3次握手的第二步，重试几次。默认5.
+```ini
+net.ipv4.tcp_fin_timeout = 30  保持在FIN-WAIT-2的时间。默认60秒。2.2内核是180秒
+net.ipv4.tcp_keepalive_time = 1200     长连接keepalive打开，发送的频率。默认7200（2H）
+net.ipv4.tcp_tw_reuse = 1     默认0，处于TIME-WAIT状态的socket可以用于新的TCP连接
+net.ipv4.tcp_tw_recycle = 1   默认0，TIME-WAIT状态的sockets快速回收
+net.ipv4.ip_local_port_range = 1024    65000 向外连接的端口范围，默认32768~61000
+net.ipv4.tcp_max_syn_backlog = 8192  默认1024/128,未获得客户端连接请求并保存在队列中的最大数目。
+net.ipv4.tcp_max_tw_buckets = 5000   默认180000，系统处理的最大TIME_WAIT数目。
+net.ipv4.route.gc_timeout = 100  路由缓存刷新频率，失败多长时间跳到另一个。默认300.
+net.ipv4.tcp_syncookies = 1	默认0，SYN队列溢出，启用cookies处理。
+net.ipv4.tcp_syn_retries = 1       新建连接发送SYN次数，默认5，180秒
+net.ipv4.tcp_synack_retries = 1    3次握手的第二步，重试几次。默认5.
+```
 
 
 `/sbin/sysctl -p`   生效

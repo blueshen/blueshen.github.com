@@ -48,17 +48,21 @@ A:WebDriver提供了处理多浏览器窗口的能力。通过使用`WebDriver.s
 #### Q：WebDriver支持JavaScript弹出的alert和prompts框嘛？
 A: 使用[Alert API](http://selenium.googlecode.com/svn/trunk/docs/api/java/org/openqa/selenium/Alert.html)可以搞定:
 
-    // Get a handle to the open alert, prompt or confirmation
-    Alert alert = driver.switchTo().alert();
-    // Get the text of the alert or prompt
-    alert.getText();
-    // And acknowledge the alert (equivalent to clicking "OK")
-    alert.accept();
+```java
+// Get a handle to the open alert, prompt or confirmation
+Alert alert = driver.switchTo().alert();
+// Get the text of the alert or prompt
+alert.getText();
+// And acknowledge the alert (equivalent to clicking "OK")
+alert.accept();
+```
 #### Q：WebDriver支持文件上传？
 A:答案是肯定的。你是不能直接与操作系统的浏览文件窗口直接交互的，但是做了一些神奇的工作，使得你在文件上传元素上调用`WebElement#sendKeys("/path/to/file")` 就可以正确上传。同时你要保证不要在文件上传元素上进行`WebElement#click()`操作，否则可能导致浏览器挂起。
 小提示：你是不能直接与隐藏的元素交互的，除非使他们显示出来。假如你的元素是隐藏的，可以使用类似下面的代码，来让元素可见。
 
-    ((JavascriptExecutor)driver).executeScript("arguments[0].style.visibility = 'visible';      arguments[0].style.height = '1px'; arguments[0].style.width = '1px'; arguments[0].style.opacity = 1", fileUploadElement);
+```java
+((JavascriptExecutor)driver).executeScript("arguments[0].style.visibility = 'visible';      arguments[0].style.height = '1px'; arguments[0].style.width = '1px'; arguments[0].style.opacity = 1", fileUploadElement);
+```
 
 #### Q：为什么在执行`sendKeys`后，没有触发onchange事件？
 A:WebDriver是将焦点一直放在调用`sendKeys`的元素上的。而onchange事件是当焦点离开元素才触发的。因此，你只需移动下焦点，简单的`click`下其他元素即可。
@@ -67,56 +71,68 @@ A:HtmlUnitDriver,ChromeDriver,FirefoxDriver的每个实例都是完全独立的�
 #### Q：我需要使用代理。我该如何配置呢？
 A：代理配置是通过`org.openqa.selenium.Proxy`类来实现的，类似下面代码所示：
 
-    Proxy proxy = new Proxy();
-    proxy.setProxyAutoconfigUrl("http://youdomain/config");
-    
-    // We use firefox as an example here.
-    DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-    capabilities.setCapability(CapabilityType.PROXY, proxy);
-    
-    // You could use any webdriver implementation here
-    WebDriver driver = new FirefoxDriver(capabilities);
+```java
+Proxy proxy = new Proxy();
+proxy.setProxyAutoconfigUrl("http://youdomain/config");
+
+// We use firefox as an example here.
+DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+capabilities.setCapability(CapabilityType.PROXY, proxy);
+
+// You could use any webdriver implementation here
+WebDriver driver = new FirefoxDriver(capabilities);
+```
 #### Q：使用HtmlUnitDriver该如何实现权限验证？
 A:当创建HtmlUnitDriver时，重写`modifyWebClient`方法即可。例如：
 
-    WebDriver driver = new HtmlUnitDriver() {
-      protected WebClient modifyWebClient(WebClient client) {
-        // This class ships with HtmlUnit itself
-        DefaultCredentialsProvider creds = new DefaultCredentialsProvider();
-    
-        // Set some example credentials
-        creds.addCredentials("username", "password");
-    
-        // And now add the provider to the webClient instance
-        client.setCredentialsProvider(creds);
-    
-        return client;
-      }
-    };
+```java
+WebDriver driver = new HtmlUnitDriver() {
+  protected WebClient modifyWebClient(WebClient client) {
+    // This class ships with HtmlUnit itself
+    DefaultCredentialsProvider creds = new DefaultCredentialsProvider();
+
+    // Set some example credentials
+    creds.addCredentials("username", "password");
+
+    // And now add the provider to the webClient instance
+    client.setCredentialsProvider(creds);
+
+    return client;
+  }
+};
+```
 #### Q：WebDriver是线程安全的吗？
 A:WebDriver不是线程安全的。话说回来，如果你串行的访问driver实例，你就可以在多个线程之间共享一个driver引用。这个不是推荐的方法。其实你可以为每个线程实例化一个WebDriver。
 #### Q：如何向一个可编辑的iframe里输入？
 A:假设那个iframe的name是“foo”:
 
-    driver.switchTo().frame("foo");
-    WebElement editable = driver.switchTo().activeElement();
-    editable.sendKeys("Your text here");
+```java
+driver.switchTo().frame("foo");
+WebElement editable = driver.switchTo().activeElement();
+editable.sendKeys("Your text here");
+```
 有时，这方法不管用。那是因为iframe没有任何内容。在Firefox中，你可以在`sendKeys`之前做以下的操作：
 
-    ((JavascriptExecutor) driver).executeScript("document.body.innerHTML = '<br>'");
+```java
+((JavascriptExecutor) driver).executeScript("document.body.innerHTML = '<br>'");
+```
 因为iframe内默认是没有任何内容的，所以就不知道该往哪儿进行键盘输入，上面的操作是必须的。这个操作只是插入了一个空标签，就把一切搞定了。
 记得在做完iframe内的操作后，switch出来（因为进一步都交互都是使用下面的frame的）。
 
-    driver.switchTo().defaultContent();
+```java
+driver.switchTo().defaultContent();
+```
 #### Q：在Linux系统上WebDriver无法启动Firefox，并抛出`java.net.SocketException`。
 A:在Linux系统上运行WebDriver,Firefox无法启动并抛出如下错误：
 
-    Caused by: java.net.SocketException: Invalid argument
-            at java.net.PlainSocketImpl.socketBind(Native Method)
-            at java.net.PlainSocketImpl.bind(PlainSocketImpl.java:365)
-            at java.net.Socket.bind(Socket.java:571)
-            at org.openqa.selenium.firefox.internal.SocketLock.isLockFree(SocketLock.java:99)
-            at org.openqa.selenium.firefox.internal.SocketLock.lock(SocketLock.java:63)
+```shell
+Caused by: java.net.SocketException: Invalid argument
+        at java.net.PlainSocketImpl.socketBind(Native Method)
+        at java.net.PlainSocketImpl.bind(PlainSocketImpl.java:365)
+        at java.net.Socket.bind(Socket.java:571)
+        at org.openqa.selenium.firefox.internal.SocketLock.isLockFree(SocketLock.java:99)
+        at org.openqa.selenium.firefox.internal.SocketLock.lock(SocketLock.java:63)
+```
 这可能是因为机器上的IPv6设置导致的。执行下面的脚本：
 
     sudo sysctl net.ipv6.bindv6only=0
@@ -138,15 +154,19 @@ A:WebDriver致力于模拟用户交互，因此API直接反应了用户与各种
 A:既然用户不能看到隐藏元素的文本信息，WebDriver也一样。
 然而，执行JavaScript来直接调用隐藏元素的getText是允许的。
 
-    WebElement element = ...;
-    ((JavascriptExecutor) driver).executeScript("return arguments[0].getText();", element);
+```java
+WebElement element = ...;
+((JavascriptExecutor) driver).executeScript("return arguments[0].getText();", element);
+```
 #### Q:如何启动一个带插件的Firefox？
 A:
 
-    FirefoxProfile profile = new FirefoxProfile()
-    profile.addExtension(....);
-    
-    WebDriver driver = new FirefoxDriver(profile);
+```java
+FirefoxProfile profile = new FirefoxProfile()
+profile.addExtension(....);
+
+WebDriver driver = new FirefoxDriver(profile);
+```
 #### Q: 要是WebDriver有...功能，我会更喜欢它。
 A: 如果你希望WebDriver有什么功能，或者发现有什么BUG。你可以添加一个issue到WebDriver主页。
 #### Q: 有时Selenium server启动一个新session的时候要花费很长的时间？
@@ -155,7 +175,9 @@ A:如果运行在Linux上，你需要增加用于安全随机数生成所需要�
 #### Q: 在Selenium WebDriver的API中哪个与TextPresent对等?
 A:
 
-    driver.findElement(By.tagName("body")).getText()
+```java
+driver.findElement(By.tagName("body")).getText()
+```
 
 会给出页面的文本内容。关于verifyTextPresent/assertTextPresent,你需要使用Test framework的Assert来验证。关于waitForTextPresent, 你需要使用WebDriverWait类来解决。
 

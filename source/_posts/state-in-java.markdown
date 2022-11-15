@@ -39,61 +39,65 @@ tags: [ state, pattern, 状态, 设计模式 ]
 
 具体状态角色    
 
-    public class ConcreteState1 extends State{
-        @override
-        public void handle1(){
-            //本状态下必须处理的逻辑
-        }
-        @override
-        public void handle2(){
-            //设置当前状态为STATE2
-            super.context.setCurrentState(Context.STATE2);
-            //过渡到STATE2状态，由Context实现
-            super.context.handle2();
-        }
+```java
+public class ConcreteState1 extends State{
+    @override
+    public void handle1(){
+        //本状态下必须处理的逻辑
     }
-    
-    public class ConcreteState2 extends State{
-    
-        @override
-        public void handle1(){
-            //设置当前状态为STATE1
-            super.context.setCurrentState(Context.STATE1);
-            //过渡到STATE1状态，由Context实现
-            super.context.handle1();
-        }
-        @override
-        public void handle2(){
-            //本状态下必须处理的逻辑
-        }
+    @override
+    public void handle2(){
+        //设置当前状态为STATE2
+        super.context.setCurrentState(Context.STATE2);
+        //过渡到STATE2状态，由Context实现
+        super.context.handle2();
     }
+}
+
+public class ConcreteState2 extends State{
+
+    @override
+    public void handle1(){
+        //设置当前状态为STATE1
+        super.context.setCurrentState(Context.STATE1);
+        //过渡到STATE1状态，由Context实现
+        super.context.handle1();
+    }
+    @override
+    public void handle2(){
+        //本状态下必须处理的逻辑
+    }
+}
+```
 
 具体环境角色     
 
-    public class Context{
-        //定义状态
-        public final static State STATE1 = new ConcreteState1();
-        public final static State STATE2 = new ConcreteState2();
-        //当前状态
-        private State CurrentState;
-        //获得当前状态
-        public State getCurrentState(){
-            return CurrentState;
-        }
-        //设置当前状态
-        public void setCurrentState(State currentState){
-            this.CurrentState = currentState;
-            //切换状态
-            this.CurrentState.setContext(this);
-        }
-        //行为委托
-        public void handle1(){
-            this.CurrentState.handle1();
-        }
-        public void handle2(){
-            this.CurrentState.handle2();
-        }
+```java
+public class Context{
+    //定义状态
+    public final static State STATE1 = new ConcreteState1();
+    public final static State STATE2 = new ConcreteState2();
+    //当前状态
+    private State CurrentState;
+    //获得当前状态
+    public State getCurrentState(){
+        return CurrentState;
     }
+    //设置当前状态
+    public void setCurrentState(State currentState){
+        this.CurrentState = currentState;
+        //切换状态
+        this.CurrentState.setContext(this);
+    }
+    //行为委托
+    public void handle1(){
+        this.CurrentState.handle1();
+    }
+    public void handle2(){
+        this.CurrentState.handle2();
+    }
+}
+```
 环境角色有2个不成文的约束：    
 
 - 把状态对象声明为静态常量，有几个状态对象就声明几个静态常量。 
@@ -101,15 +105,16 @@ tags: [ state, pattern, 状态, 设计模式 ]
 
 在具体使用状态模式的时候，直接调用Context就行了。    
 
-    public class Client{
-        public static void main(String[] args){
-            Context context = new Context();
-            context.setCurrentState(new ConcreteState1());
-            context.handle1();
-            context.handle2();
-        }
+```java
+public class Client{
+    public static void main(String[] args){
+        Context context = new Context();
+        context.setCurrentState(new ConcreteState1());
+        context.handle1();
+        context.handle2();
     }
-
+}
+```
 
 
 

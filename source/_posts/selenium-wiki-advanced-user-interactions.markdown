@@ -127,9 +127,11 @@ WebDriver提供的高级用户接口，要么是直接模拟的Javascript事件�
 
 FirefoxDriver中，原生事件可以使用FirefoxProfile来进行开关控制。
 
-    FirefoxProfile profile = new FirefoxProfile();
-    profile.setEnableNativeEvents(true);
-    FirefoxDriver driver = new FirefoxDriver(profile);
+```java
+FirefoxProfile profile = new FirefoxProfile();
+profile.setEnableNativeEvents(true);
+FirefoxDriver driver = new FirefoxDriver(profile);
+```
 ##### 例子
 以下是原生事件与合成事件表现不同的一些例子：
 

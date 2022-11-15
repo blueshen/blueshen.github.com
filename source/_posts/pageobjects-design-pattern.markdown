@@ -6,7 +6,7 @@ comments: true
 categories: selenium
 tags: [ webdriver, selenium, PageObjects, PageFactory ]
 ---
-## 什么是Page Objects(翻译为：页面对象？)...
+## 什么是Page Objects(翻译为：页面对象？)
 简单的说，Page Objects是指UI界面上用于与用户进行交互的对象。它可以指整个页面，也可以指Page上的某个区域。Page Objects是你的test code的交互对象，是对实际UI的一种抽象模型化。通过Page Objects可以减少重复代码的编写，例如，很多页面都有同样的header，footer，navigator等部分，如果对这些进行抽象，只写一次就可以在其他地方通用了。
 
 **注意PageObjects与Page Objects是不一样的**，PageObjects用于特指采用Page Objects进行封装的一种设计模式（Design Pattern）,而不仅仅是多一个空格的区别。哈。
@@ -128,7 +128,7 @@ Java Code可能类似如下：
 ```
 运行以上代码，发现已经可以正常运行，结果如下：
 
-```
+```shell
 	......
 	before search url is:http://www.baidu.com/
 	......

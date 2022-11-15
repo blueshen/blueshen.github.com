@@ -49,83 +49,89 @@ quartz集群在spring中的配置
 
 #### 3.增加applicationContext-quartz.xml
 
-    <?xml version="1.0" encoding="UTF-8"?>
-    <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xmlns:util="http://www.springframework.org/schema/util"
-           xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-                            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd"
-           default-lazy-init="false">
-    
-        <description>Quartz的定时集群任务配置</description>
-    
-        <bean id="quartzDataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
-            <property name="driverClass" value="${db.driver}" />
-            <property name="url" value="${db.url}" />
-            <property name="username" value="${db.user}" />
-            <property name="password" value="${db.pass}" />
-        </bean>
-    
-        <!-- Quartz集群Schduler -->
-        <bean id="clusterQuartzScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
-            <!-- Triggers集成 -->
-            <property name="triggers">
-                <list>
-                    <ref bean="testTrigger" />
-                </list>
-            </property>
-            <!--  quartz配置文件路径-->
-            <property name="configLocation" value="classpath:quartz/quartz.properties" />
-            <!-- 启动时延期3秒开始任务 -->
-            <property name="startupDelay" value="3" />
-            <!-- 保存Job数据到数据库所需的数据源 -->
-            <property name="dataSource" ref="quartzDataSource" />
-            <!-- Job接受applicationContext的成员变量名 -->
-            <property name="applicationContextSchedulerContextKey" value="applicationContext" />
-            <property name="overwriteExistingJobs" value="true" />
-            <property name="jobFactory">
-                <bean class="com.shenyanchao.quartz.AutoWiringSpringBeanJobFactory"/>
-            </property>
-         </bean>
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd"
+       default-lazy-init="false">
+
+    <description>Quartz的定时集群任务配置</description>
+
+    <bean id="quartzDataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="${db.driver}" />
+        <property name="url" value="${db.url}" />
+        <property name="username" value="${db.user}" />
+        <property name="password" value="${db.pass}" />
+    </bean>
+
+    <!-- Quartz集群Schduler -->
+    <bean id="clusterQuartzScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <!-- Triggers集成 -->
+        <property name="triggers">
+            <list>
+                <ref bean="testTrigger" />
+            </list>
+        </property>
+        <!--  quartz配置文件路径-->
+        <property name="configLocation" value="classpath:quartz/quartz.properties" />
+        <!-- 启动时延期3秒开始任务 -->
+        <property name="startupDelay" value="3" />
+        <!-- 保存Job数据到数据库所需的数据源 -->
+        <property name="dataSource" ref="quartzDataSource" />
+        <!-- Job接受applicationContext的成员变量名 -->
+        <property name="applicationContextSchedulerContextKey" value="applicationContext" />
+        <property name="overwriteExistingJobs" value="true" />
+        <property name="jobFactory">
+            <bean class="com.shenyanchao.quartz.AutoWiringSpringBeanJobFactory"/>
+        </property>
+     </bean>
+```
 
 
-        <bean id="testTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
-            <property name="jobDetail" ref="testJobDetail" />
-            <property name="cronExpression" value="* 0/10 * * * ?" />
-        </bean>
-    
-        <!-- Timer JobDetail, 基于JobDetailBean实例化Job Class,可持久化到数据库实现集群 -->
-        <bean id="testJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
-            <property name="jobClass" value="cn.shenyanchao.quartz.TestTask" />
-        </bean>
-    
-        <!-- Timer Job的可配置属性,在job中通过applicationContext动态获取 -->
-        <util:map id="timerJobConfig">
-            <entry key="nodeName" value="default" />
-        </util:map>
-    </beans>
+```xml
+    <bean id="testTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="testJobDetail" />
+        <property name="cronExpression" value="* 0/10 * * * ?" />
+    </bean>
+
+    <!-- Timer JobDetail, 基于JobDetailBean实例化Job Class,可持久化到数据库实现集群 -->
+    <bean id="testJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+        <property name="jobClass" value="cn.shenyanchao.quartz.TestTask" />
+    </bean>
+
+    <!-- Timer Job的可配置属性,在job中通过applicationContext动态获取 -->
+    <util:map id="timerJobConfig">
+        <entry key="nodeName" value="default" />
+    </util:map>
+</beans>
+```
 
 其中尤其注意，设置overwriteExistingJobs为true，这个选项可以在修改cronExpression之后，能够更新到数据库，否则无法生效。
 
 另外，配置JobFactory使得QuartzJob可以@Autowired注入spring托管的实例。内容如下：
 
-    public final class AutoWiringSpringBeanJobFactory extends SpringBeanJobFactory implements ApplicationContextAware {
-    
-            private transient AutowireCapableBeanFactory beanFactory;
-    
-            public void setApplicationContext(final ApplicationContext context) {
-                beanFactory = context.getAutowireCapableBeanFactory();
-            }
-    
-            @Override
-            protected Object createJobInstance(final TriggerFiredBundle bundle) throws Exception {
-                final Object job = super.createJobInstance(bundle);
-                beanFactory.autowireBean(job);
-                return job;
-            }
+```java
+public final class AutoWiringSpringBeanJobFactory extends SpringBeanJobFactory implements ApplicationContextAware {
+
+        private transient AutowireCapableBeanFactory beanFactory;
+
+        public void setApplicationContext(final ApplicationContext context) {
+            beanFactory = context.getAutowireCapableBeanFactory();
         }
 
-#### 4. 如何写JOB？
+        @Override
+        protected Object createJobInstance(final TriggerFiredBundle bundle) throws Exception {
+            final Object job = super.createJobInstance(bundle);
+            beanFactory.autowireBean(job);
+            return job;
+        }
+    }
+```
 
+#### 4. 如何写JOB？
+```java
     @Component
     public class TestTask extends QuartzJobBean {
 
@@ -138,11 +144,13 @@ quartz集群在spring中的配置
             System.out.println(userService.findByName("shenyanchao").getEmail());
         }
     }
-
+```
 由于使用MethodInvokingFactoryBean总是报seriziable错误，因此本例使用的是JobDetailBean。那这也意味着要继承QuartzJobBean。同时由于配置了JobFactory，使得可以直接注入UserService等实例。
 
 #### 5.quartz在mysql5.6下报错
 
-    You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'OPTION SQL_SELECT_LIMIT=5' at line 1
+```shell
+You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'OPTION SQL_SELECT_LIMIT=5' at line 1
+```
 
 这个错误是由于mysql connector的版本太低导致的，可以通过升级版本来解决。 参见<http://stackoverflow.com/questions/13023548/mysql-server-version-for-the-right-syntax-to-use-near-option-sql-select-limit-1>

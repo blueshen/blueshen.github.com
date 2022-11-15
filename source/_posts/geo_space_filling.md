@@ -216,15 +216,5 @@ https://halfrost.com/go_spatial_search/
 [伯努瓦.曼德勃罗:分形和粗糙的艺术
 https://www.bilibili.com/video/av3602681/](https://www.youtube.com/watch?v=ay8OMOsf6AQ)
 
-
-
-![Hilbert曲线](https://pic1.zhimg.com/80/v2-c3842f9c8258b3fc20684770b05f85ac_hd.jpg)
-![Dragon曲线](https://pic3.zhimg.com/80/v2-56f5284dad1dbd5818ab4717dbd1c84a_hd.jpg)
-![Gospher曲线](https://pic1.zhimg.com/80/v2-9b41e04ed570992a3e96a9fac08d1ba4_hd.jpg)
-![img](https://pic4.zhimg.com/80/v2-dc011037f5125038a1082de41568edcf_hd.jpg)
-![img](https://pic1.zhimg.com/80/v2-e6f2a5c9d9c3b348efdb536a89d6ce48_hd.jpg)
-![img](https://pic2.zhimg.com/80/v2-55f2c597fb6b163d00495bf83408d4e5_hd.jpg)
-![摩尔曲线](/images/geo/curve_3.png)
-
 ------------------------------------------------------
 

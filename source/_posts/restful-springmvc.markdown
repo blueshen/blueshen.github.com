@@ -18,19 +18,20 @@ Spring uses the @RequestMapping method annotation to define the URI Template for
 ### 2. `@PathVariable`
 
 The @PathVariable method parameter annotation is used to indicate that a method parameter should be bound to the value of a URI template variable. 用于抽取URL中的信息作为参数。（注意，不包括请求字符串，那是`@RequestParam`做的事情。）
-
+```java
     @RequestMapping("/owners/{ownerId}", method=RequestMethod.GET)
     public String findOwner(@PathVariable String ownerId, Model model) {
             // ...
     }
+```
 
 如果变量名与pathVariable名不一致，那么需要指定：
-
+```java
     @RequestMapping("/owners/{ownerId}", method=RequestMethod.GET)
     public String findOwner(@PathVariable("ownerId") String theOwner, Model model) {
         // implementation omitted
     }
-
+```
 >**Tip**
 >
 method parameters that are decorated with the @PathVariable annotation can be of any simple type such as int, long, Date... Spring automatically converts to the appropriate type and throws a TypeMismatchException if the type is not correct.
@@ -98,7 +99,6 @@ public interface HttpMessageConverter<T> {
 
 
 Spring MVC对`HttpMessageConverter`有多种默认实现，基本上不需要自己再自定义`HttpMessageConverter`
->
 + StringHttpMessageConverter - converts strings
 + FormHttpMessageConverter - converts form data to/from a MultiValueMap<String, String>
 + ByteArrayMessageConverter - converts byte arrays
@@ -110,7 +110,7 @@ Spring MVC对`HttpMessageConverter`有多种默认实现，基本上不需要自
 然而对于RESTful应用，用的最多的当然是`MappingJacksonHttpMessageConverter`。
 
 但是`MappingJacksonHttpMessageConverter`不是默认的`HttpMessageConverter`：
-
+```java
     public class AnnotationMethodHandlerAdapter extends WebContentGenerator
     implements HandlerAdapter, Ordered, BeanFactoryAware {
     
@@ -127,9 +127,10 @@ Spring MVC对`HttpMessageConverter`有多种默认实现，基本上不需要自
             new SourceHttpMessageConverter(), new XmlAwareFormHttpMessageConverter()};
         }
     }
+```
 
 如上：默认的`HttpMessageConverter`是`ByteArrayHttpMessageConverter`、`stringHttpMessageConverter`、`SourceHttpMessageConverter`和`XmlAwareFormHttpMessageConverter`转换器。所以需要配置一下：
-
+```xml
     <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
         <property name="messageConverters">
         <list>
@@ -144,9 +145,9 @@ Spring MVC对`HttpMessageConverter`有多种默认实现，基本上不需要自
         </list>
         </property>
     </bean>
-
+```
 配置好了之后，就可以享受`@Requestbody`和`@ResponseBody`对JONS转换的便利之处了：
-
+```java
     @RequestMapping(value = "api", method = RequestMethod.POST)
     @ResponseBody
     public boolean addApi(@RequestBody
@@ -162,9 +163,9 @@ Spring MVC对`HttpMessageConverter`有多种默认实现，基本上不需要自
         int apiId) {
             return apiMetadataService.getApi(apiId, Version.primary);
     }
-
+```
 一般情况下我们是不需要自定义`HttpMessageConverter`，不过对于Restful应用，有时候我们需要返回jsonp数据：
-
+```java
     package me.arganzheng.study.springmvc.util;
     
     import java.io.IOException;
@@ -207,7 +208,7 @@ Spring MVC对`HttpMessageConverter`有多种默认实现，基本上不需要自
         }
         }
     }
-
+```
 如果请求的参数中带有`jsonpCallback`，那么会返回jsonp格式数据。比如：
 http://open.buy.qq.com/meta/api/1.xhtml?jsonpCallback=clientFunction。
 会返回`clientFunction(…);`
@@ -216,17 +217,17 @@ http://open.buy.qq.com/meta/api/1.xhtml?jsonpCallback=clientFunction。
 ### 5. `@CookieValue`
 
 `@CookieValue`用于将请求的Cookie数据映射到功能处理方法的参数上。
-
+```java
     public String test(@CookieValue(value="JSESSIONID", defaultValue="") String sessionId){
         ...
     }
-
+```
 如上配置将自动将JSESSIONID值入参到sessionId参数上，defaultValue表示Cookie中没有JSESSIONID时默认为空。
-
+```java
     public String test2(@CookieValue(value="JSESSIONID", defaultValue="") Cookie sessionId){
         ...
     }
-
+```
 传入参数类型也可以是javax.servlet.http.Cookie类型。
 
 **TIPS** 如果是使用cookies值来保持回话状态的话，推荐使用Spring的[Bean Scopes](http://docs.spring.io/spring/docs/3.0.0.M3/reference/html/ch04s04.html)机制，具体参见笔者的另一篇文章：[Spring的Bean Scopes](http://blog.arganzheng.me/posts/spring-bean-scopes.html)。非常方便。
@@ -234,12 +235,12 @@ http://open.buy.qq.com/meta/api/1.xhtml?jsonpCallback=clientFunction。
 ### 6. `@RequestHeader`
 
 `@RequestHeader`用于将请求的头信息区数据映射到功能处理方法的参数上。
-
+```java
     @RequestMapping(value="/header")
     public String test(
        @RequestHeader("User-Agent") String userAgent,
        @RequestHeader(value="Accept") String[] accepts)
-
+```
 如上配置将自动将请求头“User-Agent”值入参到userAgent参数上，并将“Accept”请求头值入参到accepts参数上。
 
 
@@ -256,7 +257,7 @@ http://open.buy.qq.com/meta/api/1.xhtml?jsonpCallback=clientFunction。
 这其实就是Spring MVC默认的三个`ContentNegotiationStrategy`，即所谓的PPA Strategy（path extension, then parameter, then Accept header) ，顺序也是先path extension，然后parameter(默认是format参数)，然后才是accept头。
 
 Spring提供了[`ContentNegotiatingViewResolver`](http://static.springsource.org/spring/docs/3.0.x/javadoc-api/org/springframework/web/servlet/view/ContentNegotiatingViewResolver.html)来解决这个问题：
-
+```java
 
     public class ContentNegotiatingViewResolver extends WebApplicationObjectSupport implements ViewResolver, Ordered {
     
@@ -550,7 +551,7 @@ Spring MVC不仅大大的简化了服务端RESTful服务的开发和开放，还
 
 以前Client如果要调用REST服务，一般是使用HttpClient来发送HTTP请求：
 
-​```java
+```java
 String uri = "http://example.com/hotels/1/bookings";
 
 PostMethod post = new PostMethod(uri);
@@ -597,20 +598,21 @@ RestTemplate默认使用`java.net`包下的基础类来创建HTTP请求。你可
 另外，每个方法的第一个参数都是一个url string，但是这个URI可以带有变量(还记得`@PathVariable`吗:)哦。参数有两种方式绑定值：
 
 1. 作为字符串变量数组(String variable arguments array)
-
+```java
         String result = restTemplate.getForObject("http://example.com/hotels/{hotel}/bookings/{booking}", String.class, "42", "21");
-
-    会转换为一个对`http://example.com/hotels/42/bookings/21`的GET请求。
+```
+会转换为一个对`http://example.com/hotels/42/bookings/21`的GET请求。
 
 2. 或者Map对象(Map)
 
    The map variant expands the template based on variable name, and is therefore more useful when using many variables, or when a single variable is used multiple times.
-
+```java
         Map<String, String> vars = new HashMap<String, String>();
         vars.put("hotel", "42");
         vars.put("booking", "21");
-        String result = restTemplate.getForObject("http://example.com/hotels/{hotel}/bookings/{booking}", String.class, vars);
-        会转换为一个对`http://example.com/hotels/42/rooms/42`的GET请求。
+        String result = restTemplate.getForObject("http://example.com/hotels/{hotel}/bookings/{booking}",     String.class, vars);
+```
+会转换为一个对`http://example.com/hotels/42/rooms/42`的GET请求。
 
 关于RestTemplate使用的具体例子可以参考这篇文章[
 REST IN SPRING 3: RESTTEMPLATE](http://blog.springsource.org/2009/03/27/rest-in-spring-3-resttemplate/)。写的非常好，强烈推荐！
@@ -629,23 +631,27 @@ REST IN SPRING 3: RESTTEMPLATE](http://blog.springsource.org/2009/03/27/rest-in-
 
 要支持这种URL，web.xml需要这么配置：
 
-    <!-- REST servlet-mapping -->
-    <servlet-mapping>
-    	<servlet-name>DispatcherServlet<srvlet-name>
-    	<url-pattern>/</url-pattern>
-    <srvlet-mapping>
+```xml
+<!-- REST servlet-mapping -->
+<servlet-mapping>
+	<servlet-name>DispatcherServlet<srvlet-name>
+	<url-pattern>/</url-pattern>
+<srvlet-mapping>
+```
 
 但是这样的话有个问题，就是静态文件也被mapping了，会导致找不到资源。Spring提供了一个resources配置项支持静态文件的处理[16.14.5 Configuring Serving of Resources](http://static.springsource.org/spring/docs/3.1.x/spring-framework-reference/html/mvc.html#mvc-config-static-resources)：
 
-    <!-- Forwards requests to the "/" resource to the "welcome" view -->
-  	<mvc:view-controller path="/" view-name="index"/>
+```xml
+<!-- Forwards requests to the "/" resource to the "welcome" view -->
+<mvc:view-controller path="/" view-name="index"/>
 
-  	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources/ directory -->
-  	<mvc:resources mapping="/resources/**" location="/resources/" />
-  	<!-- 注意：配置了mvc:resources就必须配置这个选项，否则handler mapping都失效了
-  		@see  http://stackoverflow.com/questions/7910845/the-handler-mapping-from-the-mvcresource-override-other-mappings-which-defined
-  	-->
-  	<mvc:annotation-driven />
+<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources/ directory -->
+<mvc:resources mapping="/resources/**" location="/resources/" />
+<!-- 注意：配置了mvc:resources就必须配置这个选项，否则handler mapping都失效了
+	@see  http://stackoverflow.com/questions/7910845/the-handler-mapping-from-the-mvcresource-override-other-mappings-which-defined
+-->
+<mvc:annotation-driven />
+```
 
 这样所有请求：`http://arganzheng.me/resources/**`会映射到webapp下的resources目录，而不是找我们的controller处理。
 
@@ -653,12 +659,13 @@ REST IN SPRING 3: RESTTEMPLATE](http://blog.springsource.org/2009/03/27/rest-in-
 
 另外，静态的html页面一般不放在resources路面下，而是直接在根目录下，比如：http://arganzheng.me/index.html或者http://arganzheng.me/404.html。所以应该在web.xml中在配置一个url-mapping规则：
 
-    <!-- 避免被Spring DispatcherServlet接管 -->
-  	<servlet-mapping>
-  		<servlet-name>default<srvlet-name>
-  		<url-pattern>*.html</url-pattern>
-  	<srvlet-mapping>
-
+```xml
+<!-- 避免被Spring DispatcherServlet接管 -->
+<servlet-mapping>
+	<servlet-name>default<srvlet-name>
+	<url-pattern>*.html</url-pattern>
+<srvlet-mapping>
+```
 
 
 

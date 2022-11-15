@@ -112,8 +112,8 @@ describe('User', function(){
 ```
 
 ## 报表
-```
-	    dot - dot matrix
+```xml
+	  dot - dot matrix
 		doc - html documentation
 		spec - hierarchical spec list
 		json - single json object
