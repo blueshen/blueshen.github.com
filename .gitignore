@@ -13,3 +13,4 @@ Thumbs.db
 public*
 .deploy_git*
 db.json
+node_modules*
